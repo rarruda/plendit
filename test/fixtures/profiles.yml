@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  phome_number: MyString
+  join_timestamp: 2015-03-22 15:48:54
+  last_action_timestamp: 2015-03-22 15:48:54
+  private_link_to_facebook: MyString
+  private_link_to_linkedin: MyString
+  ephemeral_answer_percent: 1
+
+two:
+  name: MyString
+  phome_number: MyString
+  join_timestamp: 2015-03-22 15:48:54
+  last_action_timestamp: 2015-03-22 15:48:54
+  private_link_to_facebook: MyString
+  private_link_to_linkedin: MyString
+  ephemeral_answer_percent: 1

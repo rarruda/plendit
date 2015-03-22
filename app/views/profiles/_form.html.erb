@@ -1,0 +1,45 @@
+<%= form_for(@profile) do |f| %>
+  <% if @profile.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
+
+      <ul>
+      <% @profile.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :phome_number %><br>
+    <%= f.text_field :phome_number %>
+  </div>
+  <div class="field">
+    <%= f.label :join_timestamp %><br>
+    <%= f.datetime_select :join_timestamp %>
+  </div>
+  <div class="field">
+    <%= f.label :last_action_timestamp %><br>
+    <%= f.datetime_select :last_action_timestamp %>
+  </div>
+  <div class="field">
+    <%= f.label :private_link_to_facebook %><br>
+    <%= f.text_field :private_link_to_facebook %>
+  </div>
+  <div class="field">
+    <%= f.label :private_link_to_linkedin %><br>
+    <%= f.text_field :private_link_to_linkedin %>
+  </div>
+  <div class="field">
+    <%= f.label :ephemeral_answer_percent %><br>
+    <%= f.number_field :ephemeral_answer_percent %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
