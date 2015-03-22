@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322144854) do
+ActiveRecord::Schema.define(version: 20150322151736) do
+
+  create_table "ads", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.string   "title"
+    t.string   "short_description"
+    t.text     "body"
+    t.decimal  "price",             precision: 10, scale: 2
+    t.text     "tags"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "ads", ["profile_id"], name: "index_ads_on_profile_id"
 
   create_table "profiles", force: :cascade do |t|
     t.string   "name"
