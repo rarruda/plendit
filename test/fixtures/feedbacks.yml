@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ad_id: 1
+  from_profile_id: 1
+  score: 1
+  body: MyText
+
+two:
+  ad_id: 1
+  from_profile_id: 1
+  score: 1
+  body: MyText

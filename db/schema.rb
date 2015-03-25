@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150322151736) do
+ActiveRecord::Schema.define(version: 20150322214248) do
 
   create_table "ads", force: :cascade do |t|
     t.integer  "profile_id"
@@ -25,6 +25,18 @@ ActiveRecord::Schema.define(version: 20150322151736) do
   end
 
   add_index "ads", ["profile_id"], name: "index_ads_on_profile_id"
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.integer  "ad_id"
+    t.integer  "from_profile_id"
+    t.integer  "score"
+    t.text     "body"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "feedbacks", ["ad_id"], name: "index_feedbacks_on_ad_id"
+  add_index "feedbacks", ["from_profile_id"], name: "index_feedbacks_on_from_profile_id"
 
   create_table "profiles", force: :cascade do |t|
     t.string   "name"
