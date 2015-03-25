@@ -1,0 +1,2 @@
+module AdItemsHelper
+end
