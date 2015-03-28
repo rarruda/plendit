@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :profile_statuses
   resources :ad_items
   resources :feedbacks
   resources :ads
