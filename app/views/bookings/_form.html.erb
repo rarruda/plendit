@@ -1,0 +1,49 @@
+<%= form_for(@booking) do |f| %>
+  <% if @booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+
+      <ul>
+      <% @booking.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ad_item_id %><br>
+    <%= f.number_field :ad_item_id %>
+  </div>
+  <div class="field">
+    <%= f.label :from_profile_id %><br>
+    <%= f.number_field :from_profile_id %>
+  </div>
+  <div class="field">
+    <%= f.label :booking_status_id %><br>
+    <%= f.number_field :booking_status_id %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :booking_from %><br>
+    <%= f.datetime_select :booking_from %>
+  </div>
+  <div class="field">
+    <%= f.label :booking_to %><br>
+    <%= f.datetime_select :booking_to %>
+  </div>
+  <div class="field">
+    <%= f.label :first_reply_at %><br>
+    <%= f.datetime_select :first_reply_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

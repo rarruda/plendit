@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ad item:</strong>
+  <%= @booking.ad_item_id %>
+</p>
+
+<p>
+  <strong>Requester profile:</strong>
+  <%= @booking.from_profile_id %>
+</p>
+
+<p>
+  <strong>Booking status:</strong>
+  <%= @booking.booking_status_id %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @booking.price %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @booking.price %>
+</p>
+
+<p>
+  <strong>Booking from:</strong>
+  <%= @booking.booking_from %>
+</p>
+
+<p>
+  <strong>Booking to:</strong>
+  <%= @booking.booking_to %>
+</p>
+
+<p>
+  <strong>First reply at:</strong>
+  <%= @booking.first_reply_at %>
+</p>
+
+<%= link_to 'Edit', edit_booking_path(@booking) %> |
+<%= link_to 'Back', bookings_path %>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ad_item_id: 1
+  from_profile_id: 1
+  booking_status_id: 1
+  price: 
+  price: 
+  booking_from: 2015-03-28 16:07:46
+  booking_to: 2015-03-28 16:07:46
+  first_reply_at: 2015-03-28 16:07:46
+
+two:
+  ad_item_id: 1
+  from_profile_id: 1
+  booking_status_id: 1
+  price: 
+  price: 
+  booking_from: 2015-03-28 16:07:46
+  booking_to: 2015-03-28 16:07:46
+  first_reply_at: 2015-03-28 16:07:46
