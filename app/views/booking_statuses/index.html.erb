@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Booking Statuses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @booking_statuses.each do |booking_status| %>
+      <tr>
+        <td><%= booking_status.status %></td>
+        <td><%= link_to 'Show', booking_status %></td>
+        <td><%= link_to 'Edit', edit_booking_status_path(booking_status) %></td>
+        <td><%= link_to 'Destroy', booking_status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Booking status', new_booking_status_path %>

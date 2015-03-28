@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :booking_statuses
   resources :bookings
   resources :profile_statuses
   resources :ad_items

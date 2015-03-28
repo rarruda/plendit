@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326000708) do
+ActiveRecord::Schema.define(version: 20150328155950) do
 
   create_table "ad_items", force: :cascade do |t|
     t.integer  "ad_id"
@@ -33,6 +33,28 @@ ActiveRecord::Schema.define(version: 20150326000708) do
   end
 
   add_index "ads", ["profile_id"], name: "index_ads_on_profile_id"
+
+  create_table "booking_statuses", force: :cascade do |t|
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer  "ad_item_id"
+    t.integer  "from_profile_id"
+    t.integer  "booking_status_id"
+    t.decimal  "price",             precision: 10, scale: 2
+    t.datetime "booking_from"
+    t.datetime "booking_to"
+    t.datetime "first_reply_at"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "bookings", ["ad_item_id"], name: "index_bookings_on_ad_item_id"
+  add_index "bookings", ["booking_status_id"], name: "index_bookings_on_booking_status_id"
+  add_index "bookings", ["from_profile_id"], name: "index_bookings_on_from_profile_id"
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer  "ad_id"
