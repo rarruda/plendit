@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Booking:</strong>
+  <%= @message.booking_id %>
+</p>
+
+<p>
+  <strong>From profile:</strong>
+  <%= @message.from_profile_id %>
+</p>
+
+<p>
+  <strong>To profile:</strong>
+  <%= @message.to_profile_id %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @message.content %>
+</p>
+
+<%= link_to 'Edit', edit_message_path(@message) %> |
+<%= link_to 'Back', messages_path %>

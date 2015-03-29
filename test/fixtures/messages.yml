@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  booking_id: 1
+  from_profile_id: 1
+  to_profile_id: 1
+  content: MyText
+
+two:
+  booking_id: 1
+  from_profile_id: 1
+  to_profile_id: 1
+  content: MyText
