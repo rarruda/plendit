@@ -43,8 +43,17 @@ $ rake db:create
 
 * Database initialization
 
+Initialize schema
+
 ```
 $ rake db:migrate
+```
+
+Load seed data:
+That is, add just enough test data so its possible to play around and
+ the site be usable/testable.
+```
+$ rake db:seed
 ```
 
 * Starting the server (development)
