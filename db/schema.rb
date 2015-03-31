@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150329010451) do
+ActiveRecord::Schema.define(version: 20150331180901) do
 
   create_table "ad_items", force: :cascade do |t|
     t.integer  "ad_id"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20150329010451) do
 
   create_table "profiles", force: :cascade do |t|
     t.string   "name"
-    t.string   "phome_number",             limit: 8
+    t.string   "phone_number",             limit: 8
     t.datetime "join_timestamp"
     t.datetime "last_action_timestamp"
     t.string   "private_link_to_facebook"
