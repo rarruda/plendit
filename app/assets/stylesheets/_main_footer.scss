@@ -1,0 +1,20 @@
+@import 'constants.scss';
+
+.about-footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+
+    &__column {
+        display: inline-block;
+        vertical-align: top;
+        width: 30%;
+        padding: $standard-spacing;
+        text-align: left;
+    }
+
+    &__list {
+        list-style: none;
+        padding-left: 0;
+    }
+}

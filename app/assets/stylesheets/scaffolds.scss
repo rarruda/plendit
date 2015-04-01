@@ -1,9 +1,11 @@
+@import 'constants.scss';
 
 * {
     box-sizing: border-box;
 }
 
 body {
+    font-family: $main-font;
     padding: 0;
     margin: 0;
 }
