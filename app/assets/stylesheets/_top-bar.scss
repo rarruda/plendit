@@ -1,0 +1,54 @@
+@import 'constants.scss';
+
+
+$top-bar-height: 52px;
+
+.top-bar {
+    background-color: $color-plendit-blue;
+    min-height: $top-bar-height;
+    padding: 10px 12px 0 12px;
+    color: white;
+
+    &__form {
+        display: inline;
+    }
+
+    &__search-holder {
+        background-color: white;
+        padding: 4px;
+        margin-left: 12px;
+        border: solid thin $color-box-border;
+    }
+
+    &__search-input {
+        border: none;
+    }
+
+    &__search-icon {
+        vertical-align: middle;
+    }
+
+    &__logo-link {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    &__logo {
+        vertical-align: middle;
+    }
+
+    &__rightbox {
+        display: block;
+        padding-top: 6px;
+        float: right;
+    }
+}
+
+.top-anonymous-menu {
+
+}
+
+.top-user-menu {
+
+}
