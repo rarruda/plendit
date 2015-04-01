@@ -9,3 +9,19 @@ $color-box-border: #9b9b9b;
 $color-approve: #36b984;
 $color-edit: #8f8989;
 $color-reject: #c20400;
+
+@mixin buttonish() {
+    color: red;
+    border: solid thin $color-box-border;
+    border-radius: 2px;
+    font-size: 16px;
+    padding: $standard-spacing;
+}
+
+@mixin inputish() {
+    color: green;
+    border: solid thin $color-box-border;
+    border-radius: 2px;
+    font-size: 32px;
+}
+

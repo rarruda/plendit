@@ -1,0 +1,39 @@
+@import 'constants.scss';
+
+
+.front-search-block {
+    padding-top: 170px;
+    height: 500px;
+    background-image: url('garage.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+
+    &__title {
+        font-size: 48px;
+        margin: $standard-spacing 0 $standard-spacing 0;
+
+    }
+    
+    &__input {
+         @include inputish();
+    }
+
+    &__search-button {
+         @include buttonish();
+         color: white;
+         text-decoration: none;
+    }
+
+    &__new-ad-button {
+         @include buttonish();
+         background-color: $color-plendit-blue;
+         color: white;
+         text-decoration: none;
+
+    }
+
+}
