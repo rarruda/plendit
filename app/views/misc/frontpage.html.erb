@@ -6,13 +6,14 @@
 
     <p>og spar penger! Mer enn 500.000 ting til leie.</p>
     <div>
-        <form action="./result.html">
-            <input placeholder="Hva vil du leie?" name="q" value="skiboks" class="front-search-block__input">
-            <button type="submit" class="front-search-block__search-button">Søk</button>
-        </form>
+        <%= form_tag("/search", method: "get") do %>
+          <%#= label_tag(:q, "Search for:") %>
+          <%= text_field_tag 'q', 'skiboks', class: 'front-search-block__input' %>
+          <%= submit_tag 'Søk', class: 'front-search-block__search-button' %>
+        <% end %>
     </div>
     <div>
-        <a class="front-search-block__new-ad-button" href="./input_step_1.html">Lei ut tingene dine her</a>
+        <%= link_to 'Lei ut tingene dine her', '/create_listing', {:class => 'front-search-block__new-ad-button'} %>
     </div>
 
 </section>
