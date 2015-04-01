@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'misc/about'
 
+  get 'misc/ad'
+
   resources :messages
   resources :booking_statuses
   resources :bookings

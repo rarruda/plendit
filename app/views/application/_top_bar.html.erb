@@ -4,8 +4,6 @@
         <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "top-bar__logo", size: "115x33" %>
     </a>
 
-    IF show top
-
     <span class="top-bar__search-holder">
         <%= image_tag "search_icon_small.png", alt: "", class: "top-bar__search-icon", size: "18x18" %>
         <form class="top-bar__form" action="./result.html">
@@ -13,7 +11,7 @@
         </form>
     </span>
 
-    <% if :show_search_field %>
+    <% if @show_search_field %>
         Conditional search field
     <% else %>
         No search field
