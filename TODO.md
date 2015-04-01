@@ -1,0 +1,1 @@
+- Local variables for partials. Ref show_search_field
