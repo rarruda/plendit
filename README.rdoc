@@ -82,6 +82,14 @@ None for now.
 
 Will probably be deployed via capistrano. For now, there is no deployment.
 
+* Generating Model and Controller UML diagrams
+
+```
+$ bundle exec rake diagram:all
+```
+
+SVG images will be then available at doc/
+
 * ...
 
 
