@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   get 'misc/ad'
 
+  get '/search', to: 'ads#search'
+
   resources :messages
   resources :booking_statuses
   resources :bookings
