@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get '/search', to: 'ads#search'
 
+  get '/ads/:id', to: 'ads#view'
+
   resources :messages
   resources :booking_statuses
   resources :bookings

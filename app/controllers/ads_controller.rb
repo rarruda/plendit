@@ -17,6 +17,13 @@ class AdsController < ApplicationController
 
   # GET /ads/1
   # GET /ads/1.json
+  def view
+    @ad = Ad.find( params[:id] )
+  end
+
+
+  # GET /ads/1
+  # GET /ads/1.json
   def show
   end
 

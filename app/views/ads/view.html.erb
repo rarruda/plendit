@@ -1,0 +1,58 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Profile:</strong>
+  <%= @ad.profile.name %>
+  <%= render('shared/stars.html', num: @ad.profile.calculate_average_rating ) %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @ad.title %>
+</p>
+
+<p>
+  <strong>Short description:</strong>
+  <%= @ad.short_description %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @ad.body %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @ad.price %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @ad.tags %>
+</p>
+
+<p> Add Booking Request (TODO) </p>
+<p> Legg til i favoriter (TODO) </p>
+
+Tilbakemeldinger(<%= @ad.received_feedbacks.count %>):
+<% @ad.received_feedbacks.each do |fb| %>
+  <p>
+    From: <%= fb.from_profile.name %> <br />
+    Stars: <%= render('shared/stars.html', num: fb.from_profile.calculate_average_rating ) %> <br />
+    Comment: <%= fb.body %> <br />
+    Last Edited: <%= fb.updated_at %> <br />
+    Created: <%= fb.created_at %> <br />
+  </p>
+  <hr>
+<%  end %>
+
+Flere Annonser fra <%= @ad.profile.name %>:
+
+<% @ad.profile.ads.each do |a| %>
+<p>
+Name: <%= link_to a.title, a %> <br />
+Short Description: <%= a.short_description %> <br />
+Legg til i favoritter (TODO)
+</p>
+
+<% end %>

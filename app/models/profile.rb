@@ -17,6 +17,10 @@ class Profile < ActiveRecord::Base
 
 
   def calculate_average_rating
+    if self.received_feedbacks.size == 0
+      return 0
+    end
+
     i   = 0
     sum = 0
     self.received_feedbacks.each do |fb|
