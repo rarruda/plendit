@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :booking_status_id %><br>
-    <%= f.number_field :booking_status_id %>
+    <%= f.collection_select(:booking_status_id, BookingStatus.all, :id, :status) %>
   </div>
   <div class="field">
     <%= f.label :price %><br>

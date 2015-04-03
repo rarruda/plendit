@@ -69,6 +69,6 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:name, :phone_number, :join_timestamp, :last_action_timestamp, :private_link_to_facebook, :private_link_to_linkedin, :ephemeral_answer_percent)
+      params.require(:profile).permit(:name, :phone_number, :join_timestamp, :last_action_timestamp, :private_link_to_facebook, :private_link_to_linkedin, :ephemeral_answer_percent, :profile_status_id)
     end
 end

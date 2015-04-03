@@ -35,5 +35,10 @@
   <%= @profile.ephemeral_answer_percent %>
 </p>
 
+<p>
+  <strong>Profile Status ID:</strong>
+  <%= @profile.profile_status_id %> - <%= @profile.profile_status.status %>
+</p>
+
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>

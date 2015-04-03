@@ -2,17 +2,17 @@
 
 <p>
   <strong>Ad item:</strong>
-  <%= @booking.ad_item_id %>
+  <%= @booking.ad_item_id %> - <%= @booking.ad.title %>
 </p>
 
 <p>
   <strong>Requester profile:</strong>
-  <%= @booking.from_profile_id %>
+  <%= @booking.from_profile_id %> - <%= @booking.from_profile.name %>
 </p>
 
 <p>
   <strong>Booking status:</strong>
-  <%= @booking.booking_status_id %>
+  <%= @booking.booking_status_id %> - <%= @booking.booking_status.status %>
 </p>
 
 <p>

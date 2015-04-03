@@ -39,6 +39,10 @@
     <%= f.label :ephemeral_answer_percent %><br>
     <%= f.number_field :ephemeral_answer_percent %>
   </div>
+  <div class="field">
+    <%= f.label :profile_status_id %><br>
+    <%= f.collection_select(:profile_status_id, ProfileStatus.all, :id, :status) %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
