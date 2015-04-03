@@ -13,4 +13,17 @@ class Profile < ActiveRecord::Base
 
   has_many :received_messages, foreign_key: 'to_profile_id', :class_name => "Message"
   has_many :sent_messages, foreign_key: 'from_profile_id', :class_name => "Message"
+
+
+
+  def calculate_average_rating
+    i   = 0
+    sum = 0
+    self.received_feedbacks.each do |fb|
+      i   += 1
+      sum += fb.score
+    end
+    ( sum / i )
+  end
+
 end
