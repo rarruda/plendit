@@ -11,14 +11,17 @@ Rails.application.routes.draw do
 
   get '/ads/:id', to: 'ads#view'
 
-  resources :messages
-  resources :booking_statuses
-  resources :bookings
-  resources :profile_statuses
-  resources :ad_items
-  resources :feedbacks
-  resources :ads
-  resources :profiles
+  scope '/admin' do
+    resources :messages
+    resources :booking_statuses
+    resources :bookings
+    resources :profile_statuses
+    resources :ad_items
+    resources :feedbacks
+    resources :ads
+    resources :profiles
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
