@@ -1,14 +1,15 @@
-<div class="top-bar">
+<% partial_name = "top-bar" %>
+<div class="<%= partial_name %>">
 
-    <a class="top-bar__logo-link" href="/">
-        <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "top-bar__logo", size: "115x33" %>
+    <a class="<%= partial_name %>__logo-link" href="/">
+        <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "#{partial_name}__logo", size: "115x33" %>
     </a>
 
-    <span class="top-bar__search-holder">
-        <%= image_tag "search_icon_small.png", alt: "", class: "top-bar__search-icon", size: "18x18" %>
-        <form class="top-bar__form" action="./result.html">
-            <input class="top-bar__search-input" name="q" placeholder="Hva vil du leie?">
-        </form>
+    <span class="<%= partial_name %>__search-holder">
+        <%= image_tag "search_icon_small.png", alt: "", class: "#{partial_name}__search-icon", size: "18x18" %>
+        <%= form_tag("/search", method: "get", class: "#{partial_name}__form") do %>
+          <%= text_field_tag 'q','', class: "#{partial_name}__search-input", placeholder: 'Hva vil du leie?'  %>
+        <% end %>
     </span>
 
     <% if show_search_field %>
@@ -19,7 +20,7 @@
 
     Pass in user, render logged in or anon block
 
-    <span class="top-bar__rightbox">
+    <span class="<%= partial_name %>__rightbox">
         right content
     </span>
 
