@@ -18,3 +18,6 @@
 
 # Ignore Mac DS_Store files
 .DS_Store
+
+# Ignore install path for ruby dependencies
+/vendor/bundle
