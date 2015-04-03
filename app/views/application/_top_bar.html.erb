@@ -5,23 +5,21 @@
         <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "#{partial_name}__logo", size: "115x33" %>
     </a>
 
-    <span class="<%= partial_name %>__search-holder">
-        <%= image_tag "search_icon_small.png", alt: "", class: "#{partial_name}__search-icon", size: "18x18" %>
-        <%= form_tag("/search", method: "get", class: "#{partial_name}__form") do %>
-          <%= text_field_tag 'q','', class: "#{partial_name}__search-input", placeholder: 'Hva vil du leie?'  %>
-        <% end %>
-    </span>
-
-    <% if show_search_field %>
-        Conditional search field
-    <% else %>
-        No search field
+    <% if @show_search_field %>
+        <span class="<%= partial_name %>__search-holder">
+            <%= image_tag "search_icon_small.png", alt: "", class: "#{partial_name}__search-icon", size: "18x18" %>
+            <%= form_tag("/search", method: "get", class: "#{partial_name}__form") do %>
+              <%= text_field_tag 'q','', class: "#{partial_name}__search-input", placeholder: 'Hva vil du leie?'  %>
+            <% end %>
+        </span>
     <% end %>
 
-    Pass in user, render logged in or anon block
-
     <span class="<%= partial_name %>__rightbox">
-        right content
+        <% if @has_user %>
+            Logged in user menu
+        <% else %>
+            Login link for non logged in user
+        <% end %>
     </span>
 
 </div>

@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <%= render partial: "top_bar", locals: { show_search_field: @show_search_field } %> <%# = @show_search_field %>
+    <%= render partial: "top_bar", locals: { show_search_field: @show_search_field, has_user: @has_user } %>
 </header>
 
 <%= yield %>
