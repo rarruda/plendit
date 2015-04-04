@@ -1,11 +1,11 @@
 <div>
 <%
-    if num > 5 or num < 0
+    if rating > 5 or rating < 0
       puts "out of bounds"
     end
 
-    remainder_star = num - num.floor
-    full_stars  = num.floor
+    remainder_star = rating - rating.floor
+    full_stars  = rating.floor
     part_stars  = ( remainder_star > 0.1 and remainder_star < 0.9 ) ? 1 : 0
     empty_stars = ( 5 - ( full_stars + part_stars ) )
 
@@ -20,5 +20,5 @@
     empty_stars.times do %>
       <%= image_tag("star_empty.svg", size: "16x10" ) %> <%
     end
-%>
+%> <% if defined? num_ratings %> (<%= num_ratings %>) <% end %>
 </div>

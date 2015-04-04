@@ -3,7 +3,7 @@
 <p>
   <strong>Profile:</strong>
   <%= @ad.profile.name %>
-  <%= render('shared/stars.html', num: @ad.profile.calculate_average_rating ) %>
+  <%= render('shared/stars.html', rating: @ad.profile.calculate_average_rating ) %>
 </p>
 
 <p>
@@ -38,7 +38,7 @@ Tilbakemeldinger(<%= @ad.received_feedbacks.count %>):
 <% @ad.received_feedbacks.each do |fb| %>
   <p>
     From: <%= fb.from_profile.name %> <br />
-    Stars: <%= render('shared/stars.html', num: fb.from_profile.calculate_average_rating ) %> <br />
+    Stars: <%= render('shared/stars.html', rating: fb.from_profile.calculate_average_rating ), num_ratings: fb.count %> <br />
     Comment: <%= fb.body %> <br />
     Last Edited: <%= fb.updated_at %> <br />
     Created: <%= fb.created_at %> <br />

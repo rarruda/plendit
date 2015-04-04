@@ -21,7 +21,7 @@
         <td><%= link_to ad.title, ad %></td>
         <td><%= ad.short_description %></td>
         <td><%= ad.profile.ephemeral_answer_percent %></td>
-        <td><%= render('shared/stars.html', num: ad.profile.calculate_average_rating ) %> stars</td>
+        <td><%= render('shared/stars.html', rating: ad.profile.calculate_average_rating, num_ratings: ad.received_feedbacks.count ) %></td>
         <td><%= ad.price %></td>
       </tr>
     <% end %>
