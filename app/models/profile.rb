@@ -14,6 +14,10 @@ class Profile < ActiveRecord::Base
   has_many :received_messages, foreign_key: 'to_profile_id', :class_name => "Message"
   has_many :sent_messages, foreign_key: 'from_profile_id', :class_name => "Message"
 
+  validates :name, presence: true
+  validates :phone_number, presence: true
+  validates :email, presence: true, uniqueness: true
+  has_secure_password
 
 
   def calculate_average_rating

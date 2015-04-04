@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331180901) do
+ActiveRecord::Schema.define(version: 20150404174032) do
 
   create_table "ad_items", force: :cascade do |t|
     t.integer  "ad_id"
@@ -98,8 +98,11 @@ ActiveRecord::Schema.define(version: 20150331180901) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.integer  "profile_status_id"
+    t.string   "email"
+    t.string   "password_digest"
   end
 
+  add_index "profiles", ["email"], name: "index_profiles_on_email"
   add_index "profiles", ["profile_status_id"], name: "index_profiles_on_profile_status_id"
 
 end
