@@ -1,0 +1,26 @@
+<div class="ad-title-box">
+    <h1 class="ad-title-box__title">
+        <span class="ad-title-box__left-avatar">
+            <%= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--large" %>
+        </span>
+        <%= ad.title %>
+    </h1>
+
+    <div class="ad-title-box__info-holder">
+        <div class="ad-title-box__rating-holder">
+            <%= render('shared/stars.html', num: ad.profile.calculate_average_rating ) %>
+            (count)
+        </div>
+        <div class="ad-title-box__feedback-holder">
+            <%= image_tag "feedback_link.png", alt: "Tilbakemeldinger", size: "29x29" %>
+            <p class="ad-title-box__caption">Tilbakemeldinger</p>
+        </div>
+        <div class="ad-title-box__more-from-holder">
+            <%= image_tag "more_ads_link.png", alt: "Fler annonser", size: "34x26" %>
+            <p class="ad-title-box__caption">Fler fra <%= @ad.profile.name %></p>
+        </div>
+    </div>
+
+    <%= @ad.title %></h1>
+
+</div>
