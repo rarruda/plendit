@@ -1,0 +1,39 @@
+@import 'constants.scss';
+
+$avatar-large-size: 80px;
+$avatar-medium-size: 64px;
+$avatar-small-size: 48px;
+$avatar-tiny-size: 24px;
+
+.avatar {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border: solid 3px silver;
+}
+
+.avatar--large {
+    @extend .avatar;    
+}
+
+.avatar--medium {
+    @extend .avatar;
+    width: $avatar-medium-size;
+    height: $avatar-medium-size;
+    border-width: 2px;
+}
+
+.avatar--small {
+    @extend .avatar;
+    width: $avatar-small-size;
+    height: $avatar-small-size;
+    border-width: 2px;
+}
+
+.avatar--tiny {
+    @extend .avatar;
+    width: $avatar-tiny-size;
+    height: $avatar-tiny-size;
+    border-width: 1px;
+}
+
