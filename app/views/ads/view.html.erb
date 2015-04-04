@@ -38,7 +38,7 @@ Tilbakemeldinger(<%= @ad.received_feedbacks.count %>):
 <% @ad.received_feedbacks.each do |fb| %>
   <p>
     From: <%= fb.from_profile.name %> <br />
-    Stars: <%= render('shared/stars.html', rating: fb.from_profile.calculate_average_rating ), num_ratings: fb.count %> <br />
+    Stars: <%= render('shared/stars.html', rating: fb.from_profile.calculate_average_rating, num_ratings: fb.from_profile.received_feedbacks.count) %> <br />
     Comment: <%= fb.body %> <br />
     Last Edited: <%= fb.updated_at %> <br />
     Created: <%= fb.created_at %> <br />
