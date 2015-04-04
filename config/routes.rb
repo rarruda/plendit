@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   get '/search', to: 'ads#search'
 
-  get '/ads/:id', to: 'ads#view'
+  get '/ads/:id', to: 'ads#view', as: 'ad'
+
+  #get '/admin' to: 'misc#admin'
 
   scope '/admin' do
     resources :messages
