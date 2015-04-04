@@ -48,11 +48,10 @@ Tilbakemeldinger(<%= @ad.received_feedbacks.count %>):
 
 Flere Annonser fra <%= @ad.profile.name %>:
 
-<% @ad.profile.ads.each do |a| %>
+<% @ad.profile.ads.where("id != #{@ad.id}").each do |a| %>
 <p>
 Name: <%= link_to a.title, a %> <br />
 Short Description: <%= a.short_description %> <br />
 Legg til i favoritter (TODO)
 </p>
-
 <% end %>
