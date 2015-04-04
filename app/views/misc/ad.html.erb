@@ -6,6 +6,7 @@ Ad price: <%= @ad.price %>
 
 <%= render partial: "ad_gallery_box", locals: { ad: @ad } %>
 
+<%= render partial: "ad_feedback_list_section", locals: { ad: @ad } %>
 
 <%= link_to 'Edit', edit_ad_path(@ad) %> |
 <%= link_to 'Back', ads_path %>
