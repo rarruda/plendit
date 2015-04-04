@@ -1,4 +1,4 @@
-<div>
+<span class="rating-stars">
 <%
     if rating > 5 or rating < 0
       puts "out of bounds"
@@ -10,15 +10,15 @@
     empty_stars = ( 5 - ( full_stars + part_stars ) )
 
     full_stars.times do %>
-      <%= image_tag("star_full.svg", size: "16x10", alt: "Star") %> <%
+      <%= image_tag("star_full.svg", size: "22x22", alt: "") %> <%
     end
 
     if part_stars == 1 %>
-      <%= image_tag("star_half.svg", size: "16x10" ) %> <%
+      <%= image_tag("star_half.svg", size: "22x22", alt: "") %> <%
     end
 
     empty_stars.times do %>
-      <%= image_tag("star_empty.svg", size: "16x10" ) %> <%
+      <%= image_tag("star_empty.svg", size: "22x22", alt: "" ) %> <%
     end
 %> <% if defined? num_ratings %> (<%= num_ratings %>) <% end %>
-</div>
+</span>
