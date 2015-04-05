@@ -8,8 +8,9 @@
 
     <div class="ad-title-box__info-holder">
         <div class="ad-title-box__rating-holder">
+            <strong><%= ad.profile.name %></strong>
+            <br>
             <%= render('shared/stars.html', rating: ad.profile.calculate_average_rating ) %>
-            (count)
         </div>
         <div class="ad-title-box__feedback-holder">
             <%= image_tag "feedback_link.png", alt: "Tilbakemeldinger", size: "29x29" %>
@@ -20,7 +21,4 @@
             <p class="ad-title-box__caption">Fler fra <%= @ad.profile.name %></p>
         </div>
     </div>
-
-    <%= @ad.title %></h1>
-
 </div>
