@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-p {
+p, h1, h2, h3, h4 {
     margin: 0;
     padding: 0;
 }
@@ -15,3 +15,30 @@ body {
     margin: 0;
     background-color: $color-background;
 }
+
+
+.two-col-wide-layout {
+    max-width: 1024px;
+    padding-top: $standard-spacing;
+    padding-bottom: $standard-spacing;
+    margin: 0 auto;
+    overflow: hidden;
+
+    $lw: 68%;
+
+    &__left {
+        float: left;
+        width: $lw;
+        min-height: 1px;
+        margin-right: 1%;
+    }
+
+    &__right {
+        width: 99% - $lw;
+        float: left;
+        min-height: 1px;
+        padding-left: $standard-spacing;
+    }
+
+}
+
