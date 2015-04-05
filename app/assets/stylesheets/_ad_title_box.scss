@@ -30,19 +30,19 @@
         vertical-align: bottom;
         display: inline-block;
         padding-bottom: $standard-spacing;
-        width: 50%;
+        width: 45%;
     }
 
     &__feedback-holder {
-        vertical-align: bottom;
+        vertical-align: top;
         display: inline-block;
-        width: 24%;
+        width: 26%;
     }
     
     &__more-from-holder {
-        vertical-align: bottom;
+        vertical-align: top;
         display: inline-block;
-        width: 24%;
+        width: 26%;
     }
 
 }

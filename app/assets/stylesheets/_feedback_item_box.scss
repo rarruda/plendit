@@ -2,6 +2,7 @@
 
 .feedback-item-box {
     min-height: 128px;
+    margin-bottom: $standard-spacing;
 
     &__avatar-box {
         display: inline-block;
@@ -14,7 +15,7 @@
     }
 
     &__body {
-        max-width: 680px;
+        max-width: 540px;
         vertical-align: top;
         display: inline-block;
     }

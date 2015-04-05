@@ -1,3 +1,7 @@
+@import 'constants.scss';
+
 .gallery-box {
     border: solid thin black;
+    margin-top: $standard-spacing;
+    padding-top: 100px;
 }
