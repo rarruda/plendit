@@ -45,6 +45,7 @@ group :development, :test do
   gem 'spring'
 
   # To respect DRY principle, generate documentation/diagrams from source code:
+  gem 'rails-erd'
   gem 'railroady'
 end
 

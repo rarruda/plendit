@@ -84,11 +84,19 @@ Will probably be deployed via capistrano. For now, there is no deployment.
 
 * Generating Model and Controller UML diagrams
 
+Using railroady: ( https://github.com/preston/railroady )
 ```
 $ bundle exec rake diagram:all
 ```
 
 SVG images will be then available at doc/
+
+or using ERD ( https://github.com/voormedia/rails-erd ):
+```
+bundle exec erd --filename=doc/erd
+```
+
+The UML diagram will then be available as a pdf file at doc/erd.pdf
 
 * ...
 
