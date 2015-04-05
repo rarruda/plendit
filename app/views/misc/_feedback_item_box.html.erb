@@ -1,8 +1,16 @@
-<div class="feedback_item_box">
-    <%= feedback.from_profile.name %><br>
-    <%= feedback.body %><br>
-    <%= feedback.score %><br>
-    <%= feedback.updated_at %><br>
-    <%= feedback.ad.title %><br>
-<br><br>
+<div class="feedback-item-box">
+    <div class="feedback-item-box__avatar-box">
+        <%= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--large" %>
+        <p><%= feedback.from_profile.name %></p>
+    </div>
+    <div class="feedback-item-box__body">
+        <p class="feedback-item-box__summary">
+            <%= render('shared/stars.html', rating: feedback.from_profile.calculate_average_rating ) %>
+            <%= feedback.updated_at.to_formatted_s(:plendit_short_date)  %>
+            på <%= link_to feedback.ad.title, ad_path(feedback.ad) %> 
+       </p>
+       <p>
+            <%= feedback.body %><br>
+       </p>
+    </div>
 </div>

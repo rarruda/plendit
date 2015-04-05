@@ -1,3 +1,21 @@
-.feedback_item_box {
-    border: solid gold thin;
+@import 'constants.scss';
+
+.feedback-item-box {
+    min-height: 128px;
+
+    &__avatar-box {
+        display: inline-block;
+        width: 120px;
+        text-align: center;
+    }
+
+    &__summary {
+        padding-bottom: $standard-spacing;
+    }
+
+    &__body {
+        max-width: 680px;
+        vertical-align: top;
+        display: inline-block;
+    }
 }
