@@ -11,6 +11,15 @@ class MiscController < ApplicationController
     @ad = Ad.find(1)
   end
 
+  def create_1
+  end
+
+  def create_2
+  end
+
+  def create_3
+  end
+
   def faq
   end
 

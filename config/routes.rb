@@ -7,6 +7,12 @@ Rails.application.routes.draw do
 
   get 'misc/frontpage'
 
+  get 'misc/create_1'
+
+  get 'misc/create_2'
+
+  get 'misc/create_3'
+
   get 'misc/faq'
 
   get 'misc/about'
