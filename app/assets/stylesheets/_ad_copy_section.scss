@@ -1,0 +1,11 @@
+@import 'constants.scss';
+
+.ad-copy-section {
+    margin-top: $standard-spacing;
+
+    &__body {
+        padding: $standard-spacing;
+        background-color: white;
+        border: solid thin black;
+    }
+}
