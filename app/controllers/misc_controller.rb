@@ -1,4 +1,6 @@
 class MiscController < ApplicationController
+  skip_before_filter :authorize
+
   def frontpage
     @show_search_field = true
     # Fixme: this should just be the current logged in user object, or nil, not a bool

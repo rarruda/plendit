@@ -15,10 +15,12 @@
     <% end %>
 
     <span class="<%= partial_name %>__rightbox">
-        <% if @has_user %>
-            Logged in user menu
+        <% if session[:profile_id] %>
+            Logged in user menu for <%= Profile.find_by( session[:profile_id] ).name %>
+            <%= link_to "Logout", :logout, method: :DELETE %>
         <% else %>
-            Login link for non logged in user
+            Create an account HERE! |
+            <%= link_to "Login link for non logged in user", :login %>
         <% end %>
     </span>
 
