@@ -41,8 +41,9 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
-    byebug (4.0.3)
+    byebug (4.0.5)
       columnize (= 0.9.0)
+    choice (0.1.7)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -98,6 +99,11 @@ GEM
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
+    rails-erd (1.3.1)
+      activerecord (>= 3.2)
+      activesupport (>= 3.2)
+      choice (~> 0.1.6)
+      ruby-graphviz (~> 1.0.4)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
     railties (4.2.1)
@@ -109,8 +115,9 @@ GEM
     rdoc (4.2.0)
       json (~> 1.4)
     ref (1.0.5)
+    ruby-graphviz (1.0.9)
     sass (3.4.13)
-    sass-rails (5.0.1)
+    sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
@@ -160,6 +167,7 @@ DEPENDENCIES
   jquery-rails
   railroady
   rails (= 4.2.1)
+  rails-erd
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
