@@ -1,12 +1,14 @@
-<div class="two-col-wide-layout">
-    <div class="two-col-wide-layout__left">
-        <%= render partial: "ad_title_box", locals: { ad: @ad } %>
-        <%= render partial: "ad_gallery_box", locals: { ad: @ad } %>
-        <%= render partial: "ad_copy_section", locals: { ad: @ad } %>
-        <%= render partial: "ad_feedback_list_section", locals: { ad: @ad } %>
-    </div>
-    <div class="two-col-wide-layout__right">
-        <%= link_to 'Edit', edit_ad_path(@ad) %> |
-        <%= link_to 'Back', ads_path %>
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <%= render partial: "ad_title_box", locals: { ad: @ad } %>
+            <%= render partial: "ad_gallery_box", locals: { ad: @ad } %>
+            <%= render partial: "ad_copy_section", locals: { ad: @ad } %>
+            <%= render partial: "ad_feedback_list_section", locals: { ad: @ad } %>
+        </div>
+        <div class="four columns">
+            <%= link_to 'Edit', edit_ad_path(@ad) %> |
+            <%= link_to 'Back', ads_path %>
+        </div>
     </div>
 </div>

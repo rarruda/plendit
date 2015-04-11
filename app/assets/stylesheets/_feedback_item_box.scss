@@ -1,22 +1,11 @@
 @import 'constants.scss';
 
 .feedback-item-box {
-    min-height: 128px;
-    margin-bottom: $standard-spacing;
-
     &__avatar-box {
-        display: inline-block;
-        width: 120px;
         text-align: center;
     }
 
-    &__summary {
-        padding-bottom: $standard-spacing;
-    }
-
     &__body {
-        max-width: 540px;
-        vertical-align: top;
-        display: inline-block;
+        padding-top: $standard-spacing;
     }
 }

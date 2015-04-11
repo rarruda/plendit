@@ -1,18 +1,10 @@
+@import 'constants.scss';
+
 .ad-input-copy {
-
-    &__title {
-
-    }
-
-    &__para {
-        padding-top: 12px;
-        padding-bottom: 12px;
-    }
+    padding-top: $standard-spacing * 2;
 
     &__badge {
         float: left;
         margin: 0 12px 12px 0;
     }
-
-
 }

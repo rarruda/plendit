@@ -3,15 +3,7 @@
 .about-footer {
     background-color: black;
     color: white;
-    text-align: center;
-
-    &__column {
-        display: inline-block;
-        vertical-align: top;
-        width: 30%;
-        padding: $standard-spacing;
-        text-align: left;
-    }
+    padding-top: $standard-spacing * 3;
 
     &__list {
         list-style: none;

@@ -1,24 +1,22 @@
-<div class="ad-title-box">
-    <h1 class="ad-title-box__title">
-        <span class="ad-title-box__left-avatar">
-            <%= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--large" %>
-        </span>
-        <%= ad.title %>
-    </h1>
+<div class="row ad-title-box">
+    <div class="twelve columns">
+        <%= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--large u-pull-left" %>
+        <h3 class="ad-title-box__title"><%= ad.title %></h3>
+    </div>
+</div>
 
-    <div class="ad-title-box__info-holder">
-        <div class="ad-title-box__rating-holder">
-            <strong><%= ad.profile.name %></strong>
-            <br>
-            <%= render('shared/stars.html', rating: ad.profile.calculate_average_rating ) %>
-        </div>
-        <div class="ad-title-box__feedback-holder">
-            <%= image_tag "feedback_link.png", alt: "Tilbakemeldinger", size: "29x29" %>
-            <p class="ad-title-box__caption">Tilbakemeldinger</p>
-        </div>
-        <div class="ad-title-box__more-from-holder">
-            <%= image_tag "more_ads_link.png", alt: "Fler annonser", size: "34x26" %>
-            <p class="ad-title-box__caption">Fler fra <%= @ad.profile.name %></p>
-        </div>
+<div class="row ad-title-box__info-holder">
+    <div class="four columns">
+        <strong><%= ad.profile.name %></strong>
+        <br>
+        <%= render('shared/stars.html', rating: ad.profile.calculate_average_rating ) %>
+    </div>
+    <div class="four columns">
+        <%= image_tag "feedback_link.png", alt: "Tilbakemeldinger", size: "29x29" %>
+        <p>Tilbakemeldinger</p>
+    </div>
+    <div class="four columns ad-title-box__more-ads-holder">
+        <%= image_tag "more_ads_link.png", alt: "Fler annonser", size: "34x26" %>
+        <p>Fler fra <%= @ad.profile.name %></p>
     </div>
 </div>
