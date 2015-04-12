@@ -25,4 +25,8 @@ class MiscController < ApplicationController
 
   def about
   end
+
+  def personal_requests
+  end
+
 end

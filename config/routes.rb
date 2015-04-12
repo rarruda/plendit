@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   get 'misc/ad'
 
+  get 'misc/personal_requests'
+
   get '/search', to: 'ads#search'
 
   get '/ads/:id', to: 'ads#view', as: 'ad'
