@@ -1,0 +1,9 @@
+@import 'constants.scss';
+
+.profile-image-box {
+    margin-top: $standard-spacing;
+    padding: $standard-spacing;
+    border: solid thin $color-box-border;
+    background-color: white;
+    text-align: center;
+}

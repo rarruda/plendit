@@ -1,0 +1,17 @@
+@import 'constants.scss';
+
+.personal-bar {
+    background-color: black;
+    padding-top: $standard-spacing;
+    padding-bottom: $standard-spacing;
+
+    &__link {
+        text-decoration: none;
+        color: white;
+        margin-right: $standard-spacing;
+
+        &--active {
+            border-bottom: 4px solid white;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+@import 'constants.scss';
+
+.input-progress {
+    margin-top: $standard-spacing * 2;
+    margin-bottom: $standard-spacing * 2;
+
+    &__step {
+        height: 60px;
+        line-height: 60px;
+        vertical-align: middle;
+        display: inline-block;
+        width: 33.333333%;
+        border: solid thin $color-background;
+        text-align: center;
+        background-color: rgb(211, 211, 211);
+
+        &--current {
+            background-color: rgb(29, 29, 29);
+            color: white;
+        }
+    }
+}
