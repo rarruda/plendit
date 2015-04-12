@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150404174032) do
+ActiveRecord::Schema.define(version: 20150412110210) do
 
   create_table "ad_items", force: :cascade do |t|
     t.integer  "ad_id"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20150404174032) do
   add_index "ad_items", ["ad_id"], name: "index_ad_items_on_ad_id"
 
   create_table "ads", force: :cascade do |t|
-    t.integer  "profile_id"
+    t.integer  "user_id"
     t.string   "title"
     t.string   "short_description"
     t.text     "body"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 20150404174032) do
     t.datetime "updated_at",                                 null: false
   end
 
-  add_index "ads", ["profile_id"], name: "index_ads_on_profile_id"
+  add_index "ads", ["user_id"], name: "index_ads_on_user_id"
 
   create_table "booking_statuses", force: :cascade do |t|
     t.string   "status"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20150404174032) do
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "ad_item_id"
-    t.integer  "from_profile_id"
+    t.integer  "from_user_id"
     t.integer  "booking_status_id"
     t.decimal  "price",             precision: 10, scale: 2
     t.datetime "booking_from"
@@ -54,40 +54,40 @@ ActiveRecord::Schema.define(version: 20150404174032) do
 
   add_index "bookings", ["ad_item_id"], name: "index_bookings_on_ad_item_id"
   add_index "bookings", ["booking_status_id"], name: "index_bookings_on_booking_status_id"
-  add_index "bookings", ["from_profile_id"], name: "index_bookings_on_from_profile_id"
+  add_index "bookings", ["from_user_id"], name: "index_bookings_on_from_user_id"
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer  "ad_id"
-    t.integer  "from_profile_id"
+    t.integer  "from_user_id"
     t.integer  "score"
     t.text     "body"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "feedbacks", ["ad_id"], name: "index_feedbacks_on_ad_id"
-  add_index "feedbacks", ["from_profile_id"], name: "index_feedbacks_on_from_profile_id"
+  add_index "feedbacks", ["from_user_id"], name: "index_feedbacks_on_from_user_id"
 
   create_table "messages", force: :cascade do |t|
     t.integer  "booking_id"
-    t.integer  "from_profile_id"
-    t.integer  "to_profile_id"
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
     t.text     "content"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "messages", ["booking_id"], name: "index_messages_on_booking_id"
-  add_index "messages", ["from_profile_id"], name: "index_messages_on_from_profile_id"
-  add_index "messages", ["to_profile_id"], name: "index_messages_on_to_profile_id"
+  add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id"
+  add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id"
 
-  create_table "profile_statuses", force: :cascade do |t|
+  create_table "user_statuses", force: :cascade do |t|
     t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "profiles", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "phone_number",             limit: 8
     t.datetime "join_timestamp"
@@ -97,12 +97,12 @@ ActiveRecord::Schema.define(version: 20150404174032) do
     t.integer  "ephemeral_answer_percent"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.integer  "profile_status_id"
+    t.integer  "user_status_id"
     t.string   "email"
     t.string   "password_digest"
   end
 
-  add_index "profiles", ["email"], name: "index_profiles_on_email"
-  add_index "profiles", ["profile_status_id"], name: "index_profiles_on_profile_status_id"
+  add_index "users", ["email"], name: "index_users_on_email"
+  add_index "users", ["user_status_id"], name: "index_users_on_user_status_id"
 
 end
