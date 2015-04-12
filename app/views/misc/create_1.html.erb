@@ -1,9 +1,72 @@
 <div class="container">
+
     <div class="row">
-        <div class="eight columns">
-            input step 1
+    
+        <div class="seven columns">
+            <h1>Legg ut annonse</h1>
+            <p>
+                Legg ut en annonse og tjen penger. Det tar mindre enn ett minutt!
+                <!-- fixme: anchor href til sidebar når man er i mobilview? -->
+            </p>
+
+            <div class="row">
+                <div class="two-thirds column">
+                    <label>Overskrift:</label>
+                    <input class="u-full-width">
+                    
+                    <div class="row">
+                        <div class="six columns">
+                            <label>Pris pr dag:</label>
+                            <input class="u-full-width">
+                        </div>
+                        <div class="six columns">
+                            <label>Utbetales til deg:</label>
+                            <input class="u-full-width">
+                        </div>
+                    </div>
+                    
+                    <label>
+                        <input type="checkbox">
+                        <span><small>
+                             ja jeg ønsker forsikring (pluss 5% av total leiesum)
+                        </small></span>
+                    </label>
+
+                    <input class="u-full-width" placeholder="gateadresse">
+
+                    <div class="row">
+                        <div class="four columns">
+                            <input class="u-full-width" placeholder="By">
+                        </div>
+                        <div class="four columns">
+                            <input class="u-full-width" placeholder="Fylke">
+                        </div>
+                        <div class="four columns">
+                            <input class="u-full-width" placeholder="Postnummer">
+                        </div>
+                    </div>
+                    <p>
+                        Fyll ut så mange felt som mulig og vær så nøyaktig som du kan.
+                    </p>
+
+                </div>
+            </div>
+
+            <div>
+
+                <div> map placeholder </div>
+
+                <label>Beskrivelse</label>
+                <textarea class="u-full-width"></textarea>
+
+                <div> tags placeholder </div>
+
+                <a class="u-pull-right" href="#">Neste steg</a>
+            </div>
+
+
         </div>
-        <div class="four columns">
+        <div class="four columns offset-by-one column">
             <%= render partial: "ad_input_copy" %>
         </div>
     </div>
