@@ -1,5 +1,6 @@
 @import 'constants.scss';
 
+$avatar-huge-size: 120px;
 $avatar-large-size: 80px;
 $avatar-medium-size: 64px;
 $avatar-small-size: 48px;
@@ -10,6 +11,12 @@ $avatar-tiny-size: 24px;
     width: 80px;
     height: 80px;
     border: solid 3px white;
+}
+
+.avatar--huge {
+    @extend .avatar;    
+    width: $avatar-huge-size;
+    height: $avatar-huge-size;
 }
 
 .avatar--large {
