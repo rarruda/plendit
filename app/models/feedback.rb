@@ -1,5 +1,5 @@
 class Feedback < ActiveRecord::Base
   belongs_to :ad
-  belongs_to :from_profile, :class_name => "Profile"
-  has_one :profile, :through => :ad
+  belongs_to :from_user, :class_name => "User"
+  has_one :user, :through => :ad
 end

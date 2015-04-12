@@ -18,7 +18,7 @@ class AdsControllerTest < ActionController::TestCase
 
   test "should create ad" do
     assert_difference('Ad.count') do
-      post :create, ad: { body: @ad.body, price: @ad.price, profile_id: @ad.profile_id, short_description: @ad.short_description, tags: @ad.tags, title: @ad.title }
+      post :create, ad: { body: @ad.body, price: @ad.price, user_id: @ad.user_id, short_description: @ad.short_description, tags: @ad.tags, title: @ad.title }
     end
 
     assert_redirected_to ad_path(assigns(:ad))
@@ -35,7 +35,7 @@ class AdsControllerTest < ActionController::TestCase
   end
 
   test "should update ad" do
-    patch :update, id: @ad, ad: { body: @ad.body, price: @ad.price, profile_id: @ad.profile_id, short_description: @ad.short_description, tags: @ad.tags, title: @ad.title }
+    patch :update, id: @ad, ad: { body: @ad.body, price: @ad.price, user_id: @ad.user_id, short_description: @ad.short_description, tags: @ad.tags, title: @ad.title }
     assert_redirected_to ad_path(assigns(:ad))
   end
 

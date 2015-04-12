@@ -15,8 +15,8 @@
     <% end %>
 
     <span class="<%= partial_name %>__rightbox">
-        <% if session[:profile_id] %>
-            Logged in user menu for <%= Profile.find_by( session[:profile_id] ).name %>
+        <% if session[:user_id] %>
+            Logged in user menu for <%= User.find_by( session[:user_id] ).name %>
             <%= link_to "Logout", :logout, method: :DELETE %>
         <% else %>
             Create an account HERE! |

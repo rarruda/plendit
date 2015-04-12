@@ -5,11 +5,11 @@
 <table>
   <thead>
     <tr>
-      <th>Profile Name</th>
+      <th>User Name</th>
       <th>Title</th>
       <th>Short description</th>
-      <th>Profile ephemeral_answer_percent</th>
-      <th>Profile stars</th>
+      <th>User ephemeral_answer_percent</th>
+      <th>User stars</th>
       <th>Price</th>
     </tr>
   </thead>
@@ -17,11 +17,11 @@
   <tbody>
     <% @ads.each do |ad| %>
       <tr>
-        <td><%= ad.profile.name %></td>
+        <td><%= ad.user.name %></td>
         <td><%= link_to ad.title, ad %></td>
         <td><%= ad.short_description %></td>
-        <td><%= ad.profile.ephemeral_answer_percent %></td>
-        <td><%= render('shared/stars.html', rating: ad.profile.calculate_average_rating, num_ratings: ad.received_feedbacks.count ) %></td>
+        <td><%= ad.user.ephemeral_answer_percent %></td>
+        <td><%= render('shared/stars.html', rating: ad.user.calculate_average_rating, num_ratings: ad.received_feedbacks.count ) %></td>
         <td><%= ad.price %></td>
       </tr>
     <% end %>

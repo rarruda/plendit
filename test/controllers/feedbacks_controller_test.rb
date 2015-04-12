@@ -18,7 +18,7 @@ class FeedbacksControllerTest < ActionController::TestCase
 
   test "should create feedback" do
     assert_difference('Feedback.count') do
-      post :create, feedback: { ad_id: @feedback.ad_id, body: @feedback.body, from_profile_id: @feedback.from_profile_id, score: @feedback.score }
+      post :create, feedback: { ad_id: @feedback.ad_id, body: @feedback.body, from_user_id: @feedback.from_user_id, score: @feedback.score }
     end
 
     assert_redirected_to feedback_path(assigns(:feedback))
@@ -35,7 +35,7 @@ class FeedbacksControllerTest < ActionController::TestCase
   end
 
   test "should update feedback" do
-    patch :update, id: @feedback, feedback: { ad_id: @feedback.ad_id, body: @feedback.body, from_profile_id: @feedback.from_profile_id, score: @feedback.score }
+    patch :update, id: @feedback, feedback: { ad_id: @feedback.ad_id, body: @feedback.body, from_user_id: @feedback.from_user_id, score: @feedback.score }
     assert_redirected_to feedback_path(assigns(:feedback))
   end
 

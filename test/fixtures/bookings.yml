@@ -2,7 +2,7 @@
 
 one:
   ad_item_id: 1
-  from_profile_id: 1
+  from_user_id: 1
   booking_status_id: 1
   price: 1.00
   booking_from: 2015-03-28 16:07:46
@@ -11,7 +11,7 @@ one:
 
 two:
   ad_item_id: 1
-  from_profile_id: 1
+  from_user_id: 1
   booking_status_id: 1
   price: 2.01
   booking_from: 2015-03-28 16:07:46

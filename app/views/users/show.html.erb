@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @user.phone_number %>
+</p>
+
+<p>
+  <strong>Email number:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Join timestamp:</strong>
+  <%= @user.join_timestamp %>
+</p>
+
+<p>
+  <strong>Last action timestamp:</strong>
+  <%= @user.last_action_timestamp %>
+</p>
+
+<p>
+  <strong>Private link to facebook:</strong>
+  <%= @user.private_link_to_facebook %>
+</p>
+
+<p>
+  <strong>Private link to linkedin:</strong>
+  <%= @user.private_link_to_linkedin %>
+</p>
+
+<p>
+  <strong>Ephemeral answer percent:</strong>
+  <%= @user.ephemeral_answer_percent %>
+</p>
+
+<p>
+  <strong>User Status ID:</strong>
+  <%= @user.user_status_id %> - <%= @user.user_status.status %>
+</p>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

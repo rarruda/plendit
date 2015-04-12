@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  profile_id: 1
+  user_id: 1
   title: MyString
   short_description: MyString
   body: MyText
@@ -9,7 +9,7 @@ one:
   tags: MyText
 
 two:
-  profile_id: 1
+  user_id: 1
   title: MyString
   short_description: MyString
   body: MyText

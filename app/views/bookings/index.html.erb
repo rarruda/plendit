@@ -7,7 +7,7 @@
     <tr>
       <th>Ad item</th>
       <td>Ad Owner*</td>
-      <th>Requester profile</th>
+      <th>Requester user</th>
       <th>Booking status</th>
       <th>Price</th>
       <th>Booking from</th>
@@ -21,8 +21,8 @@
     <% @bookings.each do |booking| %>
       <tr>
         <td><%= booking.ad_item_id %> [<small><%= booking.ad.title %></small>]</td>
-        <td>[<small><%= booking.ad.profile.name %></small>] </td>
-        <td><%= booking.from_profile_id %> [<small><%= booking.from_profile.name %></small>]</td>
+        <td>[<small><%= booking.ad.user.name %></small>] </td>
+        <td><%= booking.from_user_id %> [<small><%= booking.from_user.name %></small>]</td>
         <td><%= booking.booking_status_id %> [<small><%= booking.booking_status.status %></small>]</td>
         <td><%= booking.price %></td>
         <td><%= booking.booking_from %></td>

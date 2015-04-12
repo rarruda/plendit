@@ -1,3 +1,3 @@
-class ProfileStatus < ActiveRecord::Base
-  has_many :profiles
+class UserStatus < ActiveRecord::Base
+  has_many :users
 end

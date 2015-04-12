@@ -18,7 +18,7 @@ class BookingsControllerTest < ActionController::TestCase
 
   test "should create booking" do
     assert_difference('Booking.count') do
-      post :create, booking: { ad_item_id: @booking.ad_item_id, booking_from: @booking.booking_from, booking_status_id: @booking.booking_status_id, booking_to: @booking.booking_to, first_reply_at: @booking.first_reply_at, price: @booking.price, from_profile_id: @booking.from_profile_id }
+      post :create, booking: { ad_item_id: @booking.ad_item_id, booking_from: @booking.booking_from, booking_status_id: @booking.booking_status_id, booking_to: @booking.booking_to, first_reply_at: @booking.first_reply_at, price: @booking.price, from_user_id: @booking.from_user_id }
     end
 
     assert_redirected_to booking_path(assigns(:booking))
@@ -35,7 +35,7 @@ class BookingsControllerTest < ActionController::TestCase
   end
 
   test "should update booking" do
-    patch :update, id: @booking, booking: { ad_item_id: @booking.ad_item_id, booking_from: @booking.booking_from, booking_status_id: @booking.booking_status_id, booking_to: @booking.booking_to, first_reply_at: @booking.first_reply_at, price: @booking.price, from_profile_id: @booking.from_profile_id }
+    patch :update, id: @booking, booking: { ad_item_id: @booking.ad_item_id, booking_from: @booking.booking_from, booking_status_id: @booking.booking_status_id, booking_to: @booking.booking_to, first_reply_at: @booking.first_reply_at, price: @booking.price, from_user_id: @booking.from_user_id }
     assert_redirected_to booking_path(assigns(:booking))
   end
 

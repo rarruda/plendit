@@ -29,11 +29,11 @@ Rails.application.routes.draw do
     resources :messages
     resources :booking_statuses
     resources :bookings
-    resources :profile_statuses
+    resources :user_statuses
     resources :ad_items
     resources :feedbacks
     resources :ads
-    resources :profiles
+    resources :users
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -6,8 +6,8 @@
   <thead>
     <tr>
       <th>Booking</th>
-      <th>From profile</th>
-      <th>To profile</th>
+      <th>From user</th>
+      <th>To user</th>
       <th>Content</th>
       <th colspan="3"></th>
     </tr>
@@ -17,8 +17,8 @@
     <% @messages.each do |message| %>
       <tr>
         <td><%= message.booking_id %></td>
-        <td><%= message.from_profile_id %></td>
-        <td><%= message.to_profile_id %></td>
+        <td><%= message.from_user_id %></td>
+        <td><%= message.to_user_id %></td>
         <td><%= message.content %></td>
         <td><%= link_to 'Show', message %></td>
         <td><%= link_to 'Edit', edit_message_path(message) %></td>

@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Profile</th>
+      <th>User</th>
       <th>Title</th>
       <th>Short description</th>
       <th>Body</th>
@@ -18,7 +18,7 @@
   <tbody>
     <% @ads.each do |ad| %>
       <tr>
-        <td><%= ad.profile_id %></td>
+        <td><%= ad.user_id %></td>
         <td><%= ad.title %></td>
         <td><%= ad.short_description %></td>
         <td><%= ad.body %></td>

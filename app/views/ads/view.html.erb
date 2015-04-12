@@ -1,9 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Profile:</strong>
-  <%= @ad.profile.name %>
-  <%= render('shared/stars.html', rating: @ad.profile.calculate_average_rating ) %>
+  <strong>User:</strong>
+  <%= @ad.user.name %>
+  <%= render('shared/stars.html', rating: @ad.user.calculate_average_rating ) %>
 </p>
 
 <p>
@@ -37,8 +37,8 @@
 Tilbakemeldinger(<%= @ad.received_feedbacks.count %>):
 <% @ad.received_feedbacks.each do |fb| %>
   <p>
-    From: <%= fb.from_profile.name %> <br />
-    Stars: <%= render('shared/stars.html', rating: fb.from_profile.calculate_average_rating, num_ratings: fb.from_profile.received_feedbacks.count) %> <br />
+    From: <%= fb.from_user.name %> <br />
+    Stars: <%= render('shared/stars.html', rating: fb.from_user.calculate_average_rating, num_ratings: fb.from_user.received_feedbacks.count) %> <br />
     Comment: <%= fb.body %> <br />
     Last Edited: <%= fb.updated_at %> <br />
     Created: <%= fb.created_at %> <br />
@@ -46,9 +46,9 @@ Tilbakemeldinger(<%= @ad.received_feedbacks.count %>):
   <hr>
 <%  end %>
 
-Flere Annonser fra <%= @ad.profile.name %>:
+Flere Annonser fra <%= @ad.user.name %>:
 
-<% @ad.profile.ads.where("id != #{@ad.id}").each do |a| %>
+<% @ad.user.ads.where("id != #{@ad.id}").each do |a| %>
 <p>
 Name: <%= link_to a.title, a %> <br />
 Short Description: <%= a.short_description %> <br />

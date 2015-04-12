@@ -5,9 +5,9 @@ class SessionsController < ApplicationController
   end
 
   def create
-    profile = Profile.find_by_email(params[:email])
-    if profile and profile.authenticate(params[:password])
-      session[:profile_id] = profile.id
+    user = User.find_by_email(params[:email])
+    if user and user.authenticate(params[:password])
+      session[:user_id] = user.id
       redirect_to "/admin/ads" #admin_url
     else
       redirect_to login_url, alert: "Invalid email/password combination"
@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:profile_id] = nil
+    session[:user_id] = nil
     redirect_to "/", notice: "Logged out"
   end
 end

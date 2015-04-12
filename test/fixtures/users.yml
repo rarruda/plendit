@@ -2,7 +2,7 @@
 
 one:
   name: MyString
-  phome_number: MyString
+  phone_number: MyString
   join_timestamp: 2015-03-22 15:48:54
   last_action_timestamp: 2015-03-22 15:48:54
   private_link_to_facebook: MyString
@@ -11,7 +11,7 @@ one:
 
 two:
   name: MyString
-  phome_number: MyString
+  phone_number: MyString
   join_timestamp: 2015-03-22 15:48:54
   last_action_timestamp: 2015-03-22 15:48:54
   private_link_to_facebook: MyString

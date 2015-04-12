@@ -16,9 +16,9 @@
     <%= f.number_field :ad_item_id %>
   </div>
   <div class="field">
-    <%= f.label :from_profile_id %><br>
-    <%#= f.number_field :from_profile_id %>
-    <%= f.collection_select(:from_profile_id, Profile.all, :id, :name) %>
+    <%= f.label :from_user_id %><br>
+    <%#= f.number_field :from_user_id %>
+    <%= f.collection_select(:from_user_id, User.all, :id, :name) %>
   </div>
   <div class="field">
     <%= f.label :booking_status_id %><br>

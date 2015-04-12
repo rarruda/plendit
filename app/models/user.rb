@@ -1,18 +1,18 @@
-class Profile < ActiveRecord::Base
+class User < ActiveRecord::Base
   has_many :ads, dependent: :destroy
   has_many :ad_items, :through => :ads
 
   # received_bookings == bookings:
   has_many :bookings, :through => :ad_items
-  has_many :sent_bookings, foreign_key: 'from_profile_id', :class_name => "Booking"
+  has_many :sent_bookings, foreign_key: 'from_user_id', :class_name => "Booking"
 
   has_many :received_feedbacks, :through => :ads, :class_name => "Feedback"
-  has_many :sent_feedbacks, foreign_key: 'from_profile_id', :class_name => "Feedback"
+  has_many :sent_feedbacks, foreign_key: 'from_user_id', :class_name => "Feedback"
 
-  belongs_to :profile_status
+  belongs_to :user_status
 
-  has_many :received_messages, foreign_key: 'to_profile_id', :class_name => "Message"
-  has_many :sent_messages, foreign_key: 'from_profile_id', :class_name => "Message"
+  has_many :received_messages, foreign_key: 'to_user_id', :class_name => "Message"
+  has_many :sent_messages, foreign_key: 'from_user_id', :class_name => "Message"
 
   validates :name, presence: true
   validates :phone_number, presence: true

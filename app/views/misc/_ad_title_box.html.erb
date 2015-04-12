@@ -7,9 +7,9 @@
 
 <div class="row ad-title-box__info-holder">
     <div class="four columns">
-        <strong><%= ad.profile.name %></strong>
+        <strong><%= ad.user.name %></strong>
         <br>
-        <%= render('shared/stars.html', rating: ad.profile.calculate_average_rating ) %>
+        <%= render('shared/stars.html', rating: ad.user.calculate_average_rating ) %>
     </div>
     <div class="four columns">
         <%= image_tag "feedback_link.png", alt: "Tilbakemeldinger", size: "29x29" %>
@@ -17,6 +17,6 @@
     </div>
     <div class="four columns ad-title-box__more-ads-holder">
         <%= image_tag "more_ads_link.png", alt: "Fler annonser", size: "34x26" %>
-        <p>Fler fra <%= @ad.profile.name %></p>
+        <p>Fler fra <%= @ad.user.name %></p>
     </div>
 </div>

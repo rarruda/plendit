@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def authorize
-    unless Profile.find_by_id( session[:profile_id] )
+    unless User.find_by_id( session[:user_id] )
       redirect_to :login, notice: "Please log in"
     end
   end

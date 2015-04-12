@@ -1,5 +1,5 @@
 class Message < ActiveRecord::Base
   belongs_to :booking
-  belongs_to :from_profile, :class_name => "Profile"
-  belongs_to :to_profile,   :class_name => "Profile"
+  belongs_to :from_user, :class_name => "User"
+  belongs_to :to_user,   :class_name => "User"
 end
