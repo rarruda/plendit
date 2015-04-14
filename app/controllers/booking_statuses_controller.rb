@@ -1,6 +1,5 @@
 class BookingStatusesController < ApplicationController
   before_action :set_booking_status, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :authorize
 
   # GET /booking_statuses
   # GET /booking_statuses.json

@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :phone_number, presence: true
   validates :email, presence: true, uniqueness: true
-  has_secure_password
 
 
   def calculate_average_rating

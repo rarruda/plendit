@@ -1,6 +1,5 @@
 class AdsController < ApplicationController
   before_action :set_ad, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :authorize, [:show, :search, :view]
 
 
   # GET /ads

@@ -1,6 +1,5 @@
 class FeedbacksController < ApplicationController
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :authorize, [:show]
 
   # GET /feedbacks
   # GET /feedbacks.json
