@@ -15,13 +15,6 @@
     <% end %>
 
     <span class="<%= partial_name %>__rightbox">
-        <% if session[:user_id] %>
-            Logged in user menu for <%= User.find_by( session[:user_id] ).name %>
-            <%= link_to "Logout", :logout, method: :DELETE %>
-        <% else %>
-            Create an account HERE! |
-            <%= link_to "Login link for non logged in user", :login %>
-        <% end %>
     </span>
 
 </div>
