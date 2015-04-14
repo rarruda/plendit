@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
 
   # GET /users
   # GET /users.json
@@ -69,6 +70,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :phone_number, :join_timestamp, :last_action_timestamp, :private_link_to_facebook, :private_link_to_linkedin, :ephemeral_answer_percent, :user_status_id, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :phone_number, :join_timestamp,  :user_status_id, :password, :password_confirmation)
     end
 end
