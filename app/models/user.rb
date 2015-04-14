@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
   has_many :sent_messages, foreign_key: 'from_user_id', :class_name => "Message"
 
   validates :name, presence: true
-  validates :phone_number, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :phone_number, presence: true, format: { with: /\A[0-9]{8}\z/, message: "only allows numbers" }
+  validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "valid email required" }
 
 
   def calculate_average_rating
