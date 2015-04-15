@@ -9,11 +9,11 @@
         <%= form_tag("/search", method: "get") do %>
           <%#= label_tag(:q, "Search for:") %>
           <%= text_field_tag 'q', 'skiboks', class: 'front-search-block__input' %>
-          <%= submit_tag 'Søk', class: 'front-search-block__search-button' %>
+          <%= submit_tag 'Søk', class: 'front-search-block__search-button button-primary' %>
         <% end %>
     </div>
     <div>
-        <%= link_to 'Lei ut tingene dine her', '/create_listing', {:class => 'front-search-block__new-ad-button'} %>
+        <%= link_to 'Lei ut tingene dine her', '/create_listing', {:class => 'front-search-block__new-ad-button button-primary'} %>
     </div>
 
 </section>

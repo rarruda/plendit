@@ -15,25 +15,10 @@
     &__title {
         font-size: 48px;
         margin: $standard-spacing 0 $standard-spacing 0;
-
     }
     
-    &__input {
-         @include inputish();
-    }
-
-    &__search-button {
-         @include buttonish();
-         color: white;
-         text-decoration: none;
-    }
-
     &__new-ad-button {
          @include buttonish();
-         background-color: $color-plendit-blue;
-         color: white;
-         text-decoration: none;
-
     }
 
 }

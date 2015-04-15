@@ -9,7 +9,7 @@
         <span class="<%= partial_name %>__search-holder">
             <%= image_tag "search_icon_small.png", alt: "", class: "#{partial_name}__search-icon", size: "18x18" %>
             <%= form_tag("/search", method: "get", class: "#{partial_name}__form") do %>
-              <%= text_field_tag 'q','', class: "#{partial_name}__search-input", placeholder: 'Hva vil du leie?'  %>
+              <%= text_field_tag 'q','', type: "text",  class: "#{partial_name}__search-input", placeholder: 'Hva vil du leie?'  %>
             <% end %>
         </span>
     <% end %>
@@ -17,11 +17,11 @@
     <span class="<%= partial_name %>__rightbox">
         <% if user_signed_in? %>
           Logged in as <strong><%= current_user.email %></strong>.
-          <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+          <%= link_to 'Edit profile', edit_user_registration_path, :class => "#{partial_name}__navbar-link" %> |
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "#{partial_name}__navbar-link"  %>
         <% else %>
-          <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-          <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+          <%= link_to "Sign up", new_user_registration_path, :class => "#{partial_name}__navbar-link"  %> |
+          <%= link_to "Login", new_user_session_path, :class => "#{partial_name}__navbar-link"  %>
         <% end %>
     </span>
 
