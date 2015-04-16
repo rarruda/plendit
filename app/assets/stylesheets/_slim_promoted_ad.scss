@@ -1,0 +1,50 @@
+@import 'constants.scss';
+
+
+.slim-promoted-ad {
+    display: inline-block;
+    width: 48%;
+    border: solid thin $color-box-border;
+    overflow: hidden;
+    padding: $standard-spacing;
+    background-color: white;
+
+    &__image {
+        width: 100%;
+        border: solid thin $color-box-border;
+    }
+
+    &__title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: $standard-spacing / 2;
+    }
+
+    &__body {
+        padding: 0;
+        margin: 0;
+        height: 100px;
+        margin-bottom: $standard-spacing / 2;
+        font-size: 1.1rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__button {
+        height: 28px;
+        line-height: 24px;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        font-size: 50%;
+        text-transform: none;
+    }
+
+    &__fav-button-image {
+        vertical-align: middle;
+    }
+}
