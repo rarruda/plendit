@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   get 'misc/create_3'
 
+  get 'misc/result'
+
   get 'misc/faq'
 
   get 'misc/about'

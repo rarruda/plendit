@@ -1,0 +1,28 @@
+<div class="container">
+
+    <h3><%= @ads.count %> treff for "<%= @term %>"</h3>
+
+    <% @ads.each do |ad| %>
+        <a href="./annonse2.html" class="searchresult">
+            <%= image_tag "ads/ad1/ad_image_1.jpg", alt: "", class: "" %>
+
+            <div class="textcontainer">
+                <div class="description">
+                    <h6><%= ad.title %></h6>
+                    <p><%= ad.body %></p>
+                </div>
+
+                <div class="profile">
+                    <div>
+                        <%= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--medium" %>
+                        <%= render('shared/stars.html', rating: ad.user.calculate_average_rating ) %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pricefloater">kr 199<br>pr dag</div>
+        </a>
+    <%end %>
+
+</div>
+

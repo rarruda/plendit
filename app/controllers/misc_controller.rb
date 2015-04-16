@@ -19,6 +19,11 @@ class MiscController < ApplicationController
   def create_3
   end
 
+  def result
+    @ads = Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{params[:q]}%", "%#{params[:q]}%" )
+    @term = params[:q]
+  end
+
   def faq
   end
 
