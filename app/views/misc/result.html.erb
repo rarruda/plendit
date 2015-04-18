@@ -24,7 +24,7 @@
                 <div>
                     <%= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--medium" %>
                     <br>
-                    <%= render('shared/stars.html', rating: ad.user.calculate_average_rating ) %>
+                    <%= render('shared/stars.html', rating: ad.user.calculate_average_rating, small: true ) %>
                 </div>
             </div>
 

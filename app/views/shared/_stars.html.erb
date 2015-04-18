@@ -1,5 +1,14 @@
 <span class="rating-stars">
 <%
+    if defined? small and small
+      class_name = "rating-stars__star--small"
+      size = "14x14"
+    else
+      class_name = "rating-stars__star"
+      size = "22x22"
+    end
+
+
     if rating > 5 or rating < 0
       puts "out of bounds"
       rating = 5 if rating > 5
@@ -12,15 +21,15 @@
     empty_stars = ( 5 - ( full_stars + part_stars ) )
 
     full_stars.times do %>
-      <%= image_tag("star_full.svg", size: "22x22", alt: "") %> <%
+      <%= image_tag("star_full.svg", size: size, alt: "", class: class_name) %> <%
     end
 
     if part_stars == 1 %>
-      <%= image_tag("star_half.svg", size: "22x22", alt: "") %> <%
+      <%= image_tag("star_half.svg", size: size, alt: "", class: class_name) %> <%
     end
 
     empty_stars.times do %>
-      <%= image_tag("star_empty.svg", size: "22x22", alt: "" ) %> <%
+      <%= image_tag("star_empty.svg", size: size, alt: "", class: class_name ) %> <%
     end
 %> <% if defined? num_ratings %> (<%= num_ratings %>) <% end %>
 </span>
