@@ -1,0 +1,25 @@
+<div class="search-result-item">
+    <a class="search-result-item__link" href="#">
+        <div class="search-result-item__image-holder">
+            <%= image_tag "ads/ad1/ad_image_1.jpg", alt: "", class: "search-result-item__image" %>
+        </div>
+    </a>
+    <div class="search-result-item__text-container">
+        <h6 class="search-result-item__title"><%= ad.title %></h6>
+        <p class="search-result-item__body">
+           <%= ad.short_description %>
+            Short desc
+            Short desc
+            Short desc
+        </p>
+    </div>
+
+    <div class="search-result-item__profile">
+        <div>
+            <%= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--medium" %>
+            <br>
+            <%= render('shared/stars.html', rating: ad.user.calculate_average_rating, small: true ) %>
+        </div>
+    </div>
+    <div class="search-result-item__price-floater">kr <%= ad.price %> pr&nbsp;dag</div>
+</div>
