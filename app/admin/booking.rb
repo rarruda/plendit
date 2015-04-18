@@ -18,15 +18,16 @@ ActiveAdmin.register Booking do
   #actions :index, :show
 
 
-  #permit_params :ad_item_id, :from_user_id
+  permit_params :ad_item_id, :from_user_id, :price, :booking_status_id
 
   index do
     selectable_column
     id_column
-    column :ad_item_id
+    column :ad_item
     column :ad
     column :user
     column :from_user
+    column :price
     #column :booking_status
     column('Booking Status') {|b| status_tag b.booking_status.status}
     column :created_at

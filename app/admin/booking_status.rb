@@ -1,4 +1,4 @@
-ActiveAdmin.register Feedback do
+ActiveAdmin.register BookingStatus do
 
 
   # See permitted parameters documentation:
@@ -13,23 +13,13 @@ ActiveAdmin.register Feedback do
   #   permitted << :other if resource.something?
   #   permitted
   # end
-
-  menu :priority => 5
-  #actions :index, :show
-
-
-  permit_params :ad_id, :from_user_id, :score, :body
+  permit_params :status
+  menu :priority => 6
 
   index do
     selectable_column
     id_column
-    column :ad
-    column :from_user
-    column :user
-    column :score
-    column :created_at
-    actions
+    column :status
   end
-
 
 end

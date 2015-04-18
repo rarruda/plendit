@@ -15,7 +15,9 @@ ActiveAdmin.register Ad do
   # end
 
   menu :priority => 4
-  actions :index, :show
+  #actions :index, :show
+
+  permit_params :title, :price, :short_description, :tags, :body
 
   index do
     selectable_column
@@ -26,8 +28,8 @@ ActiveAdmin.register Ad do
     column :tags
     #column :body
 
-    # If user_status is not set, treat it as the first possible user status.
-    column("Owner") { |ad| ad.user.name }
+    column("Owner") { |ad| link_to "#{ad.user.name}", admin_user_path( ad.user.id ) }
+
     column :created_at
     actions
   end
