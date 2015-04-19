@@ -22,7 +22,11 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :phone_number, presence: true, format: { with: /\A[0-9]{8}\z/, message: "only allows numbers" }
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "valid email required" }
+  #validates :avatar_url
 
+  def avatar_url_safetest
+    self.avatar_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed"
+  end
 
   def calculate_average_rating
     if self.received_feedbacks.size == 0

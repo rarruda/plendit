@@ -17,7 +17,7 @@ ActiveAdmin.register User do
   menu :priority => 2
   #actions :index, :show
 
-  permit_params :name, :email, :phone_number, :user_status, :ephemeral_answer_percent 
+  permit_params :name, :email, :phone_number, :user_status, :ephemeral_answer_percent, :avatar_url
     ##, :password
 
   filter :name
