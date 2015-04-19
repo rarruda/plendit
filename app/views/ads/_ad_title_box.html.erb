@@ -1,6 +1,6 @@
 <div class="row ad-title-box">
     <div class="twelve columns">
-        <%= image_tag ad.user.avatar_url_safetest, alt: "username", class: "avatar--large u-pull-left" %>
+        <%= render('shared/avatar.html', user: ad.user, size: "large", css_class: "u-pull-left" ) %>
         <h3 class="ad-title-box__title"><%= ad.title %></h3>
     </div>
 </div>

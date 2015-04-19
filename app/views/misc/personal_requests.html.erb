@@ -43,7 +43,7 @@
             </div>
 
             <div class="profile-image-box">
-                <%= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--huge" %>
+                <%= render('shared/avatar.html', user: user, size: "huge" ) %>
                 <p>
                     <a href="#">Endre profilbilde</a>
                 </p>

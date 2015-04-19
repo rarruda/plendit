@@ -1,7 +1,6 @@
 <div class="row feedback-item-box">
     <div class="three columns feedback-item-box__avatar-box">
-        <%= image_tag feedback.from_user.avatar_url_safetest, alt: "username", class: "avatar--medium" %>
-        <%#= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--medium" %>
+        <%= render('shared/avatar.html', user: feedback.from_user, size: "medium" ) %>
         <p><%= feedback.from_user.name %></p>
     </div>
     <div class="nine columns feedback-item-box__body">
