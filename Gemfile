@@ -59,4 +59,8 @@ end
 group :production do
   # Use postgresql in production
   gem 'pg'
+
+  # for now we need to generate fake data also in our production rig:
+  # to generate fake data to rake db:seed the database:
+  gem 'faker'
 end
