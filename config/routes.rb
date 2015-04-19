@@ -18,13 +18,11 @@ Rails.application.routes.draw do
 
   get 'misc/about'
 
-  get 'misc/personal_requests'
+  get 'users/requests', to: 'users#requests'
 
   get '/search', to: 'ads#search'
 
   #get '/ads/:id', to: 'ads#view', as: 'ad'
-
-  #get '/admin' to: 'misc#admin'
 
   get '/ads/new1', to: 'ads#new1', as: 'new1_ad'
 

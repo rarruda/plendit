@@ -43,7 +43,7 @@
             </div>
 
             <div class="profile-image-box">
-                <%= render('shared/avatar.html', user: user, size: "huge" ) %>
+                <%= render('shared/avatar.html', user: User.find(session["warden.user.user.key"][0][0]), size: "huge" ) %>
                 <p>
                     <a href="#">Endre profilbilde</a>
                 </p>
