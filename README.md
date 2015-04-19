@@ -70,6 +70,16 @@ Note: the server is smart enough so that you never need to restart it for any
  changes in the filesystem to take effect. So, no need for restarts when
  developing.
 
+* ENV variables that should be set on start up the rails server
+
+  * PCONF_HTTP_AUTH_USERNAME -- username for HTTP authentication. To protect site
+     from casual passer bys.
+  * PCONF_HTTP_AUTH_PASSWORD -- "" ""
+  * PCONF_FACEBOOK_APP_ID -- for enabling federated authentication
+  * PCONF_FACEBOOK_SECRET -- "" ""
+
+  NOTE: HTTP AUTH is only enabled when running rails in production environment.
+
 * How to run the test suite
 
 No tests are currently available.
