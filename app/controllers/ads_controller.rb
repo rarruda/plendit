@@ -5,7 +5,8 @@ class AdsController < ApplicationController
   # GET /ads
   # GET /ads.json
   def index
-    @ads = Ad.all
+    redirect_to :root
+    #@ads = Ad.all
   end
 
   # GET /ads/search
@@ -18,18 +19,18 @@ class AdsController < ApplicationController
 
   # GET /ads/1
   # GET /ads/1.json
-  def view
+  def show
     @ad = Ad.find( params[:id] )
   end
 
 
-  # GET /ads/1
-  # GET /ads/1.json
-  def show
-  end
-
   # GET /ads/new
   def new
+    @ad = Ad.new
+  end
+
+  # GET /ads/new1
+  def new1
     @ad = Ad.new
   end
 
@@ -41,6 +42,7 @@ class AdsController < ApplicationController
   # POST /ads.json
   def create
     @ad = Ad.new(ad_params)
+    @ad.user_id = 1
 
     respond_to do |format|
       if @ad.save
@@ -85,6 +87,6 @@ class AdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
-      params.require(:ad).permit(:user_id, :title, :short_description, :body, :price, :tags)
+      params.require(:ad).permit(:title, :short_description, :body, :price, :tags)
     end
 end

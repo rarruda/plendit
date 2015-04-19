@@ -28,20 +28,20 @@ Rails.application.routes.draw do
 
   get '/search', to: 'ads#search'
 
-  get '/ads/:id', to: 'ads#view', as: 'ad'
+  #get '/ads/:id', to: 'ads#view', as: 'ad'
 
   #get '/admin' to: 'misc#admin'
 
-  #scope '/admin' do
-    resources :messages
-    resources :booking_statuses
-    resources :bookings
-    resources :user_statuses
-    resources :ad_items
-    resources :feedbacks
-    resources :ads
-    resources :users
-  #end
+  get '/ads/new1', to: 'ads#new1', as: 'ad'
+
+  resources :messages
+  resources :booking_statuses
+  resources :bookings
+  resources :user_statuses
+  resources :ad_items
+  resources :feedbacks
+  resources :ads
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
