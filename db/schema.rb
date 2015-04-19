@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414231327) do
+ActiveRecord::Schema.define(version: 20150418235142) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -63,8 +63,10 @@ ActiveRecord::Schema.define(version: 20150414231327) do
     t.text     "tags"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+    t.integer  "location_id"
   end
 
+  add_index "ads", ["location_id"], name: "index_ads_on_location_id"
   add_index "ads", ["user_id"], name: "index_ads_on_user_id"
 
   create_table "booking_statuses", force: :cascade do |t|
@@ -100,6 +102,20 @@ ActiveRecord::Schema.define(version: 20150414231327) do
 
   add_index "feedbacks", ["ad_id"], name: "index_feedbacks_on_ad_id"
   add_index "feedbacks", ["from_user_id"], name: "index_feedbacks_on_from_user_id"
+
+  create_table "locations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "address_line"
+    t.string   "city"
+    t.string   "state"
+    t.string   "post_code"
+    t.decimal  "lat",          precision: 15, scale: 13
+    t.decimal  "lon",          precision: 15, scale: 13
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "locations", ["user_id"], name: "index_locations_on_user_id"
 
   create_table "messages", force: :cascade do |t|
     t.integer  "booking_id"
