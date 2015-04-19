@@ -62,7 +62,10 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  #config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = true
+  # ^^^^ -- its ok if we are not able to send emails.
 
   # Devise needs this to be set. For now we say that heroku (dev.plendit.com) is the url for prod.
   config.action_mailer.default_url_options = { :host => 'dev.plendit.com' }
