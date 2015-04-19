@@ -9,27 +9,64 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
-### User
-User.create({"id"=>"1", "name"=>"Jan Erik Berentsen", "phone_number"=>"99994444", "join_timestamp"=>"2015-03-25 23:33:00 UTC", "last_action_timestamp"=>"2015-03-25 23:33:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"25", "user_status_id"=>"2", "email"=>"jan.erik.berentsen@plendit.com.testonly", "password_digest"=>"$2a$10$Ri6zUs6f/eYk9hxN7TXGL.sM8O9pL8pYZThKe4gYfHz66IJaaYUHu"})
-User.create({"id"=>"2", "name"=>"Trygve Leite", "phone_number"=>"44449999", "join_timestamp"=>"2015-03-25 23:34:00 UTC", "last_action_timestamp"=>"2015-03-25 23:34:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"75", "user_status_id"=>"2", "email"=>"trygve.leite@plendit.com.testonly", "password_digest"=>"$2a$10$/q5b3stbLBf.IUAjlRReR..J4H1iChiwV9jKbIldcAGp580H/hZsi"})
-User.create({"id"=>"3", "name"=>"Fredrik", "phone_number"=>"99998888", "join_timestamp"=>"2015-03-25 23:34:00 UTC", "last_action_timestamp"=>"2015-03-25 23:34:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"", "user_status_id"=>"2","email"=>"fredrik@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"4", "name"=>"Nina", "phone_number"=>"44442222", "join_timestamp"=>"2015-03-25 23:34:00 UTC", "last_action_timestamp"=>"2015-03-25 23:34:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"", "user_status_id"=>"2","email"=>"nina@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"5", "name"=>"Bjarte", "phone_number"=>"95554444", "join_timestamp"=>"2015-03-25 23:35:00 UTC", "last_action_timestamp"=>"2015-03-25 23:35:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"", "user_status_id"=>"2","email"=>"bjarte@pestonly", "password_digest"=>"foobar"})
-User.create({"id"=>"6", "name"=>"Kjell Einar", "phone_number"=>"99995555", "join_timestamp"=>"2015-04-04 15:45:00 UTC", "last_action_timestamp"=>"2015-04-04 15:45:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"75", "user_status_id"=>"2","email"=>"kjell@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"7", "name"=>"Åse", "phone_number"=>"44441111", "join_timestamp"=>"2015-04-04 15:45:00 UTC", "last_action_timestamp"=>"2015-04-04 15:45:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"95", "user_status_id"=>"2","email"=>"aase@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"8", "name"=>"Jon Arne", "phone_number"=>"94947777", "join_timestamp"=>"2015-04-04 15:46:00 UTC", "last_action_timestamp"=>"2015-04-04 15:46:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"60", "user_status_id"=>"2","email"=>"jon@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"9", "name"=>"Ove", "phone_number"=>"99996767", "join_timestamp"=>"2015-04-04 15:47:00 UTC", "last_action_timestamp"=>"2015-04-04 15:47:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"57", "user_status_id"=>"2","email"=>"ove@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"10", "name"=>"Aina", "phone_number"=>"44448787", "join_timestamp"=>"2015-04-04 15:48:00 UTC", "last_action_timestamp"=>"2015-04-04 15:48:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"100", "user_status_id"=>"1","email"=>"aina@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"11", "name"=>"Nils", "phone_number"=>"44448888", "join_timestamp"=>"2015-04-04 15:49:00 UTC", "last_action_timestamp"=>"2015-04-04 15:49:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"62", "user_status_id"=>"2","email"=>"nils@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"12", "name"=>"Olav", "phone_number"=>"44445454", "join_timestamp"=>"2015-04-04 15:49:00 UTC", "last_action_timestamp"=>"2015-04-04 15:49:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"42", "user_status_id"=>"2","email"=>"olav@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"13", "name"=>"Eline", "phone_number"=>"44999944", "join_timestamp"=>"2015-04-04 15:50:00 UTC", "last_action_timestamp"=>"2015-04-04 15:50:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"34", "user_status_id"=>"2","email"=>"eline@testonly", "password_digest"=>"foobar"})
-User.create({"id"=>"14", "name"=>"Gunnar", "phone_number"=>"44442244", "join_timestamp"=>"2015-04-04 15:50:00 UTC", "last_action_timestamp"=>"2015-04-04 15:50:00 UTC", "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"84", "user_status_id"=>"2","email"=>"gunnar@testonly", "password_digest"=>"foobar"})
+# Delete all the things!
+#UserStatus.delete_all
+#User.delete_all
+#Ad.delete_all
+#AdItem.delete_all
+#Feedback.delete_all
+#Booking.delete_all
+#BookingStatus.delete_all
+#Message.delete_all
+
+
+# Set locale to faker:
+Faker::Config.locale = 'nb-NO'
 
 
 ### UserStatus
 UserStatus.create({"id"=>"1", "status"=>"WAITING_VERIFICATION"})
 UserStatus.create({"id"=>"2", "status"=>"VERIFIED"})
 UserStatus.create({"id"=>"3", "status"=>"ADMIN"})
+
+### User
+User.create({"id"=>"1", "name"=>"Jan Erik Berentsen", "phone_number"=>"99994444",
+  "join_timestamp"=>"2015-03-25 23:33:00 UTC", "last_action_timestamp"=>"2015-03-25 23:33:00 UTC", 
+  "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"25",
+  "user_status_id"=>"2", "email"=>"jan.erik.berentsen@plendit.com.testonly",
+  "encrypted_password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password})
+User.create({"id"=>"2", "name"=>"Trygve Leite", "phone_number"=>"44449999",
+  "join_timestamp"=>"2015-03-25 23:34:00 UTC", "last_action_timestamp"=>"2015-03-25 23:34:00 UTC",
+  "private_link_to_facebook"=>"", "private_link_to_linkedin"=>"", "ephemeral_answer_percent"=>"75",
+  "user_status_id"=>"2", "email"=>"trygve.leite@plendit.com.testonly",
+  "encrypted_password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password})
+
+# Autogenerated users:
+NUM_USERS = 20
+NUM_ADS   = 40
+
+
+NUM_USERS.times do |n|
+  User.create! do |u|
+    u.name         = Faker::Name.name
+    u.phone_number = [4,9].sample.to_s + Faker::Base.numerify('#######')
+    u.email        = Faker::Internet.safe_email(u.name).gsub('@', "#{n+1}@")
+    u.password     = Faker::Internet.password(10, 20)
+    u.user_status_id = 2
+  end
+end
+
+["Fredrik", "Nina", "Bjarte", "Kjell Einar", "Åse", "Jon Arne",
+  "Ove", "Aina", "Nils", "Olav", "Eline", "Gunnar"].each_with_index { |name|
+  User.create! do |u|
+    u.name         = name
+    u.phone_number = [4,9].sample.to_s + Faker::Base.numerify('#######')
+    u.email        = Faker::Internet.safe_email(name).gsub('@', "#{User.count+1}@")
+    u.password     = Faker::Internet.password(10, 20)
+    u.user_status_id = 2
+  end
+}
+
 
 
 ### Ad
@@ -39,6 +76,12 @@ Ad.create({"id"=>"3", "user_id"=>"5", "title"=>"THULE Dynamic 800 takboks", "sho
 Ad.create({"id"=>"4", "user_id"=>"1", "title"=>"Calix NORDIC LOADER", "short_description"=>"Calix NORDIC LOADER", "body"=>"Calix NORDIC Loader er en helt ny og meget lav takboks fra Calix. Boksen har et flott design og rommer hele 430 liter! Således egner den seg også godt til bagasje utover alpin- og langrennsski. Takboksen(e) er produsert i robust ABS plast som er 100% resirkulerbar. Åpning skjer sideveis fra begge sider og dette gir god tilgang til ski og utstyr.\r\n\r\nTakboksen leies ut med praktiske QuickGrip fester og integrert takbokslys.", "price"=>"270.0", "tags"=>""})
 Ad.create({"id"=>"5", "user_id"=>"2", "title"=>"Packline F 800 ABS takboks", "short_description"=>"Packline F 800 ABS takboks", "body"=>"En nedsenket og praktisk takboks med lav vekt og stor innvendig høyde. Formgitt for å romme det meste på reisen – hele 225 cm lang. Produsert i kraftig miljøvennlig ABS som er 100% resirkulerbar. Vårt nye patenterte hurtigfeste iZi2connect er kjapt og enkelt i bruk. Boksen er utstyrt med vårt patenterte åpningsmekanisme LiftOff som gir inn og utlasting fra 3 sider – samtidig!", "price"=>"249.0", "tags"=>""})
 
+# Load each product from the yaml file
+#YAML.load_file(File.expand_path("../seeds/ads.yml", __FILE__)).each do |ad|
+#  Ad.create! ad
+#end
+#
+#NB_PRODUCTS = Ad.count
 
 ### Feedback
 Feedback.create({"id"=>"1", "ad_id"=>"1", "from_user_id"=>"3", "score"=>"5", "body"=>"En god allround pulk som både jeg og min kone lett kan dra til tross for mye bagasje! Pris,\r\nkvalitet og utleier er det ingenting å utsette på. Anbefales. "})
@@ -61,11 +104,20 @@ Feedback.create({"id"=>"15", "ad_id"=>"5", "from_user_id"=>"14", "score"=>"5", "
 ### AdItem
 AdItem.create({"id"=>"1", "ad_id"=>"1"})
 AdItem.create({"id"=>"2", "ad_id"=>"2"})
-AdItem.create({"id"=>"3", "ad_id"=>"2"})
-AdItem.create({"id"=>"4", "ad_id"=>"2"})
-AdItem.create({"id"=>"5", "ad_id"=>"3"})
-AdItem.create({"id"=>"6", "ad_id"=>"4"})
-AdItem.create({"id"=>"7", "ad_id"=>"5"})
+
+Ad.count.times do |n|
+  n += 1
+  AdItem.create! do |a|
+    a.ad_id = n
+  end
+
+  # Even numbered Ads between 4 and 10, get two AdItems randomly:
+  if n > 2 and n <= 10 and n.even? and [true, false].sample
+    AdItem.create! do |a|
+      a.ad_id = n
+    end
+  end
+end
 
 
 ### Booking
