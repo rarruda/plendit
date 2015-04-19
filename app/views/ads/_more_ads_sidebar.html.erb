@@ -1,17 +1,15 @@
 <section class="more-ads-sidebar">
-    <h6>Flere annonser fra <%= user.name %></h6>
+    <h6>Flere annonser fra <%= @ad.user.name %></h6>
 
+
+    <% @ad.user.ads.where("id != #{@ad.id}").each do |a| %>
     <div class="slim-promoted-ad">
         <%= image_tag "user_more_ads_1.jpg", alt: "username", class: "slim-promoted-ad__image" %>
 
-        <h6 class="slim-promoted-ad__title">Partytelt lollerskates mongorama</h6>
+        <h6 class="slim-promoted-ad__title"><%= link_to a.title, a %></h6>
 
         <p class="slim-promoted-ad__body">
-            brødtext lawl.
-            brødtext lawl.
-            brødtext lawl.
-            brødtext lawl.
-            brødtext lawl.
+            <%= a.short_description %>
         </p>
 
         <button class="slim-promoted-ad__button">
@@ -20,5 +18,6 @@
         </button>
 
     </div>
+    <% end %>
 
 </section>

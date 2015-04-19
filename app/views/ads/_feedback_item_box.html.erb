@@ -1,12 +1,13 @@
 <div class="row feedback-item-box">
     <div class="three columns feedback-item-box__avatar-box">
-        <%= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--medium" %>
-        <p><%= feedback.user.name %></p>
+        <%= image_tag feedback.from_user.avatar_url_safetest, alt: "username", class: "avatar--medium" %>
+        <%#= image_tag "placeholder_avatar.png", alt: "username", class: "avatar--medium" %>
+        <p><%= feedback.from_user.name %></p>
     </div>
     <div class="nine columns feedback-item-box__body">
         <%= render('shared/stars.html', rating: feedback.user.calculate_average_rating ) %>
         <%= feedback.updated_at.to_formatted_s(:plendit_short_date)  %>
-        på <%= link_to feedback.ad.title, ad_path(feedback.ad) %> 
+        på <%= link_to feedback.ad.title, ad_path(feedback.ad) %>
        <p class="feedback-item-box__body">
             <%= feedback.body %>
        </p>

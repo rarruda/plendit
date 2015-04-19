@@ -1,31 +1,59 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Ads</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>User Name</th>
-      <th>Title</th>
-      <th>Short description</th>
-      <th>User ephemeral_answer_percent</th>
-      <th>User stars</th>
-      <th>Price</th>
-    </tr>
-  </thead>
+<div class="search-filter-section">
+    <div class="container">
+        <div class="row search-filter-section__row">
+            <div class="two columns">
+                <label>Avstand:</label>
+            </div>
+            <div class="ten columns">
+                <input class="search-filter-section__range-input" type="range">
+                <span>Km &lt; 1</span>
+                <span class="u-pull-right">Km &gt; 10</span>
+            </div>
+        </div>
 
-  <tbody>
-    <% @ads.each do |ad| %>
-      <tr>
-        <td><%= ad.user.name %></td>
-        <td><%= link_to ad.title, ad %></td>
-        <td><%= ad.short_description %></td>
-        <td><%= ad.user.ephemeral_answer_percent %></td>
-        <td><%= render('shared/stars.html', rating: ad.user.calculate_average_rating, num_ratings: ad.received_feedbacks.count ) %></td>
-        <td><%= ad.price %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <div class="row search-filter-section__row">
+            <div class="two columns">
+                <label>Pris:</label>
+            </div>
+            <div class="ten columns">
+                <input class="search-filter-section__range-input" type="range">
+            </div>
+        </div>
 
-<br>
+        <div class="row search-filter-section__row">
+            <div class="two columns">
+                <label>Område:</label>
+            </div>
+            <div class="four columns">
+                <input class="search-filter-section__text-input" type="text" placeholder="Gatenavn">
+            </div>
+            <div class="two columns">
+                <input class="search-filter-section__text-input" type="text" placeholder="By">
+            </div>
+            <div class="two columns">
+                <input class="search-filter-section__text-input" type="text" placeholder="Fylke">
+            </div>
+            <div class="two columns">
+                <input class="search-filter-section__text-input" type="text" placeholder="Postnr">
+            </div>
+        </div>
+
+        <div class="row search-filter-section__row">
+            <div class="two columns">
+                <label>Tags:</label>
+            </div>
+            <div class="ten columns">
+                <input type="text">
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container" style="width: 380px;">
+    <h3><%= @ads.count %> treff for "<%= params[:q] %>"</h3>
+    <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
+</div>

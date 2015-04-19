@@ -8,21 +8,15 @@ Rails.application.routes.draw do
   #}
 
 
-  get 'misc/frontpage'
+  get 'ads/create_2'
 
-  get 'misc/create_1'
+  get 'ads/create_3'
 
-  get 'misc/create_2'
 
-  get 'misc/create_3'
-
-  get 'misc/result'
 
   get 'misc/faq'
 
   get 'misc/about'
-
-  get 'misc/ad'
 
   get 'misc/personal_requests'
 
@@ -32,7 +26,7 @@ Rails.application.routes.draw do
 
   #get '/admin' to: 'misc#admin'
 
-  get '/ads/new1', to: 'ads#new1', as: 'ad'
+  get '/ads/new1', to: 'ads#new1', as: 'new1_ad'
 
   resources :messages
   resources :booking_statuses
