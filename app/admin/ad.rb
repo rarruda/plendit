@@ -17,7 +17,7 @@ ActiveAdmin.register Ad do
   menu :priority => 4
   #actions :index, :show
 
-  permit_params :title, :price, :short_description, :tags, :body
+  permit_params :title, :price, :short_description, :tags, :body, :location_id #, :user_id
 
   index do
     selectable_column

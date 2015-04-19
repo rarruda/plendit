@@ -2,7 +2,7 @@ class Ad < ActiveRecord::Base
   belongs_to :user
   has_many :received_feedbacks, :class_name => "Feedback"
   has_many :ad_items
-  has_one :location
+  belongs_to :location
 
 
   validates :title, presence: true, length: { in: 3..255 }
