@@ -98,6 +98,22 @@ bundle exec erd --filename=doc/erd
 
 The UML diagram will then be available as a pdf file at doc/erd.pdf
 
+* Admin UI
+
+To access the admin interface go to http://localhost:3000/admin/
+
+To create an admin account first start the rails console, then
+ run the create command as follows:
+```
+$ rails console
+(...)
+2.1.5 :001 > AdminUser.create!(:email => 'admin@example.com', \
+  :password => 'password', :password_confirmation => 'password')
+(...)
+```
+
+This is also how the default admin user is created by default.
+
 * ...
 
 
