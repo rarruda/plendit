@@ -1,26 +1,63 @@
-<h2>Log in</h2>
+<div class="container">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+    <h2>Logg inn</h2>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+    <div class="row">    
+        <p class="two-thirds column">
+            Du kan velge mellom å logge inn med en Facebook eller Google konto,
+            eller med en Plendit konto.
+        </p>
     </div>
-  <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+    <div class="row">
 
-<%= render "users/shared/links" %>
+        <div class="four columns">
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+            <div class="row">
+                <div class="two-thirds column">
+                    <%= f.label :email, "E-post:" %>
+                    <%= f.email_field :email, autofocus: true %>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="two-thirds column">
+                    <%= f.label :password, "Passord:" %>
+                    <%= f.password_field :password, autocomplete: "off" %>
+                </div>
+            </div>
+
+            <% if devise_mapping.rememberable? -%>
+                <label for="remember_me">
+                    <%= f.check_box :remember_me %>
+                    Husk meg
+                </label>
+            <% end -%>
+
+            <div>
+                <%= f.submit "Logg inn", class: "button-primary" %>
+            </div>
+         
+        <% end %>
+
+            <hr>
+            <p>
+                <%= image_tag("facebook/FB-f-Logo__blue_50.png", size: "50x50", alt: "") %>
+
+               <%= form_for(resource, as: resource_name, url: "/users/auth/facebook") do |f| %>
+                    <button type="submit" class="button-primary">
+                        Logg inn med facebook
+                    </button>
+                <% end -%>
+            </p>
+        </div>
+
+        <div class="four columns offset-by-one column">
+            <%= render "users/shared/links" %>
+        </div>
+
+    </div>
+
+</div>
