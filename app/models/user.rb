@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   #validates :avatar_url
 
   def avatar_url_safetest
-    self.avatar_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed"
+    self.avatar_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
   end
 
   def calculate_average_rating
