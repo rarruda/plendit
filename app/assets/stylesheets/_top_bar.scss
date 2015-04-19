@@ -44,12 +44,17 @@ $top-bar-height: 52px;
 
     &__rightbox {
         display: block;
-        padding-top: 6px;
         float: right;
+        height: 38px;
+        line-height: 38px;
     }
 
     &__navbar-link {
         color: white;
+    }
+
+    &__avatar {
+        vertical-align: middle;
     }
 }
 

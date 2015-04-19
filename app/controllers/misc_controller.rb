@@ -1,9 +1,7 @@
 class MiscController < ApplicationController
 
   def frontpage
-    @show_search_field = true
-    # Fixme: this should just be the current logged in user object, or nil, not a bool
-    @has_user = true
+    @hide_search_field = true
   end
 
   def ad
