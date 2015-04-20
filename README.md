@@ -56,6 +56,9 @@ That is, add just enough test data so its possible to play around and
 $ rake db:seed
 ```
 
+In Heroku to reset the database you need to run `heroku pg:reset DATABASE`.
+ This command will drop and recreate your (now empty) database.
+
 * Starting the server (development)
 
 ```

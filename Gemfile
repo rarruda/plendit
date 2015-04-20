@@ -35,12 +35,13 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# to generate fake data to rake db:seed the database:
+gem 'faker'
+
 group :development, :test do
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
 
-  # to generate fake data to rake db:seed the database:
-  gem 'faker'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -60,7 +61,7 @@ group :production do
   # Use postgresql in production
   gem 'pg'
 
-  # for now we need to generate fake data also in our production rig:
-  # to generate fake data to rake db:seed the database:
-  gem 'faker'
+  # this gem is important to run in heroku. Enables static assets, and routes logs to stdout.
+  # https://github.com/heroku/rails_12factor
+  gem 'rails_12factor'
 end
