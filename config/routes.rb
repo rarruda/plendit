@@ -27,10 +27,8 @@ Rails.application.routes.draw do
   get '/ads/new1', to: 'ads#new1', as: 'new1_ad'
 
   resources :messages
-  resources :booking_statuses
   resources :bookings
-  resources :user_statuses
-  resources :ad_items
+  #resources :ad_items
   resources :feedbacks
   resources :ads
   resources :users
