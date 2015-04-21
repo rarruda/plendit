@@ -5,4 +5,7 @@
     border: solid thin $color-box-border;
     background-color: white;
 
+    &__map {
+        height: 200px;
+    }
 }

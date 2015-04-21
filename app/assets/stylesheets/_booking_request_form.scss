@@ -1,0 +1,19 @@
+@import 'constants.scss';
+
+.booking-request-form {
+    background-color: white;
+    border: solid thin $color-box-border;
+    border-top: none;
+    text-align: center;
+
+    & &__time-input {
+        width: 30%;
+        color: red;
+        border: solid thin red;
+    }
+
+    & &__book-button {
+        width: 100%
+    }
+
+}
