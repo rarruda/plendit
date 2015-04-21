@@ -80,6 +80,10 @@ Note: the server is smart enough so that you never need to restart it for any
   * PCONF_HTTP_AUTH_PASSWORD -- "" ""
   * PCONF_FACEBOOK_APP_ID -- for enabling federated authentication
   * PCONF_FACEBOOK_SECRET -- "" ""
+  * PCONF_SMTP_ADDRESS  -- hostname of SMTP provider/server
+  * PCONF_SMTP_USERNAME -- username for SMTP auth
+  * PCONF_SMTP_PASSWORD -- password for SMTP auth
+
 
   NOTE: HTTP AUTH is only enabled when running rails in production environment.
 

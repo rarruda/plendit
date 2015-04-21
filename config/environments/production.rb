@@ -70,6 +70,13 @@ Rails.application.configure do
   # Devise needs this to be set. For now we say that heroku (dev.plendit.com) is the url for prod.
   config.action_mailer.default_url_options = { :host => 'dev.plendit.com' }
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    port:      587,
+    address:   ENV['PCONF_SMTP_ADDRESS'],
+    user_name: ENV['PCONF_SMTP_USERNAME'],
+    password:  ENV['PCONF_SMTP_PASSWORD'],
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
