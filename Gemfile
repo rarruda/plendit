@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.1.6'
 
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+#gem 'omniauth-google'
+
 gem 'activeadmin', '~> 1.0.0.pre1'
 
 

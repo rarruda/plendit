@@ -28,7 +28,7 @@ ActiveAdmin.register User do
 #  scope :all, :default => true
 #  scope :in_progress
 #  scope :complete
-#
+
   index do
     selectable_column
     id_column

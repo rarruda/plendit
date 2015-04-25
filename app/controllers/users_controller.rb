@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :confirmation]
+  #before_filter :authenticate_user!, :except => [:finish_signup]
 
   # GET /users
   # GET /users.json
@@ -67,6 +67,21 @@ class UsersController < ApplicationController
     end
   end
 
+
+  # GET/PATCH /users/:id/finish_signup
+  def finish_signup
+    # authorize! :update, @user
+    if request.patch? && params[:user] #&& params[:user][:email]
+      if @user.update(user_params)
+        @user.skip_reconfirmation!
+        sign_in(@user, :bypass => true)
+        redirect_to @user, notice: 'Your profile was successfully updated.'
+      else
+        @show_errors = true
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -75,6 +90,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :phone_number, :join_timestamp,  :user_status_id, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :phone_number, :user_status_id, :password, :password_confirmation)
     end
 end

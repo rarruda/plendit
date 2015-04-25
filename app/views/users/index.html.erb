@@ -7,10 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Phone number</th>
-      <th>Join timestamp</th>
-      <th>Last action timestamp</th>
-      <th>Private link to facebook</th>
-      <th>Private link to linkedin</th>
+      <th>Email</th>
       <th>Ephemeral answer percent</th>
       <th>User status</th>
 
@@ -23,10 +20,7 @@
       <tr>
         <td><%= user.name %></td>
         <td><%= user.phone_number %></td>
-        <td><%= user.join_timestamp %></td>
-        <td><%= user.last_action_timestamp %></td>
-        <td><%= user.private_link_to_facebook %></td>
-        <td><%= user.private_link_to_linkedin %></td>
+        <td><%= user.email %></td>
         <td><%= user.ephemeral_answer_percent %></td>
         <td><%= user.user_status.status %></td>
         <td><%= link_to 'Show', user %></td>

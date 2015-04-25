@@ -36,13 +36,10 @@ User.create(
 { "id"=>"1",
   "name"=>"Jan Erik Berentsen",
   "phone_number"=>"99994444",
-  "join_timestamp"=>"2015-03-25 23:33:00 UTC",
-  "last_action_timestamp"=>"2015-03-25 23:33:00 UTC",
-  "private_link_to_facebook"=>"",
-  "private_link_to_linkedin"=>"",
   "ephemeral_answer_percent"=>"25",
   "user_status_id"=>"2",
   "email"=>"jan.erik.berentsen@plendit.com.testonly",
+  "image_url"=>"https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/088/1fe/0cb0e86.jpg",
   "encrypted_password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
   )
 
@@ -50,13 +47,10 @@ User.create(
 { "id"=>"2",
   "name"=>"Trygve Leite",
   "phone_number"=>"44449999",
-  "join_timestamp"=>"2015-03-25 23:34:00 UTC",
-  "last_action_timestamp"=>"2015-03-25 23:34:00 UTC",
-  "private_link_to_facebook"=>"",
-  "private_link_to_linkedin"=>"",
   "ephemeral_answer_percent"=>"75",
   "user_status_id"=>"2",
   "email"=>"trygve.leite@plendit.com.testonly",
+  "image_url"=>"http://hjemmehos.finn.no/filestore/Ansatte/TrygveLeite.jpg?size=120x0",
   "encrypted_password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
   )
 

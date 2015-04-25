@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419110842) do
+ActiveRecord::Schema.define(version: 20150425151639) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -103,6 +103,19 @@ ActiveRecord::Schema.define(version: 20150419110842) do
   add_index "feedbacks", ["ad_id"], name: "index_feedbacks_on_ad_id"
   add_index "feedbacks", ["from_user_id"], name: "index_feedbacks_on_from_user_id"
 
+  create_table "identities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "image_url"
+    t.string   "profile_url"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "identities", ["uid"], name: "index_identities_on_uid"
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "address_line"
@@ -139,10 +152,6 @@ ActiveRecord::Schema.define(version: 20150419110842) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "phone_number",             limit: 8
-    t.datetime "join_timestamp"
-    t.datetime "last_action_timestamp"
-    t.string   "private_link_to_facebook"
-    t.string   "private_link_to_linkedin"
     t.integer  "ephemeral_answer_percent"
     t.datetime "created_at",                                     null: false
     t.datetime "updated_at",                                     null: false
@@ -164,7 +173,7 @@ ActiveRecord::Schema.define(version: 20150419110842) do
     t.integer  "failed_attempts",                    default: 0, null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.string   "avatar_url"
+    t.string   "image_url"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

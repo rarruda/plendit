@@ -32,26 +32,6 @@
     <%= f.password_field :password_confirmation, size: 40  %>
   </div>
   <div class="field">
-    <%= f.label :join_timestamp %><br>
-    <%= f.datetime_select :join_timestamp %>
-  </div>
-  <div class="field">
-    <%= f.label :last_action_timestamp %><br>
-    <%= f.datetime_select :last_action_timestamp %>
-  </div>
-  <div class="field">
-    <%= f.label :private_link_to_facebook %><br>
-    <%= f.text_field :private_link_to_facebook %>
-  </div>
-  <div class="field">
-    <%= f.label :private_link_to_linkedin %><br>
-    <%= f.text_field :private_link_to_linkedin %>
-  </div>
-  <div class="field">
-    <%= f.label :ephemeral_answer_percent %><br>
-    <%= f.number_field :ephemeral_answer_percent %>
-  </div>
-  <div class="field">
     <%= f.label :user_status_id %><br>
     <%= f.collection_select(:user_status_id, UserStatus.all, :id, :status) %>
   </div>

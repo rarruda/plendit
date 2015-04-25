@@ -25,17 +25,17 @@
                 <div class="row">
                     <div class="two-thirds column">
                         <%= f.label :phone_number, "Telefonnummer:" %>
-                        <%= f.text_field :phone_number %>
+                        <%= f.text_field :phone_number, :maxlength=>"8" %>
                     </div>
                 </div>
 
                 <div class="field">
                     <%= f.label :password %>
                     <% if @validatable %>
-                <em>(<%= @minimum_password_length %> characters minimum)</em>
-                <% end %>
-                <%= f.password_field :password, autocomplete: "off" %>
-              </div>
+                      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+                    <% end %>
+                    <%= f.password_field :password, autocomplete: "off" %>
+                </div>
 
               <div class="field">
                 <%= f.label :password_confirmation %>
