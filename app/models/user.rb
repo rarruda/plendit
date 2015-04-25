@@ -23,11 +23,12 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   #validates :phone_number, presence: true, format: { with: /\A[0-9]{8}\z/, message: "only allows numbers" }
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "valid email required" }
+
   #validates :image_url
 
   def avatar_url_safetest
-    self.image_url || self.identities.find_by_provider('facebook').image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
-    ##self.image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
+    ##self.image_url || self.identities.find_by_provider('facebook').image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
+    self.image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
   end
 
 
@@ -76,6 +77,7 @@ class User < ActiveRecord::Base
         user = User.new(
           name: auth.info.name, ##auth.extra.raw_info.name,
           email: email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
+          image_url: auth.info.image,
           password: Devise.friendly_token[0,20]
         )
         user.skip_confirmation! ###### <== funny business of skipping confimation even if we have an invalid email.

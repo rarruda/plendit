@@ -9,7 +9,7 @@ class Identity < ActiveRecord::Base
       i.image_url = auth.info.image
 
       # Set user.image_url only if its empty
-      if i.user.image_url.nil?
+      if not i.user.nil? and i.user.image_url.nil?
         i.user.image_url = i.image_url
       end
 
