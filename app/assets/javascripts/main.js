@@ -42,6 +42,36 @@ controllers.sideBarMap = {
     }
 };
 
+controllers.syncPayout = {
+    callable: function(ele) {
+        var inEle = ele;
+        var outEle = document.querySelector("[data-payout]");
+
+        inEle.addEventListener('change', syncPayout);
+        inEle.addEventListener('keyup', syncPayout);
+        syncPayout();
+
+        function syncPayout() {
+            var price = parseFloat(inEle.value);
+            console.log(price)
+            if (isNaN(price)) {
+                outEle.value = "";
+            }
+            else {
+                if (price == 0) {
+                    outEle.value = 0;
+                }
+                else {
+                    outEle.value = price * 0.90;
+                }
+            }
+
+        }
+
+
+    }
+};
+
 
 function main() {
     var c = new Controllerator(); 
