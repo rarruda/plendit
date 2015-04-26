@@ -1,0 +1,35 @@
+@import 'constants.scss';
+
+.profile-quality-box {
+    border: solid thin $color-box-border;
+    background-color: white;
+
+
+    &__table {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    & &__row {
+        border-bottom: solid thin $color-box-border;
+        padding: $standard-spacing;
+    }
+
+    & &__th {
+        border: none;
+        font-weight: normal;
+        padding: $standard-spacing;
+    }
+
+    & &__td {
+        border: none;
+        font-weight: bold;
+        padding: $standard-spacing;
+        text-align: right;
+    }
+
+    &__verified-badge {
+        padding: $standard-spacing;
+        text-align: center;
+    }
+}

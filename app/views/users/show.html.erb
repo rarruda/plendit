@@ -2,27 +2,27 @@
     <div class="row">
         <div class="eight columns">
 
-          <section class="profile-self-ads-section">
-              <h5>Annonser</h5>
-              <% if @user.ads.empty? %>
-                Brukeren har ikke lagt ut noe til leie ennå.
-              <% else %>
-                <%= render partial: "shared/slim_promoted_ad", collection: @user.ads, as: :ad %>
-              <% end %>
-          </section>
+            <section class="profile-self-ads-section">
+                <h5>Annonser</h5>
+                <% if @user.ads.empty? %>
+                  Brukeren har ikke lagt ut noe til leie ennå.
+                <% else %>
+                  <%= render partial: "shared/slim_promoted_ad", collection: @user.ads, as: :ad %>
+                <% end %>
+            </section>
 
-          <section class="profile-self-ads-section">
-              <h5>Tilbakemeldinger</h5>
-              <% if @user.recent_feedback.empty? %>
-                Brukeren har ikke fått noen tilbakemeldinger ennå.
-              <% else %>
-                <%= render partial: "shared/feedback_item_box", collection: @user.recent_feedback, as: 'feedback' %>
-              <% end %>
-          </section>
+            <section class="profile-self-ads-section">
+                <h5>Tilbakemeldinger</h5>
+                <% if @user.recent_feedback.empty? %>
+                  Brukeren har ikke fått noen tilbakemeldinger ennå.
+                <% else %>
+                  <%= render partial: "shared/feedback_item_box", collection: @user.recent_feedback, as: 'feedback' %>
+                <% end %>
+            </section>
+        </div>
 
-    </div>
         <div class="four columns">
-            Profile quality box
+            <%= render partial: "shared/profile_quality_box", locals: {} %>
         </div>
     </div>
 </div>
@@ -55,6 +55,7 @@
   <strong>User Status ID:</strong>
   <%= @user.user_status_id %> - <%= @user.user_status.status %>
 </p>
+-->
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
