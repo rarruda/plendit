@@ -46,8 +46,9 @@ class User < ActiveRecord::Base
     ( sum / i )
   end
 
-
-
+  def recent_feedback
+    received_feedbacks[0..2]
+  end
 
   # supporting multiple OAuth identities:
   #  see: http://sourcey.com/rails-4-omniauth-using-devise-with-twitter-facebook-and-linkedin/

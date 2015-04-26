@@ -1,5 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+
+          <section class="profile-self-ads-section">
+              <h5>Annonser</h5>
+              <% if @user.ads.empty? %>
+                Brukeren har ikke lagt ut noe til leie ennå.
+              <% else %>
+                <%= render partial: "shared/slim_promoted_ad", collection: @user.ads, as: :ad %>
+              <% end %>
+          </section>
+
+          <section class="profile-self-ads-section">
+              <h5>Tilbakemeldinger</h5>
+              <% if @user.recent_feedback.empty? %>
+                Brukeren har ikke fått noen tilbakemeldinger ennå.
+              <% else %>
+                <%= render partial: "shared/feedback_item_box", collection: @user.recent_feedback, as: 'feedback' %>
+              <% end %>
+          </section>
+
+    </div>
+        <div class="four columns">
+            Profile quality box
+        </div>
+    </div>
+</div>
+
 <p id="notice"><%= notice %></p>
 
+
+<!--
 <p>
   <strong>Name:</strong>
   <%= @user.name %>
