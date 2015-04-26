@@ -1,36 +1,54 @@
-<p id="notice"><%= notice %></p>
+<%= render partial: "personal_bar" %>
 
-<h1>Listing Users</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Phone number</th>
-      <th>Email</th>
-      <th>Ephemeral answer percent</th>
-      <th>User status</th>
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
 
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <div class="gray-box">
+                <h5 class="gray-box__title">Nye forespørsler</h5>
+                <div class="gray-box__body">
+                    Under ser du nye forespørsler. Om du ser etter
+                    leiehistorikk, finner du denne ved å
+                    <a href="#">klikke her</a>
+                </div>
+            </div>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td><%= user.phone_number %></td>
-        <td><%= user.email %></td>
-        <td><%= user.ephemeral_answer_percent %></td>
-        <td><%= user.user_status.status %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </div>
+        <div class="four columns">
 
-<br>
+            <div class="gray-box">
+                <h5 class="gray-box__title">Sendte forespørsler</h5>
+                <div class="gray-box__body">
+                    <ul>
+                        <li>
+                            <a href="#">Thule ski</a>
+                        </li>
+                        <li>
+                            <a href="#">Thule ski</a>
+                        </li>
+                        <li>
+                            <a href="#">Thule ski</a>
+                        </li>
+                        <li>
+                            <a href="#">Thule ski</a>
+                        </li>
+                        <li>
+                            <a href="#">Thule ski</a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <a href="#">Hent mer</a>
+                </div>
+            </div>
 
-<%= link_to 'New user', new_user_path %>
+            <div class="profile-image-box">
+                <%= render('shared/avatar.html', user: User.find(session["warden.user.user.key"][0][0]), size: "huge" ) %>
+                <p>
+                    <a href="#">Endre profilbilde</a>
+                </p>
+           </div>
+
+        </div>
+    </div>
+</div>
