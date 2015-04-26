@@ -1,0 +1,14 @@
+<div class="slim-promoted-ad">
+    <%= image_tag "user_more_ads_1.jpg", alt: "username", class: "slim-promoted-ad__image" %>
+
+    <h6 class="slim-promoted-ad__title"><%= link_to ad.title, ad %></h6>
+
+    <p class="slim-promoted-ad__body">
+        <%= ad.short_description %>
+    </p>
+
+    <button class="slim-promoted-ad__button">
+        <%= image_tag "add_favorite_small.png", alt: "username", class: "slim-promoted-ad__fav-button-image" %>
+         Legg til i favoritter
+    </button>
+</div>
