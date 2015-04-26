@@ -12,6 +12,16 @@
     <div class="row">
 
         <div class="four columns">
+            <p>
+                <%= link_to image_tag("facebook/FB-f-Logo__blue_50.png", size: "50x50", alt: ""), user_omniauth_authorize_path(:facebook) %>
+
+                <%= form_for(resource, as: resource_name, url: user_omniauth_authorize_path(:facebook)) do |f| %>
+                    <button type="submit" class="button-primary">
+                        Logg inn med facebook
+                    </button>
+                <% end -%>
+            </p>
+            <hr>
 
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
@@ -39,20 +49,8 @@
             <div>
                 <%= f.submit "Logg inn", class: "button-primary" %>
             </div>
-         
         <% end %>
 
-            <hr>
-            <p>
-                <%=link_to image_tag("facebook/FB-f-Logo__blue_50.png", size: "50x50", alt: ""), user_omniauth_authorize_path(:facebook) %>
-                <%#= image_tag("facebook/FB-f-Logo__blue_50.png", size: "50x50", alt: "") %>
-
-                <%= form_for(resource, as: resource_name, url: user_omniauth_authorize_path(:facebook)) do |f| %>
-                    <button type="submit" class="button-primary">
-                        Logg inn med facebook
-                    </button>
-                <% end -%>
-            </p>
         </div>
 
         <div class="four columns offset-by-one column">
