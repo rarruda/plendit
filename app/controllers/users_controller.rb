@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :confirmation]
-  #before_filter :authenticate_user!, :except => [:finish_signup]
+  before_filter :authenticate_user!, :except => [:show, :finish_signup]
 
   def index
   end
