@@ -12,11 +12,7 @@ Rails.application.routes.draw do
 
   get 'ads/create_3'
 
-
-
-  get 'misc/faq'
-
-  get 'misc/about'
+  get 'misc/wip'
 
   get 'users/requests', to: 'users#requests'
 

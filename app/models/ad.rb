@@ -10,4 +10,9 @@ class Ad < ActiveRecord::Base
   validates :user,  presence: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   #validates :location, presence: true
+
+  def related_ads_from_user
+    self.user.ads.reject { |ad| ad.id == self.id }
+  end
+
 end

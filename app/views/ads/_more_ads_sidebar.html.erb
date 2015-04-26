@@ -1,23 +1,4 @@
 <section class="more-ads-sidebar">
     <h6>Flere annonser fra <%= @ad.user.name %></h6>
-
-
-    <% @ad.user.ads.where("id != #{@ad.id}").each do |a| %>
-    <div class="slim-promoted-ad">
-        <%= image_tag "user_more_ads_1.jpg", alt: "username", class: "slim-promoted-ad__image" %>
-
-        <h6 class="slim-promoted-ad__title"><%= link_to a.title, a %></h6>
-
-        <p class="slim-promoted-ad__body">
-            <%= a.short_description %>
-        </p>
-
-        <button class="slim-promoted-ad__button">
-            <%= image_tag "add_favorite_small.png", alt: "username", class: "slim-promoted-ad__fav-button-image" %>
-             Legg til i favoritter
-        </button>
-
-    </div>
-    <% end %>
-
+    <%= render partial: "shared/slim_promoted_ad", collection: @ad.related_ads_from_user, as: :ad %>
 </section>
