@@ -125,8 +125,8 @@ Feedback.create({"ad_id"=>"5", "from_user_id"=>"14", "score"=>"5", "body"=>"Tipp
 
 
 ### AdItem
-AdItem.create({"id"=>"1", "ad_id"=>"1"})
-AdItem.create({"id"=>"2", "ad_id"=>"2"})
+#AdItem.create({"id"=>"1", "ad_id"=>"1"})
+#AdItem.create({"id"=>"2", "ad_id"=>"2"})
 
 Ad.count.times do |n|
   n += 1
