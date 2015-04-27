@@ -12,11 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%#= f.text_field :user_id, :disabled => true %><%= f.collection_select(:user_id, User.all, :id, :name) %>
-  </div>
-
-  <div class="field">
     <%= f.label :address_line %><br>
     <%= f.text_field :address_line %>
   </div>
