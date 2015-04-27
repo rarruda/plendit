@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   #}
 
 
+  resources :locations, path: '/users/locations'
+  resources :users
+
   get 'ads/create_2'
 
   get 'ads/create_3'
@@ -22,12 +25,12 @@ Rails.application.routes.draw do
 
   get '/ads/new1', to: 'ads#new1', as: 'new1_ad'
 
+
   resources :messages
   resources :bookings
-  #resources :ad_items
   resources :feedbacks
   resources :ads
-  resources :users
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :ads, dependent: :destroy
   has_many :ad_items, :through => :ads
   has_many :identities
+  has_many :locations
 
   # received_bookings == bookings:
   has_many :bookings, :through => :ad_items
@@ -19,6 +20,7 @@ class User < ActiveRecord::Base
 
   has_many :received_messages, foreign_key: 'to_user_id', :class_name => "Message"
   has_many :sent_messages, foreign_key: 'from_user_id', :class_name => "Message"
+
 
   validates :name, presence: true
   #validates :phone_number, presence: true, format: { with: /\A[0-9]{8}\z/, message: "only allows numbers" }

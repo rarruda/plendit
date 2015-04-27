@@ -19,9 +19,9 @@
 
             <%= render('shared/avatar.html', user: current_user, size: "tiny", css_class: "top-bar__avatar") %>
 
-            <strong><%= current_user.name %></strong>.
+            <strong><%= link_to  current_user.name, user_registration_path, :class => "#{partial_name}__navbar-link" %></strong>.
 
-            <%= link_to 'Edit profile', edit_user_registration_path, :class => "#{partial_name}__navbar-link" %> |
+            <%#= link_to 'Edit profile', edit_user_registration_path, :class => "#{partial_name}__navbar-link" %> |
             <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "#{partial_name}__navbar-link"  %>
 
         <% else %>
