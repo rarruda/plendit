@@ -13,14 +13,8 @@
 <body>
 <header>
     <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field } %>
+    <%= render partial: "flash_bar" %>
 </header>
-
-<% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
 
 <%= yield %>
 

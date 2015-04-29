@@ -1,0 +1,13 @@
+<% if notice or alert %>
+    <div class="flash-bar">
+        <div class="container">
+            <% if notice %>
+                <%= notice %>
+            <% end %>
+
+            <% if alert %>
+                <%= alert %>
+            <% end %>
+        </div>
+    </div>
+<% end %>
