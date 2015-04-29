@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   #  sessions: 'sessions'
   #}
 
+  get 'users/requests', to: 'users#requests'
 
   resources :locations, path: '/users/locations'
   resources :users
@@ -16,8 +17,6 @@ Rails.application.routes.draw do
   get 'ads/create_3'
 
   get 'misc/wip'
-
-  get 'users/requests', to: 'users#requests'
 
   get '/search', to: 'ads#search'
 
