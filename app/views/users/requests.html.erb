@@ -9,33 +9,12 @@
         </div>
         <div class="four columns">
 
-            <div class="gray-box">
-                <h5 class="gray-box__title">Sendte forespørsler</h5>
-                <div class="gray-box__body">
-                    <ul>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <a href="#">Hent mer</a>
-                </div>
-            </div>
+            <%= render partial: "sent_requests_sidebar_box", layout: "gray_box",
+                       locals: { title: "Sendte forespørsler", sent_requests: @sent_requests } %>
 
             <div class="profile-image-box">
                 <%= render('shared/avatar.html', user: User.find(session["warden.user.user.key"][0][0]), size: "huge" ) %>
+                <div><strong>Name</strong></div>
                 <p>
                     <a href="#">Endre profilbilde</a>
                 </p>

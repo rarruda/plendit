@@ -8,6 +8,14 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def requests
+    @sent_requests = [
+      {id: 1, title: "testlink 1", path: "#requestpath"},
+      {id: 2, title: "testlink 2", path: "#requestpath"},
+      {id: 3, title: "testlink 3", path: "#requestpath"},
+      {id: 4, title: "testlink 4", path: "#requestpath"},
+      {id: 5, title: "testlink 5", path: "#requestpath"},
+      {id: 6, title: "testlink 6", path: "#requestpath"}
+    ]
   end
 
   # GET /users/1
