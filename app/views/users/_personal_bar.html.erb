@@ -2,13 +2,27 @@
     <div class="container">
         <div class="row">
             <div class="twelve columns">
-                <a class="personal-bar__link personal-bar__link--active" href="#">Kontrollpanel</a>
-                <a class="personal-bar__link" href="#">Leiehistorikk</a>
-                <a class="personal-bar__link" href="#">Dine annonser</a>
-                <%= link_to 'Din profil', edit_user_registration_path, :class => "personal-bar__link" %>
-                <a class="personal-bar__link" href="#">Din konto</a>
-                <a class="personal-bar__link" href="#">Forespørsler</a>
-            </div>
+                <% 
+                    if not defined? selected
+                        selected = "Kontrollpanel"
+                    end
+
+                    links = [
+                        { text: "Kontrollpanel", path: "/users" },
+                        { text: "Leiehistorikk", path: "#" },
+                        { text: "Dine annonser", path: "#" },
+                        { text: "Din profil", path: edit_user_registration_path },
+                        { text: "Din konto", path: "#" },
+                        { text: "Dine Forespørsler", path: "/users/requests" }
+                    ]
+                    links.map { |e| e[:selected] = e[:text].downcase == selected.downcase }
+                %>
+
+                <% links.each do |link| %>
+                    <a class="personal-bar__link <%= link[:selected] ? "personal-bar__link--active" : ""%>"
+                       href="<%= link[:path] %>"><%= link[:text] %></a>
+                <% end %>
+             </div>
         </div>
     </div>
 </div>
