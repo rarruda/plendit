@@ -29,6 +29,7 @@ class LocationsController < ApplicationController
   def create
     # user_id should come from session, not from form!
     @location = Location.new(location_params)
+    @location.user_id = view_context.get_current_user_id
 
     respond_to do |format|
       if @location.save
@@ -73,6 +74,6 @@ class LocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
-      params.require(:location).permit(:user_id, :address_line, :city, :state, :post_code)
+      params.require(:location).permit(:address_line, :city, :state, :post_code)
     end
 end
