@@ -8,7 +8,7 @@
         <div class="search-result-item__text-container">
             <h6 class="search-result-item__title"><%= ad.title %></h6>
             <p class="search-result-item__body">
-               <%= ad.short_description %>
+               <%= ad.body[0..100] %> ...
             </p>
         </div>
     <% end %>
