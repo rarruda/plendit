@@ -1,5 +1,13 @@
-<h1>New Ad</h1>
+<div class="container">
 
-<%= render 'form' %>
+    <div class="row">
 
-<%= link_to 'Back', ads_path %>
+        <div class="seven columns">
+            <%= render partial: "form" %>
+        </div>
+
+        <div class="four columns offset-by-one column">
+            <%= render partial: "ad_input_copy" %>
+        </div>
+    </div>
+</div>

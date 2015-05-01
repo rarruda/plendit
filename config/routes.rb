@@ -22,9 +22,6 @@ Rails.application.routes.draw do
 
   #get '/ads/:id', to: 'ads#view', as: 'ad'
 
-  get '/ads/new1', to: 'ads#new1', as: 'new1_ad'
-
-
   resources :messages
   resources :bookings
   resources :feedbacks

@@ -27,13 +27,9 @@ class AdsController < ApplicationController
 
   # GET /ads/new
   def new
-    @ad = Ad.new
+    @ad = Ad.new( user_id: view_context.get_current_user_id )
   end
 
-  # GET /ads/new1
-  def new1
-    @ad = Ad.new
-  end
 
   # GET /ads/1/edit
   def edit
@@ -43,7 +39,7 @@ class AdsController < ApplicationController
   # POST /ads.json
   def create
     @ad = Ad.new(ad_params)
-    @ad.user_id = 1
+    @ad.user_id = view_context.get_current_user_id
 
     respond_to do |format|
       if @ad.save
