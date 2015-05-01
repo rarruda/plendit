@@ -30,13 +30,6 @@ class AdsController < ApplicationController
     end
   end
 
-  # :user => {:only => [:name, :image_url] }},
-  # :ad => {:only => [:title, :price]}
-
-
-  #render json: @ads, include: [:location, :user]
-
-
   # GET /ads/1
   # GET /ads/1.json
   def show
