@@ -16,6 +16,7 @@
                 <% if @user.recent_feedback.empty? %>
                   Brukeren har ikke fått noen tilbakemeldinger ennå.
                 <% else %>
+                  <small>( <%= @user.recent_feedback.length %> av <%= @user.received_feedbacks.length %> )</small>
                   <%= render partial: "shared/feedback_item_box", collection: @user.recent_feedback, as: 'feedback' %>
                 <% end %>
             </section>
@@ -29,11 +30,6 @@
 </div>
 
 <!--
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
 <p>
   <strong>Phone number:</strong>
   <%= @user.phone_number %>
@@ -54,6 +50,3 @@
   <%= @user.user_status_id %> - <%= @user.user_status.status %>
 </p>
 -->
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>

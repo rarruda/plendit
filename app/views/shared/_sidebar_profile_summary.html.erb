@@ -5,5 +5,5 @@
     <br>
     <%= render('shared/stars.html', rating: user.calculate_average_rating, num_ratings: user.received_feedbacks.size) %>
     <br>
-    Medlem siden x y z
+    Medlem siden <%= user.created_at.strftime("%B %Y") %>
 </div>

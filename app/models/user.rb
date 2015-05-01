@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
 
   def recent_feedback
-    received_feedbacks[0..2]
+    received_feedbacks[0..3]
   end
 
   # supporting multiple OAuth identities:

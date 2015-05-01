@@ -7,7 +7,7 @@
 
 <div class="row ad-title-box__info-holder">
     <div class="four columns">
-        <strong><%= ad.user.name %></strong>
+        <strong><%= link_to ad.user.name, user_path(ad.user.id) %></strong>
         <br>
         <%= render('shared/stars.html', rating: ad.user.calculate_average_rating ) %>
     </div>
