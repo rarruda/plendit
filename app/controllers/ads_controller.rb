@@ -16,7 +16,26 @@ class AdsController < ApplicationController
     # will need to add search in tags too:
     # as well some sort of ordering/ranking, and support for more complex searches/filters.
     @ads = Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{params[:q]}%", "%#{params[:q]}%" ) #kaminari_paginate: .page(page).per(5)
+    respond_to do |format|
+      format.html
+
+      # fixme: should also include ad_url field, generated from router
+      format.json {
+        render json: @ads,
+          except: [:created_at, :updated_at, :tags, :location_id, :user_id],
+          include: {
+            :user => {:only => [:name, :image_url] },
+            :location => {:only => [:lat, :lon] }}
+      }
+    end
   end
+
+  # :user => {:only => [:name, :image_url] }},
+  # :ad => {:only => [:title, :price]}
+
+
+  #render json: @ads, include: [:location, :user]
+
 
   # GET /ads/1
   # GET /ads/1.json
