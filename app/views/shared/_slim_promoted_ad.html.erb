@@ -1,5 +1,5 @@
 <div class="slim-promoted-ad">
-    <%= image_tag "user_more_ads_1.jpg", alt: "username", class: "slim-promoted-ad__image" %>
+    <%= link_to image_tag("user_more_ads_1.jpg", alt: "username", class: "slim-promoted-ad__image"), ad %>
 
     <h6 class="slim-promoted-ad__title"><%= link_to ad.title, ad %></h6>
 
