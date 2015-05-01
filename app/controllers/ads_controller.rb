@@ -16,6 +16,14 @@ class AdsController < ApplicationController
     # will need to add search in tags too:
     # as well some sort of ordering/ranking, and support for more complex searches/filters.
     @ads = Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{params[:q]}%", "%#{params[:q]}%" ) #kaminari_paginate: .page(page).per(5)
+
+    # fixme: use lng rather than lon everywhere?
+    # fixme: center from query param, or a sensible default from a config
+    @location_info = {
+      center: {lat: 59.913869, lon: 10.752245},
+      hits: @ads.map { |ad| {id: ad[:id], lat: ad.location[:lat], lon: ad.location[:lon]} }
+    }.to_json.html_safe
+
     respond_to do |format|
       format.html
 

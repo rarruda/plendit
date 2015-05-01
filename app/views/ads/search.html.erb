@@ -56,7 +56,16 @@
 
 </div>
 
-<div class="container" style="width: 380px;">
+<div class="container">
     <h3><%= @ads.count %> treff for "<%= params[:q] %>"</h3>
-    <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
+    <div class="row">
+        <div class="eight columns">
+            <div class="result-map" data-controller="resultMap" style="width:300px;height:300px;">
+                <script type="text/json" data-location-info><%= @location_info %></script>                
+            </div>
+        </div>
+        <div class="four columns">
+            <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
+        </div>
+    </div>
 </div>
