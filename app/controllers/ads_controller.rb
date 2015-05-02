@@ -7,7 +7,6 @@ class AdsController < ApplicationController
   # GET /ads.json
   def index
     redirect_to :root
-    #@ads = Ad.all
   end
 
   # GET /ads/search
@@ -38,10 +37,14 @@ class AdsController < ApplicationController
     end
   end
 
+  # GET /users/ads
+  def list
+    @ads = Ad.where( user_id: view_context.get_current_user_id ).all
+  end
+
   # GET /ads/1
   # GET /ads/1.json
   def show
-    @ad = Ad.find( params[:id] )
   end
 
 

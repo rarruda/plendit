@@ -7,10 +7,13 @@ Rails.application.routes.draw do
   #  sessions: 'sessions'
   #}
 
-  get 'users/requests', to: 'users#requests'
+  get 'users/ads', to: 'ads#list'
 
   resources :locations, path: '/users/locations'
-  resources :users
+  resources :bookings, path: '/users/bookings'
+  resources :users do
+    resources :ads
+  end
 
   get 'ads/create_2'
 
@@ -20,10 +23,9 @@ Rails.application.routes.draw do
 
   get '/search', to: 'ads#search'
 
-  #get '/ads/:id', to: 'ads#view', as: 'ad'
 
   resources :messages
-  resources :bookings
+  #resources :bookings
   resources :feedbacks
   resources :ads
 

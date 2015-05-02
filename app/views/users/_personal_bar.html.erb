@@ -8,12 +8,12 @@
                     end
 
                     links = [
-                        { text: "Kontrollpanel", path: "/users" },
+                        { text: "Kontrollpanel", path: users_path },
                         { text: "Leiehistorikk", path: "#" },
-                        { text: "Dine annonser", path: "#" },
+                        { text: "Dine annonser", path: users_ads_path },
                         { text: "Din profil", path: edit_user_registration_path },
                         { text: "Din konto", path: "#" },
-                        { text: "Dine Forespørsler", path: "/users/requests" }
+                        { text: "Dine Forespørsler", path: bookings_path }
                     ]
                     links.map { |e| e[:selected] = e[:text].downcase == selected.downcase }
                 %>
