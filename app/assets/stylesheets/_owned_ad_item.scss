@@ -1,0 +1,9 @@
+@import 'constants.scss';
+
+.owned-ad-item {
+    padding: $standard-spacing;
+
+    &:nth-of-type(n+2) {
+        background-color: $color-subtle-gray-background;
+    }
+}

@@ -14,10 +14,14 @@
                     raskt og enkelt gjøre dette ved å markere en eller flere
                     annonser og gjøre ditt valg via nedtrekksmenyen under.
                 </p>
+                <p>
+                    <%= link_to 'Legg inn en ny annonse', new_ad_path %>
+                </p>
             <% end %>
 
-
-
+            <section class="u-push-down">
+                <%= render partial: "owned_ad_item", collection: @ads, as: 'ad' %>              
+            </section>
 
         </div>
         <div class="four columns">
