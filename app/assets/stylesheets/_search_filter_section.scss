@@ -4,6 +4,10 @@
     background-color: white;
     padding: $standard-spacing;
 
+    &__form {
+        margin-bottom: 0;
+    }
+
     &__row {
         padding-bottom: $standard-spacing;
     }
@@ -18,4 +22,34 @@
 
     }
 
+}
+
+.result-container {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+
+    &__map-box {
+        position: absolute;
+        width: 65.3333333333%;
+        top: 0;
+        bottom: 0;
+    }
+
+    &__hits-box {
+        position: absolute;
+        left: 65.3333333333%;
+        width: 34.6666666667%;
+        top: 0;
+        bottom: 0;
+        overflow: scroll;
+    }
+}
+
+.result-map {
+    position:absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
 }

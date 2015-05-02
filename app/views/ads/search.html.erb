@@ -2,7 +2,7 @@
 
 <div class="search-filter-section">
     <div class="container">
-        <%= form_tag do %>
+        <%= form_tag({}, class: "search-filter-section__form") do %>
 
             <div class="row search-filter-section__row">
                 <div class="two columns">
@@ -58,14 +58,15 @@
 
 <div class="container">
     <h3><%= @ads.count %> treff for "<%= params[:q] %>"</h3>
-    <div class="row">
-        <div class="eight columns">
-            <div class="result-map" data-controller="resultMap" style="width:300px;height:300px;">
-                <script type="text/json" data-location-info><%= @location_info %></script>                
-            </div>
+</div>
+
+<div class="result-container">
+    <div class="result-container__map-box">
+        <div class="result-map" data-controller="resultMap">
+            <script type="text/json" data-location-info><%= @location_info %></script>                
         </div>
-        <div class="four columns">
-            <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
-        </div>
+    </div>
+    <div class="result-container__hits-box">
+        <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
     </div>
 </div>
