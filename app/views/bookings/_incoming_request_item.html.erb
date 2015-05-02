@@ -1,0 +1,51 @@
+<div class="incoming-request-item">
+    <div class="row">
+        <div class="two columns incoming-request-item__personalia">
+            <%= render('shared/avatar.html', user: booking.user, size: "large" ) %>
+            <p><%= booking.user.name %></p>
+        </div>
+        <div class="ten columns">
+                <%= image_tag "ads/ad1/ad_image_1.jpg", alt: "", size: "160x100", class: "u-pull-right" %>
+            <h5><%= link_to booking.ad.title, booking_path(booking) %></h5>
+            <p>
+                <%= booking.ad.summary %>
+            </p>
+            <p><%= booking.updated_at %> STATUS</p>
+        </div>
+    </div>
+</div>
+
+
+<!--
+<table>
+  <thead>
+    <tr>
+      <th>Ad item</th>
+      <td>Ad Owner*</td>
+      <th>Requester user</th>
+      <th>Booking status</th>
+      <th>Price</th>
+      <th>Booking from</th>
+      <th>Booking to</th>
+      <th>First reply at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= booking.ad_item_id %> [<small><%= booking.ad.title %></small>]</td>
+        <td>[<small><%= booking.ad.user.name %></small>] </td>
+        <td><%= booking.from_user_id %> [<small><%= booking.from_user.name %></small>]</td>
+        <td><%= booking.booking_status_id %> [<small><%= booking.booking_status.status %></small>]</td>
+        <td><%= booking.price %></td>
+        <td><%= booking.booking_from %></td>
+        <td><%= booking.booking_to %></td>
+        <td><%= booking.first_reply_at %></td>
+        <td><%= link_to 'Show', booking %></td>
+        <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
+        <td><%= link_to 'Destroy', booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+  </tbody>
+</table>
+-->
