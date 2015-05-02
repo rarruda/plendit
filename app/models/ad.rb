@@ -15,4 +15,19 @@ class Ad < ActiveRecord::Base
     self.user.ads.reject { |ad| ad.id == self.id }
   end
 
+  def summary
+    # fixme: There are a bunch of ways this can be improved. There might
+    # be some gems for it already. For instance, end only at sentence
+    # breaks and allow small overflows when close to full length.
+    # Also, stick 240 in config somewhere?
+    # Also, better whitespace / split / paragraph detection
+
+    first_paragraph = self.body.split("\r\n\r\n").first
+    if first_paragraph.size > 240
+        first_paragraph[0...240] + "…"
+    else
+        first_paragraph
+    end
+  end
+
 end
