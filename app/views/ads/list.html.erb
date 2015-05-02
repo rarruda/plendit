@@ -1,5 +1,81 @@
-<h1>Listing Ads</h1>
 
+<%= render partial: "shared/personal_bar", locals: { selected: "Dine annonser" } %>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <%= render layout: "gray_box", locals: {title: "Dine annonser"} do %>
+                <p>
+                    Under ser du en oversikt over dine annonser. Her kan du
+                    se hvilke annonser som er aktive eller inaktive.
+                    Om du ønsker å endre selve annonsen, kan du enkelt gjøre
+                    dette ved å klikke på annonsen det gjelder. Ønsker du
+                    å fjerne eller gjøre en annonse usynlig(inaktiv), kan du
+                    raskt og enkelt gjøre dette ved å markere en eller flere
+                    annonser og gjøre ditt valg via nedtrekksmenyen under.
+                </p>
+            <% end %>
+
+
+
+
+        </div>
+        <div class="four columns">
+            <%= render layout: "gray_box", locals: {title: "Sortere"} do %>
+                <ul>
+                    <li>
+                        <a href="#">Vis aktive annonser</a>
+                    </li>
+                    <li>
+                        <a href="#">Vis inaktive annonser</a>
+                    </li>
+                    <li>
+                        <a href="#">Vis alle annonser</a>
+                    </li>
+                </ul>
+            <% end %>
+
+            <%= render layout: "gray_box", locals: {title: "Filter"} do %>
+              <!-- fixme: real data here. Should happen in the controller
+                probably, and just hand us a @month_filters array of
+                title and url -->
+                <h5>Siste 6 måneder</h5>
+                <ul>
+                    <li>
+                        <a href="#">Januar</a>
+                    </li>
+                    <li>
+                        <a href="#">Februar</a>
+                    </li>
+                    <li>
+                        <a href="#">Mars</a>
+                    </li>
+                    <li>
+                        <a href="#">April</a>
+                    </li>
+                    <li>
+                        <a href="#">Mai</a>
+                    </li>
+                    <li>
+                        <a href="#">Juni</a>
+                    </li>
+                </ul>
+
+                <h5>Sorter per år</h5>
+                <ul>
+                    <li>
+                        <a href="#">2014</a>
+                    </li>
+                    <li>
+                        <a href="#">2015</a>
+                    </li>
+                </ul>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<!--
 <table>
   <thead>
     <tr>
@@ -31,3 +107,4 @@
 <br>
 
 <%= link_to 'New Ad', new_ad_path %>
+-->
