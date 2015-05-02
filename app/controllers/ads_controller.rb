@@ -12,6 +12,8 @@ class AdsController < ApplicationController
   # GET /ads/search
   ## GET /ads.json
   def search
+    @supress_footer = true
+
     # will need to add search in tags too:
     # as well some sort of ordering/ranking, and support for more complex searches/filters.
     @ads = Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{params[:q]}%", "%#{params[:q]}%" ) #kaminari_paginate: .page(page).per(5)

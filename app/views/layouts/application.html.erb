@@ -18,8 +18,10 @@
 
 <%= yield %>
 
+<% if not @supress_footer %>
 <footer>
     <%= render partial: "main_footer" %>
 </footer>
+<% end %>
 </body>
 </html>
