@@ -10,7 +10,7 @@
             <p>
                 <%= booking.ad.summary %>
             </p>
-            <p><%= booking.updated_at %> STATUS</p>
+            <p><%= booking.updated_at.to_formatted_s(:plendit_short_datetime) %> STATUS</p>
         </div>
     </div>
 </div>
