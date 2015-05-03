@@ -1,3 +1,35 @@
+
+<%= render partial: "shared/personal_bar", locals: { selected: "Din profil" } %>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
+                I feltene under kan du redigere din profil. Husk at
+                det bare er ditt fornavn som vises til andre brukere.
+            <% end %>
+
+            <section class="u-push-down">
+                profil
+            </section>
+
+        </div>
+        <div class="four columns">
+            <%= render('shared/profile_image_box.html', user: current_user) %>
+  
+            <%= render layout: "gray_box", locals: {title: "Flere valg"} do %>
+                <ul>
+                    <li><a href="#">Rediger profil</a></li>
+                    <li><a href="#">Verifisering</a></li>
+                    <li><a href="#">Tilbakemeldinger</a></li>
+                    <li><a href="#">Favoritter</a></li>
+                </ul>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+
 <h2>Edit <%= resource_name.to_s.humanize %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
