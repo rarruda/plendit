@@ -150,6 +150,7 @@ controllers.resultContainerSizeAdjuster = {
 
 function main() {
     var c = new Controllerator();
+    c.registerInstance('eventbus', smokesignals.convert({}));
     c.scanControllers(controllers);
     c.run();
 }
