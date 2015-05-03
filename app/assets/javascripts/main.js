@@ -138,14 +138,13 @@ controllers.tagCreator = {
 
 controllers.resultContainerSizeAdjuster = {
     callable: function(ele) {
+        window.addEventListener('resize', adjustHeight);
         adjustHeight();
 
         function adjustHeight() {
             var height = window.innerHeight - ele.offsetTop;
             ele.style.height = height + "px";
-
         }
-
     }
 }
 
