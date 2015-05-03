@@ -376,6 +376,10 @@ form {
   margin-top: 12px;
 }
 
+.u-hidden {
+  display: none;
+}
+
 @media (min-width: 550px) {
   .u-hidden-when-grid {
     display: none;
