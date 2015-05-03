@@ -136,11 +136,21 @@ controllers.tagCreator = {
     }
 };
 
+controllers.resultContainerSizeAdjuster = {
+    callable: function(ele) {
+        adjustHeight();
 
+        function adjustHeight() {
+            var height = window.innerHeight - ele.offsetTop;
+            ele.style.height = height + "px";
 
+        }
+
+    }
+}
 
 function main() {
-    var c = new Controllerator(); 
+    var c = new Controllerator();
     c.scanControllers(controllers);
     c.run();
 }

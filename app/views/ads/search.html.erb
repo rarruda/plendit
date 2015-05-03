@@ -60,7 +60,7 @@
     <h3><%= @ads.count %> treff for "<%= params[:q] %>"</h3>
 </div>
 
-<div class="result-container">
+<div class="result-container" data-controller="resultContainerSizeAdjuster">
     <div class="result-container__map-box">
         <div class="result-map" data-controller="resultMap">
             <script type="text/json" data-location-info><%= @location_info %></script>                

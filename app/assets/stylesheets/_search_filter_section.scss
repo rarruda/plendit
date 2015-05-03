@@ -19,9 +19,7 @@
     & &__range-input {
         width: 100%;
         margin-bottom: 0;
-
     }
-
 }
 
 .result-container {
@@ -43,6 +41,7 @@
         top: 0;
         bottom: 0;
         overflow: scroll;
+        overflow-x: hidden
     }
 }
 
