@@ -137,13 +137,29 @@ controllers.tagCreator = {
 };
 
 controllers.resultContainerSizeAdjuster = {
-    callable: function(ele) {
+    dependencies: ["$element", "eventbus"],
+    callable: function(ele, eventBus) {
         window.addEventListener('resize', adjustHeight);
+        eventBus.on('filter-toggle', adjustHeight);
         adjustHeight();
 
         function adjustHeight() {
             var height = window.innerHeight - ele.offsetTop;
             ele.style.height = height + "px";
+        }
+    }
+}
+
+controllers.togglableFilters = {
+    dependencies: ["$element", "eventbus"] ,
+    callable: function(ele, eventBus) {
+        var toggleEle = ele.querySelector("[data-filter-toggler]");
+        var filterEle = ele.querySelector("[data-filter-container]");
+        toggleEle.addEventListener('click', toggle);
+
+        function toggle() {
+            filterEle.classList.toggle("u-hidden");
+            eventBus.emit('filter-toggle');
         }
     }
 }

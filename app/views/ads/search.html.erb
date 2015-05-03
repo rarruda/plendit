@@ -1,57 +1,59 @@
 
 
 <div class="search-filter-section">
-    <div class="container">
-        <%= form_tag({}, class: "search-filter-section__form") do %>
+    <div class="container" data-controller="togglableFilters">
+        <div data-filter-container>
+            <%= form_tag({}, class: "search-filter-section__form") do %>
 
-            <div class="row search-filter-section__row">
-                <div class="two columns">
-                    <%= label_tag(:distance, "Avstand:") %>
+                <div class="row search-filter-section__row">
+                    <div class="two columns">
+                        <%= label_tag(:distance, "Avstand:") %>
+                    </div>
+                    <div class="ten columns">
+                        <%= range_field_tag(:distance, 5, in: 1..10, class: "search-filter-section__range-input") %>
+                        <span>Km &lt; 1</span>
+                        <span class="u-pull-right">Km &gt; 10</span>
+                    </div>
                 </div>
-                <div class="ten columns">
-                    <%= range_field_tag(:distance, 5, in: 1..10, class: "search-filter-section__range-input") %>
-                    <span>Km &lt; 1</span>
-                    <span class="u-pull-right">Km &gt; 10</span>
-                </div>
-            </div>
 
-            <div class="row search-filter-section__row">
-                <div class="two columns">
-                    <%= label_tag(:price, "Pris:") %>
+                <div class="row search-filter-section__row">
+                    <div class="two columns">
+                        <%= label_tag(:price, "Pris:") %>
+                    </div>
+                    <div class="ten columns">
+                        <%= range_field_tag(:price, 500, in: 1..1000, class: "search-filter-section__range-input") %>
+                    </div>
                 </div>
-                <div class="ten columns">
-                    <%= range_field_tag(:price, 500, in: 1..1000, class: "search-filter-section__range-input") %>
-                </div>
-            </div>
 
-            <div class="row search-filter-section__row">
-                <div class="two columns">
-                    <label>Område:</label>
+                <div class="row search-filter-section__row">
+                    <div class="two columns">
+                        <label>Område:</label>
+                    </div>
+                    <div class="four columns">
+                        <input class="search-filter-section__text-input" type="text" placeholder="Gatenavn">
+                    </div>
+                    <div class="two columns">
+                        <input class="search-filter-section__text-input" type="text" placeholder="By">
+                    </div>
+                    <div class="two columns">
+                        <input class="search-filter-section__text-input" type="text" placeholder="Fylke">
+                    </div>
+                    <div class="two columns">
+                        <input class="search-filter-section__text-input" type="text" placeholder="Postnr">
+                    </div>
                 </div>
-                <div class="four columns">
-                    <input class="search-filter-section__text-input" type="text" placeholder="Gatenavn">
-                </div>
-                <div class="two columns">
-                    <input class="search-filter-section__text-input" type="text" placeholder="By">
-                </div>
-                <div class="two columns">
-                    <input class="search-filter-section__text-input" type="text" placeholder="Fylke">
-                </div>
-                <div class="two columns">
-                    <input class="search-filter-section__text-input" type="text" placeholder="Postnr">
-                </div>
-            </div>
 
-            <div class="row search-filter-section__row">
-                <div class="two columns">
-                    <%= label_tag(:tags, "Tags:") %>
+                <div class="row search-filter-section__row">
+                    <div class="two columns">
+                        <%= label_tag(:tags, "Tags:") %>
+                    </div>
+                    <div class="ten columns">
+                        <input type="text">
+                    </div>
                 </div>
-                <div class="ten columns">
-                    <input type="text">
-                </div>
-            </div>
-        <% end %>
-
+            <% end %>
+        </div>
+        <div data-filter-toggler>Toggal!</div>
     </div>
 
 </div>
