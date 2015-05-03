@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Plendit</title>
-  <%= favicon_link_tag       'logos/favicon_raw.png' %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Raleway:400,300,600' %>
+    <title>Plendit</title>
+    <%= favicon_link_tag       'logos/favicon_raw.png' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Raleway:400,300,600' %>
 
-  <%= javascript_include_tag '//maps.googleapis.com/maps/api/js?key=AIzaSyAwciykMKFfGsTiDrqAwg80C5FCSq6vQr8' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+    <%= javascript_include_tag '//maps.googleapis.com/maps/api/js?key=AIzaSyAwciykMKFfGsTiDrqAwg80C5FCSq6vQr8' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
 </head>
 <body>
-<header>
-    <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field } %>
-    <%= render partial: "flash_bar" %>
-</header>
+    <header>
+        <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field } %>
+        <%= render partial: "flash_bar" %>
+    </header>
 
-<%= yield %>
+    <%= yield %>
 
-<% if not @supress_footer %>
-<footer>
-    <%= render partial: "main_footer" %>
-</footer>
-<% end %>
+    <% if not @supress_footer %>
+        <%= render partial: "main_footer" %>
+    <% end %>
 </body>
 </html>
