@@ -1,7 +1,16 @@
-
+<div class="container">
+    <h4><%= @ads.count %> treff for <i><%= @term %></i></h4>
+</div>
 
 <div class="search-filter-section">
     <div class="container" data-controller="togglableFilters">
+
+        <span class="search-filter-section__toggler" data-filter-toggler>
+            <%= image_tag "filter_arrow.png", alt: "Skjul / vis filter", size: "14x14" %>
+            <br>
+            <small>Filter</small>
+        </span>
+
         <div data-filter-container>
             <%= form_tag({}, class: "search-filter-section__form") do %>
 
@@ -53,13 +62,8 @@
                 </div>
             <% end %>
         </div>
-        <div data-filter-toggler>Toggal!</div>
     </div>
 
-</div>
-
-<div class="container">
-    <h3><%= @ads.count %> treff for "<%= params[:q] %>"</h3>
 </div>
 
 <div class="result-container" data-controller="resultContainerSizeAdjuster">
