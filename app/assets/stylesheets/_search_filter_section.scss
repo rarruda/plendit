@@ -2,14 +2,14 @@
 
 .search-filter-section {
     background-color: white;
-    padding: $standard-spacing;
+    padding-top: $standard-spacing;
 
     &__form {
         margin-bottom: 0;
     }
 
     &__row {
-        padding-bottom: $standard-spacing;
+        padding-bottom: $standard-spacing / 2;
     }
 
     & &__text-input {
