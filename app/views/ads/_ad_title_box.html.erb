@@ -12,11 +12,15 @@
         <%= render('shared/stars.html', rating: ad.user.calculate_average_rating ) %>
     </div>
     <div class="four columns">
-        <%= image_tag "feedback_link.png", alt: "Tilbakemeldinger", size: "29x29" %>
-        <p>Tilbakemeldinger</p>
+        <a href="#feedback">
+            <%= image_tag "feedback_link.png", alt: "Tilbakemeldinger", size: "29x29" %>
+            <p>Tilbakemeldinger</p>
+        </a>
     </div>
     <div class="four columns ad-title-box__more-ads-holder">
-        <%= image_tag "more_ads_link.png", alt: "Fler annonser", size: "34x26" %>
-        <p>Fler fra <%= @ad.user.name %></p>
+        <a href="#more-ads">
+            <%= image_tag "more_ads_link.png", alt: "Fler annonser", size: "34x26" %>
+            <p>Fler fra <%= @ad.user.name %></p>
+        </a>
     </div>
 </div>

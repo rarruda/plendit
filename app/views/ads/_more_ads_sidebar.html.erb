@@ -1,4 +1,5 @@
-<section class="more-ads-sidebar">
-    <h6>Flere annonser fra <%= @ad.user.name %></h6>
+
+<section class="more-ads-sidebar" id="more-ads">
+    <h5>Flere annonser fra <%= @ad.user.name %></h5>
     <%= render partial: "shared/slim_promoted_ad", collection: @ad.related_ads_from_user, as: :ad %>
 </section>
