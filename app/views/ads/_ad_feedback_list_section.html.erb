@@ -1,4 +1,8 @@
 <section class="ad-feedback-section" id="feedback">
     <h5>Tilbakemeldinger</h5>
-    <%= render partial: "shared/feedback_item_box", collection: ad.received_feedbacks, as: 'feedback' %>
+    <% if ad.received_feedbacks.empty? %>
+        <p><%= ad.user.name %> har ingen tilbakemeldinger.</p>
+    <% else %>
+        <%= render partial: "shared/feedback_item_box", collection: ad.received_feedbacks, as: 'feedback' %>
+    <% end %>
 </section>
