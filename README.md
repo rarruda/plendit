@@ -31,6 +31,13 @@ $ bundle install
 This will read Gemfile/Gemfile.lock, resolve all dependencies and install
  all gems correctly.
 
+For the paperclip library to function you will also need imagemagick installed.
+
+To install it in OSX with homebrew you need to run:
+```
+$ brew install imagemagick
+```
+
 * Configuration
 
 There is currently no special configuration needed to get the application running.

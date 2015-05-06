@@ -52,4 +52,7 @@ Rails.application.configure do
     user_name: ENV['PCONF_SMTP_USERNAME'],
     password:  ENV['PCONF_SMTP_PASSWORD'],
   }
+
+  # Paperclip:
+  Paperclip.options[:command_path] = "~/homebrew/bin/"
 end

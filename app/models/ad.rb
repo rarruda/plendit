@@ -2,6 +2,7 @@ class Ad < ActiveRecord::Base
   belongs_to :user
   has_many :received_feedbacks, :class_name => "Feedback"
   has_many :ad_items
+  has_many :ad_images
   belongs_to :location
 
 
@@ -24,10 +25,28 @@ class Ad < ActiveRecord::Base
 
     first_paragraph = self.body.split("\r\n\r\n").first
     if first_paragraph.size > 240
-        first_paragraph[0...240] + "…"
+        first_paragraph[0...240] + "..."
     else
         first_paragraph
     end
+  end
+
+
+  # helper methods for generating urls for the three different image sizes, and which has the
+  ## default fallback to stock images. (so that it will degrate nicely)
+  def image_url_with_fallback( size )
+    stock_images = {
+      :thumb => "user_more_ads_1.jpg",
+      :medium => "ads/ad1/ad_image_1.jpg",
+      :mediumplus => "",
+    }
+
+    if not stock_images.keys.include? size
+      logger.error "ERROR: wrong image size parameter, falling back to :medium"
+      size = :medium
+    end
+
+    self.ad_images.count > 0 ? self.ad_images.first.image.url(size) : stock_images[size]
   end
 
 end

@@ -7,6 +7,8 @@ gem 'omniauth-facebook'
 #gem 'omniauth-google'
 gem 'geocoder'
 
+gem 'paperclip', '~> 4.2'
+
 gem 'activeadmin', '~> 1.0.0.pre1'
 
 

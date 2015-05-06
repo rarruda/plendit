@@ -27,7 +27,10 @@ Rails.application.routes.draw do
   resources :messages
   #resources :bookings
   resources :feedbacks
-  resources :ads
+  resources :ads #do
+  #  resources :ad_images, as: :ad_images
+  #end
+  resources :ad_images
 
 
   # The priority is based upon order of creation: first created -> highest priority.
