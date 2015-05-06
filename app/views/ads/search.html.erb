@@ -1,5 +1,5 @@
-<div class="container">
-    <h4><%= @ads.count %> treff for <i><%= @term %></i></h4>
+<div class="container search-title-box">
+    <h4 class="search-title-box__title"><%= @ads.count %> treff for <i><%= @term %></i></h4>
 </div>
 
 <div class="search-filter-section">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="row search-filter-section__row">
+                <div class="row">
                     <div class="two columns">
                         <%= label_tag(:tags, "Tags:") %>
                     </div>
