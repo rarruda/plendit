@@ -8,6 +8,7 @@ gem 'omniauth-facebook'
 gem 'geocoder'
 
 gem 'paperclip', '~> 4.2'
+gem 'aws-sdk', '< 2.0'
 
 gem 'activeadmin', '~> 1.0.0.pre1'
 

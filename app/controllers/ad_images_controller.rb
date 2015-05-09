@@ -5,7 +5,7 @@ class AdImagesController < ApplicationController
   # GET /ad_images
   # GET /ad_images.json
   def index
-    @ad_images = AdImage.all
+    @ad_images = AdImage.all.order('id')
   end
 
   # GET /ad_images/1
