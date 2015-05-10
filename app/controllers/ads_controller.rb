@@ -24,7 +24,14 @@ class AdsController < ApplicationController
     # fixme: center from query param, or a sensible default from a config
     @location_info = {
       center: {lat: 59.913869, lon: 10.752245},
-      hits: @ads.map { |ad| {id: ad[:id], lat: ad.location[:lat], lon: ad.location[:lon]} }
+      hits: @ads.map do |ad|
+        if not ad.location.nil?
+          {id: ad[:id], lat: ad.location[:lat], lon: ad.location[:lon]}
+        else
+          logger.error "Location not found for ad_id: #{ad.id}"
+          nil
+        end
+      end
     }.to_json.html_safe
 
     respond_to do |format|
