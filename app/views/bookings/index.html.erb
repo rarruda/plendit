@@ -1,9 +1,8 @@
-
 <%= render partial: "shared/personal_bar", locals: { selected: "Dine forespørsler" } %>
 
 <div class="container">
     <div class="row">
-        <div class="eight columns">
+        <div class="nine columns">
             <%= render layout: "gray_box", locals: {title: "Nye forespørsler"} do %>
                 Under ser du nye forespørsler. Om du ser etter din historikk
                 finner du denne ved å <a href="#">klikke her.</a>
@@ -14,24 +13,9 @@
             </section>
 
         </div>
-        <div class="four columns">
-            <%= render layout: "gray_box", locals: {title: "Sendte forespørsler"} do %>
-                <ul>
-                    <li><a href="#">Thule bla bla</a></li>
-                    <li><a href="#">Fjellheimen bla bla</a></li>
-                </ul>
-                <hr>
-                <a href="#">Vis alle</a>
-            <% end %>
-
-            <%= render layout: "gray_box", locals: {title: "Motatte forespørsler"} do %>
-                <ul>
-                    <li><a href="#">Thule bla bla</a></li>
-                    <li><a href="#">Fjellheimen bla bla</a></li>
-                </ul>
-                <hr>
-                <a href="#">Vis alle</a>
-            <% end %>
+        <div class="three columns">
+            <%= render partial: "sent_requests_sidebar_box" %>
+            <%= render partial: "received_requests_sidebar_box" %>
         </div>
     </div>
 </div>

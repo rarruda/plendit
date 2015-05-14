@@ -6,6 +6,7 @@ class BookingsController < ApplicationController
   # GET /bookings
   # GET /bookings.json
   def index
+    # fixme: use merged list of sent and received for current user
     @bookings = Booking.all
   end
 

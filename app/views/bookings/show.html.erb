@@ -5,7 +5,7 @@
 
         <div class="nine columns">
 
-            <h3 class="u-push-down">Din forespørsel til <%= @booking.from_user.name %>.</h3>
+            <h3 class="u-push-down">Din forespørsel til <%= @booking.user.name %>.</h3>
 
             <%= render partial: "rental_request_box_renter", locals: {booking: @booking} %>
 
@@ -15,26 +15,8 @@
 
         </div>
         <div class="three columns">
-<!--             Fixme: this box, and the one below, should be in separate partials
-            since they are reused I guess?
- -->
-            <%= render layout: "gray_box", locals: {title: "Sendte forespørsler"} do %>
-                <ul>
-                    <li><a href="#">Thule bla bla</a></li>
-                    <li><a href="#">Fjellheimen pulk med stor lastekapasitet</a></li>
-                </ul>
-                <hr>
-                <a href="#">Vis alle</a>
-            <% end %>
-
-            <%= render layout: "gray_box", locals: {title: "Motatte forespørsler"} do %>
-                <ul>
-                    <li><a href="#">Thule bla bla</a></li>
-                    <li><a href="#">Fjellheimen bla bla</a></li>
-                </ul>
-                <hr>
-                <a href="#">Vis alle</a>
-            <% end %>
+            <%= render partial: "sent_requests_sidebar_box" %>
+            <%= render partial: "received_requests_sidebar_box" %>
         </div>
     </div>
 </div>

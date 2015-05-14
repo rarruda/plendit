@@ -1,0 +1,18 @@
+<%= render layout: "gray_box", locals: {title: "Sendte forespørsler"} do %>
+    <%
+    bookings = current_user.sent_bookings
+    %>
+    <ul>
+        <% if bookings.empty? %>
+            <li>Ingen forespørsler</li>
+        <% else %>
+            <% bookings.each do |booking| %>
+                <li>
+                    <%= link_to booking.ad.title, booking %>
+                </li>
+            <% end %>
+        <% end %>
+    </ul>
+    <hr>
+    <a href="#">Vis alle</a>
+<% end %>
