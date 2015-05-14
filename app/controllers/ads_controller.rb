@@ -1,5 +1,5 @@
 class AdsController < ApplicationController
-  before_action :set_ad, only: [:show, :edit, :update, :destroy]
+  before_action :set_ad, only: [:show, :preview, :edit, :update, :destroy]
 
   before_filter :authenticate_user!, :except => [:show, :index, :search]
 
@@ -70,6 +70,10 @@ class AdsController < ApplicationController
             thumb: "ads/ad1/ad_thumb_image_3.jpg"
         },
     ]
+  end
+
+  # GET /ads/1/preview
+  def preview
   end
 
 

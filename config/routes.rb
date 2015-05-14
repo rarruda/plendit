@@ -15,8 +15,6 @@ Rails.application.routes.draw do
     resources :ads
   end
 
-  get 'ads/create_2'
-
   get 'ads/create_3'
 
   get 'misc/wip'
@@ -28,8 +26,12 @@ Rails.application.routes.draw do
   #resources :bookings
   resources :feedbacks
   resources :ads do
-    resources :ad_images, as: :images
+    resources :ad_images, only: [:index, :create, :update, :destroy]
+    member do
+      get 'preview'
+    end
   end
+  # fixme: should be retired in the future:
   resources :ad_images
 
 
