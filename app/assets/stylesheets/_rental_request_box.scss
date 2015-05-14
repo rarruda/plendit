@@ -1,0 +1,44 @@
+@import 'constants.scss';
+
+
+.rental-request-box {
+    background-color: white;
+    padding: $standard-spacing;
+
+    &__owner-box {
+        text-align: center;
+    }
+
+    &__table {
+        width: 100%;
+        border: none;
+        margin: 0;
+    }
+
+    &__td {
+        text-align: right;
+        border-bottom: none;
+    }
+
+    &__th {
+        border-bottom: none;
+    }
+
+    &__price-row {
+        border-top: solid thin $color-box-border;
+        border-bottom: solid thin $color-box-border;
+        font-size: 150%;
+    }
+
+    &__price-cell {
+        color: red;
+    }
+
+    &__caveats {
+        font-size: 80%;
+        text-align: right;
+        color: gray;
+        border: none;
+    }
+
+}
