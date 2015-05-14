@@ -27,9 +27,9 @@ Rails.application.routes.draw do
   resources :messages
   #resources :bookings
   resources :feedbacks
-  resources :ads #do
-  #  resources :ad_images, as: :ad_images
-  #end
+  resources :ads do
+    resources :ad_images, as: :images
+  end
   resources :ad_images
 
 

@@ -1,0 +1,51 @@
+<%= form_for(AdImage.new, html: { multipart: true, class: "dropzone image-upload-box"}) do |f|  %>
+
+  <img src="/images/camera_icon.png">
+
+  <p class="dz-message">Dra bildene inn i den hvite boksen, eller bruke knappene under</p>
+
+  <!-- layout / design wise, we should make it look more like this theme -->
+  <!-- which is actually dropzonejs dressed up as jquery-file-upload using themes, and some js sprinkle. -->
+  <!--  http://www.dropzonejs.com/bootstrap.html -->
+
+
+  <!-- button class="pbutton butgreen" id="submit-all">Legg til bilde</button -->
+  <!-- button above should be used for triggering an upload once everything is in place. -->
+
+  <%= f.hidden_field :weight, { :value => 10 } %>
+  <!-- there should be a jquery thingie for assigning weights depending on the order,
+         and to reassign weights based on drag and drop. see https://jqueryui.com/sortable/ -->
+  <!-- we also need to find a way to submit a description field -->
+
+  <div class="fallback">
+    <%= f.hidden_field :weight, { :value => 10 } %>
+    <%= f.file_field :image %><br>
+    <%= f.submit "Upload" %>
+  </div>
+
+  <hr>
+  <h1>NON - AJAX:</h1>
+
+
+  <% @ad_images.each do |ad_image| %>
+    <div class="uploaded-strip">
+        <div class="uploaded-strip-box">
+            <%= link_to image_tag( "/images/delete_image.png", class: 'deleter'), ad_image_path(:id => ad_image.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%= image_tag ad_image.image.url(:thumb), class: 'thumb' %>
+                id:<%= ad_image.id %> ad_id:<%= ad_image.ad_id %> weight:<%= ad_image.weight %>
+                desc: ad_image.description  <%#= f.text_field :description ad_image.description %>
+        </div>
+    </div>
+  <% end %>
+
+  <hr>
+  <h1>AJAX:</h1>
+
+
+<% end %>
+
+<div class="next-step-holder">
+    <a href="./input_step_3.html" class="next-step">Neste steg</a>
+</div>
+
+

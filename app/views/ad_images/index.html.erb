@@ -1,33 +1,16 @@
-<h1>Listing Ad Images</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>Ad id</th>
-      <th>Weight</th>
-      <th>Thumbnail</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="container">
+    <div class="row">
+        <div class="seven columns">
 
-  <tbody>
-    <% @ad_images.each do |ad_image| %>
-      <tr>
-        <td><%= ad_image.id %></td>
-        <td><%= ad_image.ad_id %></td>
-        <td><%= ad_image.weight %></td>
-        <td><%= image_tag ad_image.image.url(:thumb) %></td>
-        <td><%= ad_image.description %></td>
-        <td><%= link_to 'Show', ad_image %></td>
-        <td><%= link_to 'Edit', edit_ad_image_path(ad_image) %></td>
-        <td><%= link_to 'Destroy', ad_image, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            <div class="input-progress"><div class="input-progress__step"><strong>Detaljer</strong></div><div class="input-progress__step input-progress__step--current"><strong>Bilder</strong></div><div class="input-progress__step"><strong>Publiser</strong></div>
+            </div>
 
-<br>
+            <%= render 'form_ajax_test3' %>
 
-<%= link_to 'New Ad image', new_ad_image_path %>
+        </div>
+        <div class="four columns offset-by-one column">
+            <%= render partial: "ads/ad_input_copy" %>
+        </div>
+    </div>
+</div>

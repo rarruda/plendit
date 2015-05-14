@@ -1,7 +1,7 @@
 class AdImage < ActiveRecord::Base
   belongs_to :ad
 
-  default_scope { order('weight') }
+  default_scope { order('weight, id') }
 
   has_attached_file :image, {
     :styles      => { :mediumplus => "540x540>", :medium => "320x320>", :thumb => "120x120>" },
@@ -18,5 +18,21 @@ class AdImage < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/jpg", "image/png"]
   validates_attachment_file_name    :image, :matches => [/png\Z/, /jpe?g\Z/]
 
+
+
+
+  include Rails.application.routes.url_helpers
+
+  def to_dropzone_gallery
+    {
+      "name" => read_attribute(:image_file_name),
+      "size" => read_attribute(:image_file_size),
+      "type" => read_attribute(:image_content_type),
+      "url" => image.url(:thumb),
+      "ad_image_id" => self.id,
+      "delete_url" => ad_image_path(:ad_id => ad_id, :id => id, :format => :json),
+      ##"delete_type" => "DELETE" 
+    }
+  end
 
 end

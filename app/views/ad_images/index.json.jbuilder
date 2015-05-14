@@ -1,4 +1,4 @@
-json.array!(@ad_items) do |ad_item|
-  json.extract! ad_item, :id, :ad_id
-  json.url ad_item_url(ad_item, format: :json)
+json.array!(@ad_images) do |ad_image|
+  json.extract! ad_image, :id, :ad_id, :description, :weight, :image
+  json.url ad_image_url(ad_image, format: :json)
 end
