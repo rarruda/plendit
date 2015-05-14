@@ -5,7 +5,8 @@ class AdImagesController < ApplicationController
   # GET /ad_images
   # GET /ad_images.json
   def index
-    @ad_images = AdImage.all #where('ad_id = ?', params[:ad_id])
+    # missing verification if user owns ad:
+    @ad_images = AdImage.where('ad_id = ?', params[:ad_id]).all
     respond_to do |format|
       format.html {
         render :index
@@ -34,7 +35,6 @@ class AdImagesController < ApplicationController
       end
     end
   end
-
 
   # PATCH/PUT /ad_images/1
   # PATCH/PUT /ad_images/1.json
