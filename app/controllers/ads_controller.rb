@@ -91,7 +91,7 @@ class AdsController < ApplicationController
 
     respond_to do |format|
       if @ad.save
-        format.html { redirect_to @ad, notice: 'Ad was successfully created.' }
+        format.html { redirect_to ad_images_path(:ad_id => @ad.id), notice: 'Ad was successfully created.' }
         format.json { render :show, status: :created, location: @ad }
       else
         format.html { render :new }
