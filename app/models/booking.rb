@@ -7,4 +7,15 @@ class Booking < ActiveRecord::Base
   has_many :messages
 
   belongs_to :booking_status
+
+  # fixme: real data for this, and something like .humanize on the prices
+
+  def sum_paid_to_owner
+    260
+  end
+
+  def sum_paid_by_renter
+    300
+  end
+
 end
