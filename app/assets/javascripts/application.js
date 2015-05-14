@@ -45,7 +45,8 @@ $(document).ready(function(){
 
           // load previously uploaded images from database via json call
           //var myDropzone = this;
-            $.getJSON('/ad_images.json', function(data) { // get the json response
+          //ad_images_json_url must be set externally.
+            $.getJSON(window.ad_images_json_url, function(data) { // get the json response
                 $.each(data, function(key,value){ //loop through it
                     var mockFile = { name: value.name, size: value.size, type: value.type}; // here we get the file name and size as response 
                     dropzone.emit("addedfile", mockFile);

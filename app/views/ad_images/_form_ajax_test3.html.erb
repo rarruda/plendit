@@ -1,3 +1,9 @@
+
+
+<%= javascript_tag do %>
+  window.ad_images_json_url = "<%= j ad_images_path(:ad_id => params[:ad_id], :format => :json) %>";
+<% end %>
+
 <%= form_for(AdImage.new, html: { multipart: true, class: "dropzone image-upload-box"}) do |f|  %>
 
   <img src="/images/camera_icon.png">
