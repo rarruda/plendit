@@ -56,6 +56,20 @@ class AdsController < ApplicationController
   # GET /ads/1
   # GET /ads/1.json
   def show
+    @images = [
+        {
+            big: "ads/ad1/ad_image_1.jpg",
+            thumb: "ads/ad1/ad_thumb_image_1.jpg"
+        },
+        {
+            big: "ads/ad1/ad_image_2.jpg",
+            thumb: "ads/ad1/ad_thumb_image_2.jpg"
+        },
+        {
+            big: "ads/ad1/ad_image_3.jpg",
+            thumb: "ads/ad1/ad_thumb_image_3.jpg"
+        },
+    ]
   end
 
 
