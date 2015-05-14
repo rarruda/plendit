@@ -11,11 +11,11 @@ class Booking < ActiveRecord::Base
   # fixme: real data for this, and something like .humanize on the prices
 
   def sum_paid_to_owner
-    260
+    self.price * 0.9
   end
 
   def sum_paid_by_renter
-    300
+    self.price
   end
 
 end
