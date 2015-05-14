@@ -1,6 +1,18 @@
-<div class="gallery-box">
-    Gallery placeholder
-    <% @ad.ad_images.each do |ad_image| %>
-    <%= image_tag ad_image.image.url(:mediumplus) %>
-    <% end %>
+<!--
+    fixme: use @ad.images when that's ready
+-->
+<div class="gallery-box" data-controller="imageSlider">
+    <div class="gallery-box__current-image" data-gallery>
+        <% @images.each do |ad_image| %>
+            <%= image_tag ad_image[:big] %>
+        <% end %>
+    </div>
+    <div class="gallery-box__thumbnails" data-thumbnails>
+        <% @images.each_with_index do |ad_image, index| %>
+            <%= image_tag ad_image[:thumb],
+                    :class => "gallery-box__thumbnail",
+                    :data => { "thumbnail-for" => index + 1 }
+            %>
+        <% end %>
+    </div>
 </div>

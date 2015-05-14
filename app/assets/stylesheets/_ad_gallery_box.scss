@@ -1,7 +1,18 @@
 @import 'constants.scss';
 
 .gallery-box {
-    border: solid thin black;
-    margin-top: $standard-spacing;
-    padding-top: 100px;
+    &__main-image {
+        border: solid thin $color-box-border;
+    }
+
+    &__thumbnails {
+        text-align: center;
+        padding: $standard-spacing;
+    }
+
+    &__thumbnail {
+        margin: 0 ($standard-spacing / 3) 0 ($standard-spacing / 3);
+        border-radius: 50%;
+    }
+
 }
