@@ -13,7 +13,14 @@ Rails.application.routes.draw do
   resources :bookings, path: '/users/bookings'
   resources :users do
     resources :ads
+    #resources :favorite_lists do
+    #  resources :favorite_ads
+    #end
   end
+
+  resources :favorite_lists do #, path: '/users/favorite_lists'
+    resources :favorite_ads
+   end
 
   get 'ads/create_3'
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150505215215) do
+ActiveRecord::Schema.define(version: 20150516133615) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -104,6 +104,25 @@ ActiveRecord::Schema.define(version: 20150505215215) do
   add_index "bookings", ["ad_item_id"], name: "index_bookings_on_ad_item_id"
   add_index "bookings", ["booking_status_id"], name: "index_bookings_on_booking_status_id"
   add_index "bookings", ["from_user_id"], name: "index_bookings_on_from_user_id"
+
+  create_table "favorite_ads", force: :cascade do |t|
+    t.integer  "favorite_list_id"
+    t.integer  "ad_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "favorite_ads", ["ad_id"], name: "index_favorite_ads_on_ad_id"
+  add_index "favorite_ads", ["favorite_list_id"], name: "index_favorite_ads_on_favorite_list_id"
+
+  create_table "favorite_lists", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "favorite_lists", ["user_id"], name: "index_favorite_lists_on_user_id"
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer  "ad_id"
