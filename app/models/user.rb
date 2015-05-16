@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :ad_items, :through => :ads
   has_many :identities
   has_many :locations
+  has_many :favorite_lists
+  has_many :favorite_ads, :through => :favorite_lists
 
   # received_bookings == bookings:
   has_many :bookings, :through => :ad_items
