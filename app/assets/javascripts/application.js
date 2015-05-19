@@ -37,6 +37,7 @@ $(document).ready(function(){
         // uploadMultiple: true,    // upload all files at once (including the form data)
         parallelUploads: 100,
         maxFiles: 100,
+        url: window.ad_images_json_url,
         init: function() {
 
 //$('#pbutton').click(function(){
