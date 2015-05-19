@@ -13,6 +13,8 @@
             <% end %>
         <% end %>
     </ul>
-    <hr>
-    <a href="#">Vis alle</a>
+    <% if not bookings.empty? %>
+        <hr>
+        <a href="#">Vis alle</a>
+    <% end %>
 <% end %>
