@@ -3,7 +3,11 @@
 .owned-ad-item {
     padding: $standard-spacing;
 
-    &:nth-of-type(n+2) {
+    &__thumb {
+        max-height: 80px;
+    }
+
+    &:nth-of-type(odd) {
         background-color: $color-subtle-gray-background;
     }
 }
