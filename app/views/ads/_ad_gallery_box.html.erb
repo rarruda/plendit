@@ -1,18 +1,22 @@
-<!--
-    fixme: use @ad.images when that's ready
--->
-<div class="gallery-box" data-controller="imageSlider">
-    <div class="gallery-box__current-image" data-gallery>
-        <% @ad.ad_images.each do |ad_image| %>
-            <%= image_tag ad_image.image.url(:mediumplus) %>
-        <% end %>
+
+<% if @ad.ad_images.empty? %>
+    <div class="gallery-box">
+        Annonsen har ingen bilder
     </div>
-    <div class="gallery-box__thumbnails" data-thumbnails>
-        <% @ad.ad_images.each_with_index do |ad_image, index| %>
-            <%= image_tag ad_image.image.url(:thumb),
-                    :class => "gallery-box__thumbnail",
-                    :data => { "thumbnail-for" => index + 1 }
-            %>
-        <% end %>
+<% else %>
+    <div class="gallery-box" data-controller="imageSlider">
+        <div class="gallery-box__current-image" data-gallery>
+            <% @ad.ad_images.each do |ad_image| %>
+                <%= image_tag ad_image.image.url(:mediumplus) %>
+            <% end %>
+        </div>
+        <div class="gallery-box__thumbnails" data-thumbnails>
+            <% @ad.ad_images.each_with_index do |ad_image, index| %>
+                <%= image_tag ad_image.image.url(:thumb),
+                        :class => "gallery-box__thumbnail",
+                        :data => { "thumbnail-for" => index + 1 }
+                %>
+            <% end %>
+        </div>
     </div>
-</div>
+<% end %>
