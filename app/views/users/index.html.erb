@@ -4,7 +4,7 @@
     <div class="row">
         <div class="eight columns">
 
-            <div class="gray-box">
+            <div class="gray-box u-push-down">
                 <h5 class="gray-box__title">Nye forespørsler</h5>
                 <div class="gray-box__body">
                     Under ser du nye forespørsler. Om du ser etter
@@ -16,30 +16,7 @@
         </div>
         <div class="four columns">
 
-            <div class="gray-box">
-                <h5 class="gray-box__title">Sendte forespørsler</h5>
-                <div class="gray-box__body">
-                    <ul>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                        <li>
-                            <a href="#">Thule ski</a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <a href="#">Hent mer</a>
-                </div>
-            </div>
+            <%= render partial: "shared/sent_requests_sidebar_box" %>
 
             <%= render('shared/profile_image_box.html', user: current_user, size: "huge") %>
 

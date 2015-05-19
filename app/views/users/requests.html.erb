@@ -9,8 +9,7 @@
         </div>
         <div class="four columns">
 
-            <%= render partial: "sent_requests_sidebar_box", layout: "gray_box",
-                       locals: { title: "Sendte forespørsler", sent_requests: @sent_requests } %>
+            <%= render partial: "shared/sent_requests_sidebar_box" %>
 
             <div class="profile-image-box">
                 <%= render('shared/avatar.html', user: User.find(session["warden.user.user.key"][0][0]), size: "huge" ) %>
