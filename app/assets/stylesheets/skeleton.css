@@ -219,9 +219,11 @@ button.button-primary:focus,
 input[type="submit"].button-primary:focus,
 input[type="reset"].button-primary:focus,
 input[type="button"].button-primary:focus {
-  color: #FFF;
-  background-color: #1EAEDB;
-  border-color: #1EAEDB; }
+  xxcolor: #FFF;
+  xxbackground-color: #1EAEDB;
+  xxborder-color: #1EAEDB;
+  text-decoration: underline;
+  }
 
 
 /* Forms
