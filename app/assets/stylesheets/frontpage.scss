@@ -17,10 +17,6 @@
         margin: $standard-spacing 0 $standard-spacing 0;
     }
     
-    &__new-ad-button {
-         @include buttonish();
-    }
-
     &__input {
         color: black;
     }
