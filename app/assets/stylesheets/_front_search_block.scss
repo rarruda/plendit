@@ -1,0 +1,34 @@
+@import 'constants.scss';
+
+.front-popular-box {
+    color: $color-gray-text;
+    text-align: center;
+}
+
+.popular-topic-box {
+    display: inline-block;
+    text-transform: uppercase;
+    margin-left: $standard-spacing;
+    margin-right: $standard-spacing;
+    margin-bottom: $standard-spacing;
+
+    &:nth-of-type(1n) {
+        background-color: #710149;
+    }
+
+    &:nth-of-type(2n) {
+        background-color: #89e26b;
+    }
+
+    &:nth-of-type(3n) {
+        background-color: #2a96ff;
+    }
+
+    &__title {
+        color: white;
+    }
+
+    &__link {
+        text-decoration: none;
+    }
+}
