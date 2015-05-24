@@ -1,5 +1,4 @@
 
-
 <section class="front-search-block">        
     <h1 class="front-search-block__title">LEI DET DU TRENGER</h1>
 
@@ -14,6 +13,9 @@
     <div>
         <%= link_to 'Lei ut tingene dine her', new_ad_path, {:class => 'front-search-block__new-ad-button button-primary'} %>
     </div>
-
 </section>
 
+
+<section class="front-popular-block">
+    <%= render partial: "front_popular_box", collection: @popular_topics, as: 'topic' %>
+</section>
