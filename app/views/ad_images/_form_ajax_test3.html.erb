@@ -1,10 +1,12 @@
-
-
-<%= javascript_tag do %>
-  window.ad_images_json_url = "<%= j ad_images_path(:ad_id => params[:ad_id], :format => :json) %>";
-<% end %>
-
-<%= form_for(AdImage.new, html: { multipart: true, class: "dropzone image-upload-box"}) do |f|  %>
+<%= form_for(AdImage.new, html: { 
+        multipart: true,
+        class: "dropzone image-upload-box",
+        data: {
+          controller: "imageUploader",
+          dropzone: "",
+          "image-path" => ad_images_path(:ad_id => params[:ad_id], :format => :json)
+        }
+      }) do |f|  %>
 
   <img src="/images/camera_icon.png">
 
@@ -53,5 +55,3 @@
 <div class="next-step-holder">
     <a href="<%= preview_ad_path(id: params[:ad_id]) %>" class="next-step">Neste steg</a>
 </div>
-
-
