@@ -1,8 +1,8 @@
 window.addEventListener('load', main);
 
-var controllers = {};
+window.controllers = window.controllers || {};
 
-controllers.sideBarMap = {
+window.controllers.sideBarMap = {
     callable: function(ele) {
         var locString = ele.getAttribute('data-geolocation');
         if (locString) {
@@ -41,7 +41,7 @@ controllers.sideBarMap = {
     }
 };
 
-controllers.resultMap = {
+window.controllers.resultMap = {
     callable: function(ele) {
         var jsonContainer = ele.querySelector("[data-location-info]");
         var searchData = JSON.parse(jsonContainer.textContent);
@@ -81,7 +81,7 @@ controllers.resultMap = {
     }
 };
 
-controllers.syncPayout = {
+window.controllers.syncPayout = {
     callable: function(ele) {
         var inEle = ele;
         var outEle = document.querySelector("[data-payout]");
@@ -136,7 +136,7 @@ window.controllers.tagCreator = {
     }
 };
 
-controllers.resultContainerSizeAdjuster = {
+window.controllers.resultContainerSizeAdjuster = {
     dependencies: ["$element", "eventbus"],
     callable: function(ele, eventBus) {
         window.addEventListener('resize', adjustHeight);
@@ -150,7 +150,7 @@ controllers.resultContainerSizeAdjuster = {
     }
 }
 
-controllers.togglableFilters = {
+window.controllers.togglableFilters = {
     dependencies: ["$element", "eventbus"] ,
     callable: function(ele, eventBus) {
         var toggleEle = ele.querySelector("[data-filter-toggler]");
@@ -164,7 +164,7 @@ controllers.togglableFilters = {
     }
 }
 
-controllers.imageSlider = {
+window.controllers.imageSlider = {
     callable: function(ele) {
         var slider = new IdealImageSlider.Slider('[data-gallery]');
         var thumbHolder = ele.querySelector("[data-thumbnails]");
