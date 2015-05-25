@@ -25,7 +25,7 @@ class AdImagesController < ApplicationController
 
     respond_to do |format|
       if @ad_image.save
-        format.json { render json: { message: "success", ad_image_id: @ad_image.id }, :status => 200 }
+        format.json { render json: @ad_image.to_dropzone_gallery.to_json, :status => 200 }
         format.html { redirect_to @ad_image, notice: 'Ad image was successfully added.'}
       else
         #  you need to send an error header, otherwise Dropzone
