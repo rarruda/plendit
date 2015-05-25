@@ -109,7 +109,7 @@ controllers.syncPayout = {
 };
 
 
-controllers.tagCreator = {
+window.controllers.tagCreator = {
     callable: function(ele) {
         var inEle = ele;
         var outEle = document.querySelector("[data-payout]");
