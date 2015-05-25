@@ -82,27 +82,39 @@ window.controllers.resultMap = {
 };
 
 window.controllers.syncPayout = {
-    callable: function(ele) {
-        var inEle = ele;
-        var outEle = document.querySelector("[data-payout]");
+    callable: function(root) {
+        init();
 
-        inEle.addEventListener('change', syncPayout);
-        inEle.addEventListener('keyup', syncPayout);
-        syncPayout();
-
-        function syncPayout() {
-            var price = parseFloat(inEle.value);
-            console.log(price)
-            if (isNaN(price)) {
-                outEle.value = "";
+        function init() {
+            var inputs = root.querySelectorAll("[data-payout-source]");
+            for (var n = 0, e; e = inputs[n++];) {
+                initInput(e);
             }
-            else {
-                if (price == 0) {
-                    outEle.value = 0;
+        }
+
+        function initInput(source) {
+            var destination = root.querySelector("[data-payout-for=\"" + source.getAttribute("name") + "\"]");
+            var syncer = makeSyncer(source, destination);
+            source.addEventListener('change', syncer);
+            source.addEventListener('keyup', syncer);
+            syncer();
+        }
+
+        function makeSyncer(source, destination) {
+            return function(evt) {
+                var price = parseFloat(source.value);
+                if (isNaN(price)) {
+                    destination.value = "";
                 }
                 else {
-                    outEle.value = price * 0.90;
+                    if (price == 0) {
+                        destination.value = 0;
+                    }
+                    else {
+                        destination.value = price * 0.90;
+                    }
                 }
+
             }
         }
     }
