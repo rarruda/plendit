@@ -1,0 +1,14 @@
+<div class="row conversation-item-box">
+    <div class="two columns conversation-item-box__avatar-box">
+        <%= render('shared/avatar.html', user: message.from_user, size: "medium" ) %>
+    </div>
+    <div class="ten columns conversation-item-box__body">
+        <p class="conversation-item-box__body">
+            <%= message.content %>
+        </p>
+        <p>
+            <%= message.updated_at.to_formatted_s(:plendit_short_datetime)  %>
+        </p>
+    </div>
+</div>
+

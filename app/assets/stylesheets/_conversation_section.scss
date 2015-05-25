@@ -1,0 +1,14 @@
+@import 'constants.scss';
+
+.conversation-item-box {
+
+    padding-top: $standard-spacing;
+
+    &__avatar-box {
+        text-align: center;
+    }
+
+    &:nth-of-type(n+2) {
+        background-color: $color-subtle-gray-background;
+    }
+}

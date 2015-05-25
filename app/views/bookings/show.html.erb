@@ -9,9 +9,17 @@
 
             <%= render partial: "rental_request_box_renter", locals: {booking: @booking} %>
 
+            <hr>
+            renter above, rentee below
+            <hr>
+
             <h3 class="u-push-down"><%= @booking.from_user.name %> ønsker å leie av deg</h3>
 
             <%= render partial: "rental_request_box_owner", locals: {booking: @booking} %>
+
+            <hr>
+
+            <%= render partial: "conversation_section", locals: {booking: @booking} %>
 
         </div>
         <div class="three columns">
@@ -22,7 +30,7 @@
 </div>
 
 
-
+<!--
 <p>
   <strong>Ad item:</strong>
   <%= @booking.ad_item_id %> - <%= @booking.ad.title %>
@@ -60,3 +68,4 @@
 
 <%= link_to 'Edit', edit_booking_path(@booking) %> |
 <%= link_to 'Back', bookings_path %>
+-->
