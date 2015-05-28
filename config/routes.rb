@@ -18,9 +18,11 @@ Rails.application.routes.draw do
     #end
   end
 
-  resources :favorite_lists do #, path: '/users/favorite_lists'
-    resources :favorite_ads
-   end
+  #resources :favorite_lists do #, path: '/users/favorite_lists'
+  #  resources :favorite_ads
+  #end
+  resources :favorite_ads
+
 
   get 'ads/create_3'
 

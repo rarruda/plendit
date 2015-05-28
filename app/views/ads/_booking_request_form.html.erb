@@ -23,7 +23,11 @@
     </div>
     <div class="row">
         <div class="ten columns offset-by-one column">
-            <button class="booking-request-form__book-button">Legg til i favoritter</button>
+            <%= form_for( FavoriteAd.new ) do |f| %>
+                <%= f.button "Legg til i favoritter", class: "booking-request-form__book-button" %>
+                <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
+                <%= f.hidden_field :previous_url, value: request.fullpath %>
+            <% end %>
         </div>
     </div>
 
