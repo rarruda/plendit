@@ -23,6 +23,7 @@
                 <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
                 <%= f.hidden_field :previous_url, value: request.fullpath %>
             <% end %>
+            <% if @ad_is_favorite %> <pre> <3 </pre> <% end %>
         </div>
     </div>
 

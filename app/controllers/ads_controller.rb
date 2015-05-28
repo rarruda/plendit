@@ -56,7 +56,7 @@ class AdsController < ApplicationController
   # GET /ads/1
   # GET /ads/1.json
   def show
-    @ad_is_favorite = user_signed_in? #and @ad.is_favorite_of(current_user)
+    @ad_is_favorite = ( user_signed_in? and @ad.is_favorite_of( view_context.get_current_user_id ) )
   end
 
   # GET /ads/1/preview

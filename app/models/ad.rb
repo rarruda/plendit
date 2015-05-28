@@ -16,6 +16,11 @@ class Ad < ActiveRecord::Base
     self.user.ads.reject { |ad| ad.id == self.id }
   end
 
+  def is_favorite_of( user )
+    fav_count = FavoriteAd.joins(:favorite_list).where(favorite_lists: { user_id: user }, ad: self.id ).count
+    fav_count > 0 ? true : false
+  end
+
   def summary
     # fixme: There are a bunch of ways this can be improved. There might
     # be some gems for it already. For instance, end only at sentence
@@ -30,7 +35,6 @@ class Ad < ActiveRecord::Base
         first_paragraph
     end
   end
-
 
   # helper methods for generating urls for the three different image sizes, and which has the
   ## default fallback to stock images. (so that it will degrate nicely)
