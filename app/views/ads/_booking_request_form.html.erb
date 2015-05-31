@@ -19,13 +19,21 @@
     <div class="row">
         <div class="ten columns offset-by-one column">
             <%= form_for( FavoriteAd.new ) do |f| %>
-                <%= f.button "Legg til i favoritter", class: "booking-request-form__book-button" %>
                 <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
                 <%= f.hidden_field :previous_url, value: request.fullpath %>
+                <% if @ad_is_favorite %> 
+                    <%= f.button class: "booking-request-form__book-button" do %>
+                        <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart--favorite") %>
+                        Fjern fra favoritter
+                    <% end %>
+                <% else %>
+                    <%= f.button class: "booking-request-form__book-button" do %>
+                        <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart") %>
+                        Legg til i favoritter
+                    <% end %>
+                <% end %>
             <% end %>
-            <% if @ad_is_favorite %> <pre> <3 </pre> <% end %>
         </div>
     </div>
-
 </div>
 
