@@ -1,33 +1,32 @@
-<% partial_name = "top-bar" %>
-<div class="<%= partial_name %>">
+<div class="top-bar">
 
-    <a class="<%= partial_name %>__logo-link" href="/">
-        <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "#{partial_name}__logo", size: "115x33" %>
+    <a class="top-bar__logo-link" href="/">
+        <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "top-bar__logo", size: "115x33" %>
     </a>
 
     <% if !@hide_search_field %>
-        <span class="<%= partial_name %>__search-holder">
-            <%= image_tag "search_icon_small.png", alt: "", class: "#{partial_name}__search-icon", size: "18x18" %>
-            <%= form_tag("/search", method: "get", class: "#{partial_name}__form") do %>
-                <%= text_field_tag 'q','', type: "text",  class: "#{partial_name}__search-input", placeholder: 'Hva vil du leie?'  %>
+        <span class="top-bar__search-holder">
+            <%= image_tag "search_icon_small.png", alt: "", class: "top-bar__search-icon", size: "18x18" %>
+            <%= form_tag("/search", method: "get", class: "top-bar__form") do %>
+                <%= text_field_tag 'q','', type: "text",  class: "top-bar__search-input", placeholder: 'Hva vil du leie?'  %>
             <% end %>
         </span>
     <% end %>
 
-    <span class="<%= partial_name %>__rightbox">
+    <span class="top-bar__rightbox">
         <% if user_signed_in? %>
 
             <%= render('shared/avatar.html', user: current_user, size: "tiny", css_class: "top-bar__avatar") %>
 
-            <strong><%= link_to  current_user.name, user_registration_path, :class => "#{partial_name}__navbar-link" %></strong>.
+            <strong><%= link_to  current_user.name, user_registration_path, :class => "top-bar__navbar-link" %></strong>.
 
-            <%#= link_to 'Edit profile', edit_user_registration_path, :class => "#{partial_name}__navbar-link" %> |
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "#{partial_name}__navbar-link"  %>
+            <%#= link_to 'Edit profile', edit_user_registration_path, :class => "top-bar__navbar-link" %> |
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "top-bar__navbar-link"  %>
 
         <% else %>
 
-          <%= link_to "Sign up", new_user_registration_path, :class => "#{partial_name}__navbar-link"  %> |
-          <%= link_to "Login", new_user_session_path, :class => "#{partial_name}__navbar-link"  %>
+          <%= link_to "Sign up", new_user_registration_path, :class => "top-bar__navbar-link"  %> |
+          <%= link_to "Login", new_user_session_path, :class => "top-bar__navbar-link"  %>
 
         <% end %>
     </span>
