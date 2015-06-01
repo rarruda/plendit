@@ -90,29 +90,20 @@
                 <%= select( :ad, :location_id, @ad.user.locations.map{ |l| ["#{l.address_line} - #{l.city} - #{l.post_code}", l.id] } ) %>
               </div>
               <%- end -%>
-            </label>
 
 
-            <input type="text" class="u-full-width" placeholder="gateadresse">
+            <input type="text" class="u-full-width" placeholder="Gateadresse">
 
             <div class="row">
                 <div class="four columns">
-                    <input type="text" class="u-full-width" placeholder="By">
+                    <input type="number" class="u-full-width" placeholder="Postnummer">
                 </div>
-                <div class="four columns">
-                    <input type="text" class="u-full-width" placeholder="Fylke">
-                </div>
-                <div class="four columns">
-                    <input type="text" class="u-full-width" placeholder="Postnummer">
+                <div class="eight columns">
+                    <input type="text" class="u-full-width" placeholder="Poststed">
                 </div>
             </div>
 
-            <p>
-                Fyll ut så mange felt som mulig og vær så nøyaktig som du kan.
-            </p>
-
-            <div> map placeholder </div>
-            </div>
+          </div>
         </div>
 
         <div>
