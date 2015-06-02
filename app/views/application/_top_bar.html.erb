@@ -32,3 +32,36 @@
     </span>
 
 </div>
+
+<% if user_signed_in? %>
+
+    <% img = AdImage.find(1) %>
+
+    <div class="notification-box u-hidden" data-floating-notifications>
+        <span class="notification-box__up-triangle"></span>
+        <div class="notification-box__top">
+            <span>Varsler</span>
+            <span class="u-pull-right">
+                <a href="#">Merk alles som lest</a>
+                •
+                <a href="#">Innstillinger</a>
+            </span>
+        </div>
+
+        <ol class="notification-box__list">
+            <li class="notification-box__row row">
+                <div class="two columns u-center">
+                    <%= render('shared/avatar.html', user: current_user, size: "small") %>
+                </div>
+                <div class="ten columns">
+                    <p class="notification-box__para">
+                        Trygve ønsker <strong class="green">å leie</strong>
+                        Skiguard 860 takboks til Volvo XC-V 70.                            
+                    </p>
+                    <p class="notification-box__para"><small>To timer siden</small></p>
+                </div>
+            </li>
+        </ol>
+
+    </div>
+<% end %>
