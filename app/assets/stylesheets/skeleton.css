@@ -235,6 +235,7 @@ input[type="text"],
 input[type="tel"],
 input[type="url"],
 input[type="password"],
+input[type="date"],
 textarea,
 select {
   height: 38px;
@@ -372,6 +373,8 @@ form {
   float: right; }
 .u-pull-left {
   float: left; }
+.u-center {
+  text-align: center; }
 
 /* standard class for spacing things vertically */
 .u-push-down {
