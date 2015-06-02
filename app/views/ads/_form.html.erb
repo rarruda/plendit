@@ -11,7 +11,7 @@
       </div>
     <% end %>
 
-    <h1>Legg ut annonse</h1>
+    <h1 class="u-push-down">Legg ut annonse</h1>
     <p>
         Legg ut en annonse og tjen penger. Det tar mindre enn ett minutt!
         <a class="u-hidden-when-grid" href="#ad-input-info">Les mer</a>
@@ -55,9 +55,9 @@
             </label>
 
             <label>
-              <div>
-                <span><small>Adresse for henting:</small></span>
-              </div>
+                Adresse for henting:
+            </label>
+
               <%- if @ad.user.locations.length > 0 -%>
               <div>
                 <input type="checkbox">
