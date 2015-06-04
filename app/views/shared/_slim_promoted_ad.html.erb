@@ -7,10 +7,22 @@
         <%= ad.body[0..200] %>
     </p>
 
-    <button class="slim-promoted-ad__button">
-        <%= image_tag "add_favorite_small.png", alt: "username", class: "slim-promoted-ad__fav-button-image" %>
-         Legg til i favoritter
-    </button>
+    <%= form_for( FavoriteAd.new ) do |f| %>
+
+        <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
+        <%= f.hidden_field :previous_url, value: request.fullpath %>
+        <% if @ad_is_favorite %> 
+            <%= f.button class: "slim-promoted-ad__button" do %>
+                <%= image_tag("add_favorite_small.png", size: "15x14", alt: "", class: "slim-promoted-ad__fav-button-image") %>
+                Fjern fra favoritter
+            <% end %>
+        <% else %>
+            <%= f.button class: "slim-promoted-ad__button" do %>
+                <%= image_tag("add_favorite_small.png", size: "15x14", alt: "", class: "slim-promoted-ad__fav-button-image") %>
+                Legg til i favoritter
+            <% end %>
+        <% end %>
+    <% end %>
 
     <div class="slim-promoted-ad__price-floater">
         <%= ad.price %>,-
