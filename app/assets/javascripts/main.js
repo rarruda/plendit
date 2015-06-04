@@ -132,7 +132,6 @@ window.controllers.tagCreator = {
 
         function syncPayout() {
             var price = parseFloat(inEle.value);
-            console.log(price)
             if (isNaN(price)) {
                 outEle.value = "";
             }
