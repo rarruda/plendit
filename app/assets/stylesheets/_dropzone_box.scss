@@ -1,0 +1,33 @@
+@import 'constants.scss';
+
+.dropzone-box {
+    border: dotted 2px #000;
+    border-radius: 4px;
+    padding: $standard-spacing;
+
+    &__drop-target {
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &__preview-container {
+    }
+
+    &__item {
+        padding: $standard-spacing / 2;
+    }
+
+    &__item:nth-of-type(odd) {
+        background-color: $color-subtle-gray-background;
+    }
+
+    &__thumb-col {
+        text-align: center;
+    }
+
+    &__thumbnail {
+        max-width: 80px;
+        max-height: 80px;
+    }
+
+}
