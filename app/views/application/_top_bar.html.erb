@@ -18,10 +18,15 @@
 
             <%= render('shared/avatar.html', user: current_user, size: "tiny", css_class: "top-bar__avatar") %>
 
-            <strong><%= link_to  current_user.name, user_registration_path, :class => "top-bar__navbar-link" %></strong>.
+            <strong class="top-bar__top-section">
+                <%= link_to current_user.name, user_registration_path, :class => "top-bar__navbar-link" %>.
+            </strong>
 
-            <%#= link_to 'Edit profile', edit_user_registration_path, :class => "top-bar__navbar-link" %> |
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "top-bar__navbar-link"  %>
+            <span class="top-bar__top-section">Varsler <span class="top-bar__notification-count">4</span></span>
+
+            <span class="top-bar__top-section">
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "top-bar__navbar-link" %>
+            </span>
 
         <% else %>
 
