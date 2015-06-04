@@ -56,6 +56,25 @@ $top-bar-height: 52px;
     &__avatar {
         vertical-align: middle;
     }
+    
+    &__notification-count {
+        background-color: red;
+        color: white;
+        font-weight: bold;
+        padding: 2px 4px 2px 4px;
+        border-radius: 4px;
+        font-size: 8px;
+        position: relative;
+        top: -10px;
+        left: -4px;
+        -webkit-box-shadow: 1px 1px 1px 0px #000;
+        -moz-box-shadow: 1px 1px 1px 0px #000;
+        box-shadow: 1px 1px 1px 0px #000;
+    }
+
+    &__top-section {
+        margin-left: $standard-spacing / 2;
+    }
 }
 
 

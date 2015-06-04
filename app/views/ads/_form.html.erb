@@ -11,7 +11,7 @@
       </div>
     <% end %>
 
-    <h1>Legg ut annonse</h1>
+    <h1 class="u-push-down">Legg ut annonse</h1>
     <p>
         Legg ut en annonse og tjen penger. Det tar mindre enn ett minutt!
         <a class="u-hidden-when-grid" href="#ad-input-info">Les mer</a>
@@ -28,44 +28,23 @@
 
             <div data-controller="syncPayout">
                 <div class="row">
-                    <div class="four columns">
+                    <div class="five columns">
                         <label>
-                            <input type="checkbox">
-                            <span class="label-body">Pris pr time</span>
-                        </label>
-                        <%= f.number_field :price, class: "u-full-width", placeholder: "Kr 0" %>
-                    </div>
-                    <div class="four columns">
-                        <label>
-                            <input type="checkbox">
                             <span class="label-body">Pris pr dag</span>
                         </label>
-                        <input type="text" name="day_price" class="u-full-width" placeholder="Kr 0" data-payout-source>
+                        <%= f.number_field :price,
+                                class: "u-full-width",
+                                placeholder: "Kr 0",
+                                data: {"payout-source" => ""} %>
                     </div>
-                    <div class="four columns">
+                    <div class="five columns">
                         <label>
-                            <input type="checkbox">
-                            <span class="label-body">Pris pr uke</span>
+                            <span class="label-body">Utbetales til deg</span>
                         </label>
-                        <input type="text" name="week_price" class="u-full-width" placeholder="Kr 0" data-payout-source>
+                        <input disabled="true" type="text" name="day_price" class="u-full-width" placeholder="Kr 0" data-payout-for="ad[price]">
                     </div>
                 </div>
 
-                <div>
-                    <span>Utbetales til deg:</span>
-                </div>
-
-                <div class="row">
-                    <div class="four columns">
-                        <input type="text" class="u-full-width" placeholder="Kr 0" data-payout-for="hour_price">
-                    </div>
-                    <div class="four columns">
-                        <input type="text" class="u-full-width" placeholder="Kr 0" data-payout-for="day_price">
-                    </div>
-                    <div class="four columns">
-                        <input type="text" class="u-full-width" placeholder="Kr 0" data-payout-for="week_price">
-                    </div>
-                </div>
             </div>
 
             <label>
@@ -76,9 +55,9 @@
             </label>
 
             <label>
-              <div>
-                <span><small>Adresse for henting:</small></span>
-              </div>
+                Adresse for henting:
+            </label>
+
               <%- if @ad.user.locations.length > 0 -%>
               <div>
                 <input type="checkbox">
@@ -90,29 +69,20 @@
                 <%= select( :ad, :location_id, @ad.user.locations.map{ |l| ["#{l.address_line} - #{l.city} - #{l.post_code}", l.id] } ) %>
               </div>
               <%- end -%>
-            </label>
 
 
-            <input type="text" class="u-full-width" placeholder="gateadresse">
+            <input type="text" class="u-full-width" placeholder="Gateadresse">
 
             <div class="row">
                 <div class="four columns">
-                    <input type="text" class="u-full-width" placeholder="By">
+                    <input type="number" class="u-full-width" placeholder="Postnummer">
                 </div>
-                <div class="four columns">
-                    <input type="text" class="u-full-width" placeholder="Fylke">
-                </div>
-                <div class="four columns">
-                    <input type="text" class="u-full-width" placeholder="Postnummer">
+                <div class="eight columns">
+                    <input type="text" class="u-full-width" placeholder="Poststed">
                 </div>
             </div>
 
-            <p>
-                Fyll ut så mange felt som mulig og vær så nøyaktig som du kan.
-            </p>
-
-            <div> map placeholder </div>
-            </div>
+          </div>
         </div>
 
         <div>

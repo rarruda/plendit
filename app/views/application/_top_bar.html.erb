@@ -1,35 +1,72 @@
-<% partial_name = "top-bar" %>
-<div class="<%= partial_name %>">
+<div class="top-bar">
 
-    <a class="<%= partial_name %>__logo-link" href="/">
-        <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "#{partial_name}__logo", size: "115x33" %>
+    <a class="top-bar__logo-link" href="/">
+        <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "top-bar__logo", size: "115x33" %>
     </a>
 
     <% if !@hide_search_field %>
-        <span class="<%= partial_name %>__search-holder">
-            <%= image_tag "search_icon_small.png", alt: "", class: "#{partial_name}__search-icon", size: "18x18" %>
-            <%= form_tag("/search", method: "get", class: "#{partial_name}__form") do %>
-                <%= text_field_tag 'q','', type: "text",  class: "#{partial_name}__search-input", placeholder: 'Hva vil du leie?'  %>
+        <span class="top-bar__search-holder">
+            <%= image_tag "search_icon_small.png", alt: "", class: "top-bar__search-icon", size: "18x18" %>
+            <%= form_tag("/search", method: "get", class: "top-bar__form") do %>
+                <%= text_field_tag 'q','', type: "text",  class: "top-bar__search-input", placeholder: 'Hva vil du leie?'  %>
             <% end %>
         </span>
     <% end %>
 
-    <span class="<%= partial_name %>__rightbox">
+    <span class="top-bar__rightbox">
         <% if user_signed_in? %>
 
             <%= render('shared/avatar.html', user: current_user, size: "tiny", css_class: "top-bar__avatar") %>
 
-            <strong><%= link_to  current_user.name, user_registration_path, :class => "#{partial_name}__navbar-link" %></strong>.
+            <strong class="top-bar__top-section">
+                <%= link_to current_user.name, user_registration_path, :class => "top-bar__navbar-link" %>.
+            </strong>
 
-            <%#= link_to 'Edit profile', edit_user_registration_path, :class => "#{partial_name}__navbar-link" %> |
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "#{partial_name}__navbar-link"  %>
+            <span class="top-bar__top-section">Varsler <span class="top-bar__notification-count">4</span></span>
+
+            <span class="top-bar__top-section">
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "top-bar__navbar-link" %>
+            </span>
 
         <% else %>
 
-          <%= link_to "Sign up", new_user_registration_path, :class => "#{partial_name}__navbar-link"  %> |
-          <%= link_to "Login", new_user_session_path, :class => "#{partial_name}__navbar-link"  %>
+          <%= link_to "Sign up", new_user_registration_path, :class => "top-bar__navbar-link"  %> |
+          <%= link_to "Login", new_user_session_path, :class => "top-bar__navbar-link"  %>
 
         <% end %>
     </span>
 
 </div>
+
+<% if user_signed_in? %>
+
+    <% img = AdImage.find(1) %>
+
+    <div class="notification-box u-hidden" data-floating-notifications>
+        <span class="notification-box__up-triangle"></span>
+        <div class="notification-box__top">
+            <span>Varsler</span>
+            <span class="u-pull-right">
+                <a href="#">Merk alles som lest</a>
+                •
+                <a href="#">Innstillinger</a>
+            </span>
+        </div>
+
+        <ol class="notification-box__list">
+            <li class="notification-box__row row">
+                <div class="two columns u-center">
+                    <%= render('shared/avatar.html', user: current_user, size: "small") %>
+                </div>
+                <div class="ten columns">
+                    <p class="notification-box__para">
+                        Trygve ønsker <strong class="green">å leie</strong>
+                        Skiguard 860 takboks til Volvo XC-V 70.                            
+                    </p>
+                    <p class="notification-box__para"><small>To timer siden</small></p>
+                </div>
+            </li>
+        </ol>
+
+    </div>
+<% end %>
