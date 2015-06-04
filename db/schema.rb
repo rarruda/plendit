@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516133615) do
+ActiveRecord::Schema.define(version: 20150604232808) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -175,6 +175,19 @@ ActiveRecord::Schema.define(version: 20150516133615) do
   add_index "messages", ["booking_id"], name: "index_messages_on_booking_id"
   add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id"
   add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id"
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "notification_status_id"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.string   "message"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "notifications", ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
   create_table "user_statuses", force: :cascade do |t|
     t.string   "status"
