@@ -7,8 +7,19 @@
             req.onload = function() { isSuccess(req.status) ? resolve(req) : reject(req) };
             req.onerror = function() { reject(req) };
             req.open(method, url);
+            var csrf = getCsrfData();
+            if (csrf.token) {
+                req.setRequestHeader("X-CSRF-Token", csrf.token);
+            }
             req.send(data);
         });
+    }
+
+    function getCsrfData() {
+        return {
+            param: (document.querySelector('meta[name="csrf-param"]') || {}).content,
+            token: (document.querySelector('meta[name="csrf-token"]') || {}).content
+        }
     }
 
     function get(url) {
@@ -26,6 +37,6 @@
     }
 
     global.xhr = { get: get, getJson: getJson, del: del };
-    
+
 })(this);
 
