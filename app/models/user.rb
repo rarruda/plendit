@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :received_messages, foreign_key: 'to_user_id', :class_name => "Message"
   has_many :sent_messages, foreign_key: 'from_user_id', :class_name => "Message"
 
+  has_many :notifications, foreign_key: 'user_id', :class_name => "Notification"
 
   validates :name, presence: true
   #validates :phone_number, presence: true, format: { with: /\A[0-9]{8}\z/, message: "only allows numbers" }
@@ -102,6 +103,11 @@ class User < ActiveRecord::Base
   # ugh, this is soooo ugly! Look at app/views/users/confirmations/new.html.erb
   def email_verified?
     self.email && self.email !~ /\Atemp-/
+  end
+
+  def new_notifications()
+    # todo: use status flag to only return unread notifications
+    self.notifications.order("updated_at desc")
   end
 
 end
