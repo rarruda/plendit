@@ -1,6 +1,6 @@
 class AdsController < ApplicationController
   before_action :set_ad, only: [:show, :preview, :edit, :update, :destroy]
-
+  after_action  :notify_user, only: [:create, :update]
   before_filter :authenticate_user!, :except => [:show, :index, :search]
 
   # GET /ads
@@ -119,6 +119,14 @@ class AdsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_ad
       @ad = Ad.find(params[:id])
+    end
+
+    def notify_user
+      Notification.new(
+        user_id: view_context.get_current_user_id,
+        message: "Your ad has been inserted and/or updated",
+        notification_status_id: 1,
+        notifiable: @ad).save
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
