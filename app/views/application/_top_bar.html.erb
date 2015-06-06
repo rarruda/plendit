@@ -22,7 +22,10 @@
                 <%= link_to current_user.name, user_registration_path, :class => "top-bar__navbar-link" %>.
             </strong>
 
-            <span class="top-bar__top-section">Varsler
+            <span class="top-bar__top-section"
+               data-controller="menuAnchor"
+               data-anchor-for="[data-floating-notifications]"
+               >Varsler
                 <% if current_user.new_notifications.size != 0 %>
                     <span class="top-bar__notification-count"><%= current_user.new_notifications.size %></span>
                 <% end %>
@@ -33,10 +36,8 @@
             </span>
 
         <% else %>
-
-          <%= link_to "Sign up", new_user_registration_path, :class => "top-bar__navbar-link"  %> |
-          <%= link_to "Login", new_user_session_path, :class => "top-bar__navbar-link"  %>
-
+            <%= link_to "Sign up", new_user_registration_path, :class => "top-bar__navbar-link"  %> |
+            <%= link_to "Login", new_user_session_path, :class => "top-bar__navbar-link"  %>
         <% end %>
     </span>
 
