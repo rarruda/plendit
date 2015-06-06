@@ -22,7 +22,11 @@
                 <%= link_to current_user.name, user_registration_path, :class => "top-bar__navbar-link" %>.
             </strong>
 
-            <span class="top-bar__top-section">Varsler <span class="top-bar__notification-count">4</span></span>
+            <span class="top-bar__top-section">Varsler
+                <% if current_user.new_notifications.size != 0 %>
+                    <span class="top-bar__notification-count">current_user.new_notifications.size</span>
+                <% end %>
+            </span>
 
             <span class="top-bar__top-section">
                 <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "top-bar__navbar-link" %>
@@ -39,8 +43,6 @@
 </div>
 
 <% if user_signed_in? %>
-
-    <% img = AdImage.find(1) %>
 
     <div class="notification-box u-hidden" data-floating-notifications>
         <span class="notification-box__up-triangle"></span>
