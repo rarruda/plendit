@@ -22,9 +22,12 @@
                 <%= link_to current_user.name, user_registration_path, :class => "top-bar__navbar-link" %>.
             </strong>
 
-            <span class="top-bar__top-section">Varsler
+            <span class="top-bar__top-section"
+               data-controller="menuAnchor"
+               data-anchor-for="[data-floating-notifications]"
+               >Varsler
                 <% if current_user.new_notifications.size != 0 %>
-                    <span class="top-bar__notification-count">current_user.new_notifications.size</span>
+                    <span class="top-bar__notification-count"><%= current_user.new_notifications.size %></span>
                 <% end %>
             </span>
 
@@ -33,10 +36,8 @@
             </span>
 
         <% else %>
-
-          <%= link_to "Sign up", new_user_registration_path, :class => "top-bar__navbar-link"  %> |
-          <%= link_to "Login", new_user_session_path, :class => "top-bar__navbar-link"  %>
-
+            <%= link_to "Sign up", new_user_registration_path, :class => "top-bar__navbar-link"  %> |
+            <%= link_to "Login", new_user_session_path, :class => "top-bar__navbar-link"  %>
         <% end %>
     </span>
 
@@ -56,18 +57,25 @@
         </div>
 
         <ol class="notification-box__list">
-            <li class="notification-box__row row">
-                <div class="two columns u-center">
-                    <%= render('shared/avatar.html', user: current_user, size: "small") %>
-                </div>
-                <div class="ten columns">
-                    <p class="notification-box__para">
-                        Trygve ønsker <strong class="green">å leie</strong>
-                        Skiguard 860 takboks til Volvo XC-V 70.                            
-                    </p>
-                    <p class="notification-box__para"><small>To timer siden</small></p>
-                </div>
-            </li>
+
+            <% current_user.new_notifications.each do |n| %>
+
+                <li class="notification-box__row row">
+                    <div class="two columns u-center">
+                        <%= render('shared/avatar.html', user: n.source_user, size: "small") %>
+                    </div>
+                    <div class="ten columns">
+                        <p class="notification-box__para">
+                            <%= n.message %>
+                        </p>
+                        <p class="notification-box__para">
+                            <small><%= n.updated_at.to_formatted_s(:plendit_short_datetime) %></small>
+                        </p>
+                    </div>
+                </li>
+
+            <% end %>
+
         </ol>
 
     </div>
