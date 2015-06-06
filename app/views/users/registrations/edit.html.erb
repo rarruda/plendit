@@ -38,20 +38,20 @@
 
                     <div class="row">
                         <div class="six columns">
-                            <%= f.label :password, "Nytt passord" %> (blankt for å beholde nåværende passord)
-                            <%= f.password_field :password, autocomplete: "off", class: "u-full-width" %>
+                            <%= f.label :current_password, "Passord" %>
+                            <%= f.password_field :current_password, autocomplete: "off", class: "u-full-width" %>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="three columns">
-                            <%= f.label :password_confirmation, "Passord" %>
-                            <%= f.password_field :password_confirmation, autocomplete: "off", class: "u-full-width" %>
+                            <%= f.label :password, "Nytt passord" %> (blankt for å beholde nåværende passord)
+                            <%= f.password_field :password, autocomplete: "off", class: "u-full-width" %>
                         </div>
 
                         <div class="three columns">
-                            <%= f.label :current_password, "Bekreft passord" %>
-                            <%= f.password_field :current_password, autocomplete: "off", class: "u-full-width" %>
+                            <%= f.label :password_confirmation, "Nytt Passord" %>
+                            <%= f.password_field :password_confirmation, autocomplete: "off", class: "u-full-width" %>
                         </div>
                     </div>
 
