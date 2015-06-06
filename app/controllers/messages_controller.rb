@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_action :set_message, only: [:show, :edit, :update, :destroy]
-
+  after_action  :notify_user, only: [:create]
   before_filter :authenticate_user!
 
   # GET /messages
@@ -67,6 +67,15 @@ class MessagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])
+    end
+
+    # Callback to create a user notification when an message has been created.
+    def notify_user
+      Notification.new(
+        user_id: @message.to_user.id,
+        message: "You have received a message!",
+        notification_status_id: 1,
+        notifiable: @message).save
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

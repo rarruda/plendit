@@ -121,6 +121,7 @@ class AdsController < ApplicationController
       @ad = Ad.find(params[:id])
     end
 
+    # Callback to create a user notification when an ad has been created/edited.
     def notify_user
       Notification.new(
         user_id: view_context.get_current_user_id,
