@@ -14,4 +14,9 @@ class Notification < ActiveRecord::Base
         self.user
     end
   end
+
+  def source_path
+    # todo: implement
+    "/"
+  end
 end
