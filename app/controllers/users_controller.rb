@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :confirmation]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :confirmation, :verify_sms]
   before_filter :authenticate_user!, :except => [:show, :finish_signup]
 
   def index
@@ -48,8 +48,15 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    # TODO: move this code to its own method.
+    user_params_safe = user_params
+    if @user.phone_number != user_params['current_phone_number']
+      user_params_safe['unconfirmed_phone_number'] = user_params['current_phone_number']
+      user_params_safe.except!('current_phone_number')
+    end
+
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(user_params_safe)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -84,14 +91,34 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /verify_sms
+  def verify_sms
+  end
+
+  # POST /confirm_sms
+  def confirm_sms
+    if @user.find_by( :phone_number, params[:phone_number] ).where(
+          :phone_number_confirmation_token, phone_number_confirmation_token
+        )
+      user = get_user_for_phone_verification
+      if user
+        user.confirm_phone_number!
+      end
+    end
+
+    redirect_to @user, notice: 'Your profile was successfully updated.'
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = view_context.get_current_user_id
+      @user = User.find( view_context.get_current_user_id )
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :phone_number, :user_status_id, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :current_phone_number, :user_status_id, :password, :password_confirmation)
     end
 end

@@ -1,0 +1,95 @@
+
+<%= render partial: "shared/personal_bar", locals: { selected: "Din profil" } %>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
+                I feltene under kan du redigere din profil. Husk at
+                det bare er ditt fornavn som vises til andre brukere.
+            <% end %>
+
+
+            <%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
+                <%= form_for( @user, url: users_path, html: { method: :put }) do |f| %>
+
+                    <%#= devise_error_messages! %>
+
+                    <div class="row">
+                        <div class="six columns">
+                            <%= f.label :name, "Navn" %>
+                            <%= f.text_field :name, class: "u-full-width" %>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="six columns">
+                            <%= f.label :email, "E-post" %>
+                            <%= f.text_field :email, class: "u-full-width" %>
+                        </div>
+                    </div>
+  <%# if devise_mapping.confirmable? && @user.pending_reconfirmation? %>
+  <% if @user.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %></div>
+  <% end %>
+                    <div class="row">
+                        <div class="six columns">
+                            <%= f.label :current_phone_number, "Telefonnummer" %>
+                            <%= f.text_field :current_phone_number, { class: "u-full-width", maxlength: 8 } %>
+                        </div>
+                    </div>
+
+                    <% if @user.phone_pending_confirmation? %>
+                    <div>
+                        Currently waiting confirmation for: <%= @user.unconfirmed_phone_number %>. Last confirmed number: <%= @user.phone_number %>
+                    </div> 
+                    <% end %>
+                    <div class="row">
+                        <div class="twelve columns">
+                            <%= f.submit "Oppdater", class: "u-pull-right button-primary" %>
+                        </div>
+                    </div>
+
+                <% end %>
+
+            <% end %>
+
+        </div>
+        <div class="four columns">
+            <%= render('shared/profile_image_box.html', user: current_user) %>
+  
+            <%= render layout: "gray_box", locals: {title: "Flere valg"} do %>
+                <ul>
+                    <li><a href="#">Rediger profil</a></li>
+                    <li><a href="#">Verifisering</a></li>
+                    <li><a href="#">Tilbakemeldinger</a></li>
+                    <li><a href="#">Favoritter</a></li>
+                    <li><%= link_to "Bytt passord", edit_user_registration_path %>*</li>
+                </ul>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<!--
+<%#= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%#= devise_error_messages! %>
+
+  <div class="field">
+    <%#= f.label :image %><br />
+    <%#= image_tag resource.image_url %>
+  </div>
+ 
+<%# end %>
+-->
+
+<!--
+<h3>Cancel my account</h3>
+
+# We need to think about what we will do once a user cancels his account. (delete, flag as deleted, allow email to be re-used?)
+<p>Unhappy? <%#= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+-->
+
+<%#= link_to  "See / edit my locations", locations_path %>
+
+<%= link_to "Back", :back %>

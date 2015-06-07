@@ -31,6 +31,11 @@ class User < ActiveRecord::Base
 
   #validates :image_url
 
+
+  before_save :set_phone_attributes, if: :phone_pending_confirmation?
+  after_save  :send_sms_for_phone_confirmation, if: :phone_pending_confirmation?
+
+
   def avatar_url_safetest
     ##self.image_url || self.identities.find_by_provider('facebook').image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
     self.image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
@@ -100,6 +105,7 @@ class User < ActiveRecord::Base
     user
   end
 
+
   # ugh, this is soooo ugly! Look at app/views/users/confirmations/new.html.erb
   def email_verified?
     self.email && self.email !~ /\Atemp-/
@@ -109,5 +115,58 @@ class User < ActiveRecord::Base
     # todo: use status flag to only return unread notifications
     self.notifications.order("updated_at desc")
   end
+
+
+
+  def current_phone_number
+    self.unconfirmed_phone_number || self.phone_number
+  end
+
+#  # is_phone_pending_confirmation?
+#  def phone_pending_confirmation?
+#    not unconfirmed_phone_number.nil?
+#  end
+
+  # do all transformations for phone_number confirmation.
+  def confirm_phone_number!
+    if not user.unconfirmed_phone_number.nil?
+      user.phone_number = user.unconfirmed_phone_number
+      #update!(phone_number: user.unconfirmed_phone_number)
+    else
+      logger.tagged("user_id:#{self.id}") {
+        logger.error "tried to confirm an unconfirmed_phone_number that is nil. This should never happen."
+      }
+    end
+    user.unconfirmed_phone_number  = nil
+    user.phone_number_confirmed_at = Time.now
+    user.phone_number_confirmation_token = nil
+    #update!( unconfirmed_phone_number: nil,
+    #  phone_number_confirmed_at: Time.now,
+    #  phone_number_confirmation_token: nil
+    #)
+    user.save!
+  end
+
+
+  # is_phone_pending_confirmation?
+  def phone_pending_confirmation?
+    not unconfirmed_phone_number.nil?
+  end
+
+
+  private
+  def set_phone_attributes
+    #self.phone_number = false
+    # 6 digit zero padded number as a string.
+    self.phone_number_confirmation_token = ( SecureRandom.hex(3).to_i(16) % 1000000 ).to_s.rjust( 6, "0" )
+    # removes all white spaces, hyphens, and parenthesis
+    self.unconfirmed_phone_number.gsub!(/[\s\-\(\)]+/, '')
+  end
+
+  def send_sms_for_phone_confirmation
+    PhoneVerificationService.new( user_id: id ).process
+  end
+
+
 
 end
