@@ -52,6 +52,15 @@ window.controllers.resultMap = {
             lat: parseFloat(searchData.center.lat),
             lng: parseFloat(searchData.center.lon)
         }
+
+        searchData.hits = searchData.hits.filter(function(e) {
+            if (!e) {
+                console.log("Missing lat long for search result item!");
+                return false;
+            }
+            return true;
+        });
+
         searchData.hits = searchData.hits.map(function(e) {
             return {lat: parseFloat(e.lat), lng: parseFloat(e.lon)}
         });
