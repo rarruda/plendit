@@ -1,5 +1,5 @@
 <div class="owned-ad-item">
-    <h5><%= link_to ad.title, edit_ad_path(ad) %></h5>
+    <h5><%= link_to ad.title_or('Ingen tittel'), edit_ad_path(ad) %></h5>
     <p>
         <%# fixme: set size here %>  
         <%= image_tag ad.image_url_with_fallback(:thumb), alt: "", class: "u-pull-right owned-ad-item__thumb" %>

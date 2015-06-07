@@ -21,6 +21,10 @@ class Ad < ActiveRecord::Base
     fav_count > 0 ? true : false
   end
 
+  def title_or(default)
+    (self.title.nil? or self.title == "") ? default : self.title
+  end
+
   def summary
     # fixme: There are a bunch of ways this can be improved. There might
     # be some gems for it already. For instance, end only at sentence
