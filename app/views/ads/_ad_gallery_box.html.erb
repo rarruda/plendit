@@ -6,8 +6,12 @@
 <% else %>
     <div class="gallery-box" data-controller="imageSlider">
         <div class="gallery-box__current-image" data-gallery>
-            <% @ad.ad_images.each do |ad_image| %>
-                <%= image_tag ad_image.image.url(:mediumplus) %>
+            <% @ad.ad_images.each_with_index do |ad_image, index| %>
+                <% if index == 0 %>
+                    <%= image_tag ad_image.image.url(:mediumplus) %>
+                <% else %>
+                    <img data-src="<%= ad_image.image.url(:mediumplus) %>">
+                <% end %>
             <% end %>
         </div>
         <div class="gallery-box__thumbnails" data-thumbnails>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150516133615) do
+ActiveRecord::Schema.define(version: 20150604232808) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -176,6 +176,19 @@ ActiveRecord::Schema.define(version: 20150516133615) do
   add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id"
   add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id"
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "notification_status_id"
+    t.integer  "notifiable_id"
+    t.string   "notifiable_type"
+    t.string   "message"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "notifications", ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
+
   create_table "user_statuses", force: :cascade do |t|
     t.string   "status"
     t.datetime "created_at", null: false
@@ -184,17 +197,17 @@ ActiveRecord::Schema.define(version: 20150516133615) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.string   "phone_number",             limit: 8
+    t.string   "phone_number",                      limit: 8
     t.integer  "ephemeral_answer_percent"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.integer  "user_status_id"
     t.string   "email"
     t.string   "encrypted_password"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0, null: false
+    t.integer  "sign_in_count",                               default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -203,10 +216,14 @@ ActiveRecord::Schema.define(version: 20150516133615) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",                    default: 0, null: false
+    t.integer  "failed_attempts",                             default: 0, null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "image_url"
+    t.string   "phone_number_confirmation_token"
+    t.datetime "phone_number_confirmed_at"
+    t.datetime "phone_number_confirmation_sent_at"
+    t.string   "unconfirmed_phone_number",          limit: 8
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

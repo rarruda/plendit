@@ -1,5 +1,6 @@
 class FeedbacksController < ApplicationController
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
+  after_action  :notify_user, only: [:create, :update]
 
   # GET /feedbacks
   # GET /feedbacks.json
@@ -65,6 +66,15 @@ class FeedbacksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_feedback
       @feedback = Feedback.find(params[:id])
+    end
+
+    # Callback to create a user notification when a feedback was left.
+    def notify_user
+      Notification.new(
+        user_id: @feedback.user.id,
+        message: "You have received a feedback for an item you own",
+        notification_status_id: 1,
+        notifiable: @feedback).save
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

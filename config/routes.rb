@@ -2,21 +2,36 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  #devise_for :users, controllers: {
-  #  sessions: 'sessions'
-  #}
-
-  get 'users/ads', to: 'ads#list'
-
   resources :locations, path: '/users/locations'
-  resources :bookings, path: '/users/bookings'
-  resources :users do
-    resources :ads
+  resources :bookings, path: '/users/bookings' do
+    resources :messages
+  end
+
+  #get 'verify_sms', path: '/users/verify_sms', as: :verify_sms, to: 'users#verify_sms'
+  get 'user',  to: 'users#index'
+  get 'users', to: 'users#index'
+  get 'users/ads', to: 'ads#list'
+  get 'users/edit', to: 'users#edit', as: 'users_edit'
+
+  devise_for :users, :controllers => {
+    :omniauth_callbacks => "users/omniauth_callbacks",
+    #sessions: 'sessions'
+  }, path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
+
+  resource :users do
+    resources :ads do
+      resources :ad_images, only: [:index, :create, :update, :destroy]
+    end
     #resources :favorite_lists do
     #  resources :favorite_ads
     #end
+    member do
+      #get 'verify_email'
+      get 'verify_sms'
+      post 'verify_sms', to: 'users#do_verify_sms'
+    end
   end
+  get 'users/:id', to: 'users#show'
 
   #resources :favorite_lists do #, path: '/users/favorite_lists'
   #  resources :favorite_ads
@@ -26,12 +41,16 @@ Rails.application.routes.draw do
 
   get 'ads/create_3'
 
+  post 'ads/create', as: 'user_ad'
+
   get 'misc/wip'
 
   get '/search', to: 'ads#search'
 
+  get '/new', to: 'ads#new', as: 'new_ad'
 
-  resources :messages
+
+
   #resources :bookings
   resources :feedbacks
   resources :ads do

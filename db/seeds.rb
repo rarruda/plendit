@@ -20,6 +20,8 @@ Booking.delete_all
 BookingStatus.delete_all
 Message.delete_all
 
+#Notification.delete_all
+
 
 # Set locale to faker:
 Faker::Config.locale = 'nb-NO'
@@ -249,16 +251,18 @@ Feedback.create({"ad_id"=>ad_id, "from_user_id"=>get_from_user_id(ad_id), "score
 # fixme(RA): Should generate some more random bookings
 
 # Get a random AdItem, and a User who does not own it.
-ad = Ad.all.sample
-ad_item_id   = ad.ad_items.all.sample.id
-from_user_id = User.where("id != ?", ad.user_id ).sample.id
+[ User.first.id, User.second.id ].each do |user_id|
+  ad = User.find( user_id ).ads.sample
+  ad_item_id   = ad.ad_items.all.sample.id
+  from_user = User.where("id != ?", ad.user_id ).sample
 
-b = Booking.create({"ad_item_id"=>ad_item_id, "from_user_id"=>from_user_id, "booking_status_id"=>"1", "price"=>ad.price, "booking_from"=>(DateTime.now + 1).iso8601, "booking_to"=>(DateTime.now + 2).iso8601}) ##, "first_reply_at"=>"2015-03-28 11:05:00 UTC"})
+  b = Booking.create({"ad_item_id"=>ad_item_id, "from_user_id"=>from_user.id, "booking_status_id"=>"1", "price"=>ad.price, "booking_from"=>(DateTime.now + 1).iso8601, "booking_to"=>(DateTime.now + 2).iso8601}) ##, "first_reply_at"=>"2015-03-28 11:05:00 UTC"})
 
+  ### Message
+  Message.create({"booking_id"=>b.id, "from_user_id"=>from_user.id, "to_user_id"=>ad.user_id, "content"=>"Hei! Lurer på om den tidspunkt passer for deg... Hvis ikke, kan du si ifra?\r\n\r\nMvh,\r\n#{from_user.name}"})
+  Message.create({"booking_id"=>b.id , "from_user_id"=>ad.user_id, "to_user_id"=>from_user.id, "content"=>"Den tidspunkt passer helt fint! Da er det bare å komme og hente.\r\n\r\nMvh,\r\n#{ad.user.name}"})
+end
 
-### Message
-Message.create({"booking_id"=>b.id, "from_user_id"=>"3", "to_user_id"=>"1", "content"=>"Hei! Lurer på om den tidspunkt passer for deg... Hvis ikke, kan du si ifra?\r\n\r\nMvh,\r\nFredrik"})
-Message.create({"booking_id"=>b.id , "from_user_id"=>"1", "to_user_id"=>"3", "content"=>"Den tidspunkt passer helt fint! Da er det bare å komme og hente.\r\n\r\nMvh,\r\nJan Erik"})
 
 
 # EOF

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :confirmation]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :confirmation, :verify_sms, :do_verify_sms]
   before_filter :authenticate_user!, :except => [:show, :finish_signup]
 
   def index
@@ -48,8 +48,15 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    # TODO: move this code to its own method.
+    user_params_safe = user_params
+    if @user.phone_number != user_params['current_phone_number']
+      user_params_safe['unconfirmed_phone_number'] = user_params['current_phone_number']
+      user_params_safe.except!('current_phone_number')
+    end
+
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(user_params_safe)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -84,14 +91,34 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /verify_sms
+  def verify_sms
+    # if user already has phone verified, take him somewhere else.
+    unless @user.phone_pending_confirmation?
+      redirect_to @user, notice: 'Your phone_number was already verified. no need to try to verify it again.'
+    end
+  end
+
+  # POST /verify_sms
+  def do_verify_sms
+    if @user.phone_number_confirmation_token == user_params['phone_number_confirmation_token'] and
+       @user.confirm_phone_number!
+      redirect_to @user, notice: 'Your phone_number was successfully verified.'
+    else
+      redirect_to @user, notice: 'Your phone_number was NOT verified, please check the code, and try again. Eventually try resending a new verification code.'
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = view_context.get_current_user_id
+      @user = User.find( view_context.get_current_user_id )
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :phone_number, :user_status_id, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :current_phone_number, :user_status_id, :password, :password_confirmation, :phone_number_confirmation_token)
     end
 end

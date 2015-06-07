@@ -1,11 +1,18 @@
 <div class="container">
-
     <div class="row">
-
         <div class="seven columns">
-            <%= render partial: "form" %>
+            <h1 class="u-push-down">Hva vil du leie ut?</h1>
+            <% @ad_types.each do |a| %>
+                <%= form_tag(user_ad_path) do  %>
+                    <div class="new-ad-type-selector">
+                        <%= hidden_field_tag(:type, a[:type]) %>
+                        <h3><%= a[:title] %></h3>
+                        <p><%= a[:text] %></p>
+                        <%= submit_tag "lag annonse", class: "button-primary" %>
+                    </div>
+                <% end %>
+            <% end %>
         </div>
-
         <div class="four columns offset-by-one column">
             <%= render partial: "ad_input_copy" %>
         </div>

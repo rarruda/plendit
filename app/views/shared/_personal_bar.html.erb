@@ -11,8 +11,8 @@
                         { text: "Kontrollpanel", path: users_path },
                         { text: "Leiehistorikk", path: "#" },
                         { text: "Dine annonser", path: users_ads_path },
-                        { text: "Din profil", path: edit_user_registration_path },
-                        { text: "Din konto", path: "#" },
+                        { text: "Din profil", path: users_edit_path },
+                        { text: "Din konto", path: edit_user_registration_path },
                         { text: "Dine Forespørsler", path: bookings_path }
                     ]
                     links.map { |e| e[:selected] = e[:text].downcase == selected.downcase }

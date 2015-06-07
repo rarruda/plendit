@@ -5,11 +5,11 @@ class Ad < ActiveRecord::Base
   has_many :ad_images
   belongs_to :location
 
-
-  validates :title, presence: true, length: { in: 3..255 }
-  validates :body,  presence: true
   validates :user,  presence: true
-  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :title, length: { in: 0..255 }, :unless => :new_record?
+  validates :price, numericality: { greater_than_or_equal_to: 0 }, :unless => :new_record?
+
+  # todo: how to validate location present before publish?
   #validates :location, presence: true
 
   def related_ads_from_user
@@ -22,18 +22,7 @@ class Ad < ActiveRecord::Base
   end
 
   def summary
-    # fixme: There are a bunch of ways this can be improved. There might
-    # be some gems for it already. For instance, end only at sentence
-    # breaks and allow small overflows when close to full length.
-    # Also, stick 240 in config somewhere?
-    # Also, better whitespace / split / paragraph detection
-
-    first_paragraph = self.body.split("\r\n\r\n").first
-    if first_paragraph.size > 240
-        first_paragraph[0...240] + "..."
-    else
-        first_paragraph
-    end
+    truncate( ad.body , line_width: 240 )
   end
 
   # helper methods for generating urls for the three different image sizes, and which has the

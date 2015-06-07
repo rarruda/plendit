@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
-
+  after_action  :notify_user, only: [:create, :update]
   before_filter :authenticate_user!
 
   # GET /bookings
@@ -68,6 +68,23 @@ class BookingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_booking
       @booking = Booking.find(params[:id])
+    end
+
+    # Callback to notify the relevant parties that the booking is in place.
+    # TODO: check that we can take for granted that @booking is in place.
+    # TODO: more fine grained notifications needed:
+    #   Accepting, rejecting, canceling and editing a booking request
+    def notify_user
+      Notification.new(
+        user_id: @booking.user.id,
+        message: "Somone has booked (wants to rent) a item you own: #{@booking.ad.id}",
+        notification_status_id: 1,
+        notifiable: @booking ).save
+      Notification.new(
+        user_id: @booking.from_user.id,
+        message: "A booking request has been created for you.",
+        notification_status_id: 1,
+        notifiable: @booking ).save
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,0 +1,48 @@
+<%= render partial: "shared/personal_bar", locals: { selected: "Din profil" } %>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
+                I feltene under kan du redigere din profil. Husk at
+                det bare er ditt fornavn som vises til andre brukere.
+            <% end %>
+
+
+
+
+            <%= render layout: "gray_box", locals: {title: "Verify Phone Number"} do %>
+                <%#= form_for(@user, url: verify_sms_path(@user), html: { method: :put }) do |f| %>
+                <%= form_tag( verify_sms_users_path ) %>
+
+
+                    <div class="row">
+                        <div class="six columns">
+                            <%= label_tag 'user[phone_number_confirmation_token]', "Telefon bekreftelses kode for #{@user.current_phone_number}" %>
+                            <%= text_field_tag 'user[phone_number_confirmation_token]', '', { class: "u-full-width", maxlength: "8" }  %>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="twelve columns">
+                            <%= submit_tag "Bekreft", class: "u-pull-right button-primary" %>
+                        </div>
+                    </div>
+
+                </form>
+
+            <% end %>
+
+        </div>
+        <div class="four columns">
+            <%= render layout: "gray_box", locals: {title: "Flere valg"} do %>
+                <ul>
+                    <li><a href="#">Rediger profil</a></li>
+                    <li><a href="#">Verifisering</a></li>
+                    <li><a href="#">Tilbakemeldinger</a></li>
+                    <li><a href="#">Favoritter</a></li>
+                </ul>
+            <% end %>
+        </div>
+    </div>
+</div>

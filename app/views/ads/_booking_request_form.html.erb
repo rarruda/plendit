@@ -1,6 +1,7 @@
 <div class="booking-request-form">
     <h3 class="booking-request-form__title"><%= @ad.price %> per dag</h3>
 
+<!-- // TODO: remove this commented out section
     <div class="row">
         <div class="five columns offset-by-one column booking-request-form__time-input">
             <input type="date">
@@ -11,6 +12,7 @@
         </div>
 
     </div>
+-->
     <div class="row">
         <div class="ten columns offset-by-one column">
             <button class="button-primary booking-request-form__book-button">Send forespørsel</button>
@@ -21,7 +23,7 @@
             <%= form_for( FavoriteAd.new ) do |f| %>
                 <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
                 <%= f.hidden_field :previous_url, value: request.fullpath %>
-                <% if @ad_is_favorite %> 
+                <% if @ad_is_favorite %>
                     <%= f.button class: "booking-request-form__book-button" do %>
                         <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart--favorite") %>
                         Fjern fra favoritter
