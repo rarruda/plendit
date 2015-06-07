@@ -43,11 +43,17 @@ class PhoneVerificationService
         Rails.logger.info "SMS: From: #{from} To: #{to} Body: \"#{body}\""
       end
 
-      twilio_client.account.messages.create(
-        from: from,
-        to: to,
-        body: body
-      )
+      if ENV['PCONF_TWILIO_ENABLED']
+        twilio_client.account.messages.create(
+          from: from,
+          to: to,
+          body: body
+        )
+      else
+        Rails.logger.tagged("user_id:#{@user.id}") do
+          Rails.logger.info "SMS: twilio not called to save money"
+        end
+      end
     end
   end
 end
