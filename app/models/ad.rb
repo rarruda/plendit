@@ -21,25 +21,8 @@ class Ad < ActiveRecord::Base
     fav_count > 0 ? true : false
   end
 
-  def title_or(default)
-    (self.title.nil? or self.title == "") ? default : self.title
-  end
-
   def summary
-    # fixme: There are a bunch of ways this can be improved. There might
-    # be some gems for it already. For instance, end only at sentence
-    # breaks and allow small overflows when close to full length.
-    # Also, stick 240 in config somewhere?
-    # Also, better whitespace / split / paragraph detection
-
-    first_paragraph = self.body.split("\r\n\r\n").first
-    if first_paragraph.nil?
-      ""
-    elsif first_paragraph.size > 240
-      first_paragraph[0...240] + "..."
-    else
-      first_paragraph
-    end
+    truncate( ad.body , line_width: 240 )
   end
 
   # helper methods for generating urls for the three different image sizes, and which has the
