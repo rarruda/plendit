@@ -1,0 +1,15 @@
+{
+  "folders":
+  [
+    {
+      "name": "Plendit",
+      "path": ".",
+	"folder_exclude_patterns": ["vendor", "tmp", "bin"]
+    }
+  ],
+
+  "settings":
+    {
+      "translate_tabs_to_spaces": true
+    }
+}
