@@ -19,7 +19,7 @@ class PhoneVerificationService
 
   def to
     # +47 is a country code for Norway
-    "+47#{@user.unconfirmed_phone_number}"
+    @user.unconfirmed_phone_number ? "+47#{@user.unconfirmed_phone_number}" : nil
   end
 
   def body
@@ -34,14 +34,20 @@ class PhoneVerificationService
   end
 
   def send_sms
-    Rails.logger.tagged("user_id:#{@user.id}") do
-      Rails.logger.info "SMS: From: #{from} To: #{to} Body: \"#{body}\""
-    end
+    if to.nil?
+      Rails.logger.tagged("user_id:#{@user.id}") do
+        Rails.logger.error "unconfirmed_phone_number for user cannot be nil. Refusing to send sms."
+      end
+    else
+      Rails.logger.tagged("user_id:#{@user.id}") do
+        Rails.logger.info "SMS: From: #{from} To: #{to} Body: \"#{body}\""
+      end
 
-    twilio_client.account.messages.create(
-      from: from,
-      to: to,
-      body: body
-    )
+      twilio_client.account.messages.create(
+        from: from,
+        to: to,
+        body: body
+      )
+    end
   end
 end
