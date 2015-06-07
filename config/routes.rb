@@ -12,10 +12,12 @@ Rails.application.routes.draw do
   get 'users', to: 'users#index'
   get 'users/ads', to: 'ads#list'
   get 'users/edit', to: 'users#edit', as: 'users_edit'
+
   devise_for :users, :controllers => {
-    :omniauth_callbacks => "users/omniauth_callbacks"
+    :omniauth_callbacks => "users/omniauth_callbacks",
     #sessions: 'sessions'
-  }
+  }, path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
+
   resource :users do
     resources :ads
     #resources :favorite_lists do

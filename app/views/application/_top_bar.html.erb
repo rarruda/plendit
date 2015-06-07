@@ -19,7 +19,7 @@
             <%= render('shared/avatar.html', user: current_user, size: "tiny", css_class: "top-bar__avatar") %>
 
             <strong class="top-bar__top-section">
-                <%= link_to current_user.name, user_registration_path, :class => "top-bar__navbar-link" %>.
+                <%= link_to current_user.name, user_path, :class => "top-bar__navbar-link" %>.
             </strong>
 
             <span class="top-bar__top-section"
