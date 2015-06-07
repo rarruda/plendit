@@ -29,10 +29,12 @@ class Ad < ActiveRecord::Base
     # Also, better whitespace / split / paragraph detection
 
     first_paragraph = self.body.split("\r\n\r\n").first
-    if first_paragraph.size > 240
-        first_paragraph[0...240] + "..."
+    if first_paragraph.nil?
+      ""
+    elsif first_paragraph.size > 240
+      first_paragraph[0...240] + "..."
     else
-        first_paragraph
+      first_paragraph
     end
   end
 
