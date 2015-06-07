@@ -31,9 +31,10 @@ class User < ActiveRecord::Base
 
   #validates :image_url
 
-
-  before_save :set_phone_attributes, if: :phone_pending_confirmation?
-  after_save  :send_sms_for_phone_confirmation, if: :phone_pending_confirmation?
+  # only act on the phone settings, if the phone number was changed.
+  # TODO: add trigger so that its possible to re-send codes for the current unverified phone number.
+  before_save :set_phone_attributes, if: ( :phone_pending_confirmation? and :phone_pending_changed? )
+  after_save  :send_sms_for_phone_confirmation, if: ( :phone_pending_confirmation? and :phone_pending_changed? )
 
 
   def avatar_url_safetest
@@ -151,6 +152,10 @@ class User < ActiveRecord::Base
   # is_phone_pending_confirmation?
   def phone_pending_confirmation?
     not unconfirmed_phone_number.nil?
+  end
+
+  def phone_pending_changed?
+    unconfirmed_phone_number_changed?
   end
 
 
