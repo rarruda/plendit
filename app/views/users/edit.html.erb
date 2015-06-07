@@ -28,10 +28,15 @@
                             <%= f.text_field :email, class: "u-full-width" %>
                         </div>
                     </div>
-  <%# if devise_mapping.confirmable? && @user.pending_reconfirmation? %>
-  <% if @user.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %></div>
-  <% end %>
+
+                    <% if @user.pending_reconfirmation? %>
+                    <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %>. Check your email for instructions on how to confirm it.</div>
+                    <% else %>
+                    <div>
+                        <pre>email is confirmed! <3</pre>
+                    </div>
+                    <% end %>
+
                     <div class="row">
                         <div class="six columns">
                             <%= f.label :current_phone_number, "Telefonnummer" %>
@@ -41,9 +46,14 @@
 
                     <% if @user.phone_pending_confirmation? %>
                     <div>
-                        Currently waiting confirmation for: <%= @user.unconfirmed_phone_number %>. Last confirmed number: <%= @user.phone_number %>
-                    </div> 
+                        Currently waiting confirmation for: <%= @user.unconfirmed_phone_number %>. Last confirmed number: <%= @user.phone_number %>. Please confirm your new number <%= link_to 'here', verify_sms_users_path %>.
+                    </div>
+                    <% else %>
+                    <div>
+                        <pre>phone is confirmed! <3</pre>
+                    </div>
                     <% end %>
+
                     <div class="row">
                         <div class="twelve columns">
                             <%= f.submit "Oppdater", class: "u-pull-right button-primary" %>
@@ -57,7 +67,7 @@
         </div>
         <div class="four columns">
             <%= render('shared/profile_image_box.html', user: current_user) %>
-  
+
             <%= render layout: "gray_box", locals: {title: "Flere valg"} do %>
                 <ul>
                     <li><a href="#">Rediger profil</a></li>

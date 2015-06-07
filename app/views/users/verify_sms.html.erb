@@ -13,13 +13,13 @@
 
             <%= render layout: "gray_box", locals: {title: "Verify Phone Number"} do %>
                 <%#= form_for(@user, url: verify_sms_path(@user), html: { method: :put }) do |f| %>
-                <%= form_tag( verify_sms_path ) %>
+                <%= form_tag( verify_sms_users_path ) %>
 
 
                     <div class="row">
                         <div class="six columns">
-                            <%= label_tag :sms_confirmation_token, "Telefon bekreftelses kode for #{@user.current_phone_number}" %>
-                            <%= text_field_tag :sms_confirmation_token, '', { class: "u-full-width", maxlength: "8" }  %>
+                            <%= label_tag 'user[phone_number_confirmation_token]', "Telefon bekreftelses kode for #{@user.current_phone_number}" %>
+                            <%= text_field_tag 'user[phone_number_confirmation_token]', '', { class: "u-full-width", maxlength: "8" }  %>
                         </div>
                     </div>
 

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :confirmation, :verify_sms]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :confirmation, :verify_sms, :do_verify_sms]
   before_filter :authenticate_user!, :except => [:show, :finish_signup]
 
   def index
@@ -93,20 +93,20 @@ class UsersController < ApplicationController
 
   # GET /verify_sms
   def verify_sms
+    # if user already has phone verified, take him somewhere else.
+    unless @user.phone_pending_confirmation?
+      redirect_to @user, notice: 'Your phone_number was already verified. no need to try to verify it again.'
+    end
   end
 
-  # POST /confirm_sms
-  def confirm_sms
-    if @user.find_by( :phone_number, params[:phone_number] ).where(
-          :phone_number_confirmation_token, phone_number_confirmation_token
-        )
-      user = get_user_for_phone_verification
-      if user
-        user.confirm_phone_number!
-      end
+  # POST /verify_sms
+  def do_verify_sms
+    if @user.phone_number_confirmation_token == user_params['phone_number_confirmation_token'] and
+       @user.confirm_phone_number!
+      redirect_to @user, notice: 'Your phone_number was successfully verified.'
+    else
+      redirect_to @user, notice: 'Your phone_number was NOT verified, please check the code, and try again. Eventually try resending a new verification code.'
     end
-
-    redirect_to @user, notice: 'Your profile was successfully updated.'
   end
 
 
@@ -119,6 +119,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :current_phone_number, :user_status_id, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :current_phone_number, :user_status_id, :password, :password_confirmation, :phone_number_confirmation_token)
     end
 end

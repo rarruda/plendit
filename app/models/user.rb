@@ -33,8 +33,15 @@ class User < ActiveRecord::Base
 
   # only act on the phone settings, if the phone number was changed.
   # TODO: add trigger so that its possible to re-send codes for the current unverified phone number.
-  before_save :set_phone_attributes, if: ( :phone_pending_confirmation? and :phone_pending_changed? )
-  after_save  :send_sms_for_phone_confirmation, if: ( :phone_pending_confirmation? and :phone_pending_changed? )
+  before_save :set_phone_attributes,
+    if: :phone_pending_confirmation?,
+    if: :phone_pending_changed?,
+    if: :phone_not_changed?
+
+  after_save  :send_sms_for_phone_confirmation,
+    if: :phone_pending_confirmation?,
+    if: :phone_pending_changed?,
+    if: :phone_not_changed?
 
 
   def avatar_url_safetest
@@ -123,31 +130,22 @@ class User < ActiveRecord::Base
     self.unconfirmed_phone_number || self.phone_number
   end
 
-#  # is_phone_pending_confirmation?
-#  def phone_pending_confirmation?
-#    not unconfirmed_phone_number.nil?
-#  end
-
   # do all transformations for phone_number confirmation.
   def confirm_phone_number!
-    if not user.unconfirmed_phone_number.nil?
-      user.phone_number = user.unconfirmed_phone_number
-      #update!(phone_number: user.unconfirmed_phone_number)
-    else
+    if self.unconfirmed_phone_number.nil?
       logger.tagged("user_id:#{self.id}") {
         logger.error "tried to confirm an unconfirmed_phone_number that is nil. This should never happen."
       }
-    end
-    user.unconfirmed_phone_number  = nil
-    user.phone_number_confirmed_at = Time.now
-    user.phone_number_confirmation_token = nil
-    #update!( unconfirmed_phone_number: nil,
-    #  phone_number_confirmed_at: Time.now,
-    #  phone_number_confirmation_token: nil
-    #)
-    user.save!
-  end
+      nil
+    else
+      self.phone_number              = self.unconfirmed_phone_number
+      self.unconfirmed_phone_number  = nil
+      self.phone_number_confirmed_at = Time.now
+      self.phone_number_confirmation_token = nil
 
+      self.save!
+    end
+  end
 
   # is_phone_pending_confirmation?
   def phone_pending_confirmation?
@@ -158,6 +156,9 @@ class User < ActiveRecord::Base
     unconfirmed_phone_number_changed?
   end
 
+  def phone_not_changed?
+    not phone_number_changed?
+  end
 
   private
   def set_phone_attributes
