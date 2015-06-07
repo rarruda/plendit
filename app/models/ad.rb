@@ -6,8 +6,8 @@ class Ad < ActiveRecord::Base
   belongs_to :location
 
   validates :user,  presence: true
-  validates :title, length: { in: 0..255 }
-  validates :price, numericality: { greater_than_or_equal_to: 0 }
+  validates :title, length: { in: 0..255 }, :unless => :new_record?
+  validates :price, numericality: { greater_than_or_equal_to: 0 }, :unless => :new_record?
 
   # todo: how to validate location present before publish?
   #validates :location, presence: true
