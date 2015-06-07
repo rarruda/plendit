@@ -2,16 +2,20 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  get 'users/ads', to: 'ads#list'
-
   resources :locations, path: '/users/locations'
   resources :bookings, path: '/users/bookings' do
     resources :messages
   end
 
   #get 'verify_sms', path: '/users/verify_sms', as: :verify_sms, to: 'users#verify_sms'
-  get 'user', to: 'users#index'
+  get 'user',  to: 'users#index'
   get 'users', to: 'users#index'
+  get 'users/ads', to: 'ads#list'
+  get 'users/edit', to: 'users#edit', as: 'users_edit'
+  devise_for :users, :controllers => {
+    :omniauth_callbacks => "users/omniauth_callbacks"
+    #sessions: 'sessions'
+  }
   resource :users do
     resources :ads
     #resources :favorite_lists do
@@ -49,10 +53,6 @@ Rails.application.routes.draw do
 
 
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  #devise_for :users, controllers: {
-  #  sessions: 'sessions'
-  #}
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
