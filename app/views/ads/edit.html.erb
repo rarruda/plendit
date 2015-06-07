@@ -1,6 +1,11 @@
-<h1>Editing Ad</h1>
+<div class="container">
+    <div class="row">
+        <div class="seven columns">
+            <%= render 'form' %>
+        </div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @ad %> |
-<%= link_to 'Back', ads_path %>
+        <div class="four columns offset-by-one column">
+            <%= render partial: "ad_input_copy" %>
+        </div>
+    </div>
+</div>
