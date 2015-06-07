@@ -21,3 +21,6 @@
 
 # Ignore install path for ruby dependencies
 /vendor/bundle
+
+# Useful for env vars needed to run, but not for checking in
+secret.env
