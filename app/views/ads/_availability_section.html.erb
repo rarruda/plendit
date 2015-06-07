@@ -1,5 +1,15 @@
 <div class="row">
+<%
+
+today = DateTime.now()
+[today, today.next_month].each do |d|
+
+  @first_day_of_month = Date.civil( d.year, d.month, 1)
+  @last_day_of_month  = Date.civil( d.year, d.month, -1)
+
+%>
     <div class="six columns">
+        <%= d.strftime("%B - %Y") %>
         <table>
             <tr>
                 <th>Man.</th>
@@ -11,46 +21,25 @@
                 <th>Søn.</th>
             </tr>
             <tr>
-                <% @beginning_of_month = Date.civil(2015, 5, 1) %>
-                <% @end_of_month = Date.civil(2015, 5, -1) %>
-
-                <% (@beginning_of_month..@end_of_month).each do |d| %>
-                    <% if d == @beginning_of_month %>
-                        <% (d.cwday - 1).times do %> <td class='offset'></td> <% end %>
-                    <% end %>
-
-                    <% if d.cwday == 1 %> </tr><tr> <% end %>
-
-                    <td> <%= d.day %> </td>
+            <% (@first_day_of_month..@last_day_of_month).each do |d| %>
+                <% if d == @first_day_of_month %>
+                    <% (d.cwday - 1).times do %> <td class='offset'></td> <% end %>
                 <% end %>
+                <% if d.cwday == 1 %> </tr><tr> <% end %>
+                <td class="<% if d.today? %>today<% end
+                  if d < today
+                    %>past<%
+                  end
+                   #class="past|available|partial|unavailable"
+                   %> available<%
+                 %>">
+                  <%- if d.today? %><b><% end -%>
+                    <%= d.day %>
+                  <%- if d.today? %></b><% end -%>
+                </td>
+            <% end %>
             </tr>
         </table>
     </div>
-<!--     <div class="six columns">
-        <table>
-            <tr>
-                <th>Man.</th>
-                <th>Tir.</th>
-                <th>Ons.</th>
-                <th>Tor.</th>
-                <th>Fre.</th>
-                <th>Lør.</th>
-                <th>Søn.</th>
-            </tr>
-            <tr>
-                <% @beginning_of_month = Date.civil(2015, 6, 1) %>
-                <% @end_of_month = Date.civil(2015, 6, -1) %>
-
-                <% (@beginning_of_month..@end_of_month).each do |d| %>
-                    <% if d == @beginning_of_month %>
-                        <% (d.cwday - 1).times do %> <td class='offset'></td> <% end %>
-                    <% end %>
-
-                    <% if d.cwday == 1 %> </tr><tr> <% end %>
-
-                    <td> <%= d.day %> </td>
-                <% end %>
-            </tr>
-        </table>
-    </div> -->
+<% end %>
 </div>
