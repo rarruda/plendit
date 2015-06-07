@@ -12,6 +12,21 @@
     margin-right: $standard-spacing;
     margin-bottom: $standard-spacing;
 
+    @media screen and (max-width: 1024px) {
+        width: 170px;
+        margin-left: $standard-spacing / 2 ;
+        margin-right: $standard-spacing / 2;
+
+        &__title {
+            font-size: 80%;
+        }
+
+        &__img {
+            width: 170px;;
+            height: auto;
+        }
+    }
+
     &:nth-of-type(1n) {
         background-color: #710149;
     }
