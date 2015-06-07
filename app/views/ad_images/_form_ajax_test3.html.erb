@@ -32,5 +32,6 @@
 </div>
 
 <div class="next-step-holder">
-    <a href="<%= preview_ad_path(id: params[:ad_id]) %>" class="next-step">Neste steg</a>
+<%= link_to "rediger annonse", (edit_users_ad_path @ad_id) %>
+<%= link_to "vis annonse", (ad_path @ad_id) %>
 </div>

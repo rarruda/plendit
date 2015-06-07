@@ -19,7 +19,9 @@ Rails.application.routes.draw do
   }, path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
 
   resource :users do
-    resources :ads
+    resources :ads do
+      resources :ad_images, only: [:index, :create, :update, :destroy]
+    end
     #resources :favorite_lists do
     #  resources :favorite_ads
     #end
@@ -39,9 +41,14 @@ Rails.application.routes.draw do
 
   get 'ads/create_3'
 
+  post 'ads/create', as: 'user_ad'
+
   get 'misc/wip'
 
   get '/search', to: 'ads#search'
+
+  get '/new', to: 'ads#new', as: 'new_ad'
+
 
 
   #resources :bookings
@@ -54,8 +61,6 @@ Rails.application.routes.draw do
   end
   # fixme: should be retired in the future:
   resources :ad_images
-
-
 
 
   # The priority is based upon order of creation: first created -> highest priority.

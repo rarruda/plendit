@@ -5,11 +5,11 @@ class Ad < ActiveRecord::Base
   has_many :ad_images
   belongs_to :location
 
-
-  validates :title, presence: true, length: { in: 3..255 }
-  validates :body,  presence: true
   validates :user,  presence: true
-  validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :title, length: { in: 0..255 }
+  validates :price, numericality: { greater_than_or_equal_to: 0 }
+
+  # todo: how to validate location present before publish?
   #validates :location, presence: true
 
   def related_ads_from_user

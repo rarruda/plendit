@@ -1,4 +1,4 @@
-<%= form_for(@ad) do |f| %>
+<%= form_for(@ad, url: (users_ad_path @ad)) do |f| %>
     <% if @ad.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@ad.errors.count, "error") %> prohibited this ad from being saved:</h2>
@@ -58,7 +58,7 @@
                 Adresse for henting:
             </label>
 
-              <%- if @ad.user.locations.length > 0 -%>
+              <%- if (not @ad.user.locations.nil?) and @ad.user.locations.length > 0 -%>
               <div>
                 <input type="checkbox">
                 <span><small>
@@ -94,4 +94,7 @@
             <%= f.submit 'Neste steg', class: 'u-pull-right' %>
             <!-- a class="u-pull-right" href="#">Neste steg</a -->
         </div>
+        <%= link_to "Vis annonse", (ad_path @ad)  %>
+        <%= link_to "Vis bilder", (users_ad_ad_images_path @ad) %>
+
     <%- end -%>

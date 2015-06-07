@@ -6,6 +6,7 @@ class AdImagesController < ApplicationController
   # GET /ad_images.json
   def index
     # missing verification if user owns ad:
+    @ad_id = params[:ad_id]
     @ad_images = AdImage.where('ad_id = ?', params[:ad_id]).all
     respond_to do |format|
       format.html {

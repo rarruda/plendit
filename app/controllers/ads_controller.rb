@@ -66,37 +66,64 @@ class AdsController < ApplicationController
 
   # GET /ads/new
   def new
-    @ad = Ad.new( user_id: view_context.get_current_user_id )
+    @ad_types = [
+      {
+        title: "Stort og smått",
+        text: "Stort og smått asdf asdf asdf",
+        type: "bap"
+      },
+      {
+        title: "Kjøretøy",
+        text: "Kjøretøy asdf asdf asdf",
+        type: "veichle"
+      },
+      {
+        title: "Eiendom",
+        text: "Eiendom asdf asdf asdf",
+        type: "realestate"
+      }
+    ]
   end
 
+  def create
+    # todo: verify for sane ad type
+    type = params[:ad_type]
+    @ad = Ad.new(user_id: current_user.id)
+    # @ad = Ad.new(type: type)
+    if @ad.save
+      redirect_to edit_users_ad_path(@ad), notice: 'Ad was successfully created.'
+    else
+      redirect_to new_ad_path, notice: "Couldn't create ad!"
+    end
+  end
 
   # GET /ads/1/edit
   def edit
   end
 
-  # POST /ads
-  # POST /ads.json
-  def create
-    @ad = Ad.new(ad_params)
-    @ad.user_id = view_context.get_current_user_id
+  # # POST /ads
+  # # POST /ads.json
+  # def create
+  #   @ad = Ad.new(ad_params)
+  #   @ad.user_id = view_context.get_current_user_id
 
-    respond_to do |format|
-      if @ad.save
-        format.html { redirect_to ad_images_path(:ad_id => @ad.id), notice: 'Ad was successfully created.' }
-        format.json { render :show, status: :created, location: @ad }
-      else
-        format.html { render :new }
-        format.json { render json: @ad.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @ad.save
+  #       format.html { redirect_to ad_images_path(:ad_id => @ad.id), notice: 'Ad was successfully created.' }
+  #       format.json { render :show, status: :created, location: @ad }
+  #     else
+  #       format.html { render :new }
+  #       format.json { render json: @ad.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /ads/1
   # PATCH/PUT /ads/1.json
   def update
     respond_to do |format|
       if @ad.update(ad_params)
-        format.html { redirect_to @ad, notice: 'Ad was successfully updated.' }
+        format.html { redirect_to edit_users_ad_path(@ad), notice: 'Ad was successfully updated.' }
         format.json { render :show, status: :ok, location: @ad }
       else
         format.html { render :edit }
