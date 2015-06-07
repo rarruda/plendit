@@ -14,13 +14,13 @@ $avatar-tiny-size: 24px;
 }
 
 .avatar--huge {
-    @extend .avatar;    
+    @extend .avatar;
     width: $avatar-huge-size;
     height: $avatar-huge-size;
 }
 
 .avatar--large {
-    @extend .avatar;    
+    @extend .avatar;
 }
 
 .avatar--medium {
