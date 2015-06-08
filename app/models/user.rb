@@ -166,7 +166,7 @@ class User < ActiveRecord::Base
     # 6 digit zero padded number as a string.
     self.phone_number_confirmation_token = ( SecureRandom.hex(3).to_i(16) % 1000000 ).to_s.rjust( 6, "0" )
     # removes all white spaces, hyphens, and parenthesis
-    self.unconfirmed_phone_number.gsub!(/[\s\-\(\)]+/, '')
+    self.unconfirmed_phone_number.to_s.gsub!(/[\s\-\(\)]+/, '')
   end
 
   def send_sms_for_phone_confirmation
