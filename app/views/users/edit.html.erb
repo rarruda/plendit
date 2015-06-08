@@ -50,7 +50,8 @@
 
                     <% if @user.phone_pending_confirmation? %>
                     <div>
-                        Currently waiting confirmation for: <%= @user.unconfirmed_phone_number %>. Last confirmed number: <%= @user.phone_number %>. Please confirm your new number <%= link_to 'here', verify_sms_users_path %>.
+                        Currently waiting confirmation for: <%= @user.unconfirmed_phone_number %>. Last confirmed number: <%= @user.phone_number %>. Please confirm your new number <%= link_to 'here', verify_sms_users_path %>. If you need a new sms sent, please click <%= link_to 'here', '#' %>.
+                        <%# TODO(RA): Create a page to send a New SMS. Should refuse to send too often, otherwise we go bankrupt. %>
                     </div>
                     <% else %>
                     <div>
