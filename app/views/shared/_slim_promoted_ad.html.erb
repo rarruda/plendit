@@ -4,7 +4,7 @@
     <h6 class="slim-promoted-ad__title"><%= link_to ad.title, ad %></h6>
 
     <p class="slim-promoted-ad__body">
-        <%= ad.body[0..200] %>
+        <%= ad.summary %>
     </p>
 
     <%= form_for( FavoriteAd.new ) do |f| %>

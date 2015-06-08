@@ -1,3 +1,5 @@
+include ActionView::Helpers::TextHelper
+
 class Ad < ActiveRecord::Base
   belongs_to :user
   has_many :received_feedbacks, :class_name => "Feedback"
@@ -22,7 +24,7 @@ class Ad < ActiveRecord::Base
   end
 
   def summary
-    truncate( ad.body , line_width: 240 )
+    truncate( self.body , line_width: 240 )
   end
 
   # helper methods for generating urls for the three different image sizes, and which has the
