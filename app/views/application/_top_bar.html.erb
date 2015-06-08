@@ -66,7 +66,7 @@
                     </div>
                     <div class="ten columns">
                         <p class="notification-box__para">
-                            <%= n.message %>
+                            <%= link_to n.message, n.source_path %>
                         </p>
                         <p class="notification-box__para">
                             <small><%= n.updated_at.to_formatted_s(:plendit_short_datetime) %></small>
