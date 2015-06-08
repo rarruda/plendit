@@ -70,11 +70,12 @@
 
             <%= render layout: "gray_box", locals: {title: "Flere valg"} do %>
                 <ul>
-                    <li><a href="#">Rediger profil</a></li>
-                    <li><a href="#">Verifisering</a></li>
-                    <li><a href="#">Tilbakemeldinger</a></li>
-                    <li><a href="#">Favoritter</a></li>
-                    <li><%= link_to "Bytt passord", edit_user_registration_path %>*</li>
+                    <li><%= link_to "Din profil", users_edit_path %></li>
+                    <li><%= link_to "Verifisering",     "#" %></li>
+                    <li><%= link_to "Tilbakemeldinger", "#" %></li>
+                    <li><%= link_to "Favoritter",       "#" %></li>
+                    <li><%= link_to "Bytt passord", edit_user_registration_path %></li>
+                    <li><%= link_to "See / edit my locations", locations_path %></li>
                 </ul>
             <% end %>
         </div>

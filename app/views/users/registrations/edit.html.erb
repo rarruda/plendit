@@ -1,55 +1,34 @@
 
-<%= render partial: "shared/personal_bar", locals: { selected: "Din profil" } %>
+<%= render partial: "shared/personal_bar", locals: { selected: "Bytte passord" } %>
 
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
-                I feltene under kan du redigere din profil. Husk at
-                det bare er ditt fornavn som vises til andre brukere.
-            <% end %>
 
 
-            <%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
+            <%= render layout: "gray_box", locals: {title: "Bytte passord"} do %>
                 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
 
                     <%= devise_error_messages! %>
 
-                    <div class="row">
-                        <div class="six columns">
-                            <%= f.label :name, "Navn" %>
-                            <%= f.text_field :name, class: "u-full-width" %>
-                        </div>
-                    </div>
+
+                    Reset current password <%= link_to "here", new_user_password_path %>, if you forgot it. (should be loged off...?)
 
                     <div class="row">
                         <div class="six columns">
-                            <%= f.label :email, "E-post" %>
-                            <%= f.text_field :email, class: "u-full-width" %>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="six columns">
-                            <%= f.label :current_phone_number, "Telefonnummer" %>
-                            <%= f.text_field :current_phone_number, { class: "u-full-width", maxlength: 8 } %>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="six columns">
-                            <%= f.label :current_password, "Passord" %>
+                            <%= f.label :current_password, "Nåværende Passord" %>
                             <%= f.password_field :current_password, autocomplete: "off", class: "u-full-width" %>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="three columns">
-                            <%= f.label :password, "Nytt passord" %> (blankt for å beholde nåværende passord)
+                        <div class="six columns">
+                            <%= f.label :password, "Nytt passord" %>
                             <%= f.password_field :password, autocomplete: "off", class: "u-full-width" %>
+                            (blankt for å beholde nåværende passord)
                         </div>
 
-                        <div class="three columns">
+                        <div class="six columns">
                             <%= f.label :password_confirmation, "Nytt Passord" %>
                             <%= f.password_field :password_confirmation, autocomplete: "off", class: "u-full-width" %>
                         </div>
@@ -68,13 +47,15 @@
         </div>
         <div class="four columns">
             <%= render('shared/profile_image_box.html', user: current_user) %>
-  
+
             <%= render layout: "gray_box", locals: {title: "Flere valg"} do %>
                 <ul>
-                    <li><a href="#">Rediger profil</a></li>
-                    <li><a href="#">Verifisering</a></li>
-                    <li><a href="#">Tilbakemeldinger</a></li>
-                    <li><a href="#">Favoritter</a></li>
+                    <li><%= link_to "Din profil", users_edit_path %></li>
+                    <li><%= link_to "Verifisering",     "#" %></li>
+                    <li><%= link_to "Tilbakemeldinger", "#" %></li>
+                    <li><%= link_to "Favoritter",       "#" %></li>
+                    <li><%= link_to "Bytt passord", edit_user_registration_path %></li>
+                    <li><%= link_to "See / edit my locations", locations_path %></li>
                 </ul>
             <% end %>
         </div>
@@ -83,8 +64,6 @@
 
 <!--
 
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
@@ -92,29 +71,6 @@
     <%= f.label :image %><br />
     <%= image_tag resource.image_url %>
   </div>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.text_field :phone_number %>
-  </div>
-
-  <%# if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-     <div>Currently waiting confirmation for: <%#= resource.unconfirmed_phone_number %></div> 
-  <%# end %>
 
   <div class="field">
     <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
@@ -136,7 +92,6 @@
   </div>
 <% end %>
 
-<%= link_to  "See / edit my locations", locations_path %>
 
 <h3>Cancel my account</h3>
 
