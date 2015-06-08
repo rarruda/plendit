@@ -1,0 +1,13 @@
+.new-ad-type-selector {
+    @import 'constants.scss';
+
+    // display: inline;
+
+    &__button {
+        background-color: white;
+        border: solid thin $color-box-border;
+        width: 200px;
+        height: 200px;
+        text-transform: none;
+    }
+}

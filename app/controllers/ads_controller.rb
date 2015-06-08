@@ -69,18 +69,18 @@ class AdsController < ApplicationController
     @ad_types = [
       {
         title: "Stort og smått",
-        text: "Stort og smått asdf asdf asdf",
-        type: "bap"
+        type: "bap",
+        image: "new_realestate.png"
       },
       {
         title: "Kjøretøy",
-        text: "Kjøretøy asdf asdf asdf",
-        type: "veichle"
+        type: "veichle",
+        image: "new_realestate.png"
       },
       {
         title: "Eiendom",
-        text: "Eiendom asdf asdf asdf",
-        type: "realestate"
+        type: "realestate",
+        image: "new_realestate.png"
       }
     ]
   end

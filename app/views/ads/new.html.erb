@@ -3,13 +3,12 @@
         <div class="seven columns">
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
             <% @ad_types.each do |a| %>
-                <%= form_tag(user_ad_path) do  %>
-                    <div class="new-ad-type-selector">
-                        <%= hidden_field_tag(:type, a[:type]) %>
-                        <h3><%= a[:title] %></h3>
-                        <p><%= a[:text] %></p>
-                        <%= submit_tag "lag annonse", class: "button-primary" %>
-                    </div>
+                <%= form_tag(user_ad_path, class: "new-ad-type-selector") do  %>
+                    <%= hidden_field_tag(:type, a[:type]) %>
+                        <%= button_tag class: "new-ad-type-selector__button" do %>
+                        <%= image_tag a[:image], size: "128x128" %>
+                        <h4><%= a[:title] %></h4>
+                    <% end %>
                 <% end %>
             <% end %>
         </div>
