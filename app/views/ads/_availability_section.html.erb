@@ -1,7 +1,7 @@
 <div class="row">
 <%
 
-today = DateTime.now()
+today = Date.today()
 [today, today.next_month].each do |d|
 
   @first_day_of_month = Date.civil( d.year, d.month, 1)
@@ -10,7 +10,7 @@ today = DateTime.now()
 %>
     <div class="six columns">
         <%= d.strftime("%B - %Y") %>
-        <table>
+        <table class="kalender">
             <tr>
                 <th>Man.</th>
                 <th>Tir.</th>
@@ -25,17 +25,25 @@ today = DateTime.now()
                 <% if d == @first_day_of_month %>
                     <% (d.cwday - 1).times do %> <td class='offset'></td> <% end %>
                 <% end %>
-                <% if d.cwday == 1 %> </tr><tr> <% end %>
-                <td class="<% if d.today? %>today<% end
-                  if d < today
-                    %>past<%
+                <% if d.cwday === 1 %> </tr><tr> <% end %>
+                <td class="<%
+                  date_cmp = ( d <=> today )
+                  if date_cmp < 0
+                    %> past <%
+                  elsif date_cmp == 0
+                    %> today <%
+                  else
+                    # randomly pick dates to be one of: availble, partial, unavailable
+                    #class="available|partial|unavailable" (50, 25, 25)%
+
+                    if [true, false].sample
+                      %> available <%
+                    else
+                      if [true, false].sample %> partial <% else %> unavailable <% end
+                    end
                   end
-                   #class="past|available|partial|unavailable"
-                   %> available<%
                  %>">
-                  <%- if d.today? %><b><% end -%>
                     <%= d.day %>
-                  <%- if d.today? %></b><% end -%>
                 </td>
             <% end %>
             </tr>

@@ -1,0 +1,43 @@
+@import 'constants.scss';
+
+table {
+  background-color: white;
+  }
+
+th {
+  padding: 2px;
+  width: 30px;
+}
+
+td {
+  padding: 2px;
+  width: 30px;
+  background-color: white;
+  color: black;
+}
+
+.kalender {
+  background-color: dark-grey;
+  color: black;
+}
+
+.past {
+  font-style: italic;
+  color: grey;
+}
+
+.today {
+  font-weight: underline;
+}
+
+.partial {
+  background-color: light-blue;
+}
+
+.unavailable {
+  background-color: cyan;
+}
+
+.available {
+  background-color: white;
+}
