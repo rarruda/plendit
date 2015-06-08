@@ -52,8 +52,8 @@ class UsersController < ApplicationController
     user_params_safe = user_params
     if @user.phone_number != user_params['current_phone_number']
       user_params_safe['unconfirmed_phone_number'] = user_params['current_phone_number']
-      user_params_safe.except!('current_phone_number')
     end
+    user_params_safe.except!('current_phone_number')
 
     respond_to do |format|
       if @user.update(user_params_safe)
