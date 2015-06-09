@@ -15,7 +15,7 @@
 -->
     <div class="row">
         <div class="ten columns offset-by-one column">
-            <button class="button-primary booking-request-form__book-button">Send forespørsel</button>
+            <%= link_to button_tag("Send forespørsel", {class: "button-primary booking-request-form__book-button"}), new_ad_booking_path( @ad ) %>
         </div>
     </div>
     <div class="row">
