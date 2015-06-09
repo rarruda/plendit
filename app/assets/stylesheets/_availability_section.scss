@@ -41,14 +41,12 @@ $cell-margin: 2px;
 
     // blank cell
     &__cell--blank {
-        font-weight: bold;
         background-color: lightgray;
         border: none;
     }
 
     // fully booked
     &__cell--booked {
-        font-weight: bold;
         background-color: $lighter-plendit-blue;
         border: none;
     }

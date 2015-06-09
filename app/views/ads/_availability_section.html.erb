@@ -27,7 +27,10 @@
                         <% elsif d < today %>
                             <span class="availability-section__cell--past"><%= d.day %></span>
                         <% else %>
-                            <span class="availability-section__cell--available"><%= d.day %></span>
+                            <% #for testing purposes:
+                                suffix = ['booked', 'starting', 'ending', 'available'].sample
+                            %>
+                            <span class="availability-section__cell--<%= suffix %>"><%= d.day %></span>
                         <% end %>
                     <% end %>
                 </div>
