@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="field">
+<!--   <div class="field">
     <%= f.label :ad_item_id %><br>
     <%= f.number_field :ad_item_id %>
   </div>
@@ -24,6 +24,7 @@
     <%= f.label :booking_status_id %><br>
     <%= f.collection_select(:booking_status_id, BookingStatus.all, :id, :status) %>
   </div>
+ -->
   <div class="field">
     <%= f.label :price %><br>
     <%= f.text_field :price %>
@@ -36,10 +37,10 @@
     <%= f.label :booking_to %><br>
     <%= f.datetime_select :booking_to %>
   </div>
-  <div class="field">
+<!--   <div class="field">
     <%= f.label :first_reply_at %><br>
     <%= f.datetime_select :first_reply_at %>
-  </div>
+  </div> -->
   <div class="actions">
     <%= f.submit %>
   </div>
