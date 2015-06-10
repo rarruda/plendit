@@ -1,24 +1,8 @@
 @import 'constants.scss';
 
 .notification-box {
-    position: absolute;
-    top: 24px;
-    left: 500px;
-    z-index: 10;
-    width: 400px;
-    background-color: white;
-    border: solid thin $color-box-border;
-    border-radius: 4px;
-
     &__up-triangle {
-        position: absolute;
-        right: 8%;
-        top: -12px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 0 8px 12px 8px;
-        border-color: transparent transparent #fff transparent;
+        display: none;
     }
 
     &__top {
@@ -49,4 +33,26 @@
         margin: 0;
     }
 
+    @media screen and (min-width: 640px) {
+        position: absolute;
+        top: 24px;
+        left: 500px;
+        z-index: 10;
+        width: 400px;
+        background-color: white;
+        border: solid thin $color-box-border;
+        border-radius: 4px;
+
+        &__up-triangle {
+            display: block;
+            position: absolute;
+            right: 8%;
+            top: -12px;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 8px 12px 8px;
+            border-color: transparent transparent #fff transparent;
+        }
+    }
 }

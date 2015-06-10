@@ -1,8 +1,8 @@
 window.controllers = window.controllers || {};
 
 window.controllers.menuAnchor = {
-    dependencies: ["$element", "eventbus"] ,
-    callable: function(ele, eventBus) {
+    dependencies: ["$element", "eventbus", "responsive"] ,
+    callable: function(ele, eventBus, responsive) {
 
         var targetSelector = ele.getAttribute("data-anchor-for");
         var targetBox = document.querySelector(targetSelector);
@@ -23,10 +23,12 @@ window.controllers.menuAnchor = {
         }
 
         function positionElement(anchor, subject) {
-            var left = "" + (anchor.offsetLeft - 330) + "px";
-            var top = "" + (anchor.offsetTop + 32) + "px";
-            subject.style.top = top;
-            subject.style.left = left;
+            if (!responsive.isGriddy()) {
+                var left = "" + (anchor.offsetLeft - 330) + "px";
+                var top = "" + (anchor.offsetTop + 32) + "px";
+                subject.style.top = top;
+                subject.style.left = left;
+            }
         }
 
         function toggle() {
