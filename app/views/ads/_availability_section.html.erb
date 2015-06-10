@@ -12,9 +12,10 @@
                 <%= render partial: "shared/month_calendar", locals: { date: today.next_month, ad: @ad } %>
             </div>
         </div>
-    </div>
 
-    <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
-        <%= button_tag("Send forespørsel", {class: "u-push-down button-primary availability-section__book"}) %>
-    <% end %>
+        <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
+            <%= button_tag("Send forespørsel", {class: "u-push-down button-primary availability-section__book"}) %>
+        <% end %>
+
+    </div>
 </div>
