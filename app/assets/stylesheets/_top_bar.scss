@@ -17,6 +17,11 @@ $top-bar-height: 52px;
         padding: 4px;
         margin-left: 12px;
         border: solid thin $color-box-border;
+
+        @media screen and (max-width: 640px) {
+            display: none;
+        }
+
     }
     
     & &__search-input {
@@ -75,13 +80,6 @@ $top-bar-height: 52px;
     &__top-section {
         margin-left: $standard-spacing / 2;
     }
-}
-
-
-.top-anonymous-menu {
 
 }
 
-.top-user-menu {
-
-}
