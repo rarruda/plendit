@@ -1,4 +1,21 @@
 window.controllers = window.controllers || {};
+window.services = window.services || {};
+
+window.services.responsive = {
+    name: "responsive",
+    callable: function() {
+
+        function isGriddy() {
+            return window.innerWidth < 640;
+        }
+
+        return {
+            isGriddy: isGriddy
+        }
+    }
+}
+
+
 
 window.controllers.tagCreator = {
     callable: function(ele) {
