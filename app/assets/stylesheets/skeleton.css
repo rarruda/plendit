@@ -208,7 +208,7 @@ input[type="reset"].button-primary,
 input[type="button"].button-primary {
   color: #FFF;
   background-color: #2a96ff;
-  border-color: #33C3F0; }
+  border-color: transparent; /* #33C3F0; */ }
 .button.button-primary:hover,
 button.button-primary:hover,
 input[type="submit"].button-primary:hover,
@@ -221,7 +221,7 @@ input[type="reset"].button-primary:focus,
 input[type="button"].button-primary:focus {
   xxcolor: #FFF;
   xxbackground-color: #1EAEDB;
-  xxborder-color: #1EAEDB;
+  border-color: transparent; /* #1EAEDB; */
   text-decoration: underline;
   }
 
