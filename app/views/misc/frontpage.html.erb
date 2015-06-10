@@ -1,11 +1,10 @@
 <section class="front-search-block">        
     <h1 class="front-search-block__title">LEI DET DU TRENGER</h1>
-
-    <p>og spar penger! Mer enn 500.000 ting til leie.</p>
+    <p class="front-search-block__copy">og spar penger! Mer enn 500.000 ting til leie.</p>
     <div>
         <%= form_tag("/search", method: "get") do %>
-          <%#= label_tag(:q, "Search for:") %>
           <%= text_field_tag 'q', 'skiboks', class: 'front-search-block__input' %>
+          <%= date_field_tag 'from', '', class: 'front-search-block__input--date' %>
           <%= submit_tag 'Søk', class: 'front-search-block__search-button button-primary' %>
         <% end %>
     </div>

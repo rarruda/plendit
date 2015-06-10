@@ -7,21 +7,30 @@
     background-image: image-url('garage.jpg');
     background-repeat: no-repeat;
     background-position: center;
-    color: white;
     text-align: center;
     position: relative;
     z-index: 1;
 
     &__title {
+        color: white;
         font-size: 48px;
+        font-weight: bold;
         margin: $standard-spacing 0 $standard-spacing 0;
     }
     
+    &__copy {
+        color: white;
+    }
+    
     &__input {
-        color: black;
+    }
+
+    &__input--date {
+        width: 120px;
     }
 
     &__create-box {
+        color: white;
         position: absolute;
         bottom: 0;
         height: 110px;
