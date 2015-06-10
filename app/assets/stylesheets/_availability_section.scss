@@ -1,104 +1,25 @@
 @import 'constants.scss';
 
-$lighter-plendit-blue: lighten($color-plendit-blue, 28%);
-$cell-size: 29px;
-$cell-margin: 2px;
-
 .availability-section {
     text-align: center;
 
-    &__cal {
-        width: ($cell-size + $cell-margin) * 8;
+    &__month {
+        font-size: 120%;
     }
 
-    &__cell,
-    &__cell--available,
-    &__cell--blank,
-    &__cell--booked,
-    &__cell--ending,
-    &__cell--header, 
-    &__cell--past,
-    &__cell--starting,
-    &__cell--today {
-        position: relative;
-        float: left;
-        display: inline-block;
-        font-size: small;
-        width: $cell-size;
-        height: $cell-size;
-        line-height: $cell-size - 2px;
-        vertical-align: middle;
-        border: solid thin black;
-        text-align: center;
-        border-radius: 4px;
-        margin: $cell-margin;
+    &__book {
+        width: 70%;
     }
 
-    // booking available cell
-    &__cell--available {
-        color: green;
+    &__calendar-holder {
+        overflow: auto;
+        padding: $standard-spacing;
+        background-color: white;
     }
 
-    // blank cell
-    &__cell--blank {
-        background-color: lightgray;
-        border: none;
+    &__calendar-holder-inner {
+        padding: $standard-spacing;
+        overflow: auto;
+        background-color: $color-subtle-gray-background;
     }
-
-    // fully booked
-    &__cell--booked {
-        background-color: $lighter-plendit-blue;
-        border: none;
-    }
-
-    // booking ends on this cell
-    &__cell--ending {
-        &:after {
-            color: $lighter-plendit-blue;
-            bottom: 0;
-            content: "";
-            right: 0;
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-bottom: ($cell-size - 1px) solid;
-            border-left: ($cell-size - 1px) solid transparent;
-            border-right: 0;
-            z-index: -2;
-        }
-    }
-
-    // heading, day name
-    &__cell--header {
-        font-weight: bold;
-        background-color: lightgray;
-        border: none;
-    }
-
-    // date is in the past
-    &__cell--past {
-        color: gray;
-    }
-
-    // booking starts on this cell
-    &__cell--starting {
-        &:after {
-            color: $lighter-plendit-blue;
-            top: 0;
-            content: "";
-            left: 0;
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-top: ($cell-size - 1px) solid;
-            border-right: ($cell-size - 1px) solid transparent;
-            border-left: 0;
-            z-index: -2;
-        }
-    }
-
-    &__cell--today {
-        font-weight: bold;
-    }
-
 }

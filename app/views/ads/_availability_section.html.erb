@@ -1,41 +1,20 @@
-<div class="availability-section">
-    <div class="row">
-        <%
-        today = Date.today()
-        [today, today.next_month].each do |d|
-
-            @first_day_of_month = Date.civil( d.year, d.month, 1)
-            @last_day_of_month  = Date.civil( d.year, d.month, -1)
-        %>
+<h2 class="u-push-down">Tilgjengelighet</h2>
+<div class="availability-section u-push-down">
+    <div class="row availability-section__calendar-holder">
+        <div class="availability-section__calendar-holder-inner">
+            <% today = Date.today() %>
             <div class="six columns">
-                <%= d.strftime("%B - %Y") %>
-                <div class="availability-section__cal">
-                    <span class="availability-section__cell--header">Ma</span>
-                    <span class="availability-section__cell--header">Ti</span>
-                    <span class="availability-section__cell--header">On</span>
-                    <span class="availability-section__cell--header">To</span>
-                    <span class="availability-section__cell--header">Fr</span>
-                    <span class="availability-section__cell--header">Lø</span>
-                    <span class="availability-section__cell--header">Sø</span>
-                    <% (@first_day_of_month..@last_day_of_month).each do |d| %>
-                        <% if d == @first_day_of_month %>
-                            <% (d.cwday - 1).times do %><span class="availability-section__cell--blank"></span><% end %>
-                        <% end %>
-
-                        <% if d.today? %>
-                            <span class="availability-section__cell--today"><%= d.day %></span>
-                        <% elsif d < today %>
-                            <span class="availability-section__cell--past"><%= d.day %></span>
-                        <% else %>
-                            <% #for testing purposes:
-                                suffix = ['booked', 'starting', 'ending', 'available'].sample
-                            %>
-                            <span class="availability-section__cell--<%= suffix %>"><%= d.day %></span>
-                        <% end %>
-                    <% end %>
-                </div>
+                <h4 class="availability-section__month"><%= today.strftime("%B - %Y") %></h4>
+                <%= render partial: "shared/month_calendar", locals: { date: today, ad: @ad } %>
             </div>
-        <% end %>
-
+            <div class="six columns">
+                <h4 class="availability-section__month"><%= today.next_month.strftime("%B - %Y") %></h4>
+                <%= render partial: "shared/month_calendar", locals: { date: today.next_month, ad: @ad } %>
+            </div>
+        </div>
     </div>
+
+    <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
+        <%= button_tag("Send forespørsel", {class: "u-push-down button-primary availability-section__book"}) %>
+    <% end %>
 </div>

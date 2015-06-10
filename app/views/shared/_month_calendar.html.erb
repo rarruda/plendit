@@ -1,0 +1,33 @@
+<%
+     today = Date.today()
+    first_day_of_month = Date.civil( date.year, date.month, 1)
+    last_day_of_month  = Date.civil( date.year, date.month, -1)
+    # todo: read from an optional ad, the days that are booked
+%>
+<div class="month-calendar">
+    <div class="month-calendar__cal">
+        <span class="month-calendar__cell--header">Ma</span>
+        <span class="month-calendar__cell--header">Ti</span>
+        <span class="month-calendar__cell--header">On</span>
+        <span class="month-calendar__cell--header">To</span>
+        <span class="month-calendar__cell--header">Fr</span>
+        <span class="month-calendar__cell--header">Lø</span>
+        <span class="month-calendar__cell--header">Sø</span>
+        <% (first_day_of_month..last_day_of_month).each do |d| %>
+            <% if d == first_day_of_month %>
+                <% (d.cwday - 1).times do %><span class="month-calendar__cell--blank"></span><% end %>
+            <% end %>
+
+            <% if d.today? %>
+                <span class="month-calendar__cell--today"><%= d.day %></span>
+            <% elsif d < today %>
+                <span class="month-calendar__cell--past"><%= d.day %></span>
+            <% else %>
+                <% #for testing purposes:
+                    suffix = ['booked', 'starting', 'ending', 'available'].sample
+                %>
+                <span class="month-calendar__cell--<%= suffix %>"><%= d.day %></span>
+            <% end %>
+        <% end %>
+    </div>
+</div>
