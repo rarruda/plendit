@@ -8,7 +8,12 @@
         container.appendChild(input);
         input.addEventListener("keyup", onKeyup);
         input.addEventListener("blur", onBlur);
+        input.addEventListener("keypress", cancelEnter);
         var bomped = false;
+
+        if (opts.tags) {
+            opts.tags.forEach(insertTag);
+        }
 
         function onClick(evt) {
             var ele = evt.target;
@@ -38,6 +43,8 @@
         function onBlur(evt) {
             saveTag(evt.target);
         }
+
+
 
         function onKeyup(evt) {
             // console.log(evt.keyCode)
@@ -78,10 +85,14 @@
             var s = sanitizeTag(input.value);
             input.value = "";
             if (tagIsValid(s)) {
-                input.parentNode.insertBefore(makeTagEle(sanitizeTag(s)), input);
+                insertTag(s);
             }
             bomped = true;
             notify()
+        }
+
+        function insertTag(value) {
+            input.parentNode.insertBefore(makeTagEle(sanitizeTag(value)), input);            
         }
 
         function makeTagEle(value) {
