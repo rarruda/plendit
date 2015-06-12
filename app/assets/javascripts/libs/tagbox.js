@@ -22,7 +22,7 @@
         }
 
         function sanitizeTag(value) {
-            return value.replace(/[^a-z0-9_-]/g, '');
+            return value.replace(/[^a-z0-9_-]/ig, '');
         }
 
         function tagIsValid(value) {
