@@ -37,6 +37,7 @@
             // console.log(evt.keyCode)
             var input = evt.target;
             if (evt.keyCode == 188 || evt.keyCode == 32 || evt.keyCode == 13) {
+                evt.preventDefault();
                 saveTag(input);
             }
             else if (evt.keyCode == 8) {
