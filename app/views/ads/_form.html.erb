@@ -84,9 +84,11 @@
         <label>Beskrivelse</label>
         <%= f.text_area :body, class: 'u-full-width' %>
 
-        <label>Emneord (tags)</label>
+        <label>Emneord (tags) <%= @ad.tags %></label>
         <!-- todo: add input tags to and fro markup -->
-        <div data-controller="tageditor" class="tag-editor"></div>
+        <div data-controller="tageditor" class="tag-editor">
+            <%= f.hidden_field :tags %>
+        </div>
 
         <%= f.submit 'Neste steg', class: 'u-pull-right button-primary' %>
     </div>
