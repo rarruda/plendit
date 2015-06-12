@@ -1,5 +1,13 @@
-<h1>New Booking</h1>
+<div class="container">
+    <div class="row u-push-down">
+        <div class="seven columns">
+            <h1>New Booking</h1>
+            <%= render 'form' %>
+        </div>
 
-<%= render 'form' %>
+        <div class="four columns offset-by-one column">
+            Docs med hjelp / lenke til betingelser osv her?
+        </div>
+    </div>
+</div>
 
-<%= link_to 'Back', bookings_path %>
