@@ -21,6 +21,12 @@
             }
         }
 
+        function cancelEnter(evt) {
+            if (evt.keyCode == 13) {
+                evt.preventDefault();
+            }
+        }
+
         function sanitizeTag(value) {
             return value.replace(/[^a-z0-9_-]/ig, '');
         }
