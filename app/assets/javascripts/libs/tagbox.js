@@ -12,7 +12,9 @@
         var bomped = false;
 
         if (opts.tags) {
-            opts.tags.forEach(insertTag);
+            opts.tags
+                .filter(function(e) { return !!e })
+                .forEach(insertTag);
         }
 
         function onClick(evt) {
