@@ -31,21 +31,20 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.json
   def create
-    #num_days_rented = param[]
+
+    # This should be moved to its own method/helper/etc
+    b_start = view_context.parse_datetime_params booking_params, 'booking_from'
+    b_end = view_context.parse_datetime_params booking_params, 'booking_to'
+    num_days_rented_ceil  = ( ( (b_start.to_time - b_end.to_time) / 60*60 ) % 24 ).ceil
 
     #price = #needs to be calculated.
     user_id = view_context.get_current_user_id
     new_booking = booking_params.merge( {
       'from_user_id'      => view_context.get_current_user_id,
       'booking_status_id' => 1,
-      'price'             => 0 # price needs to be calculated.
+      'price'             => @booking.ad.price * num_days_rented_ceil
     } )
 
-puts new_booking
-#    bf = view_context.parse_datetime_params params, 'booking_from'
-#    bt = view_context.parse_datetime_params params, 'booking_to'
-#puts "booking_from #{bf}"
-#puts "booking_to   #{bt}"
     @booking = Booking.new( new_booking )
 
     respond_to do |format|
