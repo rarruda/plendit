@@ -5,18 +5,20 @@
 
         <div class="nine columns">
 
+<% if @booking.from_user.id == get_current_user_id %>
             <h3 class="u-push-down">Din forespørsel til <%= @booking.user.name %>.</h3>
 
             <%= render partial: "rental_request_box_renter", locals: {booking: @booking} %>
-
+<% else %>
+<!--
             <hr>
             renter above, rentee below
             <hr>
-
+-->
             <h3 class="u-push-down"><%= @booking.from_user.name %> ønsker å leie av deg</h3>
 
             <%= render partial: "rental_request_box_owner", locals: {booking: @booking} %>
-
+<% end %>
             <hr>
 
             <%= render partial: "conversation_section", locals: {booking: @booking} %>
@@ -31,41 +33,6 @@
 
 
 <!--
-<p>
-  <strong>Ad item:</strong>
-  <%= @booking.ad_item_id %> - <%= @booking.ad.title %>
-</p>
-
-<p>
-  <strong>Requester user:</strong>
-  <%= @booking.from_user_id %> - <%= @booking.from_user.name %>
-</p>
-
-<p>
-  <strong>Booking status:</strong>
-  <%= @booking.booking_status_id %> - <%= @booking.booking_status.status %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @booking.price %>
-</p>
-
-<p>
-  <strong>Booking from:</strong>
-  <%= @booking.booking_from %>
-</p>
-
-<p>
-  <strong>Booking to:</strong>
-  <%= @booking.booking_to %>
-</p>
-
-<p>
-  <strong>First reply at:</strong>
-  <%= @booking.first_reply_at %>
-</p>
-
 <%= link_to 'Edit', edit_booking_path(@booking) %> |
 <%= link_to 'Back', bookings_path %>
 -->

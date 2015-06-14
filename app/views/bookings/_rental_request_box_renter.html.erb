@@ -1,15 +1,19 @@
 <%= render partial: "rental_request_box", locals: {booking: @booking, is_owner: false} %>
 
 <div class="rental-request-buttons">
+    <%= link_to '#todo-implement-me' do -%>
     <button class="rental-request-buttons__button rental-request-buttons__button--bad">
         <%= image_tag("offer_reject.png", size: "25x25") %>
         <br>
         Avbryt
     </button>
+    <%- end %>
+    <%= link_to edit_booking_path(@booking) do%>
     <button class="rental-request-buttons__button rental-request-buttons__button--neutral">
         <%= image_tag("offer_edit.png", size: "25x25") %>
         <br>
         Rediger
     </button>
+    <% end %>
 </div>
 
