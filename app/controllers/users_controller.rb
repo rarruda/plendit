@@ -115,8 +115,8 @@ class UsersController < ApplicationController
   # POST /mark_all_notifications_noticed
   def do_mark_all_notifications_noticed
     @user.notifications
-         .where(notification_status_id: Notification::NEW)
-         .update_all(notification_status_id: Notification::NOTICED)
+         .where(status: 'fresh')
+         .update_all(status: Notification.statuses[:noticed])
     head :ok
   end
 
