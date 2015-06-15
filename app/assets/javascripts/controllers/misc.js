@@ -15,14 +15,19 @@ window.services.responsive = {
     }
 }
 
-
-
-window.controllers.test = function(ele) {
-    console.log("mark_all_notifications_noticed")
-    var url = ele.getAttribute("data-clear-notifications-url");
-    console.log(url)
-    xhr.post(url);
-
+window.controllers.resetUnseenNotificationCount = function(ele) {
+    var hasBeenReset = false;
+    ele.addEventListener('click', function() {
+        if (!hasBeenReset) {
+            hasBeenReset = true;
+            var url = ele.getAttribute("data-clear-notifications-url");
+            xhr.post(url);
+            var countEle = ele.querySelector("[data-notification-count]");
+            if (countEle) {
+                countEle.classList.add('u-hidden');
+            }
+        }
+    });
 }
 
 window.controllers.tagCreator = {
