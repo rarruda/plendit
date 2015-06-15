@@ -6,7 +6,8 @@ class Booking < ActiveRecord::Base
   has_one :user, through: :ad
   has_many :messages
 
-  belongs_to :booking_status
+  enum status: { created: 0, accepted: 1, declined: 2, declined: 3 }
+
 
   # fixme: real data for this, and something like .humanize on the prices
 

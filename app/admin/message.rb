@@ -29,7 +29,6 @@ ActiveAdmin.register Message do
     column :from_user
     column :to_user
     column :booking
-    #column('Booking Status') {|b| status_tag b.booking_status.status}
     column :content
     column :created_at
     actions

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615183107) do
+ActiveRecord::Schema.define(version: 20150615190416) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -83,27 +83,21 @@ ActiveRecord::Schema.define(version: 20150615183107) do
   add_index "ads", ["location_id"], name: "index_ads_on_location_id"
   add_index "ads", ["user_id"], name: "index_ads_on_user_id"
 
-  create_table "booking_statuses", force: :cascade do |t|
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "bookings", force: :cascade do |t|
     t.integer  "ad_item_id"
     t.integer  "from_user_id"
-    t.integer  "booking_status_id"
-    t.decimal  "price",             precision: 10, scale: 2
+    t.integer  "status",                                  default: 0
+    t.decimal  "price",          precision: 10, scale: 2
     t.datetime "booking_from"
     t.datetime "booking_to"
     t.datetime "first_reply_at"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
   end
 
   add_index "bookings", ["ad_item_id"], name: "index_bookings_on_ad_item_id"
-  add_index "bookings", ["booking_status_id"], name: "index_bookings_on_booking_status_id"
   add_index "bookings", ["from_user_id"], name: "index_bookings_on_from_user_id"
+  add_index "bookings", ["status"], name: "index_bookings_on_status"
 
   create_table "favorite_ads", force: :cascade do |t|
     t.integer  "favorite_list_id"

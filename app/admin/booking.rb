@@ -18,7 +18,7 @@ ActiveAdmin.register Booking do
   #actions :index, :show
 
 
-  permit_params :ad_item_id, :from_user_id, :price, :booking_status_id
+  permit_params :ad_item_id, :from_user_id, :price, :status
 
   index do
     selectable_column
@@ -28,8 +28,7 @@ ActiveAdmin.register Booking do
     column :user
     column :from_user
     column :price
-    #column :booking_status
-    column('Booking Status') {|b| status_tag b.booking_status.status}
+    column :status
     column :created_at
     actions
   end
