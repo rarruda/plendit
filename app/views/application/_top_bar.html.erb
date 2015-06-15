@@ -23,8 +23,9 @@
             </strong>
 
             <span class="top-bar__top-section"
-               data-controller="menuAnchor"
+               data-controller="menuAnchor test"
                data-anchor-for="[data-floating-notifications]"
+               data-clear-notifications-url="<%= mark_all_notifications_noticed_users_path %>"
                >Varsler
                 <% if current_user.new_notifications.size != 0 %>
                     <span class="top-bar__notification-count"><%= current_user.new_notifications.size %></span>

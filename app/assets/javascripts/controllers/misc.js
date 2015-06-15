@@ -17,6 +17,14 @@ window.services.responsive = {
 
 
 
+window.controllers.test = function(ele) {
+    console.log("mark_all_notifications_noticed")
+    var url = ele.getAttribute("data-clear-notifications-url");
+    console.log(url)
+    xhr.post(url);
+
+}
+
 window.controllers.tagCreator = {
     callable: function(ele) {
         var inEle = ele;

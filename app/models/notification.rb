@@ -2,6 +2,10 @@ class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :notifiable, polymorphic: true
 
+  NEW     = 1 # when created
+  NOTICED = 2 # when user has clicked notification icon
+  READ    = 3 # when user has clicked on the notification
+
   def source_user
     if self.notifiable is_a? Ad
         self.notifiable.user
