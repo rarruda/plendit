@@ -18,8 +18,6 @@ class User < ActiveRecord::Base
   has_many :received_feedbacks, :through => :ads, :class_name => "Feedback"
   has_many :sent_feedbacks, foreign_key: 'from_user_id', :class_name => "Feedback"
 
-  belongs_to :user_status
-
   has_many :received_messages, foreign_key: 'to_user_id', :class_name => "Message"
   has_many :sent_messages, foreign_key: 'from_user_id', :class_name => "Message"
 
@@ -30,6 +28,9 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "valid email required" }
 
   #validates :image_url
+
+  enum status: { unconfirmed: 1, confirmed: 2, locked: 3, admin: 10 }
+
 
   # only act on the phone settings, if the phone number was changed.
   # TODO: add trigger so that its possible to re-send codes for the current unverified phone number.

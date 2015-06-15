@@ -17,7 +17,7 @@ ActiveAdmin.register User do
   menu :priority => 2
   #actions :index, :show
 
-  permit_params :name, :email, :phone_number, :user_status, :ephemeral_answer_percent, :avatar_url
+  permit_params :name, :email, :phone_number, :status, :ephemeral_answer_percent, :avatar_url
     ##, :password
 
   filter :name
@@ -34,8 +34,8 @@ ActiveAdmin.register User do
     id_column
     column :name
     column :email
-    # If user_status is not set, treat it as the first possible user status.
-    column("User Status") {|user| status_tag( ( user.user_status || UserStatus.find(1) ).status ) }
+
+    column("User Status") {|user| status_tag( user.status ) }
     column :created_at
     actions
   end
