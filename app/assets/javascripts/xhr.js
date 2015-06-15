@@ -36,7 +36,11 @@
         return xhr("delete", url);
     }
 
-    global.xhr = { get: get, getJson: getJson, del: del };
+    function post(url) {
+        return xhr("post", url);
+    }
+
+    global.xhr = { get: get, getJson: getJson, del: del, post: post };
 
 })(this);
 
