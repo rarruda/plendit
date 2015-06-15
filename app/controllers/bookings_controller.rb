@@ -3,6 +3,9 @@ class BookingsController < ApplicationController
   after_action  :notify_user, only: [:create, :update]
   before_filter :authenticate_user!
 
+  helper SessionsHelper
+
+
   # GET /bookings
   # GET /bookings.json
   def index
@@ -17,6 +20,7 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
+    @ad = Ad.find( params['ad_id'])
     @booking = Booking.new
   end
 
@@ -27,7 +31,21 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.json
   def create
-    @booking = Booking.new(booking_params)
+
+    # This should be moved to its own method/helper/etc
+    b_start = view_context.parse_datetime_params booking_params, 'booking_from'
+    b_end = view_context.parse_datetime_params booking_params, 'booking_to'
+    num_days_rented_ceil  = ( ( (b_start.to_time - b_end.to_time) / 60*60 ) % 24 ).ceil
+
+    #price = #needs to be calculated.
+    user_id = view_context.get_current_user_id
+    new_booking = booking_params.merge( {
+      'from_user_id'      => view_context.get_current_user_id,
+      'booking_status_id' => 1,
+      'price'             => @booking.ad.price * num_days_rented_ceil
+    } )
+
+    @booking = Booking.new( new_booking )
 
     respond_to do |format|
       if @booking.save
@@ -74,6 +92,7 @@ class BookingsController < ApplicationController
     # TODO: check that we can take for granted that @booking is in place.
     # TODO: more fine grained notifications needed:
     #   Accepting, rejecting, canceling and editing a booking request
+    # TODO: move to aasm
     def notify_user
       Notification.new(
         user_id: @booking.user.id,

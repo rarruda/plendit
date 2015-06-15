@@ -1,7 +1,28 @@
 <div class="container">
     <div class="row u-push-down">
-        <div class="seven columns">
+
+
+        <div class="eight columns">
             <h1>New Booking</h1>
+
+        <%= @ad.ad_items.each do |ai| %>
+        Ad Item: <%= ai.id  %>
+            <div class="row availability-section__calendar-holder">
+                <div class="availability-section__calendar-holder-inner">
+                    <% today = Date.today() %>
+                    <div class="six columns">
+                        <h4 class="availability-section__month"><%= today.strftime("%B - %Y") %></h4>
+                        <%= render partial: "shared/month_calendar", locals: { date: today, ad: @ad } %>
+                    </div>
+                    <div class="six columns">
+                        <h4 class="availability-section__month"><%= today.next_month.strftime("%B - %Y") %></h4>
+                        <%= render partial: "shared/month_calendar", locals: { date: today.next_month, ad: @ad } %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+
+
             <%= render 'form' %>
         </div>
 

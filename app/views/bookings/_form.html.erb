@@ -11,23 +11,19 @@
     </div>
   <% end %>
 
-<!--   <div class="field">
+  <% if @ad.ad_items.count == 1 %>
+    <%= f.label :ad_item_id %>
+    <%= @ad.ad_items.first.id %>
+    <%= f.hidden_field(:ad_item_id, :value => @ad.ad_items.first.id )%>
+  <% else %>
+  <div class="field">
     <%= f.label :ad_item_id %><br>
-    <%= f.number_field :ad_item_id %>
+    <%= f.collection_select(:ad_item_id, @ad.ad_items.all, :id, :id) %>
   </div>
+  <% end %>
   <div class="field">
-    <%= f.label :from_user_id %><br>
-    <%#= f.number_field :from_user_id %>
-    <%= f.collection_select(:from_user_id, User.all, :id, :name) %>
-  </div>
-  <div class="field">
-    <%= f.label :booking_status_id %><br>
-    <%= f.collection_select(:booking_status_id, BookingStatus.all, :id, :status) %>
-  </div>
- -->
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
+    <%= f.label :price %> <br>
+    <%= @ad.price %> per dag
   </div>
   <div class="field">
     <%= f.label :booking_from %><br>
@@ -36,11 +32,7 @@
   <div class="field">
     <%= f.label :booking_to %><br>
     <%= f.datetime_select :booking_to %>
-  </div>
-<!--   <div class="field">
-    <%= f.label :first_reply_at %><br>
-    <%= f.datetime_select :first_reply_at %>
-  </div> -->
+
   <div class="actions">
     <%= f.submit %>
   </div>
