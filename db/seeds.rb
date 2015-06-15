@@ -10,7 +10,6 @@
 
 
 # Delete all the things!
-UserStatus.delete_all
 Location.delete_all
 User.delete_all
 Ad.delete_all
@@ -26,12 +25,6 @@ Message.delete_all
 # Set locale to faker:
 Faker::Config.locale = 'nb-NO'
 
-
-### UserStatus
-UserStatus.create({"id"=>"1", "status"=>"WAITING_VERIFICATION"})
-UserStatus.create({"id"=>"2", "status"=>"VERIFIED"})
-UserStatus.create({"id"=>"3", "status"=>"LOCKED"})
-UserStatus.create({"id"=>"10", "status"=>"ADMIN"})
 
 ### BookingStatus
 BookingStatus.create({"id"=>"1", "status"=>"WAITING_FOR_OWNER"})
@@ -52,7 +45,7 @@ u = User.create(
 { "name"=>"Jan Erik Berentsen",
   "phone_number"=>"99994444",
   "ephemeral_answer_percent"=>"25",
-  "user_status_id"=>"2",
+  "status"=>"2",
   "email"=>"jan.erik.berentsen+testonly@plendit.com",
   "image_url"=>"https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/088/1fe/0cb0e86.jpg",
   "password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
@@ -88,7 +81,7 @@ u = User.create(
 { "name"=>"Trygve Leite",
   "phone_number"=>"44449999",
   "ephemeral_answer_percent"=>"75",
-  "user_status_id"=>"2",
+  "status"=>"2",
   "email"=>"trygve.leite+testonly@plendit.com",
   "image_url"=>"http://hjemmehos.finn.no/filestore/Ansatte/TrygveLeite.jpg?size=120x0",
   "password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
@@ -127,7 +120,7 @@ a.ad_images.create!({"description"=>"på bil", "image_file_name"=>"768bab5e74ccc
     u.phone_number = [ '4', '9' ].sample.to_s + Faker::Base.numerify('#######')
     u.email        = Faker::Internet.safe_email(name).gsub('@', "#{User.count+1}@")
     u.password     = Faker::Internet.password(10, 20)
-    u.user_status_id = 2
+    u.status       = 2
   end
 }
 
@@ -148,7 +141,7 @@ u = User.create(
 { "name"=>"Viking Biking",
   "phone_number"=>"41266496",
   "ephemeral_answer_percent"=>"99",
-  "user_status_id"=>"2",
+  "status"=>"2",
   "email"=>"viking.bikes+testonly@plendit.com",
   "image_url"=>"http://graph.facebook.com/viking.biking.tours/picture",
   "password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
@@ -182,7 +175,7 @@ a.ad_images.create!({"description"=>"anbefales å sykler overalt i byen", "imag
 #    u.phone_number = [4,9].sample.to_s + Faker::Base.numerify('#######')
 #    u.email        = Faker::Internet.safe_email(u.name).gsub('@', "#{n+1}@")
 #    u.password     = Faker::Internet.password(10, 20)
-#    u.user_status_id = 2
+#    u.status = 2
 #  end
 #end
 

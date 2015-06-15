@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604232808) do
+ActiveRecord::Schema.define(version: 20150615183107) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -189,19 +189,13 @@ ActiveRecord::Schema.define(version: 20150604232808) do
   add_index "notifications", ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
-  create_table "user_statuses", force: :cascade do |t|
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "phone_number",                      limit: 8
     t.integer  "ephemeral_answer_percent"
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false
-    t.integer  "user_status_id"
+    t.integer  "status",                                      default: 1
     t.string   "email"
     t.string   "encrypted_password"
     t.string   "reset_password_token"
@@ -229,7 +223,7 @@ ActiveRecord::Schema.define(version: 20150604232808) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["status"], name: "index_users_on_status"
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
-  add_index "users", ["user_status_id"], name: "index_users_on_user_status_id"
 
 end
