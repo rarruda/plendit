@@ -27,7 +27,9 @@
                data-anchor-for="[data-floating-notifications]"
                >Varsler
                 <% if current_user.new_notifications.size != 0 %>
-                    <span class="top-bar__notification-count"><%= current_user.new_notifications.size %></span>
+                    <span class="top-bar__notification-count">
+                        <%= current_user.new_notifications.size %>
+                    </span>
                 <% end %>
             </span>
 
