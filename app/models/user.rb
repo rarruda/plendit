@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
   end
 
   def recent_notifications
-    self.notifications.order("updated_at desc")[0..10]
+    self.notifications.order("created_at desc").limit(10)
   end
 
   def unseen_notifications_count
