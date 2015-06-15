@@ -1,39 +1,39 @@
 <%= form_for(@booking) do |f| %>
-  <% if @booking.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+    <% if @booking.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
 
-      <ul>
-      <% @booking.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+            <ul>
+                <% @booking.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <% if @ad.ad_items.count == 1 %>
+        <%= f.label :ad_item_id %>
+        <%= @ad.ad_items.first.id %>
+        <%= f.hidden_field(:ad_item_id, :value => @ad.ad_items.first.id )%>
+    <% else %>
+        <div class="field">
+            <%= f.label :ad_item_id %><br>
+            <%= f.collection_select(:ad_item_id, @ad.ad_items.all, :id, :id) %>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <%= f.label :price %> <br>
+        <%= @ad.price %> per dag
     </div>
-  <% end %>
-
-  <% if @ad.ad_items.count == 1 %>
-    <%= f.label :ad_item_id %>
-    <%= @ad.ad_items.first.id %>
-    <%= f.hidden_field(:ad_item_id, :value => @ad.ad_items.first.id )%>
-  <% else %>
-  <div class="field">
-    <%= f.label :ad_item_id %><br>
-    <%= f.collection_select(:ad_item_id, @ad.ad_items.all, :id, :id) %>
-  </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :price %> <br>
-    <%= @ad.price %> per dag
-  </div>
-  <div class="field">
-    <%= f.label :booking_from %><br>
-    <%= f.datetime_select :booking_from %>
-  </div>
-  <div class="field">
-    <%= f.label :booking_to %><br>
-    <%= f.datetime_select :booking_to %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+        <%= f.label :booking_from %><br>
+        <%= f.datetime_select :booking_from %>
+    </div>
+    <div class="field">
+        <%= f.label :booking_to %><br>
+        <%= f.datetime_select :booking_to %>
+    <div class="actions">
+        <%= f.submit %>
+    </div>
 <% end %>
