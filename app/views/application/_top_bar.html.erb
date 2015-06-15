@@ -5,12 +5,12 @@
     </a>
 
     <% if !@hide_search_field %>
-        <span class="top-bar__search-holder">
-            <%= image_tag "search_icon_small.png", alt: "", class: "top-bar__search-icon", size: "18x18" %>
-            <%= form_tag("/search", method: "get", class: "top-bar__form") do %>
+        <%= form_tag("/search", method: "get", class: "top-bar__form") do %>
+            <span class="top-bar__search-holder">
+                <%= image_tag "search_icon_small.png", alt: "", class: "top-bar__search-icon", size: "18x18" %>
                 <%= text_field_tag 'q','', type: "text",  class: "top-bar__search-input", placeholder: 'Hva vil du leie?'  %>
-            <% end %>
-        </span>
+            </span>
+        <% end %>
     <% end %>
 
     <span class="top-bar__rightbox">
