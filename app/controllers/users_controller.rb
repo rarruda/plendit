@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :confirmation, :verify_sms, :do_verify_sms]
+  before_action :set_user, only: [
+    :show, :edit, :update, :destroy, :confirmation,
+    :verify_sms, :do_verify_sms, :mark_all_notifications_noticed
+  ]
   before_filter :authenticate_user!, :except => [:show, :finish_signup]
 
   def index
@@ -109,6 +112,13 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST /mark_all_notifications_noticed
+  def mark_all_notifications_noticed
+    @user.notifications
+         .where(status: 'fresh')
+         .update_all(status: Notification.statuses[:noticed])
+    head :ok
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -2,6 +2,8 @@ class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :notifiable, polymorphic: true
 
+  enum status: [ :fresh, :noticed, :read ]
+
   def source_user
     if self.notifiable is_a? Ad
         self.notifiable.user

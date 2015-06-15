@@ -15,7 +15,20 @@ window.services.responsive = {
     }
 }
 
-
+window.controllers.resetUnseenNotificationCount = function(ele) {
+    var hasBeenReset = false;
+    ele.addEventListener('click', function() {
+        if (!hasBeenReset) {
+            hasBeenReset = true;
+            var url = ele.getAttribute("data-clear-notifications-url");
+            xhr.post(url);
+            var countEle = ele.querySelector("[data-notification-count]");
+            if (countEle) {
+                countEle.classList.add('u-hidden');
+            }
+        }
+    });
+}
 
 window.controllers.tagCreator = {
     callable: function(ele) {

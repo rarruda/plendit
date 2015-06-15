@@ -153,7 +153,6 @@ class AdsController < ApplicationController
       Notification.new(
         user_id: view_context.get_current_user_id,
         message: "Your ad has been inserted and/or updated",
-        notification_status_id: 1,
         notifiable: @ad).save
     end
 

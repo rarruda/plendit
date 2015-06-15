@@ -120,12 +120,13 @@ class User < ActiveRecord::Base
     self.email && self.email !~ /\Atemp-/
   end
 
-  def new_notifications()
-    # todo: use status flag to only return unread notifications
-    self.notifications.order("updated_at desc")
+  def recent_notifications
+    self.notifications.order("created_at desc").limit(10)
   end
 
-
+  def unseen_notifications_count
+    self.notifications.where(status: 'fresh').size
+  end
 
   def current_phone_number
     self.unconfirmed_phone_number || self.phone_number

@@ -23,12 +23,13 @@
             </strong>
 
             <span class="top-bar__top-section"
-               data-controller="menuAnchor"
+               data-controller="menuAnchor resetUnseenNotificationCount"
                data-anchor-for="[data-floating-notifications]"
+               data-clear-notifications-url="<%= mark_all_notifications_noticed_users_path %>"
                >Varsler
-                <% if current_user.new_notifications.size != 0 %>
-                    <span class="top-bar__notification-count">
-                        <%= current_user.new_notifications.size %>
+                <% if current_user.unseen_notifications_count != 0 %>
+                    <span class="top-bar__notification-count" data-notification-count>
+                        <%= current_user.unseen_notifications_count %>
                     </span>
                 <% end %>
             </span>
@@ -60,7 +61,7 @@
 
         <ol class="notification-box__list">
 
-            <% current_user.new_notifications.each do |n| %>
+            <% current_user.recent_notifications.each do |n| %>
 
                 <li class="notification-box__row row">
                     <div class="two columns u-center">
