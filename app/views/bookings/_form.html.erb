@@ -26,13 +26,44 @@
         <%= f.label :price %> <br>
         <%= @ad.price %> per dag
     </div>
+
     <div class="field">
         <%= f.label :booking_from %><br>
         <%= f.datetime_select :booking_from %>
     </div>
+
     <div class="field">
         <%= f.label :booking_to %><br>
         <%= f.datetime_select :booking_to %>
+    </div>
+
+    <!-- Placeholder markup for nicer time selectors
+         we can try in the future.
+    <div class="row">
+        <div class="six columns">
+            <%= label_tag :start_date, "Leies fra og med dato" %>
+            <%= date_field :start_date, "", class: "u-full-width" %>
+
+        </div>
+        <div class="six columns">
+            <%= label_tag :pickup_time, "Hentes klokkeslett" %>
+            <%= time_field :pickup_time, "", class: "u-full-width" %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="six columns">
+            <%= label_tag :end_date, "Leies til og med dato" %>
+            <%= date_field :end_date, "", class: "u-full-width" %>
+
+        </div>
+        <div class="six columns">
+            <%= label_tag :return_time, "Leveres klokkeslett" %>
+            <%= time_field :return_time, "", class: "u-full-width" %>
+        </div>
+    </div>
+    -->
+
     <div class="actions">
         <%= f.submit %>
     </div>
