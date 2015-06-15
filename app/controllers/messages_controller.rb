@@ -74,7 +74,7 @@ class MessagesController < ApplicationController
       Notification.new(
         user_id: @message.to_user.id,
         message: "You have received a message!",
-        notification_status_id: 1,
+        status: 'fresh',
         notifiable: @message).save
     end
 

@@ -73,7 +73,6 @@ class FeedbacksController < ApplicationController
       Notification.new(
         user_id: @feedback.user.id,
         message: "You have received a feedback for an item you own",
-        notification_status_id: 1,
         notifiable: @feedback).save
     end
 

@@ -2,14 +2,14 @@
 
 one:
   user_id: 
-  notification_status_id: 1
+  status: fresh
   notifiable_id: 
   notifiable_type: Notifiable
   message: MyString
 
 two:
   user_id: 
-  notification_status_id: 1
+  status: fresh
   notifiable_id: 
   notifiable_type: Notifiable
   message: MyString

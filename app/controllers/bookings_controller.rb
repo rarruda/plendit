@@ -97,12 +97,10 @@ class BookingsController < ApplicationController
       Notification.new(
         user_id: @booking.user.id,
         message: "Somone has booked (wants to rent) a item you own: #{@booking.ad.id}",
-        notification_status_id: 1,
         notifiable: @booking ).save
       Notification.new(
         user_id: @booking.from_user.id,
         message: "A booking request has been created for you.",
-        notification_status_id: 1,
         notifiable: @booking ).save
     end
 
