@@ -28,7 +28,9 @@
                data-clear-notifications-url="<%= mark_all_notifications_noticed_users_path %>"
                >Varsler
                 <% if current_user.unseen_notifications_count != 0 %>
-                    <span class="top-bar__notification-count" data-notification-count><%= current_user.unseen_notifications_count %></span>
+                    <span class="top-bar__notification-count" data-notification-count>
+                        <%= current_user.unseen_notifications_count %>
+                    </span>
                 <% end %>
             </span>
 
