@@ -110,7 +110,7 @@ a.ad_images.create!({"description"=>"på bil", "image_file_name"=>"768bab5e74ccc
     u.phone_number = [ '4', '9' ].sample.to_s + Faker::Base.numerify('#######')
     u.email        = Faker::Internet.safe_email(name).gsub('@', "#{User.count+1}@")
     u.password     = Faker::Internet.password(10, 20)
-    u.status       = 2
+    u.status       = "confirmed"
   end
 }
 
