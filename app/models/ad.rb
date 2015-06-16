@@ -1,6 +1,8 @@
 include ActionView::Helpers::TextHelper
 
 class Ad < ActiveRecord::Base
+  include AASM
+
   belongs_to :user
   has_many :received_feedbacks, :class_name => "Feedback"
   has_many :ad_items
@@ -15,6 +17,69 @@ class Ad < ActiveRecord::Base
 
   # todo: how to validate location present before publish?
   #validates :location, presence: true
+
+  aasm :column => :status, :enum => true do
+    state :draft, :initial => true
+    state :waiting_review
+    state :published, :enter => :enter_published, :exit => :exit_published
+    state :paused
+    state :stopped
+    state :suspended
+
+    event :submit_for_review do
+      transitions :from => :draft, :to => :waiting_review
+      after do
+        logger.error "submiting for review..."
+      end
+    end
+    event :approve do
+      transitions :from => :waiting_review, :to => :published
+    end
+    event :pause do
+      transitions :from => [:published, :stopped], :to => :paused
+    end
+    event :stop do
+      transitions :from => [:published, :paused], :to => :stopped
+    end
+    event :resume do
+      transitions :from => [:paused, :stopped], :to => :published
+    end
+    event :edit do
+      transitions :from => [:waiting_review, :published, :paused, :stopped], :to => :draft
+      before do
+        logger.info 'Preparing to edit'
+      end
+    end
+    event :suspend do #reject?
+      transitions :to => :suspended
+      after do
+        logger.info 'ad is suspended. this is a black hole. there is no way out.'
+      end
+    end
+    #event :unsuspend do
+    #  transitions :from => :suspended, :to => :waiting_review
+    #end
+  end
+
+
+  def enter_published
+    logger.error ("ad published... it is now searchable after the toggle is switched.")
+    ## TODO: copy to AdVerified (ES)
+    ## TODO: notify use that his ad is now live.
+  end
+
+  def exit_published
+    ## TODO: remove from AdVerified (ES)
+    logger.info ">> no longer searchable."
+  end
+
+  def world_viewable?
+    not ( self.stopped? or self.suspended? )
+  end
+
+  def searcheable?
+    self.published?
+  end
 
   def related_ads_from_user
     self.user.ads.reject { |ad| ad.id == self.id }

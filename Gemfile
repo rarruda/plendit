@@ -16,6 +16,8 @@ gem 'dropzonejs-rails'
 
 gem 'activeadmin', '~> 1.0.0.pre1'
 
+gem 'aasm', '~> 4'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
