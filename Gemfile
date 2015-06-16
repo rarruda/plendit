@@ -5,12 +5,14 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 #gem 'omniauth-google'
+
 gem 'geocoder'
+
+gem 'twilio-ruby', '~> 4'
 
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '< 2.0'
-
-gem 'twilio-ruby', '~> 4'
+gem 'dropzonejs-rails'
 
 gem 'activeadmin', '~> 1.0.0.pre1'
 
@@ -36,9 +38,6 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-
-# dropzonejs since jquery-fileupload doesnt cooperate...
-gem 'dropzonejs-rails'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
