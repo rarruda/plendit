@@ -1,40 +1,28 @@
 <h2 class="u-push-down">Tilgjengelighet</h2>
 <div class="availability-section u-push-down">
-    <div class="row availability-section__calendar-holder">
-        <div class="availability-section__calendar-holder-inner">
-            <% today = Date.today() %>
-            <div class="six columns">
-                <h4 class="availability-section__month"><%= today.strftime("%B - %Y") %></h4>
-                <%= render partial: "shared/month_calendar", locals: { date: today, ad: @ad } %>
-            </div>
-            <div class="six columns">
-                <h4 class="availability-section__month"><%= today.next_month.strftime("%B - %Y") %></h4>
-                <%= render partial: "shared/month_calendar", locals: { date: today.next_month, ad: @ad } %>
-            </div>
-        </div>
+    <%= render partial: "shared/pageable_calendar", locals: {ad: ad} %>
 
-        <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
-            <%= button_tag("Send forespørsel", {class: "u-push-down button-primary availability-section__book"}) %>
-        <% end %>
+    <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
+        <%= button_tag("Send forespørsel", {class: "u-push-down button-primary availability-section__book"}) %>
+    <% end %>
 
-        <div class="row">
-            <div class="ten columns offset-by-one column">
-                <%= form_for( FavoriteAd.new ) do |f| %>
-                    <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
-                    <%= f.hidden_field :previous_url, value: request.fullpath %>
-                    <% if @ad_is_favorite %>
-                        <%= f.button class: "booking-request-form__book-button" do %>
-                            <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart--favorite") %>
-                            Fjern fra favoritter
-                        <% end %>
-                    <% else %>
-                        <%= f.button class: "booking-request-form__book-button" do %>
-                            <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart") %>
-                            Legg til i favoritter
-                        <% end %>
+    <div class="row">
+        <div class="ten columns offset-by-one column">
+            <%= form_for( FavoriteAd.new ) do |f| %>
+                <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
+                <%= f.hidden_field :previous_url, value: request.fullpath %>
+                <% if @ad_is_favorite %>
+                    <%= f.button class: "booking-request-form__book-button" do %>
+                        <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart--favorite") %>
+                        Fjern fra favoritter
+                    <% end %>
+                <% else %>
+                    <%= f.button class: "booking-request-form__book-button" do %>
+                        <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart") %>
+                        Legg til i favoritter
                     <% end %>
                 <% end %>
-            </div>
+            <% end %>
         </div>
     </div>
 </div>

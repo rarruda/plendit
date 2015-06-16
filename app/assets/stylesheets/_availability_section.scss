@@ -2,6 +2,7 @@
 
 .availability-section {
     text-align: center;
+    background-color: white;
 
     &__month {
         font-size: 120%;
@@ -11,15 +12,4 @@
         width: 70%;
     }
 
-    &__calendar-holder {
-        overflow: auto;
-        padding: $standard-spacing;
-        background-color: white;
-    }
-
-    &__calendar-holder-inner {
-        padding: $standard-spacing;
-        overflow: auto;
-        background-color: $color-subtle-gray-background;
-    }
 }
