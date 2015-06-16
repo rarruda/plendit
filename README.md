@@ -66,6 +66,17 @@ $ rake db:seed
 In Heroku to reset the database you need to run `heroku pg:reset DATABASE`.
  This command will drop and recreate your (now empty) database.
 
+* Further Database initialization
+
+Act-as-taggable-on gem requires also some support tables that need to be
+ initialized by first generating the migrations, and then running them
+ with the following commits:
+
+```
+$ rake acts_as_taggable_on_engine:install:migrations
+$ rake db:migrate
+```
+
 * Starting the server (development)
 
 ```
