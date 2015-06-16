@@ -77,7 +77,7 @@ ActiveAdmin.register User do
 #        t.column("Ad Title") {|f| f.ad.title }
 #        t.column :body #("Body") {|f| f.score }
 #      end
-#    end   
+#    end
 #  end
 #
 #
@@ -88,7 +88,7 @@ ActiveAdmin.register User do
 #      row :email
 #      row :phone
 #      row :created_at
-#      row('user_status') {|u| status_tag u.user_status.status}
+#      row('user_status') {|u| status_tag u.status}
 #    end
 #  end
 

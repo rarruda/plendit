@@ -39,10 +39,10 @@ class User < ActiveRecord::Base
     if: :phone_pending_changed?,
     if: :phone_not_changed?
 
-#  after_save  :send_sms_for_phone_confirmation,
-#    if: :phone_pending_confirmation?,
-#    if: :phone_pending_changed?,
-#    if: :phone_not_changed?
+  after_save  :send_sms_for_phone_confirmation,
+    if: :phone_pending_confirmation?,
+    if: :phone_pending_changed?,
+    if: :phone_not_changed?
 
 
   def avatar_url_safetest
