@@ -37,12 +37,12 @@ class User < ActiveRecord::Base
   before_save :set_phone_attributes,
     if: :phone_pending_confirmation?,
     if: :phone_pending_changed?,
-    if: :phone_not_changed?
+    if: :phone_number_changed?
 
   after_save  :send_sms_for_phone_confirmation,
     if: :phone_pending_confirmation?,
     if: :phone_pending_changed?,
-    if: :phone_not_changed?
+    if: :phone_number_changed?
 
 
   def avatar_url_safetest
@@ -158,9 +158,6 @@ class User < ActiveRecord::Base
     unconfirmed_phone_number_changed?
   end
 
-  def phone_not_changed?
-    not phone_number_changed?
-  end
 
   private
   def set_phone_attributes
