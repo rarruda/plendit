@@ -1,0 +1,21 @@
+@import 'constants.scss';
+
+.pageable-calendar {
+    text-align: center;
+
+    &__month {
+        font-size: 120%;
+    }
+
+    &__calendar-holder {
+        overflow: auto;
+        padding: $standard-spacing;
+        background-color: white;
+    }
+
+    &__calendar-holder-inner {
+        padding: $standard-spacing;
+        overflow: auto;
+        background-color: $color-subtle-gray-background;
+    }
+}

@@ -1,5 +1,5 @@
 class AdsController < ApplicationController
-  before_action :set_ad, only: [:show, :preview, :edit, :update, :destroy]
+  before_action :set_ad, only: [:show, :preview, :edit, :update, :destroy, :calendar]
   after_action  :notify_user, only: [:create, :update]
   before_filter :authenticate_user!, :except => [:show, :index, :search]
 
@@ -83,6 +83,16 @@ class AdsController < ApplicationController
         image: "new_realestate.png"
       }
     ]
+  end
+
+  # GET /ads/1/calendar?date=day_or_month
+  def calendar
+    if params[:date].nil?
+      date = Date.today
+    else
+      date = params[:date].to_date
+    end
+    render "shared/_pageable_calendar", layout: false, locals: { date: date, ad: @ad }
   end
 
   def create

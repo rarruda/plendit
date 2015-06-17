@@ -71,6 +71,30 @@ window.controllers.resultContainerSizeAdjuster = {
     }
 }
 
+window.controllers.calenderPager = {
+    dependencies: ["$element"],
+    callable: function(ele) {
+        ele.addEventListener('click', onClick);
+
+        function onClick(evt) {
+            var e = evt.target;
+            if (e && e.nodeName.toLowerCase() == "a") {
+                evt.preventDefault();
+                var url = e.href;
+                xhr.get(url).then(onNewCalendarFetched)
+            }
+        }
+
+        function onNewCalendarFetched(xhr) {
+            var e = document.createElement("div");
+            e.innerHTML = xhr.responseText;
+            var newCal = e.querySelector("[data-calendar]");
+            var oldCal = ele.querySelector("[data-calendar]");
+            oldCal.parentNode.replaceChild(newCal, oldCal);
+        }
+    }
+}
+
 window.controllers.togglableFilters = {
     dependencies: ["$element", "eventbus"] ,
     callable: function(ele, eventBus) {
