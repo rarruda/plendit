@@ -1,0 +1,32 @@
+-
+  title: Verktøy
+  summary: "Finn verktøy for alle oppgaver rett i nærheten av der du bor."
+  items:
+    -
+      title: Drill
+      term: drill
+      image: promo_imgs/drill.jpg
+    -
+      title: Flisekutter
+      term: flisekutter
+      image: "promo_imgs/flisekutter.jpg"
+    -
+      title: Stige
+      term: stige
+      image: "promo_imgs/stige.jpg"
+-
+  title: Friluft
+  summary: Finn telt eller annet friluftsutstyr.
+  items:
+    -
+      title: Lavvo
+      term: lavvo
+      image: promo_imgs/lavvo.jpg
+    -
+      title: Pulk
+      term: pulk
+      image: promo_imgs/pulk.jpg
+    -
+      title: Telt
+      term: telt
+      image: promo_imgs/telt.jpg

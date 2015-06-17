@@ -1,13 +1,13 @@
 <div class="container front-popular-box u-push-down">
-    <h3 class="front-popular-box__title"><%= topic[:title] %></h3>
-    <p><%= topic[:summary] %></p>  
+    <h3 class="front-popular-box__title"><%= topic['title'] %></h3>
+    <p><%= topic['summary'] %></p>  
 
-    <% topic[:items].each do |item| %>
+    <% topic['items'].each do |item| %>
         <div class="popular-topic-box">
-            <a class="popular-topic-box__link" href="#">
-                <%= image_tag(item[:image], size: "300x300", alt: "", class: "popular-topic-box__img") %>
-                <h4 class="popular-topic-box__title"><%= item[:title] %></h4>
-            </a>
+            <%= link_to (search_path q: item['term']), class: "popular-topic-box__link" do %>
+                <%= image_tag(item['image'], size: "300x300", alt: "", class: "popular-topic-box__img") %>
+                <h4 class="popular-topic-box__title"><%= item['title'] %></h4>
+            <% end %>
         </div>
     <% end %>
 </div>
