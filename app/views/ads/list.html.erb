@@ -45,24 +45,16 @@
                 title and url -->
                 <h5>Siste 6 måneder</h5>
                 <ul>
+                <%
+                  (0..6).each do |i|
+                     date_i = Date.today - i.month
+                %>
                     <li>
-                        <a href="#">Januar</a>
+                        <a href="#"><%= date_i.strftime('%B') %></a>
                     </li>
-                    <li>
-                        <a href="#">Februar</a>
-                    </li>
-                    <li>
-                        <a href="#">Mars</a>
-                    </li>
-                    <li>
-                        <a href="#">April</a>
-                    </li>
-                    <li>
-                        <a href="#">Mai</a>
-                    </li>
-                    <li>
-                        <a href="#">Juni</a>
-                    </li>
+                 <%
+                  end
+                 %>
                 </ul>
 
                 <h5>Sorter per år</h5>

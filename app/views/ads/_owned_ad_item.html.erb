@@ -5,5 +5,5 @@
         <%= image_tag ad.image_url_with_fallback(:thumb), alt: "", class: "u-pull-right owned-ad-item__thumb" %>
         <%= ad.body || "No body" %>
     </p>
-    <p><%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %> STATUS</p>
+    <p><%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %> STATUS: <%= ad.status %></p>
 </div>
