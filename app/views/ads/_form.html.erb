@@ -71,12 +71,12 @@
 
     <input type="text" class="u-full-width" placeholder="Gateadresse">
 
-    <div class="row">
+    <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= misc_postal_place_path %>">
         <div class="four columns">
-            <input type="number" class="u-full-width" placeholder="Postnr.">
+            <input type="number" class="u-full-width" placeholder="Postnr." data-postal-code>
         </div>
         <div class="eight columns">
-            <input type="text" class="u-full-width" placeholder="Poststed">
+            <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
         </div>
     </div>
 
