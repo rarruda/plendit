@@ -2,6 +2,8 @@ include ActionView::Helpers::TextHelper
 
 class Ad < ActiveRecord::Base
   include AASM
+  #acts_as_ordered_taggable
+  acts_as_taggable
 
   belongs_to :user
   has_many :received_feedbacks, :class_name => "Feedback"
