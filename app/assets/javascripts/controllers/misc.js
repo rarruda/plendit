@@ -15,6 +15,34 @@ window.services.responsive = {
     }
 }
 
+window.controllers.postalPlaceFetcher = {
+    callable: function(ele) {
+        var lastSeen = "";
+        var source = ele.querySelector("[data-postal-code]");
+        var target = ele.querySelector("[data-postal-place]");
+        var baseUrl = ele.getAttribute("data-postal-place-url");
+        init();
+
+        function init() {
+            source.addEventListener('change', fetchPostalPlace);
+            source.addEventListener('keyup', fetchPostalPlace);
+            source.addEventListener('blur', fetchPostalPlace);
+        }
+
+        function fetchPostalPlace(evt) {
+            if (lastSeen != evt.target.value) {
+                lastSeen = evt.target.value;
+                var url = baseUrl + "?postal_code=" + evt.target.value;
+                xhr.get(url).then(updatePostalPlace);
+            }
+        }
+
+        function updatePostalPlace(xhr) {
+            target.value = xhr.responseText;
+        }
+    }
+};
+
 window.controllers.resetUnseenNotificationCount = function(ele) {
     var hasBeenReset = false;
     ele.addEventListener('click', function() {
