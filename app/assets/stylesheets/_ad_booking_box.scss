@@ -6,5 +6,19 @@
     left: -22px;
     background-color: $color-background;
     border: solid thin $color-box-border;
+
+    &__title {
+        background-color: $color-plendit-blue;
+        color: white;
+        padding: $standard-spacing / 2;
+    }
+
+    &__calendar-holder {
+        text-align: center;
+    }
+
+    &__button-holder {
+        text-align: center;
+    }
 }
 

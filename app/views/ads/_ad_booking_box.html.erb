@@ -1,11 +1,17 @@
 <div class="ad-booking-box">
-    <h4>199 per døgn</h4>
-    <% date = Date.today() %>
-    <%= date.strftime("%B - %Y") %>
-    <div>
+    <h4 class="ad-booking-box__title">199 per døgn</h4>
+
+    <div class="ad-booking-box__calendar-holder">
+        <% date = Date.today() %>
+        <h5><%= date.strftime("%B - %Y") %></h5>
         <%= render partial: "shared/month_calendar", locals: { date: date, ad: ad } %>
     </div>
-    <div>
+
+    <div class="ad-booking-box__button-holder">
+        <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
+            <%= button_tag("Gå til booking", {class: "u-push-down button-primary availability-section__book"}) %>
+        <% end %>
+
         <%= form_for( FavoriteAd.new ) do |f| %>
             <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
             <%= f.hidden_field :previous_url, value: request.fullpath %>
@@ -22,6 +28,5 @@
             <% end %>
         <% end %>
     </div>
-    <button class="button-primary">Bookorama</button>
 </div>
 
