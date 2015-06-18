@@ -4,6 +4,9 @@ class Notification < ActiveRecord::Base
 
   enum status: [ :fresh, :noticed, :read ]
 
+  scope :fresh, -> { where( status: Notification.statuses[:fresh] ) }
+
+
   def source_user
     if self.notifiable is_a? Ad
         self.notifiable.user

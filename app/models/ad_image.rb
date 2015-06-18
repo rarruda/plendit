@@ -13,6 +13,9 @@ class AdImage < ActiveRecord::Base
     :path        => "/images/ads/:ad_id/:style/:hash.:extension", #### "/system/ad_image/:ad_id/:style/:hash.:extension"
   }
 
+  scope :for_ad_id, ->(ad_id) { where( ad_id: ad_id ) }
+
+
   validates :weight, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/jpg", "image/png"]

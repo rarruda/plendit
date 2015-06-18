@@ -20,7 +20,9 @@ class Ad < ActiveRecord::Base
   # todo: how to validate location present before publish?
   #validates :location, presence: true
 
-  scope :for_user, lambda { |user| where( user_id: user.id ) }
+  default_scope { where.not( status: Ad.statuses[:suspended] ) }
+  scope :for_user, ->(user) { where( user_id: user.id ) }
+  scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
 
   aasm :column => :status, :enum => true do
     state :draft, :initial => true

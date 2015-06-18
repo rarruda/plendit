@@ -8,6 +8,8 @@ class Booking < ActiveRecord::Base
 
   enum status: { created: 0, accepted: 1, declined: 2, declined: 3 }
 
+  scope :owner_user, ->(user) { joins(:ad).where( 'ads.user_id = ?', user.id ) }
+  scope :from_user,  ->(user) { where( from_user_id: user.id ) }
 
   # fixme: real data for this, and something like .humanize on the prices
 
