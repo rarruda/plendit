@@ -1,0 +1,10 @@
+@import 'constants.scss';
+
+.ad-booking-box {
+    position: relative;
+    top: -46px;
+    left: -22px;
+    background-color: $color-background;
+    border: solid thin $color-box-border;
+}
+
