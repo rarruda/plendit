@@ -20,6 +20,10 @@ class Ad < ActiveRecord::Base
   # todo: how to validate location present before publish?
   #validates :location, presence: true
 
+  default_scope { where.not( status: Ad.statuses[:suspended] ) }
+  scope :for_user, ->(user) { where( user_id: user.id ) }
+  scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
+
   aasm :column => :status, :enum => true do
     state :draft, :initial => true
     state :waiting_review
@@ -81,6 +85,10 @@ class Ad < ActiveRecord::Base
 
   def searcheable?
     self.published?
+  end
+
+  def self.search q
+    Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{q}%", "%#{q}%" )
   end
 
   def related_ads_from_user

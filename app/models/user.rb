@@ -125,7 +125,7 @@ class User < ActiveRecord::Base
   end
 
   def unseen_notifications_count
-    self.notifications.where(status: 'fresh').size
+    self.notifications.fresh.size
   end
 
   def current_phone_number

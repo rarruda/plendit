@@ -7,7 +7,7 @@ class AdImagesController < ApplicationController
   def index
     # missing verification if user owns ad:
     @ad_id = params[:ad_id]
-    @ad_images = AdImage.where('ad_id = ?', params[:ad_id]).all
+    @ad_images = AdImage.for_ad_id( params[:ad_id] ).all
     respond_to do |format|
       format.html {
         render :index

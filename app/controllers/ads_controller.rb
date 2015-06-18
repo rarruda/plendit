@@ -18,7 +18,8 @@ class AdsController < ApplicationController
 
     # will need to add search in tags too:
     # as well some sort of ordering/ranking, and support for more complex searches/filters.
-    @ads = Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{params[:q]}%", "%#{params[:q]}%" ) #kaminari_paginate: .page(page).per(5)
+    @ads = Ad.search params[:q]  #kaminari_paginate: .page(page).per(5)
+
 
     # fixme: use lng rather than lon everywhere?
     # fixme: center from query param, or a sensible default from a config
@@ -26,7 +27,7 @@ class AdsController < ApplicationController
       center: {lat: 59.913869, lon: 10.752245},
       hits: @ads.map do |ad|
         if not ad.location.nil?
-          {id: ad[:id], lat: ad.location[:lat], lon: ad.location[:lon]}
+          {id: ad[:id], location: { lat: ad.location[:lat], lon: ad.location[:lon] }}
         else
           logger.error "Location not found for ad_id: #{ad.id}"
           nil
@@ -50,7 +51,7 @@ class AdsController < ApplicationController
 
   # GET /users/ads
   def list
-    @ads = Ad.where( user_id: view_context.get_current_user_id ).all
+    @ads = Ad.for_user( current_user ).all
   end
 
   # GET /ads/1
@@ -153,6 +154,9 @@ class AdsController < ApplicationController
   end
 
   private
+
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_ad
       @ad = Ad.find(params[:id])
