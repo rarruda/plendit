@@ -1,5 +1,5 @@
 class AdsController < ApplicationController
-  before_action :set_ad, only: [:show, :preview, :edit, :update, :destroy, :calendar]
+  before_action :set_ad, only: [:show, :preview, :edit, :update, :destroy, :double_calendar]
   after_action  :notify_user, only: [:create, :update]
   before_filter :authenticate_user!, :except => [:show, :index, :search]
 
