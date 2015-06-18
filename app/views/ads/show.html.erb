@@ -11,18 +11,9 @@
             <%= render partial: "ad_feedback_list_section", locals: { ad: @ad } %>
         </div>
         <div class="four columns">
-            <div style="border: solid thin red;">
-                New calendar booking thingy placeholder
-            </div>
+            <%= render partial: "ad_booking_box", locals: { ad: @ad } %>
         </div>
     </div>
 </div>
 
-<% if defined? @ad.location.lat and defined? @ad.location.lon %>
-    <section class="ad-location-map">
-        <div class="ad-location-map__map"
-             data-geolocation="<%= @ad.location.lat %>,<%= @ad.location.lon %>"
-             data-controller="adMap">
-        <div>
-    </section>
-<% end %>
+<%= render partial: "ad_location_map", locals: { ad: @ad } %>
