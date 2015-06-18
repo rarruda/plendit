@@ -80,7 +80,6 @@ u = User.create(
   "ephemeral_answer_percent"=>"75",
   "status"=>"confirmed",
   "email"=>"trygve.leite+testonly@plendit.com",
-  "image_url"=>"http://hjemmehos.finn.no/filestore/Ansatte/TrygveLeite.jpg?size=120x0",
   "password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
   )
 u.confirm!
