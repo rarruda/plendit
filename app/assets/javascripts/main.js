@@ -1,4 +1,4 @@
-window.addEventListener("load", main);
+document.addEventListener("DOMContentLoaded", main);
 
 function main() {
     var c = new Controllerator();
