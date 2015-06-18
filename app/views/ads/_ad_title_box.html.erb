@@ -1,26 +1,12 @@
-<div class="row ad-title-box">
-    <div class="twelve columns">
-        <%= render('shared/avatar.html', user: ad.user, size: "large", css_class: "u-pull-left" ) %>
-        <h3 class="ad-title-box__title"><%= ad.title %></h3>
-    </div>
-</div>
-
-<div class="row ad-title-box__info-holder">
-    <div class="four columns">
+<div class="ad-title-box">
+    <div class="ad-title-box__avatar-holder">
+        <%= render('shared/avatar.html', user: ad.user, size: "large" ) %>
+        <br>
         <strong><%= link_to ad.user.name, user_path(ad.user.id) %></strong>
         <br>
-        <%= render('shared/stars.html', rating: ad.user.calculate_average_rating ) %>
+        <%= render('shared/stars.html', small: true, rating: ad.user.calculate_average_rating ) %>
     </div>
-    <div class="four columns">
-        <a href="#feedback">
-            <%= image_tag "feedback_link.png", alt: "Tilbakemeldinger", size: "26x26" %>
-            <p>Tilbakemeldinger</p>
-        </a>
-    </div>
-    <div class="four columns ad-title-box__more-ads-holder">
-        <a href="#more-ads">
-            <%= image_tag "more_ads_link.png", alt: "Fler annonser", size: "34x26" %>
-            <p>Fler fra <%= @ad.user.name %></p>
-        </a>
+    <div class="ad-title-box__title-holder">
+        <h3 class="ad-title-box__title"><%= ad.title %></h3>
     </div>
 </div>
