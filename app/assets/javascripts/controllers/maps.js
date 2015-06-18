@@ -11,7 +11,7 @@ window.controllers.adMap = {
 
             var mapOptions = {
               center: center,
-              zoom: 14
+              zoom: 15
             };
             var map = new google.maps.Map(ele, mapOptions);
 
