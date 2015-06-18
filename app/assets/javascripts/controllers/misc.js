@@ -75,6 +75,7 @@ window.controllers.tagCreator = {
             }
             else {
                 if (price == 0) {
+
                     outEle.value = 0;
                 }
                 else {
@@ -95,6 +96,71 @@ window.controllers.resultContainerSizeAdjuster = {
         function adjustHeight() {
             var height = window.innerHeight - ele.offsetTop;
             ele.style.height = height + "px";
+        }
+    }
+}
+
+window.services.searchService = {
+    name: "searchService",
+    dependencies: ["eventbus"],
+    callable: function(eventBus) {
+
+        function search(form) {
+            var url = '/search.json?=' + buildQuery(form);
+            xhr.get(url).then(onSearchFinished);
+        }
+
+        function onSearchFinished(response) {
+            var result = JSON.parse(response.responseText);
+            eventBus.emit('new-search-result', result);
+        }
+
+        function buildQuery(form) {
+            var items = [];
+            for (var key in form) {
+                items.push({key: key, value: form[key]});
+            }
+
+            items = items.map(function(e) {
+                return e.key + "=" + e.value;
+            });
+
+            return items.join("&");
+        }
+
+        return {
+            search: search
+        }
+    }
+}
+
+window.controllers.searchFilterSelection = {
+    dependencies: ["$element", "eventbus", "searchService"],
+    callable: function(ele, eventBus, searchService) {
+
+        init();
+
+        function init() {
+            var inputs = ele.querySelectorAll("input");
+            for (var n = 0, e; e = inputs[n++];) {
+                e.addEventListener('change', onInputChange);
+            }
+        }
+
+        function onInputChange(evt) {
+            evt.preventDefault();
+            searchService.search(getFormValues());
+        }
+
+        function getFormValues() {
+            var form = {};
+            var inputs = ele.querySelectorAll("input");
+            for (var n = 0, e; e = inputs[n++];) {
+                if (e.name && e.value) {
+                    form[e.name] = e.value;
+                }
+            }
+            return form;
         }
     }
 }

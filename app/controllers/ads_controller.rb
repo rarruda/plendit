@@ -27,7 +27,7 @@ class AdsController < ApplicationController
       center: {lat: 59.913869, lon: 10.752245},
       hits: @ads.map do |ad|
         if not ad.location.nil?
-          {id: ad[:id], lat: ad.location[:lat], lon: ad.location[:lon]}
+          {id: ad[:id], location: { lat: ad.location[:lat], lon: ad.location[:lon] }}
         else
           logger.error "Location not found for ad_id: #{ad.id}"
           nil
@@ -154,6 +154,9 @@ class AdsController < ApplicationController
   end
 
   private
+
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_ad
       @ad = Ad.find(params[:id])
