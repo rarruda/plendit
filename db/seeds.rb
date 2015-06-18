@@ -10,15 +10,20 @@
 
 
 # Delete all the things!
+ActsAsTaggableOn::Tag.delete_all
+ActsAsTaggableOn::Tagging.delete_all
+
+Feedback.delete_all
+Message.delete_all
+Booking.delete_all
+AdItem.delete_all
+Ad.delete_all
 Location.delete_all
 User.delete_all
-Ad.delete_all
-AdItem.delete_all
-Feedback.delete_all
-Booking.delete_all
-Message.delete_all
 
-#Notification.delete_all
+Notification.delete_all
+
+
 
 
 # Set locale to faker:
@@ -46,7 +51,8 @@ u.locations.create!({"address_line"=>"Grensen  5-7", "city"=>"Oslo", "state"=>"O
 u.locations.create!({"address_line"=>"Støperigata 1", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250"})
 
 # Ad #1
-a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Fjellpulken barnepulk med ski ", "body"=>"Lite brukt Fjellpulken barnepulk leies ut. Pulken er komplett og har veltebøyle, vindskjerm,\r\nryggstøtte, drag og sele med kryssremmer. Overtrekkspose som gir god beskyttelse ved lagring\r\nog transport medfølger. Pulken har alltid vært lagret innendørs. Stoffet er derfor som nytt i farge.\r\nDet er ingen skader på noen deler av pulken.\r\nPå sekstitallet ble konseptet Barnepulken oppfunnet av Egil Rustadstuen, og fikk Merket for god\r\ndesign i 1968. Siden har pulken gjennomgått en stadig utvikling, men med samme grunnkonsept\r\nbasert på et båtformet glassfiberskrog.\r\nFjellpulken er et urnorsk produkt, og nyutviklingen med ski beholder den sterke identiteten. Den\r\nnye pulken er optimalisert for bruk i skiløyper, med bedre ergonomi og sikkerhet for barnet.\r\nFormgivingen er svært appellerende og ergonomien gir friere bruksmuligheter med økt\r\nbevegelighet. Den er mye lettere å gå med. Siden pulken er løftet opp fra bakken blir ikke bare\r\nkomforten for barnet bedre, men det blir også lettere å holde barnet varmt. Tryggheten er\r\nivaretatt med veltebøyle. Detaljene rundt innstillingene er fine, og alt i alt holder produktet en\r\nimponerende kvalitet.", "price"=>"250.0", "tags"=>"pulk,fjellpulk,ski"})
+a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Fjellpulken barnepulk med ski ", "body"=>"Lite brukt Fjellpulken barnepulk leies ut. Pulken er komplett og har veltebøyle, vindskjerm,\r\nryggstøtte, drag og sele med kryssremmer. Overtrekkspose som gir god beskyttelse ved lagring\r\nog transport medfølger. Pulken har alltid vært lagret innendørs. Stoffet er derfor som nytt i farge.\r\nDet er ingen skader på noen deler av pulken.\r\nPå sekstitallet ble konseptet Barnepulken oppfunnet av Egil Rustadstuen, og fikk Merket for god\r\ndesign i 1968. Siden har pulken gjennomgått en stadig utvikling, men med samme grunnkonsept\r\nbasert på et båtformet glassfiberskrog.\r\nFjellpulken er et urnorsk produkt, og nyutviklingen med ski beholder den sterke identiteten. Den\r\nnye pulken er optimalisert for bruk i skiløyper, med bedre ergonomi og sikkerhet for barnet.\r\nFormgivingen er svært appellerende og ergonomien gir friere bruksmuligheter med økt\r\nbevegelighet. Den er mye lettere å gå med. Siden pulken er løftet opp fra bakken blir ikke bare\r\nkomforten for barnet bedre, men det blir også lettere å holde barnet varmt. Tryggheten er\r\nivaretatt med veltebøyle. Detaljene rundt innstillingene er fine, og alt i alt holder produktet en\r\nimponerende kvalitet.", "price"=>"250.0"})
+a.tag_list.add( "pulk","fjellpulk","ski" )
 
 a.ad_items.create!()
 ad_list << a.id
@@ -56,7 +62,8 @@ a.ad_images.create!({"description"=>"andre bilde av fjellpulk for barn", "image_
 a.ad_images.create!({"description"=>"barnapulk på fjell", "image_file_name"=>"barnepulk_paa_fjell.jpg", "image_content_type"=>"image/jpeg", "image_file_size"=>"206470", "image_updated_at"=>"2015-05-09 21:46:41 UTC", "image_fingerprint"=>"f0394bb930c900a82e374e2563a4a5d0", "weight"=>"3"})
 
 # Ad #2
-a = u.ads.create!({"location_id"=>u.locations.second.id, "title"=>"Calix NORDIC LOADER", "body"=>"Calix NORDIC Loader er en helt ny og meget lav takboks fra Calix. Boksen har et flott design og rommer hele 430 liter! Således egner den seg også godt til bagasje utover alpin- og langrennsski. Takboksen(e) er produsert i robust ABS plast som er 100% resirkulerbar. Åpning skjer sideveis fra begge sider og dette gir god tilgang til ski og utstyr.\r\n\r\nTakboksen leies ut med praktiske QuickGrip fester og integrert takbokslys.", "price"=>"270.0", "tags"=>""})
+a = u.ads.create!({"location_id"=>u.locations.second.id, "title"=>"Calix NORDIC LOADER", "body"=>"Calix NORDIC Loader er en helt ny og meget lav takboks fra Calix. Boksen har et flott design og rommer hele 430 liter! Således egner den seg også godt til bagasje utover alpin- og langrennsski. Takboksen(e) er produsert i robust ABS plast som er 100% resirkulerbar. Åpning skjer sideveis fra begge sider og dette gir god tilgang til ski og utstyr.\r\n\r\nTakboksen leies ut med praktiske QuickGrip fester og integrert takbokslys.", "price"=>"270.0"})
+#a.tag_list.add( )
 
 a.ad_items.create!()
 ad_list << a.id
@@ -81,7 +88,8 @@ u.locations.create!({"address_line"=>"Kristiansands gate 12 A", "city"=>"Oslo", 
 u.locations.create!({"address_line"=>"Slottsplassen 1", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0010"})
 
 # Ad #3
-a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Skiguard 850 skiboks", "body"=>"Skiguard har designet en lekker, aerodynamisk og lavtliggende ny takboks. Skiguard 830 er\r\nberegnet på mindre biler med kortere tak, blant annet til en rekke mellomstore typer SUV.\r\n\r\nSkiguard er alene om å ha et buet design, for å passe perfekt til de nye takene som er blitt\r\ntrenden de senere år. Skiguard 830 er av samme design og meget buet. Dette gjør at boksen\r\nfår en optimal plassering på de fleste biler.\r\n\r\nDenne boksen er bygget på samme moderne lest som modell 860, er 214 cm lang, og har plass\r\ntil inntil 205 cm lange langrennsski.\r\n\r\nBoksen har også et nyutviklet låssystem som benyttes blant annet i modell 860.", "price"=>"199.0", "tags"=>"skiguard,ski,takboks"})
+a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Skiguard 850 skiboks", "body"=>"Skiguard har designet en lekker, aerodynamisk og lavtliggende ny takboks. Skiguard 830 er\r\nberegnet på mindre biler med kortere tak, blant annet til en rekke mellomstore typer SUV.\r\n\r\nSkiguard er alene om å ha et buet design, for å passe perfekt til de nye takene som er blitt\r\ntrenden de senere år. Skiguard 830 er av samme design og meget buet. Dette gjør at boksen\r\nfår en optimal plassering på de fleste biler.\r\n\r\nDenne boksen er bygget på samme moderne lest som modell 860, er 214 cm lang, og har plass\r\ntil inntil 205 cm lange langrennsski.\r\n\r\nBoksen har også et nyutviklet låssystem som benyttes blant annet i modell 860.", "price"=>"199.0"})
+a.tag_list.add( "skiguard", "ski", "takboks" )
 a.ad_items.create!()
 ad_list << a.id
 
@@ -91,7 +99,7 @@ a.ad_images.create!({"description"=>"boks (side)", "image_file_name"=>"4ea474d60
 
 
 # Ad #4
-a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Packline F 800 ABS takboks", "body"=>"En nedsenket og praktisk takboks med lav vekt og stor innvendig høyde. Formgitt for å romme det meste på reisen – hele 225 cm lang. Produsert i kraftig miljøvennlig ABS som er 100% resirkulerbar. Vårt nye patenterte hurtigfeste iZi2connect er kjapt og enkelt i bruk. Boksen er utstyrt med vårt patenterte åpningsmekanisme LiftOff som gir inn og utlasting fra 3 sider – samtidig!", "price"=>"249.0", "tags"=>""})
+a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Packline F 800 ABS takboks", "body"=>"En nedsenket og praktisk takboks med lav vekt og stor innvendig høyde. Formgitt for å romme det meste på reisen – hele 225 cm lang. Produsert i kraftig miljøvennlig ABS som er 100% resirkulerbar. Vårt nye patenterte hurtigfeste iZi2connect er kjapt og enkelt i bruk. Boksen er utstyrt med vårt patenterte åpningsmekanisme LiftOff som gir inn og utlasting fra 3 sider – samtidig!", "price"=>"249.0"})
 a.ad_items.create!()
 ad_list << a.id
 
@@ -118,7 +126,7 @@ a.ad_images.create!({"description"=>"på bil", "image_file_name"=>"768bab5e74ccc
 # Ad #5
 u = User.all.sample
 u.locations.create!({"user_id"=>"41", "address_line"=>"Tennisveien 16 A", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0777"})
-a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"THULE Dynamic 800 takboks", "body"=>"Sporty, aerodynamisk strømlinjeformet design med spredningsteknologi som optimaliserer måten luften strømmen rundt boksen på, og en taknær bunn som passer perfekt på taket ditt.\u2028\r\n\r\nForhåndsinstallert Power-Click-hurtigmonteringssystem med integrert momentindikator for rask og sikker montering med kun én hånd.\u2028\r\n\r\nDobbeltsidig åpning med utvendige håndtak for praktisk montering, lasting og lossing.\u2028Sentrallåssystem gir maksimal sikkerhet. Den gripevennlige Thule Comfort-nøkkelen kan bare tas ut når alle låsene er lukket. Utformet med en fremoverlent posisjon på biltaket. Gir deg full tilgang til bagasjerommet uten konflikt med  takboksen.\u2028\r\n\r\nIntegrert matte med sklisikker overflate for ekstra sikring av lasten, som i tillegg reduserer støy.", "price"=>"229.0", "tags"=>""})
+a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"THULE Dynamic 800 takboks", "body"=>"Sporty, aerodynamisk strømlinjeformet design med spredningsteknologi som optimaliserer måten luften strømmen rundt boksen på, og en taknær bunn som passer perfekt på taket ditt.\u2028\r\n\r\nForhåndsinstallert Power-Click-hurtigmonteringssystem med integrert momentindikator for rask og sikker montering med kun én hånd.\u2028\r\n\r\nDobbeltsidig åpning med utvendige håndtak for praktisk montering, lasting og lossing.\u2028Sentrallåssystem gir maksimal sikkerhet. Den gripevennlige Thule Comfort-nøkkelen kan bare tas ut når alle låsene er lukket. Utformet med en fremoverlent posisjon på biltaket. Gir deg full tilgang til bagasjerommet uten konflikt med  takboksen.\u2028\r\n\r\nIntegrert matte med sklisikker overflate for ekstra sikring av lasten, som i tillegg reduserer støy.", "price"=>"229.0"})
 a.ad_items.create!()
 ad_list << a.id
 
@@ -140,8 +148,8 @@ u.confirm!
 u.locations.create!({"address_line"=>"Nedre Slottsgate 4", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0157"})
 
 # Ad #6 / 12
-a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Sykkel", "body"=>"18\" Sykkel til utleie. 26\"hjul,21 gir shimano, brukt få ganger. \r\nImponerende kvalitet.\r\nSykkeltype: Terreng", "price"=>"200.0", "tags"=>"sykkel,sommer"})
-a.ad_items.create!()
+a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Sykkel", "body"=>"18\" Sykkel til utleie. 26\"hjul,21 gir shimano, brukt få ganger. \r\nImponerende kvalitet.\r\nSykkeltype: Terreng", "price"=>"200.0"})
+a.tag_list.add( "sykkel", "sommer")
 ad_list << a.id
 
 a.ad_images.create!({"description"=>"Denne type sykkel tilbyr vi", "image_file_name"=>"VB_pic6.jpg", "image_content_type"=>"image/jpeg", "image_file_size"=>"6161342", "image_updated_at"=>"2015-05-11 18:38:25 UTC", "image_fingerprint"=>"cb3aee8642b001dbb9946b1117cdda23", "weight"=>"1"})
@@ -155,25 +163,21 @@ a.ad_images.create!({"description"=>"anbefales å sykler overalt i byen", "imag
 
 
 ## Autogenerated users:
-#NUM_USERS = 20
-#NUM_ADS   = 40
-#
-#
-#NUM_USERS.times do |n|
-#  User.create! do |u|
-#    u.name         = Faker::Name.name
-#    u.phone_number = [4,9].sample.to_s + Faker::Base.numerify('#######')
-#    u.email        = Faker::Internet.safe_email(u.name).gsub('@', "#{n+1}@")
-#    u.password     = Faker::Internet.password(10, 20)
-#    u.status = 2
-#  end
-#end
+NUM_USERS = 10
 
-# Generate locations:
+NUM_USERS.times do |n|
+  User.create! do |u|
+    u.name         = Faker::Name.name
+    u.phone_number = [4,9].sample.to_s + Faker::Base.numerify('#######')
+    u.email        = Faker::Internet.safe_email(u.name).gsub('@', "#{n+1}@")
+    u.password     = Faker::Internet.password(10, 20)
+    u.status = 2
+  end
+end
 
 ### Ad
 
-
+#NUM_ADS   = 40
 # Load each product from the yaml file
 #YAML.load_file(File.expand_path("../seeds/ads.yml", __FILE__)).each do |ad|
 #  Ad.create! ad
@@ -225,8 +229,6 @@ Feedback.create({"ad_id"=>ad_id, "from_user_id"=>get_from_user_id(ad_id), "score
 
 
 ### AdItem
-
-
 
 
 ### Booking
