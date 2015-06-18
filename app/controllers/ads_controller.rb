@@ -86,13 +86,13 @@ class AdsController < ApplicationController
   end
 
   # GET /ads/1/calendar?date=day_or_month
-  def calendar
+  def double_calendar
     if params[:date].nil?
       date = Date.today
     else
       date = params[:date].to_date
     end
-    render "shared/_pageable_calendar", layout: false, locals: { date: date, ad: @ad }
+    render "shared/_double_pageable_calendar", layout: false, locals: { date: date, ad: @ad }
   end
 
   def create

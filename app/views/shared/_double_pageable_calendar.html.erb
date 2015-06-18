@@ -9,7 +9,7 @@
             <div class="pageable-calendar__calendar-holder-inner">
                 <div class="six columns">
                     <h4 class="pageable-calendar__month">
-                        <%= link_to "◀", (availability_calendar_path ad.id, {date: date.at_beginning_of_month.prev_month.to_s(:db)} ) %>
+                        <%= link_to "◀", (double_availability_calendar_path ad.id, {date: date.at_beginning_of_month.prev_month.to_s(:db)} ) %>
                         <%= date.strftime("%B - %Y") %>
                     </h4>
                     <%= render partial: "shared/month_calendar", locals: { date: date, ad: ad } %>
@@ -17,7 +17,7 @@
                 <div class="six columns">
                     <h4 class="pageable-calendar__month">
                         <%= date.next_month.strftime("%B - %Y") %>
-                        <%= link_to "▶", (availability_calendar_path ad.id, {date: date.at_beginning_of_month.next_month.to_s(:db) }) %>
+                        <%= link_to "▶", (double_availability_calendar_path ad.id, {date: date.at_beginning_of_month.next_month.to_s(:db) }) %>
                     </h4>
                     <%= render partial: "shared/month_calendar", locals: { date: date.next_month, ad: ad } %>
                </div>
