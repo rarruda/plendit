@@ -18,7 +18,8 @@ class AdsController < ApplicationController
 
     # will need to add search in tags too:
     # as well some sort of ordering/ranking, and support for more complex searches/filters.
-    @ads = Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{params[:q]}%", "%#{params[:q]}%" ) #kaminari_paginate: .page(page).per(5)
+    @ads = Ad.search params[:q]  #kaminari_paginate: .page(page).per(5)
+
 
     # fixme: use lng rather than lon everywhere?
     # fixme: center from query param, or a sensible default from a config
@@ -50,7 +51,7 @@ class AdsController < ApplicationController
 
   # GET /users/ads
   def list
-    @ads = Ad.where( user_id: view_context.get_current_user_id ).all
+    @ads = Ad.for_user( current_user ).all
   end
 
   # GET /ads/1
