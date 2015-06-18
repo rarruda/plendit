@@ -23,10 +23,9 @@ $top-bar-height: 52px;
     & &__search-input {
         color: black;
         border: none;
-        height: 18px;
+        height: 24px;
         margin: 0;
-        vertical-align: middle;
-
+        vertical-align: baseline;
     }
 
     &__search-icon {
