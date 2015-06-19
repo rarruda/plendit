@@ -74,7 +74,8 @@ window.controllers.resultMap = {
             markers = [];
         }
 
-        function updateMarkers(hits) {
+        function updateMarkers(result) {
+            var hits = result.hits;
             clearMarkers();
             hits = hits.filter(function(e) {
                 if (!e || !e.location) {

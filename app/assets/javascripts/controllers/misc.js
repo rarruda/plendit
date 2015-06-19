@@ -107,6 +107,7 @@ window.services.searchService = {
 
         function search(form) {
             var url = '/search.json?=' + buildQuery(form);
+            history.replaceState(null, null, url.replace(".json", ""));
             xhr.get(url).then(onSearchFinished);
         }
 
@@ -199,6 +200,18 @@ window.controllers.togglableFilters = {
         function toggle() {
             filterEle.classList.toggle("u-hidden");
             eventBus.emit('filter-toggle');
+        }
+    }
+}
+
+window.controllers.resultList = {
+    dependencies: ["$element", "eventbus"] ,
+    callable: function(ele, eventBus) {
+        eventBus.on('new-search-result', onSearchResult);
+        function onSearchResult(result) {
+            if (result && result.markup != null) {
+                ele.innerHTML = result.markup;
+            }
         }
     }
 }

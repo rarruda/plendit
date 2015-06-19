@@ -79,7 +79,7 @@
             <script type="text/json" data-location-info><%= @location_info %></script>
         </div>
     </div>
-    <div class="result-container__hits-box">
+    <div class="result-container__hits-box" data-controller="resultList">
         <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
     </div>
 </div>

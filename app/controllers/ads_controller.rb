@@ -44,13 +44,21 @@ class AdsController < ApplicationController
     respond_to do |format|
       format.html
 
-      # fixme: should also include ad_url field, generated from router
       format.json {
-        render json: @ads,
+        # this all feels quite dirty
+        result_markup = render_to_string partial: "search_result_item", collection: @ads, as: 'ad', formats: [:html]
+        result_json = @ads.as_json(
           except: [:created_at, :updated_at, :tags, :location_id, :user_id],
           include: {
             :user => {:only => [:name, :image_url] },
-            :location => {:only => [:lat, :lon] }}
+            :location => {:only => [:lat, :lon] }
+          }
+        )
+
+        render json: {
+          hits: result_json,
+          markup: result_markup
+        }
       }
     end
   end
