@@ -1,10 +1,8 @@
 <div class="ad-booking-box">
-    <h4 class="ad-booking-box__title">199 per døgn</h4>
+    <h4 class="ad-booking-box__title">1199 per døgn</h4>
 
     <div class="ad-booking-box__calendar-holder">
-        <% date = Date.today() %>
-        <h5><%= date.strftime("%B - %Y") %></h5>
-        <%= render partial: "shared/month_calendar", locals: { date: date, ad: ad } %>
+        <%= render partial: "shared/single_pageable_calendar", locals: { ad: ad } %>
     </div>
 
     <div class="ad-booking-box__button-holder">

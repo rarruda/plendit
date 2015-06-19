@@ -19,3 +19,22 @@
         background-color: $color-subtle-gray-background;
     }
 }
+
+.single-pageable-calendar {
+    text-align: center;
+    
+    &__pager {
+        color: $color-gray-text;
+        text-decoration: none;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    &__month {
+        font-size: 120%;
+    }
+
+    &__calendar-holder-inner {
+        padding: $standard-spacing;
+    }
+}

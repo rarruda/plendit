@@ -1,7 +1,10 @@
 class AdsController < ApplicationController
-  before_action :set_ad, only: [:show, :preview, :edit, :update, :destroy, :double_calendar]
+  before_action :set_ad, only: [
+    :show, :preview, :edit, :update, :destroy,
+    :double_calendar, :single_calendar
+  ]
   after_action  :notify_user, only: [:create, :update]
-  before_filter :authenticate_user!, :except => [:show, :index, :search]
+  before_filter :authenticate_user!, :except => [:show, :index, :search, :double_calendar, :single_calendar]
 
   # GET /ads
   # GET /ads.json
@@ -86,7 +89,7 @@ class AdsController < ApplicationController
     ]
   end
 
-  # GET /ads/1/calendar?date=day_or_month
+  # GET /ads/1/double_calendar?date=day_or_month
   def double_calendar
     if params[:date].nil?
       date = Date.today
@@ -94,6 +97,16 @@ class AdsController < ApplicationController
       date = params[:date].to_date
     end
     render "shared/_double_pageable_calendar", layout: false, locals: { date: date, ad: @ad }
+  end
+
+  # GET /ads/1/single_calendar?date=day_or_month
+  def single_calendar
+    if params[:date].nil?
+      date = Date.today
+    else
+      date = params[:date].to_date
+    end
+    render "shared/_single_pageable_calendar", layout: false, locals: { date: date, ad: @ad }
   end
 
   def create
