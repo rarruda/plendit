@@ -77,7 +77,7 @@ window.controllers.resultMap = {
         function updateMarkers(hits) {
             clearMarkers();
             hits = hits.filter(function(e) {
-                if (!e) {
+                if (!e || !e.location) {
                     console.log("Missing lat long for search result item!");
                     return false;
                 }
