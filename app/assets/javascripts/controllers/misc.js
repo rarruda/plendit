@@ -215,3 +215,13 @@ window.controllers.resultList = {
         }
     }
 }
+
+window.controllers.hitCount = {
+    dependencies: ["$element", "eventbus"] ,
+    callable: function(ele, eventBus) {
+        eventBus.on('new-search-result', onSearchResult);
+        function onSearchResult(result) {
+            ele.innerHTML = "" + result.hits.length + " treff";
+        }
+    }
+}

@@ -75,7 +75,7 @@ window.controllers.resultMap = {
         }
 
         function updateMarkers(result) {
-            var hits = result.hits;
+            var hits = result.hits || result; // hack. Fix in serialization
             clearMarkers();
             hits = hits.filter(function(e) {
                 if (!e || !e.location) {
