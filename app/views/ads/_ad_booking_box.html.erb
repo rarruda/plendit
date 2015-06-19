@@ -1,5 +1,8 @@
 <div class="ad-booking-box">
-    <h4 class="ad-booking-box__title">1199 per døgn</h4>
+    <h4 class="ad-booking-box__title">
+    <%= ad.price %>,-
+        <span class="ad-booking-box__period">per døgn</span>
+    </h4>
 
     <div class="ad-booking-box__calendar-holder">
         <%= render partial: "shared/single_pageable_calendar", locals: { ad: ad } %>
