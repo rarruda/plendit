@@ -21,8 +21,11 @@ class AdsController < ApplicationController
 
     # will need to add search in tags too:
     # as well some sort of ordering/ranking, and support for more complex searches/filters.
-    @ads = Ad.search params[:q]  #kaminari_paginate: .page(page).per(5)
-
+    if params.has_key?('q')
+      @ads = Ad.search params[:q]  #kaminari_paginate: .page(page).per(5)
+    else
+      @ads = Ad.limit(10)
+    end
 
     # fixme: use lng rather than lon everywhere?
     # fixme: center from query param, or a sensible default from a config
