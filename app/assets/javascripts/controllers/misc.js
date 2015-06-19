@@ -58,34 +58,6 @@ window.controllers.resetUnseenNotificationCount = function(ele) {
     });
 }
 
-window.controllers.tagCreator = {
-    callable: function(ele) {
-        var inEle = ele;
-        var outEle = document.querySelector("[data-payout]");
-
-        inEle.addEventListener('change', syncPayout);
-        inEle.addEventListener('keyup', syncPayout);
-        syncPayout();
-
-        function syncPayout() {
-            var price = parseFloat(inEle.value);
-            console.log(price)
-            if (isNaN(price)) {
-                outEle.value = "";
-            }
-            else {
-                if (price == 0) {
-
-                    outEle.value = 0;
-                }
-                else {
-                    outEle.value = price * 0.90;
-                }
-            }
-        }
-    }
-};
-
 window.controllers.resultContainerSizeAdjuster = {
     dependencies: ["$element", "eventbus"],
     callable: function(ele, eventBus) {
