@@ -39,7 +39,9 @@ Rails.application.routes.draw do
   #end
   resources :favorite_ads
 
-  get 'ads/:id/calendar', to: 'ads#calendar', as: 'availability_calendar'
+  get 'ads/:id/double_calendar', to: 'ads#double_calendar', as: 'double_availability_calendar'
+  
+  get 'ads/:id/single_calendar', to: 'ads#single_calendar', as: 'single_availability_calendar'
 
   get 'ads/create_3'
 

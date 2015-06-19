@@ -1,8 +1,9 @@
 window.controllers = window.controllers || {};
 
-window.controllers.sideBarMap = {
+window.controllers.adMap = {
     callable: function(ele) {
         var locString = ele.getAttribute('data-geolocation');
+
         if (locString) {
             var latLon = locString.split(',').map(function(e) { return parseFloat(e)});
 
@@ -10,7 +11,8 @@ window.controllers.sideBarMap = {
 
             var mapOptions = {
               center: center,
-              zoom: 14
+              zoom: 15,
+              scrollwheel: false
             };
             var map = new google.maps.Map(ele, mapOptions);
 

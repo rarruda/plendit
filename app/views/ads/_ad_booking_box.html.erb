@@ -1,0 +1,33 @@
+<div class="ad-booking-box">
+    <h4 class="ad-booking-box__title">
+    <%= ad.price %>,-
+        <span class="ad-booking-box__period">per døgn</span>
+    </h4>
+
+    <div class="ad-booking-box__calendar-holder">
+        <%= render partial: "shared/single_pageable_calendar", locals: { ad: ad } %>
+    </div>
+
+    <div class="ad-booking-box__button-holder">
+        <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
+            <%= button_tag("Gå til booking", {class: "u-push-down button-primary availability-section__book"}) %>
+        <% end %>
+
+        <%= form_for( FavoriteAd.new ) do |f| %>
+            <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
+            <%= f.hidden_field :previous_url, value: request.fullpath %>
+            <% if @ad_is_favorite %>
+                <%= f.button class: "booking-request-form__book-button" do %>
+                    <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart--favorite") %>
+                    Fjern fra favoritter
+                <% end %>
+            <% else %>
+                <%= f.button class: "booking-request-form__book-button" do %>
+                    <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart") %>
+                    Legg til i favoritter
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+</div>
+

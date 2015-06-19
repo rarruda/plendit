@@ -1,0 +1,32 @@
+@import 'constants.scss';
+
+.ad-booking-box {
+    position: relative;
+    background-color: $color-background;
+    border: solid thin $color-box-border;
+
+    @media screen and (min-width: 640px) {
+        top: -46px;
+        left: -22px;
+    }
+
+    &__title {
+        background-color: $color-plendit-blue;
+        color: white;
+        padding: $standard-spacing / 2;
+        margin-bottom: 0;
+    }
+
+    &__calendar-holder {
+        text-align: center;
+    }
+
+    &__button-holder {
+        text-align: center;
+    }
+
+    &__period {
+        font-size: 70%;
+        float: right;
+    }
+}
