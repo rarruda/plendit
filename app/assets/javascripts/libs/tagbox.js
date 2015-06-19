@@ -35,7 +35,7 @@
         }
 
         function sanitizeTag(value) {
-            return value.replace(/[^a-z0-9_-]/ig, '');
+            return value.replace(/\s/ig, '');
         }
 
         function tagIsValid(value) {
