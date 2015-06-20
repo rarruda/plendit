@@ -197,7 +197,7 @@ class AdsController < ApplicationController
     end
 
     def require_authorization
-      if not ( @ad.user == current_user or
+      if not ( @ad and @ad.user == current_user ) or
         current_user.status == 'admin' )
         # throw exception. User not allowed here.
       end
