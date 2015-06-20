@@ -1,7 +1,7 @@
 class AdsController < ApplicationController
   before_action :set_ad, only: [:show, :preview, :pause, :stop, :submit_for_review, :resume, :edit, :update, :double_calendar, :single_calendar]
   before_filter :authenticate_user!,    :except => [:show, :index, :search, :double_calendar, :single_calendar]
-  before_filter :require_authorization, :except => [:show, :index, :list, :search, :double_calendar, :single_calendar]
+  before_filter :require_authorization, :except => [:show, :index, :search, :new, :list, :double_calendar, :single_calendar]
   after_action  :notify_user, only: [:create, :update]
 
   # GET /ads
@@ -197,9 +197,13 @@ class AdsController < ApplicationController
     end
 
     def require_authorization
-      if not ( @ad and @ad.user == current_user ) or
+      if not ( ( @ad and @ad.user == current_user ) or
         current_user.status == 'admin' )
         # throw exception. User not allowed here.
+        logger.tagged("user_id:#{current_user.id}") {
+          logger.error "User not authorized to see this page."
+        }
+        raise "User not authorized to see this page."
       end
     end
 
