@@ -1,7 +1,7 @@
 <div style="border: solid thin black">
 Ad.status: <%= ad.status %>
 
-<%# if current_user == ad.user || current_user.status == 'admin' %>
+<% if current_user == ad.user || current_user.status == 'admin' %>
 
 <% if ad.status == 'draft' %> <%= button_to 'submit for review', submit_for_review_ad_path(@ad), class: "button-primary" %> <% end %>
 <% if ad.status == 'published' %><%= button_to 'pause', pause_ad_path(ad), class: "button-primary" %> <% end %>
@@ -15,5 +15,5 @@ Ad.status: <%= ad.status %>
     <%# if ad.status != 'suspended' %>          <%#= button_to 'suspend', suspend_ad_path(ad), class: "button-primary" %> <%# end %>
   </div>
   <%- end -%>
-<%# end %>
+<% end %>
 </div>
