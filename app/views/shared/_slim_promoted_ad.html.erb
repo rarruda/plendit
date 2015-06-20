@@ -9,9 +9,9 @@
 
     <%= form_for( FavoriteAd.new ) do |f| %>
 
-        <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
+        <%= f.hidden_field :ad_id, value: ad.id.to_s %>
         <%= f.hidden_field :previous_url, value: request.fullpath %>
-        <% if @ad_is_favorite %> 
+        <% if ad.is_favorite_of(current_user) %>
             <%= f.button class: "slim-promoted-ad__button" do %>
                 <%= image_tag("add_favorite_small.png", size: "15x14", alt: "", class: "slim-promoted-ad__fav-button-image") %>
                 Fjern fra favoritter

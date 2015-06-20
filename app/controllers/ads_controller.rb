@@ -5,6 +5,7 @@ class AdsController < ApplicationController
   ]
   after_action  :notify_user, only: [:create, :update]
   before_filter :authenticate_user!, :except => [:show, :index, :search, :double_calendar, :single_calendar]
+  before_filter :require_authorization, :except => [:show, :index, :list, :search, :double_calendar, :single_calendar]
 
   # GET /ads
   # GET /ads.json
@@ -63,6 +64,8 @@ class AdsController < ApplicationController
     end
   end
 
+
+
   # GET /users/ads
   def list
     @ads = Ad.for_user( current_user ).all
@@ -71,7 +74,6 @@ class AdsController < ApplicationController
   # GET /ads/1
   # GET /ads/1.json
   def show
-    @ad_is_favorite = ( user_signed_in? and @ad.is_favorite_of( view_context.get_current_user_id ) )
   end
 
   # GET /ads/1/preview
@@ -120,6 +122,8 @@ class AdsController < ApplicationController
     render "shared/_single_pageable_calendar", layout: false, locals: { date: date, ad: @ad }
   end
 
+  # POST /ads
+  # POST /ads.json
   def create
     # todo: verify for sane ad type
     type = params[:ad_type]
@@ -134,24 +138,9 @@ class AdsController < ApplicationController
 
   # GET /ads/1/edit
   def edit
+    #@ad.edit! #???
   end
 
-  # # POST /ads
-  # # POST /ads.json
-  # def create
-  #   @ad = Ad.new(ad_params)
-  #   @ad.user_id = view_context.get_current_user_id
-
-  #   respond_to do |format|
-  #     if @ad.save
-  #       format.html { redirect_to ad_images_path(:ad_id => @ad.id), notice: 'Ad was successfully created.' }
-  #       format.json { render :show, status: :created, location: @ad }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @ad.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   # PATCH/PUT /ads/1
   # PATCH/PUT /ads/1.json
@@ -186,10 +175,17 @@ class AdsController < ApplicationController
       @ad = Ad.find(params[:id])
     end
 
+    def require_authorization
+      unless @ad.user == current_user or
+        current_user.status == 'admin'
+        # throw exception. User now allowed here.
+      end
+    end
+
     # Callback to create a user notification when an ad has been created/edited.
     def notify_user
       Notification.new(
-        user_id: view_context.get_current_user_id,
+        user_id: current_user.id,
         message: "Your ad has been inserted and/or updated",
         notifiable: @ad).save
     end
