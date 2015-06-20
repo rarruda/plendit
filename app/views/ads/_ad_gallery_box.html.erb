@@ -8,9 +8,9 @@
         <div class="gallery-box__current-image" data-gallery>
             <% @ad.ad_images.each_with_index do |ad_image, index| %>
                 <% if index == 0 %>
-                    <%= image_tag ad_image.image.url(:mediumplus) %>
+                    <%= image_tag ad_image.image.url(:hero) %>
                 <% else %>
-                    <img data-src="<%= ad_image.image.url(:mediumplus) %>">
+                    <img data-src="<%= ad_image.image.url(:hero) %>">
                 <% end %>
             <% end %>
         </div>

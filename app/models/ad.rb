@@ -112,14 +112,15 @@ class Ad < ActiveRecord::Base
   ## default fallback to stock images. (so that it will degrate nicely)
   def image_url_with_fallback( size )
     stock_images = {
-      :thumb => "user_more_ads_1.jpg",
-      :medium => "ads/ad1/ad_image_1.jpg",
-      :mediumplus => "",
+      thumb: 'placeholder_thumb.png',
+      searchresult: 'placeholder_searchresult.png',
+      hero: 'placeholder_hero.png',
+      gallery: 'placeholder_hero.png'
     }
 
     if not stock_images.keys.include? size
-      logger.error "ERROR: wrong image size parameter, falling back to :medium"
-      size = :medium
+      logger.error "ERROR: wrong image size parameter, falling back to :searchresult"
+      size = :searchresult
     end
 
     self.ad_images.count > 0 ? self.ad_images.first.image.url(size) : stock_images[size]

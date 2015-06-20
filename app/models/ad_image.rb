@@ -4,7 +4,13 @@ class AdImage < ActiveRecord::Base
   default_scope { order('weight, id') }
 
   has_attached_file :image, {
-    :styles      => { :mediumplus => "540x540>", :medium => "320x320>", :thumb => "120x120>" },
+    :styles      => { 
+      :thumb => "180x120#",
+      :searchresult => "450x300#",
+      :hero => "900x600#",
+      :gallery => "1600"
+    },
+    :convert_options => { :thumb => "-quality 75 -strip" },
     :hash_data   => ":class/:attachment/:id",
     :hash_secret => "longSuperDuperSecretSaltStringForObfuscation", #ENV['PCONF_PAPERCLIP_HASH_SALT']
     :default_url => "/images/:style/missing.png",

@@ -149,8 +149,21 @@ $ rails console
 
 This is also how the default admin user is created by default.
 
-* ...
+* Image regeneration and format changes
 
+If changing the different image styles that paperclip uses, run:
+
+  rake paperclip:refresh:missing_styles
+
+To regenerate thumbnail images run:
+
+  rake paperclip:refresh:thumbnails CLASS=AdImage
+
+Or all images with
+
+rake paperclip:refresh CLASS=AdImage
+
+* ...
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
