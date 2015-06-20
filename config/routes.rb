@@ -32,7 +32,7 @@ Rails.application.routes.draw do
       post 'mark_all_notifications_noticed', to: 'users#mark_all_notifications_noticed'
     end
   end
-  get 'users/:id', to: 'users#show'
+  get 'users/:id', to: 'users#show', as: 'user_public_profile'
 
   #resources :favorite_lists do #, path: '/users/favorite_lists'
   #  resources :favorite_ads
