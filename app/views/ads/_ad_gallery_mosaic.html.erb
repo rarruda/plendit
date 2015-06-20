@@ -1,0 +1,14 @@
+<%
+    images = ad.ad_images.limit(5)
+    image_count = images.size
+%>
+
+<% if image_count == 1 %>
+    <%# Do nothing. The only available image has been shown as hero image %>
+<% else %>
+    <div class="ad-gallery-mosaic">
+        <% images.each do |img| %><%= image_tag(img.image.url(:thumb),
+                size: AdImage.imageSize(:thumb),
+                class: "ad-gallery-mosaic__img_n_of-#{image_count}") %><% end %>
+    </div>
+<% end %>
