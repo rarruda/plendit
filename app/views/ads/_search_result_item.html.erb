@@ -1,10 +1,10 @@
 <div class="search-result-item">
-    <%= link_to ad, class: "search-result-item__link" do %>
+    <%= link_to ad_path(ad.id), class: "search-result-item__link" do %>
         <div class="search-result-item__image-holder">
-            <%= image_tag ad.image_url_with_fallback(:medium), alt: "", class: "search-result-item__image" %>
+            <%= image_tag Ad.find(ad.id).image_url_with_fallback(:medium), alt: "", class: "search-result-item__image" %>
         </div>
     <% end %>
-    <%= link_to ad, class: "search-result-item__link" do %>
+    <%= link_to ad_path(ad.id), class: "search-result-item__link" do %>
         <div class="search-result-item__text-container">
             <h6 class="search-result-item__title"><%= ad.title %></h6>
             <p class="search-result-item__body">
@@ -15,9 +15,9 @@
 
     <div class="search-result-item__profile">
         <div>
-            <%= render('shared/avatar.html', user: ad.user, size: "medium" ) %>
+            <%= render('shared/avatar.html', user: Ad.find(ad.id).user, size: "medium" ) %>
             <br>
-            <%= render('shared/stars.html', rating: ad.user.calculate_average_rating, small: true ) %>
+            <%= render('shared/stars.html', rating: Ad.find(ad.id).user.calculate_average_rating, small: true ) %>
         </div>
     </div>
     <div class="search-result-item__price-floater">kr <%= ad.price %> pr&nbsp;dag</div>
