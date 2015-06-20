@@ -57,7 +57,6 @@ Rails.application.routes.draw do
 
   resources :feedbacks
   resources :ads do
-    resources :ad_images, only: [:index, :create, :update, :destroy]
     member do
       get 'preview'
       get 'double_calendar'
