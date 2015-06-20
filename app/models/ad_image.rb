@@ -17,7 +17,6 @@ class AdImage < ActiveRecord::Base
       :hero => "#{DIMENSIONS[:hero][:width]}x#{DIMENSIONS[:hero][:height]}#",
       :gallery => "#{DIMENSIONS[:gallery][:width]}"
     },
-    :convert_options => { :thumb => "-quality 75 -strip" },
     :hash_data   => ":class/:attachment/:id",
     :hash_secret => "longSuperDuperSecretSaltStringForObfuscation", #ENV['PCONF_PAPERCLIP_HASH_SALT']
     :default_url => "/images/:style/missing.png",
