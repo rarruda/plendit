@@ -61,6 +61,12 @@ Rails.application.routes.draw do
       get 'preview'
       get 'double_calendar'
       get 'single_calendar'
+      post 'pause'
+      post 'stop'
+      post 'approve'
+      post 'suspend'
+      post 'resume'
+      post 'submit_for_review'
     end
     resources :bookings
   end

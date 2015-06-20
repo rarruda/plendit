@@ -1,0 +1,19 @@
+<div style="border: solid thin black">
+Ad.status: <%= ad.status %>
+
+<%# if current_user == ad.user || current_user.status == 'admin' %>
+
+<% if ad.status == 'draft' %> <%= button_to 'submit for review', submit_for_review_ad_path(@ad), class: "button-primary" %> <% end %>
+<% if ad.status == 'published' %><%= button_to 'pause', pause_ad_path(ad), class: "button-primary" %> <% end %>
+<% if ['published', 'paused'].include? ad.status %> <%= button_to 'stop', stop_ad_path(ad), class: "button-primary" %> <% end %>
+<% if ['stopped',   'paused'].include? ad.status %> <%= button_to 'resume', resume_ad_path(ad), class: "button-primary" %> <% end %>
+
+  <%- if current_user.status == 'admin' -%>
+  <div>
+    ADMIN FUNCTIONS:
+    <%# if ad.status == 'waiting_for_review' %> <%#= button_to 'approve', approve_ad_path(ad), class: "button-primary" %> <%# end %>
+    <%# if ad.status != 'suspended' %>          <%#= button_to 'suspend', suspend_ad_path(ad), class: "button-primary" %> <%# end %>
+  </div>
+  <%- end -%>
+<%# end %>
+</div>

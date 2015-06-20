@@ -90,11 +90,15 @@
             <%= f.hidden_field :tag_list, :value => @ad.tag_list.to_s %>
         </div>
 
-        <%= f.submit 'Neste steg', class: 'u-pull-right button-primary' %>
+        <%= f.submit 'Lagre', class: 'u-pull-right button-primary' %>
     </div>
 
     <%= link_to "Vis annonse", (ad_path @ad)  %>
     <%= link_to "Vis bilder", (users_ad_ad_images_path @ad) %>
+
+    <% if @ad.valid? %>
+      <%= render partial: "ad_status_box", locals: { ad: @ad } %>
+    <% end %>
 
 <%- end -%>
 

@@ -1,11 +1,8 @@
 class AdsController < ApplicationController
-  before_action :set_ad, only: [
-    :show, :preview, :edit, :update, :destroy,
-    :double_calendar, :single_calendar
-  ]
-  after_action  :notify_user, only: [:create, :update]
-  before_filter :authenticate_user!, :except => [:show, :index, :search, :double_calendar, :single_calendar]
+  before_action :set_ad, only: [:show, :preview, :pause, :stop, :submit_for_review, :resume, :edit, :update, :double_calendar, :single_calendar]
+  before_filter :authenticate_user!,    :except => [:show, :index, :search, :double_calendar, :single_calendar]
   before_filter :require_authorization, :except => [:show, :index, :list, :search, :double_calendar, :single_calendar]
+  after_action  :notify_user, only: [:create, :update]
 
   # GET /ads
   # GET /ads.json
@@ -80,6 +77,41 @@ class AdsController < ApplicationController
   def preview
   end
 
+  # GET /ads/1/pause
+  def pause
+    if @ad.pause!
+      redirect_to @ad, notice: 'Ad was successfully paused.'
+    else
+      redirect_to @ad, notice: 'Ad was NOT paused.'
+    end
+  end
+
+  # GET /ads/1/stop
+  def stop
+    if @ad.stop!
+      redirect_to @ad, notice: 'Ad was successfully paused.'
+    else
+      redirect_to @ad, notice: 'Ad was NOT stopped.'
+    end
+  end
+
+  # GET /ads/1/resume
+  def resume
+    if @ad.resume!
+      redirect_to @ad, notice: 'Ad was successfully resumed.'
+    else
+      redirect_to @ad, notice: 'Ad was NOT resumed.'
+    end
+  end
+
+  # GET /ads/1/submit_for_review
+  def submit_for_review
+    if @ad.submit_for_review!
+      redirect_to @ad, notice: 'Ad was successfully submited for review.'
+    else
+      redirect_to @ad, notice: 'Ad was NOT submited for review.'
+    end
+  end
 
   # GET /ads/new
   def new
@@ -156,29 +188,18 @@ class AdsController < ApplicationController
     end
   end
 
-  # DELETE /ads/1
-  # DELETE /ads/1.json
-  def destroy
-    @ad.destroy
-    respond_to do |format|
-      format.html { redirect_to ads_url, notice: 'Ad was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+
 
   private
-
-
-
     # Use callbacks to share common setup or constraints between actions.
     def set_ad
       @ad = Ad.find(params[:id])
     end
 
     def require_authorization
-      unless @ad.user == current_user or
-        current_user.status == 'admin'
-        # throw exception. User now allowed here.
+      if not ( @ad.user == current_user or
+        current_user.status == 'admin' )
+        # throw exception. User not allowed here.
       end
     end
 
