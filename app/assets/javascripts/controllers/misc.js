@@ -77,8 +77,14 @@ window.services.searchService = {
     dependencies: ["eventbus"],
     callable: function(eventBus) {
 
+        var queryBlackList = {
+            utf8: true,
+            authenticity_token: true
+        }
+
+
         function search(form) {
-            var url = '/search.json?=' + buildQuery(form);
+            var url = '/search.json?' + buildQuery(form);
             history.replaceState(null, null, url.replace(".json", ""));
             xhr.get(url).then(onSearchFinished);
         }
@@ -93,6 +99,10 @@ window.services.searchService = {
             for (var key in form) {
                 items.push({key: key, value: form[key]});
             }
+
+            items = items.filter(function(e) {
+                return !queryBlackList[e.key];
+            });
 
             items = items.map(function(e) {
                 return e.key + "=" + e.value;
