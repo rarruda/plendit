@@ -3,12 +3,19 @@ class AdImage < ActiveRecord::Base
 
   default_scope { order('weight, id') }
 
+  DIMENSIONS = {
+    thumb:        { width: 180,  height: 120 },
+    searchresult: { width: 450,  height: 300 },
+    hero:         { width: 900,  height: 600 },
+    gallery:      { width: 1600, height: nil }
+  }
+
   has_attached_file :image, {
     :styles      => { 
-      :thumb => "180x120#",
-      :searchresult => "450x300#",
-      :hero => "900x600#",
-      :gallery => "1600"
+      :thumb => "#{DIMENSIONS[:thumb][:width]}x#{DIMENSIONS[:thumb][:height]}#",
+      :searchresult => "#{DIMENSIONS[:searchresult][:width]}x#{DIMENSIONS[:searchresult][:height]}#",
+      :hero => "#{DIMENSIONS[:hero][:width]}x#{DIMENSIONS[:hero][:height]}#",
+      :gallery => "#{DIMENSIONS[:gallery][:width]}"
     },
     :convert_options => { :thumb => "-quality 75 -strip" },
     :hash_data   => ":class/:attachment/:id",
@@ -27,8 +34,9 @@ class AdImage < ActiveRecord::Base
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/jpg", "image/png"]
   validates_attachment_file_name    :image, :matches => [/png\Z/, /jpe?g\Z/]
 
-
-
+  def self.imageSize(style)
+    "#{DIMENSIONS[style][:width]}x#{DIMENSIONS[style][:height]}"
+  end
 
   include Rails.application.routes.url_helpers
 

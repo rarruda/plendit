@@ -1,5 +1,9 @@
 <div class="container">
-    <div class="ad-title-image"><%= image_tag @ad.image_url_with_fallback(:hero), class: "ad-title-image__img" %></div>
+    <div class="ad-title-image">
+        <%= image_tag(@ad.image_url_with_fallback(:hero),
+            size: AdImage.imageSize(:hero),
+            class: "ad-title-image__img") %>
+    </div>
 
     <div class="row">
         <div class="eight columns">
