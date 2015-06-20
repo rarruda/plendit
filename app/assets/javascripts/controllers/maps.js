@@ -26,17 +26,6 @@ window.controllers.adMap = {
                 center: center,
                 radius: 240
             });
-
-            var c2 = new google.maps.Circle({
-                strokeColor: '#2a96ff',
-                strokeOpacity: 0.5,
-                strokeWeight: 1,
-                fillColor: '#2a96ff',
-                fillOpacity: 0.3,
-                map: map,
-                center: center,
-                radius: 30
-            });
         }
     }
 };
