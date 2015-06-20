@@ -123,12 +123,9 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      if params[:id]
-        @user = User.find( params[:id] )
-      else
-        @user = current_user
-      end
-#      @user = User.find( view_context.get_current_user_id )
+      # Use preferably the user_id in the URL. Otherwise fall back to user_id of
+      # the logged in user. Note sure this is super wise.
+      @user = ( params[:id] ? User.find( params[:id] ) : current_user )
     end
 
 
