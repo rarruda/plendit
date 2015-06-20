@@ -55,6 +55,8 @@ a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Fjellpulken ba
 a.tag_list.add( "pulk","fjellpulk","ski" )
 
 a.ad_items.create!()
+a.submit_for_review!
+a.approve! #(copies to ES)
 ad_list << a.id
 
 a.ad_images.create!({"description"=>"Hoved bilde", "image_file_name"=>"sweet-winter-ride.jpg", "image_content_type"=>"image/jpeg", "image_file_size"=>"183942", "image_updated_at"=>"2015-05-09 21:44:40 UTC", "image_fingerprint"=>"9205ce767ea14d006c228b2f19d5ad78", "weight"=>"1"})
@@ -66,6 +68,8 @@ a = u.ads.create!({"location_id"=>u.locations.second.id, "title"=>"Calix NORDIC 
 #a.tag_list.add( )
 
 a.ad_items.create!()
+a.submit_for_review!
+a.approve!
 ad_list << a.id
 
 a.ad_images.create!({"description"=>"woho!", "image_file_name"=>"kampanjnyhet-takbox-calix-autoform-nordic-loader-svart-hogblank-430-liter.jpg", "image_content_type"=>"image/jpeg", "image_file_size"=>"46764", "image_updated_at"=>"2015-05-09 21:52:18 UTC", "image_fingerprint"=>"9a940e69b102950febcd26c86cce9674", "weight"=>"1"})
@@ -90,6 +94,8 @@ u.locations.create!({"address_line"=>"Slottsplassen 1", "city"=>"Oslo", "state"=
 a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Skiguard 850 skiboks", "body"=>"Skiguard har designet en lekker, aerodynamisk og lavtliggende ny takboks. Skiguard 830 er\r\nberegnet på mindre biler med kortere tak, blant annet til en rekke mellomstore typer SUV.\r\n\r\nSkiguard er alene om å ha et buet design, for å passe perfekt til de nye takene som er blitt\r\ntrenden de senere år. Skiguard 830 er av samme design og meget buet. Dette gjør at boksen\r\nfår en optimal plassering på de fleste biler.\r\n\r\nDenne boksen er bygget på samme moderne lest som modell 860, er 214 cm lang, og har plass\r\ntil inntil 205 cm lange langrennsski.\r\n\r\nBoksen har også et nyutviklet låssystem som benyttes blant annet i modell 860.", "price"=>"199.0"})
 a.tag_list.add( "skiguard", "ski", "takboks" )
 a.ad_items.create!()
+a.submit_for_review!
+a.approve!
 ad_list << a.id
 
 a.ad_images.create!({"description"=>"(topp/side) på bil", "image_file_name"=>"923d9086271cceec0e028cbaf552c6d8-image.jpeg", "image_content_type"=>"image/jpeg", "image_file_size"=>"49609", "image_updated_at"=>"2015-05-10 22:01:08 UTC", "image_fingerprint"=>"8adb3206cecaf56969688d0fa205cf0e", "weight"=>"3"})
@@ -100,6 +106,8 @@ a.ad_images.create!({"description"=>"boks (side)", "image_file_name"=>"4ea474d60
 # Ad #4
 a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Packline F 800 ABS takboks", "body"=>"En nedsenket og praktisk takboks med lav vekt og stor innvendig høyde. Formgitt for å romme det meste på reisen – hele 225 cm lang. Produsert i kraftig miljøvennlig ABS som er 100% resirkulerbar. Vårt nye patenterte hurtigfeste iZi2connect er kjapt og enkelt i bruk. Boksen er utstyrt med vårt patenterte åpningsmekanisme LiftOff som gir inn og utlasting fra 3 sider – samtidig!", "price"=>"249.0"})
 a.ad_items.create!()
+a.submit_for_review!
+a.approve!
 ad_list << a.id
 
 a.ad_images.create!({"description"=>"test text", "image_file_name"=>"7f2069f478b782fd2847ee60a8a3e0e6-image.jpeg", "image_content_type"=>"image/jpeg", "image_file_size"=>"8995", "image_updated_at"=>"2015-05-10 21:58:33 UTC", "image_fingerprint"=>"4a6e50671a45fde469bcf7e5dc95c1ed", "weight"=>"1"})
@@ -127,6 +135,8 @@ u = User.all.sample
 u.locations.create!({"user_id"=>"41", "address_line"=>"Tennisveien 16 A", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0777"})
 a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"THULE Dynamic 800 takboks", "body"=>"Sporty, aerodynamisk strømlinjeformet design med spredningsteknologi som optimaliserer måten luften strømmen rundt boksen på, og en taknær bunn som passer perfekt på taket ditt.\u2028\r\n\r\nForhåndsinstallert Power-Click-hurtigmonteringssystem med integrert momentindikator for rask og sikker montering med kun én hånd.\u2028\r\n\r\nDobbeltsidig åpning med utvendige håndtak for praktisk montering, lasting og lossing.\u2028Sentrallåssystem gir maksimal sikkerhet. Den gripevennlige Thule Comfort-nøkkelen kan bare tas ut når alle låsene er lukket. Utformet med en fremoverlent posisjon på biltaket. Gir deg full tilgang til bagasjerommet uten konflikt med  takboksen.\u2028\r\n\r\nIntegrert matte med sklisikker overflate for ekstra sikring av lasten, som i tillegg reduserer støy.", "price"=>"229.0"})
 a.ad_items.create!()
+a.submit_for_review!
+a.approve!
 ad_list << a.id
 
 a.ad_images.create!({"description"=>"greie som bruks til å ta ski opp i fjell", "image_file_name"=>"packline_fx_852681p.jpg", "image_content_type"=>"image/jpeg", "image_file_size"=>"9895", "image_updated_at"=>"2015-05-10 22:01:46 UTC", "image_fingerprint"=>"ad022a5444d4a3daaa20f01c4d41e8c8", "weight"=>"1"})
@@ -149,6 +159,8 @@ u.locations.create!({"address_line"=>"Nedre Slottsgate 4", "city"=>"Oslo", "stat
 # Ad #6 / 12
 a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Sykkel", "body"=>"18\" Sykkel til utleie. 26\"hjul,21 gir shimano, brukt få ganger. \r\nImponerende kvalitet.\r\nSykkeltype: Terreng", "price"=>"200.0"})
 a.tag_list.add( "sykkel", "sommer")
+a.submit_for_review!
+a.approve!
 ad_list << a.id
 
 a.ad_images.create!({"description"=>"Denne type sykkel tilbyr vi", "image_file_name"=>"VB_pic6.jpg", "image_content_type"=>"image/jpeg", "image_file_size"=>"6161342", "image_updated_at"=>"2015-05-11 18:38:25 UTC", "image_fingerprint"=>"cb3aee8642b001dbb9946b1117cdda23", "weight"=>"1"})

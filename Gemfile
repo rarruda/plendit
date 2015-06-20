@@ -17,6 +17,9 @@ gem 'acts-as-taggable-on', '~> 3.4'
 
 gem 'activeadmin', '~> 1.0.0.pre1'
 
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+
 gem 'aasm', '~> 4'
 
 

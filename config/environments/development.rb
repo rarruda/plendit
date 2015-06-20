@@ -67,4 +67,7 @@ Rails.application.configure do
     }
   }
 
+  # Elasticsearch:
+  Elasticsearch::Model.client = Elasticsearch::Client.new log: true
+
 end

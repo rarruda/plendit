@@ -32,8 +32,8 @@ class AdsController < ApplicationController
     @location_info = {
       center: {lat: 59.913869, lon: 10.752245},
       hits: @ads.map do |ad|
-        if not ad.location.nil?
-          {id: ad[:id], location: { lat: ad.location[:lat], lon: ad.location[:lon] }}
+        if not ad.geo_location.nil?
+          {id: ad[:id], location: { lat: ad.geo_location[:lat], lon: ad.geo_location[:lon] }}
         else
           logger.error "Location not found for ad_id: #{ad.id}"
           nil

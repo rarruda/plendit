@@ -106,4 +106,7 @@ Rails.application.configure do
     }
   }
 
+  # Elasticsearch: (in Heroku)
+  Elasticsearch::Model.client = Elasticsearch::Client.new host: ENV['SEARCHBOX_URL']
+
 end

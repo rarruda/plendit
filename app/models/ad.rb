@@ -2,6 +2,8 @@ include ActionView::Helpers::TextHelper
 
 class Ad < ActiveRecord::Base
   include AASM
+  include Searchable
+
   #acts_as_ordered_taggable
   acts_as_taggable
 
@@ -70,14 +72,15 @@ class Ad < ActiveRecord::Base
 
   def enter_published
     logger.error ("ad published... it is now searchable after the toggle is switched.")
-    ## TODO: copy to AdVerified (ES)
-    ## TODO: notify use that his ad is now live.
+    __elasticsearch__.index_document
+    ## TODO: notify user that his ad is now live.
   end
 
   def exit_published
-    ## TODO: remove from AdVerified (ES)
+    self.__elasticsearch__.delete_document ignore: 404
     logger.info ">> no longer searchable."
   end
+
 
   def world_viewable?
     not ( self.stopped? or self.suspended? )
@@ -87,9 +90,10 @@ class Ad < ActiveRecord::Base
     self.published?
   end
 
-  def self.search q
-    Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{q}%", "%#{q}%" )
-  end
+  # now as part of Searchable/ES
+  #def self.search q
+  #  Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{q}%", "%#{q}%" )
+  #end
 
   def related_ads_from_user
     self.user.ads.reject { |ad| ad.id == self.id }
@@ -121,4 +125,23 @@ class Ad < ActiveRecord::Base
     self.ad_images.count > 0 ? self.ad_images.first.image.url(size) : stock_images[size]
   end
 
+  # JSON of how ElasticSearch should index this model
+  # TODO: find out if we want more information on the Ad, and/or AdImages
+  def as_indexed_json(options={})
+    as_json(
+      only: [:id, :title, :body, :price ],
+      include: { user: { only: :id }, ad_images: { only: [:id, :description] } },
+      methods: [:tags, :geo_location]
+    )
+  end
+
+  # used in as_indexed_json
+  def geo_location
+    { lat: self.location.lat, lon: self.location.lon }
+  end
+
+  # used in as_indexed_json
+  def tags
+    tag_list
+  end
 end
