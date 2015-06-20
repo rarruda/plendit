@@ -1,7 +1,7 @@
 class AdsController < ApplicationController
   before_action :set_ad, only: [:show, :preview, :pause, :stop, :submit_for_review, :resume, :edit, :update, :double_calendar, :single_calendar]
   before_filter :authenticate_user!,    :except => [:show, :index, :search, :double_calendar, :single_calendar]
-  before_filter :require_authorization, :except => [:show, :index, :search, :new, :list, :double_calendar, :single_calendar]
+  before_filter :require_authorization, :except => [:show, :index, :search, :create, :new, :list, :double_calendar, :single_calendar]
   after_action  :notify_user, only: [:create, :update]
 
   # GET /ads
