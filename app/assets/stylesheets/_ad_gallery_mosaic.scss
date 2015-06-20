@@ -16,6 +16,7 @@
         height: 200px;
         width: 50%;
         border: 1px solid white;
+        position: relative;
     }
 
     &__bg_img_n_of_2,
@@ -38,5 +39,19 @@
         &:nth-of-type(5) {
             width: 50%;
         }
+    }
+
+    &__gallery-link {
+        display: block;
+        position: absolute;
+        top: 20px;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        text-align: center;
+        padding-top: 30%;
+        text-decoration: none;
     }
 }
