@@ -1,7 +1,7 @@
 <%
     images = ad.ad_images.limit(5).to_a
     image_count = images.size
-    #last = images.pop
+    last = images.pop
 %>
 
 <% if image_count == 1 %>
@@ -11,7 +11,10 @@
         <% images.each do |img| %>
             <% img_style = "background-image: url(#{img.image.url(:thumb)});" %>
             <div class="<%= "ad-gallery-mosaic__bg_img_n_of_#{image_count}" %>"
-                 style="<%= img_style %>">sssd</div>
+                 style="<%= img_style %>"></div>
         <% end %>
+        <% img_style = "background-image: url(#{last.image.url(:thumb)});" %>
+        <div class="<%= "ad-gallery-mosaic__bg_img_n_of_#{image_count}" %>"
+             style="<%= img_style %>"></div>
     </div>
 <% end %>
