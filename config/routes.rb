@@ -39,9 +39,7 @@ Rails.application.routes.draw do
   #end
   resources :favorite_ads
 
-  get 'ads/:id/double_calendar', to: 'ads#double_calendar', as: 'double_availability_calendar'
-  
-  get 'ads/:id/single_calendar', to: 'ads#single_calendar', as: 'single_availability_calendar'
+
 
   get 'ads/create_3'
 
@@ -62,6 +60,8 @@ Rails.application.routes.draw do
     resources :ad_images, only: [:index, :create, :update, :destroy]
     member do
       get 'preview'
+      get 'double_calendar'
+      get 'single_calendar'
     end
     resources :bookings
   end

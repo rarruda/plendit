@@ -8,11 +8,11 @@
         <div class="row single-pageable-calendar__calendar-holder">
             <div class="single-pageable-calendar__calendar-holder-inner">
                 <h4 class="single-pageable-calendar__month">
-                    <%= link_to "◀", (single_availability_calendar_path ad.id,
+                    <%= link_to "◀", (single_calendar_ad_path ad.id,
                             {date: date.at_beginning_of_month.prev_month.to_s(:db)} ),
                             class: 'single-pageable-calendar__pager' %>
                     <%= date.strftime("%B - %Y") %>
-                    <%= link_to "▶", (single_availability_calendar_path ad.id,
+                    <%= link_to "▶", (single_calendar_ad_path ad.id,
                             {date: date.at_beginning_of_month.next_month.to_s(:db) }),
                             class: 'single-pageable-calendar__pager' %>
                 </h4>
