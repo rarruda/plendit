@@ -112,10 +112,10 @@ class Ad < ActiveRecord::Base
   ## default fallback to stock images. (so that it will degrate nicely)
   def image_url_with_fallback( size )
     stock_images = {
-      thumb: 'placeholder_thumb.png',
-      searchresult: 'placeholder_searchresult.png',
-      hero: 'placeholder_hero.png',
-      gallery: 'placeholder_hero.png'
+      thumb: 'no_image_180x120.jpg',
+      searchresult: 'no_image_450x300.jpg',
+      hero: 'no_image_900x600.jpg',
+      gallery: 'no_image_900x600.jpg'
     }
 
     if not stock_images.keys.include? size
