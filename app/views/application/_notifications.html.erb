@@ -20,16 +20,14 @@
             <% if notifications.any? %>
                 <% current_user.recent_notifications.each do |n| %>
                     <% if n.status == "read" %>
-                        <li class="notification-box__row--read row">
+                        <li class="notification-box__row--read">
                     <% else %>
-                        <li class="notification-box__row row">
+                        <li class="notification-box__row">
                     <% end %>
-
-
-                        <div class="two columns u-center">
+                        <div class="notification-box__avatar">
                             <%= render('shared/avatar.html', user: n.source_user, size: "small") %>
                         </div>
-                        <div class="ten columns">
+                        <div class="notification-box__body">
                             <p class="notification-box__para">
                                 <%= link_to n.message, n.source_path %>
                             </p>
@@ -40,16 +38,10 @@
                     </li>
                 <% end %>
             <% else %>
-                <li class="notification-box__row row">
-                    <div class="two columns u-center">
-                    </div>
-                    <div class="ten columns">
-                        <p class="notification-box__para">
-                            Ingen varsler.
-                        </p>
-                        <p class="notification-box__para">
-                        </p>
-                    </div>
+                <li class="notification-box__row">
+                    <p class="notification-box__para">
+                        Ingen varsler.
+                    </p>
                 </li>
             <% end %>
 
