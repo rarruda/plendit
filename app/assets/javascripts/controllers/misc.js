@@ -91,7 +91,15 @@ window.services.searchService = {
 
         function onSearchFinished(response) {
             var result = JSON.parse(response.responseText);
+            result.hits = result.hits.map(elasticSearchFormatMapper);
             eventBus.emit('new-search-result', result);
+        }
+
+        // fixes up differences between models and elasticsearch docs.
+        // todo: Unify this on the server later
+        function elasticSearchFormatMapper(hit) {
+            hit._source.location = hit._source.geo_location;
+            return hit._source;
         }
 
         function buildQuery(form) {
