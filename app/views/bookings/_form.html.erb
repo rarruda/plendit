@@ -24,7 +24,7 @@
 
     <div class="field">
         <%= f.label :price %> <br>
-        <%= @ad.price %> per dag
+        <%= number_to_currency_pretty @ad.price %> per dag
     </div>
 
     <div class="field">
