@@ -1,13 +1,41 @@
-<div class="container front-popular-box u-push-down">
-    <h3 class="front-popular-box__title"><%= topic['title'] %></h3>
-    <p><%= topic['summary'] %></p>  
+<% 
+    topics = topics.map { |e| 
+        e["style"] = "background-image: url(#{image_path(e["image"])});"
+        e 
+    }
+%>
 
-    <% topic['items'].each do |item| %>
-        <div class="popular-topic-box">
-            <%= link_to (search_path q: item['term']), class: "popular-topic-box__link" do %>
-                <%= image_tag(item['image'], size: "300x300", alt: "", class: "popular-topic-box__img") %>
-                <h4 class="popular-topic-box__title"><%= item['title'] %></h4>
-            <% end %>
+<div class="container">
+    <div class="row">
+        <div class="twelve columns front-popular-box">
+            <h3 class="front-popular-box__title">Inspirasjon</h3>
+            <div class="front-popular-box">
+                <div class="front-popular-box__row1">
+                    <div class="front-popular-box__bgimg" style="<%= topics[0]["style"] %>">
+                        <%= link_to topics[0]["title"], (search_path q: topics[0]["term"]), class: "front-popular-box__link" %>
+                    </div>
+                    <div class="front-popular-box__bgimg" style="<%= topics[1]["style"] %>">
+                        <%= link_to topics[1]["title"], (search_path q: topics[1]["term"]), class: "front-popular-box__link" %>
+                    </div>
+                </div>
+                <div class="front-popular-box__row2">
+                    <div class="front-popular-box__bgimg" style="<%= topics[2]["style"] %>">
+                        <%= link_to topics[2]["title"], (search_path q: topics[2]["term"]), class: "front-popular-box__link" %>
+                    </div>
+                    <div class="front-popular-box__col1">
+                        <div class="front-popular-box__bgimg" style="<%= topics[3]["style"] %>">
+                            <%= link_to topics[3]["title"], (search_path q: topics[3]["term"]), class: "front-popular-box__link" %>
+                        </div>
+                        <div class="front-popular-box__bgimg" style="<%= topics[4]["style"] %>">
+                            <%= link_to topics[4]["title"], (search_path q: topics[4]["term"]), class: "front-popular-box__link" %>
+                        </div>
+                    </div>
+                    <div class="front-popular-box__bgimg" style="<%= topics[5]["style"] %>">
+                        <%= link_to topics[5]["title"], (search_path q: topics[5]["term"]), class: "front-popular-box__link" %>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    <% end %>
+    </div>
 </div>

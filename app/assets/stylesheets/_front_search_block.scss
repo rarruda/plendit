@@ -1,49 +1,40 @@
 @import 'constants.scss';
 
 .front-popular-box {
-    color: $color-gray-text;
     text-align: center;
-}
+    margin-top: $standard-spacing * 3;
 
-.popular-topic-box {
-    display: inline-block;
-    text-transform: uppercase;
-    margin-left: $standard-spacing;
-    margin-right: $standard-spacing;
-    margin-bottom: $standard-spacing;
-
-    @media screen and (max-width: 1024px) {
-        width: 170px;
-        margin-left: $standard-spacing / 2 ;
-        margin-right: $standard-spacing / 2;
-
-        &__title {
-            font-size: 80%;
-        }
-
-        &__img {
-            width: 170px;;
-            height: auto;
-        }
+    &__row1,
+    &__row2 {
+        display: flex;
+        height: 240px;
     }
 
-    &:nth-of-type(1n) {
-        background-color: #710149;
+    &__row2 {
+        height: 300px;
     }
 
-    &:nth-of-type(2n) {
-        background-color: #89e26b;
+    &__col1 {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;        
     }
 
-    &:nth-of-type(3n) {
-        background-color: #2a96ff;
-    }
-
-    &__title {
-        color: white;
+    &__bgimg {
+        flex-grow: 1;
+        margin: 11px 11px 10px 11px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
     }
 
     &__link {
-        text-decoration: none;
+        background-color: rgba(0,0,0, 0.65);
+        color: white;
+        padding: $standard-spacing;
+        border-radius: 4px;
+    }
+
+    &__title {
     }
 }

@@ -1,3 +1,4 @@
+
 <section class="front-search-block">        
     <h1 class="front-search-block__title">LEI DET DU TRENGER</h1>
     <p class="front-search-block__copy">og spar penger! Mer enn 500.000 ting til leie.</p>
@@ -15,6 +16,4 @@
     </div>
 </section>
 
-<section class="front-popular-block">
-    <%= render partial: "front_popular_box", collection: @popular_topics, as: 'topic' %>
-</section>
+<%= render partial: "front_popular_box", locals: {topics: @popular_topics} %>
