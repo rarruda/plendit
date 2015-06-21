@@ -26,6 +26,11 @@ $top-bar-height: 52px;
         height: 24px;
         margin: 0;
         vertical-align: baseline;
+
+        @media screen and (max-width: 640px) {
+            width: 44%;
+        }
+
     }
 
     &__search-icon {
@@ -40,6 +45,9 @@ $top-bar-height: 52px;
 
     &__logo {
         vertical-align: middle;
+        @media screen and (max-width: 640px) {
+            width: 38%;
+        }
     }
 
     &__rightbox {
