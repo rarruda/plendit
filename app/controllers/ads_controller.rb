@@ -45,13 +45,7 @@ class AdsController < ApplicationController
       format.json {
         # this all feels quite dirty
         result_markup = render_to_string partial: "search_result_item", collection: @ads, as: 'ad', formats: [:html]
-        result_json = @ads.as_json(
-          except: [:created_at, :updated_at, :tags, :location_id, :user_id],
-          include: {
-            :user => {:only => [:name, :image_url] },
-            :location => {:only => [:lat, :lon] }
-          }
-        )
+        result_json = @ads.as_json
 
         render json: {
           hits: result_json,
