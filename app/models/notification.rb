@@ -9,14 +9,14 @@ class Notification < ActiveRecord::Base
 
   def source_user
     if self.notifiable is_a? Ad
-        self.notifiable.user
+      self.notifiable.user
     elsif self.notifiable is_a? Message
-        self.notifiable.from_user
+      self.notifiable.from_user
     elsif self.notifiable is_a? Booking
-        # todo: this depends on if you're renter og rentee
-        self.notifiable.from_user
+      # todo: this depends on if you're renter og rentee
+      self.notifiable.from_user
     else
-        self.user
+      self.user
     end
   end
 
