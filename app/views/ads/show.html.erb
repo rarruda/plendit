@@ -10,7 +10,7 @@
     <div class="row">
         <div class="eight columns">
             <%= render partial: "ad_title_box", locals: { ad: @ad } %>
-            <%- if current_user == @ad.user || current_user.status == 'admin' -%>
+            <%- if  user_signed_in? && (current_user == @ad.user || current_user.status == 'admin') -%>
               <%= render partial: "ad_status_box", locals: { ad: @ad } %>
             <%- end -%>
             <%= render partial: "ad_copy_section", locals: { ad: @ad } %>
