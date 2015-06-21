@@ -3,6 +3,7 @@
 .front-popular-box {
     text-align: center;
     margin-top: $standard-spacing * 3;
+    margin-bottom: $standard-spacing * 2;
 
     &__row1,
     &__row2 {
@@ -22,10 +23,14 @@
 
     &__bgimg {
         flex-grow: 1;
-        margin: 11px 11px 10px 11px;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: 50% 50%;
+        margin: 11px 11px 10px 10px;
+
+        @media screen and (max-width: 640px) {
+            margin: 2px;
+        }
     }
 
     &__link {
