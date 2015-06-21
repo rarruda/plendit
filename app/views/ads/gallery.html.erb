@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="twelve columns">
+            <h3 class="u-push-down"><%= @ad.title %></h3>
+            <div>
+                <%= link_to "Tilbake til annonsen", @ad %>
+            </div>
+    
+            <div class="gallery__thumb-holder">
+                <% @ad.ad_images.each_with_index do |img, index| %>
+                    <% img_style = "background-image: url(#{img.image.url(:thumb)});" %>
+                    <%= link_to "", "#image-#{index + 1}", style: img_style, class: "gallery__thumb" %>
+
+                <% end %>
+            </div>
+
+            <hr>
+
+            <div>
+                <% @ad.ad_images.each_with_index do |img, index| %>
+                    <%= image_tag(img.image.url(:gallery), size: AdImage.imageSize(:gallery),
+                            class: "gallery__image", id: "image-#{index + 1}") %>
+                    <hr>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

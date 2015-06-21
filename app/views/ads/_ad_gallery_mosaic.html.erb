@@ -16,7 +16,7 @@
         <% img_style = "background-image: url(#{last.image.url(:thumb)});" %>
         <div class="<%= "ad-gallery-mosaic__bg_img_n_of_#{image_count}" %>"
              style="<%= img_style %>">
-             <a href="#" class="ad-gallery-mosaic__gallery-link">Se alle bildene</a>
+             <%= link_to "Se alle bildene", (gallery_ad_path ad), class: "ad-gallery-mosaic__gallery-link" %>
          </div>
     </div>
 <% end %>

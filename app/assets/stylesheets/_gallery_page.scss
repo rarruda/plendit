@@ -1,0 +1,30 @@
+.gallery {
+
+    &__image {
+        width: 100%;
+        height: auto;
+    }
+
+    &__thumb-holder {
+        overflow: auto;
+    }
+
+    &__thumb {
+        float: left;
+        border: solid thin white;
+        display: inline-block;
+        height: 120px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+        width: 16.6666%;
+
+        @media screen and (max-width: 800px) {
+            width: 20%;
+        }
+
+        @media screen and (max-width: 600px) {
+            width: 25%;
+        }
+    }
+}

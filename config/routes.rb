@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   resources :ads do
     member do
       get 'preview'
+      get 'gallery'
       get 'double_calendar'
       get 'single_calendar'
       post 'pause'
