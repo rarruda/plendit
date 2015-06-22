@@ -4,8 +4,8 @@
     last = images.pop
 %>
 
-<% if image_count == 1 %>
-    <%# Do nothing. The only available image has been shown as hero image %>
+<% if image_count <= 1 %>
+    <%# Do nothing. The only available image has been shown as hero image. Or worst, no images at all... :( %>
 <% else %>
     <div class="ad-gallery-mosaic">
         <% images.each do |img| %>
