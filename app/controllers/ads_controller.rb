@@ -13,6 +13,7 @@ class AdsController < ApplicationController
   # GET /ads/search
   ## GET /ads.json
   def search
+    @hide_search_field = true
     @supress_footer = true
 
     @term = params[:q]
