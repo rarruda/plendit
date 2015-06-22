@@ -260,5 +260,7 @@ Feedback.create({"ad_id"=>ad_id, "from_user_id"=>get_from_user_id(ad_id), "score
 end
 
 
+# Add Admin Credentials here:
+#AdminUser.create(:email => 'admin@plendit.com', :password => 'password', :password_confirmation => 'password')
 
 # EOF
