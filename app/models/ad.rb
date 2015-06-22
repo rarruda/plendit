@@ -28,6 +28,9 @@ class Ad < ActiveRecord::Base
   scope :for_user, ->(user) { where( user_id: user.id ) }
   scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
 
+  # If there were any changes, except in status, set status to draft:
+  before_save :edit, unless: "self.changes.except('status').empty?"
+
   aasm :column => :status, :enum => true do
     state :draft, :initial => true
     state :waiting_review

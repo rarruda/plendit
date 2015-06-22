@@ -38,6 +38,7 @@
     </div>
 
     <label class="u-push-down">
+        <!-- FIXME -->
         <input type="checkbox">
         <span class="label-body">
             Ja, leietaker må tegne <a href="#">forsikring</a> for å leie gjenstanden.
@@ -96,11 +97,8 @@
 
     <%= link_to "Vis annonse", (ad_path @ad)  %>
     <%= link_to "Vis bilder", (users_ad_ad_images_path @ad) %>
-
-    <% if @ad.valid? %>
-      <%= render partial: "ad_status_box", locals: { ad: @ad } %>
-    <% end %>
-
 <%- end -%>
 
-
+<% if @ad.valid? %>
+  <%= render partial: "ad_status_box", locals: { ad: @ad } %>
+<% end %>
