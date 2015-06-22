@@ -1,3 +1,13 @@
+<%
+    meta og: {
+        title: @ad.title,
+        description: @ad.summary,
+        url: request.original_url,
+        image: @ad.image_url_with_fallback(:hero),
+        "image:width" => AdImage::DIMENSIONS[:hero][:width],
+        "image:height" => AdImage::DIMENSIONS[:hero][:height]
+    }
+%>
 <div class="container">
     <div class="ad-title-image">
         <div class="ad-title-image__holder">

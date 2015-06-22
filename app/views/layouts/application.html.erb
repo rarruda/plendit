@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="no" prefix="og: http://ogp.me/ns#">
 <head>
     <title>Plendit</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+    <%
+        meta og: {
+            site_name: "Plendit",
+            type:      "website"
+        }
+    %>
+
+    <%= metamagic %>
+
     <%= favicon_link_tag       'logos/favicon_raw.png' %>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= stylesheet_link_tag    'http://fonts.googleapis.com/css?family=Lato:300,400,700' %>

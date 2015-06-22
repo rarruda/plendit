@@ -22,6 +22,7 @@ gem 'elasticsearch-rails'
 
 gem 'aasm', '~> 4'
 
+gem 'metamagic'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
