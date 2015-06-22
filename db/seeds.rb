@@ -104,7 +104,7 @@ a.ad_images.create!({"description"=>"boks (side)", "image_file_name"=>"4ea474d60
 
 
 # Ad #4
-a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Packline F 800 ABS takboks", "body"=>"En nedsenket og praktisk takboks med lav vekt og stor innvendig høyde. Formgitt for å romme det meste på reisen – hele 225 cm lang. Produsert i kraftig miljøvennlig ABS som er 100% resirkulerbar. Vårt nye patenterte hurtigfeste iZi2connect er kjapt og enkelt i bruk. Boksen er utstyrt med vårt patenterte åpningsmekanisme LiftOff som gir inn og utlasting fra 3 sider – samtidig!", "price"=>"249.0"})
+a = u.ads.create!({"location_id"=>u.locations.second.id, "title"=>"Packline F 800 ABS takboks", "body"=>"En nedsenket og praktisk takboks med lav vekt og stor innvendig høyde. Formgitt for å romme det meste på reisen – hele 225 cm lang. Produsert i kraftig miljøvennlig ABS som er 100% resirkulerbar. Vårt nye patenterte hurtigfeste iZi2connect er kjapt og enkelt i bruk. Boksen er utstyrt med vårt patenterte åpningsmekanisme LiftOff som gir inn og utlasting fra 3 sider – samtidig!", "price"=>"249.0"})
 a.ad_items.create!()
 a.submit_for_review!
 a.approve!

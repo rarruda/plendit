@@ -167,15 +167,24 @@ class AdsController < ApplicationController
 
   # GET /ads/1/edit
   def edit
-    #@ad.edit! #???
   end
 
 
   # PATCH/PUT /ads/1
   # PATCH/PUT /ads/1.json
   def update
+    ad_params_local = ad_params
+    # Only Add a new address if the address_line and post_code have data:
+    if params['use_registered_location'] == '1'
+      ad_params_local.except! 'location_attributes'
+    else
+      ad_params_local['location_attributes']['user_id'] = current_user.id
+      ad_params_local['location_attributes']['city'] = Location.city_from_postal_code ad_params_local['location_attributes']['post_code']
+    end
+
+    #logger.debug "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
-      if @ad.update(ad_params)
+      if @ad.update(ad_params_local)
         format.html { redirect_to edit_users_ad_path(@ad), notice: 'Ad was successfully updated.' }
         format.json { render :show, status: :ok, location: @ad }
       else
@@ -214,6 +223,6 @@ class AdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
-      params.require(:ad).permit(:title, :location_id, :body, :price, :tag_list)
+      params.require(:ad).permit(:title, :body, :price, :tag_list, :location_id, :location_attributes => [:address_line, :post_code] )
     end
 end

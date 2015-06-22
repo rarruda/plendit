@@ -52,7 +52,7 @@
         <div>
 
             <label>
-                <input type="checkbox">
+                <%= check_box_tag "use_registered_location", "1", (not @ad.location.nil?) %>
                 <span class="label-body">
                     Bruk en av mine registrert adresser:
                 </span>
@@ -65,20 +65,21 @@
                     { class: 'u-full-width' } ) %>
             </div>
         </div>
+        <%= link_to "edit your locations here", locations_path %>
     <%- end -%>
 
     <label class="u-push-down">Legg til en ny adresse for denne annonsen:</label>
-
-    <input type="text" class="u-full-width" placeholder="Gateadresse">
-
-    <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= misc_postal_place_path %>">
-        <div class="four columns">
-            <input type="number" class="u-full-width" placeholder="Postnr." data-postal-code>
+    <%= f.fields_for :location, Location.new(user_id: current_user.id) do |fl| %>
+        <%= fl.text_field :address_line, class: 'u-full-width', placeholder: 'Gateadresse' %>
+        <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= misc_postal_place_path %>">
+            <div class="four columns">
+                <%= fl.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
+            </div>
+            <div class="eight columns">
+                <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
+            </div>
         </div>
-        <div class="eight columns">
-            <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
-        </div>
-    </div>
+    <% end %>
 
     <div class="u-push-down">
         <label>Beskrivelse</label>
