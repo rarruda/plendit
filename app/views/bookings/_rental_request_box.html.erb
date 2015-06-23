@@ -31,19 +31,19 @@
         <% if defined? is_owner and is_owner %>
             <tr class="rental-request-box__price-row">
                 <th class="rental-request-box__th">Utbetales til deg</th>
-                <td class="rental-request-box__td rental-request-box__price-cell"><%= booking.sum_paid_to_owner %>,-*</td>
+                <td class="rental-request-box__td rental-request-box__price-cell"><%= number_to_currency_pretty booking.sum_paid_to_owner, unit: 'kr' %>*</td>
             </tr>
             <tr>
                 <td colspan="2" class="rental-request-box__caveats">
                     * Totalpris kr <%= booking.sum_paid_by_renter %>,-
                     minus 10% transaksjonskost. Totalt utbetalt til deg,
-                    kr <%= booking.sum_paid_to_owner %>,-
+                    <%= number_to_currency_pretty booking.sum_paid_to_owner, unit: 'kr' %>
                 </td>
             </tr>
         <% else %>
             <tr class="rental-request-box__price-row">
                 <th class="rental-request-box__th">Din regning</th>
-                <td class="rental-request-box__td rental-request-box__price-cell"><%= booking.sum_paid_by_renter %>,-</td>
+                <td class="rental-request-box__td rental-request-box__price-cell"><%= number_to_currency_pretty booking.sum_paid_by_renter, unit: 'kr' %></td>
             </tr>
         <% end %>
     </table>
