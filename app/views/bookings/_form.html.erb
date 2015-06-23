@@ -11,20 +11,20 @@
         </div>
     <% end %>
 
-    <% if @ad.ad_items.count == 1 %>
+    <% if @booking.ad.ad_items.count == 1 %>
         <%= f.label :ad_item_id %>
-        <%= @ad.ad_items.first.id %>
-        <%= f.hidden_field(:ad_item_id, :value => @ad.ad_items.first.id )%>
+        <%= @booking.ad.ad_items.first.id %>
+        <%= f.hidden_field(:ad_item_id, :value => @booking.ad.ad_items.first.id )%>
     <% else %>
         <div class="field">
             <%= f.label :ad_item_id %><br>
-            <%= f.collection_select(:ad_item_id, @ad.ad_items.all, :id, :id) %>
+            <%= f.collection_select(:ad_item_id, @booking.ad.ad_items.all, :id, :id) %>
         </div>
     <% end %>
 
     <div class="field">
         <%= f.label :price %> <br>
-        <%= number_to_currency_pretty @ad.price %> per dag
+        <%= number_to_currency_pretty @booking.ad.price %> per dag
     </div>
 
     <div class="field">
