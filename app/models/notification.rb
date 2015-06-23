@@ -7,12 +7,13 @@ class Notification < ActiveRecord::Base
   scope :fresh, -> { where( status: Notification.statuses[:fresh] ) }
 
 
+
   def source_user
-    if self.notifiable is_a? Ad
+    if self.notifiable.is_a? Ad
       self.notifiable.user
-    elsif self.notifiable is_a? Message
+    elsif self.notifiable.is_a? Message
       self.notifiable.from_user
-    elsif self.notifiable is_a? Booking
+    elsif self.notifiable.is_a? Booking
       # todo: this depends on if you're renter og rentee
       self.notifiable.from_user
     else
