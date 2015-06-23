@@ -143,7 +143,11 @@ class Ad < ActiveRecord::Base
 
   # used in as_indexed_json
   def geo_location
-    { lat: self.location.lat, lon: self.location.lon }
+    if self.location
+      { lat: self.location.lat, lon: self.location.lon }
+    else
+      nil
+    end
   end
 
   # used in as_indexed_json
