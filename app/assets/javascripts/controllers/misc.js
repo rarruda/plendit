@@ -76,17 +76,33 @@ window.services.searchService = {
     name: "searchService",
     dependencies: ["eventbus"],
     callable: function(eventBus) {
+        var params = {};
+        var bounds = {};
 
         var queryBlackList = {
             utf8: true,
             authenticity_token: true
         }
 
+        function merge(a,b) {
+            var ret = {};
+            var key;
+            for (key in a) { ret[key] = a[key] }
+            for (key in b) { ret[key] = b[key] }
+            return ret;
+        }
 
         function search(form) {
+            params = form;
+            form = merge(form, bounds);
             var url = '/search.json?' + buildQuery(form);
             history.replaceState(null, null, url.replace(".json", ""));
             xhr.get(url).then(onSearchFinished);
+        }
+
+        function setBounds(b) {
+            bounds = b;
+            search(params);
         }
 
         function onSearchFinished(response) {
@@ -120,7 +136,8 @@ window.services.searchService = {
         }
 
         return {
-            search: search
+            search: search,
+            setBounds: setBounds
         }
     }
 }

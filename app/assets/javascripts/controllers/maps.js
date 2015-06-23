@@ -31,8 +31,8 @@ window.controllers.adMap = {
 };
 
 window.controllers.resultMap = {
-    dependencies: ['$element', 'eventbus'],
-    callable: function(ele, eventBus) {
+    dependencies: ['$element', 'eventbus', 'searchService'],
+    callable: function(ele, eventBus, searchService) {
         var jsonContainer = ele.querySelector("[data-location-info]");
         var searchData = JSON.parse(jsonContainer.textContent);
         jsonContainer.parentNode.removeChild(jsonContainer);;
@@ -55,8 +55,25 @@ window.controllers.resultMap = {
                 center: center,
                 zoom: 12
             };
-            return new google.maps.Map(ele, mapOptions);
+
+            var map = new google.maps.Map(ele, mapOptions);
+
+            google.maps.event.addListener(map, 'center_changed', debounce(onCenterChanged, 1000));
+            return map;
+
         };
+
+        function onCenterChanged() {
+            var bounds = map.getBounds();
+            var ne = bounds.getNorthEast();
+            var sw = bounds.getSouthWest();
+            searchService.setBounds({
+                ne_lat: ne.lat(),
+                ne_lon: ne.lng(),
+                sw_lat: sw.lat(),
+                sw_lon: sw.lng()
+            });
+        }
 
         function clearMarkers() {
             markers.forEach(function(e) { e.setMap(null); });
@@ -96,5 +113,22 @@ window.controllers.resultMap = {
         function onSearchResult(hits) {
             updateMarkers(hits);
         }
+
+        function debounce(func, wait, immediate) {
+            var timeout;
+            return function() {
+                var context = this, args = arguments;
+                var later = function() {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                var callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        };
+
+
     }
 };
