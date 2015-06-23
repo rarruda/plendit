@@ -20,8 +20,8 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
-    @ad = Ad.find( params['ad_id'])
-    @booking = Booking.new
+    ad = Ad.find( params['ad_id'])
+    @booking = Booking.new( ad: @ad )
   end
 
   # GET /bookings/1/edit
