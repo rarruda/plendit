@@ -22,7 +22,14 @@ class Notification < ActiveRecord::Base
   end
 
   def source_path
-    # todo: implement
-    "/"
+    # todo: implement all
+    if self.notifiable.is_a? Ad
+      Rails.application.routes.url_helpers.ad_path self.notifiable.id
+    elsif notifiable.is_a? Booking
+      Rails.application.routes.url_helpers.booking_path self.notifiable.id
+    else
+      "/"
+    end
   end
+
 end
