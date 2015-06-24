@@ -25,7 +25,7 @@ class Ad < ActiveRecord::Base
   #validates :location, presence: true
 
   default_scope { where.not( status: Ad.statuses[:suspended] ) }
-  scope :for_user  ->(user) { where( user_id: user.id ) }
+  scope :for_user, ->(user) { where( user_id: user.id ) }
   scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
   scope :published,      -> { where( status: Ad.statuses[:published] ) }
 
