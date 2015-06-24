@@ -20,11 +20,32 @@ class AdsController < ApplicationController
 
     # will need to add search in tags too:
     # as well some sort of ordering/ranking, and support for more complex searches/filters.
+    filter = []
+
     if params.has_key?('q')
-      @ads = Ad.search params[:q]  #kaminari_paginate: .page(page).per(5)
-    else
-      @ads = Ad.limit(10)
+      query  = params[:q]
     end
+
+    if params.has_key?('ne_lat') && params.has_key?('ne_lon') &&
+      params.has_key?('sw_lat') && params.has_key?('sw_lon')
+      filter << {
+        geo_bounding_box: {
+          geo_location: {
+            top_left: {
+              lat: params[:ne_lat],
+              lon: params[:sw_lon]
+            },
+            bottom_right: {
+              lat: params[:sw_lat],
+              lon: params[:ne_lon]
+            }
+          }
+        }
+      }
+    end
+
+
+    @ads = Ad.search query, filter #kaminari_paginate: .page(page).per(5)
 
     # fixme: use lng rather than lon everywhere?
     # fixme: center from query param, or a sensible default from a config
