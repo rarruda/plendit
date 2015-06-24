@@ -25,8 +25,9 @@ class Ad < ActiveRecord::Base
   #validates :location, presence: true
 
   default_scope { where.not( status: Ad.statuses[:suspended] ) }
-  scope :for_user, ->(user) { where( user_id: user.id ) }
+  scope :for_user  ->(user) { where( user_id: user.id ) }
   scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
+  scope :published,      -> { where( status: Ad.statuses[:published] ) }
 
   # If there were any changes, except in status, set status to draft:
   before_save :edit, unless: "self.changes.except('status').empty?"
@@ -39,7 +40,7 @@ class Ad < ActiveRecord::Base
       indexes :title,         type: :string, boost: 100
       indexes :body,          type: :string
       indexes :geo_location,  type: :geo_point
-      #indexes :price,         type: :double
+      indexes :price,         type: :double
       indexes :tags,          type: :string, analyzer: 'keyword'
       indexes :ad_images do
         indexes :id,          type: :integer
