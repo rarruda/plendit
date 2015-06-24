@@ -10,7 +10,7 @@ module Searchable
     #end
 
     # for now tuned to act as Ad.search
-    def self.search(query, filter, options = nil)
+    def self.search(query, filter = nil, options = nil)
       # no query sent, so search for everything:
       if query.nil?
         _q = {
@@ -32,7 +32,7 @@ module Searchable
       end
 
       # If a filter is sent, the attach it to the query:
-      if filter.nil?
+      if filter.nil? || filter.empty?
         q = {
           query: _q
         }
@@ -47,6 +47,7 @@ module Searchable
         }
       end
 
+      #logger.debug JSON.pretty_generate q
       __elasticsearch__.search(q)
     end
   end
