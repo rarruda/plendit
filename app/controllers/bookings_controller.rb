@@ -20,7 +20,7 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
-    ad = Ad.find( params['ad_id'])
+    @ad = Ad.find( params['ad_id'])
     @booking = Booking.new( ad: @ad )
   end
 
@@ -35,13 +35,13 @@ class BookingsController < ApplicationController
     # This should be moved to its own method/helper/etc
     b_start = view_context.parse_datetime_params booking_params, 'booking_from'
     b_end = view_context.parse_datetime_params booking_params, 'booking_to'
-    num_days_rented_ceil  = ( ( (b_start.to_time - b_end.to_time) / 60*60 ) % 24 ).ceil
-    ad = Ad.find(booking_params[:ad_item_id])
 
-    #price = #needs to be calculated.
-    user_id = view_context.get_current_user_id
+    num_days_rented_ceil  = ( ( (b_start.to_time - b_end.to_time) / 60*60 ) % 24 ).ceil
+    ad = AdItem.find(booking_params[:ad_item_id]).ad
+
+    #price = #needs to be calculated. INSIDE THE MODEL!
     new_booking = booking_params.merge( {
-      'from_user_id'      => view_context.get_current_user_id,
+      'from_user_id'      => current_user.id,
       'status'            => 'created',
       'price'             => ad.price * num_days_rented_ceil
     } )
