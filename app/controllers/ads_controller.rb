@@ -43,6 +43,22 @@ class AdsController < ApplicationController
         }
       }
     end
+    filter_price = {
+      range: {
+        price: {}
+      }
+    }
+    if params.has_key? 'price_min'
+      filter_price[:range][:price].merge! ( {
+        gte: params[:price_min]
+      } )
+    end
+    if params.has_key? 'price_max'
+      filter_price[:range][:price].merge! ( {
+        lte: params[:price_max]
+      } )
+    end
+    filter << filter_price if ! filter_price.empty?
 
 
     @ads = Ad.search query, filter #kaminari_paginate: .page(page).per(5)

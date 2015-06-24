@@ -15,15 +15,22 @@
             <%= form_tag({}, class: "search-filter-section__form") do %>
 
                 <div class="row search-filter-section__row">
-                    <div class="two columns">
-                        <%= label_tag(:price, "Pris:") %>
+                    <div class="one columns">
+                        <%= label_tag(:price_min, "Pris fra:") %>
                     </div>
-                    <div class="ten columns">
-                        <%= range_field_tag(:price, 500, in: 1..1000, class: "search-filter-section__range-input") %>
+                    <div class="two columns">
+                        <%= number_field_tag( :price_min, nil, min: 0, class: "search-filter-section__range-input") %>
+                    </div>
+                    <div class="one columns">
+                        <%= label_tag(:price_max, "opp til:") %>
+                    </div>
+                    <div class="two columns">
+                        <%= number_field_tag( :price_max, nil, min: 0, class: "search-filter-section__range-input") %>
+                        <%#= range_field_tag(:price, 500, in: 1..1000, class: "search-filter-section__range-input") %>
                     </div>
                 </div>
 
-                <div class="row search-filter-section__row">
+<!--                 <div class="row search-filter-section__row">
                     <div class="two columns">
                         <label>Område:</label>
                     </div>
@@ -37,18 +44,18 @@
                         <input class="search-filter-section__text-input" type="text" placeholder="Poststed" disabled>
                     </div>
                 </div>
-
-                <div class="row">
+ -->
+<!--                 <div class="row">
                     <div class="two columns">
                         <%= label_tag(:tags, "Tags:") %>
                     </div>
                     <div class="ten columns">
                         <div data-controller="tageditor" class="tag-editor"></div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
-                    <div class="two columns">
+                    <div class="one columns">
                         <%= label_tag(:q, "Term:") %>
                     </div>
                     <div class="ten columns">
