@@ -31,6 +31,26 @@ class Ad < ActiveRecord::Base
   # If there were any changes, except in status, set status to draft:
   before_save :edit, unless: "self.changes.except('status').empty?"
 
+  # ES Settings for this model:
+  # TODO: Need to configure separately settings and analyzers (for norwegian/current locale)
+  settings index: { number_of_shards: 2 } do
+    mappings do
+      indexes :id,            type: :integer
+      indexes :title,         type: :string, boost: 100
+      indexes :body,          type: :string
+      indexes :geo_location,  type: :geo_point
+      #indexes :price,         type: :double
+      indexes :tags,          type: :string, analyzer: 'keyword'
+      indexes :ad_images do
+        indexes :id,          type: :integer
+        indexes :description, type: :string
+      end
+      indexes :user do
+        indexes :id,          type: :integer
+      end
+    end
+  end
+
   aasm :column => :status, :enum => true do
     state :draft, :initial => true
     state :waiting_review
