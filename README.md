@@ -77,6 +77,21 @@ $ rake acts_as_taggable_on_engine:install:migrations
 $ rake db:migrate
 ```
 
+* ElasticSearch (re)initialization
+
+```
+$ rails console
+Ad.__elasticsearch__.delete_index!
+Ad.__elasticsearch__.create_index!
+Ad.published.import
+```
+
+If you are running it for the very first time, you probably dont need to
+ delete the index. But it wont break anything if you do so.
+
+Note: for large datasets, this could take a while. This should also be
+ converted to a rake task.
+
 * Starting the server (development)
 
 ```
