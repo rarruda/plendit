@@ -197,7 +197,7 @@ class AdsController < ApplicationController
     @ad = Ad.new(user_id: current_user.id)
     # @ad = Ad.new(type: type)
     if @ad.save
-      redirect_to edit_users_ad_path(@ad), notice: 'Ad was successfully created.'
+      redirect_to edit_users_ad_path(@ad), notice: t(:flash_ad_created)
     else
       redirect_to new_ad_path, notice: "Couldn't create ad!"
     end
