@@ -30,7 +30,7 @@ class Ad < ActiveRecord::Base
   scope :published,      -> { where( status: Ad.statuses[:published] ) }
 
   # If there were any changes, except in status, set status to draft:
-  before_save :edit, unless: "self.changes.except('status').empty?"
+  before_save :edit, unless: "self.draft? || self.changes.except('status').empty?"
 
   # ES Settings for this model:
   # TODO: Need to configure separately settings and analyzers (for norwegian/current locale)
