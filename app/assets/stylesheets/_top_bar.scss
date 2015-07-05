@@ -90,5 +90,12 @@ $top-bar-height: 52px;
         margin-left: $standard-spacing / 2;
     }
 
+    &__admin-label {
+        background-color: red;
+        color: white;
+        border-radius: 6px;
+        padding: 6px;
+    }
+
 }
 

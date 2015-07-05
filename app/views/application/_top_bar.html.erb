@@ -20,6 +20,9 @@
 
             <strong class="top-bar__top-section">
                 <%= link_to current_user.name, user_path, :class => "top-bar__navbar-link" %>.
+                <% if current_user.is_admin_hack? %>
+                    <span class="top-bar__admin-label">er admin</span>
+                <% end %>
             </strong>
 
             <span class="top-bar__top-section"
