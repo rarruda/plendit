@@ -19,14 +19,14 @@
             <%= button_to 'resume', resume_ad_path(ad), class: "button-primary" %>
         <% end %>
 
-        <!--
         <%- if current_user.is_admin_hack? -%>
-          <div>
-            ADMIN FUNCTIONS:
-            <% if ad.status == 'waiting_review' %> <%= button_to 'approve', approve_ad_path(ad), class: "button-primary" %> <% end %>
-            <% if ad.status != 'suspended' %>          <%= button_to 'suspend', suspend_ad_path(ad), class: "button-primary" %> <% end %>
-          </div>
+            <hr>
+            <% if ad.status == 'waiting_review' %>
+                <%= button_to 'approve', approve_ad_path(ad), class: "button-primary" %>
+            <% end %>
+            <% if ad.status != 'suspended' %>
+                <%= button_to 'suspend', suspend_ad_path(ad), class: "button-primary" %>
+            <% end %>
       <%- end -%>
-      -->
     <% end %>
 </div>

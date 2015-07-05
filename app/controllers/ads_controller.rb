@@ -10,6 +10,7 @@ class AdsController < ApplicationController
     :show,
     :single_calendar,
     :stop,
+    :suspend,
     :submit_for_review,
     :update
   ]
@@ -185,6 +186,15 @@ class AdsController < ApplicationController
       redirect_to @ad, notice: 'Ad was successfully approved by reviewer.'
     else
       redirect_to @ad, notice: 'Ad was NOT approved.'
+    end
+  end
+
+  # GET /ads/1/suspend
+  def suspend
+    if @ad.suspend!
+      redirect_to '/', notice: 'Ad was suspended!'
+    else
+      redirect_to @ad, notice: 'Ad was NOT suspended.'
     end
   end
 
