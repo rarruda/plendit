@@ -1,8 +1,43 @@
 class AdsController < ApplicationController
-  before_action :set_ad, only: [:show, :preview, :pause, :stop, :submit_for_review, :resume, :edit, :update, :double_calendar, :single_calendar, :gallery]
-  before_filter :authenticate_user!,    :except => [:show, :index, :search, :double_calendar, :single_calendar, :gallery]
-  before_filter :require_authorization, :except => [:show, :index, :search, :create, :new, :list, :double_calendar, :single_calendar, :gallery]
-  after_action  :notify_user, only: [:create, :update]
+  before_action :set_ad, only: [
+    :approve,
+    :double_calendar,
+    :edit,
+    :gallery,
+    :pause,
+    :preview,
+    :resume,
+    :show,
+    :single_calendar,
+    :stop,
+    :submit_for_review,
+    :update
+  ]
+
+  before_filter :authenticate_user!, :except => [
+    :double_calendar,
+    :gallery,
+    :index,
+    :search,
+    :show,
+    :single_calendar
+  ]
+
+  before_filter :require_authorization, :except => [
+    :create,
+    :double_calendar,
+    :gallery,
+    :index,
+    :list,
+    :new,
+    :search,
+    :show,
+    :single_calendar
+  ]
+
+  after_action  :notify_user, only: [
+    :create, :update
+  ]
 
   # GET /ads
   # GET /ads.json
@@ -141,6 +176,15 @@ class AdsController < ApplicationController
       redirect_to @ad, notice: 'Ad was successfully submited for review.'
     else
       redirect_to @ad, notice: 'Ad was NOT submited for review.'
+    end
+  end
+
+  # GET /ads/1/approve
+  def approve
+    if @ad.approve!
+      redirect_to @ad, notice: 'Ad was successfully approved by reviewer.'
+    else
+      redirect_to @ad, notice: 'Ad was NOT approved.'
     end
   end
 
