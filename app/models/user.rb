@@ -158,6 +158,9 @@ class User < ActiveRecord::Base
     unconfirmed_phone_number_changed?
   end
 
+  def is_admin_hack?
+    true
+  end
 
   private
   def set_phone_attributes
