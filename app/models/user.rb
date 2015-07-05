@@ -159,7 +159,7 @@ class User < ActiveRecord::Base
   end
 
   def is_admin_hack?
-    true
+    self.name.first.downcase == "r"
   end
 
   private
