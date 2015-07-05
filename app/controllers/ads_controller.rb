@@ -16,15 +16,11 @@ class AdsController < ApplicationController
     @hide_search_field = true
     @supress_footer = true
 
-    @term = params[:q]
-
     # will need to add search in tags too:
     # as well some sort of ordering/ranking, and support for more complex searches/filters.
     filter = []
 
-    if params.has_key?('q')
-      query  = params[:q]
-    end
+    query  = params[:q] || "*"
 
     if params.has_key?('ne_lat') && params.has_key?('ne_lon') &&
       params.has_key?('sw_lat') && params.has_key?('sw_lon')
@@ -241,8 +237,7 @@ class AdsController < ApplicationController
     end
 
     def require_authorization
-      if not ( ( @ad and @ad.user == current_user ) or
-        current_user.status == 'admin' )
+      if not ( ( @ad and @ad.user == current_user ) or current_user.is_admin_hack? )
         # throw exception. User not allowed here.
         logger.tagged("user_id:#{current_user.id}") {
           logger.error "User not authorized to see this page."
