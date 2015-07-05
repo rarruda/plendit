@@ -9,8 +9,10 @@
     </div>
 
     <div class="ad-booking-box__button-holder">
-        <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
-            <%= button_tag("Gå til booking", {class: "u-push-down button-primary availability-section__book"}) %>
+        <% if ad.published? %>
+            <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
+                <%= button_tag("Gå til booking", {class: "u-push-down button-primary availability-section__book"}) %>
+            <% end %>
         <% end %>
 
         <%= form_for( FavoriteAd.new ) do |f| %>
