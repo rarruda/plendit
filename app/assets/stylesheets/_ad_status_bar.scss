@@ -1,0 +1,34 @@
+@import 'constants.scss';
+
+.ad-status-bar {
+    height: 52px;
+    line-height: 52px;
+    color: white;
+    background-color: $color-state-yellow;
+    text-align: center;
+
+    &__link {
+        color: white;
+        font-size: 80%;
+    }
+
+    &--published {
+        background-color: $color-state-green;
+    }
+
+    &--draft {
+        background-color: $color-state-yellow;
+    }
+
+    &--waiting_review {
+        background-color: $color-state-yellow;
+    }
+
+    &--paused {
+        background-color: $color-state-red;
+    }
+
+    &--stopped {
+        background-color: $color-state-red;
+    }
+}

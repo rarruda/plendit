@@ -8,6 +8,9 @@
         "image:height" => AdImage::DIMENSIONS[:hero][:height]
     }
 %>
+
+<%= render partial: "ad_status_bar", locals: { ad: @ad } %>
+
 <div class="container">
     <div class="ad-title-image">
         <div class="ad-title-image__holder">
