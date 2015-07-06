@@ -1,0 +1,32 @@
+@import 'constants.scss';
+
+.ad-status-box {
+    &__form {
+        display: inline;
+    }
+}
+
+// hacky bits due to higher specificity of some default selectors in
+// skeleton than the bem classes
+input.ad-status-box__button {
+    width: 200px;
+    color: white;
+    background-color: $color-plendit-blue;
+    border-color: transparent;
+}
+
+input.ad-status-box__button--blue {
+    background-color: $color-plendit-blue;
+}
+
+input.ad-status-box__button--yellow {
+    background-color: $color-state-yellow;
+}
+
+input.ad-status-box__button--red {
+    background-color: $color-state-red;
+}
+
+input.ad-status-box__button--green {
+    background-color: $color-state-green;
+}

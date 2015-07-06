@@ -1,32 +1,30 @@
-<div style="border: solid thin black" id="ad-controls">
-    Ad.status: <%= ad.status %>
-
-    <% if current_user == ad.user || current_user.is_admin_hack? %>
-
-        <% if ad.status == 'draft' %>
-            <%= button_to 'submit for review', submit_for_review_ad_path(@ad), class: "button-primary" %>
-        <% end %>
-        
-        <% if ad.status == 'published' %>
-            <%= button_to 'pause', pause_ad_path(ad), class: "button-primary" %>
-        <% end %>
-        
-        <% if ['published', 'paused'].include? ad.status %>
-            <%= button_to 'stop', stop_ad_path(ad), class: "button-primary" %>
-        <% end %>
-        
-        <% if ['stopped', 'paused'].include? ad.status %>
-            <%= button_to 'resume', resume_ad_path(ad), class: "button-primary" %>
-        <% end %>
-
-        <%- if current_user.is_admin_hack? -%>
-            <hr>
-            <% if ad.status == 'waiting_review' %>
-                <%= button_to 'approve', approve_ad_path(ad), class: "button-primary" %>
-            <% end %>
-            <% if ad.status != 'suspended' %>
-                <%= button_to 'suspend', suspend_ad_path(ad), class: "button-primary" %>
-            <% end %>
-      <%- end -%>
+<div class="ad-status-box" id="ad-controls">
+    Annonsen er: <%= ad.status %>
+    <br>
+    <% if ad.status == 'published' %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--blue", method: :get %>
+        <%= button_to 'Pause annonsen', pause_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--yellow" %>
+        <%= button_to 'Stopp annonsen', stop_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--red" %>
+    <% elsif ad.status == 'draft' %>
+        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--green" %>
+    <% elsif ad.status == 'paused' %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--blue", method: :get %>
+        <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--green" %>
+        <%= button_to 'Stopp annonsen', stop_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--red" %>
+    <% elsif ad.status == 'stopped' %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--blue", method: :get %>
+        <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--green" %>
     <% end %>
+
+    <%- if current_user.is_admin_hack? -%>
+        <br>
+        Admin kontroll:
+        <br>
+        <% if ad.status == 'waiting_review' %>
+            <%= button_to 'Godkjenn', approve_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--green" %>
+        <% end %>
+        <% if ad.status != 'suspended' %>
+            <%= button_to 'Suspend', suspend_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--red" %>
+        <% end %>
+    <%- end -%>
 </div>
