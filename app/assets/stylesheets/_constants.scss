@@ -15,6 +15,11 @@ $color-button-good: #36b984;
 $color-button-bad: #c20400;
 $color-button-neutral: #8f8989;
 
+$color-state-green: #135453;
+$color-state-red: #BA1F29;
+$color-state-yellow: #DB7917;
+
+
 @mixin buttonish() {
     display: inline-block;
     height: 38px;
