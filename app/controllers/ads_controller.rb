@@ -56,6 +56,7 @@ class AdsController < ApplicationController
     # as well some sort of ordering/ranking, and support for more complex searches/filters.
     filter = []
 
+    @term = params[:q] || ""
     query  = params[:q] || "*"
 
     if params.has_key?('ne_lat') && params.has_key?('ne_lon') &&
