@@ -6,7 +6,7 @@
             <div class="input-progress"><div class="input-progress__step"><strong>Detaljer</strong></div><div class="input-progress__step input-progress__step--current"><strong>Bilder</strong></div><div class="input-progress__step"><strong>Publiser</strong></div>
             </div>
 
-            <%= render 'form_ajax_test3' %>
+            <%= render partial: 'shared/image_manager', locals: { ad: @ad } %>
 
         </div>
         <div class="four columns offset-by-one column">

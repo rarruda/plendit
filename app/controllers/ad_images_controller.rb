@@ -1,11 +1,12 @@
 class AdImagesController < ApplicationController
-  before_action :set_ad_image, only: [:update, :destroy]
+  before_action :set_ad_image, only: [:update, :destroy, :make_primary]
   before_filter :authenticate_user!
 
   # GET /ad_images
   # GET /ad_images.json
   def index
     # missing verification if user owns ad:
+    @ad = Ad.find(params[:ad_id])
     @ad_id = params[:ad_id]
     @ad_images = AdImage.for_ad_id( params[:ad_id] ).all
     respond_to do |format|
@@ -59,6 +60,22 @@ class AdImagesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to ad_images_path, notice: 'Ad image was successfully destroyed.' }
       format.json { render json: { message: "successfully destroyed" }, :status => 200 }
+    end
+  end
+
+  def make_primary
+    AdImage.transaction do
+      @ad_image.weight = 1
+      @ad_image.save!
+      @ad_image.ad.ad_images.order(:weight).where.not(id: @ad_image.id).each_with_index do |img, index|
+        puts "image weught is #{img.weight} wanna set #{index+2}"
+        img.weight = index + 2
+        img.save!
+      end
+    end
+    respond_to do |format|
+      format.html { redirect_to (users_ad_ad_images_path @ad_image.ad), notice: 'Ad image was made primary.' }
+      format.json { render json: { message: "successfully made primary" }, :status => 200 }
     end
   end
 

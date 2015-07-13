@@ -1,0 +1,11 @@
+<div class="image-manager">
+
+    <% ad.ad_images.each do |img| %>
+        <div class="image-manager__item">
+            <%= image_tag img.image.url(:thumb), size: "180x120" %>
+            <%= button_to 'Slett', ad_image_path(ad), method: :delete, form_class: "lolclass", class: "lolclass2" %>
+            <%= button_to 'Hovedbilde', make_primary_ad_image_path(img), form_class: "lolclass", class: "lolclass2" %>
+        </div>
+    <% end %>
+
+</div>
