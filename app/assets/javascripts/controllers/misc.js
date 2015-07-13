@@ -84,6 +84,34 @@ window.services.searchService = {
             authenticity_token: true
         }
 
+        init();
+
+        function init() {
+            var parts = window
+                .location.search.split(/[\?&]/)
+                .filter(function(e) { return e; })
+                .map(function(e) { return e.split('='); });
+
+            parts
+                .filter(boundsFilter)
+                .forEach(function(e) { 
+                    bounds[e[0]] = e[1];
+                });
+            parts
+                .filter(invertFilter(boundsFilter))
+                .forEach(function(e) {
+                    params[e[0]] = e[1];
+                });
+        }
+
+        function boundsFilter(e) {
+            return ['ne_lat', 'ne_lon', 'sw_lat', 'sw_lon'].indexOf(e[0]) != -1;
+        }
+
+        function invertFilter(fun) {
+            return function(e) { return !fun(e); }
+        }
+
         function merge(a,b) {
             var ret = {};
             var key;
