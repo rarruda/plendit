@@ -40,7 +40,13 @@
         return xhr("post", url);
     }
 
-    global.xhr = { get: get, getJson: getJson, del: del, post: post };
+    function xhrFormData(formEle) {
+        return xhr(formEle.method, formEle.action, new FormData(formEle));
+    }
+
+    global.xhr = { 
+        get: get, getJson: getJson, del: del,
+        post: post, xhrFormData: xhrFormData
+    };
 
 })(this);
-
