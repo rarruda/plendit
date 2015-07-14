@@ -20,13 +20,12 @@
                 <% @ad.ad_images.each_with_index do |img, index| %>
                     <%= image_tag(img.image.url(:gallery), size: AdImage.imageSize(:gallery),
                             class: "gallery__image", id: "image-#{index + 1}") %>
+                    <% if not img.description.nil? && img.description != "" %>
+                            <h5><%= img.description %></h5>
+                    <% end -%>
                     <hr>
                 <% end %>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
