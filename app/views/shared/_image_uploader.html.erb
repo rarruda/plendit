@@ -1,0 +1,17 @@
+<div class="image-uploader" data-controller="imageUploader" data-image-path="<%= ad_images_path(:ad_id => params[:ad_id], :format => :json) %>">
+    <script type="text/template" data-dropzone-template>
+        <div class="image-uploader__thumb-holder">
+            <img class="image-uploader__thumb" data-dz-thumbnail>
+        </div>
+    </script>
+
+    <%= form_for(AdImage.new, html: { multipart: true }) do |f|  %>
+        <%= f.hidden_field(:ad_id, value: @ad.id) %>
+        <%= f.hidden_field(:weight, value: 0) %>
+        <div class="image-uploader__drop-target dz-message">
+            <%= image_tag("camera_icon.png", size: "57x47", alt: "") %>
+            <p>Dra bilder hit, eller klikk her, for å laste opp bilder</p>
+        </div>
+    <% end %>
+    <div data-dropzone-preview class="image-uploader__previews"></div>
+</div>

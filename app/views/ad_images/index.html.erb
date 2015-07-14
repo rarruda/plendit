@@ -2,12 +2,8 @@
 <div class="container">
     <div class="row">
         <div class="seven columns">
-
-            <div class="input-progress"><div class="input-progress__step"><strong>Detaljer</strong></div><div class="input-progress__step input-progress__step--current"><strong>Bilder</strong></div><div class="input-progress__step"><strong>Publiser</strong></div>
-            </div>
-
+            <%= render partial: 'shared/image_uploader', locals: { ad: @ad } %>
             <%= render partial: 'shared/image_manager', locals: { ad: @ad } %>
-
         </div>
         <div class="four columns offset-by-one column">
             <%= render partial: "ads/ad_input_copy" %>
