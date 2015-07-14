@@ -1,11 +1,12 @@
 window.controllers = window.controllers || {};
 
 window.controllers.imageManager = {
-    dependencies: ['$element', 'xhr'],
-    callable: function(ele, xhr) {
+    dependencies: ['$element', 'xhr', 'eventbus'],
+    callable: function(ele, xhr, eventbus) {
         var imageManagerUrl = ele.getAttribute("data-image-manager-url");
 
         ele.addEventListener('submit', onSubmit);
+        eventbus.on(eventbus.IMAGES_CHANGED, reloadImages);
 
         function onSubmit(ele) {
             ele.preventDefault();

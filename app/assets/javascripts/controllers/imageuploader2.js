@@ -1,6 +1,7 @@
 Dropzone.autoDiscover = false;
 window.controllers.imageUploader = {
-    callable: function(ele) {
+    dependencies: ["$element", "eventbus"],
+    callable: function(ele, eventbus) {
         var imagePath = ele.getAttribute("data-image-path");
         var template = ele.querySelector("[data-dropzone-template]").textContent;
 
@@ -18,7 +19,7 @@ window.controllers.imageUploader = {
             thumbnailWidth: 80,
             thumbnailHeight: 80,
             autoProcessQueue: true,
-            parallelUploads: 100,
+            parallelUploads: 1,
             maxFiles: 100,
             //url: imagePath,
             previewTemplate: template,
@@ -32,6 +33,7 @@ window.controllers.imageUploader = {
             this.on("queuecomplete", logger("queuecomplete"));
             this.on("successmultiple", logger("successmultiple"));
             this.on("success", logger("success"));
+            this.on("success", onSuccess);
             this.on("progress", logger("progress"));
         }
 
@@ -42,10 +44,8 @@ window.controllers.imageUploader = {
         function onRemovedfile(file) {
         }
 
-        function onSuccess(a,b,c) {
-            console.log("success");
-            // fixme: get the delete URL out of it, store it in a dict in
-            // controller so we always have the delete url and friends
+        function onSuccess() {
+            eventbus.emit(eventbus.IMAGES_CHANGED)
         }
     }
 };
