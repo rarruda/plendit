@@ -23,6 +23,7 @@ class AdImagesController < ApplicationController
   # POST /ad_images.json
   def create
     @ad_image = AdImage.new(ad_image_params)
+    @ad_image.make_primary
     respond_to do |format|
       if @ad_image.save
         format.json { render json: @ad_image.to_dropzone_gallery.to_json, :status => 200 }
