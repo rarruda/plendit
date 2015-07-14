@@ -43,7 +43,13 @@ class AdImagesController < ApplicationController
   def update
     respond_to do |format|
       if @ad_image.update(ad_image_params)
-        format.html { redirect_to @ad_image, notice: 'Ad item was successfully updated.' }
+        format.html {
+          if params[:ad_image][:previous_url]
+            redirect_to params[:ad_image][:previous_url], notice: 'Ad item was successfully updated.'
+          else
+            redirect_to @ad_image, notice: 'Ad item was successfully updated.'
+          end
+        }
         #format.json { render :show, status: :ok, location: @ad_image }
         format.json { head :no_content }
       else

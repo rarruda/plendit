@@ -1,11 +1,14 @@
 <div class="image-manager">
-
     <% ad.ad_images.each do |img| %>
         <div class="image-manager__item">
             <%= image_tag img.image.url(:thumb), size: "180x120" %>
             <%= button_to 'Slett', ad_image_path(img), method: :delete, form_class: "lolclass", class: "lolclass2" %>
             <%= button_to 'Hovedbilde', make_primary_ad_image_path(img), form_class: "lolclass", class: "lolclass2" %>
+            <%= form_for(img, url: ad_image_path(img)) do |f| %>
+                <%= f.text_field :description, placeholder: 'Bildetekst' %>
+                <%= f.hidden_field :previous_url, value: request.fullpath %>
+                <%= f.submit 'Lagre bildetekst' %>
+            <% end %>
         </div>
     <% end %>
-
 </div>
