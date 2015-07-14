@@ -9,10 +9,7 @@ window.controllers.imageUploader = {
             maxFilesize: 16, // Set the maximum file size to 16 MB
             paramName: "ad_image[image]", // Rails expects the file upload to be something like model[field_name]
             addRemoveLinks: false,
-            // parameters that should probably be set after looking up the documentation: 
-            // http://www.dropzonejs.com/#configuration-options
-            // // acceptedFiles      // list file types that are acceptable
-            // autoProcessQueue: false, // to have a start upload button
+            // acceptedFiles      // list file types that are acceptable
             uploadMultiple: false,    // upload all files at once (including the form data)
             clickable: true,
             previewsContainer: "[data-dropzone-preview]",
@@ -21,7 +18,6 @@ window.controllers.imageUploader = {
             autoProcessQueue: true,
             parallelUploads: 1,
             maxFiles: 100,
-            //url: imagePath,
             previewTemplate: template,
             init: onDropZoneInit
         });
