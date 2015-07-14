@@ -68,15 +68,7 @@ class AdImagesController < ApplicationController
   end
 
   def make_primary
-    AdImage.transaction do
-      @ad_image.weight = 1
-      @ad_image.save!
-      @ad_image.ad.ad_images.order(:weight).where.not(id: @ad_image.id).each_with_index do |img, index|
-        puts "image weught is #{img.weight} wanna set #{index+2}"
-        img.weight = index + 2
-        img.save!
-      end
-    end
+    @ad_image.make_primary
     respond_to do |format|
       format.html { redirect_to (users_ad_ad_images_path @ad_image.ad), notice: 'Ad image was made primary.' }
       format.json { render json: { message: "successfully made primary" }, :status => 200 }

@@ -51,4 +51,13 @@ class AdImage < ActiveRecord::Base
     }
   end
 
+  def make_primary
+    AdImage.transaction do
+      self.update(weight: 1)
+      self.ad.ad_images.order(:weight).where.not(id: self.id).each_with_index do |img, index|
+        img.update(weight: index + 2)
+      end
+    end
+  end
+
 end
