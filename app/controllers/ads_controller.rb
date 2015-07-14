@@ -4,6 +4,7 @@ class AdsController < ApplicationController
     :double_calendar,
     :edit,
     :gallery,
+    :image_manager,
     :pause,
     :preview,
     :resume,
@@ -221,6 +222,10 @@ class AdsController < ApplicationController
         image: "new_realestate.png"
       }
     ]
+  end
+
+  def image_manager
+     render partial: "shared/image_manager_item", collection: @ad.ad_images, as: :ad_image
   end
 
   # GET /ads/1/double_calendar?date=day_or_month
