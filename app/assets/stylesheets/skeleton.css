@@ -390,6 +390,10 @@ form {
   display: none !important;
 }
 
+.u-transparent {
+  opacity: 0;
+}
+
 @media (min-width: 550px) {
   .u-hidden-when-grid {
     display: none;
