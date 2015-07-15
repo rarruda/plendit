@@ -63,7 +63,14 @@ class AdImagesController < ApplicationController
   def destroy
     @ad_image.destroy
     respond_to do |format|
-      format.html { redirect_to ad_images_path, notice: 'Ad image was successfully destroyed.' }
+      format.html {
+        puts params
+        if params[:previous_url]
+          redirect_to params[:previous_url], notice: 'Ad image was successfully destroyed.'
+        else
+          redirect_to ad_images_path, notice: 'Ad image was successfully destroyed.'
+        end
+      }
       format.json { render json: { message: "successfully destroyed" }, :status => 200 }
     end
   end
