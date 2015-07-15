@@ -25,11 +25,32 @@ window.controllers.imageManager = {
         function reloadImages() {
             return xhr
                 .get(imageManagerUrl)
-                .then(reRenderImages);
+                .then(setTransparent)
+                .then(sleep(300))
+                .then(reRenderImages)
+                .then(setOpaque)
         }
 
         function reRenderImages(response) {
             ele.innerHTML = response.responseText;
+        }
+
+        function setTransparent(e) {
+            ele.classList.add('u-transparent');
+            return e;
+        }
+
+        function setOpaque(e) {
+            ele.classList.remove('u-transparent');
+            return e
+        }
+
+        function sleep(ms) {
+            return function(e) {
+                return new Promise(function(resolve, reject) {
+                    window.setTimeout(function() { resolve(e); }, ms);
+               });
+            }
         }
     }
 };

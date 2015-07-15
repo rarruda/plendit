@@ -2,6 +2,8 @@
 
 .image-manager {
 
+    transition: opacity 0.2s;
+
     &__item {
         display: flex;
     }
