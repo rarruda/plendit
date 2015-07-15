@@ -64,13 +64,13 @@ class AdsController < ApplicationController
       filter << {
         geo_bounding_box: {
           geo_location: {
-            top_left: {
+            top_right: {
               lat: params[:ne_lat],
-              lon: params[:sw_lon]
-            },
-            bottom_right: {
-              lat: params[:sw_lat],
               lon: params[:ne_lon]
+            },
+            bottom_left: {
+              lat: params[:sw_lat],
+              lon: params[:sw_lon]
             }
           }
         }
@@ -93,6 +93,14 @@ class AdsController < ApplicationController
     end
     filter << filter_price if ! filter_price.empty?
 
+    # If the filter has multiple elements, we AND (bool must) them:
+    if filter.length > 1
+      filter = {
+        bool: {
+          must: filter
+        }
+      }
+    end
 
     @ads = Ad.search query, filter #kaminari_paginate: .page(page).per(5)
 
