@@ -23,6 +23,7 @@ window.controllers.imageUploader = {
         });
 
         function onDropZoneInit() {
+            this.on('complete', onComplete);
             this.on("removedfile", onRemovedfile);
             this.on("uploadprogress", logger("uploadprogress"));
             this.on("totaluploadprogress", logger("totaluploadprogress"));
@@ -31,6 +32,10 @@ window.controllers.imageUploader = {
             this.on("success", logger("success"));
             this.on("success", onSuccess);
             this.on("progress", logger("progress"));
+        }
+
+        function onComplete(file) {
+            dropzone.removeFile(file);
         }
 
         function logger(name) {
