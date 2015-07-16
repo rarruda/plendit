@@ -115,14 +115,6 @@ class Ad < ActiveRecord::Base
     not ( self.stopped? or self.suspended? )
   end
 
-  def searcheable?
-    self.published?
-  end
-
-  # now as part of Searchable/ES
-  #def self.search q
-  #  Ad.where('LOWER(title) LIKE LOWER(?) OR LOWER(body) LIKE LOWER(?)', "%#{q}%", "%#{q}%" )
-  #end
 
   def related_ads_from_user
     self.user.ads.reject { |ad| ad.id == self.id }
