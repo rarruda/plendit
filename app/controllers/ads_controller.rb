@@ -262,6 +262,7 @@ class AdsController < ApplicationController
     # todo: verify for sane ad type
     type = params[:ad_type]
     @ad = Ad.new(user_id: current_user.id)
+    @ad.ad_items.build
     # @ad = Ad.new(type: type)
     if @ad.save
       redirect_to edit_users_ad_path(@ad), notice: t(:flash_ad_created)
