@@ -14,6 +14,7 @@ class Ad < ActiveRecord::Base
   belongs_to :location
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5 }
+  enum category: { bap: 0, motor: 1, realestate: 2 }
 
   accepts_nested_attributes_for :location, :reject_if => :all_blank
 
@@ -42,9 +43,11 @@ class Ad < ActiveRecord::Base
       indexes :geo_location,  type: :geo_point
       indexes :price,         type: :double
       indexes :tags,          type: :string, analyzer: 'keyword'
+      indexes :category,      type: :string
       indexes :ad_images do
         indexes :id,          type: :integer
         indexes :description, type: :string
+        indexes :weight,      type: :integer
       end
       indexes :user do
         indexes :id,          type: :integer
@@ -156,8 +159,8 @@ class Ad < ActiveRecord::Base
   # TODO: find out if we want more information on the Ad, and/or AdImages
   def as_indexed_json(options={})
     as_json(
-      only: [:id, :title, :body, :price ],
-      include: { user: { only: :id }, ad_images: { only: [:id, :description] } },
+      only: [:id, :title, :body, :category, :price ],
+      include: { user: { only: :id }, ad_images: { only: [:id, :description, :weight] } },
       methods: [:tags, :geo_location]
     )
   end
