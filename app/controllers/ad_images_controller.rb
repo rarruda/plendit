@@ -1,11 +1,12 @@
 class AdImagesController < ApplicationController
-  before_action :set_ad_image, only: [:update, :destroy]
+  before_action :set_ad_image, only: [:update, :destroy, :make_primary]
   before_filter :authenticate_user!
 
   # GET /ad_images
   # GET /ad_images.json
   def index
     # missing verification if user owns ad:
+    @ad = Ad.find(params[:ad_id])
     @ad_id = params[:ad_id]
     @ad_images = AdImage.for_ad_id( params[:ad_id] ).all
     respond_to do |format|
@@ -22,8 +23,7 @@ class AdImagesController < ApplicationController
   # POST /ad_images.json
   def create
     @ad_image = AdImage.new(ad_image_params)
-    @ad_image.ad_id = params[:ad_id]
-
+    @ad_image.make_primary
     respond_to do |format|
       if @ad_image.save
         format.json { render json: @ad_image.to_dropzone_gallery.to_json, :status => 200 }
@@ -42,7 +42,13 @@ class AdImagesController < ApplicationController
   def update
     respond_to do |format|
       if @ad_image.update(ad_image_params)
-        format.html { redirect_to @ad_image, notice: 'Ad item was successfully updated.' }
+        format.html {
+          if params[:ad_image][:previous_url]
+            redirect_to params[:ad_image][:previous_url], notice: 'Ad item was successfully updated.'
+          else
+            redirect_to @ad_image, notice: 'Ad item was successfully updated.'
+          end
+        }
         #format.json { render :show, status: :ok, location: @ad_image }
         format.json { head :no_content }
       else
@@ -57,8 +63,23 @@ class AdImagesController < ApplicationController
   def destroy
     @ad_image.destroy
     respond_to do |format|
-      format.html { redirect_to ad_images_path, notice: 'Ad image was successfully destroyed.' }
+      format.html {
+        puts params
+        if params[:previous_url]
+          redirect_to params[:previous_url], notice: 'Ad image was successfully destroyed.'
+        else
+          redirect_to ad_images_path, notice: 'Ad image was successfully destroyed.'
+        end
+      }
       format.json { render json: { message: "successfully destroyed" }, :status => 200 }
+    end
+  end
+
+  def make_primary
+    @ad_image.make_primary
+    respond_to do |format|
+      format.html { redirect_to (users_ad_ad_images_path @ad_image.ad), notice: 'Ad image was made primary.' }
+      format.json { render json: { message: "successfully made primary" }, :status => 200 }
     end
   end
 

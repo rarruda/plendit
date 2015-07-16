@@ -1,0 +1,23 @@
+@import 'constants.scss';
+
+.image-manager {
+
+    transition: opacity 0.2s;
+
+    &__item {
+        display: flex;
+    }
+
+    &__thumb-box {
+        flex-shrink: 0;
+        width: 220px;
+    }
+
+    &__controls {
+
+    }
+
+    form {
+        display: inline;
+    }
+}

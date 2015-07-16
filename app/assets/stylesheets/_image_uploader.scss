@@ -1,0 +1,30 @@
+@import 'constants.scss';
+
+.image-uploader {
+    border: dotted 2px #000;
+    border-radius: 4px;
+    padding: $standard-spacing;
+    margin-top: $standard-spacing;
+    margin-bottom: $standard-spacing;
+
+    &__drop-target {
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &__thumb-holder {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+        margin: $standard-spacing / 2;
+    }
+
+    &__thumb {
+        position: absolute;
+    }
+
+    &__throbber {
+        background-color: rgba(0,0,0,0.35);
+        position: absolute;
+    }
+}

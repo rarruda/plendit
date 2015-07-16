@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       get 'gallery'
       get 'double_calendar'
       get 'single_calendar'
+      get 'image_manager'
       post 'pause'
       post 'stop'
       post 'approve'
@@ -71,8 +72,14 @@ Rails.application.routes.draw do
     end
     resources :bookings
   end
+
   # fixme: should be retired in the future:
-  resources :ad_images
+  resources :ad_images do
+    member do
+      post 'make_primary'
+    end
+  end
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -2,12 +2,12 @@
 <div class="container">
     <div class="row">
         <div class="seven columns">
-
-            <div class="input-progress"><div class="input-progress__step"><strong>Detaljer</strong></div><div class="input-progress__step input-progress__step--current"><strong>Bilder</strong></div><div class="input-progress__step"><strong>Publiser</strong></div>
+            <%= render partial: 'shared/image_uploader', locals: { ad: @ad } %>
+            <%= render partial: 'shared/image_manager', locals: { ad: @ad } %>
+            <div>
+                <%= link_to "rediger annonse", (edit_users_ad_path @ad_id) %>
+                <%= link_to "vis annonse", (ad_path @ad_id) %>
             </div>
-
-            <%= render 'form_ajax_test3' %>
-
         </div>
         <div class="four columns offset-by-one column">
             <%= render partial: "ads/ad_input_copy" %>

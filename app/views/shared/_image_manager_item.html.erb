@@ -1,0 +1,14 @@
+<div class="image-manager__item">
+    <div class="image-manager__thumb-box">
+        <%= image_tag ad_image.image.url(:thumb), size: "180x120", class: "image-manager__thumb" %>
+    </div>
+    <div class="image-manager__controls">
+        <%= form_for(ad_image, url: ad_image_path(ad_image)) do |f| %>
+            <%= f.text_field :description, placeholder: 'Bildetekst' %>
+            <%= f.hidden_field :previous_url, value: request.fullpath %>
+            <%= f.submit 'Lagre bildetekst' %>
+        <% end %>
+        <%= button_to 'Slett', ad_image_path(ad_image), method: :delete, params: {previous_url: request.fullpath} %>
+        <%= button_to 'Gjør til hovedbilde', make_primary_ad_image_path(ad_image) %>
+    </div>
+</div>

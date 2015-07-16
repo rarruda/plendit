@@ -1,12 +1,19 @@
 (function(global) {
 
-    function xhr(method, url, data) {
+    function xhr(method, url, data, headers) {
         var isSuccess = function(n) { return n >= 200 && n < 400; }
         return new Promise(function(resolve, reject) {
             const req = new XMLHttpRequest();
             req.onload = function() { isSuccess(req.status) ? resolve(req) : reject(req) };
             req.onerror = function() { reject(req) };
             req.open(method, url);
+
+            if (headers) {
+                for (var key in headers) {
+                    req.setRequestHeader(key, headers[key]);
+                }
+            }
+
             var csrf = getCsrfData();
             if (csrf.token) {
                 req.setRequestHeader("X-CSRF-Token", csrf.token);
@@ -40,7 +47,13 @@
         return xhr("post", url);
     }
 
-    global.xhr = { get: get, getJson: getJson, del: del, post: post };
+    function xhrFormData(formEle) {
+        return xhr(formEle.method, formEle.action, new FormData(formEle), {'Accept': 'application/json'});
+    }
+
+    global.xhr = { 
+        get: get, getJson: getJson, del: del,
+        post: post, xhrFormData: xhrFormData
+    };
 
 })(this);
-
