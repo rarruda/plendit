@@ -26,7 +26,7 @@ module Searchable
         _q = {
           multi_match: {
             query: query,
-            fields: ['title^3','body^2','_all']
+            fields: ['title^4','body^2','_all']
           }
         }
       end
