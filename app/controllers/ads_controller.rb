@@ -221,7 +221,7 @@ class AdsController < ApplicationController
       },
       {
         title: "Kjøretøy",
-        type: "veichle",
+        type: "motor",
         image: "new_realestate.png"
       },
       {
