@@ -129,6 +129,10 @@ class Ad < ActiveRecord::Base
     truncate( self.body , line_width: 240 )
   end
 
+  def safe_title
+    self.title || "(Ingen tittel)"
+  end
+
   # helper methods for generating urls for the three different image sizes, and which has the
   ## default fallback to stock images. (so that it will degrate nicely)
   def image_url_with_fallback( size )
