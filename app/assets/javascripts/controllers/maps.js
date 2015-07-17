@@ -42,6 +42,7 @@ window.controllers.resultMap = {
         eventBus.on('new-search-result', onSearchResult);
 
         var map = initMap(searchData);
+        var infoWindow;
         var markers = [];
         updateMarkers(searchData.hits);
 
@@ -91,22 +92,25 @@ window.controllers.resultMap = {
                 return true;
             });
 
-            hits = hits.map(function(e) {
-                return {lat: parseFloat(e.location.lat), lng: parseFloat(e.location.lon)}
-            });
-
             var poiImg = {
                 url: '/images/poi40.png',
                 anchor: new google.maps.Point(10, 40)
             };
 
             hits.forEach(function(hit) {
-                markers.push(new google.maps.Marker({
-                    position: hit,
+                var pos = {lat: parseFloat(hit.location.lat), lng: parseFloat(hit.location.lon)};
+                var marker = new google.maps.Marker({
+                    position: pos,
                     map: map,
                     title: 'Treff',
-                    icon: poiImg
-                }));
+                    icon: poiImg,
+                    adId: 9
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    onMarkerClick(marker);
+                });
+                markers.push(marker);
             });
         }
 
@@ -128,6 +132,16 @@ window.controllers.resultMap = {
                 if (callNow) func.apply(context, args);
             };
         };
+
+        function onMarkerClick(marker) {
+            var hitEle = document.querySelector('[data-adid="'+ marker.adId +'"]');
+            var hitEle = hitEle.cloneNode(true);
+            if (infoWindow) { infoWindow.close(); }
+            infoWindow = new google.maps.InfoWindow({
+                content: hitEle
+            });
+            infoWindow.open(map, marker);
+        }
 
 
     }

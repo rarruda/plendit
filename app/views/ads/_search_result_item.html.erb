@@ -1,4 +1,4 @@
-<div class="search-result-item">
+<div class="search-result-item" data-adid="<%= ad.id %>">
     <%= link_to ad_path(ad.id), class: "search-result-item__link" do %>
         <div class="search-result-item__image-holder">
             <%= image_tag Ad.find(ad.id).image_url_with_fallback(:searchresult), alt: "", class: "search-result-item__image" %>
