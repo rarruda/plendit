@@ -213,20 +213,20 @@ class AdsController < ApplicationController
 
   # GET /ads/new
   def new
-    @ad_types = [
+    @ad_categories = [
       {
         title: "Stort og smått",
-        type: "bap",
+        category: "bap",
         image: "new_realestate.png"
       },
       {
         title: "Kjøretøy",
-        type: "motor",
+        category: "motor",
         image: "new_realestate.png"
       },
       {
         title: "Eiendom",
-        type: "realestate",
+        category: "realestate",
         image: "new_realestate.png"
       }
     ]
@@ -259,9 +259,10 @@ class AdsController < ApplicationController
   # POST /ads
   # POST /ads.json
   def create
-    # todo: verify for sane ad type
-    type = params[:ad_type]
-    @ad = Ad.new(user_id: current_user.id)
+    logger.error "Ad Category sent is not supported. This is not ok." if not Ad.categories.include? params[:category]
+    # FIXME: do something about it if there was an error with the category...
+
+    @ad = Ad.new(user_id: current_user.id, category: params[:category])
     @ad.ad_items.build
     # @ad = Ad.new(type: type)
     if @ad.save

@@ -2,14 +2,26 @@
     <div class="row">
         <div class="seven columns">
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
-            <% @ad_types.each do |a| %>
-                <%= form_tag(user_ad_path, class: "new-ad-type-selector") do  %>
-                    <%= hidden_field_tag(:type, a[:type]) %>
-                        <%= button_tag class: "new-ad-type-selector__button" do %>
+            <% @ad_categories.each do |a| %>
+                <%= button_to "stuff #{a[:title]} #{a[:image]}", user_ad_path, form_class: "new-ad-category-selector", class: "new-ad-category-selector__button", params: {category: a[:category]} %>
+
+                <%= form_tag(user_ad_path, class: "new-ad-category-selector") do  %>
+                    <%= hidden_field_tag(:category, a[:category]) %>
+                    <%= button_tag class: "new-ad-category-selector__button" do %>
                         <%= image_tag a[:image], size: "128x128" %>
                         <h4><%= a[:title] %></h4>
                     <% end %>
                 <% end %>
+
+<!--
+                <%= form_tag(user_ad_path, class: "new-ad-category-selector") do  %>
+                    <%= hidden_field_tag(:type, a[:type]) %>
+                        <%= button_tag class: "new-ad-category-selector__button" do %>
+                        <%= image_tag a[:image], size: "128x128" %>
+                        <h4><%= a[:title] %></h4>
+                    <% end %>
+                <% end %>
+ -->
             <% end %>
         </div>
         <div class="four columns offset-by-one column">
