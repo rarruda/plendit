@@ -162,6 +162,13 @@ class User < ActiveRecord::Base
     self.name.first.downcase == "r"
   end
 
+  def active_bookings
+    recv_bookings = self.bookings.where(status: [0, 1])
+    sent_bookings = self.sent_bookings.where(status: [0, 1])
+    bookings = recv_bookings + sent_bookings
+    bookings.sort do |a,b| b.updated_at <=> a.updated_at end
+  end
+
   private
   def set_phone_attributes
     #self.phone_number = false

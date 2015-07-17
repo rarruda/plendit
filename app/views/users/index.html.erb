@@ -2,24 +2,48 @@
 
 <div class="container">
     <div class="row">
-        <div class="eight columns">
-
-            <div class="gray-box u-push-down">
-                <h5 class="gray-box__title">Nye forespørsler</h5>
-                <div class="gray-box__body">
-                    Under ser du nye forespørsler. Om du ser etter
-                    leiehistorikk, finner du denne ved å
-                    <a href="#">klikke her</a>
-                </div>
+        <div class="six columns">
+            <div class="u-push-down">
+                <h4>Mine annonser</h4>
+                <% unless current_user.ads.empty? %>
+                    <% current_user.ads.each do |ad| %>
+                        <div>
+                            <%= link_to ad.safe_title, ad %>
+                            <%= ad.status %>
+                            <small>(oppdatert <%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
+                        </div>
+                    <% end %>
+                <% else %>
+                    Du har ikke publisert noen annonser ennå.
+                <% end %>
+                <%= button_to "Legg ut en ny annonse", new_ad_path, method: "get" %>
             </div>
 
+            <div class="u-push-down">
+                <h4>Utestående vurderinger</h4>
+                <div>Placeholder</div>
+            </div>
         </div>
-        <div class="four columns">
 
-            <%= render partial: "shared/sent_requests_sidebar_box" %>
+        <div class="six columns">
+            <div class="u-push-down">
+                <h4>Forespørsler</h4>
+                <% unless current_user.active_bookings.empty? %>
+                    <% current_user.active_bookings.each do |booking| %>
+                        <%= link_to booking.ad.safe_title, booking %>
+                        <%= booking.status %>
+                        <small>(oppdatert <%= booking.ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
+                    <% end %>
+                <% else %>
+                        Du har ingen åpne sendte eller mottatte forespørsler
+                <% end %>
+            </div>
 
-            <%= render('shared/profile_image_box.html', user: current_user, size: "huge") %>
-
+            <div class="u-push-down">
+                <h4>Siste meldinger</h4>
+                <div>Placeholder</div>
+            </div>
         </div>
+
     </div>
 </div>
