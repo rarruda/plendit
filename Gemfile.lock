@@ -244,6 +244,7 @@ GEM
     ref (1.0.5)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+    rolify (4.0.0)
     ruby-graphviz (1.2.2)
     sass (3.4.14)
     sass-rails (5.0.3)
@@ -318,6 +319,7 @@ DEPENDENCIES
   rails-erd
   rails-i18n (~> 4.0)
   rails_12factor
+  rolify (~> 4)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring

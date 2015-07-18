@@ -22,6 +22,8 @@ gem 'elasticsearch-rails'
 
 gem 'aasm', '~> 4'
 
+gem 'rolify', '~> 4'
+
 # possibly replace this with https://github.com/kpumuk/meta-tags
 gem 'metamagic'
 
