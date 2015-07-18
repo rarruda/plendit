@@ -53,59 +53,12 @@ class AdsController < ApplicationController
     @hide_search_field = true
     @supress_footer = true
 
-    # will need to add search in tags too:
-    # as well some sort of ordering/ranking, and support for more complex searches/filters.
+    query  = params[:q]
     filter = []
+    options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max'].include? k }
 
-    @term = params[:q] || ""
-    query  = params[:q] || "*"
+    @ads = Ad.search query, filter, options #kaminari_paginate: .page(page).per(5)
 
-    if params.has_key?('ne_lat') && params.has_key?('ne_lon') &&
-      params.has_key?('sw_lat') && params.has_key?('sw_lon')
-      filter << {
-        geo_bounding_box: {
-          geo_location: {
-            top_right: {
-              lat: params[:ne_lat],
-              lon: params[:ne_lon]
-            },
-            bottom_left: {
-              lat: params[:sw_lat],
-              lon: params[:sw_lon]
-            }
-          }
-        }
-      }
-    end
-    filter_price = {
-      range: {
-        price: {}
-      }
-    }
-    if params.has_key? 'price_min'
-      filter_price[:range][:price].merge! ( {
-        gte: params[:price_min]
-      } )
-    end
-    if params.has_key? 'price_max'
-      filter_price[:range][:price].merge! ( {
-        lte: params[:price_max]
-      } )
-    end
-    filter << filter_price if ! filter_price.empty?
-
-    # If the filter has multiple elements, we AND (bool must) them:
-    if filter.length > 1
-      filter = {
-        bool: {
-          must: filter
-        }
-      }
-    end
-
-    @ads = Ad.search query, filter #kaminari_paginate: .page(page).per(5)
-
-    # fixme: use lng rather than lon everywhere?
     # fixme: center from query param, or a sensible default from a config
     @location_info = {
       center: {lat: 59.913869, lon: 10.752245},
@@ -333,7 +286,7 @@ class AdsController < ApplicationController
     end
 
     def ad_can_be_shown
-      @ad.status == 'published' || 
+      @ad.status == 'published' ||
       user_signed_in? && (current_user.is_admin_hack? || current_user != @ad.user)
     end
 
