@@ -31,7 +31,11 @@ class User < ActiveRecord::Base
 
   #validates :image_url
 
-  enum status: { unconfirmed: 1, confirmed: 2, locked: 3, admin: 10 }
+  # From: http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html
+  # and https://github.com/plataformatec/devise/blob/master/lib/devise/models/confirmable.rb#L99
+  # FIXME: confirmed(?) here clashes with confirmed? from devise!
+  # this is super not good!
+  enum status: { unconfirmed: 1, confirmed: 2, locked: 3 }
 
 
   # only act on the phone settings, if the phone number was changed.
@@ -122,6 +126,7 @@ class User < ActiveRecord::Base
     self.email && self.email !~ /\Atemp-/
   end
 
+
   def recent_notifications
     self.notifications.order("created_at desc").limit(10)
   end
@@ -129,6 +134,7 @@ class User < ActiveRecord::Base
   def unseen_notifications_count
     self.notifications.fresh.size
   end
+
 
   def current_phone_number
     self.unconfirmed_phone_number || self.phone_number
