@@ -160,8 +160,9 @@ class User < ActiveRecord::Base
     unconfirmed_phone_number_changed?
   end
 
-  def is_admin_hack?
-    self.name.first.downcase == "r"
+
+  def is_site_admin?
+    self.has_role? :site_admin
   end
 
   def active_bookings

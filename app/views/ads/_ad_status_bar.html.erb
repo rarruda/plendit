@@ -1,4 +1,4 @@
-<% if user_signed_in? && (current_user.is_admin_hack? || current_user == ad.user) %>
+<% if user_signed_in? && (current_user.is_site_admin? || current_user == ad.user) %>
     <div class="ad-status-bar ad-status-bar--<%= ad.status %>">
         <% if ad.status == 'published' %>
             Annonsen er aktiv. <a class="ad-status-bar__link" href="#ad-controls">Endre</a>

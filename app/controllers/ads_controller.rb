@@ -263,7 +263,7 @@ class AdsController < ApplicationController
     end
 
     def require_authorization
-      if not ( ( @ad and @ad.user == current_user ) or current_user.is_admin_hack? )
+      if not ( ( @ad and @ad.user == current_user ) or current_user.is_site_admin? )
         # throw exception. User not allowed here.
         logger.tagged("user_id:#{current_user.id}") {
           logger.error "User not authorized to see this page."
@@ -287,7 +287,7 @@ class AdsController < ApplicationController
 
     def ad_can_be_shown
       @ad.status == 'published' ||
-      user_signed_in? && (current_user.is_admin_hack? || current_user != @ad.user)
+      user_signed_in? && (current_user.is_site_admin? || current_user != @ad.user)
     end
 
 end

@@ -16,7 +16,7 @@
         <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--green" %>
     <% end %>
 
-    <%- if current_user.is_admin_hack? -%>
+    <%- if current_user.is_site_admin? -%>
         <br>
         Admin kontroll:
         <br>
