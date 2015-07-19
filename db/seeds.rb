@@ -41,7 +41,7 @@ u = User.create(
   "phone_number"=>"99994444",
   "ephemeral_answer_percent"=>"25",
   "status"=> "confirmed",
-  "email"=>"jan.erik.berentsen+testonly@plendit.com",
+  "email"=>"jan.erik.berentsen@plendit.com",
   "image_url"=>"https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/088/1fe/0cb0e86.jpg",
   "password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
   )
@@ -49,7 +49,7 @@ u.confirm!
 u.locations.create!({"address_line"=>"Bentsebrugata 23B", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0469"})
 u.locations.create!({"address_line"=>"Grensen  5-7", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0159"})
 u.locations.create!({"address_line"=>"Støperigata 1", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250"})
-#u.add_role :site_admin
+u.add_role :site_admin
 
 # Ad #1
 a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Fjellpulken barnepulk med ski ", "body"=>"Lite brukt Fjellpulken barnepulk leies ut. Pulken er komplett og har veltebøyle, vindskjerm,\r\nryggstøtte, drag og sele med kryssremmer. Overtrekkspose som gir god beskyttelse ved lagring\r\nog transport medfølger. Pulken har alltid vært lagret innendørs. Stoffet er derfor som nytt i farge.\r\nDet er ingen skader på noen deler av pulken.\r\nPå sekstitallet ble konseptet Barnepulken oppfunnet av Egil Rustadstuen, og fikk Merket for god\r\ndesign i 1968. Siden har pulken gjennomgått en stadig utvikling, men med samme grunnkonsept\r\nbasert på et båtformet glassfiberskrog.\r\nFjellpulken er et urnorsk produkt, og nyutviklingen med ski beholder den sterke identiteten. Den\r\nnye pulken er optimalisert for bruk i skiløyper, med bedre ergonomi og sikkerhet for barnet.\r\nFormgivingen er svært appellerende og ergonomien gir friere bruksmuligheter med økt\r\nbevegelighet. Den er mye lettere å gå med. Siden pulken er løftet opp fra bakken blir ikke bare\r\nkomforten for barnet bedre, men det blir også lettere å holde barnet varmt. Tryggheten er\r\nivaretatt med veltebøyle. Detaljene rundt innstillingene er fine, og alt i alt holder produktet en\r\nimponerende kvalitet.", "price"=>"250.0"})
@@ -84,13 +84,13 @@ u = User.create(
   "phone_number"=>"44449999",
   "ephemeral_answer_percent"=>"75",
   "status"=>"confirmed",
-  "email"=>"trygve.leite+testonly@plendit.com",
+  "email"=>"trygve.leite@plendit.com",
   "password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
   )
 u.confirm!
 u.locations.create!({"address_line"=>"Kristiansands gate 12 A", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0463"})
 u.locations.create!({"address_line"=>"Slottsplassen 1", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0010"})
-#u.add_role :site_admin
+u.add_role :site_admin
 
 # Ad #3
 a = u.ads.create!({"location_id"=>u.locations.first.id, "title"=>"Skiguard 850 skiboks", "body"=>"Skiguard har designet en lekker, aerodynamisk og lavtliggende ny takboks. Skiguard 830 er\r\nberegnet på mindre biler med kortere tak, blant annet til en rekke mellomstore typer SUV.\r\n\r\nSkiguard er alene om å ha et buet design, for å passe perfekt til de nye takene som er blitt\r\ntrenden de senere år. Skiguard 830 er av samme design og meget buet. Dette gjør at boksen\r\nfår en optimal plassering på de fleste biler.\r\n\r\nDenne boksen er bygget på samme moderne lest som modell 860, er 214 cm lang, og har plass\r\ntil inntil 205 cm lange langrennsski.\r\n\r\nBoksen har også et nyutviklet låssystem som benyttes blant annet i modell 860.", "price"=>"199.0"})
