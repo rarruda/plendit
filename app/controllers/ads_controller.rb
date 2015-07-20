@@ -101,7 +101,7 @@ class AdsController < ApplicationController
   # GET /ads/1
   # GET /ads/1.json
   def show
-    if not ad_can_be_shown
+    if not ad_can_be_shown?
       render status: 404, text: "Fixme: Annonsen finnes ikke eller er ikke offentlig"
     end
   end
@@ -285,9 +285,9 @@ class AdsController < ApplicationController
       params.require(:ad).permit(:title, :body, :price, :tag_list, :location_id, :location_attributes => [:address_line, :post_code] )
     end
 
-    def ad_can_be_shown
+    def ad_can_be_shown?
       @ad.status == 'published' ||
-      user_signed_in? && (current_user.is_site_admin? || current_user != @ad.user)
+      user_signed_in? && (current_user.is_site_admin? || current_user == @ad.user)
     end
 
 end
