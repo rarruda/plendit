@@ -104,6 +104,7 @@ class User < ActiveRecord::Base
       if user.nil?
         user = User.new(
           name: auth.info.name, ##auth.extra.raw_info.name,
+          display_name: auth.info.first_name,
           email: email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
           image_url: auth.info.image,
           password: Devise.friendly_token[0,20]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718182549) do
+ActiveRecord::Schema.define(version: 20150720184203) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -140,6 +140,11 @@ ActiveRecord::Schema.define(version: 20150718182549) do
     t.string   "profile_url"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "email"
+    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "nickname"
   end
 
   add_index "identities", ["uid"], name: "index_identities_on_uid"
@@ -245,6 +250,7 @@ ActiveRecord::Schema.define(version: 20150718182549) do
     t.datetime "phone_number_confirmed_at"
     t.datetime "phone_number_confirmation_sent_at"
     t.string   "unconfirmed_phone_number",          limit: 8
+    t.string   "display_name"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

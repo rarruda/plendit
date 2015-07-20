@@ -37,7 +37,8 @@ ad_list = []
 
 #====
 u = User.create(
-{ "name"=>"Jan Erik Berentsen",
+{ "display_name"=>"Jan Erik",
+  "name"=>"Jan Erik Berentsen",
   "phone_number"=>"99994444",
   "ephemeral_answer_percent"=>"25",
   "status"=> "verified",
@@ -80,7 +81,8 @@ a.ad_images.create!({"description"=>"hvordan det ser ut på en svart bil", "imag
 
 #====
 u = User.create(
-{ "name"=>"Trygve Leite",
+{ "display_name"=>"Trygve",
+  "name"=>"Trygve Leite",
   "phone_number"=>"44449999",
   "ephemeral_answer_percent"=>"75",
   "status"=>"verified",
@@ -123,6 +125,7 @@ a.ad_images.create!({"description"=>"på bil", "image_file_name"=>"768bab5e74ccc
  "Åse Jørgensen", "Jon Arne Strand", "Ove Bjerke", "Aina Wold", "Nils Nygaard",
  "Olav Haga", "Eline Nilssen", "Gunnar Sunde"].each_with_index { |name|
   ui = User.create! do |u|
+    u.display_name = name.split(' ')[0..-2]
     u.name         = name
     u.phone_number = [ '4', '9' ].sample.to_s + Faker::Base.numerify('#######')
     u.email        = Faker::Internet.safe_email(name).gsub('@', "#{User.count+1}@")
@@ -147,7 +150,8 @@ a.ad_images.create!({"description"=>"takboks i en hummer", "image_file_name"=>"h
 
 #====
 u = User.create(
-{ "name"=>"Viking Biking",
+{ "display_name"=>"Viking Biking",
+  "name"=>"Viking Biking",
   "phone_number"=>"41266496",
   "ephemeral_answer_percent"=>"99",
   "status"=>"verified",
