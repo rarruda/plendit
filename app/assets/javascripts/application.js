@@ -12,4 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require 'polyfills/betterdom.js'
+//= require 'polyfills/betteri18n.js'
 //= require_tree .

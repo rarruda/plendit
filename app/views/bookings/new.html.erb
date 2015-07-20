@@ -1,7 +1,11 @@
 <div class="container">
-    <div class="row u-push-down">
+    <div class="row">
+        <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
+
         <div class="eight columns">
-            <h1>Ny forespørsel</h1>
+            <%= render partial: "shared/ad_title_box", locals: { ad: @ad } %>
+
+            <h2>Leieforespørsel til <%= @ad.user.name %></h2>
 
 <!-- # FIXME: should be a partial, same as in edit.html.erb -->
             <%= @ad.ad_items.each do |ai| %>
@@ -21,6 +25,11 @@
                 </div>
             <% end %>
             <%= render 'form' %>
+
+            
+            Jeg vil leie fra
+            <%= date_field_tag("lol", "laaal") %>
+
         </div>
 
         <div class="three columns offset-by-one column">

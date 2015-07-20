@@ -15,7 +15,7 @@
     <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
     <div class="row">
         <div class="eight columns">
-            <%= render partial: "ad_title_box", locals: { ad: @ad } %>
+            <%= render partial: "shared/ad_title_box", locals: { ad: @ad } %>
             <%- if  user_signed_in? && (current_user == @ad.user || current_user.is_site_admin?) -%>
                 <%= render partial: "ad_status_box", locals: { ad: @ad } %>
             <%- end -%>
