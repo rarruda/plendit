@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720184203) do
+ActiveRecord::Schema.define(version: 20150720191954) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -73,13 +73,14 @@ ActiveRecord::Schema.define(version: 20150720184203) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "body"
-    t.decimal  "price",       precision: 10, scale: 2
+    t.decimal  "price",              precision: 10, scale: 2
     t.text     "tags"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
     t.integer  "location_id"
-    t.integer  "status",                               default: 0
-    t.integer  "category",                             default: 0
+    t.integer  "status",                                      default: 0
+    t.integer  "category",                                    default: 0
+    t.integer  "insurance_required"
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id"

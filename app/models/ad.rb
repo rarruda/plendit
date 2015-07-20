@@ -15,6 +15,7 @@ class Ad < ActiveRecord::Base
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5 }
   enum category: { bap: 0, motor: 1, realestate: 2 }
+  #enum insurance_required: { false: 0, true: 1 }
 
   accepts_nested_attributes_for :location, :reject_if => :all_blank
 
@@ -44,6 +45,7 @@ class Ad < ActiveRecord::Base
       indexes :price,         type: :double
       indexes :tags,          type: :string, analyzer: 'keyword'
       indexes :category,      type: :string
+      indexes :insurance_required, type: :integer
       indexes :ad_images do
         indexes :id,          type: :integer
         indexes :description, type: :string
