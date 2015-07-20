@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update(user_params_safe)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to ( request.env['HTTP_REFERER'] || users_edit_path ), notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
