@@ -25,11 +25,16 @@
                 </div>
             <% end %>
             <%= render 'form' %>
-
             
-            Jeg vil leie fra
-            <%= date_field_tag("lol", "laaal") %>
-
+            Jeg vil leie fra:
+            <%= date_field_tag "from_date", "2015-08-12" %>
+            Hentes klokken:
+            <%= time_field_tag "from_time", "15.20" %>
+            <br>
+            Jeg vil leie til:
+            <%= date_field_tag "to_date", "2015-08-15" %>
+            Leveres klokken:
+            <%= time_field_tag "from_time", "19.00" %>
         </div>
 
         <div class="three columns offset-by-one column">
