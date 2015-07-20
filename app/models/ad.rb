@@ -132,7 +132,7 @@ class Ad < ActiveRecord::Base
   end
 
   def safe_title
-    self.title || "(Ingen tittel)"
+    self.title.blank? ?  "(Ingen tittel)" : self.title
   end
 
   # helper methods for generating urls for the three different image sizes, and which has the
