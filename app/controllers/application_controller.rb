@@ -16,4 +16,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up){ |u| u.permit( :name, :email, :phone_number, :password, :password_confirmation ) }
   end
 
+  # required by active_admin when a user is not authorized.
+  def access_denied(exception)
+    redirect_to root_path, notice: "You are not authorized to see this page: #{exception.message}"
+  end
+
 end
