@@ -40,7 +40,7 @@ u = User.create(
 { "name"=>"Jan Erik Berentsen",
   "phone_number"=>"99994444",
   "ephemeral_answer_percent"=>"25",
-  "status"=> "confirmed",
+  "status"=> "verified",
   "email"=>"jan.erik.berentsen@plendit.com",
   "image_url"=>"https://media.licdn.com/mpr/mpr/shrink_200_200/p/7/005/088/1fe/0cb0e86.jpg",
   "password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
@@ -83,7 +83,7 @@ u = User.create(
 { "name"=>"Trygve Leite",
   "phone_number"=>"44449999",
   "ephemeral_answer_percent"=>"75",
-  "status"=>"confirmed",
+  "status"=>"verified",
   "email"=>"trygve.leite@plendit.com",
   "password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }
   )
@@ -127,7 +127,7 @@ a.ad_images.create!({"description"=>"på bil", "image_file_name"=>"768bab5e74ccc
     u.phone_number = [ '4', '9' ].sample.to_s + Faker::Base.numerify('#######')
     u.email        = Faker::Internet.safe_email(name).gsub('@', "#{User.count+1}@")
     u.password     = Faker::Internet.password(10, 20)
-    u.status       = "confirmed"
+    u.status       = "verified"
   end
 }
 
@@ -150,7 +150,7 @@ u = User.create(
 { "name"=>"Viking Biking",
   "phone_number"=>"41266496",
   "ephemeral_answer_percent"=>"99",
-  "status"=>"confirmed",
+  "status"=>"verified",
   "email"=>"viking.bikes+testonly@plendit.com",
   "image_url"=>"http://graph.facebook.com/viking.biking.tours/picture",
   "password"=>User.new( :password => Faker::Internet.password(10, 20) ).encrypted_password }

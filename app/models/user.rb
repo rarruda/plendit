@@ -33,9 +33,9 @@ class User < ActiveRecord::Base
 
   # From: http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html
   # and https://github.com/plataformatec/devise/blob/master/lib/devise/models/confirmable.rb#L99
-  # FIXME: confirmed(?) here clashes with confirmed? from devise!
-  # this is super not good!
-  enum status: { unconfirmed: 1, confirmed: 2, locked: 3 }
+  # NOTE: confirmed? means email confirmed. phone_confirmed? means phone is confirmed.
+  # verified? means both are confirmed and user can interact with other users.
+  enum status: { unverified: 1, verified: 2, locked: 3 }
 
 
   # only act on the phone settings, if the phone number was changed.
