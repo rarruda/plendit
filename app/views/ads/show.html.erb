@@ -12,14 +12,7 @@
 <%= render partial: "ad_status_bar", locals: { ad: @ad } %>
 
 <div class="container">
-    <div class="ad-title-image">
-        <div class="ad-title-image__holder">
-            <% img_style = "background-image: url(#{@ad.image_url_with_fallback(:hero)});" %>
-            <div class="ad-title-image__bg_img"
-                 style="<%= img_style %>"></div>
-        </div>
-    </div>
-
+    <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
     <div class="row">
         <div class="eight columns">
             <%= render partial: "ad_title_box", locals: { ad: @ad } %>
