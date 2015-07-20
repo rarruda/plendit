@@ -1,11 +1,14 @@
 .ad-title-image {
-
     &__holder {
         width: 100%;
         height: 412px;
 
         @media screen and (max-width: 640px) {
             height: 240px;
+        }
+
+        @media screen and (min-width: 1179px) {
+            height: 600px;
         }
     }
 
@@ -15,6 +18,4 @@
         background-position: 50% 50%;
         height: 100%;
     }
-
-
 }
