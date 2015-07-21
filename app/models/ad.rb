@@ -137,7 +137,7 @@ class Ad < ActiveRecord::Base
 
   # helper methods for generating urls for the three different image sizes, and which has the
   ## default fallback to stock images. (so that it will degrate nicely)
-  def image_url_with_fallback( size )
+  def safe_image_url( size )
     stock_images = {
       thumb: ActionController::Base.helpers.image_path('no_image_180x120.jpg'),
       searchresult: ActionController::Base.helpers.image_path('no_image_450x300.jpg'),

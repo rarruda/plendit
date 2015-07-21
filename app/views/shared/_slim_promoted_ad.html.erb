@@ -1,5 +1,5 @@
 <div class="slim-promoted-ad">
-    <%= link_to image_tag( ad.image_url_with_fallback(:thumb), alt: "username", class: "slim-promoted-ad__image"), ad %>
+    <%= link_to image_tag( ad.safe_image_url(:thumb), alt: "username", class: "slim-promoted-ad__image"), ad %>
 
     <h6 class="slim-promoted-ad__title"><%= link_to ad.title, ad %></h6>
 
