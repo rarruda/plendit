@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", main);
 
 function main() {
+    DetailsPolyfill.apply();
 
     var eventbus = smokesignals.convert({
         IMAGES_CHANGED: 'images_changed_event'
