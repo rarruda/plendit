@@ -20,7 +20,7 @@
     <% @locations.each do |location| %>
       <tr>
         <td><%= location.id %></td>
-        <td><%= location.user_id %>[<small><%= location.user.name %></small>]</td>
+        <td><%= location.user_id %>[<small><%= location.user.safe_display_name %></small>]</td>
         <td><%= location.address_line %></td>
         <td><%= location.city %></td>
         <td><%= location.state %></td>

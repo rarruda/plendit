@@ -2,7 +2,7 @@
     <div class="row">
         <div class="two columns incoming-request-item__personalia">
             <%= render('shared/avatar.html', user: booking.user, size: "large" ) %>
-            <p><%= booking.user.name %></p>
+            <p><%= booking.user.safe_display_name %></p>
         </div>
         <div class="ten columns">
                 <%= image_tag "ads/ad1/ad_image_1.jpg", alt: "", size: "160x100", class: "u-pull-right" %>

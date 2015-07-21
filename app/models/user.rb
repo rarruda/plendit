@@ -58,6 +58,9 @@ class User < ActiveRecord::Base
     self.image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
   end
 
+  def safe_display_name
+    self.display_name.blank? ? self.name : self.display_name 
+  end
 
   def calculate_average_rating
     if self.received_feedbacks.size == 0

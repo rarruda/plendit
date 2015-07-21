@@ -9,7 +9,7 @@
         <div class="three columns rental-request-box__owner-box">
             <%= render('shared/avatar.html', user: booking.user, size: "large" ) %>
             <br>
-            <%= booking.user.name %>
+            <%= booking.user.safe_display_name %>
             <br>
             <%= render('shared/stars.html', rating: booking.user.calculate_average_rating, small: true ) %>
         </div>
