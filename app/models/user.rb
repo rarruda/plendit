@@ -54,8 +54,7 @@ class User < ActiveRecord::Base
 
 
   def safe_avatar_url
-    ##self.image_url || self.identities.find_by_provider('facebook').image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
-    self.image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
+    self.image_url || ( Rails.env.production? ?  "/images/default_avatar.png" : "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any" )
   end
 
   def safe_display_name
