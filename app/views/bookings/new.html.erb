@@ -7,34 +7,7 @@
 
             <h2>Leieforespørsel til <%= @ad.user.name %></h2>
 
-<!-- # FIXME: should be a partial, same as in edit.html.erb -->
-            <%= @ad.ad_items.each do |ai| %>
-                Ad Item: <%= ai.id  %>
-                <div class="row availability-section__calendar-holder">
-                    <div class="availability-section__calendar-holder-inner">
-                        <% today = Date.today() %>
-                        <div class="six columns">
-                            <h4 class="availability-section__month"><%= today.strftime("%B - %Y") %></h4>
-                            <%= render partial: "shared/month_calendar", locals: { date: today, ad: @ad } %>
-                        </div>
-                        <div class="six columns">
-                            <h4 class="availability-section__month"><%= today.next_month.strftime("%B - %Y") %></h4>
-                            <%= render partial: "shared/month_calendar", locals: { date: today.next_month, ad: @ad } %>
-                        </div>
-                    </div>
-                </div>
-            <% end %>
             <%= render 'form' %>
-            
-            Jeg vil leie fra:
-            <%= date_field_tag "from_date", "2015-08-12" %>
-            Hentes klokken:
-            <%= time_field_tag "from_time", "15.20" %>
-            <br>
-            Jeg vil leie til:
-            <%= date_field_tag "to_date", "2015-08-15" %>
-            Leveres klokken:
-            <%= time_field_tag "from_time", "19.00" %>
         </div>
 
         <div class="three columns offset-by-one column">

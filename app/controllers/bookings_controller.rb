@@ -31,22 +31,17 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.json
   def create
-
-    # This should be moved to its own method/helper/etc
-    b_start = view_context.parse_datetime_params booking_params, 'booking_from'
-    b_end = view_context.parse_datetime_params booking_params, 'booking_to'
-
-    num_days_rented_ceil  = ( ( (b_start.to_time - b_end.to_time) / 60*60 ) % 24 ).ceil
     ad = AdItem.find(booking_params[:ad_item_id]).ad
 
-    #price = #needs to be calculated. INSIDE THE MODEL!
     new_booking = booking_params.merge( {
       'from_user_id'      => current_user.id,
-      'status'            => 'created',
-      'price'             => ad.price * num_days_rented_ceil
-    } )
+      'status'            => 'created'
+    })
 
     @booking = Booking.new( new_booking )
+
+    #price = #needs to be calculated. INSIDE THE MODEL!
+    @booking.price = @booking.duration_in_days * ad.price
 
     respond_to do |format|
       if @booking.save
@@ -107,6 +102,9 @@ class BookingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booking_params
-      params.require(:booking).permit(:ad_item_id, :booking_from, :booking_to)
+      params.require(:booking).permit(
+        :ad_item_id, :booking_from, :booking_to, :booking_to_date,
+        :booking_to_time, :booking_from_date, :booking_from_time
+      )
     end
 end
