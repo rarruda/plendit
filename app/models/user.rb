@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
     if: :phone_number_changed?
 
 
-  def avatar_url_safetest
+  def safe_avatar_url
     ##self.image_url || self.identities.find_by_provider('facebook').image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
     self.image_url || "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any"
   end
