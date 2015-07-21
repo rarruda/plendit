@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require 'polyfills/betterdom.js'
-//= require 'polyfills/betteri18n.js'
+//= require 'polyfills/better-dom.js'
+//= require 'polyfills/better-i18n-plugin.js'
+//= require 'polyfills/better-dateinput-polyfill.js'
+//= require 'polyfills/better-dateinput-polyfill.no.js'
 //= require_tree .
