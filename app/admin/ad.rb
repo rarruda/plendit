@@ -27,7 +27,7 @@ ActiveAdmin.register Ad do
     column :tags
     #column :body
 
-    column("Owner") { |ad| link_to "#{ad.user.name}", admin_user_path( ad.user.id ) }
+    column("Owner") { |ad| link_to "#{ad.user.safe_display_name}", admin_user_path( ad.user.id ) }
 
     column :created_at
     actions
