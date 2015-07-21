@@ -1,4 +1,9 @@
 class Booking < ActiveRecord::Base
+  extend TimeSplitter::Accessors
+
+  split_accessor :booking_from
+  split_accessor :booking_to
+
   belongs_to :ad_item
   belongs_to :from_user, :class_name => "User"
 
@@ -19,6 +24,10 @@ class Booking < ActiveRecord::Base
 
   def sum_paid_by_renter
     self.price
+  end
+
+  def duration_in_days
+    (self.booking_to.to_date - booking_from.to_date).to_i
   end
 
 end
