@@ -42,10 +42,13 @@ class User < ActiveRecord::Base
 
   # only act on the phone settings, if the phone number was changed.
   # TODO: add trigger so that its possible to re-send codes for the current unverified phone number.
+  before_create :set_phone_attributes
+
   before_save :set_phone_attributes,
     if: :phone_pending_confirmation?,
     if: :phone_pending_changed?,
     if: :phone_number_changed?
+
 
   after_save  :send_sms_for_phone_confirmation,
     if: :phone_pending_confirmation?,

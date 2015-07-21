@@ -32,6 +32,8 @@ class UsersController < ApplicationController
   def edit
   end
 
+  # Never gets called, as users are created in users/registrations_controller
+  # FIXME: remove the create method.
   # POST /users
   # POST /users.json
   def create

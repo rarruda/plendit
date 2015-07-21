@@ -10,7 +10,7 @@
 
                 <div class="row">
                     <div class="two-thirds column">
-                        <%= f.label :name, "FIXME: Display Navn:" %>
+                        <%= f.label :display_name, "FIXME: Display Navn:" %>
                         <%= f.text_field :display_name, autofocus: true %>
                     </div>
                 </div>
@@ -31,8 +31,8 @@
 
                 <div class="row">
                     <div class="two-thirds column">
-                        <%= f.label :phone_number, "Telefonnummer:" %>
-                        <%= f.text_field :phone_number, :maxlength=>"8" %>
+                        <%= f.label :unconfirmed_phone_number, "Telefonnummer:" %>
+                        <%= f.text_field :unconfirmed_phone_number, :maxlength=>"8" %>
                     </div>
                 </div>
 
