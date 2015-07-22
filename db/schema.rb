@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150721171737) do
+ActiveRecord::Schema.define(version: 20150722195124) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -73,8 +73,8 @@ ActiveRecord::Schema.define(version: 20150721171737) do
     t.integer  "from_user_id"
     t.integer  "status",                                  default: 0
     t.decimal  "price",          precision: 10, scale: 2
-    t.datetime "booking_from"
-    t.datetime "booking_to"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
     t.datetime "first_reply_at"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
