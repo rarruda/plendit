@@ -262,3 +262,17 @@ window.controllers.hitCount = {
         }
     }
 }
+
+window.controllers.autoSizeTextArea = {
+    callable: function(ele) {
+        ele.addEventListener('change', adjustSize);
+        ele.addEventListener('keyup', adjustSize);
+        adjustSize();
+
+        function adjustSize() {
+            if (ele.scrollHeight > ele.offsetHeight) {
+                ele.style.minHeight = (ele.scrollHeight + 44) + "px";
+            }
+        }
+    }
+}

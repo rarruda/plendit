@@ -85,7 +85,7 @@
 
     <div class="u-push-down">
         <label>Beskrivelse</label>
-        <%= f.text_area :body, class: 'u-full-width' %>
+        <%= f.text_area :body, class: 'u-full-width', data: { controller: 'autoSizeTextArea' } %>
 
         <label>Emneord (tags)</label>
         <!-- todo: add input tags to and fro markup -->
