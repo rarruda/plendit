@@ -1,0 +1,32 @@
+<%
+    first_month = Date.today()
+    second_month = first_month.next_month
+    third_month = second_month.next_month
+%>
+
+<div class="booking-period-selector">
+    (Mock calendar. not clickable)
+    <div class="booking-period-selector__cal-holder">
+        <%= render partial: "shared/month_calendar", locals: { date: first_month } %>
+        <%= render partial: "shared/month_calendar", locals: { date: second_month } %>
+        <%= render partial: "shared/month_calendar", locals: { date: third_month } %>
+    </div>
+
+    <details>
+        <summary>Skriv inn datoer manuelt</summary>
+        <div>
+            Jeg vil leie fra:
+            <%= form.date_field :booking_from_date, data: { format: "yyyy.MM.dd" } %>
+
+            <br>
+            Jeg vil leie til:
+            <%= form.date_field :booking_to_date, data: { format: "yyyy.MM.dd" } %>
+        </div>
+    </details>
+    Hentes klokken:
+    <%= form.time_field :booking_from_time  %>
+    <br>
+    Leveres klokken:
+    <%= form.time_field :booking_to_time %>
+</div>
+

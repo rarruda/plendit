@@ -27,18 +27,7 @@
         <%= number_to_currency_pretty @booking.ad.price %> per dag
     </div>
 
-    Jeg vil leie fra:
-    <%= f.date_field :booking_from_date, data: { format: "yyyy.MM.dd" } %>
-
-    Hentes klokken:
-    <%= f.time_field :booking_from_time  %>
-    <br>
-    Jeg vil leie til:
-
-    <%= f.date_field :booking_to_date, data: { format: "yyyy.MM.dd" } %>
-    Leveres klokken:
-
-    <%= f.time_field :booking_to_time %>
+    <%= render partial: "shared/booking_period_selector", locals: { form: f } %>
 
     <div class="actions">
         <%= f.submit %>

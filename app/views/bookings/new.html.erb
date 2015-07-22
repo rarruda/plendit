@@ -2,16 +2,12 @@
     <div class="row">
         <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
 
-        <div class="eight columns">
+        <div class="twelve columns">
             <%= render partial: "shared/ad_title_box", locals: { ad: @ad } %>
 
             <h2>Leieforespørsel til <%= @ad.user.name %></h2>
 
             <%= render 'form' %>
-        </div>
-
-        <div class="three columns offset-by-one column">
-            Docs med hjelp / lenke til betingelser osv her?
         </div>
     </div>
 </div>
