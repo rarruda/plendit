@@ -17,6 +17,9 @@ class Booking < ActiveRecord::Base
   scope :from_user,  ->(user) { where( from_user_id: user.id ) }
 
   # fixme: real data for this, and something like .humanize on the prices
+  def calculate_price
+    self.price = self.duration_in_days * self.ad.price
+  end
 
   def sum_paid_to_owner
     self.price * 0.9

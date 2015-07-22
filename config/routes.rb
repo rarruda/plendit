@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   resources :locations, path: '/users/locations'
   resources :bookings, path: '/users/bookings' do
     resources :messages
+    member do
+      get 'show_price'
+    end
   end
 
   #get 'verify_sms', path: '/users/verify_sms', as: :verify_sms, to: 'users#verify_sms'

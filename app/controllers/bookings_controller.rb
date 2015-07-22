@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :set_booking_from_params, only: [:create, :show_price]
   after_action  :notify_user, only: [:create, :update]
   before_filter :authenticate_user!
 
@@ -33,15 +34,7 @@ class BookingsController < ApplicationController
   def create
     ad = AdItem.find(booking_params[:ad_item_id]).ad
 
-    new_booking = booking_params.merge( {
-      'from_user_id'      => current_user.id,
-      'status'            => 'created'
-    })
-
-    @booking = Booking.new( new_booking )
-
-    #price = #needs to be calculated. INSIDE THE MODEL!
-    @booking.price = @booking.duration_in_days * ad.price
+    @booking.calculate_price
 
     respond_to do |format|
       if @booking.save
@@ -78,10 +71,31 @@ class BookingsController < ApplicationController
     end
   end
 
+
+  # GET /bookings/show_price
+  # GET /bookings/show_price.json
+  def show_price
+    @booking.calculate_price
+    respond_to do |format|
+      format.html { render :show_price } #redirect_to @booking, notice: 'Booking was successfully updated.' }
+      format.json { render json: show_price, status: :ok }
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_booking
       @booking = Booking.find(params[:id])
+    end
+
+    def set_booking_from_params
+      new_booking = booking_params.merge( {
+        'from_user_id'      => current_user.id,
+        'status'            => 'created'
+      })
+
+      @booking = Booking.new( new_booking )
     end
 
     # Callback to notify the relevant parties that the booking is in place.
