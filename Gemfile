@@ -25,6 +25,7 @@ gem 'aasm', '~> 4'
 gem 'rolify', '~> 4'
 
 gem 'time_splitter', '>= 1.1.0'
+gem 'validates_overlap'
 
 # possibly replace this with https://github.com/kpumuk/meta-tags
 gem 'metamagic'

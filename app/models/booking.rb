@@ -1,8 +1,8 @@
 class Booking < ActiveRecord::Base
   extend TimeSplitter::Accessors
 
-  split_accessor :booking_from
-  split_accessor :booking_to
+  split_accessor :starts_at
+  split_accessor :ends_at
 
   belongs_to :ad_item
   belongs_to :from_user, :class_name => "User"
@@ -15,6 +15,8 @@ class Booking < ActiveRecord::Base
 
   scope :owner_user, ->(user) { joins(:ad).where( 'ads.user_id = ?', user.id ) }
   scope :from_user,  ->(user) { where( from_user_id: user.id ) }
+
+  validates :starts_at, :ends_at, :overlap => {:scope => "ad_item_id"}
 
   # fixme: real data for this, and something like .humanize on the prices
   def calculate_price
@@ -30,7 +32,7 @@ class Booking < ActiveRecord::Base
   end
 
   def duration_in_days
-    (self.booking_to.to_date - booking_from.to_date).to_i
+    (self.ends_at.to_date - starts_at.to_date).to_i
   end
 
 end

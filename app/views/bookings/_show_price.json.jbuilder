@@ -1,1 +1,1 @@
-json.extract! @booking, :id, :price, :booking_from, :booking_to
+json.extract! @booking, :id, :price, :starts_at, :ends_at

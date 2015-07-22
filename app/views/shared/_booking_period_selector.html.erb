@@ -16,17 +16,17 @@
         <summary>Skriv inn datoer manuelt</summary>
         <div>
             Jeg vil leie fra:
-            <%= form.date_field :booking_from_date, data: { format: "yyyy.MM.dd" } %>
+            <%= form.date_field :starts_at_date, data: { format: "yyyy.MM.dd" } %>
 
             <br>
             Jeg vil leie til:
-            <%= form.date_field :booking_to_date, data: { format: "yyyy.MM.dd" } %>
+            <%= form.date_field :ends_at_date, data: { format: "yyyy.MM.dd" } %>
         </div>
     </details>
     Hentes klokken:
-    <%= form.time_field :booking_from_time  %>
+    <%= form.time_field :starts_at_time  %>
     <br>
     Leveres klokken:
-    <%= form.time_field :booking_to_time %>
+    <%= form.time_field :ends_at_time %>
 </div>
 

@@ -2,13 +2,13 @@
     <tr>
         <th class="rental-request-box__th">Hentes</th>
         <td class="rental-request-box__td">
-            <%= @booking.booking_from.to_formatted_s(:plendit_short_datetime) %>
+            <%= @booking.starts_at.to_formatted_s(:plendit_short_datetime) %>
         </td>
     </tr>
     <tr>
         <th class="rental-request-box__th">Leveres</th>
         <td class="rental-request-box__td">
-            <%= @booking.booking_to.to_formatted_s(:plendit_short_datetime) %>
+            <%= @booking.ends_at.to_formatted_s(:plendit_short_datetime) %>
         </td>
     </tr>
 
