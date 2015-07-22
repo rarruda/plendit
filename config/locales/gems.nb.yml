@@ -7,5 +7,5 @@ nb:
         booking:
           attributes:
             starts_at:
-              overlap: '...(Oversett meg!!) DateTime range overlaps with previously booked items.'
+              overlap: "sammenfaller med en annen booking."
 
