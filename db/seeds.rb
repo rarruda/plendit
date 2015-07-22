@@ -125,7 +125,7 @@ a.ad_images.create!({"description"=>"på bil", "image_file_name"=>"768bab5e74ccc
  "Åse Jørgensen", "Jon Arne Strand", "Ove Bjerke", "Aina Wold", "Nils Nygaard",
  "Olav Haga", "Eline Nilssen", "Gunnar Sunde"].each_with_index { |name|
   ui = User.create! do |u|
-    u.display_name = name.split(' ')[0..-2]
+    u.display_name = name.split(' ')[0..-2].join(' ')
     u.name         = name
     u.phone_number = [ '4', '9' ].sample.to_s + Faker::Base.numerify('#######')
     u.email        = Faker::Internet.safe_email(name).gsub('@', "#{User.count+1}@")
