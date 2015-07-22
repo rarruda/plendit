@@ -1,7 +1,7 @@
 <div class="rental-request-box">
     <div class="row">
         <div class="three columns">
-            <%= image_tag "ads/ad1/ad_image_1.jpg", alt: "Fler annonser", size: "180x120" %>
+            <%= image_tag booking.ad.safe_image_url(:thumb) , alt: "Fler annonser", size: "180x120" %>
         </div>
         <div class="six columns">
             <h2><%= booking.ad.title  %></h2>
