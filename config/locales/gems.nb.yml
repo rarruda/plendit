@@ -1,0 +1,11 @@
+---
+
+nb:
+  activerecord:
+    errors:
+      models:
+        booking:
+          attributes:
+            starts_at:
+              overlap: '...(Oversett meg!!) DateTime range overlaps with previously booked items.'
+
