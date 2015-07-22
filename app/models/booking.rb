@@ -13,10 +13,20 @@ class Booking < ActiveRecord::Base
 
   enum status: { created: 0, accepted: 1, declined: 2, declined: 3 }
 
+  #default_scope { where( status: active ) }
+
   scope :owner_user, ->(user) { joins(:ad).where( 'ads.user_id = ?', user.id ) }
   scope :from_user,  ->(user) { where( from_user_id: user.id ) }
 
-  validates :starts_at, :ends_at, :overlap => {:scope => "ad_item_id"}
+  scope :active,     -> { where( status: accepted ) }
+  scope :ad_item,    ->(ad_item_id) { where( ad_item_id: ad_item_id ) }
+  scope :in_month,   ->(year,month) { where( 'ends_at >= ? and starts_at <= ?',
+    DateTime.new(year, month).beginning_of_month, DateTime.new(year, month).end_of_month ) }
+
+  validates :starts_at, :ends_at, :overlap => {
+    :scope         => "ad_item_id",
+    :query_options => { :active => nil }
+  }
 
   # fixme: real data for this, and something like .humanize on the prices
   def calculate_price
