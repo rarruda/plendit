@@ -5,7 +5,7 @@
 
         <div class="nine columns">
 
-<% if @booking.from_user.id == get_current_user_id %>
+<% if @booking.from_user == current_user %>
             <h3 class="u-push-down">Din forespørsel til <%= @booking.user.name %>.</h3>
 
             <%= render partial: "rental_request_box_renter", locals: {booking: @booking} %>
