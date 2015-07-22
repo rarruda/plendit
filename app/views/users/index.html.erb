@@ -6,13 +6,15 @@
             <div class="u-push-down">
                 <h4>Mine annonser</h4>
                 <% unless current_user.ads.empty? %>
-                    <% current_user.ads.each do |ad| %>
-                        <div>
-                            <%= link_to ad.safe_title, ad %>
-                            <%= ad.status %>
-                            <small>(oppdatert <%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
-                        </div>
-                    <% end %>
+                    <ul>
+                        <% current_user.ads.each do |ad| %>
+                            <li>
+                                <%= link_to ad.safe_title, ad %>
+                                <%= ad.status %>
+                                <small>(oppdatert <%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
+                            </li>
+                        <% end %>
+                    </ul>
                 <% else %>
                     Du har ikke publisert noen annonser ennå.
                 <% end %>
@@ -29,11 +31,15 @@
             <div class="u-push-down">
                 <h4>Forespørsler</h4>
                 <% unless current_user.active_bookings.empty? %>
-                    <% current_user.active_bookings.each do |booking| %>
-                        <%= link_to booking.ad.safe_title, booking %>
-                        <%= booking.status %>
-                        <small>(oppdatert <%= booking.ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
-                    <% end %>
+                    <ul>
+                        <% current_user.active_bookings.each do |booking| %>
+                            <li>
+                                <%= link_to booking.ad.safe_title, booking %>
+                                <%= booking.status %>
+                                <small>(oppdatert <%= booking.ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
+                            </li>
+                        <% end %>
+                    </ul>
                 <% else %>
                         Du har ingen åpne sendte eller mottatte forespørsler
                 <% end %>
