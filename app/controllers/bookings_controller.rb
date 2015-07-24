@@ -38,7 +38,7 @@ class BookingsController < ApplicationController
       if @booking.save
         format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
-        self.notify_user
+        #self.notify_user
       else
         format.html { render :new }
         format.json { render json: @booking.errors, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class BookingsController < ApplicationController
       if @booking.update(booking_params)
         format.html { redirect_to @booking, notice: 'Booking was successfully updated.' }
         format.json { render :show, status: :ok, location: @booking }
-        self.notify_user
+        #self.notify_user
       else
         format.html { render :edit }
         format.json { render json: @booking.errors, status: :unprocessable_entity }
