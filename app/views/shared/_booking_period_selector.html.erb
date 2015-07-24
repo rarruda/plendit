@@ -7,9 +7,9 @@
 <div class="booking-period-selector">
     (Mock calendar. not clickable)
     <div class="booking-period-selector__cal-holder">
-        <%= render partial: "shared/month_calendar", locals: { date: first_month } %>
-        <%= render partial: "shared/month_calendar", locals: { date: second_month } %>
-        <%= render partial: "shared/month_calendar", locals: { date: third_month } %>
+        <%= render partial: "shared/month_calendar", locals: { date: first_month, ad: ad } %>
+        <%= render partial: "shared/month_calendar", locals: { date: second_month, ad: ad } %>
+        <%= render partial: "shared/month_calendar", locals: { date: third_month, ad: ad } %>
     </div>
 
     <details>

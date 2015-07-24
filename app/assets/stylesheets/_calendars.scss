@@ -17,7 +17,7 @@ $cell-margin: 2px;
     &__cell--blank,
     &__cell--booked,
     &__cell--ending,
-    &__cell--header, 
+    &__cell--header,
     &__cell--past,
     &__cell--starting,
     &__cell--today {
@@ -54,7 +54,7 @@ $cell-margin: 2px;
     }
 
     // booking ends on this cell
-    &__cell--ending {
+    &__cell--starting {
         &:after {
             color: $lighter-plendit-blue;
             bottom: 0;
@@ -83,7 +83,7 @@ $cell-margin: 2px;
     }
 
     // booking starts on this cell
-    &__cell--starting {
+    &__cell--ending {
         &:after {
             color: $lighter-plendit-blue;
             top: 0;
