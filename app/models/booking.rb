@@ -39,7 +39,7 @@ class Booking < ActiveRecord::Base
   end
 
   def sum_paid_to_owner
-    self.price * 0.9
+    self.price * 0.88
   end
 
   def sum_paid_by_renter
