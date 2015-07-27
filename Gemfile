@@ -5,6 +5,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 #gem 'omniauth-google'
+gem 'switch_user'
 
 gem 'geocoder'
 
