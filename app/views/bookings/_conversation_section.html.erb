@@ -2,19 +2,20 @@
     <% if booking.messages.empty? %>
         Ingen meldinger.
     <% else %>
-        <%= render partial: "conversation_item", collection: booking.messages, as: "message" %>
+        <%= render partial: "conversation_item", collection: @booking.messages, as: "message" %>
     <% end %>
 
     <hr>
 
     <div>
-        <form method="POST" action="#">
-            <textarea class="u-full-width" name="content" placeholder="Meldingstekst&hellip;"></textarea>
+        <%= form_for :message, url: booking_messages_path( @booking )  do |f| %>
+            <%= f.text_area :content, class: 'u-full-width', data: { controller: 'autoSizeTextArea' }, placeholder: 'Meldingstekst...' %>
+
             <p>
                 Av sikkerhetsmessige årsaker tillater vi ikke deling av
                 telefonnummer eller E-post.
-                <button type="sumbit" class="u-pull-right button-primary">Send melding</button>
+                <%= f.submit 'Send melding', class: 'u-pull-right button-primary' %>
             </p>
-        </form>
+        <% end %>
     </div>
 </section>
