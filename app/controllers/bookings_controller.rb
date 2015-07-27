@@ -33,7 +33,6 @@ class BookingsController < ApplicationController
   # POST /bookings.json
   def create
     @ad = AdItem.find(booking_params[:ad_item_id]).ad
-    @booking.calculate_price
 
     respond_to do |format|
       if @booking.save
@@ -56,6 +55,7 @@ class BookingsController < ApplicationController
         format.json { render :show, status: :ok, location: @booking }
         #self.notify_user
       else
+        @ad = @booking.ad
         format.html { render :edit }
         format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
@@ -92,8 +92,8 @@ class BookingsController < ApplicationController
 
     def set_booking_from_params
       new_booking = booking_params.merge( {
-        'from_user_id'      => current_user.id,
-        'status'            => 'created'
+        'from_user_id' => current_user.id,
+        'status'       => 'created'
       })
 
       @booking = Booking.new( new_booking )

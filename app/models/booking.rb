@@ -3,6 +3,8 @@ class Booking < ActiveRecord::Base
 
   extend TimeSplitter::Accessors
 
+  SECS_IN_DAY = 24*60*60
+
   split_accessor :starts_at
   split_accessor :ends_at
 
@@ -13,7 +15,7 @@ class Booking < ActiveRecord::Base
   has_one :user, through: :ad
   has_many :messages
 
-  enum status: { created: 0, accepted: 1, declined: 2, declined: 3 }
+  enum status: { created: 0, accepted: 1, cancelled: 2, declined: 3 }
 
   #default_scope { where( status: active ) }
 
@@ -32,6 +34,13 @@ class Booking < ActiveRecord::Base
     :scope         => "ad_item_id",
     :query_options => { :active => nil }
   }
+  validate :validate_starts_at_before_ends_at
+
+  before_save :calculate_price,
+    if: :starts_at_changed?,
+    if: :ends_at_changed?
+
+  # FIXME: need a state machine for Booking Statuses
 
   # fixme: real data for this, and something like .humanize on the prices
   def calculate_price
@@ -46,8 +55,13 @@ class Booking < ActiveRecord::Base
     self.price
   end
 
+  # duration_in_days rounded up for fractions of a day.
+  #  Minimum duration of one day.
   def duration_in_days
-    (self.ends_at.to_date - starts_at.to_date).to_i
+    d = ( (self.ends_at - self.starts_at) / SECS_IN_DAY  ).ceil
+    raise "You cant have a negative duration for a booking" if d < 0
+
+    d == 0 ? 1 : d
   end
 
   ###
@@ -81,6 +95,10 @@ class Booking < ActiveRecord::Base
         'booked'
       end
     end
+  end
+
+  def validate_starts_at_before_ends_at
+      errors.add(:ends_at, "ends_at cannot be before starts_at") if self.ends_at < self.starts_at
   end
 
   # Comparable
