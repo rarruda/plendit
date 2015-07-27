@@ -1,5 +1,6 @@
 class Booking < ActiveRecord::Base
   include Comparable
+  include AASM
 
   extend TimeSplitter::Accessors
 
@@ -40,7 +41,24 @@ class Booking < ActiveRecord::Base
     if: :starts_at_changed?,
     if: :ends_at_changed?
 
-  # FIXME: need a state machine for Booking Statuses
+
+  aasm :column => :status, :enum => true do
+    state :created, :initial => true
+    state :accepted #, :enter => :trigger_notification, :exit => :trigger_notification
+    state :cancelled
+    state :declined #, :enter => :trigger_notification
+
+    event :accept do
+      transitions :from => [:created,:declined], :to => :accepted
+    end
+    event :cancel do
+      transitions :from => :created, :to => :cancelled
+      # only if current_user.id != user.id
+    end
+    event :decline do
+      transitions :from => [:created,:accepted], :to => :declined
+    end
+  end
 
   # fixme: real data for this, and something like .humanize on the prices
   def calculate_price
