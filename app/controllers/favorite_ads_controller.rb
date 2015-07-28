@@ -2,6 +2,10 @@ class FavoriteAdsController < ApplicationController
   before_action :set_favorite_ad, only: [:create]
 
 
+  def index
+    @favorite_ads = User.find( current_user.id ).favorite_ads
+  end
+
   # POST /favorite_ads
   def create
     p @favorite_ad

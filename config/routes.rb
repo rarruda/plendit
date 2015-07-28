@@ -36,6 +36,7 @@ Rails.application.routes.draw do
       post 'verify_sms', to: 'users#do_verify_sms'
       post 'mark_all_notifications_noticed', to: 'users#mark_all_notifications_noticed'
     end
+    resources :favorite_ads, only: [:index, :create, :destroy]
   end
   get 'users/:id', to: 'users#show', as: 'user_public_profile'
 

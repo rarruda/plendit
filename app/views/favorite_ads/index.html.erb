@@ -14,10 +14,8 @@
   <tbody>
     <% @favorite_ads.each do |favorite_ad| %>
       <tr>
-        <td><%= favorite_ad.favorite_list %></td>
-        <td><%= favorite_ad.ad %></td>
-        <td><%= link_to 'Show', favorite_ad %></td>
-        <td><%= link_to 'Edit', edit_favorite_ad_path(favorite_ad) %></td>
+        <td><%= favorite_ad.favorite_list.name %></td>
+        <td><%= link_to favorite_ad.ad.title, ad_path( favorite_ad.ad.id ) %></td>
         <td><%= link_to 'Destroy', favorite_ad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -25,5 +23,3 @@
 </table>
 
 <br>
-
-<%= link_to 'New Favorite ad', new_favorite_ad_path %>
