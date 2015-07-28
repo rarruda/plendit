@@ -1,15 +1,22 @@
 <%= render partial: "rental_request_box", locals: {booking: @booking, is_owner: true} %>
 
+
+<% if not ['cancelled','accepted','declined'].include? @booking.status %>
+
 <div class="rental-request-buttons">
-    <button class="rental-request-buttons__button rental-request-buttons__button--good">
+    <%= button_to(booking_path, class: "rental-request-buttons__button rental-request-buttons__button--good", method: "patch", params: { 'booking[status]' => 'accepted' }) do -%>
         <%= image_tag("offer_accept.png", size: "25x25") %>
         <br>
         Aksepter
-    </button>
-    <button class="rental-request-buttons__button rental-request-buttons__button--bad">
+    <%- end %>
+    <%= button_to(booking_path, class: "rental-request-buttons__button rental-request-buttons__button--bad", method: "patch", params: { 'booking[status]' => 'declined' }) do -%>
         <%= image_tag("offer_reject.png", size: "25x25") %>
         <br>
         Avvis
-    </button>
+    <%- end %>
+
 </div>
 
+<% else %>
+    <br> Request has been declined, accepted or cancelled. No further action possible (?).
+<% end %>

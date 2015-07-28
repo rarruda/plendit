@@ -49,6 +49,12 @@ class BookingsController < ApplicationController
   # PATCH/PUT /bookings/1
   # PATCH/PUT /bookings/1.json
   def update
+    #if current_user == @booking.from_user
+    #  raise 'permission denied' if not ['cancelled','accepted'].include? booking_params.status
+    #elsif current_user == @booking.user
+    #  raise 'permission denied' if booking_params.status != 'declined'
+    #end
+
     respond_to do |format|
       if @booking.update(booking_params)
         format.html { redirect_to @booking, notice: 'Booking was successfully updated.' }
@@ -119,7 +125,7 @@ class BookingsController < ApplicationController
     def booking_params
       params.require(:booking).permit(
         :ad_item_id, :starts_at, :ends_at, :ends_at_date,
-        :ends_at_time, :starts_at_date, :starts_at_time
+        :ends_at_time, :starts_at_date, :starts_at_time, :status
       )
     end
 end

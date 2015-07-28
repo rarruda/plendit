@@ -8,14 +8,18 @@
     <hr>
 
     <div>
+    <% if ['cancelled','declined'].include? @booking.status %>
+        'cant add messages anymore...'
+    <% else %>
         <%= form_for :message, url: booking_messages_path( @booking )  do |f| %>
             <%= f.text_area :content, class: 'u-full-width', data: { controller: 'autoSizeTextArea' }, placeholder: 'Meldingstekst...' %>
-
             <p>
                 Av sikkerhetsmessige årsaker tillater vi ikke deling av
                 telefonnummer eller E-post.
                 <%= f.submit 'Send melding', class: 'u-pull-right button-primary' %>
             </p>
         <% end %>
+    <% end %>
+
     </div>
 </section>

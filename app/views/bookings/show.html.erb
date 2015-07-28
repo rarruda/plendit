@@ -6,20 +6,19 @@
         <div class="twelve columns">
             <%= render partial: "shared/ad_title_box", locals: { ad: @booking.ad } %>
 
+Booking status: <strong><%= @booking.status %></strong>
 <% if @booking.from_user == current_user %>
             <h3 class="u-push-down">Din forespørsel til <%= @booking.user.name %>.</h3>
             <%= render partial: "rental_request_box_renter", locals: {booking: @booking} %>
 <% else %>
 <!--
-            <hr>
             renter above, rentee below
-            <hr>
 -->
             <h3 class="u-push-down"><%= @booking.from_user.name %> ønsker å leie av deg</h3>
             <%= render partial: "rental_request_box_owner", locals: {booking: @booking} %>
+
 <% end %>
             <hr>
-
             <%= render partial: "conversation_section", locals: {booking: @booking} %>
 
         </div>
