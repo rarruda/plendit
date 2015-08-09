@@ -131,11 +131,18 @@ Note: the server is smart enough so that you never need to restart it for any
 Run:
 
 ```
-bundle exec rspec --format=documentation
+$ bundle exec rspec --format=documentation
 ```
 or just:
 ```
-rspec
+$ rspec
+```
+
+** Guard
+
+To keep tests running constantly on the background, run guard:
+```
+$ bundle exec guard
 ```
 
 * Deployment instructions

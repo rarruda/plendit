@@ -90,7 +90,9 @@ group :development, :test do
   gem 'rails-erd'
   gem 'railroady'
 
+  # rspec testing is nice to have:
   gem 'rspec-rails', '~> 3.0'
+  gem 'guard-rspec', require: false
 end
 
 group :production do
