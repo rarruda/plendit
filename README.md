@@ -122,7 +122,15 @@ Note: the server is smart enough so that you never need to restart it for any
 
 * How to run the test suite
 
-No tests are currently available.
+Run:
+
+```
+bundle exec rspec --format=documentation
+```
+or just:
+```
+rspec
+```
 
 * Services (job queues, cache servers, search engines, etc.)
 
