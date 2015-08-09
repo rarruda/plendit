@@ -89,6 +89,8 @@ group :development, :test do
   # To respect DRY principle, generate documentation/diagrams from source code:
   gem 'rails-erd'
   gem 'railroady'
+
+  gem 'rspec-rails', '~> 3.0'
 end
 
 group :production do
