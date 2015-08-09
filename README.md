@@ -40,7 +40,7 @@ $ brew install imagemagick
 
 * Configuration
 
-There is currently no special configuration needed to get the application running.
+See the section called *Starting the server (development)*.
 
 * Database creation
 
@@ -76,6 +76,12 @@ Act-as-taggable-on gem requires also some support tables that need to be
 $ rake acts_as_taggable_on_engine:install:migrations
 $ rake db:migrate
 ```
+
+* Services (job queues, cache servers, search engines, etc.)
+
+Only ElasticSearch >= 1.6 for now.
+
+In the future we will also have an support for varnish caching.
 
 * ElasticSearch (re)initialization
 
@@ -132,10 +138,6 @@ or just:
 rspec
 ```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-None for now.
-
 * Deployment instructions
 
 Will probably be deployed via capistrano. For now, there is no deployment.
@@ -160,17 +162,17 @@ The UML diagram will then be available as a pdf file at doc/erd.pdf
 
 To access the admin interface go to http://localhost:3000/admin/
 
-To create an admin account first start the rails console, then
- run the create command as follows:
+You will need to be logged in and to have the :site_admin role set in
+your user. To do so:
 ```
 $ rails console
 (...)
-2.1.5 :001 > AdminUser.create!(:email => 'admin@example.com', \
-  :password => 'password', :password_confirmation => 'password')
+2.1.5 :001 > User.find( :user_id ).add_role( :site_admin )
 (...)
 ```
 
-This is also how the default admin user is created by default.
+Where :user_id is the user_id of the user you'd like to be a site_admin.
+
 
 * Image regeneration and format changes
 
