@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   get 'admin/switch_user' => 'switch_user#set_current_user'
-
+  get 'switch_user',               to: redirect('/')
+  get 'switch_user/remember_user', to: redirect('/')
 
   resources :locations, path: '/users/locations'
   resources :bookings, path: '/users/bookings' do

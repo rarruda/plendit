@@ -36,7 +36,7 @@ ActiveAdmin.register User do
     column :email
 
     column("User Status") {|user| status_tag( user.status ) }
-    column(:id) {|u| link_to "Log in as", "/admin/switch_user?scope_identifier=user_#{u.id}" }
+    column(:id) {|u| link_to "Log in as", admin_switch_user_path( scope_identifier: "user_#{u.id}" ) }
 
     column :created_at
     actions
