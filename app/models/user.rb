@@ -151,9 +151,9 @@ class User < ActiveRecord::Base
     self.has_role? :site_admin
   end
 
-  def active_bookings
-    recv_bookings = self.bookings.where(status: [0, 1])
-    sent_bookings = self.sent_bookings.where(status: [0, 1])
+  def current_bookings
+    recv_bookings = self.bookings.current
+    sent_bookings = self.sent_bookings.current
     bookings = recv_bookings + sent_bookings
     bookings.sort do |a,b| b.updated_at <=> a.updated_at end
   end

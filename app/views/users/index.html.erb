@@ -30,9 +30,9 @@
         <div class="six columns">
             <div class="u-push-down">
                 <h4>Forespørsler</h4>
-                <% unless current_user.active_bookings.empty? %>
+                <% unless current_user.current_bookings.empty? %>
                     <ul>
-                        <% current_user.active_bookings.each do |booking| %>
+                        <% current_user.current_bookings.each do |booking| %>
                             <li>
                                 <%= link_to booking.ad.safe_title, booking %>
                                 <%= booking.status %>

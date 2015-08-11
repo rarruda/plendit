@@ -23,6 +23,7 @@ class Booking < ActiveRecord::Base
   scope :owner_user, ->(user) { joins(:ad).where( 'ads.user_id = ?', user.id ) }
   scope :from_user,  ->(user) { where( from_user_id: user.id ) }
 
+  scope :current,    -> { where( 'status' => [ self.statuses[:created], self.statuses[:accepted] ] ) }
   scope :active,     -> { where( status: accepted ) }
   scope :ad_item,    ->(ad_item_id) { where( ad_item_id: ad_item_id ) }
   scope :in_month,   ->(year,month) { where( 'ends_at >= ? and starts_at <= ?',
