@@ -76,9 +76,8 @@ class MessagesController < ApplicationController
     def notify_user
       Notification.new(
         user_id: @message.to_user.id,
-        message: "You have received a message!",
-        status: 'fresh',
-        notifiable: @message).save
+        message: "#{@message.from_user.safe_display_name} sent you a message about \"#{@message.booking.ad.safe_title}\".",
+        notifiable: @message.booking).save
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

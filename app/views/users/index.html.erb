@@ -47,7 +47,19 @@
 
             <div class="u-push-down">
                 <h4>Siste meldinger</h4>
-                <div>Placeholder</div>
+                <% unless current_user.received_messages.empty? %>
+                    <ul>
+                        <% current_user.received_messages.each do |message| %>
+                            <li>
+                                <%= link_to message.booking.ad.safe_title, message.booking %>
+                                <p><%= message.content[0..60] %></p>
+                                <small>(<%= message.created_at.to_formatted_s(:plendit_short_datetime) %>)</small>
+                            </li>
+                        <% end %>
+                    </ul>
+                <% else %>
+                    Du ikke mottatt noen meldinger
+                <% end %>
             </div>
         </div>
 
