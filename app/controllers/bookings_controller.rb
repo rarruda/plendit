@@ -38,7 +38,7 @@ class BookingsController < ApplicationController
       if @booking.save
         format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
-        #self.notify_user
+        notify_about_new_booking
       else
         format.html { render :new }
         format.json { render json: @booking.errors, status: :unprocessable_entity }
@@ -145,6 +145,13 @@ class BookingsController < ApplicationController
       Notification.new(
         user_id: @booking.user.id,
         message: "#{@booking.from_user.safe_display_name} canceled their request to book \"#{@booking.ad.safe_title}\"",
+        notifiable: @booking ).save
+    end
+
+    def notify_about_new_booking
+      Notification.new(
+        user_id: @booking.user.id,
+        message: "#{@booking.from_user.safe_display_name} has sent you a request to book \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
