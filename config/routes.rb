@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     resources :messages
     member do
       get 'show_price'
+      post 'decline'
+      post 'accept'
+      post 'cancel'
     end
   end
 

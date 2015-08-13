@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :edit, :update, :destroy]
+  before_action :set_booking, only: [:show, :edit, :update, :destroy, :decline, :cancel, :accept]
   before_action :set_booking_from_params, only: [:create, :show_price]
   before_filter :authenticate_user!
 
@@ -87,6 +87,28 @@ class BookingsController < ApplicationController
       format.html { render :show_price } #redirect_to @booking, notice: 'Booking was successfully updated.' }
       format.json { render json: show_price, status: :ok }
     end
+  end
+
+
+  # POST /bookings/1/decline
+  def decline
+    @booking.decline!
+    # fixme send notifications to both parties
+    redirect_to @booking, notice: 'Booking was declined.'
+  end
+
+  # POST /bookings/1/accept
+  def accept
+    @booking.accept!
+    # fixme send notifications to both parties
+    redirect_to @booking, notice: 'Booking was accepted.'
+  end
+
+  # POST /bookings/1/cancel
+  def cancel
+    @booking.cancel!
+    # fixme send notifications to both parties
+    redirect_to @booking, notice: 'Booking was canceled.'
   end
 
 
