@@ -1,10 +1,15 @@
 <div class="booking-controls">
     <% if current_user.owns_booking_item? @booking %>
-        <%# Item owner %>
-        <%= button_to "Avslå forespørsel", decline_booking_path(booking) %>
-        <%= button_to "Godkjenn forespørsel", accept_booking_path(booking) %>
+        <% if booking.created? %>
+            <%= button_to "Avslå forespørsel", decline_booking_path(booking) %>
+            <%= button_to "Godkjenn forespørsel", accept_booking_path(booking) %>
+        <% elsif booking.accepted? %>
+            <%# allowed? to decline after accepting? should be "unapprove" %>
+            <%= button_to "Avslå forespørsel", decline_booking_path(booking) %>
+        <% else %>
+            Unknown booking state
+        <% end %>
     <% else %>
-        <%# Not owner %>
         <% if booking.created? %>
             <%= button_to "Avbryt forespørsel", cancel_booking_path(booking) %>
             button_to edit
@@ -13,6 +18,5 @@
         <% else %>
             Unknown booking state
         <% end %>
-
     <% end %>
 </div>

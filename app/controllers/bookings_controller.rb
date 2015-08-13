@@ -93,21 +93,21 @@ class BookingsController < ApplicationController
   # POST /bookings/1/decline
   def decline
     @booking.decline!
-    # fixme send notifications to both parties
+    notify_about_decline
     redirect_to @booking, notice: 'Booking was declined.'
   end
 
   # POST /bookings/1/accept
   def accept
     @booking.accept!
-    # fixme send notifications to both parties
+    notify_about_accept
     redirect_to @booking, notice: 'Booking was accepted.'
   end
 
   # POST /bookings/1/cancel
   def cancel
     @booking.cancel!
-    # fixme send notifications to both parties
+    notify_about_cancel
     redirect_to @booking, notice: 'Booking was canceled.'
   end
 
@@ -127,10 +127,29 @@ class BookingsController < ApplicationController
       @booking = Booking.new( new_booking )
     end
 
+    def notify_about_decline
+      Notification.new(
+        user_id: @booking.from_user.id,
+        message: "#{@booking.user.safe_display_name} declined your request to book \"#{@booking.ad.safe_title}\"",
+        notifiable: @booking ).save
+    end
+
+    def notify_about_accept
+      Notification.new(
+        user_id: @booking.from_user.id,
+        message: "#{@booking.user.safe_display_name} accepted your request to book \"#{@booking.ad.safe_title}\"",
+        notifiable: @booking ).save
+    end
+
+    def notify_about_cancel
+      Notification.new(
+        user_id: @booking.user.id,
+        message: "#{@booking.from_user.safe_display_name} canceled their request to book \"#{@booking.ad.safe_title}\"",
+        notifiable: @booking ).save
+    end
+
     # Callback to notify the relevant parties that the booking is in place.
     # TODO: check that we can take for granted that @booking is in place.
-    # TODO: more fine grained notifications needed:
-    #   Accepting, rejecting, canceling and editing a booking request
     # TODO: move to aasm
     def notify_user
       Notification.new(
