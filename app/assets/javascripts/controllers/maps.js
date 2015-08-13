@@ -42,8 +42,8 @@ window.controllers.resultMap = {
         eventBus.on('new-search-result', onSearchResult);
 
         var map = initMap(searchData);
+        var clusterer = new MarkerClusterer(map, [], {gridSize: 50, maxZoom: 12});
         var infoWindow;
-        var markers = [];
         updateMarkers(searchData.hits);
 
         function initMap(searchData) {
@@ -77,8 +77,7 @@ window.controllers.resultMap = {
         }
 
         function clearMarkers() {
-            markers.forEach(function(e) { e.setMap(null); });
-            markers = [];
+            clusterer.clearMarkers();
         }
 
         function updateMarkers(result) {
@@ -97,21 +96,22 @@ window.controllers.resultMap = {
                 anchor: new google.maps.Point(10, 40)
             };
 
-            hits.forEach(function(hit) {
-                var pos = {lat: parseFloat(hit.location.lat), lng: parseFloat(hit.location.lon)};
-                var marker = new google.maps.Marker({
-                    position: pos,
-                    map: map,
+            var markers = hits.map(function(hit) {
+                return new google.maps.Marker({
+                    position: {lat: parseFloat(hit.location.lat), lng: parseFloat(hit.location.lon)},
                     title: 'Treff',
                     icon: poiImg,
-                    adId: 9
+                    adId: hit.adId
                 });
+            });
 
+            markers.forEach(function(marker) {
                 google.maps.event.addListener(marker, 'click', function() {
                     onMarkerClick(marker);
                 });
-                markers.push(marker);
             });
+
+            clusterer.addMarkers(markers);
         }
 
         function onSearchResult(hits) {
