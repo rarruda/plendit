@@ -1,0 +1,17 @@
+@import 'constants.scss';
+
+
+.booking-price-summary {
+
+
+    
+    &__summary-row {
+        border-top: 1px solid $color-box-border;
+    }
+
+    &__price {
+        text-align: right;
+        color: green;
+    }
+}
+

@@ -1,0 +1,28 @@
+<div class="booking-price-summary">
+    <table>
+        <tr class="booking-price-summary__row">
+            <th>Leieperiode fra</th>
+            <td class="booking-price-summary__td">
+                <%= @booking.starts_at.to_formatted_s(:plendit_short_datetime) %>
+            </td>
+        </tr>
+        <tr class="booking-price-summary__row">
+            <th>Leieperiode til</th>
+            <td class="booking-price-summary__td">
+                <%= @booking.ends_at.to_formatted_s(:plendit_short_datetime) %>
+            </td>
+        </tr>
+
+        <% if current_user.owns_booking_item? booking %>
+            <tr class="booking-price-summary__summary-row">
+                <th>Utbetales til deg</th>
+                <td class="booking-price-summary__price"><%= number_to_currency_pretty @booking.sum_paid_to_owner, unit: 'kr' %></td>
+            </tr>
+        <% else %>
+            <tr>
+                <th>Totalt å betale</th>
+                <td class="booking-price-summary__price"><%= number_to_currency_pretty @booking.sum_paid_by_renter, unit: 'kr' %></td>
+            </tr>
+        <% end %>
+    </table>
+</div>

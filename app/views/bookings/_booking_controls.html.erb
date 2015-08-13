@@ -1,0 +1,18 @@
+<div class="booking-controls">
+    <% if current_user.owns_booking_item? @booking %>
+        <%# Item owner %>
+        <%= button_to "Avslå forespørsel", decline_booking_path(booking) %>
+        <%= button_to "Godkjenn forespørsel", accept_booking_path(booking) %>
+    <% else %>
+        <%# Not owner %>
+        <% if booking.created? %>
+            <%= button_to "Avbryt forespørsel", cancel_booking_path(booking) %>
+            button_to edit
+        <% elsif booking.accepted? %>
+            go to payment
+        <% else %>
+            Unknown booking state
+        <% end %>
+
+    <% end %>
+</div>
