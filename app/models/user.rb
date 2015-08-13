@@ -145,7 +145,9 @@ class User < ActiveRecord::Base
     self.notifications.fresh.size
   end
 
-
+  def owns_booking_item?(booking)
+    self == booking.ad.user
+  end
 
   def is_site_admin?
     self.has_role? :site_admin
