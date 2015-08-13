@@ -8,7 +8,7 @@ Feedback.delete_all
 Message.delete_all
 Booking.delete_all
 
-AdImages.delete_all
+AdImage.delete_all
 AdItem.delete_all
 Ad.delete_all
 
