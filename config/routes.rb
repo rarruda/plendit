@@ -51,11 +51,7 @@ Rails.application.routes.draw do
 
 
 
-  get 'ads/create_3'
-
   post 'ads/create', as: 'user_ad'
-
-  get 'misc/wip'
 
   get 'misc/postal_place'
 
