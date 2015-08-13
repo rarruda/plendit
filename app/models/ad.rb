@@ -9,8 +9,8 @@ class Ad < ActiveRecord::Base
 
   belongs_to :user
   has_many :received_feedbacks, :class_name => "Feedback"
-  has_many :ad_items
-  has_many :ad_images
+  has_many :ad_items,  dependent: :destroy #will leave dangling links in old bookings/favorites.
+  has_many :ad_images, dependent: :destroy
   belongs_to :location
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5 }
