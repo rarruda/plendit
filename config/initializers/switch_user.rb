@@ -25,7 +25,9 @@ SwitchUser.setup do |config|
   # else the request will be refused and returns "Permission Denied"
   # if you switch from "admin" to user, the current_user param is "admin"
   config.controller_guard = lambda do |current_user, request|
-    Rails.env.development? and
+    #Rails.env.development? and
+    ( current_user.email.split("@").last == 'plendit.com' or
+     ['rarruda0@gmail.com', 'runefh@gmail.com'].include? current_user.email ) and
     request.env["action_controller.instance"].user_signed_in? and current_user.has_role? 'site_admin'
   end
 
