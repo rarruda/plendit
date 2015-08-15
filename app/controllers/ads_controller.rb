@@ -37,8 +37,8 @@ class AdsController < ApplicationController
     :single_calendar
   ]
 
-  after_action  :notify_user, only: [
-    :create, :update
+  after_action :notify_about_approval, only: [
+    :approve
   ]
 
   # GET /ads
@@ -272,11 +272,10 @@ class AdsController < ApplicationController
       end
     end
 
-    # Callback to create a user notification when an ad has been created/edited.
-    def notify_user
+    def notify_about_approval
       Notification.new(
-        user_id: current_user.id,
-        message: "Your ad has been inserted and/or updated",
+        user_id: @ad.user.id,
+        message: "Your ad has been approved. It is now published",
         notifiable: @ad).save
     end
 
