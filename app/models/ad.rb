@@ -9,8 +9,8 @@ class Ad < ActiveRecord::Base
 
   belongs_to :user
   has_many :received_feedbacks, :class_name => "Feedback"
-  has_many :ad_items,  dependent: :destroy #will leave dangling links in old bookings/favorites.
-  has_many :ad_images, dependent: :destroy
+  has_many :ad_items, autosave: true, dependent: :destroy #will leave dangling links in old bookings/favorites.
+  has_many :ad_images, autosave: true, dependent: :destroy
   belongs_to :location
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5 }
@@ -33,6 +33,8 @@ class Ad < ActiveRecord::Base
 
   # If there were any changes, except in status, set status to draft:
   before_save :edit, unless: "self.draft? || self.changes.except('status').empty?"
+
+  after_create :create_ad_item
 
   # ES Settings for this model:
   # TODO: Need to configure separately settings and analyzers (for norwegian/current locale)
@@ -175,5 +177,9 @@ class Ad < ActiveRecord::Base
   # used in as_indexed_json
   def tags
     tag_list
+  end
+
+  def create_ad_item
+    self.ad_items.build.save
   end
 end

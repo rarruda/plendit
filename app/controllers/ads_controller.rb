@@ -216,8 +216,6 @@ class AdsController < ApplicationController
     # FIXME: do something about it if there was an error with the category...
 
     @ad = Ad.new(user_id: current_user.id, category: params[:category])
-    @ad.ad_items.build
-    # @ad = Ad.new(type: type)
     if @ad.save
       redirect_to edit_users_ad_path(@ad)
     else
