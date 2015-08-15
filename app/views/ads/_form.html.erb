@@ -87,12 +87,6 @@
         <label>Beskrivelse</label>
         <%= f.text_area :body, class: 'u-full-width', data: { controller: 'autoSizeTextArea' } %>
 
-        <label>Emneord (tags)</label>
-        <!-- todo: add input tags to and fro markup -->
-        <div data-controller="tageditor" class="tag-editor">
-            <%= f.hidden_field :tag_list, :value => @ad.tag_list.to_s %>
-        </div>
-
         <%= f.submit 'Lagre', class: 'u-pull-right button-primary' %>
     </div>
 
