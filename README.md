@@ -58,9 +58,11 @@ $ rake db:migrate
 
 Load seed data:
 That is, add just enough test data so its possible to play around and
- the site be usable/testable.
+ the site be usable/testable. There are two versions, one from a more
+ programatic source, and another which is closer to a rawd database dump.
 ```
 $ rake db:seed
+$ rake db:seed:raw
 ```
 
 In Heroku to reset the database you need to run `heroku pg:reset DATABASE`.
@@ -68,13 +70,32 @@ In Heroku to reset the database you need to run `heroku pg:reset DATABASE`.
 
 * Further Database initialization
 
-Act-as-taggable-on gem requires also some support tables that need to be
- initialized by first generating the migrations, and then running them
- with the following commits:
+If you need to start things from scratch, these commands can be useful:
 
 ```
-$ rake acts_as_taggable_on_engine:install:migrations
-$ rake db:migrate
+$ rake db:reset
+$ rake db:setup
+### is the equivalent of:
+$ rake db:drop db:create db:migrate db:seed
+```
+
+or to drop tables on heroku:
+```
+$ heroku pg:psql
+---> Connecting to HEROKU_POSTGRESQL_AMBER_URL (DATABASE_URL)
+psql (9.4.1, server 9.3.6)
+SSL connection (protocol: TLSv1.2, cipher: DHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+still-coast-8321::AMBER=> \dt
+(...)
+still-coast-8321::AMBER=> select 'drop table "' || tablename || '" cascade;' from pg_tables WHERE tablename NOT LIKE 'pg_%' AND tablename NOT LIKE 'sql_%' ;
+(...)
+```
+
+```
+$ heroku run rake db:migrate
+$ heroku run rake db:seed:raw
 ```
 
 * Services (job queues, cache servers, search engines, etc.)

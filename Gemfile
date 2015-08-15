@@ -63,6 +63,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 # to generate fake data to rake db:seed the database:
 gem 'faker'
+# Consider using it later for future generation of seed data:
+#gem 'seed_dump'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

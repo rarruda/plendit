@@ -3,7 +3,7 @@ namespace :export do
   task :seeds_format => :environment do
     puts "# ruby encoding: utf-8"
     puts
-    [User, Ad, AdItem, AdImage, Feedback, Booking, Message, Notification, Location, Identity, Role, FavoriteAd, FavoriteList].each do |c|
+    [User, Location, Identity, Role, Ad, AdItem, AdImage, Booking, Message, Feedback, Notification, FavoriteList, FavoriteAd ].each do |c|
       puts "### #{c.to_s}"
       c.order(:id).all.each do |e|
         # also exclude 'id' if you are going to restore the database from scratch:

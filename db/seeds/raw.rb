@@ -44,6 +44,37 @@ User.create({"id"=>"42", "name"=>"Viking Biking", "phone_number"=>"41266496", "e
 User.create({"id"=>"45", "name"=>"Aleksander Enghaug", "phone_number"=>"", "ephemeral_answer_percent"=>"", "status"=>"unverified", "email"=>"temp-10155939256110593@facebook.com", "image_url"=>"http://graph.facebook.com/10155939256110593/picture", "phone_number_confirmation_token"=>"845962", "phone_number_confirmed_at"=>"", "phone_number_confirmation_sent_at"=>"", "unconfirmed_phone_number"=>"", "display_name"=>"Aleksander"})
 User.create({"id"=>"46", "name"=>"Espen Bordvik", "phone_number"=>"", "ephemeral_answer_percent"=>"", "status"=>"unverified", "email"=>"espen@plendit.com", "image_url"=>"", "phone_number_confirmation_token"=>"308204", "phone_number_confirmed_at"=>"", "phone_number_confirmation_sent_at"=>"", "unconfirmed_phone_number"=>"95265969", "display_name"=>"EspenB"})
 
+### Location
+
+Location.create({"id"=>"1", "user_id"=>"1", "address_line"=>"Sjøgata 4 / 124", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9104908", "lon"=>"10.723998"})
+Location.create({"id"=>"2", "user_id"=>"2", "address_line"=>"Grensen  5-7", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9137514", "lon"=>"10.743866"})
+Location.create({"id"=>"3", "user_id"=>"1", "address_line"=>"Grensen  5-7", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9137514", "lon"=>"10.743866"})
+Location.create({"id"=>"4", "user_id"=>"5", "address_line"=>"Slottsplassen 1", "city"=>"Oslo", "state"=>"OSlo", "post_code"=>"0010", "lat"=>"59.9098453", "lon"=>"10.7401414"})
+Location.create({"id"=>"5", "user_id"=>"36", "address_line"=>"MAJORSTUVEIEN 36", "city"=>"oslo", "state"=>"oslo", "post_code"=>"0367", "lat"=>"59.928026", "lon"=>"10.715181"})
+Location.create({"id"=>"6", "user_id"=>"36", "address_line"=>"Støperigata 2", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9106012", "lon"=>"10.7251834"})
+Location.create({"id"=>"7", "user_id"=>"35", "address_line"=>"Bentsebrugata 23B", "city"=>"Oslo", "state"=>"Norge", "post_code"=>"0469", "lat"=>"59.9382258", "lon"=>"10.7611172"})
+Location.create({"id"=>"8", "user_id"=>"41", "address_line"=>"Tennisveien 16 A", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0777", "lat"=>"59.9528818", "lon"=>"10.6981449"})
+Location.create({"id"=>"9", "user_id"=>"42", "address_line"=>"Nedre Slottsgate 4", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0157", "lat"=>"59.9106119", "lon"=>"10.7412764"})
+Location.create({"id"=>"10", "user_id"=>"38", "address_line"=>"Munkegata 5", "city"=>"Oslo", "state"=>"", "post_code"=>"0656", "lat"=>"59.9081214", "lon"=>"10.7686497"})
+Location.create({"id"=>"11", "user_id"=>"38", "address_line"=>"Tostrupsgate 25", "city"=>"Oslo", "state"=>"", "post_code"=>"0264", "lat"=>"59.9174109", "lon"=>"10.7023501"})
+Location.create({"id"=>"12", "user_id"=>"41", "address_line"=>"Bjørn Stallares vei 15", "city"=>"Oslo", "state"=>"", "post_code"=>"0574", "lat"=>"59.9324324", "lon"=>"10.7803472"})
+Location.create({"id"=>"13", "user_id"=>"40", "address_line"=>"Vækerøveien 169c", "city"=>"Oslo", "state"=>"", "post_code"=>"0751", "lat"=>"59.9418199", "lon"=>"10.6425691"})
+
+### Identity
+
+Identity.create({"id"=>"2", "user_id"=>"36", "provider"=>"facebook", "uid"=>"10153053524091077", "image_url"=>"http://graph.facebook.com/10153053524091077/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10153053524091077/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
+Identity.create({"id"=>"3", "user_id"=>"37", "provider"=>"facebook", "uid"=>"859481557452238", "image_url"=>"http://graph.facebook.com/859481557452238/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/859481557452238/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
+Identity.create({"id"=>"4", "user_id"=>"38", "provider"=>"facebook", "uid"=>"10153150681540659", "image_url"=>"http://graph.facebook.com/10153150681540659/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10153150681540659/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
+Identity.create({"id"=>"5", "user_id"=>"40", "provider"=>"facebook", "uid"=>"10155521598650015", "image_url"=>"http://graph.facebook.com/10155521598650015/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10155521598650015/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
+Identity.create({"id"=>"6", "user_id"=>"41", "provider"=>"facebook", "uid"=>"10152848404468715", "image_url"=>"http://graph.facebook.com/10152848404468715/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10152848404468715/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
+Identity.create({"id"=>"8", "user_id"=>"35", "provider"=>"facebook", "uid"=>"792254394198432", "image_url"=>"http://graph.facebook.com/792254394198432/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/792254394198432/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
+Identity.create({"id"=>"9", "user_id"=>"45", "provider"=>"facebook", "uid"=>"10155939256110593", "image_url"=>"http://graph.facebook.com/10155939256110593/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10155939256110593/", "email"=>"", "name"=>"Aleksander Enghaug", "first_name"=>"Aleksander", "last_name"=>"Enghaug", "nickname"=>""})
+
+
+### Role
+
+Role.create({"id"=>"1", "name"=>"site_admin", "resource_id"=>"", "resource_type"=>""})
+
 
 ### Ad
 
@@ -242,66 +273,37 @@ Feedback.create({"id"=>"15", "ad_id"=>"5", "from_user_id"=>"14", "score"=>"5", "
 
 ### Booking
 
-Booking.create({"id"=>"1", "ad_item_id"=>"1", "from_user_id"=>"3", "status"=>"accepted", "price"=>"250.0", "starts_at"=>"2015-03-29 11:00:00 UTC", "ends_at"=>"2015-03-31 11:00:00 UTC", "first_reply_at"=>"2015-03-28 11:05:00 UTC"})
-Booking.create({"id"=>"2", "ad_item_id"=>"", "from_user_id"=>"", "status"=>"created", "price"=>"", "starts_at"=>"2015-06-12 05:19:00 UTC", "ends_at"=>"2015-06-12 05:20:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"3", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"accepted", "price"=>"0.0", "starts_at"=>"2015-06-14 20:22:00 UTC", "ends_at"=>"2015-06-15 20:22:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"4", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"accepted", "price"=>"0.0", "starts_at"=>"2015-06-15 09:56:00 UTC", "ends_at"=>"2015-06-15 09:56:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"5", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"accepted", "price"=>"0.0", "starts_at"=>"2015-06-15 09:56:00 UTC", "ends_at"=>"2015-06-17 09:56:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"6", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"created", "price"=>"199.0", "starts_at"=>"2015-07-02 00:56:00 UTC", "ends_at"=>"2015-07-05 02:02:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"7", "ad_item_id"=>"15", "from_user_id"=>"38", "status"=>"created", "price"=>"698.0", "starts_at"=>"2015-07-22 12:00:00 UTC", "ends_at"=>"2015-07-24 15:00:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"8", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"created", "price"=>"199.0", "starts_at"=>"2015-07-21 19:34:00 UTC", "ends_at"=>"2015-07-22 19:34:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"16", "ad_item_id"=>"1", "from_user_id"=>"36", "status"=>"created", "price"=>"1250.0", "starts_at"=>"2015-07-30 09:00:00 UTC", "ends_at"=>"2015-08-04 09:00:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"17", "ad_item_id"=>"23", "from_user_id"=>"36", "status"=>"accepted", "price"=>"2793.0", "starts_at"=>"2015-07-31 11:00:00 UTC", "ends_at"=>"2015-08-07 11:00:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"19", "ad_item_id"=>"23", "from_user_id"=>"37", "status"=>"created", "price"=>"7182.0", "starts_at"=>"2015-08-12 02:09:00 UTC", "ends_at"=>"2015-08-29 22:10:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"20", "ad_item_id"=>"30", "from_user_id"=>"37", "status"=>"created", "price"=>"995.0", "starts_at"=>"0000-01-01 10:00:00 UTC", "ends_at"=>"0000-01-01 15:00:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"21", "ad_item_id"=>"30", "from_user_id"=>"38", "status"=>"created", "price"=>"1990.0", "starts_at"=>"2015-08-21 12:00:00 UTC", "ends_at"=>"2015-08-22 15:00:00 UTC", "first_reply_at"=>""})
-Booking.create({"id"=>"22", "ad_item_id"=>"38", "from_user_id"=>"35", "status"=>"created", "price"=>"398.0", "starts_at"=>"2015-08-14 00:01:00 UTC", "ends_at"=>"2015-08-15 01:01:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"1", "ad_item_id"=>"1", "from_user_id"=>"3", "status"=>"accepted", "price"=>"250.0", "starts_at"=>"2015-03-29 11:00:00 UTC", "ends_at"=>"2015-03-31 11:00:00 UTC", "first_reply_at"=>"2015-03-28 11:05:00 UTC"})
+#Booking.create({"id"=>"2", "ad_item_id"=>"", "from_user_id"=>"", "status"=>"created", "price"=>"", "starts_at"=>"2015-06-12 05:19:00 UTC", "ends_at"=>"2015-06-12 05:20:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"3", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"accepted", "price"=>"0.0", "starts_at"=>"2015-06-14 20:22:00 UTC", "ends_at"=>"2015-06-15 20:22:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"4", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"accepted", "price"=>"0.0", "starts_at"=>"2015-06-15 09:56:00 UTC", "ends_at"=>"2015-06-15 09:56:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"5", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"accepted", "price"=>"0.0", "starts_at"=>"2015-06-15 09:56:00 UTC", "ends_at"=>"2015-06-17 09:56:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"6", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"created", "price"=>"199.0", "starts_at"=>"2015-07-02 00:56:00 UTC", "ends_at"=>"2015-07-05 02:02:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"7", "ad_item_id"=>"15", "from_user_id"=>"38", "status"=>"created", "price"=>"698.0", "starts_at"=>"2015-07-22 12:00:00 UTC", "ends_at"=>"2015-07-24 15:00:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"8", "ad_item_id"=>"2", "from_user_id"=>"35", "status"=>"created", "price"=>"199.0", "starts_at"=>"2015-07-21 19:34:00 UTC", "ends_at"=>"2015-07-22 19:34:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"16", "ad_item_id"=>"1", "from_user_id"=>"36", "status"=>"created", "price"=>"1250.0", "starts_at"=>"2015-07-30 09:00:00 UTC", "ends_at"=>"2015-08-04 09:00:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"17", "ad_item_id"=>"23", "from_user_id"=>"36", "status"=>"accepted", "price"=>"2793.0", "starts_at"=>"2015-07-31 11:00:00 UTC", "ends_at"=>"2015-08-07 11:00:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"19", "ad_item_id"=>"23", "from_user_id"=>"37", "status"=>"created", "price"=>"7182.0", "starts_at"=>"2015-08-12 02:09:00 UTC", "ends_at"=>"2015-08-29 22:10:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"20", "ad_item_id"=>"30", "from_user_id"=>"37", "status"=>"created", "price"=>"995.0", "starts_at"=>"0000-01-01 10:00:00 UTC", "ends_at"=>"0000-01-01 15:00:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"21", "ad_item_id"=>"30", "from_user_id"=>"38", "status"=>"created", "price"=>"1990.0", "starts_at"=>"2015-08-21 12:00:00 UTC", "ends_at"=>"2015-08-22 15:00:00 UTC", "first_reply_at"=>""})
+#Booking.create({"id"=>"22", "ad_item_id"=>"38", "from_user_id"=>"35", "status"=>"created", "price"=>"398.0", "starts_at"=>"2015-08-14 00:01:00 UTC", "ends_at"=>"2015-08-15 01:01:00 UTC", "first_reply_at"=>""})
 
 
 ### Message
 
-Message.create({"id"=>"1", "booking_id"=>"1", "from_user_id"=>"3", "to_user_id"=>"1", "content"=>"Hei! Lurer på om den tidspunkt passer for deg... Hvis ikke, kan du si ifra?\r\n\r\nMvh,\r\nFredrik"})
-Message.create({"id"=>"2", "booking_id"=>"1", "from_user_id"=>"1", "to_user_id"=>"3", "content"=>"Den tidspunkt passer helt fint! Da er det bare å komme og hente.\r\n\r\nMvh,\r\nJan Erik"})
-Message.create({"id"=>"3", "booking_id"=>"8", "from_user_id"=>"35", "to_user_id"=>"2", "content"=>"Pen is med jordbærstrø "})
-Message.create({"id"=>"4", "booking_id"=>"16", "from_user_id"=>"36", "to_user_id"=>"1", "content"=>"Er den fjellpulk noe god til å bruke på sommer?"})
-Message.create({"id"=>"5", "booking_id"=>"17", "from_user_id"=>"36", "to_user_id"=>"35", "content"=>"Har du også barnsetter ?"})
-Message.create({"id"=>"6", "booking_id"=>"17", "from_user_id"=>"35", "to_user_id"=>"36", "content"=>"18 barneseter følger med. "})
-Message.create({"id"=>"7", "booking_id"=>"18", "from_user_id"=>"36", "to_user_id"=>"1", "content"=>"vem com um carrinho pra carregar?"})
-Message.create({"id"=>"8", "booking_id"=>"19", "from_user_id"=>"37", "to_user_id"=>"35", "content"=>"Skjerp deg"})
-Message.create({"id"=>"9", "booking_id"=>"20", "from_user_id"=>"37", "to_user_id"=>"36", "content"=>"Høres ut som et supert kamera;-)"})
+#Message.create({"id"=>"1", "booking_id"=>"1", "from_user_id"=>"3", "to_user_id"=>"1", "content"=>"Hei! Lurer på om den tidspunkt passer for deg... Hvis ikke, kan du si ifra?\r\n\r\nMvh,\r\nFredrik"})
+#Message.create({"id"=>"2", "booking_id"=>"1", "from_user_id"=>"1", "to_user_id"=>"3", "content"=>"Den tidspunkt passer helt fint! Da er det bare å komme og hente.\r\n\r\nMvh,\r\nJan Erik"})
+#Message.create({"id"=>"3", "booking_id"=>"8", "from_user_id"=>"35", "to_user_id"=>"2", "content"=>"Pen is med jordbærstrø "})
+#Message.create({"id"=>"4", "booking_id"=>"16", "from_user_id"=>"36", "to_user_id"=>"1", "content"=>"Er den fjellpulk noe god til å bruke på sommer?"})
+#Message.create({"id"=>"5", "booking_id"=>"17", "from_user_id"=>"36", "to_user_id"=>"35", "content"=>"Har du også barnsetter ?"})
+#Message.create({"id"=>"6", "booking_id"=>"17", "from_user_id"=>"35", "to_user_id"=>"36", "content"=>"18 barneseter følger med. "})
+#Message.create({"id"=>"7", "booking_id"=>"18", "from_user_id"=>"36", "to_user_id"=>"1", "content"=>"vem com um carrinho pra carregar?"})
+#Message.create({"id"=>"8", "booking_id"=>"19", "from_user_id"=>"37", "to_user_id"=>"35", "content"=>"Skjerp deg"})
+#Message.create({"id"=>"9", "booking_id"=>"20", "from_user_id"=>"37", "to_user_id"=>"36", "content"=>"Høres ut som et supert kamera;-)"})
 
 
-### Location
-
-Location.create({"id"=>"1", "user_id"=>"1", "address_line"=>"Sjøgata 4 / 124", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9104908", "lon"=>"10.723998"})
-Location.create({"id"=>"2", "user_id"=>"2", "address_line"=>"Grensen  5-7", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9137514", "lon"=>"10.743866"})
-Location.create({"id"=>"3", "user_id"=>"1", "address_line"=>"Grensen  5-7", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9137514", "lon"=>"10.743866"})
-Location.create({"id"=>"4", "user_id"=>"5", "address_line"=>"Slottsplassen 1", "city"=>"Oslo", "state"=>"OSlo", "post_code"=>"0010", "lat"=>"59.9098453", "lon"=>"10.7401414"})
-Location.create({"id"=>"5", "user_id"=>"36", "address_line"=>"MAJORSTUVEIEN 36", "city"=>"oslo", "state"=>"oslo", "post_code"=>"0367", "lat"=>"59.928026", "lon"=>"10.715181"})
-Location.create({"id"=>"6", "user_id"=>"36", "address_line"=>"Støperigata 2", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9106012", "lon"=>"10.7251834"})
-Location.create({"id"=>"7", "user_id"=>"35", "address_line"=>"Bentsebrugata 23B", "city"=>"Oslo", "state"=>"Norge", "post_code"=>"0469", "lat"=>"59.9382258", "lon"=>"10.7611172"})
-Location.create({"id"=>"8", "user_id"=>"41", "address_line"=>"Tennisveien 16 A", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0777", "lat"=>"59.9528818", "lon"=>"10.6981449"})
-Location.create({"id"=>"9", "user_id"=>"42", "address_line"=>"Nedre Slottsgate 4", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0157", "lat"=>"59.9106119", "lon"=>"10.7412764"})
-Location.create({"id"=>"10", "user_id"=>"38", "address_line"=>"Munkegata 5", "city"=>"Oslo", "state"=>"", "post_code"=>"0656", "lat"=>"59.9081214", "lon"=>"10.7686497"})
-Location.create({"id"=>"11", "user_id"=>"38", "address_line"=>"Tostrupsgate 25", "city"=>"Oslo", "state"=>"", "post_code"=>"0264", "lat"=>"59.9174109", "lon"=>"10.7023501"})
-Location.create({"id"=>"12", "user_id"=>"41", "address_line"=>"Bjørn Stallares vei 15", "city"=>"Oslo", "state"=>"", "post_code"=>"0574", "lat"=>"59.9324324", "lon"=>"10.7803472"})
-Location.create({"id"=>"13", "user_id"=>"40", "address_line"=>"Vækerøveien 169c", "city"=>"Oslo", "state"=>"", "post_code"=>"0751", "lat"=>"59.9418199", "lon"=>"10.6425691"})
 
 
-### Identity
-
-Identity.create({"id"=>"2", "user_id"=>"36", "provider"=>"facebook", "uid"=>"10153053524091077", "image_url"=>"http://graph.facebook.com/10153053524091077/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10153053524091077/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
-Identity.create({"id"=>"3", "user_id"=>"37", "provider"=>"facebook", "uid"=>"859481557452238", "image_url"=>"http://graph.facebook.com/859481557452238/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/859481557452238/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
-Identity.create({"id"=>"4", "user_id"=>"38", "provider"=>"facebook", "uid"=>"10153150681540659", "image_url"=>"http://graph.facebook.com/10153150681540659/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10153150681540659/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
-Identity.create({"id"=>"5", "user_id"=>"40", "provider"=>"facebook", "uid"=>"10155521598650015", "image_url"=>"http://graph.facebook.com/10155521598650015/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10155521598650015/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
-Identity.create({"id"=>"6", "user_id"=>"41", "provider"=>"facebook", "uid"=>"10152848404468715", "image_url"=>"http://graph.facebook.com/10152848404468715/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10152848404468715/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
-Identity.create({"id"=>"8", "user_id"=>"35", "provider"=>"facebook", "uid"=>"792254394198432", "image_url"=>"http://graph.facebook.com/792254394198432/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/792254394198432/", "email"=>"", "name"=>"", "first_name"=>"", "last_name"=>"", "nickname"=>""})
-Identity.create({"id"=>"9", "user_id"=>"45", "provider"=>"facebook", "uid"=>"10155939256110593", "image_url"=>"http://graph.facebook.com/10155939256110593/picture", "profile_url"=>"https://www.facebook.com/app_scoped_user_id/10155939256110593/", "email"=>"", "name"=>"Aleksander Enghaug", "first_name"=>"Aleksander", "last_name"=>"Enghaug", "nickname"=>""})
-
-
-### Role
-
-Role.create({"id"=>"1", "name"=>"site_admin", "resource_id"=>"", "resource_type"=>""})
 
 
 ### FavoriteAd
