@@ -257,6 +257,7 @@ AdImage.create({"id"=>"210", "ad_id"=>"144", "description"=>"", "image_file_name
 AdImage.create({"id"=>"165", "ad_id"=>"140", "description"=>"", "image_file_name"=>"IMG_4127.jpg", "image_content_type"=>"image/jpeg", "image_file_size"=>"53402", "image_updated_at"=>"2015-08-12 00:22:04 UTC", "image_fingerprint"=>"486fa7c485618c807b205fa7d64053bc", "weight"=>"15"})
 
 
+
 ### Booking
 
 #Booking.create({"id"=>"1", "ad_item_id"=>"1", "from_user_id"=>"3", "status"=>"accepted", "price"=>"250.0", "starts_at"=>"2015-03-29 11:00:00 UTC", "ends_at"=>"2015-03-31 11:00:00 UTC", "first_reply_at"=>"2015-03-28 11:05:00 UTC"})
@@ -313,6 +314,12 @@ Feedback.create({"id"=>"15", "ad_id"=>"5", "from_user_id"=>"14", "score"=>"5", "
 
 
 ### FavoriteAd
+
+
+Ad.unscoped.all.each{|a|
+  a.submit_for_review
+  a.approve
+}
 
 
 # EOF
