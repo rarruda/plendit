@@ -113,54 +113,54 @@ class AdsController < ApplicationController
   # GET /ads/1/pause
   def pause
     if @ad.pause!
-      redirect_to @ad, notice: 'Ad was successfully paused.'
+      redirect_to @ad
     else
-      redirect_to @ad, notice: 'Ad was NOT paused.'
+      redirect_to @ad, alert: 'Ad was NOT paused.'
     end
   end
 
   # GET /ads/1/stop
   def stop
     if @ad.stop!
-      redirect_to @ad, notice: 'Ad was successfully paused.'
+      redirect_to @ad
     else
-      redirect_to @ad, notice: 'Ad was NOT stopped.'
+      redirect_to @ad, alert: 'Ad was NOT stopped.'
     end
   end
 
   # GET /ads/1/resume
   def resume
     if @ad.resume!
-      redirect_to @ad, notice: 'Ad was successfully resumed.'
+      redirect_to @ad
     else
-      redirect_to @ad, notice: 'Ad was NOT resumed.'
+      redirect_to @ad, alert: 'Ad was NOT resumed.'
     end
   end
 
   # GET /ads/1/submit_for_review
   def submit_for_review
     if @ad.submit_for_review!
-      redirect_to @ad, notice: 'Ad was successfully submited for review.'
+      redirect_to @ad
     else
-      redirect_to @ad, notice: 'Ad was NOT submited for review.'
+      redirect_to @ad, alert: 'Ad was NOT submited for review.'
     end
   end
 
   # GET /ads/1/approve
   def approve
     if @ad.approve!
-      redirect_to @ad, notice: 'Ad was successfully approved by reviewer.'
+      redirect_to @ad
     else
-      redirect_to @ad, notice: 'Ad was NOT approved.'
+      redirect_to @ad, alert: 'Ad was NOT approved.'
     end
   end
 
   # GET /ads/1/suspend
   def suspend
     if @ad.suspend!
-      redirect_to '/', notice: 'Ad was suspended!'
+      redirect_to '/'
     else
-      redirect_to @ad, notice: 'Ad was NOT suspended.'
+      redirect_to @ad, alert: 'Ad was NOT suspended.'
     end
   end
 
@@ -219,9 +219,9 @@ class AdsController < ApplicationController
     @ad.ad_items.build
     # @ad = Ad.new(type: type)
     if @ad.save
-      redirect_to edit_users_ad_path(@ad), notice: t(:flash_ad_created)
+      redirect_to edit_users_ad_path(@ad)
     else
-      redirect_to new_ad_path, notice: "Couldn't create ad!"
+      redirect_to new_ad_path, alert: "Couldn't create ad!"
     end
   end
 
@@ -245,7 +245,7 @@ class AdsController < ApplicationController
     #logger.debug "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
       if @ad.update(ad_params_local)
-        format.html { redirect_to edit_users_ad_path(@ad), notice: 'Ad was successfully updated.' }
+        format.html { redirect_to edit_users_ad_path(@ad) }
         format.json { render :show, status: :ok, location: @ad }
       else
         format.html { render :edit }
