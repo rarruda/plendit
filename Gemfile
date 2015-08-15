@@ -67,9 +67,8 @@ gem 'faker'
 #gem 'seed_dump'
 
 group :development, :test do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
-
+  # Use postgresql in development also
+  gem 'pg'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

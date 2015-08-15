@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20150722195124) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
     t.text     "body"
@@ -24,9 +27,9 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at"
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "ad_images", force: :cascade do |t|
     t.integer  "ad_id"
@@ -41,7 +44,7 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.integer  "weight"
   end
 
-  add_index "ad_images", ["ad_id"], name: "index_ad_images_on_ad_id"
+  add_index "ad_images", ["ad_id"], name: "index_ad_images_on_ad_id", using: :btree
 
   create_table "ad_items", force: :cascade do |t|
     t.integer  "ad_id"
@@ -49,7 +52,7 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "ad_items", ["ad_id"], name: "index_ad_items_on_ad_id"
+  add_index "ad_items", ["ad_id"], name: "index_ad_items_on_ad_id", using: :btree
 
   create_table "ads", force: :cascade do |t|
     t.integer  "user_id"
@@ -65,8 +68,8 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.integer  "insurance_required"
   end
 
-  add_index "ads", ["location_id"], name: "index_ads_on_location_id"
-  add_index "ads", ["user_id"], name: "index_ads_on_user_id"
+  add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
+  add_index "ads", ["user_id"], name: "index_ads_on_user_id", using: :btree
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "ad_item_id"
@@ -80,9 +83,9 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at",                                          null: false
   end
 
-  add_index "bookings", ["ad_item_id"], name: "index_bookings_on_ad_item_id"
-  add_index "bookings", ["from_user_id"], name: "index_bookings_on_from_user_id"
-  add_index "bookings", ["status"], name: "index_bookings_on_status"
+  add_index "bookings", ["ad_item_id"], name: "index_bookings_on_ad_item_id", using: :btree
+  add_index "bookings", ["from_user_id"], name: "index_bookings_on_from_user_id", using: :btree
+  add_index "bookings", ["status"], name: "index_bookings_on_status", using: :btree
 
   create_table "favorite_ads", force: :cascade do |t|
     t.integer  "favorite_list_id"
@@ -91,8 +94,8 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "favorite_ads", ["ad_id"], name: "index_favorite_ads_on_ad_id"
-  add_index "favorite_ads", ["favorite_list_id"], name: "index_favorite_ads_on_favorite_list_id"
+  add_index "favorite_ads", ["ad_id"], name: "index_favorite_ads_on_ad_id", using: :btree
+  add_index "favorite_ads", ["favorite_list_id"], name: "index_favorite_ads_on_favorite_list_id", using: :btree
 
   create_table "favorite_lists", force: :cascade do |t|
     t.integer  "user_id"
@@ -101,7 +104,7 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "favorite_lists", ["user_id"], name: "index_favorite_lists_on_user_id"
+  add_index "favorite_lists", ["user_id"], name: "index_favorite_lists_on_user_id", using: :btree
 
   create_table "feedbacks", force: :cascade do |t|
     t.integer  "ad_id"
@@ -112,8 +115,8 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "feedbacks", ["ad_id"], name: "index_feedbacks_on_ad_id"
-  add_index "feedbacks", ["from_user_id"], name: "index_feedbacks_on_from_user_id"
+  add_index "feedbacks", ["ad_id"], name: "index_feedbacks_on_ad_id", using: :btree
+  add_index "feedbacks", ["from_user_id"], name: "index_feedbacks_on_from_user_id", using: :btree
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
@@ -130,8 +133,8 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.string   "nickname"
   end
 
-  add_index "identities", ["uid"], name: "index_identities_on_uid"
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+  add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -145,7 +148,7 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at",                             null: false
   end
 
-  add_index "locations", ["user_id"], name: "index_locations_on_user_id"
+  add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "booking_id"
@@ -156,9 +159,9 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "messages", ["booking_id"], name: "index_messages_on_booking_id"
-  add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id"
-  add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id"
+  add_index "messages", ["booking_id"], name: "index_messages_on_booking_id", using: :btree
+  add_index "messages", ["from_user_id"], name: "index_messages_on_from_user_id", using: :btree
+  add_index "messages", ["to_user_id"], name: "index_messages_on_to_user_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
@@ -170,8 +173,8 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at",                  null: false
   end
 
-  add_index "notifications", ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
-  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
+  add_index "notifications", ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id", using: :btree
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -181,8 +184,8 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
@@ -194,15 +197,15 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -236,17 +239,24 @@ ActiveRecord::Schema.define(version: 20150722195124) do
     t.string   "display_name"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email"
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["status"], name: "index_users_on_status"
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["status"], name: "index_users_on_status", using: :btree
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
+  add_foreign_key "ad_images", "ads"
+  add_foreign_key "ads", "locations"
+  add_foreign_key "favorite_ads", "ads"
+  add_foreign_key "favorite_ads", "favorite_lists"
+  add_foreign_key "favorite_lists", "users"
+  add_foreign_key "identities", "users"
+  add_foreign_key "notifications", "users"
 end

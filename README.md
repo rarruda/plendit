@@ -100,9 +100,14 @@ $ heroku run rake db:seed:raw
 
 * Services (job queues, cache servers, search engines, etc.)
 
-Only ElasticSearch >= 1.6 for now.
+Only PostgreSQL >= 9.4 and ElasticSearch >= 1.6 for now.
 
 In the future we will also have an support for varnish caching.
+
+* Postgresql
+
+Any version will probably sufice. In dev we are using the build from
+ http://postgresapp.com/
 
 * ElasticSearch (re)initialization
 
