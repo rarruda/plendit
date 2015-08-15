@@ -11,7 +11,7 @@ namespace :export do
         #   that are BigDecimal. In theory there could be values exported wrong from that.
         #puts "#{c.to_s}.create(#{e.serializable_hash.delete_if {|key, value| ['created_at','updated_at','id'].include?(key)}.to_s.gsub(/[{}]/,'')})"
 
-        puts "#{c.to_s}.create(#{e.serializable_hash.delete_if {|key, value| ['created_at','updated_at'].include?(key)}.map{ |k,v| [k, v.to_s] }.to_h})"
+        puts "#{c.to_s}.create(#{e.serializable_hash.delete_if {|key, value| ['tags','created_at','updated_at'].include?(key)}.map{ |k,v| [k, v.to_s] }.to_h})"
       end
       puts
       puts
