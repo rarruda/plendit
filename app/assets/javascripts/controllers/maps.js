@@ -11,8 +11,11 @@ window.controllers.adMap = {
 
             var mapOptions = {
               streetViewControl: false,
+              mapTypeControl: false,
               center: center,
-              zoom: 15,
+              zoom: 6,
+              maxZoom: 18,
+              minZoom: 4,
               scrollwheel: false
             };
             var map = new google.maps.Map(ele, mapOptions);
@@ -52,8 +55,11 @@ window.controllers.resultMap = {
 
             var mapOptions = {
                 streetViewControl: false,
+                mapTypeControl: false,
                 center: center,
-                zoom: 12
+                zoom: 6,
+                maxZoom: 18,
+                minZoom: 4
             };
 
             var map = new google.maps.Map(ele, mapOptions);

@@ -58,8 +58,9 @@ class AdsController < ApplicationController
     options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max'].include? k }
 
     @ads = Ad.search query, filter, options #kaminari_paginate: .page(page).per(5)
-    # fixme: center from query param, or a sensible default from a config
-    @center = {lat: 59.913869, lon: 10.752245}
+
+    @center = Rails.configuration.x.map.default_center_coordinates
+
     @result_json = render_to_string( formats: 'json' ).html_safe
     @result_markup = render_to_string partial: "search_result_item", collection: @ads, as: 'ad', formats: [:html]
 
