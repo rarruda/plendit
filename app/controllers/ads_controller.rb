@@ -58,33 +58,14 @@ class AdsController < ApplicationController
     options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max'].include? k }
 
     @ads = Ad.search query, filter, options #kaminari_paginate: .page(page).per(5)
-
     # fixme: center from query param, or a sensible default from a config
-    @location_info = {
-      center: {lat: 59.913869, lon: 10.752245},
-      hits: @ads.map do |ad|
-        if not ad.geo_location.nil?
-          {id: ad.id, location: { lat: ad.geo_location[:lat], lon: ad.geo_location[:lon] }}
-        else
-          logger.error "Location not found for ad_id: #{ad.id}"
-          nil
-        end
-      end
-    }.to_json.html_safe
+    @center = {lat: 59.913869, lon: 10.752245}
+    @result_json = render_to_string( formats: 'json' ).html_safe
+    @result_markup = render_to_string partial: "search_result_item", collection: @ads, as: 'ad', formats: [:html]
 
     respond_to do |format|
       format.html
-
-      format.json {
-        # this all feels quite dirty
-        result_markup = render_to_string partial: "search_result_item", collection: @ads, as: 'ad', formats: [:html]
-        result_json = @ads.as_json
-
-        render json: {
-          hits: result_json,
-          markup: result_markup
-        }
-      }
+      format.json
     end
   end
 
