@@ -19,7 +19,7 @@ class PhoneVerificationService
 
   def to
     # +47 is a country code for Norway
-    @user.unconfirmed_phone_number ? "+47#{@user.unconfirmed_phone_number}" : nil
+    @user.unconfirmed_phone_number.blank? ? nil : "+47#{@user.unconfirmed_phone_number}"
   end
 
   def body
@@ -36,7 +36,7 @@ class PhoneVerificationService
   def send_sms
     if to.nil?
       Rails.logger.tagged("user_id:#{@user.id}") do
-        Rails.logger.error "unconfirmed_phone_number for user cannot be nil. Refusing to send sms."
+        Rails.logger.error "unconfirmed_phone_number for user cannot be blank. Refusing to send sms."
       end
     else
       Rails.logger.tagged("user_id:#{@user.id}") do
