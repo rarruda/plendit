@@ -10,6 +10,7 @@ window.controllers.adMap = {
             var center = {lat: latLon[0], lng: latLon[1]};
 
             var mapOptions = {
+              streetViewControl: false,
               center: center,
               zoom: 15,
               scrollwheel: false
@@ -50,6 +51,7 @@ window.controllers.resultMap = {
             }
 
             var mapOptions = {
+                streetViewControl: false,
                 center: center,
                 zoom: 12
             };
