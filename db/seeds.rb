@@ -264,7 +264,7 @@ Feedback.create({"ad_id"=>ad_id, "from_user_id"=>get_from_user_id(ad_id), "score
   ad_item_id   = ad.ad_items.all.sample.id
   from_user = User.where("id != ?", ad.user_id ).sample
 
-  b = Booking.create({"ad_item_id"=>ad_item_id, "from_user_id"=>from_user.id, "price"=>ad.price, "booking_from"=>(DateTime.now + 1).iso8601, "booking_to"=>(DateTime.now + 2).iso8601}) ##, "first_reply_at"=>"2015-03-28 11:05:00 UTC"})
+  b = Booking.create({"ad_item_id"=>ad_item_id, "from_user_id"=>from_user.id, "price"=>ad.price, "starts_at"=>(DateTime.now + 1).iso8601, "ends_at"=>(DateTime.now + 2).iso8601}) ##, "first_reply_at"=>"2015-03-28 11:05:00 UTC"})
 
   ### Message
   Message.create({"booking_id"=>b.id, "from_user_id"=>from_user.id, "to_user_id"=>ad.user_id, "content"=>"Hei! Lurer på om den tidspunkt passer for deg... Hvis ikke, kan du si ifra?\r\n\r\nMvh,\r\n#{from_user.name}"})
