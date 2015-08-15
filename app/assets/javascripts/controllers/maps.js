@@ -101,7 +101,7 @@ window.controllers.resultMap = {
                     position: {lat: parseFloat(hit.location.lat), lng: parseFloat(hit.location.lon)},
                     title: 'Treff',
                     icon: poiImg,
-                    adId: hit.adId
+                    adId: hit.id
                 });
             });
 
