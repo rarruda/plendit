@@ -4,10 +4,17 @@
     // display: inline;
 
     &__button {
-        background-color: white;
+        background-color: $color-plendit-blue;
         border: solid thin $color-box-border;
-        width: 200px;
-        height: 200px;
+        display: block;
+        width: 100%;
+        height: 120px;
         text-transform: none;
+        color: white;
+        border: solid thin white;
+    }
+
+    &__title {
+        margin: 0;
     }
 }

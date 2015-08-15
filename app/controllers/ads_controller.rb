@@ -151,17 +151,20 @@ class AdsController < ApplicationController
       {
         title: "Stort og smått",
         category: "bap",
-        image: "new_realestate.png"
+        image: "category_bap.png",
+        size: "37x37"
       },
       {
         title: "Kjøretøy",
         category: "motor",
-        image: "new_realestate.png"
+        image: "category_veichle.png",
+        size: "47x20"
       },
       {
         title: "Eiendom",
         category: "realestate",
-        image: "new_realestate.png"
+        image: "category_realestate.png",
+        size: "38x34"
       }
     ]
   end

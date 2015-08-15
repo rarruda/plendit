@@ -4,8 +4,8 @@
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
             <% @ad_categories.each do |a| %>
                 <%= button_to(user_ad_path, form_class: "new-ad-category-selector", class: "new-ad-category-selector__button", params: {category: a[:category]}) do %>
-                    <%= image_tag a[:image], size: "128x128" %>
-                    <h4><%= a[:title] %></h4>
+                    <%= image_tag a[:image], size: a[:size] %>
+                    <h4 class="new-ad-category-selector__title"><%= a[:title] %></h4>
                 <% end %>
             <% end %>
         </div>
