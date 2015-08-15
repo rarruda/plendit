@@ -5,17 +5,20 @@ ActsAsTaggableOn::Tag.delete_all
 ActsAsTaggableOn::Tagging.delete_all
 
 Feedback.delete_all
+Notification.delete_all
 Message.delete_all
 Booking.delete_all
 
+FavoriteAd.delete_all
+FavoriteList.delete_all
+
 AdImage.delete_all
 AdItem.delete_all
-Ad.delete_all
+Ad.unscoped.delete_all
 
 Location.delete_all
 User.delete_all
 
-Notification.delete_all
 
 ### User
 

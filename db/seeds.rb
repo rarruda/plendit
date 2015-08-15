@@ -15,14 +15,19 @@ ActsAsTaggableOn::Tagging.delete_all
 
 Feedback.delete_all
 Message.delete_all
+Notification.delete_all
 Booking.delete_all
+
+FavoriteAd.delete_all
+FavoriteList.delete_all
+
 AdItem.delete_all
 AdImage.delete_all
-Ad.delete_all
+Ad.unscoped.delete_all
+
 Location.delete_all
 User.delete_all
 
-Notification.delete_all
 
 
 
@@ -211,7 +216,7 @@ end
 #User.where("id != ?", ad.user.id ).sample.id
 #ad_id = ad_list[i]
 def get_from_user_id ad_id
-  User.where("id != ?", Ad.find_by( ad_id ).user_id ).sample.id
+  User.where("id != ?", Ad.find( ad_id ).user_id ).sample.id
 end
 
 i = 0
