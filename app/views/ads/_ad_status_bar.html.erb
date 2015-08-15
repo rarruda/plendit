@@ -1,16 +1,28 @@
 <% if user_signed_in? && (current_user.is_site_admin? || current_user == ad.user) %>
     <div class="ad-status-bar ad-status-bar--<%= ad.status %>">
-        <% if ad.status == 'published' %>
-            Annonsen er aktiv.
-        <% elsif ad.status == 'draft' %>
-            Annonsen er under utarbeidelse.
-        <% elsif ad.status == 'waiting_review' %>
-            Annonsen er sendt til kontroll.
-        <% elsif ad.status == 'paused' %>
-            Annonsen er satt på pause.
-        <% elsif ad.status == 'stopped' %>
-            Annonsen er stoppet.
-        <% end %>
-        <%= link_to "Endre", "#ad-controls", class: "ad-status-bar__link"%>
+
+        <details>
+            <summary class="ad-status-bar__summary">
+                <h5 class="ad-status-bar__title">
+                    <% if ad.status == 'published' %>
+                        Annonsen er aktiv.
+                    <% elsif ad.status == 'draft' %>
+                        Annonsen er under utarbeidelse.
+                    <% elsif ad.status == 'waiting_review' %>
+                        Annonsen er sendt til kontroll.
+                    <% elsif ad.status == 'paused' %>
+                        Annonsen er satt på pause.
+                    <% elsif ad.status == 'stopped' %>
+                        Annonsen er stoppet.
+                    <% end %>
+                    <small class="ad-status-bar__link">Klikk for å endre</small>
+                </h5>
+            </summary>
+
+            <div>
+                <%= render partial: "ad_status_box", locals: { ad: ad } %>
+            </div>
+        </details>
+
     </div>
 <% end %>

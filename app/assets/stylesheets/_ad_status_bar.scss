@@ -1,15 +1,27 @@
 @import 'constants.scss';
 
 .ad-status-bar {
-    height: 52px;
-    line-height: 52px;
+    min-height: 52px;
     color: white;
     background-color: $color-state-yellow;
     text-align: center;
 
+    
+    &__summary::-webkit-details-marker {
+        display: none;
+    }
+
+    &__summary {
+        outline: none;
+    }
+
     &__link {
         color: white;
-        font-size: 80%;
+    }
+
+    &__title {
+        margin: 0;
+        padding-top: 12px;
     }
 
     &--published {
