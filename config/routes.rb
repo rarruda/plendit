@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   post 'ads/create', as: 'user_ad'
 
   get 'misc/postal_place'
+  get 'misc/wip'
 
   get '/search', to: 'ads#search'
 
