@@ -33,10 +33,7 @@ window.controllers.adMap = {
 window.controllers.resultMap = {
     dependencies: ['$element', 'eventbus', 'searchService'],
     callable: function(ele, eventBus, searchService) {
-        var jsonContainer = ele.querySelector("[data-location-info]");
-        var searchData = JSON.parse(jsonContainer.textContent);
-        jsonContainer.parentNode.removeChild(jsonContainer);;
-
+        var searchData = searchService.getMostRecentSearchResult();
         if (!searchData) { return }
 
         eventBus.on('new-search-result', onSearchResult);
@@ -61,7 +58,6 @@ window.controllers.resultMap = {
 
             google.maps.event.addListener(map, 'center_changed', debounce(onCenterChanged, 1000));
             return map;
-
         };
 
         function onCenterChanged() {

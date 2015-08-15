@@ -78,6 +78,7 @@ window.services.searchService = {
     callable: function(eventBus) {
         var params = {};
         var bounds = {};
+        var mostRecentResult;
 
         var queryBlackList = {
             utf8: true,
@@ -87,6 +88,9 @@ window.services.searchService = {
         init();
 
         function init() {
+            var jsonContainer = document.querySelector("[data-location-info]");
+            mostRecentResult = JSON.parse(jsonContainer.textContent);
+
             var parts = window
                 .location.search.split(/[\?&]/)
                 .filter(function(e) { return e; })
@@ -157,7 +161,8 @@ window.services.searchService = {
 
         return {
             search: search,
-            setBounds: setBounds
+            setBounds: setBounds,
+            getMostRecentSearchResult: function() { return mostRecentResult; }
         }
     }
 }
