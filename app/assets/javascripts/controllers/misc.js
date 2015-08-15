@@ -137,9 +137,27 @@ window.services.searchService = {
             search(params);
         }
 
+        function resultsAreDifferent(first, second) {
+            return idKeyFromResult(first) != idKeyFromResult(second);
+        }
+
+        function idKeyFromResult(result) {
+            if (result && result.hits) {
+                var ids = result.hits.map(function(e) { return e.id; });
+                ids.sort();
+                return ids.join(",");
+            }
+            else {
+                return "";
+            }
+        }
+
         function onSearchFinished(response) {
             var result = JSON.parse(response.responseText);
-            eventBus.emit('new-search-result', result);
+            if (resultsAreDifferent(result, mostRecentResult)) {
+                mostRecentResult = result;
+                eventBus.emit('new-search-result', result);
+            }
         }
 
         function buildQuery(form) {
