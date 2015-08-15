@@ -276,3 +276,9 @@ window.controllers.autoSizeTextArea = {
         }
     }
 }
+
+window.controllers.submitMainForm = function(ele) {
+    ele.addEventListener("click", function() {
+        document.querySelector("[data-main-form]").submit();
+    });
+}

@@ -1,4 +1,4 @@
-<%= form_for(@ad, url: (users_ad_path @ad)) do |f| %>
+<%= form_for(@ad, url: (users_ad_path @ad), data: {"main-form" => ""}) do |f| %>
     <% if @ad.errors.any? %>
         <div id="error_explanation">
             <h2><%= pluralize(@ad.errors.count, "error") %> prohibited this ad from being saved:</h2>
@@ -86,13 +86,19 @@
     <div class="u-push-down">
         <label>Beskrivelse</label>
         <%= f.text_area :body, class: 'u-full-width', data: { controller: 'autoSizeTextArea' } %>
-
-        <%= f.submit 'Lagre', class: 'u-pull-right button-primary' %>
     </div>
 
-    <%= link_to "Vis annonse", (ad_path @ad)  %>
-    <%= link_to "Vis bilder", (users_ad_ad_images_path @ad) %>
 <%- end -%>
+
+<div class="u-push-down">
+    <%= render partial: 'shared/image_uploader', locals: { ad: @ad } %>
+    <%= render partial: 'shared/image_manager', locals: { ad: @ad } %>
+</div>
+
+<div>
+    <%= button_tag("lagre", {class: "button-primary", data: {controller: "submitMainForm"}}) %>
+    <%= link_to "Gå til annonse", (ad_path @ad)  %>
+</div>
 
 <% if @ad.valid? %>
   <%= render partial: "ad_status_box", locals: { ad: @ad } %>
