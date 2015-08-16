@@ -325,3 +325,22 @@ window.controllers.imageDescriptionAutoSaver = {
     }
 }
 
+
+window.controllers.kalendaeBookingSelector = {
+    dependencies: ["$element", "utils", "xhr"],
+    callable: function(ele, utils, xhr) {
+        var k = new Kalendae({
+            attachTo: ele,
+            months: 3,
+            mode: 'range',
+            weekStart: 1,
+            direction: "today-future",
+            zzselected: [Kalendae.moment().subtract({M:1}), Kalendae.moment().add({M:1})]
+        });
+
+        k.subscribe('change', function (date) {
+            window.k = k;
+           console.log(date, this.getSelected());
+        });
+    }
+}

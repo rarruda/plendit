@@ -16,4 +16,6 @@
 //= require 'polyfills/better-i18n-plugin.js'
 //= require 'polyfills/better-dateinput-polyfill.js'
 //= require 'polyfills/better-dateinput-polyfill.no.js'
+//= require 'libs/moment.min.js'
+//= require 'libs/moment.locale.nb.js'
 //= require_tree .
