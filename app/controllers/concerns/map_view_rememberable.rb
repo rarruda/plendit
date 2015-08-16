@@ -32,9 +32,10 @@ module MapViewRememberable
     else
       if lat.blank? or lon.blank? or zl.blank?
         logger.debug  "MAPVIEW_REM get_map_view loading global defaults >>> lat:#{lat} lon:#{lon} zl:#{zl}"
-        default_center = Rails.configuration.x.map.default_center_coordinates
-        default_zoom = 6
-        lat, lon, zl = default_center[:lat], default_center[:lon], default_zoom
+
+        lat = Rails.configuration.x.map.default_center_coordinates[:lat]
+        lon = Rails.configuration.x.map.default_center_coordinates[:lon]
+        zl  = Rails.configuration.x.map.default_zoom_level
       else
         save_map_view lat, lon, zl
       end
