@@ -1,14 +1,26 @@
-<div class="image-manager__item">
-    <div class="image-manager__thumb-box">
-        <%= image_tag ad_image.image.url(:thumb), size: "180x120", class: "image-manager__thumb" %>
+<div class="image-manager__item row">
+    <div class="five columns image-manager__thumb-box">
+        <%= image_tag ad_image.image.url(:thumb), width: "100%", class: "image-manager__thumb" %>
     </div>
-    <div class="image-manager__controls">
+    <div class="seven columns image-manager__controls">
         <%= form_for(ad_image, url: ad_image_path(ad_image)) do |f| %>
-            <%= f.text_field :description, placeholder: 'Bildetekst' %>
+            <%= f.text_area :description, placeholder: 'Bildetekst', class: "u-full-width" %>
             <%= f.hidden_field :previous_url, value: request.fullpath %>
-            <%= f.submit 'Lagre bildetekst' %>
+            <%#= f.submit 'Lagre bildetekst' %>
         <% end %>
-        <%= button_to 'Slett', ad_image_path(ad_image), method: :delete, params: {previous_url: request.fullpath} %>
-        <%= button_to 'Gjør til hovedbilde', make_primary_ad_image_path(ad_image) %>
+
+        <% if ad_image_counter != 0 %>
+            <%= button_to make_primary_ad_image_path(ad_image), class: "image-manager__primary-button udd-pull-right" do %>
+                <%= image_tag 'image_main.png', size: "15x15" %>
+                Sett som hovedbilde
+            <% end %>
+        <% end %>
+
+        <%= button_to ad_image_path(ad_image), method: :delete, params: {previous_url: request.fullpath}, class: "image-manager__delete-button udd-pull-right" do %>
+            <%= image_tag 'image_delete.png', size: "12x15" %>
+            Slett
+        <% end %>
+
     </div>
+    <hr>
 </div>

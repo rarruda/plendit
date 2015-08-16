@@ -5,19 +5,28 @@
     transition: opacity 0.2s;
 
     &__item {
-        display: flex;
+        min-height: 135px;
     }
 
     &__thumb-box {
-        flex-shrink: 0;
-        width: 220px;
     }
 
     &__controls {
+        text-align: right;
 
     }
 
     form {
         display: inline;
+    }
+
+    &__delete-button {
+        color: white;
+        background-color: $color-plendit-blue;
+    }
+
+    &__primary-button {
+        color: white;
+        background-color: $color-button-delete;
     }
 }
