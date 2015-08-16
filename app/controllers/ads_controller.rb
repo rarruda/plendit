@@ -57,7 +57,10 @@ class AdsController < ApplicationController
     filter = []
     options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max'].include? k }
 
-    @ads = Ad.search query, filter, options #kaminari_paginate: .page(page).per(5)
+    @ads = Ad.search( query, filter, options).page( params[:page] ).results
+
+    @term = params[:q]
+
 
     # Load map parameters:
     @map_center = {}

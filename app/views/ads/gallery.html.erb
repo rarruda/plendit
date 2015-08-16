@@ -5,7 +5,7 @@
             <div>
                 <%= link_to "Tilbake til annonsen", @ad %>
             </div>
-    
+
             <div class="gallery__thumb-holder">
                 <% @ad.ad_images.each_with_index do |img, index| %>
                     <% img_style = "background-image: url(#{img.image.url(:thumb)});" %>

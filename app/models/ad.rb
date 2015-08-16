@@ -29,6 +29,7 @@ class Ad < ActiveRecord::Base
   default_scope { where.not( status: Ad.statuses[:suspended] ) }
   scope :for_user, ->(user) { where( user_id: user.id ) }
   scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
+  scope :waiting_review, -> { where( status: Ad.statuses[:waiting_review] ) }
   scope :published,      -> { where( status: Ad.statuses[:published] ) }
 
   # If there were any changes, except in status, set status to draft:

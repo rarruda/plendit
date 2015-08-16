@@ -18,6 +18,8 @@ gem 'acts-as-taggable-on', '~> 3.4'
 
 gem 'activeadmin', '~> 1.0.0.pre1'
 
+# kaminari needs to come before elasticsearch gems
+gem 'kaminari'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 

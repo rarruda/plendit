@@ -1,5 +1,5 @@
 <div class="container search-title-box">
-    <h4 class="search-title-box__title" data-controller="hitCount"><%= @ads.count %> treff for <i><%= @term %></i></h4>
+    <h4 class="search-title-box__title" data-controller="hitCount">Viser <%= @ads.count %> av <%= @ads.total_count %> treff for <i><%= @term %></i></h4>
 </div>
 
 <div class="search-filter-section">
@@ -44,6 +44,7 @@
                         <%= label_tag(:q, "Term:") %>
                     </div>
                     <div class="ten columns">
+                    T: .<%= @term %>.
                         <%= text_field_tag(:q, @term ) %>
                     </div>
                 </div>
@@ -61,6 +62,7 @@
         </div>
     </div>
     <div class="result-container__hits-box" data-controller="resultList">
+        <%= paginate @ads %>
         <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
     </div>
 </div>
