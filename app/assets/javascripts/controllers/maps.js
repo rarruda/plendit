@@ -35,8 +35,8 @@ window.controllers.adMap = {
 };
 
 window.controllers.resultMap = {
-    dependencies: ['$element', 'eventbus', 'searchService'],
-    callable: function(ele, eventBus, searchService) {
+    dependencies: ['$element', 'eventbus', 'searchService', 'utils'],
+    callable: function(ele, eventBus, searchService, utils) {
         var searchData = searchService.getMostRecentSearchResult();
         if (!searchData) { return }
 
@@ -65,8 +65,8 @@ window.controllers.resultMap = {
 
             var map = new google.maps.Map(ele, mapOptions);
 
-            google.maps.event.addListener(map, 'center_changed', debounce(onCenterChanged, 1000));
-            google.maps.event.addListener(map, 'zoom_changed',   debounce(onCenterChanged, 1000));
+            google.maps.event.addListener(map, 'center_changed', utils.debounce(onCenterChanged, 1000));
+            google.maps.event.addListener(map, 'zoom_changed',   utils.debounce(onCenterChanged, 1000));
 
             return map;
         };
@@ -130,21 +130,6 @@ window.controllers.resultMap = {
         function onSearchResult(hits) {
             updateMarkers(hits);
         }
-
-        function debounce(func, wait, immediate) {
-            var timeout;
-            return function() {
-                var context = this, args = arguments;
-                var later = function() {
-                    timeout = null;
-                    if (!immediate) func.apply(context, args);
-                };
-                var callNow = immediate && !timeout;
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-                if (callNow) func.apply(context, args);
-            };
-        };
 
         function onMarkerClick(marker) {
             var hitEle = document.querySelector('[data-adid="'+ marker.adId +'"]');

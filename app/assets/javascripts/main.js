@@ -13,6 +13,7 @@ function main() {
     c.registerInstance('eventbus', eventbus);
     c.registerInstance('tagbox', tagBox);
     c.registerInstance('xhr', xhr);
+    c.registerInstance('utils', plenditUtils);
     c.scanControllers(controllers);
     c.scanServices(services);
     console.log("Running controllerator now!");
