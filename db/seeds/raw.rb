@@ -317,8 +317,8 @@ Feedback.create({"id"=>"15", "ad_id"=>"5", "from_user_id"=>"14", "score"=>"5", "
 
 
 Ad.unscoped.all.each{|a|
-  a.submit_for_review
-  a.approve
+  a.submit_for_review!
+  a.approve!
 }
 
 
