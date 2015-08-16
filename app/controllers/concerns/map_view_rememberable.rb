@@ -3,20 +3,19 @@ module MapViewRememberable
   extend ActiveSupport::Concern
 
 
-  def current_map( params )
-    cur_lat = ( ( params[:ne_lat].to_f + params[:sw_lat].to_f ) / 2 )
-    cur_lon = ( ( params[:ne_lon].to_f + params[:sw_lon].to_f ) / 2 )
-    cur_zl  = params[:zl]
-    logger.debug "MAPVIEW_REM current_map from params: lat:#{cur_lat} lon:#{cur_lon} zl:#{cur_zl}"
+  def params_map( params )
+    lat = ( ( params[:ne_lat].to_f + params[:sw_lat].to_f ) / 2 )
+    lon = ( ( params[:ne_lon].to_f + params[:sw_lon].to_f ) / 2 )
+    zl  = params[:zl]
+    logger.debug "MAPVIEW_REM current_map from params: lat:#{lat} lon:#{lon} zl:#{zl}"
 
-    return cur_lat, cur_lon, cur_zl
+    return lat, lon, zl
   end
 
   # get the correct map view from the map defined by values in url/cookies/global defaults
   def get_map_view( params )
     # load what the current map looks like from the url params
-    lat, lon, zl = current_map(params)
-    #logger.debug "MAPVIEW_REM get_map_view current from params: lat:#{lat} lon:#{lon} zl:#{zl}"
+    lat, lon, zl = params_map(params)
 
     if cookies[:map_pos]
       cookie_lat, cookie_lon, cookie_zl = cookies[:map_pos].split("#").map!{ |e| e.split(":")[1] }
@@ -24,26 +23,28 @@ module MapViewRememberable
 
       # If the values from params and cookies are different, then we save the new values in cookies.
       if lat != cookie_lat or lon != cookie_lon or zl != cookie_zl
-        save_map_view lat, lon, zl
+        return save_map_view lat, lon, zl
       end
 
-      # And use the new values
-      return cookie_lat, cookie_lon, cookie_zl
     else
+      logger.debug  "MAPVIEW_REM get_map_view checking if current latlonzl are valid >>> lat:#{lat} lon:#{lon} zl:#{zl}"
       if ( Float(lat) rescue nil ) and ( Float(lon) rescue nil ) and ( Integer(zl) rescue nil )
-        logger.debug  "MAPVIEW_REM get_map_view loading global defaults before >>> lat:#{lat} lon:#{lon} zl:#{zl}"
-
+        #map_pos="lat:000#lon:000#zl:000#mt:000"
+        cookies[:map_pos] = { value: "lat:#{lat}#lon:#{lon}#zl:#{zl}", expires: 3.months.from_now }
+        logger.debug  "MAPVIEW_REM get_map_view SAVING cookies[:map_pos] >>> #{cookies[:map_pos]}"
+      else
+        cookies.delete :map_pos
+        logger.debug  "MAPVIEW_REM get_map_view supplied values found to be invalid >>> lat:#{lat} lon:#{lon} zl:#{zl}"
         lat = Rails.configuration.x.map.default_center_coordinates[:lat]
         lon = Rails.configuration.x.map.default_center_coordinates[:lon]
         zl  = Rails.configuration.x.map.default_zoom_level
-
-        logger.debug  "MAPVIEW_REM get_map_view loading global defaults after >>> lat:#{lat} lon:#{lon} zl:#{zl}"
-      else
-        save_map_view lat, lon, zl
+        logger.debug  "MAPVIEW_REM get_map_view using default values >>> lat:#{lat} lon:#{lon} zl:#{zl}"
       end
     end
-  end
+    return save_map_view lat, lon, zl
 
+    #return lat, lon, zl
+  end
 
   private
   def save_map_view( lat = 0, lon = 0, zl = 0 )
@@ -56,5 +57,6 @@ module MapViewRememberable
       cookies.delete :map_pos
       logger.debug  "MAPVIEW_REM save_map_view REMOVED cookies[:map_pos] >>> lat:#{lat} lon:#{lon} zl:#{zl} (as the values were found to be invalid."
     end
+    return lat, lon, zl
   end
 end

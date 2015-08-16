@@ -61,10 +61,11 @@ class AdsController < ApplicationController
 
     @term = params[:q]
 
-
     # Load map parameters:
-    @map_center = {}
-    @map_center[:lat], @map_center[:lon], @map_zl = get_map_view( params )
+    map_center_lat, map_center_lon, @map_zl = get_map_view( params )
+    @map_center = {lat: map_center_lat, lon: map_center_lon }
+
+    logger.debug "search>> sending to view map_center: #{@map_center} map_zl:#{@map_zl}"
 
     @result_json = render_to_string( formats: 'json' ).html_safe
     @result_markup = render_to_string partial: "search_result_item", collection: @ads, as: 'ad', formats: [:html]
