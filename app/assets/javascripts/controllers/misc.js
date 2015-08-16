@@ -278,7 +278,7 @@ window.controllers.hitCount = {
     callable: function(ele, eventBus) {
         eventBus.on('new-search-result', onSearchResult);
         function onSearchResult(result) {
-            ele.innerHTML = "" + result.hits.length + " treff";
+            ele.textContent = "" + Math.min(result.paging.default_per_page, result.paging.total_count) + " treff av " + result.paging.total_count + ".";
         }
     }
 }
