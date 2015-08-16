@@ -78,6 +78,7 @@ window.services.searchService = {
     callable: function(eventBus) {
         var params = {};
         var bounds = {};
+        var zl = {};
         var mostRecentResult;
 
         var queryBlackList = {
@@ -98,7 +99,7 @@ window.services.searchService = {
 
             parts
                 .filter(boundsFilter)
-                .forEach(function(e) { 
+                .forEach(function(e) {
                     bounds[e[0]] = e[1];
                 });
             parts
@@ -127,6 +128,8 @@ window.services.searchService = {
         function search(form) {
             params = form;
             form = merge(form, bounds);
+            form = merge(form, zl);
+
             var url = '/search.json?' + buildQuery(form);
             history.replaceState(null, null, url.replace(".json", ""));
             xhr.get(url).then(onSearchFinished);
@@ -135,6 +138,10 @@ window.services.searchService = {
         function setBounds(b) {
             bounds = b;
             search(params);
+        }
+
+        function setZoom(zoom) {
+            zl = zoom;
         }
 
         function resultsAreDifferent(first, second) {
@@ -180,6 +187,7 @@ window.services.searchService = {
         return {
             search: search,
             setBounds: setBounds,
+            setZoom: setZoom,
             getMostRecentSearchResult: function() { return mostRecentResult; }
         }
     }

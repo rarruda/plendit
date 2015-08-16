@@ -1,4 +1,6 @@
 class AdsController < ApplicationController
+  include MapViewRememberable
+
   before_action :set_ad, only: [
     :approve,
     :double_calendar,
@@ -37,9 +39,7 @@ class AdsController < ApplicationController
     :single_calendar
   ]
 
-  after_action :notify_about_approval, only: [
-    :approve
-  ]
+  after_action :notify_about_approval, only: [ :approve ]
 
   # GET /ads
   # GET /ads.json
@@ -59,7 +59,9 @@ class AdsController < ApplicationController
 
     @ads = Ad.search query, filter, options #kaminari_paginate: .page(page).per(5)
 
-    @center = Rails.configuration.x.map.default_center_coordinates
+    # Load map parameters:
+    @map_center = {}
+    @map_center[:lat], @map_center[:lon], @map_zl = get_map_view( params )
 
     @result_json = render_to_string( formats: 'json' ).html_safe
     @result_markup = render_to_string partial: "search_result_item", collection: @ads, as: 'ad', formats: [:html]

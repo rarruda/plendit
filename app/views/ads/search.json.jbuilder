@@ -1,4 +1,5 @@
-json.center @center
+json.center @map_center
+json.zl @map_zl
 json.hits do
   json.array! @ads do |ad|
     json.id ad._id

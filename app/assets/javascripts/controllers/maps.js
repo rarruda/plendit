@@ -13,7 +13,7 @@ window.controllers.adMap = {
               streetViewControl: false,
               mapTypeControl: false,
               center: center,
-              zoom: 6,
+              zoom: 14,
               maxZoom: 18,
               minZoom: 4,
               scrollwheel: false
@@ -52,12 +52,13 @@ window.controllers.resultMap = {
                 lat: parseFloat(searchData.center.lat),
                 lng: parseFloat(searchData.center.lon)
             }
+            var zl = parseInt(searchData.zl)
 
             var mapOptions = {
                 streetViewControl: false,
                 mapTypeControl: false,
                 center: center,
-                zoom: 6,
+                zoom: zl,
                 maxZoom: 18,
                 minZoom: 4
             };
@@ -65,6 +66,8 @@ window.controllers.resultMap = {
             var map = new google.maps.Map(ele, mapOptions);
 
             google.maps.event.addListener(map, 'center_changed', debounce(onCenterChanged, 1000));
+            google.maps.event.addListener(map, 'zoom_changed',   debounce(onCenterChanged, 1000));
+
             return map;
         };
 
@@ -72,6 +75,11 @@ window.controllers.resultMap = {
             var bounds = map.getBounds();
             var ne = bounds.getNorthEast();
             var sw = bounds.getSouthWest();
+            var zl = map.getZoom();
+
+            searchService.setZoom({
+                zl: zl
+            });
             searchService.setBounds({
                 ne_lat: ne.lat(),
                 ne_lon: ne.lng(),
