@@ -30,12 +30,14 @@ module MapViewRememberable
       # And use the new values
       return cookie_lat, cookie_lon, cookie_zl
     else
-      if lat.blank? or lon.blank? or zl.blank?
-        logger.debug  "MAPVIEW_REM get_map_view loading global defaults >>> lat:#{lat} lon:#{lon} zl:#{zl}"
+      if ( Float(lat) rescue nil ) and ( Float(lon) rescue nil ) and ( Integer(zl) rescue nil )
+        logger.debug  "MAPVIEW_REM get_map_view loading global defaults before >>> lat:#{lat} lon:#{lon} zl:#{zl}"
 
         lat = Rails.configuration.x.map.default_center_coordinates[:lat]
         lon = Rails.configuration.x.map.default_center_coordinates[:lon]
         zl  = Rails.configuration.x.map.default_zoom_level
+
+        logger.debug  "MAPVIEW_REM get_map_view loading global defaults after >>> lat:#{lat} lon:#{lon} zl:#{zl}"
       else
         save_map_view lat, lon, zl
       end
