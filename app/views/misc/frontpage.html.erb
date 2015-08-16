@@ -4,7 +4,7 @@
     <p class="front-search-block__copy">og spar penger! Mer enn <%= Rails.configuration.x.view.current_num_ads  %> ting til leie.</p>
     <div>
         <%= form_tag("/search", method: "get") do %>
-          <%= text_field_tag 'q', 'skiboks', class: 'front-search-block__input' %>
+          <%= text_field_tag 'q', '', class: 'front-search-block__input' %>
           <%= submit_tag 'Søk', class: 'front-search-block__search-button button-primary' %>
         <% end %>
     </div>
