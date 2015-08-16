@@ -43,10 +43,15 @@ module MapViewRememberable
 
 
   private
-  def save_map_view( lat, lon, zl )
+  def save_map_view( lat = 0, lon = 0, zl = 0 )
     #map_pos="lat:000#lon:000#zl:000#mt:000"
     # Keep in mind that rails url-encodes the cookies
-    cookies[:map_pos] = { value: "lat:#{lat}#lon:#{lon}#zl:#{zl}", expires: 6.months.from_now }
-    logger.debug  "MAPVIEW_REM save_map_view SAVING cookies[:map_pos] >>> #{cookies[:map_pos]}"
+    if ( Float(lat) rescue nil ) and ( Float(lon) rescue nil ) and ( Integer(zl) rescue nil )
+      cookies[:map_pos] = { value: "lat:#{lat}#lon:#{lon}#zl:#{zl}", expires: 3.months.from_now }
+      logger.debug  "MAPVIEW_REM save_map_view SAVING cookies[:map_pos] >>> #{cookies[:map_pos]}"
+    else
+      cookies.delete :map_pos
+      logger.debug  "MAPVIEW_REM save_map_view REMOVED cookies[:map_pos] >>> lat:#{lat} lon:#{lon} zl:#{zl} (as the values were found to be invalid."
+    end
   end
 end
