@@ -78,7 +78,7 @@ window.services.searchService = {
     callable: function(eventBus) {
         var params = {};
         var bounds = {};
-        var zl = {};
+        var zl = 14;
         var mostRecentResult;
 
         var queryBlackList = {
@@ -137,7 +137,6 @@ window.services.searchService = {
 
         function setBounds(b) {
             bounds = b;
-            search(params);
         }
 
         function setZoom(zoom) {
