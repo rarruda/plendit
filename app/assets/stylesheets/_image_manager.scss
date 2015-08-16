@@ -5,10 +5,17 @@
     transition: opacity 0.2s;
 
     &__item {
-        min-height: 135px;
+        min-height: 160px;
+        padding: $standard-spacing;
+        background-color: white;
+        margin-bottom: $standard-spacing / 2;
     }
 
     &__thumb-box {
+    }
+
+    &__thumb {
+        border: solid thin #ccc;
     }
 
     &__controls {
@@ -22,11 +29,11 @@
 
     &__delete-button {
         color: white;
-        background-color: $color-plendit-blue;
+        background-color: $color-button-delete;
     }
 
     &__primary-button {
         color: white;
-        background-color: $color-button-delete;
+        background-color: $color-plendit-blue;
     }
 }
