@@ -302,3 +302,26 @@ window.controllers.submitMainForm = function(ele) {
         document.querySelector("[data-main-form]").submit();
     });
 }
+
+window.controllers.imageDescriptionAutoSaver = {
+    dependencies: ["$element", "utils", "xhr"],
+    callable: function(ele, utils, xhr) {
+        var ta = ele.querySelector("textarea");
+        var submitFun = utils.debounce(function(evt) { 
+            evt.preventDefault();
+            ajaxSubmitForm(ele);
+
+        }, 1000);
+        ta.addEventListener('keyup', submitFun);
+        ta.addEventListener('change', submitFun);
+
+        function ajaxSubmitForm(form) {
+            xhr
+                .xhrFormData(form)
+                .catch(function(err) {
+                    console.log("ARRAR!", err);
+                });
+        }
+    }
+}
+

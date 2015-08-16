@@ -3,7 +3,7 @@
         <%= image_tag ad_image.image.url(:thumb), width: "100%", class: "image-manager__thumb" %>
     </div>
     <div class="seven columns image-manager__controls">
-        <%= form_for(ad_image, url: ad_image_path(ad_image)) do |f| %>
+        <%= form_for(ad_image, url: ad_image_path(ad_image),  data: {controller: 'imageDescriptionAutoSaver'}) do |f| %>
             <%= f.text_area :description, placeholder: 'Bildetekst', class: "u-full-width" %>
             <%= f.hidden_field :previous_url, value: request.fullpath %>
             <%#= f.submit 'Lagre bildetekst' %>
