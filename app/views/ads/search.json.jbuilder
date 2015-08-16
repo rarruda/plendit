@@ -9,4 +9,11 @@ json.hits do
     json.body ad._source.body
   end
 end
+json.paging do
+  json.total_count @ads.total_count
+  json.total_pages @ads.total_pages
+  json.current_page @ads.current_page
+  json.num_pages @ads.num_pages
+  json.default_per_page @ads.default_per_page
+end
 json.markup @result_markup
