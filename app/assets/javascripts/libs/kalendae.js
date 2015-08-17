@@ -165,6 +165,7 @@ var Kalendae = function (targetElement, options) {
 
     util.addEvent($container, 'mousedown', function (event, target) {
         var clickedDate;
+        if (opts.readOnly) { return }
         if (util.hasClassName(target, classes.nextMonth)) {
         //NEXT MONTH BUTTON
             if (!self.disableNext && self.publish('view-changed', self, ['next-month']) !== false) {
@@ -201,7 +202,6 @@ var Kalendae = function (targetElement, options) {
         //DAY CLICK
             clickedDate = moment(clickedDate, opts.dayAttributeFormat).hours(12);
             if (self.publish('date-clicked', self, [clickedDate]) !== false) {
-
                 switch (opts.mode) {
                     case 'multiple':
                         if (!self.addSelected(clickedDate)) self.removeSelected(clickedDate);
