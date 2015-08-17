@@ -94,21 +94,21 @@ class BookingsController < ApplicationController
   def decline
     @booking.decline!
     notify_about_decline
-    redirect_to @booking, notice: 'Booking was declined.'
+    redirect_to @booking
   end
 
   # POST /bookings/1/accept
   def accept
     @booking.accept!
     notify_about_accept
-    redirect_to @booking, notice: 'Booking was accepted.'
+    redirect_to @booking
   end
 
   # POST /bookings/1/cancel
   def cancel
     @booking.cancel!
     notify_about_cancel
-    redirect_to @booking, notice: 'Booking was canceled.'
+    redirect_to @booking
   end
 
 

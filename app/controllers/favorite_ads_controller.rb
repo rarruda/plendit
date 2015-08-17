@@ -16,9 +16,9 @@ class FavoriteAdsController < ApplicationController
     end
 
     if @favorite_list.save
-      redirect_to params[:favorite_ad][:previous_url], notice: ( @favorite_ad.nil? ? 'Ad is now in your favorites.' : 'Ad is NOT in your favorites anymore.' )
+      redirect_to params[:favorite_ad][:previous_url]
     else
-      redirect_to params[:favorite_ad][:previous_url], notice: 'Ad Favorite information was NOT flushed to db.'
+      redirect_to params[:favorite_ad][:previous_url], alert: 'Ad Favorite information was NOT flushed to db.'
     end
   end
 
