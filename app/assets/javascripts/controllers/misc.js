@@ -326,8 +326,8 @@ window.controllers.imageDescriptionAutoSaver = {
 }
 
 window.controllers.kalendaeBookingSelector = {
-    dependencies: ["$element", "utils", "xhr"],
-    callable: function(ele, utils, xhr) {
+    dependencies: ["$element"],
+    callable: function(ele) {
         var k = new Kalendae({
             attachTo: ele,
             months: 3,
