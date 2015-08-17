@@ -184,13 +184,12 @@
 
 /** Selected day, when outside the selectable area **/
 .kalendae .k-days span.k-selected {
-    border-color:#1072A5;
     color:#1072A5;
 }
 
 /** Selected day, when inside the selectable area **/
 .kalendae .k-days span.k-selected.k-active {
-    background:#7EA0E2;
+    background:#7EBCD3;
     color:white;
 }
 
@@ -202,14 +201,13 @@
 
 /** Days between the start and end points on a range, inside of the selectable area **/
 .kalendae .k-days span.k-range.k-in-month {
-    background:#C4D4F1;
-    border-color:#19AEFE;
+    background:#7EBCD3;
     color:#333;
 }
 
 /** Selectable day, hovered **/
 .kalendae .k-days span.k-active:hover {
-    border-color:#666;
+    border-color:black;
 }
 
 /** Selectable week, hovered **/
