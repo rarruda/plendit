@@ -43,9 +43,9 @@ window.controllers.resultMap = {
         eventBus.on('new-search-result', onSearchResult);
 
         var map = initMap(searchData);
-        var clusterer = new MarkerClusterer(map, [], {gridSize: 50, maxZoom: 12});
         var infoWindow;
-        updateMarkers(searchData.hits);
+        var markers = []
+        updateMarkers(searchData.groups);
 
         function initMap(searchData) {
             var center =  {
@@ -90,45 +90,65 @@ window.controllers.resultMap = {
         }
 
         function clearMarkers() {
-            clusterer.clearMarkers();
+            markers.forEach(function(e) { e.setMap(null); });
+            markers = [];
         }
 
-        function updateMarkers(result) {
-            var hits = result.hits || result; // hack. Fix in serialization
+        function createSingleMarker(location, id) {
+            var marker = new google.maps.Marker({
+                position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
+                icon: {
+                    url: '/images/poi40.png',
+                    anchor: new google.maps.Point(10, 40)
+                },
+                map: map
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                console.log("clicked single marker for id", id);
+                var hitEle = document.querySelector('[data-adid="'+ id +'"]');
+                var hitEle = hitEle.cloneNode(true);
+                if (infoWindow) { infoWindow.close(); }
+                infoWindow = new google.maps.InfoWindow({
+                    content: hitEle
+                });
+                infoWindow.open(map, marker);
+            });
+            markers.push(marker);
+        }
+
+        function createGroupMarker(location, ids) {
+            var marker = new google.maps.Marker({
+                position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 6,
+                },
+                map: map
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                console.log("clicked multi marker for ids", ids);
+                alert("multiple hits on location: " + ids.join(", "));
+            });
+            markers.push(marker);
+        }
+
+        function updateMarkers(groups) {
             clearMarkers();
-            hits = hits.filter(function(e) {
-                if (!e || !e.location) {
-                    console.log("Missing lat long for search result item!");
-                    return false;
+            console.log("gat garps")
+            groups.forEach(function(group) {
+                if (group.hits.length > 1) {
+                    createGroupMarker(group.location, group.hits);
                 }
-                return true;
+                else {
+                    createSingleMarker(group.location, group.hits[0]);
+                }
             });
-
-            var poiImg = {
-                url: '/images/poi40.png',
-                anchor: new google.maps.Point(10, 40)
-            };
-
-            var markers = hits.map(function(hit) {
-                return new google.maps.Marker({
-                    position: {lat: parseFloat(hit.location.lat), lng: parseFloat(hit.location.lon)},
-                    title: 'Treff',
-                    icon: poiImg,
-                    adId: hit.id
-                });
-            });
-
-            markers.forEach(function(marker) {
-                google.maps.event.addListener(marker, 'click', function() {
-                    onMarkerClick(marker);
-                });
-            });
-
-            clusterer.addMarkers(markers);
         }
 
-        function onSearchResult(hits) {
-            updateMarkers(hits);
+        function onSearchResult(result) {
+            updateMarkers(result.groups);
         }
 
         function onMarkerClick(marker) {
