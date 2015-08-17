@@ -14,7 +14,6 @@
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     font-size:14px;
-    font-family:'Helvetica Neue', 'Helvetica';
     cursor:default;
     position:relative;
 }
@@ -57,10 +56,10 @@
 }
 
 /** Month Container **/
-.kalendae .k-calendar {display: inline-block;zoom:1;*display:inline;width:218px;vertical-align:top;}
+.kalendae .k-calendar {display: inline-block;zoom:1;*display:inline;width:246px;vertical-align:top;}
 
 /** Month Separator **/
-.kalendae .k-separator {display: inline-block;zoom:1;*display:inline;width:2px;vertical-align:top;background:#ddd;height:155px;margin:0px 10px;}
+.kalendae .k-separator {display: inline-block;zoom:1;*display:inline;width:2px;vertical-align:top;background:#ddd;height:252px;margin:0px 10px;}
 
 /** Month Title Row **/
 .kalendae .k-title {text-align:center;white-space:nowrap;position:relative;height:18px;}
@@ -122,7 +121,7 @@
 .kalendae .k-title,
 .kalendae .k-header,
 .kalendae .k-days {
-    width:218px;
+    width:246px;
     display:block;
     overflow:hidden;
 }
@@ -141,23 +140,23 @@
 .kalendae .k-header span,
 .kalendae .k-days span {
     float:left;
-    margin:1px 1px;
+    margin:2px 2px;
 }
 
 .kalendae .k-header span {
     text-align:center;
     font-weight:bold;
-    width:29px;
+    width:31px;
     padding:1px 0;
-    color:#666;
+    color:black;
 }
 
 .kalendae .k-days span {
     text-align:center;
-    width:22px;
-    height:22px;
-    line-height:22px;
-    padding:2px 3px 2px 2px;
+    width:25px;
+    height:26px;
+    line-height:26px;
+    padding:2px 2px 2px 2px;
     border:1px solid transparent;
     border-radius:3px;
     -moz-border-radius: 3px;

@@ -325,7 +325,6 @@ window.controllers.imageDescriptionAutoSaver = {
     }
 }
 
-
 window.controllers.kalendaeBookingSelector = {
     dependencies: ["$element", "utils", "xhr"],
     callable: function(ele, utils, xhr) {
@@ -338,9 +337,22 @@ window.controllers.kalendaeBookingSelector = {
             zzselected: [Kalendae.moment().subtract({M:1}), Kalendae.moment().add({M:1})]
         });
 
-        k.subscribe('change', function (date) {
+        k.subscribe('change', function(date) {
             window.k = k;
-           console.log(date, this.getSelected());
+            console.log(this.getSelectedAsText());
+
+            var dates = this.getSelectedAsText();
+            var from_date = document.querySelector('[name="booking[starts_at_date]"]');
+            var to_date = document.querySelector('[name="booking[ends_at_date]"]');
+
+            if (dates.length == 2) {
+                from_date.value = dates[0];
+                to_date.value = dates[1];
+            }
+            else {
+                from_date.value = dates[0];
+                to_date.value = dates[0];
+            }
         });
     }
 }
