@@ -39,12 +39,12 @@ class Ad < ActiveRecord::Base
 
   # ES Settings for this model:
   # TODO: Need to configure separately settings and analyzers (for norwegian/current locale)
-  settings index: { number_of_shards: 2 } do
+  settings index: { number_of_shards: 4 } do
     mappings do
       indexes :id,            type: :integer
       indexes :title,         type: :string, boost: 100
       indexes :body,          type: :string
-      indexes :geo_location,  type: :geo_point
+      indexes :geo_location,  type: :geo_point, lat_lon: true, geohash: true
       indexes :price,         type: :double
       indexes :tags,          type: :string, analyzer: 'keyword'
       indexes :category,      type: :string
