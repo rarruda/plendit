@@ -356,3 +356,16 @@ window.controllers.kalendaeBookingSelector = {
         });
     }
 }
+
+window.controllers.readOnlyCalendar = function(ele) {
+    var k = new Kalendae({
+        attachTo: ele,
+        months: 3,
+        mode: 'range',
+        readOnly: true,
+        weekStart: 1,
+        direction: "today-future",
+        viewStartDate: moment().subtract(1, 'month'),
+        selected: ele.getAttribute('data-date-range')
+    });
+}

@@ -8,6 +8,8 @@
 
             Debug booking status: <strong><%= @booking.status %></strong>
 
+            <div data-controller="readOnlyCalendar" data-date-range="<%= "#{@booking.starts_at_date} - #{@booking.ends_at_date}" %>"></div>
+
             <% if current_user.owns_booking_item? @booking %>
                 <h3 class="u-push-down"><%= @booking.from_user.name %> ønsker å leie av deg</h3>
             <% else %>
