@@ -4,6 +4,7 @@ json.hits do
   json.array! @ads do |ad|
     json.id ad._id
     json.location ad._source.geo_location
+    json.geohash ad.fields['geo_location.geohash'].last
     json.title ad._source.title
     json.price ad._source.price
     json.body ad._source.body
