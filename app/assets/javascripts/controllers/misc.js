@@ -148,8 +148,8 @@ window.services.searchService = {
         }
 
         function idKeyFromResult(result) {
-            if (result && result.hits) {
-                var ids = result.hits.map(function(e) { return e.id; });
+            if (result && result.ads) {
+                var ids = Object.keys(result.ads);
                 ids.sort();
                 return ids.join(",");
             }

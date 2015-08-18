@@ -136,7 +136,6 @@ window.controllers.resultMap = {
 
         function updateMarkers(groups) {
             clearMarkers();
-            console.log("gat garps")
             groups.forEach(function(group) {
                 if (group.hits.length > 1) {
                     createGroupMarker(group.location, group.hits);
