@@ -143,8 +143,8 @@ window.services.searchService = {
             zl = zoom;
         }
 
-        function setSearchParams(params) {
-            params = params;
+        function setSearchParams(p) {
+            params = p;
         }
 
         function resultsAreDifferent(first, second) {
