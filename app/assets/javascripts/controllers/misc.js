@@ -339,8 +339,6 @@ window.controllers.kalendaeBookingSelector = {
 
         k.subscribe('change', function(date) {
             window.k = k;
-            console.log(this.getSelectedAsText());
-
             var dates = this.getSelectedAsText();
             var from_date = document.querySelector('[name="booking[starts_at_date]"]');
             var to_date = document.querySelector('[name="booking[ends_at_date]"]');

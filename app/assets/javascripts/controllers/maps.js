@@ -105,7 +105,6 @@ window.controllers.resultMap = {
             });
 
             google.maps.event.addListener(marker, 'click', function() {
-                console.log("clicked single marker for id", id);
                 var hitEle = document.querySelector('[data-adid="'+ id +'"]');
                 var hitEle = hitEle.cloneNode(true);
                 if (infoWindow) { infoWindow.close(); }
