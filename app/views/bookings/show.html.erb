@@ -16,8 +16,16 @@
 
             <div data-controller="readOnlyCalendar" data-date-range="<%= "#{@booking.starts_at_date} - #{@booking.ends_at_date}" %>"></div>
 
-            <%= render partial: "booking_price_summary", locals: {booking: @booking} %>
-            <%= render partial: "booking_controls", locals: {booking: @booking} %>
+            <hr>
+
+            <div class="row">
+                <div class="six columns">
+                    <%= render partial: "booking_controls", locals: {booking: @booking} %>
+                </div>
+                <div class="six columns">
+                    <%= render partial: "booking_price_summary", locals: {booking: @booking} %>
+                </div>
+            </div>
             <hr>
             <%= render partial: "conversation_section", locals: {booking: @booking} %>
         </div>
