@@ -17,7 +17,8 @@ Rails.application.routes.draw do
 
   #get 'verify_sms', path: '/users/verify_sms', as: :verify_sms, to: 'users#verify_sms'
   get 'user',  to: 'users#index'
-  get 'users', to: 'users#index'
+  get 'users/:id', to: 'users#show', as: 'users'
+  get 'users', to: redirect('/user')
   get 'users/ads', to: 'ads#list'
   get 'users/edit', to: 'users#edit', as: 'users_edit'
 
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
     :registrations      => "users/registrations"
     #sessions: 'sessions'
   }, path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
+
 
   resource :users do
     resources :ads do
@@ -36,13 +38,12 @@ Rails.application.routes.draw do
     #end
     member do
       #get 'verify_email'
-      get 'verify_sms'
+      get  'verify_sms'
       post 'verify_sms', to: 'users#do_verify_sms'
       post 'mark_all_notifications_noticed', to: 'users#mark_all_notifications_noticed'
     end
     resources :favorite_ads, only: [:index, :create, :destroy]
   end
-  get 'users/:id', to: 'users#show', as: 'user_public_profile'
 
   #resources :favorite_lists do #, path: '/users/favorite_lists'
   #  resources :favorite_ads
