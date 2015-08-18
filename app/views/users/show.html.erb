@@ -4,10 +4,10 @@
 
             <section class="profile-self-ads-section">
                 <h5>Annonser</h5>
-                <% if @user.ads.empty? %>
+                <% if @user.ads.published.empty? %>
                   Brukeren har ikke lagt ut noe til leie ennå.
                 <% else %>
-                  <%= render partial: "shared/slim_promoted_ad", collection: @user.ads, as: :ad %>
+                  <%= render partial: "shared/slim_promoted_ad", collection: @user.ads.published, as: :ad %>
                 <% end %>
             </section>
 
