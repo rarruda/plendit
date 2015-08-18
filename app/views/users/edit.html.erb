@@ -15,14 +15,6 @@
         </div>
         <div class="four columns">
             <%= render('shared/profile_image_box.html', user: current_user) %>
-
-            <%= render layout: "gray_box", locals: {title: "Flere valg"} do %>
-                <ul>
-                    <li><%= link_to "Verifisering",     "#" %></li>
-                    <li><%= link_to "Tilbakemeldinger", "#" %></li>
-                    <li><%= link_to "See / edit my locations", locations_path %></li>
-                </ul>
-            <% end %>
         </div>
     </div>
 </div>
