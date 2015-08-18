@@ -68,10 +68,10 @@ gem 'faker'
 # Consider using it later for future generation of seed data:
 #gem 'seed_dump'
 
-group :development, :test do
-  # Use postgresql in development also
-  gem 'pg'
+# postgresql is required for both production and development
+gem 'pg'
 
+group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -99,9 +99,6 @@ group :development, :test do
 end
 
 group :production do
-  # Use postgresql in production
-  gem 'pg'
-
   # this gem is important to run in heroku. Enables static assets, and routes logs to stdout.
   # https://github.com/heroku/rails_12factor
   gem 'rails_12factor'
