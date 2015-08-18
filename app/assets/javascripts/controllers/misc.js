@@ -125,8 +125,8 @@ window.services.searchService = {
             return ret;
         }
 
-        function search(form) {
-            params = form;
+        function search() {
+            form = merge(params, {});
             form = merge(form, bounds);
             form = merge(form, zl);
 
@@ -141,6 +141,10 @@ window.services.searchService = {
 
         function setZoom(zoom) {
             zl = zoom;
+        }
+
+        function setSearchParams(params) {
+            params = params;
         }
 
         function resultsAreDifferent(first, second) {
@@ -185,6 +189,7 @@ window.services.searchService = {
 
         return {
             search: search,
+            setSearchParams: setSearchParams,
             setBounds: setBounds,
             setZoom: setZoom,
             getMostRecentSearchResult: function() { return mostRecentResult; }
@@ -207,7 +212,8 @@ window.controllers.searchFilterSelection = {
 
         function onInputChange(evt) {
             evt.preventDefault();
-            searchService.search(getFormValues());
+            searchService.setSearchParams(getFormValues());
+            searchService.search();
         }
 
         function getFormValues() {
