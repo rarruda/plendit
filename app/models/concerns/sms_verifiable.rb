@@ -26,6 +26,10 @@ module SmsVerifiable
     end
   end
 
+  def phone_verified?
+    not self.phone_number.blank?
+  end
+
   # is_phone_pending_confirmation?
   def phone_pending_confirmation?
     not unconfirmed_phone_number.nil?
