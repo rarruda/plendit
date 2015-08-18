@@ -17,8 +17,8 @@ Rails.application.routes.draw do
 
   #get 'verify_sms', path: '/users/verify_sms', as: :verify_sms, to: 'users#verify_sms'
   get 'user',  to: 'users#index'
-  get 'users/:id', to: 'users#show', as: 'users'
-  get 'users', to: redirect('/user')
+  #get 'users/:id', to: 'users#show', as: 'users'
+  get 'users', to: redirect('/user'), as: 'not_users'
   get 'users/ads', to: 'ads#list'
   get 'users/edit', to: 'users#edit', as: 'users_edit'
 
