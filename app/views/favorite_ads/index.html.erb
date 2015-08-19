@@ -7,7 +7,6 @@
 <table>
   <thead>
     <tr>
-      <th>Favorite list</th>
       <th>Ad</th>
       <th colspan="3"></th>
     </tr>
@@ -16,7 +15,6 @@
   <tbody>
     <% @favorite_ads.each do |favorite_ad| %>
       <tr>
-        <td><%= favorite_ad.favorite_list.name %></td>
         <td><%= link_to favorite_ad.ad.title, ad_path( favorite_ad.ad.id ) %></td>
         <td><%= link_to 'Remove', users_favorite_ad_path( favorite_ad.id ), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
