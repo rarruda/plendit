@@ -104,15 +104,7 @@ window.controllers.resultMap = {
                 map: map
             });
 
-            google.maps.event.addListener(marker, 'click', function() {
-                var hitEle = document.querySelector('[data-adid="'+ id +'"]');
-                var hitEle = hitEle.cloneNode(true);
-                if (infoWindow) { infoWindow.close(); }
-                infoWindow = new google.maps.InfoWindow({
-                    content: hitEle
-                });
-                infoWindow.open(map, marker);
-            });
+            google.maps.event.addListener(marker, 'click', onMarkerClick.bind(this, marker, id));
             markers.push(marker);
         }
 
@@ -126,10 +118,7 @@ window.controllers.resultMap = {
                 map: map
             });
 
-            google.maps.event.addListener(marker, 'click', function() {
-                console.log("clicked multi marker for ids", ids);
-                alert("multiple hits on location: " + ids.join(", "));
-            });
+            google.maps.event.addListener(marker, 'click', onMultiMarkerClick.bind(this, marker, ids));
             markers.push(marker);
         }
 
@@ -149,8 +138,22 @@ window.controllers.resultMap = {
             updateMarkers(result.groups);
         }
 
-        function onMarkerClick(marker) {
-            var hitEle = document.querySelector('[data-adid="'+ marker.adId +'"]');
+        function onMultiMarkerClick(marker, ids) {
+            var div = document.createElement('div');
+            div.className = "multi-marker-box";
+            var innerMarkup = ids.forEach(function(id) { 
+                div.appendChild(document.querySelector('[data-adid="'+ id +'"]').cloneNode(true));
+            });
+            
+            if (infoWindow) { infoWindow.close(); }
+            infoWindow = new google.maps.InfoWindow({
+                content: div
+            });
+            infoWindow.open(map, marker);
+        }
+
+        function onMarkerClick(marker, id) {
+            var hitEle = document.querySelector('[data-adid="'+ id +'"]');
             var hitEle = hitEle.cloneNode(true);
             if (infoWindow) { infoWindow.close(); }
             infoWindow = new google.maps.InfoWindow({
@@ -158,7 +161,5 @@ window.controllers.resultMap = {
             });
             infoWindow.open(map, marker);
         }
-
-
     }
 };

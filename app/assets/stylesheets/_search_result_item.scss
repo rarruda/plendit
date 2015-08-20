@@ -18,7 +18,7 @@
         position: absolute;
         text-align: center;
         top: 12px;
-        right: -6px;
+        right: 0;
         min-width: 100px;
         height: 46px;
         box-shadow: -3px 3px 5px 0px rgba(0,0,0,0.75);
@@ -55,4 +55,10 @@
         margin-bottom: 0;
     }
 
+}
+
+.multi-marker-box {
+    width: 280px;
+    height: 320px;
+    overflow-y: scroll;
 }
