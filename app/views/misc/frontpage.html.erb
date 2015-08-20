@@ -1,18 +1,30 @@
 
 <section class="front-search-block">
-    <h1 class="front-search-block__title">LEI DET DU TRENGER</h1>
-    <p class="front-search-block__copy">og spar penger! Mer enn <%= Rails.configuration.x.view.current_num_ads  %> ting til leie.</p>
-    <div>
-        <%= form_tag("/search", method: "get") do %>
-          <%= text_field_tag 'q', '', class: 'front-search-block__input' %>
-          <%= submit_tag 'Søk', class: 'front-search-block__search-button button-primary' %>
-        <% end %>
+    <div class="front-search-block__video-holder">
+        <video preload="auto" loop="loop" class="front-search-block__video" data-controller="videoTrigger">
+            <source src=".mp4" type="video/mp4">
+            <source src=".webm" type="video/webm">
+        </video>
     </div>
+
+    <div class="front-search-block__splash">
+        <h1 class="front-search-block__title">LEI DET DU TRENGER</h1>
+        <p class="front-search-block__copy">og spar penger! Mer enn <%= Rails.configuration.x.view.current_num_ads  %> ting til leie.</p>
+
+        <div>
+            <%= form_tag("/search", method: "get") do %>
+              <%= text_field_tag 'q', '', class: 'front-search-block__input' %>
+              <%= submit_tag 'Søk', class: 'front-search-block__search-button button-primary' %>
+            <% end %>
+        </div>
+    </div>
+
     <div class="front-search-block__create-box" >
         <form action="<%= new_ad_path %>">
             <button class="button-primary" type="submit">Lei ut tingene dine her</button>
         </form>
     </div>
+
 </section>
 
 <%= render partial: "front_popular_box" %>

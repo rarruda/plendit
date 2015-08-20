@@ -1,21 +1,39 @@
 @import 'constants.scss';
 
+$break-large: 1280px;
+$break-small: 800px;
+$break-tiny: 640px;
 
 .front-search-block {
-    padding-top: 80px;
-    height: 500px;
-    background-image: image-url('forrest.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    text-align: center;
     position: relative;
     z-index: 1;
+        background-image: image-url('forrest.jpg');
+        background-repeat: no-repeat;
+        background-position: center;
+
+    &__splash {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        text-align: center;
+        padding-top: 80px;
+
+        @media screen and (max-width: $break-small) {
+            padding-top: 44px;
+        }
+
+    }
 
     &__title {
         color: white;
         font-size: 48px;
         font-weight: bold;
         margin: $standard-spacing 0 $standard-spacing 0;
+
+        @media screen and (max-width: $break-small) {
+            font-size: 36px;
+        }
+
     }
     
     &__copy {
@@ -30,6 +48,7 @@
     }
 
     &__create-box {
+        text-align: center;
         color: white;
         position: absolute;
         bottom: 0;
@@ -40,4 +59,37 @@
         background-color: rgba(0,0,0,0.7);
     }
 
+
+    &__video-holder {
+        position: relative;
+        height: 600px;
+        overflow: hidden;
+        width: 100%;
+
+        @media screen and (max-width: $break-large) {
+            height: 420px;
+        }
+
+        @media screen and (max-width: $break-small) {
+            height: 380px;
+        }
+
+    }
+
+    &__video {
+        position: absolute;
+        display: inline-block;
+        height: auto;
+        width: 100%;
+
+        @media screen and (max-width: $break-tiny) {
+            display: none;
+        }
+
+    }
 }
+
+
+
+
+

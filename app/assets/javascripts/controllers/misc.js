@@ -373,3 +373,12 @@ window.controllers.readOnlyCalendar = function(ele) {
         selected: ele.getAttribute('data-date-range')
     });
 }
+
+window.controllers.videoTrigger = {
+    dependencies: ['$element', 'responsive'],
+    callable: function(ele, responsive) {
+        if (!responsive.isGriddy()) {
+            ele.play();
+        }
+    }
+}
