@@ -4,7 +4,6 @@ class MiscController < ApplicationController
 
   def frontpage
     @hide_search_field = true
-    @popular_topics = Rails.configuration.x.popular_topics
   end
 
   def postal_place
