@@ -1,9 +1,12 @@
-
-<section class="front-search-block">
+<section class="front-search-block" style="background-image: url(<%= @hero_video[:still] %>)">
     <div class="front-search-block__video-holder">
         <video preload="auto" loop="loop" class="front-search-block__video" data-controller="videoTrigger">
-            <source src=".mp4" type="video/mp4">
-            <source src=".webm" type="video/webm">
+            <% unless @hero_video[:mp4].nil? %>
+                <source src="<%= @hero_video[:mp4] %>" type="video/mp4">
+            <% end  %>
+            <% unless @hero_video[:webm].nil? %>
+                <source src="<%= @hero_video[:webm] %>" type="video/webm">
+            <% end  %>
         </video>
     </div>
 

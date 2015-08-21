@@ -4,6 +4,7 @@ class MiscController < ApplicationController
 
   def frontpage
     @hide_search_field = true
+    @hero_video = Rails.configuration.x.frontpage.hero_videos.sample
   end
 
   def postal_place
