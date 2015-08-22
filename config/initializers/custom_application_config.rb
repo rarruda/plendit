@@ -72,3 +72,5 @@ Plendit::Application.config.x.frontpage.hero_videos = [
     webm: nil
   },
 ]
+
+Plendit::Application.config.x.frontpage.explainer_video_url = "https://www.youtube.com/embed/mqB032_uek4?rel=0";
