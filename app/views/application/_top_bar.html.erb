@@ -42,8 +42,8 @@
             </span>
 
         <% else %>
-            <%= link_to "Sign up", new_user_registration_path, :class => "top-bar__navbar-link"  %> |
-            <%= link_to "Login", new_user_session_path, :class => "top-bar__navbar-link"  %>
+            <%= link_to t(:sign_up), new_user_registration_path, :class => "top-bar__navbar-link"  %> |
+            <%= link_to t(:log_in), new_user_session_path, :class => "top-bar__navbar-link"  %>
         <% end %>
     </span>
 
