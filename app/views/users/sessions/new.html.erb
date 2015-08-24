@@ -1,62 +1,54 @@
-<div class="container">
+<div class="container u-push-down">
 
     <h2>Logg inn</h2>
+    
+    <p>
+        Du kan velge mellom å logge inn med en Facebook eller Google konto,
+        eller med en Plendit konto.
+    </p>
 
     <div class="row">
-        <p class="two-thirds column">
-            Du kan velge mellom å logge inn med en Facebook eller Google konto,
-            eller med en Plendit konto.
-        </p>
+        <div class="five columns">
+            <%= image_tag "facebook/FB-f-Logo__blue_50.png", size: "50x50", alt: "" %>
+            <%= button_to user_omniauth_authorize_path(:facebook), class: "button-primary", form_class: "u-inline" do %>
+                Logg inn med facebook
+            <% end %>
+        </div>
     </div>
 
+    <hr>
+
     <div class="row">
+        <div class="five columns">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                <div class="row">
+                    <div class="six columns">
+                        <%= f.label :email, "E-post:" %>
+                        <%= f.email_field :email, autofocus: true, class: "u-full-width" %>
+                    </div>
+                    <div class="six columns">
+                        <%= f.label :password, "Passord:" %>
+                        <%= f.password_field :password, autocomplete: "off", class: "u-full-width" %>
+                    </div>
+                </div>
 
-        <div class="four columns">
-            <p>
-                <%= link_to image_tag("facebook/FB-f-Logo__blue_50.png", size: "50x50", alt: ""), user_omniauth_authorize_path(:facebook) %>
-
-                <%= form_for(resource, as: resource_name, url: user_omniauth_authorize_path(:facebook)) do |f| %>
-                    <button type="submit" class="button-primary">
-                        Logg inn med facebook
-                    </button>
+                <% if devise_mapping.rememberable? -%>
+                    <label for="remember_me">
+                        <%= f.check_box :remember_me %>
+                        Husk meg
+                    </label>
                 <% end -%>
-            </p>
-            <hr>
 
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-
-            <div class="row">
-                <div class="two-thirds column">
-                    <%= f.label :email, "E-post:" %>
-                    <%= f.email_field :email, autofocus: true %>
+                <div>
+                    <%= f.submit "Logg inn", class: "button-primary" %>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="two-thirds column">
-                    <%= f.label :password, "Passord:" %>
-                    <%= f.password_field :password, autocomplete: "off" %>
-                </div>
-            </div>
-
-            <% if devise_mapping.rememberable? -%>
-                <label for="remember_me">
-                    <%= f.check_box :remember_me %>
-                    Husk meg
-                </label>
-            <% end -%>
-
-            <div>
-                <%= f.submit "Logg inn", class: "button-primary" %>
-            </div>
-        <% end %>
-
+            <% end %>
         </div>
-
-        <div class="four columns offset-by-one column">
-            <%= render "users/shared/links" %>
-        </div>
-
     </div>
+
+    <hr>
+
+    <%= render "users/shared/links" %>
+    <div class="u-push-down"></div>
 
 </div>
