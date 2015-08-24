@@ -66,10 +66,16 @@ window.controllers.resultMap = {
             var map = new google.maps.Map(ele, mapOptions);
 
             google.maps.event.addListener(map, 'center_changed', utils.debounce(onCenterChanged, 1000));
-            google.maps.event.addListener(map, 'zoom_changed',   utils.debounce(onCenterChanged, 1000));
+            google.maps.event.addListener(map, 'zoom_changed',  utils.debounce(onCenterChanged, 1000));
+            google.maps.event.addListener(map, 'center_changed', notifyWillChange);
+            google.maps.event.addListener(map, 'zoom_changed',  notifyWillChange);
 
             return map;
         };
+
+        function notifyWillChange() {
+            eventBus.emit('map-will-change');
+        }
 
         function onCenterChanged() {
             var bounds = map.getBounds();

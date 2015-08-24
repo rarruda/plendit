@@ -133,6 +133,7 @@ window.services.searchService = {
             var url = '/search.json?' + buildQuery(form);
             history.replaceState(null, null, url.replace(".json", ""));
             xhr.get(url).then(onSearchFinished);
+            eventBus.emit('search-started');
         }
 
         function setBounds(b) {
@@ -167,6 +168,9 @@ window.services.searchService = {
             if (resultsAreDifferent(result, mostRecentResult)) {
                 mostRecentResult = result;
                 eventBus.emit('new-search-result', result);
+            }
+            else {
+                eventBus.emit('old-search-result', mostRecentResult);
             }
         }
 
@@ -283,8 +287,16 @@ window.controllers.hitCount = {
     dependencies: ["$element", "eventbus"] ,
     callable: function(ele, eventBus) {
         eventBus.on('new-search-result', onSearchResult);
+        eventBus.on('old-search-result', onSearchResult);
+        eventBus.on('search-started', onSearchStarted);
+        eventBus.on('map-will-change', onSearchStarted);
+
         function onSearchResult(result) {
             ele.textContent = "" + Math.min(result.paging.default_per_page, result.paging.total_count) + " treff av " + result.paging.total_count + ".";
+        }
+
+        function onSearchStarted() {
+            ele.textContent = "Søker…";
         }
     }
 }
