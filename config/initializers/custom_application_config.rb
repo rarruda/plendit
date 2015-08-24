@@ -28,7 +28,7 @@ Plendit::Application.config.x.ads.categories = [
   {
     title: "Kjøretøy",
     category: "motor",
-    image: "category_veichle.png",
+    image: "category_vehicle.png",
     size: "47x20"
   },
   {
