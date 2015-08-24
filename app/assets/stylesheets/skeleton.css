@@ -395,6 +395,10 @@ form {
   opacity: 0;
 }
 
+.u-inline {
+  display: inline;
+}
+
 @media (min-width: 550px) {
   .u-hidden-when-grid {
     display: none;
