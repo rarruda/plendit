@@ -113,7 +113,9 @@ window.controllers.resultMap = {
                 position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
                 icon: {
                     path: google.maps.SymbolPath.CIRCLE,
-                    scale: 6,
+                    strokeColor: "#1777B4",
+                    strokeWeight: 6,
+                    scale: 12,
                 },
                 map: map
             });
