@@ -78,7 +78,6 @@
         </div>
     </div>
     <div class="result-container__hits-box" data-controller="resultList">
-        <%= paginate @ads %>
-        <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
+        <%= render partial: "search_result_box" %>
     </div>
 </div>

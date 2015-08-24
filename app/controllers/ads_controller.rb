@@ -76,7 +76,7 @@ class AdsController < ApplicationController
     logger.debug "search>> sending to view map_center: #{@map_center} map_zl:#{@map_zl}"
 
     @result_json = render_to_string( formats: 'json' ).html_safe
-    @result_markup = render_to_string partial: "search_result_item", collection: @ads, as: 'ad', formats: [:html]
+    @result_markup = render_to_string partial: "search_result_box", formats: [:html]
 
     respond_to do |format|
       format.html
