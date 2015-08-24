@@ -177,7 +177,17 @@ window.services.searchService = {
         function buildQuery(form) {
             var items = [];
             for (var key in form) {
-                items.push({key: key, value: form[key]});
+                var val = form[key];
+                if (val.constructor != Array) {
+                    val = [val];
+                }
+                else {
+                    key = key + "[]";
+                }
+
+                val.forEach(function(e) {
+                    items.push({key: key, value: e});
+                });
             }
 
             items = items.filter(function(e) {
@@ -221,14 +231,7 @@ window.controllers.searchFilterSelection = {
         }
 
         function getFormValues() {
-            var form = {};
-            var inputs = ele.querySelectorAll("input");
-            for (var n = 0, e; e = inputs[n++];) {
-                if (e.name && e.value) {
-                    form[e.name] = e.value;
-                }
-            }
-            return form;
+            return formToObj(ele.querySelector("form"));
         }
     }
 }
