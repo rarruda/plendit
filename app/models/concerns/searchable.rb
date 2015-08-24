@@ -58,6 +58,14 @@ module Searchable
         })
       end
 
+      if options.has_key? 'category'
+        __set_filters.({
+          terms: {
+            category: options[:category]
+          }
+        })
+      end
+
       if options.has_key?('ne_lat') && options.has_key?('ne_lon') &&
         options.has_key?('sw_lat') && options.has_key?('sw_lon')
         __set_filters.({

@@ -18,6 +18,27 @@ Plendit::Application.config.x.map.default_zoom_level         = 6
 
 Plendit::Application.config.x.customerservice.email          ='NOSPAM__kundesenter@plendit.no'
 
+Plendit::Application.config.x.ads.categories = [
+  {
+    title: "Stort og smått",
+    category: "bap",
+    image: "category_bap.png",
+    size: "37x37"
+  },
+  {
+    title: "Kjøretøy",
+    category: "motor",
+    image: "category_veichle.png",
+    size: "47x20"
+  },
+  {
+    title: "Eiendom",
+    category: "realestate",
+    image: "category_realestate.png",
+    size: "38x34"
+  }
+]
+
 Plendit::Application.config.x.frontpage.popular_ads = [
   { title: 'Bil',
     term:  'bil',

@@ -52,10 +52,18 @@ class AdsController < ApplicationController
   def search
     @hide_search_field = true
     @supress_footer = true
+    @ad_categories = Rails.configuration.x.ads.categories
+
 
     query  = params[:q]
     filter = []
     options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max'].include? k }
+#    options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max','category'].include? k }
+
+    # Safely transform hash in array:
+#    if options[:category].is_a? Hash
+#      options[:category] = options[:category].keys.keep_if{ |e| ['bap','motor','realestate'].include? e }
+#    end
 
     @ads = Ad.search( query, filter, options).page( params[:page] ).results
 
@@ -154,26 +162,7 @@ class AdsController < ApplicationController
 
   # GET /ads/new
   def new
-    @ad_categories = [
-      {
-        title: "Stort og smått",
-        category: "bap",
-        image: "category_bap.png",
-        size: "37x37"
-      },
-      {
-        title: "Kjøretøy",
-        category: "motor",
-        image: "category_veichle.png",
-        size: "47x20"
-      },
-      {
-        title: "Eiendom",
-        category: "realestate",
-        image: "category_realestate.png",
-        size: "38x34"
-      }
-    ]
+    @ad_categories = Rails.configuration.x.ads.categories
   end
 
   def image_manager
@@ -206,7 +195,7 @@ class AdsController < ApplicationController
     logger.error "Ad Category sent is not supported. This is not ok." if not Ad.categories.include? params[:category]
     # FIXME: do something about it if there was an error with the category...
 
-    @ad = Ad.new(user_id: current_user.id, category: params[:category])
+    @ad = Ad.new(user_id: current_user.id, category: params[:category], insurance_required: 'yes')
     if @ad.save
       redirect_to edit_users_ad_path(@ad)
     else
