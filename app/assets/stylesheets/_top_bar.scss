@@ -8,6 +8,14 @@ $top-bar-height: 52px;
     padding: 10px 12px 0 12px;
     color: white;
 
+    &--overlaid {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 199;
+        background-color: rgba(42, 150, 255, 0.7);
+    }
+
     &__form {
         display: inline;
     }

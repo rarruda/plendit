@@ -30,7 +30,7 @@
 </head>
 <body>
     <header>
-        <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field } %>
+        <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field, overlaid: @overlaid_top_bar } %>
         <%= render partial: "flash_bar" %>
     </header>
 
