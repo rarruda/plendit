@@ -104,7 +104,8 @@ window.controllers.resultMap = {
             var marker = new google.maps.Marker({
                 position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
                 icon: {
-                    url: '/images/poi40.png',
+                    url: '/images/single_stroke.svg',
+                    scaledSize: new google.maps.Size(45, 40),
                     anchor: new google.maps.Point(10, 40)
                 },
                 map: map
@@ -118,10 +119,10 @@ window.controllers.resultMap = {
             var marker = new google.maps.Marker({
                 position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
                 icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    strokeColor: "#1777B4",
-                    strokeWeight: 6,
-                    scale: 12,
+                    url: '/images/multiple_stroke.svg',
+                    scaledSize: new google.maps.Size(45, 40),
+                    //scaledSize: new google.maps.Size(64, 54),
+                    anchor: new google.maps.Point(10, 40)
                 },
                 map: map
             });
