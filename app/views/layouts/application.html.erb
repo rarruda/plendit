@@ -24,7 +24,10 @@
 
     <%= evil_icons_sprite %>
 
-    <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Rails.configuration.x.map.google_maps_js_api_key}" %>
+    <% if @include_map %>
+        <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Rails.configuration.x.map.google_maps_js_api_key}" %>
+    <% end %>
+
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
 </head>
