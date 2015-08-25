@@ -55,6 +55,9 @@ GEM
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.3)
+    autoprefixer-rails (5.2.1.2)
+      execjs
+      json
     aws-sdk (1.65.0)
       aws-sdk-v1 (= 1.65.0)
     aws-sdk-v1 (1.65.0)
@@ -356,6 +359,7 @@ DEPENDENCIES
   aasm (~> 4)
   activeadmin (~> 1.0.0.pre1)
   acts-as-taggable-on (~> 3.4)
+  autoprefixer-rails
   aws-sdk (< 2.0)
   bcrypt (~> 3.1.7)
   better_errors

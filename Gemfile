@@ -74,6 +74,9 @@ gem 'pg'
 # icons for the UI
 gem 'evil_icons'
 
+# prefix CSS rules that need it
+gem "autoprefixer-rails"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
