@@ -57,8 +57,7 @@ class AdsController < ApplicationController
 
     query  = params[:q]
     filter = []
-    options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max'].include? k }
-#    options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max','category'].include? k }
+    options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max','category'].include? k }.keep_if{ |k,v| not v.blank? }
 
     # Safely transform hash in array:
 #    if options[:category].is_a? Hash

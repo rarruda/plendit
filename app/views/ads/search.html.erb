@@ -56,7 +56,7 @@
                     <% @ad_categories.each do |a| %>
                     <div class="two columns">
                         <%= label_tag() do %>
-                            <%= check_box_tag "category", a[:category] %>
+                            <%= check_box_tag "category[]", a[:category] %>
                             <%= a[:title] %>
                             <!-- <%= image_tag a[:image], size: a[:size] %> -->
                         <% end %>
