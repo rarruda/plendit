@@ -16,19 +16,16 @@
     <%= f.text_field :address_line %>
   </div>
   <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br>
-    <%= f.text_field :state %>
-  </div>
-  <div class="field">
     <%= f.label :post_code %><br>
     <%= f.text_field :post_code %>
   </div>
 
-    <div class="field">
+  <div class="field">
+    <%= f.label :city %><br>
+    <%= f.text_field :city #, :disabled => true %>
+  </div>
+
+  <div class="field">
     <%= f.label :lat %><br>
     <%= f.text_field :lat, :disabled => true %>
   </div>
