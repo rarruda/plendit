@@ -14,7 +14,7 @@ Plendit::Application.config.x.view.current_num_ads           = number_with_delim
 
 Plendit::Application.config.x.map.default_center_coordinates = { lat: 61.5, lon: 11.0 }
 Plendit::Application.config.x.map.default_zoom_level         = 6
-
+Plendit::Application.config.x.map.google_maps_js_api_key     ='AIzaSyAwciykMKFfGsTiDrqAwg80C5FCSq6vQr8'
 
 Plendit::Application.config.x.customerservice.email          ='NOSPAM__kundesenter@plendit.no'
 
