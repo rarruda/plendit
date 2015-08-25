@@ -359,7 +359,6 @@ window.controllers.kalendaeBookingSelector = {
             mode: 'range',
             weekStart: 1,
             direction: "today-future",
-            zzselected: [Kalendae.moment().subtract({M:1}), Kalendae.moment().add({M:1})]
         });
 
         k.subscribe('change', function(date) {
@@ -381,14 +380,17 @@ window.controllers.kalendaeBookingSelector = {
 }
 
 window.controllers.readOnlyCalendar = function(ele) {
+    var calCount = 3;
+    if (window.innerWidth < 660) { calCount = 1; }
+    else if (window.innerWidth < 972) { calCount = 2; }
+
     var k = new Kalendae({
         attachTo: ele,
-        months: 3,
+        months: calCount,
         mode: 'range',
         readOnly: true,
         weekStart: 1,
         direction: "today-future",
-        viewStartDate: moment().subtract(1, 'month'),
         selected: ele.getAttribute('data-date-range')
     });
 }
