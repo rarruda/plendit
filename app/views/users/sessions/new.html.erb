@@ -1,19 +1,39 @@
 <div class="container u-push-down">
 
     <h2>Logg inn</h2>
-    
+
     <p>
-        Du kan velge mellom å logge inn med en Facebook eller Google konto,
+        Du kan velge mellom å logge inn med en SPiD, Facebook eller Google konto,
         eller med en Plendit konto.
     </p>
 
     <div class="row">
-        <div class="five columns">
+
+
+
+
+        <div class="four columns">
             <%= image_tag "facebook/FB-f-Logo__blue_50.png", size: "50x50", alt: "" %>
             <%= button_to user_omniauth_authorize_path(:facebook), class: "button-primary", form_class: "u-inline" do %>
                 Logg inn med facebook
             <% end %>
         </div>
+
+
+        <div class="four columns">
+            <%= image_tag "logos/google_50x50.png", size: "50x50", alt: "" %>
+            <%#= button_to user_omniauth_authorize_path(:google_oauth2), class: "button-primary", form_class: "u-inline" do %>
+                Logg inn med Google
+            <%# end %>
+        </div>
+
+        <div class="four columns">
+            <%= image_tag "logos/spid_117x50.png", size: "117x50", alt: "" %>
+            <%#= button_to user_omniauth_authorize_path(:spid), class: "button-primary", form_class: "u-inline" do %>
+                Logg inn med SPiD
+            <%# end %>
+        </div>
+
     </div>
 
     <hr>

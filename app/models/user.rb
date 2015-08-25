@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :omniauthable, omniauth_providers: [:facebook]
+         :confirmable, :omniauthable, omniauth_providers: [:facebook, :google_oauth2] #:spid
   has_many :ads, dependent: :destroy
   has_many :ad_items, :through => :ads
   has_many :identities
