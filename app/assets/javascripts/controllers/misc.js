@@ -349,9 +349,13 @@ window.controllers.imageDescriptionAutoSaver = {
 window.controllers.kalendaeBookingSelector = {
     dependencies: ["$element"],
     callable: function(ele) {
+        var calCount = 3;
+        if (window.innerWidth < 660) { calCount = 1; }
+        else if (window.innerWidth < 972) { calCount = 2; }
+
         var k = new Kalendae({
             attachTo: ele,
-            months: 3,
+            months: calCount,
             mode: 'range',
             weekStart: 1,
             direction: "today-future",
