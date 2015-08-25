@@ -15,56 +15,34 @@
             <%= form_tag({}, class: "search-filter-section__form") do %>
 
                 <div class="row search-filter-section__row">
-                    <div class="one columns">
-                        <%= label_tag(:price_min, "Pris fra:") %>
+                    <div class="six columns">
+                        <%= label_tag(:q, "Søkeord:") %>
+                        <%= text_field_tag(:q, @term, class: "u-full-width" ) %>
                     </div>
-                    <div class="two columns">
-                        <%= number_field_tag( :price_min, nil, min: 0, class: "search-filter-section__range-input") %>
+                    <div class="three columns">
+                        <%= label_tag(:price_min, "Minimumspris:") %>
+                        <%= number_field_tag( :price_min, nil, min: 0, class: "u-full-width") %>
                     </div>
-                    <div class="one columns">
-                        <%= label_tag(:price_max, "Opp til:") %>
-                    </div>
-                    <div class="two columns">
-                        <%= number_field_tag( :price_max, nil, min: 0, class: "search-filter-section__range-input") %>
-                        <%#= range_field_tag(:price, 500, in: 1..1000, class: "search-filter-section__range-input") %>
-                    </div>
-                </div>
-
-<!--                 <div class="row">
-                    <div class="two columns">
-                        <%= label_tag(:tags, "Tags:") %>
-                    </div>
-                    <div class="ten columns">
-                        <div data-controller="tageditor" class="tag-editor"></div>
-                    </div>
-                </div> -->
-
-                <div class="row">
-                    <div class="one columns">
-                        <%= label_tag(:q, "Term:") %>
-                    </div>
-                    <div class="ten columns">
-                        <%= text_field_tag(:q, @term ) %>
+                    <div class="three columns">
+                        <%= label_tag(:price_max, "Makspris:") %>
+                        <%= number_field_tag( :price_max, nil, min: 0, class: "u-full-width") %>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="one columns">
-                        Annonsetype:
-                    </div>
 
+                <div class="row">
+                    <div class="two columns">
+                        <label>Annonsetype:</label>
+                    </div>
                     <% @ad_categories.each do |a| %>
-                    <div class="two columns">
-                        <%= label_tag do %>
-                            <%= check_box_tag "category[]", a[:category] %>
-                            <span class="label-body"><%= a[:title] %></span>
-                            <!-- <%= image_tag a[:image], size: a[:size] %> -->
-                        <% end %>
-                    </div>
+                        <div class="three columns">
+                            <%= label_tag do %>
+                                <%= check_box_tag "category[]", a[:category] %>
+                                <span class="label-body"><%= a[:title] %></span>
+                            <% end %>
+                        </div>
                     <% end %>
-
                 </div>
-
             <% end %>
         </div>
     </div>
