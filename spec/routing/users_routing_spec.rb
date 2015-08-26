@@ -23,6 +23,13 @@ RSpec.describe "routing to users", :type => :routing do
         :action => "list",
       )
     end
+
+    it "routes /users/edit to users#edit" do
+      expect(:get => "/users/edit").to route_to(
+        :controller => "users",
+        :action => "edit",
+      )
+    end
   end
 
   context "Ads routes" do
