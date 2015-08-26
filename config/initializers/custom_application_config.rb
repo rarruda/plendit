@@ -20,22 +20,22 @@ Plendit::Application.config.x.customerservice.email          ='NOSPAM__kundesent
 
 Plendit::Application.config.x.ads.categories = [
   {
-    title: "Stort og smått",
-    category: "bap",
-    image: "category_bap.png",
-    size: "37x37"
+    title:    'Stort og smått',
+    category: 'bap',
+    image:    'category_bap.png',
+    size:     '37x37'
   },
   {
-    title: "Kjøretøy",
-    category: "motor",
-    image: "category_vehicle.png",
-    size: "47x20"
+    title:    'Kjøretøy',
+    category: 'motor',
+    image:    'category_vehicle.png',
+    size:     '47x20'
   },
   {
-    title: "Eiendom",
-    category: "realestate",
-    image: "category_realestate.png",
-    size: "38x34"
+    title:    'Eiendom',
+    category: 'realestate',
+    image:    'category_realestate.png',
+    size:     '38x34'
   }
 ]
 
@@ -46,23 +46,23 @@ Plendit::Application.config.x.frontpage.popular_ads = [
   },
   { title: 'Bolig',
     term:  'bolig',
-    image: "promo_imgs/bolig.jpg"
+    image: 'promo_imgs/bolig.jpg'
   },
   { title: 'Verktøy',
     term:  'verktøy',
-    image: "promo_imgs/verktoy.jpg"
+    image: 'promo_imgs/verktoy.jpg'
   },
   { title: 'Scooter',
     term:  'scooter',
-    image: "promo_imgs/scooter.jpg"
+    image: 'promo_imgs/scooter.jpg'
   },
   { title: 'Sykkel',
     term:  'sykkel',
-    image: "promo_imgs/sykkel.jpg"
+    image: 'promo_imgs/sykkel.jpg'
   },
   { title: 'Telt',
     term:  'telt',
-    image: "promo_imgs/telt.jpg"
+    image: 'promo_imgs/telt.jpg'
   }
 ]
 
@@ -127,4 +127,4 @@ Plendit::Application.config.x.frontpage.hero_videos = [
   }
 ]
 
-Plendit::Application.config.x.frontpage.explainer_video_url = "https://www.youtube.com/embed/mqB032_uek4?rel=0";
+Plendit::Application.config.x.frontpage.explainer_video_url = 'https://www.youtube.com/embed/mqB032_uek4?rel=0';
