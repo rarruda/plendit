@@ -6,7 +6,7 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.where( user_id: view_context.get_current_user_id )
+    @locations = Location.where( user_id: view_context.get_current_user_id, status: Location.statuses[:active] )
   end
 
   # GET /locations/1
