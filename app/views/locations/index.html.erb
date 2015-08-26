@@ -11,6 +11,7 @@
             <table>
                 <thead>
                 <tr>
+                    <th>Favoritt</th>
                     <th>Adresse</th>
                     <th>Poststed</th>
                     <th colspan="2"></th>
@@ -20,6 +21,8 @@
                 <tbody>
                 <% @locations.each do |location| %>
                     <tr>
+                        <td><%= location.favorite %></td>
+
                         <td><%= location.address_line %></td>
                         <td><%= location.post_code %> <%= location.city %></td>
                         <!--
