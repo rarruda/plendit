@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     #  resources :favorite_ads
     #end
     member do
+      post 'ads/create'
       #get 'verify_email'
       get  'verify_sms'
       post 'verify_sms', to: 'users#do_verify_sms'
@@ -45,14 +46,11 @@ Rails.application.routes.draw do
     resources :favorite_ads, only: [:index, :create, :destroy]
   end
 
-  #resources :favorite_lists do #, path: '/users/favorite_lists'
-  #  resources :favorite_ads
-  #end
+
   resources :favorite_ads
 
 
 
-  post 'ads/create', as: 'user_ad'
 
   get 'misc/postal_place'
   get 'misc/wip'
