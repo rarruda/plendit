@@ -5,6 +5,8 @@ class Location < ActiveRecord::Base
   validates :post_code, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9999 }
   geocoded_by :address, :latitude => :lat, :longitude => :lon
 
+  enum status: { active: 0, deleted: 1 }
+
   after_validation :geocode, if: ->(obj){ obj.address_line.present? and obj.changed? }
   before_save :set_city_from_postal_code
 
