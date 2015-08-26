@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   get 'switch_user',               to: redirect('/')
   get 'switch_user/remember_user', to: redirect('/')
 
-  resources :locations, path: '/users/locations'
-  resources :bookings, path: '/users/bookings' do
+  resources :locations, path: '/me/locations'
+  resources :bookings, path: '/me/bookings' do
     resources :messages
     member do
       get 'show_price'
@@ -16,24 +16,32 @@ Rails.application.routes.draw do
   end
 
   #get 'verify_sms', path: '/users/verify_sms', as: :verify_sms, to: 'users#verify_sms'
-  get 'user',  to: 'users#index'
-#  get 'users', to: redirect('/user'), as: 'not_users'
-  get 'users/edit', to: 'users#edit', as: 'users_edit'
 
+
+  # see: https://github.com/plataformatec/devise/blob/master/lib/devise/rails/routes.rb
   devise_for :users, :controllers => {
     :omniauth_callbacks => "users/omniauth_callbacks",
     :registrations      => "users/registrations",
     :sessions           => "users/sessions"
-  }, path_names: { sign_in: 'login', sign_out: 'logout', registration: 'register' }
+  }, :path => '/me', path_names: {
+    sign_in:  'login',
+    sign_out: 'logout',
+    registration: 'register'
+    #password: 'secret',
+    #confirmation: 'verification',
+    #edit: 'edit/profile'
+  }
 
 
-  resource :users, only: [:index, :update] do
+  resource :users, path: '/me', only: [:index, :update] do
     #resources :favorite_lists do
     #  resources :favorite_ads
     #end
     member do
+      get '/',  to: 'users#index'
       post 'ads/create'
       get 'ads', to: 'ads#list'
+      get 'edit', to: 'users#edit', as: 'users_edit'
       #get 'verify_email'
       get  'verify_sms'
       post 'verify_sms', to: 'users#do_verify_sms'
@@ -46,7 +54,8 @@ Rails.application.routes.draw do
       resources :ad_images, only: [:index, :create, :update, :destroy]
     end
   end
-  resources :users, only: [:index, :show]
+
+  get 'user/:id', to: 'users#show', as: 'user'
 
 
   resources :favorite_ads
@@ -57,8 +66,7 @@ Rails.application.routes.draw do
   get 'misc/postal_place'
 
   get '/search', to: 'ads#search'
-
-  get '/new', to: 'ads#new', as: 'new_ad'
+  get '/new',    to: 'ads#new', as: 'new_ad'
 
 
 

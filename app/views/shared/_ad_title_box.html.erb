@@ -2,7 +2,7 @@
     <div class="ad-title-box__avatar-holder">
         <%= render('shared/avatar.html', user: ad.user, size: "large" ) %>
         <br>
-        <strong><%= link_to ad.user.safe_display_name, users_path( ad.user.id ) %></strong>
+        <strong><%= link_to ad.user.safe_display_name, user_path( ad.user.id ) %></strong>
         <br>
         <%= render('shared/stars.html', small: true, rating: ad.user.calculate_average_rating ) %>
     </div>

@@ -2,30 +2,30 @@ require 'rails_helper'
 
 RSpec.describe "routing to users", :type => :routing do
   context "Users control panel routes" do
-    it "routes /users/:id to users#show for user_id" do
-      expect(:get => "/users/1").to route_to(
+    it "routes /user/:id to users#show for user_id" do
+      expect(:get => "/user/321").to route_to(
         :controller => "users",
         :action => "show",
-        :id => "1"
+        :id => "321"
       )
     end
 
-    it "routes to current users profile page" do
-      expect(:get => "/user").to route_to(
+    it "routes /me to current users profile page" do
+      expect(:get => "/me").to route_to(
         :controller => "users",
         :action => "index",
       )
     end
 
-    it "routes /users/ads to ads#list" do
-      expect(:get => "/users/ads").to route_to(
+    it "routes /me/ads to ads#list" do
+      expect(:get => "/me/ads").to route_to(
         :controller => "ads",
         :action => "list",
       )
     end
 
-    it "routes /users/edit to users#edit" do
-      expect(:get => "/users/edit").to route_to(
+    it "routes /me/edit to users#edit" do
+      expect(:get => "/me/edit").to route_to(
         :controller => "users",
         :action => "edit",
       )
@@ -58,6 +58,6 @@ RSpec.describe "routing to users", :type => :routing do
   end
 
   # it "does not expose a list of profiles" do
-  #   expect(:get => "/users").not_to be_routable
+  #   expect(:get => "/me").not_to be_routable
   # end
 end
