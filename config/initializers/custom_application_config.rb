@@ -70,60 +70,60 @@ Plendit::Application.config.x.frontpage.hero_videos = [
   # båtliv
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_1_still.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_1.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_1.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_1.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_1.webm'
   },
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_2_still.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_2.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_2.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_2.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_2.webm'
   },
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_3_still.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_3.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_3.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_3.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_3.webm'
   },
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_4_still.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_4.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_4.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_4.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_4.webm'
   },
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_5_still.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_5.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_5.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_5.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_5.webm'
   },
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_6_still.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_6.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_6.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_6.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_6.webm'
   },
 
   # hjem
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_1.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_1.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_1.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_1.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_1.webm'
   },
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_5_still.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_5.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_5.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_5.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_5.webm'
   },
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_7.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_7.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_7.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_7.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_7.webm'
   },
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_8.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_8.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_8.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_8.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_8.webm'
   },
   {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_9_still.jpg',
-    mp4: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_9.mp4',
-    webm: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_9.webm'
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_9.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/hjem_9.webm'
   }
 ]
 
