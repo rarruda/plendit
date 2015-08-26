@@ -1,40 +1,48 @@
 <%= form_for(@location) do |f| %>
-  <% if @location.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+    <% if @location.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@location.errors.count, "error") %> prohibited this location from being saved:</h2>
+            <ul>
+                <% @location.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
 
-      <ul>
-      <% @location.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="row">
+        <div class="six columns">
+            <%= f.label :address_line, "Adresse:" %>
+            <%= f.text_field :address_line, class: "u-full-width" %>
+        </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :address_line %><br>
-    <%= f.text_field :address_line %>
-  </div>
-  <div class="field">
-    <%= f.label :post_code %><br>
-    <%= f.text_field :post_code %>
-  </div>
+    <div class="row">
+        <div class="six columns">
+            <%= f.label :post_code, "Postnummer:" %>
+            <%= f.text_field :post_code, class: "u-full-width"  %>
+        </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city #, :disabled => true %>
-  </div>
+    <div class="row">
+        <div class="six columns">
+            <%= f.label :city, "Poststed: (fixme: auto)" %>
+            <%= f.text_field :city, class: "u-full-width"  %>
+        </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :lat %><br>
-    <%= f.text_field :lat, :disabled => true %>
-  </div>
+    <!--
     <div class="field">
-    <%= f.label :lon %><br>
-    <%= f.text_field :lon, :disabled => true %>
-  </div>
+        <%= f.label :lat %><br>
+        <%= f.text_field :lat, :disabled => true %>
+    </div>
+    <div class="field">
+        <%= f.label :lon %><br>
+        <%= f.text_field :lon, :disabled => true %>
+    </div>
+    -->
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="actions">
+        <%= f.submit "Legg til sted" %>
+    </div>
 <% end %>
