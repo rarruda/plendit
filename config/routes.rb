@@ -55,7 +55,6 @@ Rails.application.routes.draw do
 
 
   get 'misc/postal_place'
-  get 'misc/wip'
 
   get '/search', to: 'ads#search'
 
@@ -87,7 +86,6 @@ Rails.application.routes.draw do
       post 'make_primary'
     end
   end
-
 
 
   # The priority is based upon order of creation: first created -> highest priority.
