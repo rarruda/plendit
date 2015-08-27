@@ -73,7 +73,7 @@
     <label class="u-push-down">Legg til en ny adresse for denne annonsen:</label>
     <%= f.fields_for :location, Location.new(user_id: current_user.id) do |fl| %>
         <%= fl.text_field :address_line, class: 'u-full-width', placeholder: 'Gateadresse' %>
-        <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= misc_postal_place_path %>">
+        <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= resources_postal_place %>">
             <div class="four columns">
                 <%= fl.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
             </div>

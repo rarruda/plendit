@@ -63,7 +63,8 @@ Rails.application.routes.draw do
 
 
 
-  get 'misc/postal_place'
+  get 'resources/postal_place'
+
 
   get '/search', to: 'ads#search'
   get '/new',    to: 'ads#new', as: 'new_ad'
