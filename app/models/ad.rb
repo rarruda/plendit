@@ -183,4 +183,15 @@ class Ad < ActiveRecord::Base
   def create_ad_item
     self.ad_items.build.save
   end
+
+  # NOTE: this method is repeated as ad_to_param_pretty as an application helper due to
+  # Elasticsearch::Model::Response::Result craziness.
+  def to_param
+    [self.id, self.safe_title.parameterize].join('----')[0,64]
+#    if not self.title.blank?
+#      [self.id, self.title.parameterize].join('----')[0,64]
+#    else
+#      self.id.to_s
+#    end
+  end
 end
