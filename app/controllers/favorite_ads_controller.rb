@@ -1,4 +1,5 @@
 class FavoriteAdsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_favorite_ad, only: [:create]
 
 
@@ -8,7 +9,6 @@ class FavoriteAdsController < ApplicationController
 
   # POST /favorite_ads
   def create
-    p @favorite_ad
     if @favorite_ad.nil?
       @favorite_list.favorite_ads.new( ad_id: params[:favorite_ad][:ad_id] )
     else
@@ -29,7 +29,7 @@ class FavoriteAdsController < ApplicationController
     def set_favorite_ad
       @favorite_list = FavoriteList.find_or_create_by(
         name: 'default',
-        user_id: view_context.get_current_user_id
+        user_id: current_user.id
       )
       @favorite_ad = @favorite_list.favorite_ads.find_by( ad_id: params[:favorite_ad][:ad_id] )
     end
