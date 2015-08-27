@@ -9,10 +9,10 @@ module ApplicationHelper
   #  extra DB roundtrip)
   def ad_to_param_pretty ad
     #logger.error "to_params >>> #{ad.id}    #{ad.title}"
-    if not self.title.blank?
-      [self.id, self.title.parameterize].join('----')[0,64]
+    if not ad.title.blank?
+      [ad.id, ad.title.parameterize].join('----')[0,64]
     else
-      self.id.to_s
+      ad.id.to_s
     end
   end
 end
