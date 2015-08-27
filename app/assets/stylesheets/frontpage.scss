@@ -26,7 +26,7 @@ $break-tiny: 640px;
 
     &__title {
         color: white;
-        font-size: 48px;
+        font-size: 70px;
         font-weight: bold;
         margin: $standard-spacing 0 $standard-spacing 0;
         text-shadow: 2px 2px 3px #333;
@@ -58,7 +58,7 @@ $break-tiny: 640px;
         width: 100%;
         vertical-align: middle;
         line-height: 110px;
-        background-color: rgba(0,0,0,0.7);
+        background-color: rgba(0,0,0,0.5);
     }
 
     &__video-holder {
