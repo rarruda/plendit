@@ -33,13 +33,22 @@ RSpec.describe "routing to users", :type => :routing do
   end
 
   context "Ads routes" do
-    it "routes /ads/123 to ads#show with :id 123" do
-      expect(:get => "/ads/123").to route_to(
+    it "routes /ad/123 to ads#show with :id 123" do
+      expect(:get => "/ad/123").to route_to(
         :controller => "ads",
         :action => "show",
         :id => "123"
       )
     end
+
+    it "routes /ad/456----foo-bar to ads#show with :id 123" do
+      expect(:get => "/ad/456----foo-bar").to route_to(
+        :controller => "ads",
+        :action => "show",
+        :id => "456----foo-bar"
+      )
+    end
+
   end
 
   context "Core routes for the site to work" do
