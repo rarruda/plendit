@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     end
 
     # maybe these should be in the "namespace" users ?
-    resources :favorite_ads, only: [:index, :create, :destroy]
+    resources :favorite_ads, only: [:index, :create, :destroy], path: 'favorites'
     resources :ads do
       resources :ad_images, only: [:index, :create, :update, :destroy]
     end
