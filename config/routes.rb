@@ -71,7 +71,7 @@ Rails.application.routes.draw do
 
 
   resources :feedbacks
-  resources :ads do
+  resources :ads, path: '/ad' do
     member do
       get 'preview'
       get 'gallery'
