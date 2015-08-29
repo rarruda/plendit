@@ -7,7 +7,7 @@ class Location < ActiveRecord::Base
 
   enum status: { active: 0, deleted: 1 }
 
-  default_scope { where.not( status: Location.statuses[:deleted] ) }
+  default_scope { where.not( status: Location.statuses[:deleted] ).order(favorite: :desc, address_line: :asc) }
 
   after_validation :geocode, if: ->(obj){ obj.address_line.present? and obj.changed? }
   before_save :set_city_from_postal_code
