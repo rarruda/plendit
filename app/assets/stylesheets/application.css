@@ -20,3 +20,7 @@
 .icon {
     fill: black;
 }
+
+select[disabled] {
+    opacity: 0.5;
+}

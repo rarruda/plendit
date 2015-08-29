@@ -196,7 +196,9 @@ class AdsController < ApplicationController
     logger.error "Ad Category sent is not supported. This is not ok." if not Ad.categories.include? params[:category]
     # FIXME: do something about it if there was an error with the category...
 
-    @ad = Ad.new(user_id: current_user.id, category: params[:category], insurance_required: 'yes')
+    @ad = Ad.new(user_id: current_user.id, category: params[:category],
+                 insurance_required: 'yes', location: current_user.favorite_location)
+
     if @ad.save
       redirect_to edit_users_ad_path(@ad)
     else
@@ -213,18 +215,19 @@ class AdsController < ApplicationController
   # PATCH/PUT /ads/1.json
   def update
     ad_params_local = ad_params
+
     # Only Add a new address if the address_line and post_code have data:
-    if params['use_registered_location'] == '1'
-      ad_params_local.except! 'location_attributes'
-    else
+    if params['create_new_location'] == '1'
       ad_params_local['location_attributes']['user_id'] = current_user.id
       ad_params_local['location_attributes']['city'] = Location.city_from_postal_code ad_params_local['location_attributes']['post_code']
+    else
+      ad_params_local.except! 'location_attributes'
     end
 
     #logger.debug "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
       if @ad.update(ad_params_local)
-        format.html { redirect_to edit_users_ad_path(@ad) }
+        format.html { render :edit }
         format.json { render :show, status: :ok, location: @ad }
       else
         format.html { render :edit }

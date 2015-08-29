@@ -404,3 +404,16 @@ window.controllers.videoTrigger = {
     }
 };
 
+window.controllers.addressSelectionDimmer = function(ele) {
+    var select = ele.querySelector("select");
+    var details = ele.querySelector("details");
+    var summary = ele.querySelector("summary");
+    var input = ele.querySelector("[name=create_new_location]");
+    summary.addEventListener("click", onSummaryToggle);
+
+    function onSummaryToggle() {
+        var opened = !details.open; // old state when clicked
+        select.disabled = opened;
+        input.value = Number(opened).toString();
+    }
+};

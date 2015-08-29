@@ -149,6 +149,10 @@ class User < ActiveRecord::Base
     self == booking.ad.user
   end
 
+  def favorite_location
+    self.locations.where(favorite: true).first || self.locations.first
+  end
+
   def set_favorite_location(location)
     Location.transaction do
       location.update(favorite: true)
