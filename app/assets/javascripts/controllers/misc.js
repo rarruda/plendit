@@ -13,7 +13,7 @@ window.services.responsive = {
             isGriddy: isGriddy
         }
     }
-}
+};
 
 window.controllers.postalPlaceFetcher = {
     callable: function(ele) {
@@ -56,7 +56,7 @@ window.controllers.resetUnseenNotificationCount = function(ele) {
             }
         }
     });
-}
+};
 
 window.controllers.resultContainerSizeAdjuster = {
     dependencies: ["$element", "eventbus"],
@@ -70,7 +70,7 @@ window.controllers.resultContainerSizeAdjuster = {
             ele.style.height = height + "px";
         }
     }
-}
+};
 
 window.services.searchService = {
     name: "searchService",
@@ -84,7 +84,7 @@ window.services.searchService = {
         var queryBlackList = {
             utf8: true,
             authenticity_token: true
-        }
+        };
 
         init();
 
@@ -209,7 +209,7 @@ window.services.searchService = {
             getMostRecentSearchResult: function() { return mostRecentResult; }
         }
     }
-}
+};
 
 window.controllers.searchFilterSelection = {
     dependencies: ["$element", "eventbus", "searchService"],
@@ -234,7 +234,7 @@ window.controllers.searchFilterSelection = {
             return formToObj(ele.querySelector("form"));
         }
     }
-}
+};
 
 window.controllers.calenderPager = {
     dependencies: ["$element"],
@@ -258,7 +258,7 @@ window.controllers.calenderPager = {
             oldCal.parentNode.replaceChild(newCal, oldCal);
         }
     }
-}
+};
 
 window.controllers.togglableFilters = {
     dependencies: ["$element", "eventbus"] ,
@@ -272,7 +272,7 @@ window.controllers.togglableFilters = {
             eventBus.emit('filter-toggle');
         }
     }
-}
+};
 
 window.controllers.resultList = {
     dependencies: ["$element", "eventbus"] ,
@@ -284,7 +284,7 @@ window.controllers.resultList = {
             }
         }
     }
-}
+};
 
 window.controllers.hitCount = {
     dependencies: ["$element", "eventbus"] ,
@@ -303,7 +303,7 @@ window.controllers.hitCount = {
         }
     }
 }
-
+;
 window.controllers.autoSizeTextArea = {
     callable: function(ele) {
         ele.addEventListener('change', adjustSize);
@@ -316,13 +316,13 @@ window.controllers.autoSizeTextArea = {
             }
         }
     }
-}
+};
 
 window.controllers.submitMainForm = function(ele) {
     ele.addEventListener("click", function() {
         document.querySelector("[data-main-form]").submit();
     });
-}
+};
 
 window.controllers.imageDescriptionAutoSaver = {
     dependencies: ["$element", "utils", "xhr"],
@@ -344,7 +344,7 @@ window.controllers.imageDescriptionAutoSaver = {
                 });
         }
     }
-}
+};
 
 window.controllers.kalendaeBookingSelector = {
     dependencies: ["$element"],
@@ -377,7 +377,7 @@ window.controllers.kalendaeBookingSelector = {
             }
         });
     }
-}
+};
 
 window.controllers.readOnlyCalendar = function(ele) {
     var calCount = 3;
@@ -393,7 +393,7 @@ window.controllers.readOnlyCalendar = function(ele) {
         direction: "today-future",
         selected: ele.getAttribute('data-date-range')
     });
-}
+};
 
 window.controllers.videoTrigger = {
     dependencies: ['$element', 'responsive'],
@@ -402,4 +402,5 @@ window.controllers.videoTrigger = {
             ele.play();
         }
     }
-}
+};
+
