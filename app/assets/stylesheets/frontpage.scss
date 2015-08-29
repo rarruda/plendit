@@ -103,10 +103,6 @@ $break-tiny: 640px;
     padding-top: 40px;
     text-align: center;
 
-    summary {
-        outline: none;
-    }
-
     summary::-webkit-details-marker {
        display: none;
     }

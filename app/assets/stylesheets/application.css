@@ -24,3 +24,7 @@
 select[disabled] {
     opacity: 0.5;
 }
+
+summary {
+    outline: none;
+}
