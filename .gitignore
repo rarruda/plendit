@@ -24,3 +24,6 @@
 
 # Useful for env vars needed to run, but not for checking in
 secret.env
+
+# RubyMine settings folder
+/.idea
