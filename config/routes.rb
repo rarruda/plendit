@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   get 'switch_user',               to: redirect('/')
   get 'switch_user/remember_user', to: redirect('/')
 
-  resources :locations, path: '/me/locations'
+  resources :locations, path: '/me/locations' do
+    member do
+      post 'make_favorite'
+    end
+  end
+
   resources :bookings, path: '/me/bookings' do
     resources :messages
     member do

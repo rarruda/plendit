@@ -149,6 +149,13 @@ class User < ActiveRecord::Base
     self == booking.ad.user
   end
 
+  def set_favorite_location(location)
+    Location.transaction do
+      location.update(favorite: true)
+      self.locations.where.not(id: location.id).each { |l| l.update(favorite: false) }
+    end
+  end
+
   def is_site_admin?
     self.has_role? :site_admin
   end

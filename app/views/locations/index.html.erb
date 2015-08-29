@@ -29,6 +29,7 @@
                         <td><%= location.lat %></td>
                         <td><%= location.lon %></td>
                         -->
+                        <td><%= button_to 'Favoritt', make_favorite_location_path(location) %></td>
                         <td><%= link_to 'Rediger', edit_location_path(location) %></td>
                         <td><%= link_to 'Slett', location, method: :delete, data: {confirm: 'Er du sikker på at du vil slette?'} %></td>
                     </tr>

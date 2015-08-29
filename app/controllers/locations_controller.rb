@@ -1,12 +1,12 @@
 class LocationsController < ApplicationController
-  before_action :set_location, only: [:show, :edit, :update, :destroy]
+  before_action :set_location, only: [:show, :edit, :update, :destroy, :make_favorite]
   before_filter :authenticate_user!
 
 
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.where( user_id: view_context.get_current_user_id, status: Location.statuses[:active] )
+    @locations = Location.where( user_id: view_context.get_current_user_id, status: Location.statuses[:active] ).order(:address_line)
   end
 
   # GET /locations/1
@@ -56,6 +56,15 @@ class LocationsController < ApplicationController
     end
   end
 
+  # POST /me/make_favorite/1
+  def make_favorite
+    current_user.set_favorite_location(@location)
+    respond_to do |format|
+      format.html { redirect_to locations_url }
+    end
+
+  end
+
   # DELETE /locations/1
   # DELETE /locations/1.json
   def destroy
@@ -74,6 +83,6 @@ class LocationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def location_params
-      params.require(:location).permit(:address_line, :city, :state, :post_code)
+      params.require(:location).permit(:address_line, :city, :state, :post_code, :favorite)
     end
 end
