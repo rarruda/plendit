@@ -9,9 +9,9 @@
             Debug booking status: <strong><%= @booking.status %></strong>
 
             <% if current_user.owns_booking_item? @booking %>
-                <h3 class="u-push-down"><%= @booking.from_user.name %> ønsker å leie av deg</h3>
+                <h3 class="u-push-down"><%= @booking.from_user.safe_display_name %> ønsker å leie av deg</h3>
             <% else %>
-                <h3 class="u-push-down">Din forespørsel til <%= @booking.user.name %>.</h3>
+                <h3 class="u-push-down">Din forespørsel til <%= @booking.user.safe_display_name %>.</h3>
             <% end %>
 
             <div data-controller="readOnlyCalendar" data-date-range="<%= "#{@booking.starts_at_date} - #{@booking.ends_at_date}" %>"></div>
