@@ -3,7 +3,7 @@
         <div class="seven columns">
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
             <% @ad_categories.each do |a| %>
-                <%= button_to(ads_create_users_path, form_class: "new-ad-category-selector", class: "new-ad-category-selector__button", params: {category: a[:category]}) do %>
+                <%= button_to(ads_create_users_path, form_class: "new-ad-category-selector", class: "button new-ad-category-selector__button", params: {category: a[:category]}) do %>
                     <%= image_tag a[:image], size: a[:size] %>
                     <h4 class="new-ad-category-selector__title"><%= a[:title] %></h4>
                 <% end %>

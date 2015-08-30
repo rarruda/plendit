@@ -2,19 +2,19 @@
     Annonsen er: <%= ad.status %>
     <br>
     <% if ad.status == 'published' %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--blue", method: :get %>
-        <%= button_to 'Pause annonsen', pause_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--yellow" %>
-        <%= button_to 'Stopp annonsen', stop_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--red" %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--blue", method: :get %>
+        <%= button_to 'Pause annonsen', pause_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--yellow" %>
+        <%= button_to 'Stopp annonsen', stop_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--red" %>
     <% elsif ad.status == 'draft' %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--blue", method: :get %>
-        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--green" %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--blue", method: :get %>
+        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--green" %>
     <% elsif ad.status == 'paused' %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--blue", method: :get %>
-        <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--green" %>
-        <%= button_to 'Stopp annonsen', stop_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--red" %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--blue", method: :get %>
+        <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--green" %>
+        <%= button_to 'Stopp annonsen', stop_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--red" %>
     <% elsif ad.status == 'stopped' %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--blue", method: :get %>
-        <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--green" %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--blue", method: :get %>
+        <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--green" %>
     <% end %>
 
     <%- if current_user.is_site_admin? -%>
@@ -22,10 +22,10 @@
         Admin kontroll:
         <br>
         <% if ad.status == 'waiting_review' %>
-            <%= button_to 'Godkjenn', approve_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--green" %>
+            <%= button_to 'Godkjenn', approve_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--green" %>
         <% end %>
         <% if ad.status != 'suspended' %>
-            <%= button_to 'Suspend', suspend_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button ad-status-box__button--red" %>
+            <%= button_to 'Suspend', suspend_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--red" %>
         <% end %>
     <%- end -%>
 </div>

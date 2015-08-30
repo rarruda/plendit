@@ -11,7 +11,7 @@
     <div class="ad-booking-box__button-holder">
         <% if ad.published? %>
             <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
-                <%= button_tag("Gå til booking", {class: "u-push-down button-primary availability-section__book"}) %>
+                <%= button_tag("Gå til booking", {class: "u-push-down button button-primary availability-section__book"}) %>
             <% end %>
         <% end %>
 
@@ -19,12 +19,12 @@
             <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
             <%= f.hidden_field :previous_url, value: request.fullpath %>
             <% if ad.is_favorite_of( current_user ) %>
-                <%= f.button class: "booking-request-form__book-button" do %>
+                <%= f.button class: "button booking-request-form__book-button" do %>
                     <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart--favorite") %>
                     Fjern fra favoritter
                 <% end %>
             <% else %>
-                <%= f.button class: "booking-request-form__book-button" do %>
+                <%= f.button class: "button booking-request-form__book-button" do %>
                     <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart") %>
                     Legg til i favoritter
                 <% end %>

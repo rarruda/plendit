@@ -1,17 +1,17 @@
 <div class="booking-controls">
     <% if current_user.owns_booking_item? @booking %>
         <% if booking.created? %>
-            <%= button_to "Avslå forespørsel", decline_booking_path(booking) %>
-            <%= button_to "Godkjenn forespørsel", accept_booking_path(booking) %>
+            <%= button_to "Avslå forespørsel", decline_booking_path(booking), class: "button" %>
+            <%= button_to "Godkjenn forespørsel", accept_booking_path(booking), class: "button" %>
         <% elsif booking.accepted? %>
             <%# allowed? to decline after accepting? should be "unapprove" %>
-            <%= button_to "Avslå forespørsel", decline_booking_path(booking) %>
+            <%= button_to "Avslå forespørsel", decline_booking_path(booking), class: "button" %>
         <% else %>
             Unknown booking state
         <% end %>
     <% else %>
         <% if booking.created? %>
-            <%= button_to "Avbryt forespørsel", cancel_booking_path(booking) %>
+            <%= button_to "Avbryt forespørsel", cancel_booking_path(booking), class: "button" %>
             button_to edit
         <% elsif booking.accepted? %>
             go to payment

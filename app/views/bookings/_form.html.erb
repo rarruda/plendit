@@ -30,6 +30,6 @@
     <%= render partial: "shared/booking_period_selector", locals: { form: f, ad: @booking.ad } %>
 
     <div class="actions">
-        <%= f.submit %>
+        <%= f.submit "Send forespørsel", class: "button button-primary" %>
     </div>
 <% end %>
