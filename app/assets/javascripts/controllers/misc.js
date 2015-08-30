@@ -417,3 +417,7 @@ window.controllers.addressSelectionDimmer = function(ele) {
         input.value = Number(opened).toString();
     }
 };
+
+window.controllers.autoFocus = function(ele) {
+    ele.focus();
+};
