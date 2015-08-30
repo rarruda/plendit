@@ -6,7 +6,9 @@
         <div class="twelve columns">
             <%= render partial: "shared/ad_title_box", locals: { ad: @booking.ad } %>
 
-            Debug booking status: <strong><%= @booking.status %></strong>
+            <!-- Debug
+            booking status: <strong><%= @booking.status %></strong>
+            -->
 
             <% if current_user.owns_booking_item? @booking %>
                 <h3 class="u-push-down"><%= @booking.from_user.safe_display_name %> ønsker å leie av deg</h3>

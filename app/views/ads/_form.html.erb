@@ -13,7 +13,9 @@
 
     <h1 class="u-push-down">Legg ut tingene dine</h1>
 
+    <!-- debug
     <h5>this Ad has the following category: <b><%= @ad.category %></b></h5>
+    -->
 
     <label>Overskrift:</label>
     <%= f.text_field :title, class: 'u-full-width' %>
@@ -115,7 +117,7 @@
 </div>
 
 <div>
-    <%= button_tag("lagre", {class: "button-primary", data: {controller: "submitMainForm"}}) %>
+    <%= button_tag("lagre", {class: "button button-primary", data: {controller: "submitMainForm"}}) %>
     <%= link_to "Gå til annonse", (ad_path @ad)  %>
 </div>
 
