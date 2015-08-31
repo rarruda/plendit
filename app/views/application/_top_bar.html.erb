@@ -4,7 +4,7 @@
         <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "top-bar__logo", size: "115x33" %>
     </a>
 
-    <% if !@hide_search_field %>
+    <% unless @hide_search_field %>
         <%= form_tag("/search", method: "get", class: "top-bar__form") do %>
             <span class="top-bar__search-holder">
                 <%= evil_icon 'ei-search', size: :s, class: 'top-bar__search-icon' %>
