@@ -2,3 +2,13 @@ nb:
   hello: "Hei verden"
   log_in: "Logg inn"
   sign_up: "Opprett konto"
+
+  helpers:
+    submit:
+      booking:
+        create: "Send %{model}"
+        update: "Oppdater %{model}"
+
+  activerecord:
+    models:
+      booking: "forespørsel"
