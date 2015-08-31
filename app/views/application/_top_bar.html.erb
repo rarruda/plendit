@@ -24,8 +24,8 @@
                     <span class="top-bar__admin-label">er <%= link_to 'admin', admin_root_path %></span>
                 <% end %>
             </strong>
-
-            <span class="top-bar__top-section"
+            |
+            <a class="top-bar__top-section" href="#"
                data-controller="menuAnchor resetUnseenNotificationCount"
                data-anchor-for="[data-floating-notifications]"
                data-clear-notifications-url="<%= mark_all_notifications_noticed_users_path %>"
@@ -35,8 +35,8 @@
                         <%= current_user.unseen_notifications_count %>
                     </span>
                 <% end %>
-            </span>
-
+            </a>
+            |
             <span class="top-bar__top-section">
                 <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => "top-bar__navbar-link" %>
             </span>

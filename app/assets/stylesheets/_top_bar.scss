@@ -99,6 +99,8 @@ $top-bar-height: 52px;
 
     &__top-section {
         margin-left: $standard-spacing / 2;
+        margin-right: $standard-spacing / 2;
+        color: white;
     }
 
     &__admin-label {
