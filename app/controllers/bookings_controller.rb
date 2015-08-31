@@ -59,7 +59,7 @@ class BookingsController < ApplicationController
       if @booking.update(booking_params)
         format.html { redirect_to @booking }
         format.json { render :show, status: :ok, location: @booking }
-        #self.notify_user
+        notify_about_updated_booking
       else
         @ad = @booking.ad
         format.html { render :edit }
@@ -152,6 +152,13 @@ class BookingsController < ApplicationController
       Notification.new(
         user_id: @booking.user.id,
         message: "#{@booking.from_user.safe_display_name} has sent you a request to book \"#{@booking.ad.safe_title}\"",
+        notifiable: @booking ).save
+    end
+
+    def notify_about_updated_booking
+      Notification.new(
+        user_id: @booking.user.id,
+        message: "#{@booking.from_user.safe_display_name} has updated their request to book \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 

@@ -1,22 +1,18 @@
-<h1>Editing Booking</h1>
 
-<!-- # FIXME: should be a partial, same as in new.html.erb -->
-                Ad Item: <%= @booking.ad_item.id  %>
-                <div class="row availability-section__calendar-holder">
-                    <div class="availability-section__calendar-holder-inner">
-                        <% today = Date.today() %>
-                        <div class="six columns">
-                            <h4 class="availability-section__month"><%= today.strftime("%B - %Y") %></h4>
-                            <%= render partial: "shared/month_calendar", locals: { date: today, ad: @ad } %>
-                        </div>
-                        <div class="six columns">
-                            <h4 class="availability-section__month"><%= today.next_month.strftime("%B - %Y") %></h4>
-                            <%= render partial: "shared/month_calendar", locals: { date: today.next_month, ad: @booking.ad } %>
-                        </div>
-                    </div>
-                </div>
+<div class="container">
+    <div class="row">
+        <%= render partial: "shared/hero_image", locals: { ad: @booking.ad } %>
 
-<%= render 'form' %>
+        <div class="twelve columns">
+            <%= render partial: "shared/ad_title_box", locals: { ad: @booking.ad } %>
 
-<%= link_to 'Show', @booking %> |
-<%= link_to 'Back', bookings_path %>
+            <h2>Leieforespørsel til <%= @booking.ad.user.safe_display_name%></h2>
+
+            <%= render 'form' %>
+
+            <%= link_to 'Tilbake', booking_path(@booking) %>
+        </div>
+    </div>
+</div>
+
+

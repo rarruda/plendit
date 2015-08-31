@@ -353,19 +353,22 @@ window.controllers.kalendaeBookingSelector = {
         if (window.innerWidth < 660) { calCount = 1; }
         else if (window.innerWidth < 972) { calCount = 2; }
 
+        var from_date = ele.querySelector('[name="booking[starts_at_date]"]');
+        var to_date = ele.querySelector('[name="booking[ends_at_date]"]');
+        var rangeString = from_date.value + " - " + to_date.value;
+
         var k = new Kalendae({
-            attachTo: ele,
+            attachTo: ele.querySelector("[data-kalendae-container]"),
             months: calCount,
             mode: 'range',
             weekStart: 1,
             direction: "today-future",
+            selected: rangeString
         });
 
         k.subscribe('change', function(date) {
             window.k = k;
             var dates = this.getSelectedAsText();
-            var from_date = document.querySelector('[name="booking[starts_at_date]"]');
-            var to_date = document.querySelector('[name="booking[ends_at_date]"]');
 
             if (dates.length == 2) {
                 from_date.value = dates[0];

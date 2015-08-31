@@ -1,15 +1,15 @@
-<div class="booking-period-selector">
-    <div data-controller="kalendaeBookingSelector"></div>
+<div class="booking-period-selector" data-controller="kalendaeBookingSelector">
+    <div data-kalendae-container></div>
     <div>
         Jeg vil leie fra:
         <%= form.date_field :starts_at_date, data: { format: "yyyy.MM.dd" } %>
         Hentes klokken:
-        <%= form.time_field :starts_at_time, value: "10:00" %>
+        <%= form.time_field :starts_at_time %>
 
         <br>
         Jeg vil leie til:
         <%= form.date_field :ends_at_date, data: { format: "yyyy.MM.dd" } %>
         Leveres klokken:
-        <%= form.time_field :ends_at_time, value: "18:00" %>
+        <%= form.time_field :ends_at_time %>
     </div>
 </div>

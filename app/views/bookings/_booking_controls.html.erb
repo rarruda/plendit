@@ -12,7 +12,7 @@
     <% else %>
         <% if booking.created? %>
             <%= button_to "Avbryt forespørsel", cancel_booking_path(booking), class: "button" %>
-            button_to edit
+            <%= link_to "Rediger forespørsel", edit_booking_path(booking), class: "button" %>
         <% elsif booking.accepted? %>
             go to payment
         <% else %>
