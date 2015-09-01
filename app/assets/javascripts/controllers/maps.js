@@ -41,18 +41,19 @@ window.controllers.resultMap = {
         if (!searchData) { return }
 
         eventBus.on('new-search-result', onSearchResult);
+        eventBus.on('layout-changed', onLayoutChanged);
 
         var map = initMap(searchData);
         var infoWindow;
-        var markers = []
+        var markers = [];
         updateMarkers(searchData.groups);
 
         function initMap(searchData) {
             var center =  {
                 lat: parseFloat(searchData.center.lat),
                 lng: parseFloat(searchData.center.lon)
-            }
-            var zl = parseInt(searchData.zl)
+            };
+            var zl = parseInt(searchData.zl);
 
             var mapOptions = {
                 streetViewControl: false,
@@ -71,10 +72,14 @@ window.controllers.resultMap = {
             google.maps.event.addListener(map, 'zoom_changed',  notifyWillChange);
 
             return map;
-        };
+        }
 
         function notifyWillChange() {
             eventBus.emit('map-will-change');
+        }
+
+        function onLayoutChanged() {
+            google.maps.event.trigger(map, 'resize');
         }
 
         function onCenterChanged() {
