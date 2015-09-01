@@ -26,8 +26,8 @@ class Identity < ActiveRecord::Base
         i.profile_url = auth.extra.raw_info.url
         i.nickname    = auth.info.nickname
         i.image_url   = auth.info.image
-        i.first_name  = auth.info.raw_info.name.givenName
-        i.last_name   = auth.info.raw_info.name.familyName
+        i.first_name  = auth.info.first_name
+        i.last_name   = auth.info.last_name
       else
         logger.error "unsupported auth.provider:#{auth.provider}, dropping some information on the floor"
       end
