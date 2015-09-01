@@ -22,16 +22,16 @@
 
         <div class="four columns">
             <%= image_tag "logos/google_50x50.png", size: "50x50", alt: "" %>
-            <%#= button_to user_omniauth_authorize_path(:google_oauth2), class: "button-primary", form_class: "u-inline" do %>
+            <%= button_to user_omniauth_authorize_path(:google_oauth2), class: "button-primary", form_class: "u-inline" do %>
                 Logg inn med Google
-            <%# end %>
+            <% end %>
         </div>
 
         <div class="four columns">
             <%= image_tag "logos/spid_117x50.png", size: "117x50", alt: "" %>
-            <%#= button_to user_omniauth_authorize_path(:spid), class: "button-primary", form_class: "u-inline" do %>
+            <%= button_to user_omniauth_authorize_path(:spid), class: "button-primary", form_class: "u-inline" do %>
                 Logg inn med SPiD
-            <%# end %>
+            <% end %>
         </div>
 
     </div>

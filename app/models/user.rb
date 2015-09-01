@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :omniauthable, omniauth_providers: [:facebook, :google_oauth2] #:spid
+         :confirmable, :omniauthable, omniauth_providers: [:facebook, :google_oauth2, :spid]
   has_many :ads, dependent: :destroy
   has_many :ad_items, :through => :ads
   has_many :identities
@@ -103,14 +103,37 @@ class User < ActiveRecord::Base
       # Get the existing user by email if the provider gives us a verified email.
       # If no verified email was provided we assign a temporary email and ask the
       # user to verify it on the next step via UsersController.finish_signup
-      email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email || auth.extra.raw_info.email_verified)
+
+      email_is_verified = false
+
+      case auth.provider
+      when 'facebook'
+        email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email || auth.extra.raw_info.email_verified)
+      when 'spid'
+        #email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email || auth.extra.raw_info.email_verified)
+        auth.extra.raw_info.emails.each{ |e|
+          email_is_verified = true if e.value == auth.info.email and e.verified
+        }
+        # or could be done by checking that emailVerified is not 0000 or after sometime in 2000.
+      when 'google_oauth2'
+        email_is_verified = auth.extra.raw_info.email_verified
+      else
+        false
+      end
+
       email = auth.info.email if email_is_verified
       user = User.where(:email => email).first if email
 
-      # Create the user if it's a new registration
+
+      #
+      # We need serious refactoring.
+      #
+
+
+      # Create the user if it's a new registration (IE, email already not registered in our db)
       if user.nil?
         user = User.new(
-          name: auth.info.name, ##auth.extra.raw_info.name,
+          name: auth.info.name,
           display_name: auth.info.first_name,
           email: email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
           image_url: auth.info.image,

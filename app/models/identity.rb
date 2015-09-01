@@ -8,9 +8,6 @@ class Identity < ActiveRecord::Base
     identity = find_or_create_by(uid: auth.uid, provider: auth.provider) do |i|
       i.email      = auth.info.email
       i.name       = auth.info.name
-      i.first_name = auth.info.first_name
-      i.last_name  = auth.info.last_name
-
 
       case auth.provider
       when 'facebook'
@@ -18,9 +15,21 @@ class Identity < ActiveRecord::Base
         i.profile_url = auth.extra.raw_info.link
         i.nickname    = auth.info.nickname
         i.image_url   = auth.info.image
+        i.first_name  = auth.info.first_name
+        i.last_name   = auth.info.last_name
       when 'google_oauth2' # || 'google'
         i.profile_url = auth.extra.raw_info.profile
         i.image_url   = auth.extra.raw_info.picture
+        i.first_name  = auth.info.first_name
+        i.last_name   = auth.info.last_name
+      when 'spid'
+        i.profile_url = auth.extra.raw_info.url
+        i.nickname    = auth.info.nickname
+        i.image_url   = auth.info.image
+        i.first_name  = auth.info.name.givenName
+        i.last_name   = auth.info.name.familyName
+      else
+        logger.error "unsupported auth.provider:#{auth.provider}, dropping some information on the floor"
       end
 
       # Set user.image_url only if its empty

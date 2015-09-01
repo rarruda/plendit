@@ -5,7 +5,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-#gem 'omniauth-spid'
+gem 'omniauth-spid'
 gem 'switch_user'
 
 gem 'geocoder'
@@ -103,6 +103,9 @@ group :development, :test do
   # rspec testing is nice to have:
   gem 'rspec-rails', '~> 3.0'
   gem 'guard-rspec', require: false
+
+  # Trace every http call to the outside world that rails makes.
+  #gem 'httplog'
 end
 
 group :production do
