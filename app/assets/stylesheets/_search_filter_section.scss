@@ -1,5 +1,7 @@
 @import 'constants.scss';
 
+$breakpoint: 550px;
+
 .search-filter-section {
     background-color: white;
     padding-top: $standard-spacing;
@@ -61,6 +63,12 @@
         width: 65.1%;
         top: 0;
         bottom: 0;
+
+        @media screen and (max-width: $breakpoint) {
+            width: 100%;
+            display: none;
+        }
+
     }
 
     &__hits-box {
@@ -70,7 +78,13 @@
         top: 0;
         bottom: 0;
         overflow: scroll;
-        overflow-x: hidden
+        overflow-x: hidden;
+
+        @media screen and (max-width: $breakpoint) {
+            width: 100%;
+            left: 0;
+        }
+
     }
 }
 
@@ -80,4 +94,13 @@
     top: 0;
     bottom: 0;
     right: 0;
+}
+
+.search-result-view-chooser {
+    display: none;
+
+    @media screen and (max-width: $breakpoint) {
+        display: block;
+    }
+
 }

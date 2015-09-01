@@ -45,17 +45,25 @@
                 </div>
             <% end %>
         </div>
+
+
+        <div class="search-result-view-chooser" data-controller="responsiveSearchResult">
+            <hr>
+            <button data-show-list-toggle class="button">Vis treff</button>
+            <button data-show-map-toggle class="button">Vis kart</button>
+        </div>
+
     </div>
 
 </div>
 
 <div class="result-container" data-controller="resultContainerSizeAdjuster">
-    <div class="result-container__map-box">
+    <div class="result-container__map-box" data-result-map>
         <div class="result-map" data-controller="resultMap">
             <script type="text/json" data-location-info><%= @result_json %></script>
         </div>
     </div>
-    <div class="result-container__hits-box" data-controller="resultList">
+    <div class="result-container__hits-box" data-controller="resultList" data-result-list>
         <%= render partial: "search_result_box" %>
     </div>
 </div>
