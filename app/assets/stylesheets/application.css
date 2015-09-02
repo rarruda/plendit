@@ -21,6 +21,14 @@
     fill: black;
 }
 
+.u-fill-green {
+    fill: green;
+}
+
+.u-fill-red {
+    fill: red;
+}
+
 select[disabled] {
     opacity: 0.5;
 }
