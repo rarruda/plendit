@@ -187,6 +187,10 @@ class User < ActiveRecord::Base
     self.has_role? :site_admin
   end
 
+  def connected_to_provider(provider_id)
+    self.identities.exists?(provider: provider_id)
+  end
+
   def current_bookings
     recv_bookings = self.bookings.current
     sent_bookings = self.sent_bookings.current
