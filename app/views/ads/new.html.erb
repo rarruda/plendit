@@ -6,7 +6,7 @@
                 <% @ad_categories.each do |a| %>
                     <%= button_to(ads_create_users_path, form_class: "u-inline", class: "button new-ad-category-selector__button", params: {category: a[:category]}) do %>
                         <div class="new-ad-category-selector__icon">
-                            <%= image_tag a[:image], size: a[:size], class: "" %>
+                            <%= image_tag a[:image], size: '76x63' %>
                         </div>
                         <h5 class="new-ad-category-selector__title"><%= a[:title] %></h5>
                     <% end %>

@@ -22,20 +22,17 @@ Plendit::Application.config.x.ads.categories = [
   {
     title:    'Stort og smått',
     category: 'bap',
-    image:    'category_bap.png',
-    size:     '70x49'
+    image:    'category_bap.png'
   },
   {
     title:    'Kjøretøy',
     category: 'motor',
-    image:    'category_vehicle.png',
-    size:     '76x32'
+    image:    'category_vehicle.png'
   },
   {
     title:    'Eiendom',
     category: 'realestate',
-    image:    'category_realestate.png',
-    size:     '60x63'
+    image:    'category_realestate.png'
   }
 ]
 
