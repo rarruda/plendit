@@ -1,0 +1,87 @@
+<%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
+
+<%
+  # Create one hash with all identities:
+  identities = @user.identities.all.map{ |i| {i.provider=> i} }.reduce({}, :merge)
+
+  providers = {
+    facebook: {
+        name: 'facebook',
+        image: 'facebook/FB-f-Logo__blue_50.png',
+        image_size: '50x50'
+    },
+    google_oauth2: {
+        name: 'google',
+        image: 'logos/google_50x50.png',
+        image_size: '50x50'
+    },
+    spid: {
+        name: 'spid',
+        image: 'logos/spid_117x50.png',
+        image_size: '117x50'
+    },
+  }
+
+  # FIXME:
+  # ** use array above to reduce hardcoding.
+  # ** fix so that after linking an account, they are redirected back here.
+  # ** do we want to enable disconnecting identities?
+%>
+
+    <p>
+        Oversikt av hvilken andre autoriseringstjeneste er koblet mot din konto.
+    </p>
+
+    <div class="row">
+
+        <div class="ten columns">
+            <%= image_tag "facebook/FB-f-Logo__blue_50.png", size: "50x50", alt: "" %>
+            <%# this is such a poorly performing hack... %>
+            <% if identities.has_key?('facebook') %>
+                Din konto er koblet mot facebook <%#= link_to 'konto', identities['facebook'].profile_url %>!
+                <%= evil_icon 'ei-check', size: :l %>
+            <% else %>
+                <%= button_to user_omniauth_authorize_path(:facebook), class: "button-primary", form_class: "u-inline" do %>
+                    Connect din Facebook konto med plendit
+                <% end %>
+                <%= evil_icon 'ei-close-o', size: :l %>
+            <% end %>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="ten columns">
+            <%= image_tag "logos/google_50x50.png", size: "50x50", alt: "" %>
+            <% if identities.has_key?('google_oauth2') %>
+                Din konto er koblet mot google <%#= link_to 'konto', identities['google_oauth2'].profile_url %>!
+                <%= evil_icon 'ei-check', size: :l %>
+            <% else %>
+              <%= button_to user_omniauth_authorize_path(:google_oauth2), class: "button-primary", form_class: "u-inline" do %>
+                  Connect din Google konto med plendit
+              <% end %>
+              <%= evil_icon 'ei-close-o', size: :l %>
+
+
+            <% end %>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="ten columns">
+            <%= image_tag "logos/spid_117x50.png", size: "117x50", alt: "" %>
+            <% if identities.has_key?('spid') %>
+                Din konto er koblet mot SPiD!
+                <%= evil_icon 'ei-check', size: :l %>
+            <% else %>
+                <%= button_to user_omniauth_authorize_path(:spid), class: "button-primary", form_class: "u-inline" do %>
+                    Connect din SPiD konto med plendit
+                <% end %>
+                <%= evil_icon 'ei-close-o', size: :l %>
+
+            <% end %>
+        </div>
+
+    </div>
+<% end %>
