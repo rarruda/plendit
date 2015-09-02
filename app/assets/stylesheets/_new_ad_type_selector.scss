@@ -1,17 +1,25 @@
-.new-ad-category-selector {
-    @import 'constants.scss';
+@import 'constants.scss';
 
-    // display: inline;
+.new-ad-category-selector {
+    display: inline;
 
     &__button {
-        background-color: $color-plendit-blue;
         border: solid thin $color-box-border;
-        display: block;
-        width: 100%;
-        height: 120px;
-        text-transform: none;
-        color: white;
-        border: solid thin white;
+        display: inline-block;
+        width: 160px;
+        height: 220px;
+        color: $color-gray-text;
+    }
+
+    &__icon {
+        background-color: $color-plendit-blue;
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        border: solid 2px white;
+        border-radius: 50%;
+        overflow: hidden;
+        padding-top: 20%;
     }
 
     &__title {

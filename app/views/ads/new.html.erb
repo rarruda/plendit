@@ -2,12 +2,16 @@
     <div class="row">
         <div class="seven columns">
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
-            <% @ad_categories.each do |a| %>
-                <%= button_to(ads_create_users_path, form_class: "new-ad-category-selector", class: "button new-ad-category-selector__button", params: {category: a[:category]}) do %>
-                    <%= image_tag a[:image], size: a[:size] %>
-                    <h4 class="new-ad-category-selector__title"><%= a[:title] %></h4>
+            <div class="new-ad-category-selector">
+                <% @ad_categories.each do |a| %>
+                    <%= button_to(ads_create_users_path, form_class: "u-inline", class: "button new-ad-category-selector__button", params: {category: a[:category]}) do %>
+                        <div class="new-ad-category-selector__icon">
+                            <%= image_tag a[:image], size: a[:size], class: "" %>
+                        </div>
+                        <h5 class="new-ad-category-selector__title"><%= a[:title] %></h5>
+                    <% end %>
                 <% end %>
-            <% end %>
+            </div>
         </div>
         <div class="four columns offset-by-one column">
             <%= render partial: "ad_input_copy" %>
