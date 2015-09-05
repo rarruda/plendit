@@ -21,7 +21,7 @@
             <strong class="top-bar__top-section">
                 <%= link_to current_user.safe_display_name, users_path, :class => "top-bar__navbar-link" %>.
                 <% if current_user.is_site_admin? %>
-                    <span class="top-bar__admin-label">er <%= link_to 'admin', admin_root_path %></span>
+                    <%= link_to 'admin', admin_root_path, class: "top-bar__admin-link" %>
                 <% end %>
             </strong>
             |
