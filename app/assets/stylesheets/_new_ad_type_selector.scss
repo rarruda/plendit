@@ -4,6 +4,7 @@
     display: inline;
 
     &__button {
+        background-color: white;
         border: solid thin $color-box-border;
         display: inline-block;
         width: 160px;
@@ -16,7 +17,6 @@
         display: inline-block;
         width: 100px;
         height: 100px;
-        border: solid 2px white;
         border-radius: 50%;
         overflow: hidden;
         padding-top: 16px;
