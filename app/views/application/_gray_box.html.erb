@@ -1,4 +1,4 @@
-<div class="gray-box u-push-down">
+<div class="gray-box u-push-down" <%= defined?(id).nil? ? "" : "id=#{id}" %> >
     <h5 class="gray-box__title"><%= title %></h5>
     <div class="gray-box__body">
         <%= yield %>
