@@ -270,6 +270,7 @@ window.controllers.togglableFilters = {
         function toggle() {
             filterEle.classList.toggle("u-hidden");
             eventBus.emit('filter-toggle');
+            eventBus.emit('layout-changed');
         }
     }
 };
@@ -423,4 +424,44 @@ window.controllers.addressSelectionDimmer = function(ele) {
 
 window.controllers.autoFocus = function(ele) {
     ele.focus();
+};
+
+
+window.controllers.responsiveSearchResult = {
+    dependencies: ["$element", "eventbus"],
+    callable: function(ele, eventBus) {
+
+        var map;
+        var list;
+        var listButton;
+        var mapButton;
+
+        init();
+
+        function init() {
+            list = document.querySelector("[data-result-list]");
+            map = document.querySelector("[data-result-map]");
+            mapButton = document.querySelector("[data-show-map-toggle]");
+            listButton = document.querySelector("[data-show-list-toggle]");
+
+            mapButton.addEventListener("click", showMap);
+            listButton.addEventListener("click", showList);
+        }
+
+        function showMap() {
+            map.style.display = "block";
+            list.style.display = "none";
+            mapButton.classList.add("search-result-view-chooser__segment-button--selected");
+            listButton.classList.remove("search-result-view-chooser__segment-button--selected");
+            eventBus.emit('layout-changed');
+        }
+
+        function showList() {
+            map.style.display = "none";
+            list.style.display = "block";
+            mapButton.classList.remove("search-result-view-chooser__segment-button--selected");
+            listButton.classList.add("search-result-view-chooser__segment-button--selected");
+        }
+
+    }
 };
