@@ -1,3 +1,5 @@
+@import 'constants.scss';
+
 .search-result-view-chooser {
 
     &__segment-holder {
@@ -43,4 +45,75 @@
         background-color: #2a96ff;
         border-color: transparent;
     }
+}
+
+.multi-marker-box {
+    width: 280px;
+    height: 320px;
+    overflow-y: scroll;
+}
+
+
+.search-title-box {
+    padding: $standard-spacing / 4;
+
+    &__title {
+        margin: 0;
+    }
+
+}
+
+
+$breakpoint: 550px;
+
+.result-container {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+
+    &__map-box {
+        position: absolute;
+        width: 65.1%;
+        top: 0;
+        bottom: 0;
+
+        @media screen and (max-width: $breakpoint) {
+            width: 100%;
+            display: none;
+        }
+
+    }
+
+    &__hits-box {
+        position: absolute;
+        left: 65.3333333333%;
+        width: 34.6666666667%;
+        top: 0;
+        bottom: 0;
+        overflow: scroll;
+        overflow-x: hidden;
+
+        @media screen and (max-width: $breakpoint) {
+            width: 100%;
+            left: 0;
+        }
+
+    }
+}
+
+.result-map {
+    position:absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.search-result-view-chooser {
+    display: none;
+
+    @media screen and (max-width: $breakpoint) {
+        display: block;
+    }
+
 }
