@@ -1,4 +1,4 @@
-<%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
+<%= render layout: "gray_box", locals: {title: "Rediger personalia", id: "personal-info"} do %>
     <%= form_for( @user, url: users_path, html: { method: :put }) do |f| %>
 
         <%#= devise_error_messages! %>

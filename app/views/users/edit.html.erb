@@ -12,19 +12,31 @@
             <%= render partial: "edit_profile" %>
             <%= render partial: "edit_registration" %>
 
-            <%= render layout: "gray_box", locals: {title: "Bytte Profilbilde"} do %>
+            <%= render layout: "gray_box", locals: {title: "Bytte Profilbilde", id: "profile-image"} do %>
               <%= render('shared/profile_image_box.html', user: current_user) %>
             <% end %>
-            <%= render layout: "gray_box", locals: {title: "Endre Adresser"} do %>
-              <%= link_to  "See / edit my locations", locations_path %>
+            <%= render layout: "gray_box", locals: {title: "Endre adresser", id: "locations"} do %>
+              <%= link_to "Se og rediger mine adresser.", locations_path %>
             <% end %>
 
-            <%= render partial: "edit_identity", locals: {title: "Koble konto din"}  %>
+            <%= render partial: "edit_identity" %>
 
         </div>
+
+        <div class="four columns">
+            <%= render layout: "gray_box"  do %>
+                <ul>
+                    <li><%= link_to "Rrediger personalia", anchor: "personal-info" %></li>
+                    <li><%= link_to "Bytte passord", anchor: "password" %></li>
+                    <li><%= link_to "Bytte profilbilde", anchor: "profile-image" %></li>
+                    <li><%= link_to "Rediger adresser", anchor: "locations" %></li>
+                    <li><%= link_to "Rediger tilkoblede kontoer", anchor: "identities" %></li>
+                </ul>
+            <% end %>
+        </div>
+
     </div>
 </div>
-
 
 <%#
 <h3>Cancel my account</h3>
