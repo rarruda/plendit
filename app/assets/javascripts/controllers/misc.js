@@ -433,14 +433,16 @@ window.controllers.responsiveSearchResult = {
 
         var map;
         var list;
+        var listButton;
+        var mapButton;
 
         init();
 
         function init() {
             list = document.querySelector("[data-result-list]");
             map = document.querySelector("[data-result-map]");
-            var mapButton = document.querySelector("[data-show-map-toggle]");
-            var listButton = document.querySelector("[data-show-list-toggle]");
+            mapButton = document.querySelector("[data-show-map-toggle]");
+            listButton = document.querySelector("[data-show-list-toggle]");
 
             mapButton.addEventListener("click", showMap);
             listButton.addEventListener("click", showList);
@@ -449,12 +451,16 @@ window.controllers.responsiveSearchResult = {
         function showMap() {
             map.style.display = "block";
             list.style.display = "none";
+            mapButton.classList.add("search-result-view-chooser__segment-button--selected");
+            listButton.classList.remove("search-result-view-chooser__segment-button--selected");
             eventBus.emit('layout-changed');
         }
 
         function showList() {
             map.style.display = "none";
             list.style.display = "block";
+            mapButton.classList.remove("search-result-view-chooser__segment-button--selected");
+            listButton.classList.add("search-result-view-chooser__segment-button--selected");
         }
 
     }
