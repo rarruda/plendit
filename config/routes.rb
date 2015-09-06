@@ -58,24 +58,22 @@ Rails.application.routes.draw do
     resources :ads do
       resources :ad_images, only: [:index, :create, :update, :destroy]
     end
+    resources :feedbacks
   end
 
   get 'user/:id', to: 'users#show', as: 'user'
 
 
-
-
-
-
   get 'resources/postal_place', to: 'misc#postal_place'
+  get 'faq',      to: 'misc#faq'
+  get 'about-us', to: 'misc#about'
+  get 'contact',  to: 'misc#contact'
 
 
   get '/search', to: 'ads#search'
   get '/new',    to: 'ads#new', as: 'new_ad'
 
 
-
-  resources :feedbacks
   resources :ads, path: '/ad' do
     member do
       get 'preview'
