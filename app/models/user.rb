@@ -60,7 +60,11 @@ class User < ActiveRecord::Base
   def safe_avatar_url
     # Gravatar: "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?r=pg&d=mm" ### &d=#{our_own_generic_profile_image_url}
     # Gravatar SSL: "http://secure.gravatar.com/..."
-    self.image_url || ( Rails.env.production? ?  "/images/default_avatar.png" : "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any" )
+    if self.image_url.blank?
+      ( Rails.env.production? ?  "/images/default_avatar.png" : "http://robohash.org/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?gravatar=hashed&bgset=any" )
+    else
+      self.image_url
+    end
   end
 
   def safe_display_name
