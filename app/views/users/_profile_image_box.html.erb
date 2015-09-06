@@ -1,0 +1,11 @@
+<div class="profile-image-box">
+    <%= render('shared/avatar.html', user: user, size: "huge") %>
+    <p>
+        <a href="#">Endre profilbilde</a>
+        Upload a new profile image:
+
+        <%= form_for @user.user_images, url: users_path, html: { multipart: true } do |form| %>
+          <%= form.file_field :user_image %>
+        <% end %>
+    </p>
+</div>

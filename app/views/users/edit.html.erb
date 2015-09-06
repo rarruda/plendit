@@ -13,7 +13,7 @@
             <%= render partial: "edit_registration" %>
 
             <%= render layout: "gray_box", locals: {title: "Bytte Profilbilde", id: "profile-image"} do %>
-              <%= render('shared/profile_image_box.html', user: current_user) %>
+              <%= render('profile_image_box.html', user: current_user) %>
             <% end %>
             <%= render layout: "gray_box", locals: {title: "Endre adresser", id: "locations"} do %>
               <%= link_to "Se og rediger mine adresser.", locations_path %>
