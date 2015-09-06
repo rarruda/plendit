@@ -37,7 +37,7 @@
         <%= render partial: "flash_bar" %>
     </header>
 
-    <%= yield %>
+    <%= content_for?(:content) ? yield(:content) : yield %>
 
     <% if not @supress_footer %>
         <%= render partial: "main_footer" %>
