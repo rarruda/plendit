@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :locations
   has_many :favorite_lists
   has_many :favorite_ads, :through => :favorite_lists
+  has_many :user_images
 
   # received_bookings == bookings:
   has_many :bookings, :through => :ad_items
