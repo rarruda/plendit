@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :locations
   has_many :favorite_lists
   has_many :favorite_ads, :through => :favorite_lists
-  has_many :user_images
+  has_many :user_images, dependent: :destroy, autosave: true
 
   # received_bookings == bookings:
   has_many :bookings, :through => :ad_items
@@ -55,7 +55,6 @@ class User < ActiveRecord::Base
     if: :phone_pending_confirmation?,
     if: :phone_pending_changed?,
     if: :phone_number_changed?
-
 
   def safe_avatar_url
     # Gravatar: "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?r=pg&d=mm" ### &d=#{our_own_generic_profile_image_url}

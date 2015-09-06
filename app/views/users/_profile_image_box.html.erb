@@ -4,8 +4,13 @@
         <a href="#">Endre profilbilde</a>
         Upload a new profile image:
 
-        <%= form_for @user.user_images, url: users_path, html: { multipart: true } do |form| %>
-          <%= form.file_field :user_image %>
+        <%= form_for UserImage.new, url: update_avatar_users_path, html: { multipart: true, method: "post" } do |f| %>
+          <%= f.file_field :image %>
+          <%= f.submit "Upload new avatar" %>
         <% end %>
+        <%# destroy avatar: %>
+        <%# if @user.user_images.avatar.size > 0 %>
+        <%#= form_for( UserImage.new(), method: "delete") %>
+        <%# end %>
     </p>
 </div>

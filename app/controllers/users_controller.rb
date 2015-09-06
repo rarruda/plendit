@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, :except => [:show, :finish_signup]
   before_action :set_user, only: [
     :show, :edit, :update, :destroy, :confirmation,
-    :verify_sms, :do_verify_sms, :mark_all_notifications_noticed
+    :verify_sms, :do_verify_sms, :mark_all_notifications_noticed,
+    :update_avatar, :destroy_avatar
   ]
-  before_filter :authenticate_user!, :except => [:show, :finish_signup]
 
   def index
   end
@@ -81,6 +82,61 @@ class UsersController < ApplicationController
     end
   end
 
+  # POST/PUT /me/update_avatar
+  def update_avatar
+
+#pp @user
+#pp @user.user_images
+
+    # NOTE: we use user_avatar_params
+    if @user.user_images.avatar.size == 0
+      @user.user_images.build( user_avatar_params )
+    else
+      # FIXME: somehow we are not deleting images from S3. EEK!
+      @user.user_images.avatar.each{ |a| a.destroy }
+      @user.user_images.build( user_avatar_params )
+    end
+#pp @user
+#pp @user.user_images
+
+
+    respond_to do |format|
+      if @user.save
+        # wierd that we have to save first up there and then save again below:
+        @user.image_url = @user.user_images.avatar.first.image.url(:avatar_huge) if not @user.user_images.avatar.first.nil?
+        @user.save
+
+#pp @user
+#pp @user.user_images
+
+        format.json { render json: @user_image.to_dropzone_gallery.to_json, :status => 200 }
+        format.html { redirect_to users_edit_users_path, notice: 'User image/Avatar was successfully added.'}
+      else
+        # NOTE: should we drop support for dropzone/json here?
+        #  you need to send an error header, otherwise Dropzone
+        #  will not interpret the response as an error:
+        format.json { render json: { error: @user.errors.full_messages.join(',')}, :status => 400 }
+        format.html { redirect_to users_edit_users_path, notice: 'User image/Avatar had issues being created.'}
+      end
+    end
+
+  end
+
+  # DELETE /me/destroy_avatar
+  def destroy_avatar
+    @user.user_images.avatar.each{ |a| a.destroy }
+
+    # now set the image_url to nil and save it.
+    @user.image_url = nil
+    @user.save
+
+    respond_to do |format|
+      format.html { redirect_to users_edit_users_path, notice: 'User avatar was successfully destroyed.' }
+      format.json { head :no_content }
+      #format.json { render json: { message: "successfully destroyed" }, :status => 200 }
+    end
+  end
+
 
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
@@ -134,5 +190,9 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:display_name, :name, :email, :current_phone_number, :password, :password_confirmation, :phone_number_confirmation_token)
+    end
+
+    def user_avatar_params
+      params.require(:user_image).permit(:image).merge( user_id: current_user.id, category: 'avatar' )
     end
 end

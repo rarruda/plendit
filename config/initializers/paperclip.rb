@@ -11,9 +11,13 @@ Paperclip::Attachment.default_options[:s3_credentials] = {
   :access_key_id     => ENV['PCONF_AWS_ACCESS_KEY_ID'],
   :secret_access_key => ENV['PCONF_AWS_SECRET_ACCESS_KEY']
 }
+# FIXME: we currently use the same bucket for both user_image and ad_image.
+#  They probably deserve separate buckets.
 
-# Allow interpolation of :ad_id
+# Allow interpolation of :ad_id and user_id
 Paperclip.interpolates :ad_id do |attachment, style|
   attachment.instance.ad_id
 end
-
+Paperclip.interpolates :user_id do |attachment, style|
+  attachment.instance.user_id
+end
