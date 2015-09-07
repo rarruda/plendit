@@ -32,6 +32,7 @@ class Booking < ActiveRecord::Base
   scope :exclude_past,   ->{ where( 'ends_at >= ?', DateTime.now ) }
 
 
+
   validates :starts_at, :ends_at, :overlap => {
     :scope         => "ad_item_id",
     :query_options => { :active => nil }
@@ -41,7 +42,7 @@ class Booking < ActiveRecord::Base
 
 
 
-  before_save :populate_guid
+  before_validation :populate_guid, :on => :create
   before_save :calculate_amount,
     if: :starts_at_changed?,
     if: :ends_at_changed?
@@ -66,7 +67,10 @@ class Booking < ActiveRecord::Base
     end
   end
 
+
+
   # fixme: real data for this, and something like .humanize on the prices/amounts
+  # fixme: add booking_item for VAT, platform_fees(us), insurance, etc.
   def calculate_amount
     self.amount = self.duration_in_days * self.ad.price
   end
@@ -121,6 +125,7 @@ class Booking < ActiveRecord::Base
     end
   end
 
+
   def validate_starts_at_before_ends_at
       errors.add(:ends_at, "ends_at cannot be before starts_at") if self.ends_at < self.starts_at
   end
@@ -136,7 +141,7 @@ class Booking < ActiveRecord::Base
     end
   end
 
-  # copare it with a date?
+  # compare it with a date?
   # TODO: consider merging with the comparable between bookings above.
   #def <=>(date)
   #  if self.ends_at.date < date
@@ -151,10 +156,11 @@ class Booking < ActiveRecord::Base
   private
 
   def populate_guid
-    if new_record?
-      while !valid? || self.guid.nil?
-        self.guid = SecureRandom.uuid
-      end
+    self.guid = loop do
+      # for a shorter string use:
+      #SecureRandom.random_number(1_000_000_000_000_000).to_s(36)
+      generated_guid = SecureRandom.uuid
+      break generated_guid unless self.class.exists?(guid: generated_guid)
     end
   end
 end
