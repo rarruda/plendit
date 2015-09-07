@@ -40,6 +40,9 @@ class User < ActiveRecord::Base
   # verified? means both are confirmed and user can interact with other users.
   enum status: { unverified: 1, verified: 2, locked: 3 }
 
+  #natural person, legal_person, legal_organization
+  enum personhood: { natural: 0, legal_business: 1, legal_organization: 2 }
+
 
   # only act on the phone settings, if the phone number was changed.
   # TODO: add trigger so that its possible to re-send codes for the current unverified phone number.

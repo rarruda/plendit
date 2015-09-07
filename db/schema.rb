@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907163204) do
+ActiveRecord::Schema.define(version: 20150907175406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,8 +221,13 @@ ActiveRecord::Schema.define(version: 20150907163204) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone_number",                      limit: 8
+    t.integer  "ephemeral_answer_percent"
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false
+    t.integer  "status",                                      default: 1
+    t.string   "email"
     t.string   "encrypted_password"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -239,19 +244,15 @@ ActiveRecord::Schema.define(version: 20150907163204) do
     t.integer  "failed_attempts",                             default: 0, null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.string   "image_url"
     t.string   "phone_number_confirmation_token"
     t.datetime "phone_number_confirmed_at"
     t.datetime "phone_number_confirmation_sent_at"
-    t.string   "phone_number",                      limit: 8
     t.string   "unconfirmed_phone_number",          limit: 8
-    t.integer  "ephemeral_answer_percent"
-    t.integer  "status",                                      default: 1
-    t.string   "image_url"
-    t.string   "name"
     t.string   "first_name"
-    t.string   "last_name"
     t.date     "birthday"
-    t.string   "email"
+    t.string   "last_name"
+    t.integer  "personhood"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
