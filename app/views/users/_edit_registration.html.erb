@@ -9,20 +9,20 @@
 
         <div class="row">
             <div class="six columns">
-                <%= f.label :current_password, "Nåværende Passord" %>
+                <%= f.label :current_password, 'Nåværende passord:' %>
                 <%= f.password_field :current_password, autocomplete: "off", class: "u-full-width" %>
             </div>
         </div>
 
         <div class="row">
             <div class="six columns">
-                <%= f.label :password, "Nytt passord" %>
+                <%= f.label :password, "Nytt passord:" %>
                 <%= f.password_field :password, autocomplete: "off", class: "u-full-width" %>
                 (blankt for å beholde nåværende passord)
             </div>
 
             <div class="six columns">
-                <%= f.label :password_confirmation, "Nytt Passord" %>
+                <%= f.label :password_confirmation, "Gjenta nytt passord:" %>
                 <%= f.password_field :password_confirmation, autocomplete: "off", class: "u-full-width" %>
             </div>
         </div>
