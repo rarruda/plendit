@@ -7,7 +7,7 @@
         <%= ad.summary %>
     </p>
 
-    <%= form_for( FavoriteAd.new ) do |f| %>
+    <%= form_for( FavoriteAd.new, url: users_favorite_ads_path ) do |f| %>
 
         <%= f.hidden_field :ad_id, value: ad.id.to_s %>
         <%= f.hidden_field :previous_url, value: request.fullpath %>
