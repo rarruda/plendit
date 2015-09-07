@@ -1,7 +1,7 @@
 <div class="profile-sidebar-summary">
     <%= render('shared/avatar.html', user: user, size: "large") %>
     <br>
-    <strong><%= user.safe_display_name %>
+    <strong><%= user.safe_first_name %>
     <br>
     <%= render('shared/stars.html', rating: user.calculate_average_rating, num_ratings: user.received_feedbacks.size) %>
     <br>

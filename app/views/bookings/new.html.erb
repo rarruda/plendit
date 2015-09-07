@@ -5,7 +5,7 @@
         <div class="twelve columns">
             <%= render partial: "shared/ad_title_box", locals: { ad: @ad } %>
 
-            <h2>Leieforespørsel til <%= @ad.user.safe_display_name%></h2>
+            <h2>Leieforespørsel til <%= @ad.user.safe_first_name%></h2>
 
             <%= render 'form' %>
         </div>

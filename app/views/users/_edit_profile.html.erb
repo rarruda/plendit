@@ -5,15 +5,23 @@
 
         <div class="row">
             <div class="six columns">
-                <%= f.label :name, 'Visnignsnavn' %>
-                <%= f.text_field :display_name, value: @user.safe_display_name, class: "u-full-width" %>
+                <%= f.label :first_name, "FIXME: Fornavn" %>
+                <%= f.text_field :first_name, class: "u-full-width" %>
             </div>
         </div>
 
         <div class="row">
             <div class="six columns">
-                <%= f.label :name, 'Fullt navn' %>
-                <%= f.text_field :name, class: "u-full-width" %>
+                <%= f.label :last_name, "FIXME: Etternavn" %>
+                <%= f.text_field :last_name, class: "u-full-width" %>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="two-thirds column">
+                <%= f.label :birthday, "FIXME: Fødselsdato:" %>
+                <%= f.date_field :birthday %>
+                Det trenger vi pga av ditt og datt.
             </div>
         </div>
 

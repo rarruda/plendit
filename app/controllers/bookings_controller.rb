@@ -130,35 +130,35 @@ class BookingsController < ApplicationController
     def notify_about_decline
       Notification.new(
         user_id: @booking.from_user.id,
-        message: "#{@booking.user.safe_display_name} declined your request to book \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.user.safe_first_name} declined your request to book \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_accept
       Notification.new(
         user_id: @booking.from_user.id,
-        message: "#{@booking.user.safe_display_name} accepted your request to book \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.user.safe_first_name} accepted your request to book \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_cancel
       Notification.new(
         user_id: @booking.user.id,
-        message: "#{@booking.from_user.safe_display_name} canceled their request to book \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.from_user.safe_first_name} canceled their request to book \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_new_booking
       Notification.new(
         user_id: @booking.user.id,
-        message: "#{@booking.from_user.safe_display_name} has sent you a request to book \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.from_user.safe_first_name} has sent you a request to book \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_updated_booking
       Notification.new(
         user_id: @booking.user.id,
-        message: "#{@booking.from_user.safe_display_name} has updated their request to book \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.from_user.safe_first_name} has updated their request to book \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 

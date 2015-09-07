@@ -66,8 +66,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def safe_display_name
-    self.display_name.blank? ? self.name : self.display_name
+  def safe_first_name
+    self.first_name.blank? ? self.name : self.first_name
   end
 
   def calculate_average_rating
@@ -138,7 +138,9 @@ class User < ActiveRecord::Base
       if user.nil?
         user = User.new(
           name: auth.info.name,
-          display_name: auth.info.first_name,
+          first_name: auth.info.first_name,
+          last_name: auth.info.first_name,
+          #birthday: auth.info.birthday,
           email: email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
           image_url: auth.info.image,
           password: Devise.friendly_token[0,20]
