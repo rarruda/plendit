@@ -32,11 +32,12 @@
         link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>
         <% else %>
         <div>
-            <pre>email is confirmed! <3</pre>
+            <%= evil_icon 'ei-check', size: :s, class: 'u-fill-green' %>
+            <span>E-post adressen er bekreftet!</span>
         </div>
         <% end %>
 
-        <div class="row">
+        <div class="row u-push-down">
             <div class="six columns">
                 <%= f.label :current_phone_number, "Telefonnummer" %>
                 <%= f.text_field :current_phone_number, { class: "u-full-width", maxlength: 8 } %>
