@@ -5,6 +5,10 @@ class Identity < ActiveRecord::Base
 
 
   def self.find_for_oauth(auth)
+
+    # for debugging information coming from the different auth providers:
+    #pp auth
+
     identity = find_or_create_by(uid: auth.uid, provider: auth.provider) do |i|
       i.email      = auth.info.email
       i.name       = auth.info.name
@@ -17,7 +21,7 @@ class Identity < ActiveRecord::Base
         i.profile_url = auth.extra.raw_info.link
         i.image_url   = auth.info.image
         i.nickname    = auth.info.nickname
-      when 'google_oauth2' # || 'google'
+      when 'google'
         i.profile_url = auth.extra.raw_info.profile
         i.image_url   = auth.extra.raw_info.picture
       when 'spid'

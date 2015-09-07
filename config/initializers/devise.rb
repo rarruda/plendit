@@ -234,9 +234,10 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :facebook, ENV['PCONF_FACEBOOK_APP_ID'], ENV['PCONF_FACEBOOK_SECRET']
-  config.omniauth :google_oauth2, ENV['PCONF_GOOGLE_CLIENT_ID'], ENV['PCONF_GOOGLE_CLIENT_SECRET']
-  ###   { :name => 'google', :image_aspect_ratio => 'square', :prompt =>'select_account'} #, :image_size=> 120 }
+  config.omniauth :facebook, ENV['PCONF_FACEBOOK_APP_ID'], ENV['PCONF_FACEBOOK_SECRET'],
+    :scope => 'email,user_birthday'
+  config.omniauth :google_oauth2, ENV['PCONF_GOOGLE_CLIENT_ID'], ENV['PCONF_GOOGLE_CLIENT_SECRET'],
+    { :name => 'google' } #, :image_aspect_ratio => 'square', :image_size=> 120 }
   # see https://github.com/zquestz/omniauth-google-oauth2 for list of parameters
   config.omniauth :spid, ENV['PCONF_SPID_CLIENT_ID'], ENV['PCONF_SPID_CLIENT_SECRET'],
     {

@@ -11,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 
   # equivalent to: def facebook, def google, def spid
-  [:facebook, :google_oauth2, :spid].each do |provider|
+  [:facebook, :google, :spid].each do |provider|
     define_method "#{provider}" do
       @user = User.find_for_oauth(env["omniauth.auth"], current_user)
 

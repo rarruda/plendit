@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :omniauthable, omniauth_providers: [:facebook, :google_oauth2, :spid]
+         :confirmable, :omniauthable, omniauth_providers: [:facebook, :google, :spid]
   has_many :ads, dependent: :destroy
   has_many :ad_items, :through => :ads
   has_many :identities
@@ -122,10 +122,10 @@ class User < ActiveRecord::Base
           email_is_verified = true if e.value == auth.info.email and e.verified
         }
         # or could be done by checking that emailVerified is not 0000 or after sometime in 2000.
-      when 'google_oauth2'
-        email_is_verified = auth.extra.raw_info.email_verified
+      when 'google'
+        email_is_verified = true if [true, "true"].include? auth.extra.raw_info.email_verified
       else
-        false
+        email_is_verified = false
       end
 
       email = auth.info.email if email_is_verified
@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
           name: auth.info.name,
           first_name: auth.info.first_name,
           last_name: auth.info.first_name,
-          #birthday: auth.info.birthday,
+          #birthday: auth.info.birthday, #<-- not sure all oauth providers provide this field... possibly different formats too.
           email: email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
           image_url: auth.info.image,
           password: Devise.friendly_token[0,20],
