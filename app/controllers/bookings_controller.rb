@@ -82,7 +82,7 @@ class BookingsController < ApplicationController
   # GET /bookings/show_price
   # GET /bookings/show_price.json
   def show_price
-    @booking.calculate_price
+    @booking.calculate_amount
     respond_to do |format|
       format.html { render :show_price } #redirect_to @booking, notice: 'Booking was successfully updated.' }
       format.json { render json: show_price, status: :ok }

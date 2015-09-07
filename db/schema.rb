@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907175406) do
+ActiveRecord::Schema.define(version: 20150907213655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,21 +66,33 @@ ActiveRecord::Schema.define(version: 20150907175406) do
     t.integer  "status",                                      default: 0
     t.integer  "category",                                    default: 0
     t.integer  "insurance_required"
+    t.boolean  "requires_vat"
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
   add_index "ads", ["user_id"], name: "index_ads_on_user_id", using: :btree
 
+  create_table "booking_items", force: :cascade do |t|
+    t.integer  "booking_id"
+    t.integer  "category"
+    t.decimal  "amount",     precision: 10, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "booking_items", ["booking_id"], name: "index_booking_items_on_booking_id", using: :btree
+
   create_table "bookings", force: :cascade do |t|
     t.integer  "ad_item_id"
     t.integer  "from_user_id"
     t.integer  "status",                                  default: 0
-    t.decimal  "price",          precision: 10, scale: 2
+    t.decimal  "amount",         precision: 10, scale: 2
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "first_reply_at"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
+    t.string   "guid"
   end
 
   add_index "bookings", ["ad_item_id"], name: "index_bookings_on_ad_item_id", using: :btree
@@ -253,6 +265,7 @@ ActiveRecord::Schema.define(version: 20150907175406) do
     t.date     "birthday"
     t.string   "last_name"
     t.integer  "personhood"
+    t.boolean  "pays_vat"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -272,6 +285,7 @@ ActiveRecord::Schema.define(version: 20150907175406) do
   add_foreign_key "ad_items", "ads"
   add_foreign_key "ads", "locations"
   add_foreign_key "ads", "users"
+  add_foreign_key "booking_items", "bookings"
   add_foreign_key "bookings", "ad_items"
   add_foreign_key "bookings", "users", column: "from_user_id"
   add_foreign_key "favorite_ads", "ads"

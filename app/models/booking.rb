@@ -37,10 +37,15 @@ class Booking < ActiveRecord::Base
     :query_options => { :active => nil }
   }
   validate :validate_starts_at_before_ends_at
+  validates_uniqueness_of :guid
 
-  before_save :calculate_price,
+
+
+  before_save :populate_guid
+  before_save :calculate_amount,
     if: :starts_at_changed?,
     if: :ends_at_changed?
+
 
 
   aasm :column => :status, :enum => true do
@@ -61,17 +66,17 @@ class Booking < ActiveRecord::Base
     end
   end
 
-  # fixme: real data for this, and something like .humanize on the prices
-  def calculate_price
-    self.price = self.duration_in_days * self.ad.price
+  # fixme: real data for this, and something like .humanize on the prices/amounts
+  def calculate_amount
+    self.amount = self.duration_in_days * self.ad.price
   end
 
   def sum_paid_to_owner
-    self.price * 0.88
+    self.amount * 0.88
   end
 
   def sum_paid_by_renter
-    self.price
+    self.amount
   end
 
   # duration_in_days rounded up for fractions of a day.
@@ -143,4 +148,13 @@ class Booking < ActiveRecord::Base
   #  end
   #end
 
+  private
+
+  def populate_guid
+    if new_record?
+      while !valid? || self.guid.nil?
+        self.guid = SecureRandom.uuid
+      end
+    end
+  end
 end

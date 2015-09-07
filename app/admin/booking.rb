@@ -18,7 +18,7 @@ ActiveAdmin.register Booking do
   #actions :index, :show
 
 
-  permit_params :ad_item_id, :from_user_id, :price, :status
+  permit_params :ad_item_id, :from_user_id, :amount, :status
 
   index do
     selectable_column
@@ -27,7 +27,7 @@ ActiveAdmin.register Booking do
     column :ad
     column :user
     column :from_user
-    column :price
+    column :amount
     column :status
     column :created_at
     actions
