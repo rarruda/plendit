@@ -146,7 +146,8 @@ class User < ActiveRecord::Base
           #birthday: auth.info.birthday,
           email: email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
           image_url: auth.info.image,
-          password: Devise.friendly_token[0,20]
+          password: Devise.friendly_token[0,20],
+          personhood: :natural
         )
         user.skip_confirmation! ###### <== funny business of skipping confimation even if we have an invalid email.
         ############################## we probably to always have an email confirmed.
