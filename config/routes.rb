@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   get 'contact',  to: 'misc#contact'
   get 'privacy',  to: 'misc#privacy'
   get 'terms',    to: 'misc#terms' #feel free to find a better name for terms and conditions
+  get 'help',     to: 'misc#help'
 
 
   get '/search', to: 'ads#search'

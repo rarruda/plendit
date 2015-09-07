@@ -1,5 +1,5 @@
 class MiscController < ApplicationController
-  layout "article", only: [ :about, :faq, :contact, :privacy, :terms ]
+  layout "article", only: [ :about, :faq, :contact, :help, :privacy, :terms ]
 
   @@postal_codes = YAML.load_file("#{Rails.root}/config/data/postal_codes.yml")
 
