@@ -9,15 +9,51 @@ window.controllers.adMap = {
 
             var center = {lat: latLon[0], lng: latLon[1]};
 
+            var styles = [
+                {
+                    "featureType": "poi.business",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "featureType": "transit.station",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "featureType": "poi.place_of_worship",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "featureType": "poi.attraction",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "featureType": "poi.sports_complex",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                }
+            ];
+
             var mapOptions = {
-              streetViewControl: false,
-              mapTypeControl: false,
-              center: center,
-              zoom: 14,
-              maxZoom: 18,
-              minZoom: 4,
-              scrollwheel: false
+                streetViewControl: false,
+                mapTypeControl: false,
+                center: center,
+                zoom: 14,
+                maxZoom: 18,
+                minZoom: 4,
+                scrollwheel: false,
+                styles: styles
             };
+
             var map = new google.maps.Map(ele, mapOptions);
 
             var c1 = new google.maps.Circle({
@@ -55,13 +91,48 @@ window.controllers.resultMap = {
             };
             var zl = parseInt(searchData.zl);
 
+            var styles = [
+                {
+                    "featureType": "poi.business",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "featureType": "transit.station",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "featureType": "poi.place_of_worship",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "featureType": "poi.attraction",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "featureType": "poi.sports_complex",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                },{
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        { "visibility": "off" }
+                    ]
+                }
+            ];
+
             var mapOptions = {
                 streetViewControl: false,
                 mapTypeControl: false,
                 center: center,
                 zoom: zl,
                 maxZoom: 18,
-                minZoom: 4
+                minZoom: 4,
+                styles: styles
             };
 
             var map = new google.maps.Map(ele, mapOptions);
