@@ -40,9 +40,11 @@ class Booking < ActiveRecord::Base
   validate :validate_starts_at_before_ends_at
   validates_uniqueness_of :guid
 
+  #validates_numericality_of :amount,
+  #  greater_than: 500,
+  #  message: "must be at least 5 kroner"
 
-
-  before_validation :populate_guid, :on => :create
+  before_validation :set_guid, :on => :create
   before_save :calculate_amount,
     if: :starts_at_changed?,
     if: :ends_at_changed?
@@ -155,7 +157,7 @@ class Booking < ActiveRecord::Base
 
   private
 
-  def populate_guid
+  def set_guid
     self.guid = loop do
       # for a shorter string use:
       #SecureRandom.random_number(1_000_000_000_000_000).to_s(36)
