@@ -72,6 +72,9 @@ Rails.application.routes.draw do
   get 'faq',      to: 'misc#faq'
   get 'about-us', to: 'misc#about'
   get 'contact',  to: 'misc#contact'
+  get 'privacy',  to: 'misc#privacy'
+  get 'terms',    to: 'misc#terms' #feel free to find a better name for terms and conditions
+  get 'help',     to: 'misc#help'
 
 
   get '/search', to: 'ads#search'
@@ -92,6 +95,7 @@ Rails.application.routes.draw do
       post 'resume'
       post 'submit_for_review'
     end
+    # probably should be moved to /me:
     resources :bookings
   end
 

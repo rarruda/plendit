@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907163204) do
+ActiveRecord::Schema.define(version: 20150907234348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,25 +66,38 @@ ActiveRecord::Schema.define(version: 20150907163204) do
     t.integer  "status",                                      default: 0
     t.integer  "category",                                    default: 0
     t.integer  "insurance_required"
+    t.boolean  "requires_vat"
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
   add_index "ads", ["user_id"], name: "index_ads_on_user_id", using: :btree
 
+  create_table "booking_items", force: :cascade do |t|
+    t.integer  "booking_id"
+    t.integer  "category"
+    t.decimal  "amount",     precision: 10, scale: 2
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "booking_items", ["booking_id"], name: "index_booking_items_on_booking_id", using: :btree
+
   create_table "bookings", force: :cascade do |t|
     t.integer  "ad_item_id"
     t.integer  "from_user_id"
     t.integer  "status",                                  default: 0
-    t.decimal  "price",          precision: 10, scale: 2
+    t.decimal  "amount",         precision: 10, scale: 2
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "first_reply_at"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
+    t.string   "guid"
   end
 
   add_index "bookings", ["ad_item_id"], name: "index_bookings_on_ad_item_id", using: :btree
   add_index "bookings", ["from_user_id"], name: "index_bookings_on_from_user_id", using: :btree
+  add_index "bookings", ["guid"], name: "index_bookings_on_guid", unique: true, using: :btree
   add_index "bookings", ["status"], name: "index_bookings_on_status", using: :btree
 
   create_table "favorite_ads", force: :cascade do |t|
@@ -221,8 +234,13 @@ ActiveRecord::Schema.define(version: 20150907163204) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone_number",                      limit: 8
+    t.integer  "ephemeral_answer_percent"
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false
+    t.integer  "status",                                      default: 1
+    t.string   "email"
     t.string   "encrypted_password"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -239,19 +257,16 @@ ActiveRecord::Schema.define(version: 20150907163204) do
     t.integer  "failed_attempts",                             default: 0, null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.string   "image_url"
     t.string   "phone_number_confirmation_token"
     t.datetime "phone_number_confirmed_at"
     t.datetime "phone_number_confirmation_sent_at"
-    t.string   "phone_number",                      limit: 8
     t.string   "unconfirmed_phone_number",          limit: 8
-    t.integer  "ephemeral_answer_percent"
-    t.integer  "status",                                      default: 1
-    t.string   "image_url"
-    t.string   "name"
     t.string   "first_name"
-    t.string   "last_name"
     t.date     "birthday"
-    t.string   "email"
+    t.string   "last_name"
+    t.integer  "personhood"
+    t.boolean  "pays_vat"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -271,6 +286,7 @@ ActiveRecord::Schema.define(version: 20150907163204) do
   add_foreign_key "ad_items", "ads"
   add_foreign_key "ads", "locations"
   add_foreign_key "ads", "users"
+  add_foreign_key "booking_items", "bookings"
   add_foreign_key "bookings", "ad_items"
   add_foreign_key "bookings", "users", column: "from_user_id"
   add_foreign_key "favorite_ads", "ads"
