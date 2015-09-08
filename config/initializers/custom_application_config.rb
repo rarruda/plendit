@@ -19,6 +19,9 @@ Plendit::Application.config.x.map.google_maps_js_api_key     ='AIzaSyAwciykMKFfG
 Plendit::Application.config.x.customerservice.email          ='NOSPAM__kundesenter@plendit.no'
 Plendit::Application.config.x.customerservice.website        ='https://plendit.freshdesk.com/support/home'
 
+Plendit::Application.config.x.organization.phone_number      ='+47 97 04 43 99'
+Plendit::Application.config.x.organization.org_id            ='915 252 230'
+
 Plendit::Application.config.x.ads.categories = [
   {
     title:    'Stort og smått',

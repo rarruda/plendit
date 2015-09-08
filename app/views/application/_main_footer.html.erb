@@ -2,12 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="four columns">
-                <h6 class="about-footer__title">Generelt</h6>
+                <h6 class="about-footer__title">Plendit AS</h6>
                 <ul class="about-footer__list">
-                    <li class="about-footer__list-item">link 1</li>
-                    <li class="about-footer__list-item">link 1</li>
-                    <li class="about-footer__list-item">link 1</li>
-                    <li class="about-footer__list-item">link 1</li>
+                    <li class="about-footer__list-item"><%= mail_to Rails.configuration.x.customerservice.email, nil, class: 'about-footer__list-link' %></li>
+                    <li class="about-footer__list-item"><%= Plendit::Application.config.x.organization.phone_number %></li>
+                    <li class="about-footer__list-item">Org nr: <%= Plendit::Application.config.x.organization.org_id %></li>
                 </ul>
             </div>
             <div class="four columns">
