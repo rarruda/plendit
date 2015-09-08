@@ -19,8 +19,7 @@ class UserBankAccount < ActiveRecord::Base
 
   private
   def set_iban
-    ibanizator = Ibanizator.new
-    self.iban = ibanizator.calculate_iban country_code: :no, account_number: self.account_number
+    self.iban = Ibanizator.new.calculate_iban country_code: :no, account_number: self.account_number
   end
 
   # only valid for norway:
