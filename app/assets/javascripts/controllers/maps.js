@@ -161,17 +161,20 @@ window.controllers.resultMap = {
         }
 
         function onMultiMarkerClick(marker, ids) {
-            var div = document.createElement('div');
-            div.className = "multi-marker-box";
-            var innerMarkup = ids.forEach(function(id) { 
-                div.appendChild(document.querySelector('[data-adid="'+ id +'"]').cloneNode(true));
+            var lastSearch = searchService.getMostRecentSearchResult();
+            var items = ids.map(function(e) {
+                return lastSearch.ads[e];
             });
+
+            console.log(items);
+
+            var multiContent = E('div.multi-marker-box', null,
+                items.map(renderSinglePopup)
+            );
 
             if (infoBox) { infoBox.close(); }
-            infoBox = infoBox({
-                content: div
-            });
 
+            infoBox = makeInfoBox(multiContent);
             infoBox.open(map, marker);
         }
 
@@ -205,7 +208,7 @@ window.controllers.resultMap = {
                     E('p', null, item.body)
                 )
             );
-            ele.style.backgroundImage = "url(http://plendit-images-ads-dev.s3-eu-central-1.amazonaws.com/images/ads/12/searchresult/8c324d3534d142af6510e40dc8ea0b79391df704.jpg?1434811370)";
+            ele.style.backgroundImage = "url(" + item.image_url + ")";
             return ele;
         }
     }

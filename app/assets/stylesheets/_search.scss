@@ -48,8 +48,8 @@
 }
 
 .multi-marker-box {
-    width: 280px;
-    height: 320px;
+    width: 324px;
+    height: 380px;
     overflow-y: scroll;
 }
 
@@ -60,7 +60,6 @@
     &__title {
         margin: 0;
     }
-
 }
 
 
@@ -81,7 +80,6 @@ $breakpoint: 550px;
             width: 100%;
             display: none;
         }
-
     }
 
     &__hits-box {
@@ -97,7 +95,6 @@ $breakpoint: 550px;
             width: 100%;
             left: 0;
         }
-
     }
 }
 
@@ -115,7 +112,6 @@ $breakpoint: 550px;
     @media screen and (max-width: $breakpoint) {
         display: block;
     }
-
 }
 
 .result-infoview {
@@ -125,6 +121,7 @@ $breakpoint: 550px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50% 50%;
+    position: relative;
 
     &__body {
         display: block;
@@ -140,5 +137,4 @@ $breakpoint: 550px;
     &__title {
         margin-bottom: 0;
     }
-
 }
