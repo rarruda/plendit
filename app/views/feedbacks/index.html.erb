@@ -1,31 +1,40 @@
-<h1>Listing Feedbacks</h1>
+<div class="container u-push-down">
+    <div class="row">
+        <div class="ten columns">
+            <h1>Listing Feedbacks</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Ad</th>
-      <th>From user</th>
-      <th>Score</th>
-      <th>Body</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <table>
+                <thead>
+                <tr>
+                    <th>Ad</th>
+                    <th>From user</th>
+                    <th>Score</th>
+                    <th>Body</th>
+                    <th colspan="3"></th>
+                </tr>
+                </thead>
 
-  <tbody>
-    <% @feedbacks.each do |feedback| %>
-      <tr>
-        <td><%= feedback.ad_id %></td>
-        <td><%= feedback.from_user_id %></td>
-        <td><%= feedback.score %></td>
-        <td><%= feedback.body %></td>
-        <td><%= link_to 'Show', feedback %></td>
-        <td><%= link_to 'Edit', edit_feedback_path(feedback) %></td>
-        <td><%= link_to 'Destroy', feedback, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                <tbody>
+                <% @feedbacks.each do |feedback| %>
+                    <tr>
+                        <td><%= feedback.ad_id %></td>
+                        <td><%= feedback.from_user_id %></td>
+                        <td><%= feedback.score %></td>
+                        <td><%= feedback.body %></td>
+                        <td><%= link_to 'Show', users_feedback_path(feedback) %></td>
+                        <td><%= link_to 'Edit', edit_users_feedback_path(feedback) %></td>
+                        <td><%= link_to 'Destroy', users_feedback_path(feedback), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
 
-<br>
+            <br>
 
-<%= link_to 'New Feedback', new_feedback_path %>
+            <%= link_to 'New Feedback', new_users_feedback_path %>
+
+        </div>
+    </div>
+</div>
+
+
