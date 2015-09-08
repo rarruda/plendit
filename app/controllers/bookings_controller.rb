@@ -130,49 +130,35 @@ class BookingsController < ApplicationController
     def notify_about_decline
       Notification.new(
         user_id: @booking.from_user.id,
-        message: "#{@booking.user.safe_first_name} declined your request to book \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.user.safe_first_name} har avslått din forespørsel om å leie \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_accept
       Notification.new(
         user_id: @booking.from_user.id,
-        message: "#{@booking.user.safe_first_name} accepted your request to book \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.user.safe_first_name} har godkjent din forespørsel om å leie \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_cancel
       Notification.new(
         user_id: @booking.user.id,
-        message: "#{@booking.from_user.safe_first_name} canceled their request to book \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.from_user.safe_first_name} har kansellert bookingen på \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_new_booking
       Notification.new(
         user_id: @booking.user.id,
-        message: "#{@booking.from_user.safe_first_name} has sent you a request to book \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.from_user.safe_first_name} ønsker å leie \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_updated_booking
       Notification.new(
         user_id: @booking.user.id,
-        message: "#{@booking.from_user.safe_first_name} has updated their request to book \"#{@booking.ad.safe_title}\"",
-        notifiable: @booking ).save
-    end
-
-    # Callback to notify the relevant parties that the booking is in place.
-    # TODO: check that we can take for granted that @booking is in place.
-    # TODO: move to aasm
-    def notify_user
-      Notification.new(
-        user_id: @booking.user.id,
-        message: "Somone has booked (wants to rent) a item you own: #{@booking.ad.id}",
-        notifiable: @booking ).save
-      Notification.new(
-        user_id: @booking.from_user.id,
-        message: "A booking request has been created for you.",
+        message: "#{@booking.from_user.safe_first_name} har oppdatert bookingen på \"#{@booking.ad.safe_title}\"",
         notifiable: @booking ).save
     end
 
