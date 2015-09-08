@@ -31,12 +31,21 @@ gem 'rolify', '~> 4'
 gem 'time_splitter', '>= 1.1.0'
 gem 'validates_overlap'
 
+
+#gem 'mangopay', '~> 3'
+gem 'ibanizator', '~> 0.3.1'
+gem 'mod11'
+
 # possibly replace this with https://github.com/kpumuk/meta-tags
 gem 'metamagic'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 gem 'rails-i18n', '~> 4.0'
+
+# for selecting nationality:
+#gem 'country_select'
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -106,6 +115,11 @@ group :development, :test do
 
   # Trace every http call to the outside world that rails makes.
   #gem 'httplog'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  #gem 'faker'
 end
 
 group :production do
