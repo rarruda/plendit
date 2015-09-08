@@ -67,11 +67,19 @@ window.controllers.resultMap = {
             var map = new google.maps.Map(ele, mapOptions);
 
             google.maps.event.addListener(map, 'center_changed', utils.debounce(onCenterChanged, 1000));
-            google.maps.event.addListener(map, 'zoom_changed',  utils.debounce(onCenterChanged, 1000));
+            google.maps.event.addListener(map, 'zoom_changed', utils.debounce(onCenterChanged, 1000));
             google.maps.event.addListener(map, 'center_changed', notifyWillChange);
-            google.maps.event.addListener(map, 'zoom_changed',  notifyWillChange);
+            google.maps.event.addListener(map, 'zoom_changed', notifyWillChange);
+            google.maps.event.addListener(map, 'click', onMapClick);
 
             return map;
+        }
+
+        function onMapClick() {
+            if (infoBox) {
+                infoBox.close();
+                infoBox = null;
+            }
         }
 
         function notifyWillChange() {
@@ -170,11 +178,15 @@ window.controllers.resultMap = {
         function onMarkerClick(marker, id) {
             var searchItems = searchService.getMostRecentSearchResult();
             var item = searchItems.ads[id];
-            hitEle = renderSinglePopup(item);
 
             if (infoBox) { infoBox.close(); }
-            infoBox = new InfoBox({
-                content: hitEle,
+            infoBox = makeInfoBox(renderSinglePopup(item));
+            infoBox.open(map, marker);
+        }
+
+        function makeInfoBox(content) {
+            return new InfoBox({
+                content: content,
                 disableAutoPan: true,
                 maxWidth: 320,
                 alignBottom: true,
@@ -184,7 +196,6 @@ window.controllers.resultMap = {
                 //closeBoxMargin: "12px 4px 2px 2px"
                 //closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
             });
-            infoBox.open(map, marker);
         }
 
         function renderSinglePopup(item) {
