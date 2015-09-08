@@ -19,6 +19,10 @@
               <%= link_to "Se og rediger mine adresser.", locations_path %>
             <% end %>
 
+            <%= render layout: "gray_box", locals: {title: "Endre bank konto", id: "bank-account"} do %>
+              <%= render partial: "edit_user_bank_account" %>
+            <% end %>
+
             <%= render partial: "edit_identity" %>
 
         </div>

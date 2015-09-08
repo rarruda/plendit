@@ -149,6 +149,7 @@ Note: the server is smart enough so that you never need to restart it for any
   * PCONF_SMTP_USERNAME -- username for SMTP auth
   * PCONF_SMTP_PASSWORD -- password for SMTP auth
 
+  * PCONF_* -- any variable that starts with PCONF is a plendit configuration.
 
   NOTE: HTTP AUTH is only enabled when running rails in production environment.
 

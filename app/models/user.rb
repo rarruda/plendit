@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   has_many :favorite_lists
   has_many :favorite_ads, :through => :favorite_lists
   has_many :user_images, dependent: :destroy, autosave: true
-  has_many :user_bank_accounts, dependent: :destroy
+  has_many :user_bank_accounts, dependent: :destroy, autosave: true
 
   # received_bookings == bookings:
   has_many :bookings, :through => :ad_items
@@ -29,11 +29,19 @@ class User < ActiveRecord::Base
 
   has_many :notifications, foreign_key: 'user_id', :class_name => "Notification"
 
+
+
+  accepts_nested_attributes_for :user_bank_accounts, :reject_if => proc { |attributes| attributes['account_number'].blank? }
+  #accepts_nested_attributes_for :user_images
+
+
   validates :name, presence: true
   #validates :phone_number, presence: true, format: { with: /\A[0-9]{8}\z/, message: "only allows numbers" }
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "valid email required" }
 
   #validates :image_url
+
+
 
   # From: http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html
   # and https://github.com/plataformatec/devise/blob/master/lib/devise/models/confirmable.rb#L99
@@ -45,6 +53,7 @@ class User < ActiveRecord::Base
   enum personhood: { natural: 0, legal_business: 1, legal_organization: 2 }
 
 
+
   # only act on the phone settings, if the phone number was changed.
   # TODO: add trigger so that its possible to re-send codes for the current unverified phone number.
   before_create :set_phone_attributes
@@ -54,11 +63,12 @@ class User < ActiveRecord::Base
     if: :phone_pending_changed?,
     if: :phone_number_changed?
 
-
   after_save  :send_sms_for_phone_confirmation,
     if: :phone_pending_confirmation?,
     if: :phone_pending_changed?,
     if: :phone_number_changed?
+
+
 
   def safe_avatar_url
     # Gravatar: "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?r=pg&d=mm" ### &d=#{our_own_generic_profile_image_url}

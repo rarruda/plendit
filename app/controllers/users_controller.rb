@@ -82,6 +82,8 @@ class UsersController < ApplicationController
     end
   end
 
+
+  # FIXME: (RA) this should be done like for user_bank_account nested model.
   # POST/PUT /me/update_avatar
   def update_avatar
 
@@ -137,7 +139,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
     # authorize! :update, @user
@@ -189,7 +190,10 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :birthday, :email, :current_phone_number, :personhood, :password, :password_confirmation, :phone_number_confirmation_token)
+      params.require(:user).permit(:first_name, :last_name, :birthday, :email, :personhood,
+        :password, :password_confirmation, :current_phone_number, :phone_number_confirmation_token,
+        user_bank_accounts_attributes: [:id, :account_number]
+      )
     end
 
     def user_avatar_params
