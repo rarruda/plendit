@@ -35,8 +35,8 @@ window.controllers.adMap = {
 };
 
 window.controllers.resultMap = {
-    dependencies: ['$element', 'eventbus', 'searchService', 'utils'],
-    callable: function(ele, eventBus, searchService, utils) {
+    dependencies: ['$element', 'eventbus', 'searchService', 'utils', 'createElement'],
+    callable: function(ele, eventBus, searchService, utils, E) {
         var searchData = searchService.getMostRecentSearchResult();
         if (!searchData) { return }
 
@@ -44,7 +44,7 @@ window.controllers.resultMap = {
         eventBus.on('layout-changed', onLayoutChanged);
 
         var map = initMap(searchData);
-        var infoWindow;
+        var infoBox;
         var markers = [];
         updateMarkers(searchData.groups);
 
@@ -158,22 +158,44 @@ window.controllers.resultMap = {
             var innerMarkup = ids.forEach(function(id) { 
                 div.appendChild(document.querySelector('[data-adid="'+ id +'"]').cloneNode(true));
             });
-            
-            if (infoWindow) { infoWindow.close(); }
-            infoWindow = new google.maps.InfoWindow({
+
+            if (infoBox) { infoBox.close(); }
+            infoBox = infoBox({
                 content: div
             });
-            infoWindow.open(map, marker);
+
+            infoBox.open(map, marker);
         }
 
         function onMarkerClick(marker, id) {
-            var hitEle = document.querySelector('[data-adid="'+ id +'"]');
-            var hitEle = hitEle.cloneNode(true);
-            if (infoWindow) { infoWindow.close(); }
-            infoWindow = new google.maps.InfoWindow({
-                content: hitEle
+            var searchItems = searchService.getMostRecentSearchResult();
+            var item = searchItems.ads[id];
+            hitEle = renderSinglePopup(item);
+
+            if (infoBox) { infoBox.close(); }
+            infoBox = new InfoBox({
+                content: hitEle,
+                disableAutoPan: true,
+                maxWidth: 320,
+                alignBottom: true,
+                pixelOffset: new google.maps.Size(-150, -44),
+                infoBoxClearance: new google.maps.Size(1, 1),
+                closeBoxURL: ""
+                //closeBoxMargin: "12px 4px 2px 2px"
+                //closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
             });
-            infoWindow.open(map, marker);
+            infoBox.open(map, marker);
+        }
+
+        function renderSinglePopup(item) {
+            var ele = E('div.result-infoview', null,
+                E('a.result-infoview__body', {href: item.listing_url},
+                    E('h5.result-infoview__title', null, item.title),
+                    E('p', null, item.body)
+                )
+            );
+            ele.style.backgroundImage = "url(http://plendit-images-ads-dev.s3-eu-central-1.amazonaws.com/images/ads/12/searchresult/8c324d3534d142af6510e40dc8ea0b79391df704.jpg?1434811370)";
+            return ele;
         }
     }
 };

@@ -19,6 +19,8 @@ json.ads do
       json.title ad._source.title
       json.price ad._source.price
       json.body ad._source.body
+      json.image_url ad_image_url(ad._id)
+      json.listing_url (ad_path ad._id)
     end
   end
 end
