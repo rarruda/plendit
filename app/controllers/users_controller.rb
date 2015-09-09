@@ -31,6 +31,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    # required to build one user_bank_account virtually, so that we have something to render:
+    @user.user_bank_accounts.build if @user.user_bank_accounts.size == 0
   end
 
   # Never gets called, as users are created in users/registrations_controller
