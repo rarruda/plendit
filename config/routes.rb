@@ -81,7 +81,7 @@ Rails.application.routes.draw do
   get '/new',    to: 'ads#new', as: 'new_ad'
 
 
-  resources :ads, path: '/ad' do
+  resources :ads, path: '/listing' do
     member do
       get 'preview'
       get 'gallery'
