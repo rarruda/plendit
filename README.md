@@ -172,6 +172,21 @@ To keep tests running constantly on the background, run guard:
 $ bundle exec guard
 ```
 
+** Testing payments
+
+https://docs.mangopay.com/api-references/test-payment/
+
+List av test bankkonto nummer:
+```
+15032080127
+15032080135
+15032080143
+15032080151
+15032080178
+15032080186
+15032080194
+```
+
 * Deployment instructions
 
 Will probably be deployed via capistrano. For now, there is no deployment.
