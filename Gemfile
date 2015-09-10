@@ -43,9 +43,8 @@ gem 'metamagic'
 gem 'rails', '4.2.1'
 gem 'rails-i18n', '~> 4.0'
 
-# for selecting nationality:
-#gem 'country_select'
-
+gem 'country_select'
+#gem 'world-flags'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
