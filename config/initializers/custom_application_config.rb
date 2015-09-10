@@ -22,6 +22,8 @@ Plendit::Application.config.x.customerservice.website        ='https://plendit.f
 Plendit::Application.config.x.organization.phone_number      ='+47 97 04 43 99'
 Plendit::Application.config.x.organization.org_id            ='915 252 230'
 
+Plendit::Application.config.x.google.analytics_id = ( Rails.env == 'production' ) ? 'UA-67449731-1' : 'UA-67449731-2'
+
 Plendit::Application.config.x.ads.categories = [
   {
     title:    'Stort og smått',
