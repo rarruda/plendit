@@ -80,8 +80,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def safe_first_name
-    self.first_name.blank? ? self.name : self.first_name
+  def safe_display_name
+    ( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
   end
 
   def calculate_average_rating

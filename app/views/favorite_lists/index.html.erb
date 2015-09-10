@@ -16,7 +16,7 @@
     <% @favorite_lists.each do |favorite_list| %>
       <tr>
         <td><%= favorite_list.id %></td>
-        <td><%= favorite_list.user.id %> - <%= favorite_list.user.safe_first_name %></td>
+        <td><%= favorite_list.user.id %> - <%= favorite_list.user.safe_display_name %></td>
         <td><%= favorite_list.name %></td>
         <td><%= link_to 'Show', favorite_list %></td>
         <td><%= link_to 'Edit', edit_favorite_list_path(favorite_list) %></td>

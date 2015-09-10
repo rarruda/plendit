@@ -3,7 +3,7 @@
         <%= render('shared/avatar.html', user: message.from_user, size: "medium" ) %>
     </div>
     <div class="ten columns conversation-item-box__body">
-        <h5><%= message.from_user.safe_first_name %></h5>
+        <h5><%= message.from_user.safe_display_name %></h5>
         <p class="conversation-item-box__body">
             <%= message.content %>
         </p>
