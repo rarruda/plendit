@@ -74,6 +74,10 @@ class Booking < ActiveRecord::Base
   # fixme: real data for this, and something like .humanize on the prices/amounts
   # fixme: add booking_item for VAT, platform_fees(us), insurance, etc.
   def calculate_amount
+    #platform_fee_pct  = Plendit::Application.config.x.platform.fee_in_percent
+    #insurance_fee_pct = Plendit::Application.config.x.insurance.price_in_percent
+    #mva?
+
     self.amount = self.duration_in_days * self.ad.price
   end
 

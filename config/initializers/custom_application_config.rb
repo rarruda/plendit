@@ -22,7 +22,14 @@ Plendit::Application.config.x.customerservice.website        ='https://plendit.f
 Plendit::Application.config.x.organization.phone_number      ='+47 97 04 43 99'
 Plendit::Application.config.x.organization.org_id            ='915 252 230'
 
-Plendit::Application.config.x.google.analytics_id = ( Rails.env == 'production' ) ? 'UA-67449731-1' : 'UA-67449731-2'
+Plendit::Application.config.x.google.analytics_id            = ( Rails.env == 'production' ) ? 'UA-67449731-1' : 'UA-67449731-2'
+
+Plendit::Application.config.x.platform.fee_in_percent        = 0.10
+Plendit::Application.config.x.insurance.price_in_percent     = {
+  bap:        0.08,
+  motor:      0.09,
+  realestate: 0.09
+ }
 
 Plendit::Application.config.x.ads.categories = [
   {
