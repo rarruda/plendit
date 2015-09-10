@@ -32,7 +32,7 @@ gem 'time_splitter', '>= 1.1.0'
 gem 'validates_overlap'
 
 
-#gem 'mangopay', '~> 3'
+gem 'mangopay', '~> 3.0.18'
 gem 'ibanizator', '~> 0.3.1'
 gem 'mod11'
 
@@ -113,13 +113,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'guard-rspec', require: false
 
-  # Trace every http call to the outside world that rails makes.
-  #gem 'httplog'
-end
-
-group :test do
   gem 'factory_girl_rails'
   #gem 'faker'
+
+  # Trace every http call to the outside world that rails makes.
+  #gem 'httplog'
 end
 
 group :production do

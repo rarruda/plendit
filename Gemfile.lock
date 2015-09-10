@@ -156,6 +156,7 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashie (3.4.2)
+    httplog (0.2.10)
     i18n (0.7.0)
     ibanizator (0.3.1)
       adamantium (~> 0.2.0)
@@ -189,6 +190,8 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    mangopay (3.0.18)
+      multi_json (>= 1.7.7)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     meta_request (0.3.4)
@@ -397,10 +400,12 @@ DEPENDENCIES
   faker
   geocoder
   guard-rspec
+  httplog
   ibanizator (~> 0.3.1)
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
+  mangopay (~> 3.0.18)
   meta_request
   metamagic
   mod11
