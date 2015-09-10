@@ -40,6 +40,9 @@ class Booking < ActiveRecord::Base
   validate :validate_starts_at_before_ends_at
   validates_uniqueness_of :guid
 
+  validates :ad_item_id, :presence => true
+  validates :from_user_id, :presence => true
+
   #validates_numericality_of :amount,
   #  greater_than: 500,
   #  message: "must be at least 5 kroner"
