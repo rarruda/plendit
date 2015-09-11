@@ -8,15 +8,15 @@
     <%# Do nothing. The only available image has been shown as hero image. Or worst, no images at all... :( %>
 <% else %>
     <div class="ad-gallery-mosaic">
-        <% images.each do |img| %>
+        <% images.each_with_index do |img, index| %>
+
             <% img_style = "background-image: url(#{img.image.url(:thumb)});" %>
-            <div class="<%= "ad-gallery-mosaic__bg_img_n_of_#{image_count}" %>"
-                 style="<%= img_style %>"></div>
+            <%= link_to index, (gallery_ad_path ad, anchor: "image-#{index+1}"), class: "ad-gallery-mosaic__bg_img_n_of_#{image_count}", style: img_style  %>
         <% end %>
+
         <% img_style = "background-image: url(#{last.image.url(:thumb)});" %>
-        <div class="<%= "ad-gallery-mosaic__bg_img_n_of_#{image_count}" %>"
-             style="<%= img_style %>">
-             <%= link_to "Se store bilder", (gallery_ad_path ad), class: "ad-gallery-mosaic__gallery-link" %>
-         </div>
+        <%= link_to (gallery_ad_path ad, anchor: "image-#{images.size + 1}"), class: "ad-gallery-mosaic__bg_img_n_of_#{image_count}", style: img_style do %>
+            <span class="ad-gallery-mosaic__gallery-link">Se store bilder</span>
+        <% end %>
     </div>
 <% end %>
