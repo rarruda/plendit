@@ -1,4 +1,59 @@
+@import "constants";
 
 .provider-box {
     height: 80px;
+}
+
+
+.bubble-box {
+    padding: $standard-spacing;
+
+    &__title {
+
+    }
+
+    &__body {
+        padding: $standard-spacing;
+        background-color: rgb(193, 236, 193);
+        border-radius: 12px;
+    }
+
+    &__body--green {
+        // same as default
+    }
+
+    &__body--blue {
+        background-color: rgb(213, 235, 255);
+    }
+
+    &__body--red {
+        background-color: rgb(255, 243, 236);
+    }
+
+}
+
+.actionable-item {
+    text-decoration: none;
+    display: flex;
+
+    &__avatar {
+        width: 72px;
+        flex-shrink: 0;
+        flex-grow: 0;
+    }
+
+    &__main {
+
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 18px;
+        color: black;
+    }
+
+    &__body {
+        color: black;
+    }
+
 }
