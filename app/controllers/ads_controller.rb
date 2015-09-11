@@ -196,8 +196,11 @@ class AdsController < ApplicationController
     logger.error "Ad Category sent is not supported. This is not ok." if not Ad.categories.include? params[:category]
     # FIXME: do something about it if there was an error with the category...
 
-    @ad = Ad.new(user_id: current_user.id, category: params[:category],
-                 insurance_required: 'yes', location: current_user.favorite_location)
+    @ad = Ad.new(user_id: current_user.id,
+      category: params[:category],
+      location: current_user.favorite_location,
+      insurance_required: true
+    )
 
     if @ad.save
       redirect_to edit_users_ad_path(@ad)

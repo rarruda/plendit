@@ -16,7 +16,6 @@ class Ad < ActiveRecord::Base
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5 }
   enum category: { bap: 0, motor: 1, realestate: 2 }
-  #enum insurance_required: { false: 0, true: 1 }
 
   accepts_nested_attributes_for :location, :reject_if => :all_blank
 
