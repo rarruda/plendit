@@ -399,6 +399,19 @@ window.controllers.readOnlyCalendar = function(ele) {
     });
 };
 
+window.controllers.listingCalendar = function(ele) {
+    var k = new Kalendae({
+        attachTo: ele,
+        months: 1,
+        mode: 'range',
+        readOnly: true,
+        weekStart: 1,
+        direction: "today-future",
+        selected: ele.getAttribute('data-date-range')
+    });
+};
+
+
 window.controllers.videoTrigger = {
     dependencies: ['$element', 'responsive'],
     callable: function(ele, responsive) {

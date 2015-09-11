@@ -4,9 +4,7 @@
         <span class="ad-booking-box__period">per døgn</span>
     </h4>
 
-    <div class="ad-booking-box__calendar-holder">
-        <%= render partial: "shared/single_pageable_calendar", locals: { ad: ad } %>
-    </div>
+    <div class="ad-booking-box__calendar-holder" data-controller="listingCalendar"></div>
 
     <div class="ad-booking-box__button-holder">
         <% if ad.published? %>
