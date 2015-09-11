@@ -1,22 +1,20 @@
 <%
     images = ad.ad_images.limit(5).to_a
-    image_count = images.size
-    last = images.pop
 %>
 
-<% if image_count <= 1 %>
+<% if images.size <= 1 %>
     <%# Do nothing. The only available image has been shown as hero image. Or worst, no images at all... :( %>
 <% else %>
     <div class="ad-gallery-mosaic">
         <% images.each_with_index do |img, index| %>
-
             <% img_style = "background-image: url(#{img.image.url(:thumb)});" %>
-            <%= link_to index, (gallery_ad_path ad, anchor: "image-#{index+1}"), class: "ad-gallery-mosaic__bg_img_n_of_#{image_count}", style: img_style  %>
-        <% end %>
-
-        <% img_style = "background-image: url(#{last.image.url(:thumb)});" %>
-        <%= link_to (gallery_ad_path ad, anchor: "image-#{images.size + 1}"), class: "ad-gallery-mosaic__bg_img_n_of_#{image_count}", style: img_style do %>
-            <span class="ad-gallery-mosaic__gallery-link">Se store bilder</span>
+            <% if img != images.last %>
+                <%= link_to "", (gallery_ad_path ad, anchor: "image-#{index+1}"), class: "ad-gallery-mosaic__bg_img_n_of_#{images.size}", style: img_style  %>
+            <% else %>
+                <%= link_to (gallery_ad_path ad, anchor: "image-#{index+1}"), class: "ad-gallery-mosaic__bg_img_n_of_#{images.size}", style: img_style do %>
+                    <span class="ad-gallery-mosaic__gallery-link">Se store bilder</span>
+                <% end %>
+            <% end %>
         <% end %>
     </div>
 <% end %>
