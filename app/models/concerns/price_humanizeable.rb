@@ -4,6 +4,7 @@ module PriceHumanizeable
   included do
     # show prices in human format (converted from integer)
     def price_in_h()
+      return nil if self.price.nil?
       ( ( self.price / 100).to_i + ( self.price/100.0  ).modulo(1) )
     end
 

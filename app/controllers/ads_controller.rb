@@ -89,7 +89,7 @@ class AdsController < ApplicationController
   end
 
 
-  # GET /users/ads
+  # GET /me/ads
   def list
     @ads = Ad.for_user( current_user ).all
   end
@@ -244,7 +244,7 @@ class AdsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ad
-      @ad = Ad.find(params[:id])
+      @ad = AdDecorator.new( Ad.find(params[:id]) )
     end
 
     def require_authorization

@@ -3,7 +3,7 @@
         title: @ad.title,
         description: @ad.summary,
         url: request.original_url,
-        image: @ad.safe_image_url(:hero),
+        image: @ad.image_url(:hero),
         "image:width" => AdImage::DIMENSIONS[:hero][:width],
         "image:height" => AdImage::DIMENSIONS[:hero][:height]
     }
