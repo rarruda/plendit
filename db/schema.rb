@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910192533) do
+ActiveRecord::Schema.define(version: 20150911173934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,13 +58,13 @@ ActiveRecord::Schema.define(version: 20150910192533) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "body"
-    t.decimal  "price",              precision: 10, scale: 2
+    t.integer  "price"
     t.text     "tags"
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "location_id"
-    t.integer  "status",                                      default: 0
-    t.integer  "category",                                    default: 0
+    t.integer  "status",             default: 0
+    t.integer  "category",           default: 0
     t.integer  "insurance_required"
     t.boolean  "requires_vat"
   end
@@ -75,9 +75,9 @@ ActiveRecord::Schema.define(version: 20150910192533) do
   create_table "booking_items", force: :cascade do |t|
     t.integer  "booking_id"
     t.integer  "category"
-    t.decimal  "amount",     precision: 10, scale: 2
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "booking_items", ["booking_id"], name: "index_booking_items_on_booking_id", using: :btree
@@ -85,13 +85,13 @@ ActiveRecord::Schema.define(version: 20150910192533) do
   create_table "bookings", force: :cascade do |t|
     t.integer  "ad_item_id"
     t.integer  "from_user_id"
-    t.integer  "status",                                  default: 0
-    t.decimal  "amount",         precision: 10, scale: 2
+    t.integer  "status",         default: 0
+    t.integer  "amount"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.datetime "first_reply_at"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "guid"
   end
 

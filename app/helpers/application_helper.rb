@@ -1,7 +1,12 @@
 module ApplicationHelper
 
-  def number_to_currency_pretty( num, options = {unit: ''} )
-    number_to_currency( ( num || '' ), options ).gsub(/\,00 /, ",- ")
+  def number_to_currency_pretty( num = nil, options = {unit: ''} )
+    return '' if num.nil?
+    number_to_currency( num, options ).gsub(/\,00 $/, ",- ")
+  end
+
+  def h_to_number( human_price )
+    ( human_price.to_f * 100 ).to_i
   end
 
   # a copy of ad.to_param, needs to exist to work around ES clients

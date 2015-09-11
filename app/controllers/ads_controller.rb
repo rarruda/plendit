@@ -18,7 +18,7 @@ class AdsController < ApplicationController
     :update
   ]
 
-  before_filter :authenticate_user!, :except => [
+  before_action :authenticate_user!, :except => [
     :double_calendar,
     :gallery,
     :index,
@@ -27,7 +27,7 @@ class AdsController < ApplicationController
     :single_calendar
   ]
 
-  before_filter :require_authorization, :except => [
+  before_action :require_authorization, :except => [
     :create,
     :double_calendar,
     :gallery,
@@ -263,7 +263,7 @@ class AdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
-      params.require(:ad).permit( :title, :body, :price, :tag_list, :insurance_required,
+      params.require(:ad).permit( :title, :body, :price_in_h, :tag_list, :insurance_required,
         :location_id, :location_attributes => [:address_line, :post_code] )
     end
 

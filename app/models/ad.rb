@@ -3,6 +3,7 @@ include ActionView::Helpers::TextHelper
 class Ad < ActiveRecord::Base
   include AASM
   include Searchable
+  include PriceHumanizeable
 
   #acts_as_ordered_taggable
   acts_as_taggable
@@ -45,7 +46,7 @@ class Ad < ActiveRecord::Base
       indexes :title,         type: :string, boost: 100
       indexes :body,          type: :string
       indexes :geo_location,  type: :geo_point, lat_lon: true, geohash: true
-      indexes :price,         type: :double
+      indexes :price,         type: :integer
       indexes :tags,          type: :string, analyzer: 'keyword'
       indexes :category,      type: :string
       indexes :insurance_required, type: :integer
@@ -154,6 +155,10 @@ class Ad < ActiveRecord::Base
     end
 
     self.ad_images.count > 0 ? self.ad_images.first.image.url(size) : stock_images[size]
+  end
+
+  def safe_price
+    self.price_in_h
   end
 
   # JSON of how ElasticSearch should index this model

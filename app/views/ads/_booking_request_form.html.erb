@@ -1,5 +1,5 @@
 <div class="booking-request-form">
-    <h3 class="booking-request-form__title"><%= number_to_currency_pretty @ad.price %> per dag</h3>
+    <h3 class="booking-request-form__title"><%= number_to_currency_pretty @ad.safe_price %> per dag</h3>
 
 <!-- // TODO: remove this commented out section
     <div class="row">

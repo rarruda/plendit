@@ -24,7 +24,7 @@
 
     <div class="field">
         <%= f.label :price %> <br>
-        <%= number_to_currency_pretty @booking.ad.price %> per dag
+        <%= number_to_currency_pretty @booking.ad.safe_price %> per dag
     </div>
 
     <%= render partial: "shared/booking_period_selector", locals: { form: f, ad: @booking.ad } %>

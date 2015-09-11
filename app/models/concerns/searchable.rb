@@ -43,7 +43,7 @@ module Searchable
         __set_filters.({
           range: {
             price: {
-              gte: options[:price_min]
+              gte: h_to_number( options[:price_min] )
             }
           }
         })
@@ -52,7 +52,7 @@ module Searchable
         __set_filters.({
           range: {
             price: {
-              lte: options[:price_max]
+              lte: h_to_number( options[:price_max] )
             }
           }
         })
