@@ -1,10 +1,11 @@
+<% ad = AdDecorator.new(ad) %>
 <div class="search-result-item" data-adid="<%= ad.id %>">
-    <%= link_to ad_path( ad_to_param_pretty( ad ) ), class: "search-result-item__link" do %>
+    <%= link_to ad_path( ad ), class: "search-result-item__link" do %>
         <div class="search-result-item__image-holder">
             <%= image_tag Ad.find(ad.id).safe_image_url(:searchresult), alt: "", class: "search-result-item__image" %>
         </div>
     <% end %>
-    <%= link_to ad_path( ad_to_param_pretty( ad ) ), class: "search-result-item__link" do %>
+    <%= link_to ad_path( ad ), class: "search-result-item__link" do %>
         <div class="search-result-item__text-container">
             <h6 class="search-result-item__title"><%= ad.title %></h6>
             <p class="search-result-item__body">
@@ -20,5 +21,5 @@
             <%= render('shared/stars.html', rating: User.find(ad.user.id).calculate_average_rating, small: true ) %>
         </div>
     </div>
-    <div class="search-result-item__price-floater"><%= number_to_currency_pretty ad.safe_price %><br>per&nbsp;dag</div>
+    <div class="search-result-item__price-floater"><%= number_to_currency_pretty ad.price %><br>per&nbsp;dag</div>
 </div>

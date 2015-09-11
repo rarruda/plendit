@@ -157,10 +157,6 @@ class Ad < ActiveRecord::Base
     self.ad_images.count > 0 ? self.ad_images.first.image.url(size) : stock_images[size]
   end
 
-  def safe_price
-    self.price_in_h
-  end
-
   # JSON of how ElasticSearch should index this model
   # TODO: find out if we want more information on the Ad, and/or AdImages
   def as_indexed_json(options={})
@@ -191,6 +187,7 @@ class Ad < ActiveRecord::Base
 
   # NOTE: this method is repeated as ad_to_param_pretty as an application helper due to
   # Elasticsearch::Model::Response::Result craziness.
+  # look, its in the AdDecorator decorator too!
   def to_param
     [self.id, self.safe_title.parameterize].join('----')[0,64]
 #    if not self.title.blank?

@@ -46,6 +46,8 @@ gem 'rails-i18n', '~> 4.0'
 gem 'country_select'
 gem 'world-flags'
 
+gem 'draper', '~> 1.3'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

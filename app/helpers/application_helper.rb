@@ -5,10 +5,6 @@ module ApplicationHelper
     number_to_currency( num, options ).gsub(/\,00 $/, ",- ")
   end
 
-  def h_to_number( human_price )
-    ( human_price.to_f * 100 ).to_i
-  end
-
   # a copy of ad.to_param, needs to exist to work around ES clients
   #  unwillingness to cooperate. (and so we can generate urls w/o an
   #  extra DB roundtrip)

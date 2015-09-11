@@ -11,5 +11,11 @@ module PriceHumanizeable
     def price_in_h=( _price )
       self.price = ( _price.to_f * 100 ).to_i
     end
+
+    private
+    # just return a int price from a float price
+    def self.h_to_number( human_price )
+      ( human_price.to_f * 100 ).to_i
+    end
   end
 end
