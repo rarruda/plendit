@@ -15,6 +15,11 @@ class AdDecorator < Draper::Decorator
     safe_image_url( :hero )
   end
 
+  # primary image for ad
+  def result_image_url
+    safe_image_url( :searchresult )
+  end
+
   def title
     object.title.blank? ?  "(Ingen tittel)" : object.title
   end
