@@ -31,8 +31,8 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    # required to build one user_bank_account virtually, so that we have something to render:
-    @user.user_bank_accounts.build if @user.user_bank_accounts.size == 0
+    # required to build one user_payment_account virtually, so that we have something to render:
+    @user.build_user_payment_account if @user.user_payment_account.nil?
   end
 
   # Never gets called, as users are created in users/registrations_controller
@@ -56,6 +56,10 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+
+    # FIXME: user_payment_account / bank_account_number is NEVER updated.
+    #@user.build_user_payment_account if @user.user_payment_account.nil?
+
     # TODO: move this code to its own method.
     user_params_safe = user_params
     if @user.phone_number != user_params['current_phone_number']
@@ -85,7 +89,7 @@ class UsersController < ApplicationController
   end
 
 
-  # FIXME: (RA) this should be done like for user_bank_account nested model.
+  # FIXME: (RA) this should be done like for user_payment_account nested model.
   # POST/PUT /me/update_avatar
   def update_avatar
 
@@ -195,7 +199,7 @@ class UsersController < ApplicationController
       params.require(:user).permit(:first_name, :last_name, :birthday, :email, :personhood,
         :nationality, :country_of_residence,
         :password, :password_confirmation, :current_phone_number, :phone_number_confirmation_token,
-        user_bank_accounts_attributes: [:id, :account_number]
+        user_payment_account_attributes: [:bank_account_number]
       )
     end
 

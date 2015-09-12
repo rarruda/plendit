@@ -31,10 +31,10 @@ class User < ActiveRecord::Base
 
   has_many :notifications, foreign_key: 'user_id', :class_name => "Notification"
 
-  has_many  :user_bank_accounts, dependent: :destroy, autosave: true
+  has_one  :user_payment_account, dependent: :destroy, autosave: true
 
 
-  accepts_nested_attributes_for :user_bank_accounts, :reject_if => proc { |attributes| attributes['account_number'].blank? }
+  accepts_nested_attributes_for :user_payment_account, :reject_if => proc { |attributes| attributes['account_number'].blank? }
   #accepts_nested_attributes_for :user_images
 
 

@@ -1,4 +1,17 @@
 <%= render layout: "gray_box", locals: {title: "Rediger personalia", id: "personal-info"} do %>
+
+    <%- if @user.errors.any? -%>
+        <div>
+            <%= pluralize(@user.errors.count, "error") %> prohibited this ad from being saved:
+            <ul>
+                <% @user.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <%- end -%>
+
+
     <%= form_for( @user, url: users_path, html: { method: :put }) do |f| %>
 
         <%#= devise_error_messages! %>
@@ -82,6 +95,14 @@
             <pre>phone is confirmed! <3</pre>
         </div>
         <% end %>
+
+        <div>Before you can receive any payments you need to put in your bank account information:</div>
+        <%= f.fields_for :user_payment_account do |acc_builder| %>
+          <%#= acc_builder.hidden_field :id %>
+          <%= acc_builder.label :bank_account_number %>
+          <%= acc_builder.text_field :bank_account_number %>
+        <% end %>
+
 
         <div class="row">
             <div class="twelve columns">

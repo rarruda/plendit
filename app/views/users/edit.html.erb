@@ -19,10 +19,6 @@
               <%= link_to "Se og rediger mine adresser.", locations_path %>
             <% end %>
 
-            <%= render layout: "gray_box", locals: {title: "Endre bank konto", id: "bank-account"} do %>
-              <%= render partial: "edit_user_bank_account" %>
-            <% end %>
-
             <%= render partial: "edit_identity" %>
 
         </div>
@@ -30,7 +26,7 @@
         <div class="four columns">
             <%= render layout: "gray_box"  do %>
                 <ul>
-                    <li><%= link_to "Rrediger personalia", anchor: "personal-info" %></li>
+                    <li><%= link_to "Rediger personalia", anchor: "personal-info" %></li>
                     <li><%= link_to "Bytte passord", anchor: "password" %></li>
                     <li><%= link_to "Bytte profilbilde", anchor: "profile-image" %></li>
                     <li><%= link_to "Rediger adresser", anchor: "locations" %></li>
