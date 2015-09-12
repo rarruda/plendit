@@ -20,8 +20,13 @@ class AdDecorator < Draper::Decorator
     safe_image_url( :searchresult )
   end
 
-  def title
+  def display_title
     object.title.blank? ?  "(Ingen tittel)" : object.title
+  end
+
+  def display_status
+    status_names = ["utkast", "sendt til godkjenning", "publisert", "pauset", "stoppet", "avslått"]
+    status_names[status]
   end
 
   def to_param
