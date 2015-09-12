@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   has_many :favorite_lists
   has_many :favorite_ads, :through => :favorite_lists
   has_many :user_images, dependent: :destroy, autosave: true
-  has_many :user_bank_accounts, dependent: :destroy, autosave: true
 
   # received_bookings == bookings:
   has_many :bookings, :through => :ad_items
@@ -32,6 +31,7 @@ class User < ActiveRecord::Base
 
   has_many :notifications, foreign_key: 'user_id', :class_name => "Notification"
 
+  has_many  :user_bank_accounts, dependent: :destroy, autosave: true
 
 
   accepts_nested_attributes_for :user_bank_accounts, :reject_if => proc { |attributes| attributes['account_number'].blank? }
