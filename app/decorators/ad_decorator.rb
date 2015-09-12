@@ -8,7 +8,7 @@ class AdDecorator < Draper::Decorator
 
   # primary image for ad
   def hero_image_url
-    object.safe_image_url( :hero )
+    safe_image_url( :hero )
   end
 
   def title
