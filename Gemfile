@@ -26,6 +26,8 @@ gem 'elasticsearch-rails'
 
 gem 'aasm', '~> 4'
 
+gem 'paper_trail', '~> 4.0.0'
+
 gem 'rolify', '~> 4'
 
 gem 'time_splitter', '>= 1.1.0'

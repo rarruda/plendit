@@ -248,6 +248,10 @@ GEM
       omniauth (~> 1.0)
       omniauth-oauth2 (>= 1.1.1, < 2.0)
     orm_adapter (0.5.0)
+    paper_trail (4.0.0)
+      activerecord (>= 3.0, < 6.0)
+      activesupport (>= 3.0, < 6.0)
+      request_store (~> 1.1)
     paperclip (4.3.1)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -433,6 +437,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-spid
+  paper_trail (~> 4.0.0)
   paperclip (~> 4.2)
   pg
   railroady

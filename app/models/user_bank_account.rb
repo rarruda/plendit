@@ -1,4 +1,6 @@
 class UserBankAccount < ActiveRecord::Base
+  has_paper_trail
+
   belongs_to :user
 
   before_validation :normalize_account_number
@@ -30,4 +32,25 @@ class UserBankAccount < ActiveRecord::Base
   def normalize_account_number
     self.account_number.gsub!(/(\s|\.)+/, "")
   end
+
+  # should be a delayed job of some sort: (via a MQ?)
+  def mangopay_create_wallets
+    begin
+      wallet_in = MangoPay::Wallet.create(
+        'Owners': self.user.id
+        'Currency': PLENDIT_CURRENCY_CODE,
+        'Description': 'money_in',
+        'Tag': 'pay_in'
+        );
+
+      MangoPay::BankAccount.create( self.user.id, {
+       'OwnerName': self.user.name,
+       'UserId': self.user.id,
+       'OwnerAddress': "1 rue des Miserables",
+       'IBAN': self.iban
+      } )
+    self.payment_provider_id = #...
+  end
+
+
 end
