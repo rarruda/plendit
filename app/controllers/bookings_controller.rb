@@ -20,8 +20,8 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
-    @ad = Ad.find( params['ad_id'] )
-    @booking = Booking.new( ad: @ad )
+    @ad = Ad.find( params['ad_id'] ).decorate
+    @booking = Booking.new( ad: @ad ).decorate
   end
 
   # GET /bookings/1/edit
@@ -115,7 +115,7 @@ class BookingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_booking
-      @booking = Booking.find(params[:id])
+      @booking = Booking.find(params[:id]).decorate
     end
 
     def set_booking_from_params
