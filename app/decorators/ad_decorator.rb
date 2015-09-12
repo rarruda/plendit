@@ -6,6 +6,10 @@ class AdDecorator < Draper::Decorator
     ( ( object.price / 100).to_i + ( object.price/100.0  ).modulo(1) )
   end
 
+  def pretty_price
+    h.number_to_currency_pretty price
+  end
+
   # primary image for ad
   def hero_image_url
     safe_image_url( :hero )
