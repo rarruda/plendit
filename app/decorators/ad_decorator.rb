@@ -1,14 +1,14 @@
 class AdDecorator < Draper::Decorator
   delegate_all
-  #delegate :body, :id, :title, :user, :price, :status, :summary, :ad_images, :received_feedbacks, :published?, :is_favorite_of
 
   def price
     return nil if object.price.nil?
     ( ( object.price / 100).to_i + ( object.price/100.0  ).modulo(1) )
   end
 
-  def image_url( param )
-    object.safe_image_url( param )
+  # primary image for ad
+  def hero_image_url
+    object.safe_image_url( :hero )
   end
 
   def title
