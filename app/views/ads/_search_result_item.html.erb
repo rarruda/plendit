@@ -7,7 +7,7 @@
     <% end %>
     <%= link_to ad_path( ad ), class: "search-result-item__link" do %>
         <div class="search-result-item__text-container">
-            <h6 class="search-result-item__title"><%= ad.title %></h6>
+            <h6 class="search-result-item__title"><%= ad.display_title %></h6>
             <p class="search-result-item__body">
                <%= (ad.body || "Ingen beskrivelse!")[0..100] %>
             </p>

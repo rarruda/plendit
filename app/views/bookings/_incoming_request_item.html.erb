@@ -7,7 +7,7 @@
         <div class="ten columns">
             <%= image_tag booking.ad.safe_image_url(:thumb), alt: "", class: "u-pull-right" %>
 
-            <h5><%= link_to booking.ad.title, booking_path(booking) %></h5>
+            <h5><%= link_to booking.ad.display_title, booking_path(booking) %></h5>
             <p>
                 <%= booking.ad.summary %>
             </p>

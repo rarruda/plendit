@@ -4,7 +4,7 @@
             <%= image_tag booking.ad.safe_image_url(:thumb) , alt: "Fler annonser", size: "180x120" %>
         </div>
         <div class="six columns">
-            <h2><%= booking.ad.title  %></h2>
+            <h2><%= booking.ad.display_title  %></h2>
         </div>
         <div class="three columns rental-request-box__owner-box">
             <%= render('shared/avatar.html', user: booking.user, size: "large" ) %>

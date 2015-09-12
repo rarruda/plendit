@@ -6,7 +6,7 @@
     <div class="nine columns feedback-item-box__body">
         <%= render('shared/stars.html', rating: feedback.user.calculate_average_rating ) %>
         <%= feedback.updated_at.to_formatted_s(:plendit_short_date)  %>
-        på <%= link_to feedback.ad.title, ad_path( ad_to_param_pretty feedback.ad ) %>
+        på <%= link_to feedback.ad.display_title, ad_path( ad_to_param_pretty feedback.ad ) %>
        <p class="feedback-item-box__body">
             <%= feedback.body %>
        </p>

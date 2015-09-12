@@ -8,7 +8,7 @@
         <% else %>
             <% bookings.each do |booking| %>
                 <li>
-                    <%= link_to booking.ad.title, booking %>
+                    <%= link_to booking.ad.display_title, booking %>
                 </li>
             <% end %>
         <% end %>
