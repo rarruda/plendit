@@ -1,5 +1,5 @@
 <div class="ad-status-box" id="ad-controls">
-    Annonsen er: <%= ad.status %>
+    Annonsen er: <%= ad.display_status %>
     <br>
     <% if ad.status == 'published' %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--blue", method: :get %>
