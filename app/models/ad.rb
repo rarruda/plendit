@@ -148,7 +148,7 @@ class Ad < ActiveRecord::Base
       gallery: ActionController::Base.helpers.image_path('no_image_900x600.jpg')
     }
 
-    if not stock_images.keys.include? size
+    unless stock_images.keys.include? size
       logger.error "ERROR: wrong image size parameter, falling back to :searchresult"
       size = :searchresult
     end
