@@ -20,8 +20,8 @@
             <%= f.fields_for :user_bank_accounts do |acc_builder| %>
               <%= acc_builder.hidden_field :id %>
 
-              <%= acc_builder.label :account_number %>
-              <%= acc_builder.text_field :account_number %>
+              <%= acc_builder.label :bank_account_number %>
+              <%= acc_builder.text_field :bank_account_number %>
             <% end %>
             <%= f.submit "Send" %>
           <% end %>

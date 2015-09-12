@@ -9,6 +9,7 @@
 include ActionView::Helpers::NumberHelper
 
 # Global Constants:
+PLENDIT_COUNTRY_CODE  = 'NO'
 PLENDIT_CURRENCY_CODE = 'NOK'
 
 # "kr 50.000,-"

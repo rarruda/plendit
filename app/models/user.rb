@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_paper_trail :only => [ :payment_provider_vid, :birthday, :country_of_residence, :nationality,
+    :first_name, :last_name, :name, :personhood, :email, :phone_number, :pays_vat, :status ]
+
   rolify
 
   include SmsVerifiable

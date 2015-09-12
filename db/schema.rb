@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150912130916) do
+ActiveRecord::Schema.define(version: 20150912174046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,11 +224,13 @@ ActiveRecord::Schema.define(version: 20150912130916) do
 
   create_table "user_bank_accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "account_number"
-    t.string   "iban"
+    t.string   "bank_account_number"
+    t.string   "bank_account_iban"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.string   "payment_provider_id"
+    t.string   "bank_account_vid"
+    t.string   "payin_wallet_vid"
+    t.string   "payout_wallet_vid"
   end
 
   add_index "user_bank_accounts", ["user_id"], name: "index_user_bank_accounts_on_user_id", using: :btree
@@ -278,7 +280,7 @@ ActiveRecord::Schema.define(version: 20150912130916) do
     t.string   "last_name"
     t.integer  "personhood"
     t.boolean  "pays_vat"
-    t.string   "payment_provider_id"
+    t.string   "payment_provider_vid"
     t.string   "nationality",                       limit: 2
     t.string   "country_of_residence",              limit: 2
   end
