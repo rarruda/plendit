@@ -8,6 +8,9 @@
 
 include ActionView::Helpers::NumberHelper
 
+# Global Constants:
+PLENDIT_CURRENCY_CODE = 'NOK'
+
 # "kr 50.000,-"
 Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 50000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
 Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5000, delimiter: "." )
