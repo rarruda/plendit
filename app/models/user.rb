@@ -196,6 +196,10 @@ class User < ActiveRecord::Base
     self == booking.ad.user
   end
 
+  def owns_ad?(ad)
+    self == ad.user
+  end
+
   def favorite_location
     self.locations.where(favorite: true).first || self.locations.first
   end

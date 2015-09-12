@@ -7,7 +7,7 @@
     <div class="ad-booking-box__calendar-holder" data-controller="listingCalendar"></div>
 
     <div class="ad-booking-box__button-holder">
-        <% if ad.published? %>
+        <% if ad.published? && !current_user_is_owner(ad) %>
             <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
                 <%= button_tag("Gå til booking", {class: "u-push-down button button-primary availability-section__book"}) %>
             <% end %>
