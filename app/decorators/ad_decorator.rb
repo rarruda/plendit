@@ -25,8 +25,15 @@ class AdDecorator < Draper::Decorator
   end
 
   def display_status
-    status_names = ["utkast", "sendt til godkjenning", "publisert", "pauset", "stoppet", "avslått"]
-    status_names[status]
+    status_names = {
+        draft: "utkast",
+        waiting_review: "sendt til godkjenning",
+        published: "publisert",
+        paused: "pauset",
+        stopped: "stoppet",
+        suspended: "avslått"
+    }
+    status_names[status.to_sym]
   end
 
   def to_param
