@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   #accepts_nested_attributes_for :user_images
 
 
-  validates :name, presence: true
+  #validates :name, presence: true
   #validates :phone_number, presence: true, format: { with: /\A[0-9]{8}\z/, message: "only allows numbers" }
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "valid email required" }
 
