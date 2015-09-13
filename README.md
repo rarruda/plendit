@@ -3,6 +3,21 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
+The steps needed are described in detail below. Roughly, setup consis of:
+
+- Install postgres.app and start it
+- Install elasticsearch and start it
+- Check out the code
+- Install ruby
+- Install ruby gems the project depends on
+- Run rake task to create database
+- Run rake task to run database migrations
+- Run rake task to load sample user data
+- Run rails console and run elasticsearch related commands
+
+At this point you should be able to start the server with `rails server`.
+
+
 Things you may want to cover:
 
 * Ruby version
@@ -106,10 +121,21 @@ In the future we will also have an support for varnish caching.
 
 * Postgresql
 
-Any version will probably sufice. In dev we are using the build from
- http://postgresapp.com/
+Any version will probably sufice. The simplest way to install this for mac
+users is probably to use http://postgresapp.com/ . The homebrew version is
+also a possiblity
 
 * ElasticSearch (re)initialization
+
+Install elasticsearch. Mac uses can use the version from homebrew:
+
+`brew install elasticsearch`
+
+You can then start elasticsearch in a terminal with the `elasticsearch` command.
+
+Note, homebrew will also explain how to make elasticsearch start automatically.
+You can do that if you prefer.
+
 
 ```
 $ rails console
