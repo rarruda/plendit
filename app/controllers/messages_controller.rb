@@ -25,14 +25,14 @@ class MessagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message
-      @message = Message.find(params[:id])
+      @message = Message.find(params[:id]).decorate
     end
 
     # Callback to create a user notification when an message has been created.
     def notify_user
       Notification.new(
         user_id: @message.to_user.id,
-        message: "#{@message.from_user.safe_display_name} sent you a message about \"#{@message.booking.ad.safe_title}\".",
+        message: "#{@message.decorate.from_user.display_name} sent you a message about \"#{@message.decorate.booking.ad.display_title}\".",
         notifiable: @message.booking).save
     end
 

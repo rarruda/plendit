@@ -124,7 +124,7 @@ class BookingsController < ApplicationController
         'status'       => 'created'
       })
 
-      @booking = Booking.new( new_booking )
+      @booking = Booking.new( new_booking ).decorate
     end
 
     def notify_about_decline
