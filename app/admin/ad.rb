@@ -18,7 +18,8 @@ ActiveAdmin.register Ad do
     column :price
     column :tags
 
-    column("Owner") { |ad| link_to "#{ad.user.safe_display_name}", admin_user_path( ad.user.id ) }
+    # fixme: can this use a decorated ad and display name?
+    column("Owner") { |ad| link_to "#{ad.user.first_name} #{ad.user.last_name}", admin_user_path( ad.user.id ) }
     column :created_at
     actions
   end

@@ -1,4 +1,8 @@
-<% ad = AdDecorator.new(ad) %>
+<%
+   # fixme: this is a bit eew. We need to figure out better how to work with ES results
+   es_ad = ad
+   ad = AdDecorator.new(ad)
+%>
 <div class="search-result-item" data-adid="<%= ad.id %>">
     <%= link_to ad_path( ad ), class: "search-result-item__link" do %>
         <div class="search-result-item__image-holder">
@@ -16,9 +20,9 @@
 
     <div class="search-result-item__profile">
         <div>
-            <%= render('shared/avatar.html', user: User.find(ad.user.id), size: "medium" ) %>
+            <%= render('shared/avatar.html', user: User.find(es_ad.user.id), size: "medium" ) %>
             <br>
-            <%= render('shared/stars.html', rating: User.find(ad.user.id).calculate_average_rating, small: true ) %>
+            <%= render('shared/stars.html', rating: User.find(es_ad.user.id).calculate_average_rating, small: true ) %>
         </div>
     </div>
     <div class="search-result-item__price-floater"><%= ad.pretty_price %><br>per&nbsp;dag</div>

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="two columns incoming-request-item__personalia">
             <%= render('shared/avatar.html', user: booking.from_user, size: "large" ) %>
-            <p><%= booking.from_user.safe_display_name %></p>
+            <p><%= booking.from_user.display_name %></p>
         </div>
         <div class="ten columns">
             <%= image_tag booking.ad.safe_image_url(:thumb), alt: "", class: "u-pull-right" %>

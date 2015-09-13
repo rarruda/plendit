@@ -1,5 +1,5 @@
 
 <section class="more-ads-sidebar u-push-down" id="more-ads">
-    <h5>Flere annonser fra <%= @ad.user.safe_display_name %></h5>
+    <h5>Flere annonser fra <%= @ad.user.display_name %></h5>
     <%= render partial: "shared/slim_promoted_ad", collection: @ad.related_ads_from_user, as: :ad %>
 </section>
