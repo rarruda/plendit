@@ -7,5 +7,5 @@
     remote:        data-remote
 -%>
 <span class="pagination__next">
-  <%= link_to_unless current_page.last?, t('views.pagination.next').html_safe, url, :rel => 'next', :remote => remote %>
+  <%= link_to_unless current_page.last?, t('views.pagination.next').html_safe, url, rel: 'next', remote: remote, data: { link_page: current_page.number + 1 } %>
 </span>

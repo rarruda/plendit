@@ -80,10 +80,12 @@ window.services.searchService = {
         var bounds = {};
         var zl = 14;
         var mostRecentResult;
+        var page = 1;
 
         var queryBlackList = {
             utf8: true,
-            authenticity_token: true
+            authenticity_token: true,
+            page: true
         };
 
         init();
@@ -148,6 +150,10 @@ window.services.searchService = {
             params = p;
         }
 
+        function setPage(p) {
+            page = p;
+        }
+
         function resultsAreDifferent(first, second) {
             return idKeyFromResult(first) != idKeyFromResult(second);
         }
@@ -198,6 +204,7 @@ window.services.searchService = {
                 return e.key + "=" + e.value;
             });
 
+            items.push("page=" + page);
             return items.join("&");
         }
 
@@ -206,6 +213,7 @@ window.services.searchService = {
             setSearchParams: setSearchParams,
             setBounds: setBounds,
             setZoom: setZoom,
+            setPage: setPage,
             getMostRecentSearchResult: function() { return mostRecentResult; }
         }
     }
@@ -476,5 +484,22 @@ window.controllers.responsiveSearchResult = {
             listButton.classList.add("search-result-view-chooser__segment-button--selected");
         }
 
+    }
+};
+
+
+window.controllers.resultPaging = {
+    dependencies: ["$element", "searchService"],
+    callable: function(ele, searchService) {
+        ele.addEventListener("click", onClick);
+
+        function onClick(evt) {
+            var page = evt.target.getAttribute("data-link-page");
+            if (page) {
+                evt.preventDefault();
+                searchService.setPage(page);
+                searchService.search();
+            }
+        }
     }
 };
