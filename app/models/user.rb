@@ -84,7 +84,9 @@ class User < ActiveRecord::Base
   end
 
   def safe_display_name
-    ( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
+    self.first_name
+    # fixme: use decorator
+    #( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
   end
 
   def calculate_average_rating
