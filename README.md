@@ -191,6 +191,16 @@ or just:
 $ rspec
 ```
 
+To run rails console against the test environment:
+```
+bundle exec rails c test
+```
+
+And rake tasks agains the test environment:
+```
+rake ... RAILS_ENV=test
+```
+
 ** Guard
 
 To keep tests running constantly on the background, run guard:
