@@ -89,14 +89,14 @@ Plendit::Application.config.x.frontpage.hero_videos = [
     webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_3.webm'
   },
   {
+    still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_4_still.jpg',
+    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_4.mp4',
+    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_4.webm'
+  },
+  {
     still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_5_still.jpg',
     mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_5.mp4',
     webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_5.webm'
-  },
-  {
-    still: 'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_6_still.jpg',
-    mp4:   'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_6.mp4',
-    webm:  'https://s3.eu-central-1.amazonaws.com/plendit-videos/frontpage-videos/baatliv_6.webm'
   },
 
   # hjem
