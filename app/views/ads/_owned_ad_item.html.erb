@@ -1,3 +1,7 @@
+<%
+   # fixme: this is a bit eew. We need to figure out better how to work with ES results
+   ad = AdDecorator.new(ad)
+%>
 <div class="owned-ad-item">
     <h5><%= link_to( (ad.title || 'Ingen tittel'), edit_ad_path(ad) ) %></h5>
     <p>
