@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe UserPaymentAccount, type: :model do
 
   it 'should accept a valid norwegian bank account number' do
-    expect( FactoryGirl.create(:user_payment_account) ).to be_valid
+    expect( FactoryGirl.build(:user_payment_account) ).to be_valid
   end
 
   it 'should not accept a bank account number with an invalid account number' do

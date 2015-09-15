@@ -2,13 +2,14 @@
 require 'spec_helper'
 require 'rails_helper'
 
-describe AdsController do
+
+describe AdsController, :type => :controller do
   #let(:valid_attributes) do
   #  { body: 'Tekst', title: 'foobar' }
   #end
 
   before(:each) do
-    allow(controller).to receive(:current_user) { FactoryGirl.create(:user) }
+    allow(controller).to receive(:current_user) { FactoryGirl.build(:user) }
   end
 
   describe "GET #show" do
@@ -20,12 +21,5 @@ describe AdsController do
   end
 
 
-  describe "GET #search" do
-    xit 'performs a simple search in ElasticSearch which returns valid result' do
-      expect_any_instance_of( Ad ).to receive(:search).with("").and_return(response)
 
-      #get :autocomplete, query: '*', format: :json
-      response.should be_success
-    end
-  end
 end
