@@ -12,7 +12,7 @@ class BookingDecorator < Draper::Decorator
   end
 
   def sum_paid_by_renter
-    return nil if object.sum_paid_to_owner.nil?
-    h.integer_to_decimal( object.sum_paid_to_owner )
+    return nil if object.sum_paid_by_renter.nil?
+    h.integer_to_decimal( object.sum_paid_by_renter )
   end
 end
