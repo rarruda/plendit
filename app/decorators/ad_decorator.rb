@@ -4,7 +4,7 @@ class AdDecorator < Draper::Decorator
 
   def price
     return nil if object.price.nil?
-    integer_to_decimal( object.price )
+    h.integer_to_decimal( object.price )
   end
 
   def pretty_price
