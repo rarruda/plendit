@@ -9,4 +9,9 @@ class UserDecorator < Draper::Decorator
     #( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
   end
 
+  def published_ads
+    object.ads.published.decorate
+  end
+
+
 end
