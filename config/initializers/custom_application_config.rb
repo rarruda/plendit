@@ -13,8 +13,8 @@ PLENDIT_COUNTRY_CODE  = 'NO'
 PLENDIT_CURRENCY_CODE = 'NOK'
 
 # "kr 50.000,-"
-Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 50000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
-Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5000, delimiter: "." )
+Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
+Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5_000, delimiter: "." )
 
 Plendit::Application.config.x.map.default_center_coordinates = { lat: 61.5, lon: 11.0 }
 Plendit::Application.config.x.map.default_zoom_level         = 6

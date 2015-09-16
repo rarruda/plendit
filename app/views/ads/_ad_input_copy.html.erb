@@ -3,41 +3,38 @@
     <h4>Gratis å legge ut</h4>
 
     <p>
-        Det er helt gratis å legge ut en annonse hos oss. Vi tar oss bare
-        betalt når du tjener penger, og aldri mer enn 10% av den totale leiesummen.
+        Det er gratis å legge ut en annonse. Plendit tar kun betalt når utleier
+         tjener penger, og kun <%= ( Plendit::Application.config.x.platform.fee_in_percent * 100 ).to_i %>% av
+         den totale leiesummen.
     </p>
 
     <h4>Verifisering</h4>
 
     <p>
-        Alle våre brukere er verifisert med mobilnummer og
-        gjennom Schibsteds innloggingstjeneste Spid.
+        Plendit verifiserer brukernes identitet med mobilnummer og epost. I tillegg kan brukerne koble seg til plendit med Google-, Facebook- og SPiD-kontoer.
     </p>
 
     <h4>Betaling</h4>
     <p>
-        Betalingen skjer trygt gjennom plendit, og og det skjer
-        aldri en transaksjon før utleier og leietaker er fornøyd.
+        Betalingen skjer trygt gjennom plendit. Leiesumen reserveres ved bestilling og utbetales når utleien begynner.
     </p>
-
 
     <h4>Trygghet</h4>
 
-    <!-- fixme: clear fix -->
     <p>
-        <%= image_tag "safety_check.png", alt: "", class: "ad-input-copy__badge", size: "41x69" %>
+        <%= image_tag "logos/if_150x148.png", alt: "", class: "ad-input-copy__badge", size: "70x70" %>
         Alle ting du leier ut, er forsikret opp til <%= Rails.configuration.x.insurance.max_insurance_value  %>
-        Les mer om din trygghet utleier <%= link_to "her", root_path %>.
+        Les mer om din trygghet utleier <%= link_to "her", help_path %>.
     </p>
 
 
     <h4>Spørsmål?</h4>
     <p>
-        Om du har noen spørsmål til tjenesten, ikke nøl med å ta kontakt
-         med oss på <%= Rails.configuration.x.customerservice.email %>
+        Ved spørsmål om tjenesten, ta gjerne kontakt med
+        <%= link_to 'kundesenteret', Plendit::Application.config.x.customerservice.contact_form %>.
     </p>
     <p>
-        Du kan også lese <%= link_to "ofte stilte spørsmål", root_path %>.
+        Du kan også lese <%= link_to "ofte stilte spørsmål", faq_path %>.
     </p>
 
 </section>
