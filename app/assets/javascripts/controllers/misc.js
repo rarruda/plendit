@@ -408,6 +408,7 @@ window.controllers.readOnlyCalendar = function(ele) {
 };
 
 window.controllers.listingCalendar = function(ele) {
+    var selected = "";
 
     function onViewChanged(yearOrWeek) {
         var now = moment();
@@ -415,14 +416,19 @@ window.controllers.listingCalendar = function(ele) {
         if (then.diff(now, 'years') > 0) { return false }
     }
 
+    var bookedDatesEle = ele.querySelector('script[type="text/plain"]');
+    if (bookedDatesEle) {
+        selected = bookedDatesEle.textContent.trim();
+    }
+
     var k = new Kalendae({
         attachTo: ele,
         months: 1,
-        mode: 'range',
+        mode: 'multiple',
         readOnly: true,
         weekStart: 1,
         direction: "today-future",
-        selected: ele.getAttribute('data-date-range'),
+        selected: selected,
         useYearNav: false,
         subscribe: {
             "view-changed": onViewChanged
