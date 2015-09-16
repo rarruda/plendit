@@ -9,8 +9,8 @@
                     <ul>
                         <% current_user.ads.each do |ad| %>
                             <li>
-                                <%= link_to ad.safe_title, ad %>
-                                <%= ad.status %>
+                                <%= link_to ad.display_title, ad %>
+                                <%= ad.display_status %>
                                 <small>(oppdatert <%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
                             </li>
                         <% end %>
@@ -34,8 +34,8 @@
                     <ul>
                         <% current_user.current_bookings.each do |booking| %>
                             <li>
-                                <%= link_to booking.ad.safe_title, booking %>
-                                <%= booking.status %>
+                                <%= link_to booking.ad.display_title, booking %>
+                                <%= booking.display_status %>
                                 <small>(oppdatert <%= booking.ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
                             </li>
                         <% end %>
@@ -51,7 +51,7 @@
                     <ul>
                         <% current_user.received_messages.each do |message| %>
                             <li>
-                                <%= link_to message.booking.ad.safe_title, message.booking %>
+                                <%= link_to message.booking.ad.display_title, message.booking %>
                                 <p><%= message.content[0..60] %></p>
                                 <small>(<%= message.created_at.to_formatted_s(:plendit_short_datetime) %>)</small>
                             </li>

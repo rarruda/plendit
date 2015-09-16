@@ -1,5 +1,8 @@
 class UserDecorator < Draper::Decorator
   delegate_all
+  decorates_association :ads
+  decorates_association :current_bookings
+  decorates_association :received_messages
 
   def display_name
     self.first_name
