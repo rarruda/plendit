@@ -14,6 +14,7 @@ function main() {
     c.registerInstance('tagbox', tagBox);
     c.registerInstance('xhr', xhr);
     c.registerInstance('createElement', createElement);
+    c.registerInstance('Card', Card);
     c.registerInstance('utils', plenditUtils);
     c.scanControllers(controllers);
     c.scanServices(services);
