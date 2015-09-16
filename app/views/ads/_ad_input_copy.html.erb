@@ -3,30 +3,31 @@
     <h4>Gratis å legge ut</h4>
 
     <p>
-        Det er gratis å legge ut en annonse. Plendit tar kun betalt når utleier
-         tjener penger, og kun <%= ( Plendit::Application.config.x.platform.fee_in_percent * 100 ).to_i %>% av
-         den totale leiesummen.
+        Det er gratis å legge ut annonser. Plendit tar kun betalt når utleier tjener penger,
+        og kun <%= ( Plendit::Application.config.x.platform.fee_in_percent * 100 ).to_i %>% av
+        den totale leiesummen.
     </p>
 
     <h4>Verifisering</h4>
 
     <p>
-        Plendit verifiserer brukernes identitet med mobilnummer og epost. I tillegg kan brukerne koble seg til plendit med Google-, Facebook- og SPiD-kontoer.
+        Plendit verifiserer brukernes identitet med mobilnummer og epost. I tillegg kan brukerne
+        koble seg til plendit med Google-, Facebook- og SPiD-kontoer.
     </p>
 
     <h4>Betaling</h4>
     <p>
-        Betalingen skjer trygt gjennom plendit. Leiesumen reserveres ved bestilling og utbetales når utleien begynner.
+        Betalingen skjer trygt gjennom plendit. Leiesumen reserveres ved bestilling og utbetales
+        når utleien begynner.
     </p>
 
     <h4>Trygghet</h4>
 
     <p>
         <%= image_tag "logos/if_150x148.png", alt: "", class: "ad-input-copy__badge", size: "70x70" %>
-        Alle ting du leier ut, er forsikret opp til <%= Rails.configuration.x.insurance.max_insurance_value  %>
+        Ting du leier ut kan forsikres opp til <%= Rails.configuration.x.insurance.max_insurance_value  %>.
         Les mer om din trygghet utleier <%= link_to "her", help_path %>.
     </p>
-
 
     <h4>Spørsmål?</h4>
     <p>
