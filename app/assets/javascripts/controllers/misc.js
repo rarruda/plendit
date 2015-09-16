@@ -408,6 +408,13 @@ window.controllers.readOnlyCalendar = function(ele) {
 };
 
 window.controllers.listingCalendar = function(ele) {
+
+    function onViewChanged(yearOrWeek) {
+        var now = moment();
+        var then = this.viewStartDate.clone().add(1, "month");
+        if (then.diff(now, 'years') > 0) { return false }
+    }
+
     var k = new Kalendae({
         attachTo: ele,
         months: 1,
@@ -415,7 +422,11 @@ window.controllers.listingCalendar = function(ele) {
         readOnly: true,
         weekStart: 1,
         direction: "today-future",
-        selected: ele.getAttribute('data-date-range')
+        selected: ele.getAttribute('data-date-range'),
+        useYearNav: false,
+        subscribe: {
+            "view-changed": onViewChanged
+        }
     });
 };
 
