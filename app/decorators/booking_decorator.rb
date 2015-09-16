@@ -15,4 +15,15 @@ class BookingDecorator < Draper::Decorator
     return nil if object.sum_paid_by_renter.nil?
     h.integer_to_decimal( object.sum_paid_by_renter )
   end
+
+  def display_status
+    status_names = {
+        created: "sendt",
+        accepted: "akseptert",
+        cancelled: "kanselert",
+        declined: "avvist"
+    }
+    status_names[status.to_sym]
+  end
+
 end
