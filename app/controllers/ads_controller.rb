@@ -2,6 +2,7 @@ class AdsController < ApplicationController
   include MapViewRememberable
 
   before_action :set_ad, only: [
+    :unavailability,
     :approve,
     :double_calendar,
     :edit,
@@ -19,6 +20,7 @@ class AdsController < ApplicationController
   ]
 
   before_action :authenticate_user!, :except => [
+    :unavailability,
     :double_calendar,
     :gallery,
     :index,
@@ -28,6 +30,7 @@ class AdsController < ApplicationController
   ]
 
   before_action :require_authorization, :except => [
+    :unavailability,
     :create,
     :double_calendar,
     :gallery,
@@ -169,6 +172,19 @@ class AdsController < ApplicationController
   def image_manager
      render partial: "shared/image_manager_item", collection: @ad.ad_images, as: :ad_image
   end
+
+  # GET /ads/1/availability
+  def unavailability
+    if params[:start_date].nil?
+      start_date = Date.today
+    else
+      start_date = params[:start_date].to_date
+    end
+    # FIXME: add support for: end_date
+    #
+    render partial: "ads/unavailability", locals: { start_date: start_date, ad: @ad }
+  end
+
 
   # GET /ads/1/double_calendar?date=day_or_month
   def double_calendar

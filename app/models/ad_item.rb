@@ -7,7 +7,7 @@ class AdItem < ActiveRecord::Base
     #AVAILABILITY_STATUSES = ['booked', 'starting', 'ending', 'available'] #'past', 'today'
 
     ##correct:
-    bookings = Booking.active.ad_item( self.id ).exclude_past.in_month(year,month).order( :starts_at )
+    bookings = Booking.accepted.ad_item( self.id ).exclude_past.in_month(year,month).order( :starts_at )
     # needs to have 'active', otherwise we show unconfirmed bookings as fully booked.
     # FOR debugging:
     #bookings = Booking.ad_item( self.id ).exclude_past.in_month(year,month).order( :starts_at )
@@ -35,4 +35,22 @@ class AdItem < ActiveRecord::Base
     availability_cal
   end
 
+  # Returns dates which there is a full day worth of bookings already in place.
+  # by default it will do for just the current month
+  # FIXME: ignores partially available days
+  def unavailability( start_year = Date.today.year , start_month = Date.today.month, end_year = Date.today.next_month.year, end_month = Date.today.next_month.month )
+    bookings = Booking.accepted.ad_item( self.id ).exclude_past.in_between( DateTime.new(start_year, start_month).beginning_of_month, DateTime.new(end_year, end_month).end_of_month ).order( :starts_at )
+
+    unavailable_dates = []
+    ( Date.new(start_year,start_month).beginning_of_month ... Date.new(end_year,end_month).end_of_month ).each do |d|
+      next if d.past?
+      bookings.each { |b|
+        #next if b.date_status(d) == 'available'
+        unavailable_dates << d if b.date_status(d) == 'booked'
+      }
+    end
+
+    #availability_cal
+    unavailable_dates
+  end
 end

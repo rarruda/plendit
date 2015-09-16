@@ -1,0 +1,4 @@
+<%# FIXME: no support for partially available dates %>
+<script type="text/plain">
+<%= ad.ad_items.first.unavailability( start_date.year, start_date.month ).map{ |d| d.to_s }.join(',') %>
+</script>

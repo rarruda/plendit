@@ -28,6 +28,7 @@ class Booking < ActiveRecord::Base
   scope :ad_item,    ->(ad_item_id) { where( ad_item_id: ad_item_id ) }
   scope :in_month,   ->(year,month) { where( 'ends_at >= ? and starts_at <= ?',
     DateTime.new(year, month).beginning_of_month, DateTime.new(year, month).end_of_month ) }
+  scope :in_between, ->(start_date,end_date) { where( 'ends_at >= ? and starts_at <= ?', start_date, end_date) }
 
   scope :exclude_past,   ->{ where( 'ends_at >= ?', DateTime.now ) }
 

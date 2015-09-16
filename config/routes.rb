@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     member do
       get 'preview'
       get 'gallery'
+      get 'unavailability'
       get 'double_calendar'
       get 'single_calendar'
       get 'image_manager'
