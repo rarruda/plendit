@@ -428,7 +428,7 @@ window.controllers.listingCalendar = function(ele) {
         readOnly: true,
         weekStart: 1,
         direction: "today-future",
-        selected: selected,
+        blackout: selected,
         useYearNav: false,
         subscribe: {
             "view-changed": onViewChanged
