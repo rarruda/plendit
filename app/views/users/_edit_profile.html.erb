@@ -42,16 +42,14 @@
                 <%= f.label :nationality, 'Statsborgerskap:' %>
                 <%= f.country_select( "nationality", priority_countries: ["NO", "SE", "DK", "DE"], include_blank: true, format: :with_flag) %>
                 <%# end %>
-                Det trenger vi pga av ditt og datt. Vi må forklare hvorfor vi trenger det! FIXME!
             </div>
         </div>
 
         <div class="row">
             <div class="two-thirds column">
-                <%#= f.checkbox %> Jeg bor i norge.
-                <%= f.label :country_of_residence, 'Land du bor i:' %>
+                <%#= f.checkbox %> <!-- Jeg bor i norge. -->
+                <%= f.label :country_of_residence, 'Land du bor i nå:' %>
                 <%= f.country_select( "country_of_residence", priority_countries: ["NO", "SE", "DK", "DE"], include_blank: true) %>
-                Det trenger vi pga av ditt og datt. Vi må forklare hvorfor vi trenger det! FIXME!
             </div>
         </div>
 
