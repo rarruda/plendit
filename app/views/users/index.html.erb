@@ -68,8 +68,18 @@
                     <li><%= link_to "Tilbakemeldinger", "#" %></li>
                     <li><%= link_to "See / edit my locations", locations_path %></li>
                 </ul>
+
+            <% end %>
+
+            <%= render layout: "bubble_box", locals: {title: "Utestående vurderinger"} do %>
+
+                <a href="#">
+                    <%= render('shared/avatar.html', user: current_user, size: "medium" ) %>
+                    <h2>Jan Erik<br><small>11.09.2015</small></h2>
+                    <p>thule henger morradi er mann</p>
+                </a>
+
             <% end %>
         </div>
-
     </div>
 </div>

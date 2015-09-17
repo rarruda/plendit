@@ -1,4 +1,86 @@
+@import "constants";
+
+$redish: rgb(255, 243, 236);
+$greenish: rgb(193, 236, 193);
+$blueish: rgb(213, 235, 255);
 
 .provider-box {
     height: 80px;
+}
+
+
+.bubble-box {
+    padding: $standard-spacing;
+
+    &__title {
+        margin-bottom: $standard-spacing / 2;
+    }
+
+    &__handle {
+        position: relative;
+        display: inline-block;
+        border-style: solid;
+        border-width: 0 15px 18px 15px;
+        width: 0;
+        border-color: transparent transparent $greenish transparent;
+        bottom: -6px;
+        left: 24px;
+
+        &--green {
+            // same as default
+        }
+
+        &--blue {
+            border-bottom-color: $blueish;
+        }
+
+        &--red {
+            border-bottom-color: $redish;
+        }
+    }
+
+    &__body {
+        padding: $standard-spacing;
+        background-color: rgb(193, 236, 193);
+        border-radius: 12px;
+    }
+
+    &__body--green {
+        // same as default
+    }
+
+    &__body--blue {
+        background-color: rgb(213, 235, 255);
+    }
+
+    &__body--red {
+        background-color: rgb(255, 243, 236);
+    }
+
+}
+
+.actionable-item {
+    text-decoration: none;
+    display: flex;
+
+    &__avatar {
+        width: 72px;
+        flex-shrink: 0;
+        flex-grow: 0;
+    }
+
+    &__main {
+
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 18px;
+        color: black;
+    }
+
+    &__body {
+        color: black;
+    }
+
 }
