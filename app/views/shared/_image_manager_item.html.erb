@@ -10,13 +10,13 @@
         <% end %>
 
         <% if ad_image_counter != 0 %>
-            <%= button_to make_primary_ad_image_path(ad_image), class: "image-manager__primary-button udd-pull-right" do %>
+            <%= button_to make_primary_ad_image_path(ad_image), class: "button image-manager__primary-button u-pull-right" do %>
                 <%= image_tag 'image_main.png', size: "15x15" %>
                 Sett som hovedbilde
             <% end %>
         <% end %>
 
-        <%= button_to ad_image_path(ad_image), method: :delete, params: {previous_url: request.fullpath}, class: "image-manager__delete-button udd-pull-right" do %>
+        <%= button_to ad_image_path(ad_image), method: :delete, params: {previous_url: request.fullpath}, class: "button image-manager__delete-button udd-pull-right" do %>
             <%= image_tag 'image_delete.png', size: "12x15" %>
             Slett
         <% end %>
