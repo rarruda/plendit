@@ -43,7 +43,7 @@
                 <% end %>
             <% end %>
 
-            <%= render layout: "bubble_box", locals: {title: "Forespørsler", color: "green"} do %>
+            <%= render layout: "bubble_box", locals: {title: "Meldinger", color: "green"} do %>
                 <h4>Siste meldinger</h4>
                 <% unless current_user.received_messages.empty? %>
                     <ul>
