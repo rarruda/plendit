@@ -36,19 +36,30 @@
 
         <div class="row">
             <div class="two-thirds column">
-                <%#= f.checkbox %> Jeg er norsk statsborger.
-                <%# else %>
-                <%= f.label :nationality, 'Statsborgerskap:' %>
-                <%= f.country_select( "nationality", priority_countries: ["NO", "SE", "DK", "DE"], include_blank: true, format: :with_flag) %>
-                <%# end %>
+                <details class="u-implode-summary">
+                    <summary>
+                        <input type="checkbox" checked data-controller="clickthrough"><span> Norsk statsborger</span>
+                    </summary>
+                    <div>
+                        <%= f.label :nationality, 'Statsborgerskap:' %>
+                        <%= f.country_select( :nationality, priority_countries: ["NO", "SE", "DK", "DE"], format: :with_flag) %>
+                    </div>
+                </details>
             </div>
         </div>
 
         <div class="row">
             <div class="two-thirds column">
-                <%#= f.checkbox %> <!-- Jeg bor i norge. -->
-                <%= f.label :country_of_residence, 'Land du bor i nå:' %>
-                <%= f.country_select( "country_of_residence", priority_countries: ["NO", "SE", "DK", "DE"], include_blank: true) %>
+
+                <details class="u-implode-summary">
+                    <summary>
+                        <input type="checkbox" checked data-controller="clickthrough"><span> Bosatt i Norge</span>
+                    </summary>
+                    <div>
+                        <%= f.label :country_of_residence, 'Bosatt i:' %>
+                        <%= f.country_select( :country_of_residence, priority_countries: ["NO", "SE", "DK", "DE"], format: :with_flag) %>
+                    </div>
+                </details>
             </div>
         </div>
 
@@ -57,6 +68,7 @@
                 <%= f.label :email, 'E-post:' %>
                 <%= f.text_field :email, class: 'u-full-width' %>
             </div>
+
         </div>
 
         <% if @user.pending_reconfirmation? %>
@@ -91,12 +103,14 @@
             </div>
         <% end %>
 
-        <div>Before you can receive any payments you need to put in your bank account information:</div>
         <%= f.fields_for :user_payment_account do |acc_builder| %>
           <%#= acc_builder.hidden_field :id %>
           <%= acc_builder.label :bank_account_number %>
           <%= acc_builder.text_field :bank_account_number %>
         <% end %>
+        <p>
+            <small>Vi trenger kontonummer for å utbetale penger til deg som utleier</small>
+        </p>
 
         <div class="row">
             <div class="twelve columns">

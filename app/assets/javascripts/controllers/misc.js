@@ -520,3 +520,9 @@ window.controllers.resultPaging = {
         }
     }
 };
+
+window.controllers.clickthrough = function(ele) {
+    ele.addEventListener("click", function(evt) {
+        evt.target.parentNode.click();
+    });
+}
