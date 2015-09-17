@@ -117,10 +117,10 @@
 </div>
 
 <div>
-    <%= button_tag("lagre", {class: "button button-primary", data: {controller: "submitMainForm"}}) %>
-    <%= link_to "Gå til annonse", (ad_path @ad)  %>
-</div>
+    <%= button_tag "lagre", class: "button button", form_class: "u-inline", data: {controller: "submitMainForm"}  %>
+    <%= button_to "Gå til annonse", (ad_path @ad), method: :get, form_class: "u-inline", class: "button"  %>
 
-<% if @ad.valid? %>
-  <%= render partial: "ad_status_box", locals: { ad: @ad } %>
-<% end %>
+    <% if @ad.valid? %>
+        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: "ad-status-box__form u-inline", class: "button button-primary" %>
+    <% end %>
+</div>
