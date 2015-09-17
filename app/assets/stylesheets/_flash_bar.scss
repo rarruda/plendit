@@ -6,4 +6,15 @@
     color: black;
     font-weight: bold;
 
+    &--overlaid {
+        position: absolute;
+        top: 52px;
+        left: 0;
+        width: 100%;
+        z-index: 12;
+    }
+
 }
+
+
+
