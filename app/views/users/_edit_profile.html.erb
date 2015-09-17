@@ -11,7 +11,6 @@
         </div>
     <%- end -%>
 
-
     <%= form_for( @user, url: users_path, html: { method: :put }) do |f| %>
 
         <%#= devise_error_messages! %>
@@ -61,16 +60,16 @@
         </div>
 
         <% if @user.pending_reconfirmation? %>
-        <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %>. Check your email for instructions on how to confirm it.
-        To have the email resent, please go <%= link_to "here", new_user_confirmation_path %>. Your previous email will be kept on file until you have verified the new one.
-        </div>
-        <%# TODO(RA): make the link a post to the user's current email.
-        link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>
+            <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %>. Check your email for instructions on how to confirm it.
+            To have the email resent, please go <%= link_to "here", new_user_confirmation_path %>. Your previous email will be kept on file until you have verified the new one.
+            </div>
+            <%# TODO(RA): make the link a post to the user's current email.
+            link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>
         <% else %>
-        <div>
-            <%= evil_icon 'ei-check', size: :s, class: 'u-fill-green' %>
-            <span>E-post adressen er bekreftet!</span>
-        </div>
+            <div>
+                <%= evil_icon 'ei-check', size: :s, class: 'u-fill-green' %>
+                <span>E-post adressen er bekreftet!</span>
+            </div>
         <% end %>
 
         <div class="row u-push-down">
@@ -81,14 +80,15 @@
         </div>
 
         <% if @user.phone_pending_confirmation? %>
-        <div>
-            Currently waiting confirmation for: <%= @user.unconfirmed_phone_number %>. Last confirmed number: <%= @user.phone_number %>. Please confirm your new number <%= link_to 'here', verify_sms_users_path %>. If you need a new sms sent, please click <%= link_to 'here', '#' %>.
-            <%# TODO(RA): Create a page to send a New SMS. Should refuse to send too often, otherwise we go bankrupt. %>
-        </div>
+            <div>
+                Currently waiting confirmation for: <%= @user.unconfirmed_phone_number %>. Last confirmed number: <%= @user.phone_number %>. Please confirm your new number <%= link_to 'here', verify_sms_users_path %>. If you need a new sms sent, please click <%= link_to 'here', '#' %>.
+                <%# TODO(RA): Create a page to send a New SMS. Should refuse to send too often, otherwise we go bankrupt. %>
+            </div>
         <% else %>
-        <div>
-            <pre>phone is confirmed! <3</pre>
-        </div>
+            <div>
+                <%= evil_icon 'ei-check', size: :s, class: 'u-fill-green' %>
+                <span>Telefonnummeret er bekreftet!</span>
+            </div>
         <% end %>
 
         <div>Before you can receive any payments you need to put in your bank account information:</div>
@@ -97,7 +97,6 @@
           <%= acc_builder.label :bank_account_number %>
           <%= acc_builder.text_field :bank_account_number %>
         <% end %>
-
 
         <div class="row">
             <div class="twelve columns">

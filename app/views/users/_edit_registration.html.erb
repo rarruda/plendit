@@ -4,9 +4,6 @@
 
         <%= devise_error_messages! %>
 
-
-        Reset current password <%= link_to "here", new_user_password_path %>, if you forgot it. (should be loged off...?)
-
         <div class="row">
             <div class="six columns">
                 <%= f.label :current_password, 'Nåværende passord:' %>
@@ -18,7 +15,6 @@
             <div class="six columns">
                 <%= f.label :password, "Nytt passord:" %>
                 <%= f.password_field :password, autocomplete: "off", class: "u-full-width" %>
-                (blankt for å beholde nåværende passord)
             </div>
 
             <div class="six columns">
@@ -29,7 +25,7 @@
 
         <div class="row">
             <div class="twelve columns">
-                <%= f.submit "Oppdater", class: "u-pull-right button-primary" %>
+                <%= f.submit "Oppdater", class: "u-pull-right button " %>
             </div>
         </div>
 
