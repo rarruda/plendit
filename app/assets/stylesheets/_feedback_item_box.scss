@@ -1,11 +1,16 @@
 @import 'constants.scss';
 
 .feedback-item-box {
+    background-color: white;
+    border-bottom: solid thin $color-box-border;
+    padding-top: $standard-spacing;
+
     &__avatar-box {
         text-align: center;
     }
 
     &__body {
         padding-top: $standard-spacing;
+        padding-right: $standard-spacing;
     }
 }

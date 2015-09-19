@@ -5,7 +5,7 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks
   # GET /feedbacks.json
   def index
-    @feedbacks = Feedback.all
+    @feedbacks = Feedback.all.decorate
   end
 
   # GET /feedbacks/1
