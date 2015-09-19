@@ -3,10 +3,10 @@
    ad = AdDecorator.new(ad)
 %>
 <div class="owned-ad-item">
-    <h5><%= link_to( (ad.title || 'Ingen tittel'), edit_ad_path(ad) ) %></h5>
+    <h4><%= link_to( (ad.title || 'Ingen tittel'), edit_ad_path(ad) ) %></h4>
     <p>
-        <%# fixme: set size here %>
-        <%= image_tag ad.safe_image_url(:thumb), alt: "", class: "u-pull-right owned-ad-item__thumb" %>
+      <%# fixme: set size here %>
+      <%= image_tag ad.safe_image_url(:thumb), alt: "", class: "u-pull-right owned-ad-item__thumb" %>
         <%= ad.body || "No body" %>
     </p>
     <p><%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %> STATUS: <%= ad.display_status %></p>
