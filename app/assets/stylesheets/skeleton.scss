@@ -367,7 +367,8 @@ form {
 
 /* standard class for spacing things vertically */
 .u-push-down {
-  margin-top: 12px;
+  margin-bottom: $standard-spacing * 2;
+  margin-top: $standard-spacing * 2;
 }
 
 .u-push-down-lots {
