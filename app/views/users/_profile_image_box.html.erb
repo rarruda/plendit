@@ -6,7 +6,7 @@
 
         <%= form_for UserImage.new, url: update_avatar_users_path, html: { multipart: true, method: "post" } do |f| %>
           <%= f.file_field :image %>
-          <%= f.submit "Upload new avatar" %>
+          <%= f.submit "Last opp bilde", class: "u-pull-right button" %>
         <% end %>
         <%# destroy avatar: %>
         <%# if @user.user_images.avatar.size > 0 %>

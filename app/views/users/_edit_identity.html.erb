@@ -39,10 +39,10 @@
                 <% if current_user.connected_to_provider provider[:id] %>
                     Tilkoblet!
                     <%= evil_icon 'ei-check', size: :l, class: "u-pull-right u-fill-green" %>
-                    <small><a href="#">Koble fra</a></small>
+                    <a href="#" class="button">Koble fra</a>
                 <% else %>
-                    <%= button_to user_omniauth_authorize_path(provider[:id]), class: "button-primary", form_class: "u-inline" do %>
-                        Koble din <%= provider[:name] %> konto til din Plendit-konto.
+                    <%= button_to user_omniauth_authorize_path(provider[:id]), class: "button", form_class: "u-inline" do %>
+                        Koble Plendit til <%= provider[:name] %>
                     <% end %>
                     <%= evil_icon 'ei-close-o', size: :l, class: "u-pull-right u-fill-red" %>
                 <% end %>
