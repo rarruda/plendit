@@ -503,31 +503,3 @@ window.controllers.resultPaging = {
         }
     }
 };
-
-
-window.controllers.cardInputter = {
-    dependencies: ["$element", "Card"],
-    callable: function(ele, Card) {
-        var f = ele.querySelector('form');
-        var c = ele.querySelector("[data-card-holder]");
-
-        var card = new Card({
-            form: f,
-            container: c,
-            width: 400,
-            // Strings for translation - optional
-            placeholders: {
-                name: 'Fullt navn'
-            }
-        });
-
-        var submitButton = ele.querySelector("[data-save-card]");
-        submitButton.addEventListener("click", function(evt) {
-            evt.preventDefault();
-
-        });
-
-
-    }
-};
-

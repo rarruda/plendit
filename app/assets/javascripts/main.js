@@ -15,6 +15,7 @@ function main() {
     c.registerInstance('xhr', xhr);
     c.registerInstance('createElement', createElement);
     c.registerInstance('Card', Card);
+    c.registerInstance('mangoPay', mangoPay);
     c.registerInstance('utils', plenditUtils);
     c.scanControllers(controllers);
     c.scanServices(services);
