@@ -3,7 +3,7 @@
 .front-popular-box {
     text-align: center;
     margin-top: $standard-spacing * 3;
-    margin-bottom: $standard-spacing * 2;
+    margin-bottom: $standard-spacing * 4;
 
     &__row1,
     &__row2 {
@@ -18,7 +18,7 @@
     &__col1 {
         flex-grow: 1;
         display: flex;
-        flex-direction: column;        
+        flex-direction: column;
     }
 
     &__bgimg {

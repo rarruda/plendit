@@ -3,6 +3,7 @@
 .gray-box {
     border: solid thin $color-box-border;
     background-color: white;
+    margin-bottom: $standard-spacing * 2;
 
     &__title {
         background-color: $color-gray-background;
