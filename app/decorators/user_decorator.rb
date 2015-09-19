@@ -5,7 +5,7 @@ class UserDecorator < Draper::Decorator
   decorates_association :received_messages
 
   def display_name
-    self.first_name
+    self.first_name.blank? ? "(navn mangler)" : self.first_name
     #( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
   end
 
