@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   ActiveAdmin.routes(self)
   get 'admin/switch_user' => 'switch_user#set_current_user'
   get 'switch_user',               to: redirect('/')
@@ -68,13 +69,18 @@ Rails.application.routes.draw do
   get 'user/:id', to: 'users#show', as: 'user'
 
 
-  get 'resources/postal_place', to: 'misc#postal_place'
   get 'faq',      to: 'misc#faq'
   get 'about-us', to: 'misc#about'
   get 'contact',  to: 'misc#contact'
   get 'privacy',  to: 'misc#privacy'
   get 'terms',    to: 'misc#terms' #feel free to find a better name for terms and conditions
   get 'help',     to: 'misc#help'
+
+
+  scope '/resources' do
+    get 'postal_place', to: 'misc#postal_place'
+    get 'mangopay/callback'
+  end
 
 
   get '/search', to: 'ads#search'
@@ -106,6 +112,8 @@ Rails.application.routes.draw do
       post 'make_primary'
     end
   end
+
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
