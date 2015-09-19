@@ -1,3 +1,5 @@
+@import "constants";
+
 /*
 * Skeleton V2.0.4
 * Copyright 2014, Dave Gamache
@@ -393,7 +395,7 @@ details.u-implode-summary > summary::-webkit-details-marker {
 @media (min-width: 550px) {
   .u-hidden-when-grid {
     display: none;
-  }  
+  }
 }
 
 
