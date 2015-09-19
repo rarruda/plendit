@@ -1,6 +1,7 @@
 class AdDecorator < Draper::Decorator
   delegate_all
   decorates_association :user
+  decorates_association :received_feedbacks
 
   def price
     return nil if object.price.nil?
