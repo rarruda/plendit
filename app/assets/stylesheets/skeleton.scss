@@ -183,13 +183,17 @@ a {
   white-space: nowrap;
   background-color: #fff;
   border-radius: 4px;
-  border: 1px solid rgba(#000, 0.15);
+  border: 1px solid rgba(black, 0.15);
   cursor: pointer;
   box-sizing: border-box;
   user-select: none;
 
   &:hover, &:focus {
     background-color: darken(#fff, 3);
+    outline: none;
+  }
+  &:focus {
+    box-shadow: 0 0 0 1px $color-plendit-blue;
   }
   &:active {
     background-color: darken(#fff, 5);
@@ -198,6 +202,7 @@ a {
   &.button-primary {
     color: #fff;
     background-color: $color-plendit-blue;
+    border-color: rgba(black, 0);
 
     &:hover, &:focus {
       background-color: darken($color-plendit-blue, 5);
@@ -259,7 +264,8 @@ input[type="date"]:focus,
 input[type="time"]:focus,
 textarea:focus,
 select:focus {
-  border: 1px solid #33C3F0;
+  border: 1px solid $color-plendit-blue;
+  box-shadow: 0 0 0 1px $color-plendit-blue;
   outline: 0; }
 label,
 legend {

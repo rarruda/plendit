@@ -43,6 +43,10 @@ $break-tiny: 640px;
     }
 
     &__input {
+        /* WORKAROUND: Aligns in Webkit/Blink.
+                       Pick your poisons / frameworks. */
+        position: relative;
+        top: 1px;
     }
 
     &__input--date {
