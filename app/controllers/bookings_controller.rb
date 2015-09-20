@@ -10,7 +10,7 @@ class BookingsController < ApplicationController
   # GET /bookings.json
   def index
     # fixme: use merged list of sent and received for current user
-    @bookings = Booking.owner_user(current_user)
+    @bookings = Booking.owner_user(current_user).decorate
   end
 
   # GET /bookings/1
