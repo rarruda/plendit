@@ -130,14 +130,6 @@ class Ad < ActiveRecord::Base
     fav_count > 0 ? true : false
   end
 
-  def summary
-    truncate( self.body , line_width: 240 )
-  end
-
-  def safe_title
-    self.title.blank? ?  "(Ingen tittel)" : self.title
-  end
-
   # helper methods for generating urls for the three different image sizes, and which has the
   ## default fallback to stock images. (so that it will degrate nicely)
   def safe_image_url( size )

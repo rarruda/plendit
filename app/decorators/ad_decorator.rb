@@ -23,7 +23,7 @@ class AdDecorator < Draper::Decorator
   end
 
   def display_title
-    object.title.blank? ?  "(Ingen tittel)" : object.title
+    object.title.blank? ?  "Tittel mangler" : object.title
   end
 
   def display_status
@@ -36,6 +36,10 @@ class AdDecorator < Draper::Decorator
         suspended: "avslått"
     }
     status_names[status.to_sym]
+  end
+
+  def summary
+    truncate( self.body , line_width: 240 )
   end
 
   def to_param
