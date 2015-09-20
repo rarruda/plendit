@@ -168,7 +168,7 @@ class Booking < ActiveRecord::Base
   def set_guid
     self.guid = loop do
       # for a shorter string use:
-      #SecureRandom.random_number(1_000_000_000_000_000).to_s(36)
+      #generated_guid = SecureRandom.random_number(2**122).to_s(36)
       generated_guid = SecureRandom.uuid
       break generated_guid unless self.class.exists?(guid: generated_guid)
     end
