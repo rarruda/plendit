@@ -104,15 +104,16 @@ $break-tiny: 640px;
 
 
 .explainer-video-section {
-    padding-top: 40px;
+    padding-top: $standard-spacing * 3;
+    padding-bottom: $standard-spacing * 2;
     text-align: center;
+    background-color: $color-subtle-gray-background;
 
     summary::-webkit-details-marker {
        display: none;
     }
 
     &__title {
-        text-decoration: underline;
     }
 }
 
