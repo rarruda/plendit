@@ -3,19 +3,16 @@
 
 <div class="container">
     <div class="row">
-        <div class="eight columns">
+        <div class="twelve columns">
             <%= render layout: "gray_box", locals: {title: "Dine annonser"} do %>
                 <p>
                     Under ser du en oversikt over dine annonser. Her kan du
                     se hvilke annonser som er aktive eller inaktive.
-                    Om du ønsker å endre selve annonsen, kan du enkelt gjøre
-                    dette ved å klikke på annonsen det gjelder. Ønsker du
-                    å fjerne eller gjøre en annonse usynlig(inaktiv), kan du
-                    raskt og enkelt gjøre dette ved å markere en eller flere
-                    annonser og gjøre ditt valg via nedtrekksmenyen under.
+                    Om du ønsker å endre selve annonsen, kan du gjøre
+                    dette ved å klikke på annonsen det gjelder.
                 </p>
                 <p>
-                    <%= link_to 'Legg inn en ny annonse', new_ad_path %>
+                    <%= button_to 'Legg inn en ny annonse', new_ad_path, class: "button button-primary" %>
                 </p>
             <% end %>
 
@@ -24,49 +21,6 @@
             </section>
 
         </div>
-        <div class="four columns">
-            <%= render layout: "gray_box", locals: {title: "Sortere"} do %>
-                <ul>
-                    <li>
-                        <a href="#">Vis aktive annonser</a>
-                    </li>
-                    <li>
-                        <a href="#">Vis inaktive annonser</a>
-                    </li>
-                    <li>
-                        <a href="#">Vis alle annonser</a>
-                    </li>
-                </ul>
-            <% end %>
 
-            <%= render layout: "gray_box", locals: {title: "Filter"} do %>
-              <!-- fixme: real data here. Should happen in the controller
-                probably, and just hand us a @month_filters array of
-                title and url -->
-                <h5>Siste 6 måneder</h5>
-                <ul>
-                <%
-                  (0..6).each do |i|
-                     date_i = Date.today - i.month
-                %>
-                    <li>
-                        <a href="#"><%= date_i.strftime('%B') %></a>
-                    </li>
-                 <%
-                  end
-                 %>
-                </ul>
-
-                <h5>Sorter per år</h5>
-                <ul>
-                    <li>
-                        <a href="#">2014</a>
-                    </li>
-                    <li>
-                        <a href="#">2015</a>
-                    </li>
-                </ul>
-            <% end %>
-        </div>
     </div>
 </div>
