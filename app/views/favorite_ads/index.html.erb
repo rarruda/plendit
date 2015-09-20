@@ -1,25 +1,10 @@
-<%= render partial: "shared/personal_bar", locals: { selected: "Dine favoritter annonser" } %>
+<%= render partial: "shared/personal_bar", locals: { selected: "Favoritter" } %>
 
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Favorite Ads</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Ad</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @favorite_ads.each do |favorite_ad| %>
-      <tr>
-        <td><%= link_to favorite_ad.ad.title, ad_path( favorite_ad.ad ) %></td>
-        <td><%= link_to 'Remove', users_favorite_ad_path( favorite_ad.id ), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<div class="container">
+    <div class="row">
+        <div class="nine columns">
+            <h1>Favoritter</h1>
+            <%= render partial: "favorite_item", collection: @favorite_ads, as: :favorite_ad %>
+        </div>
+    </div>
+</div>

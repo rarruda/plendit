@@ -1,0 +1,7 @@
+<div class="u-push-down">
+    <h3><%= favorite_ad.ad.display_title %></h3>
+    <p><%= favorite_ad.ad.summary %></p>
+    <span><%= link_to "Gå til annonsen", ad_path( favorite_ad.ad ) %></span>
+    <span><%= link_to 'Slett fra favoritter', users_favorite_ad_path( favorite_ad.id ), method: :delete, data: { confirm: 'Virkelig slette?' } %></span>
+</div>
+<hr>
