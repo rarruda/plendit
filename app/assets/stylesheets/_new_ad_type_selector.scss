@@ -4,12 +4,9 @@
     display: inline;
 
     &__button {
-        background-color: white;
-        border: solid thin $color-box-border;
         display: inline-block;
         width: 160px;
         height: 220px;
-        color: $color-gray-text;
     }
 
     &__icon {
@@ -22,7 +19,5 @@
         padding-top: 16px;
     }
 
-    &__title {
-        margin: 0;
-    }
+    &__title {}
 }

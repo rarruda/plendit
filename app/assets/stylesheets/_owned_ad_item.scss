@@ -1,7 +1,13 @@
 @import 'constants.scss';
 
 .owned-ad-item {
-    padding: $standard-spacing;
+    padding: $standard-spacing $standard-spacing*2 $standard-spacing*2 $standard-spacing*2;
+
+    &:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
 
     &__thumb {
         max-height: 80px;

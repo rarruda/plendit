@@ -43,6 +43,10 @@ $break-tiny: 640px;
     }
 
     &__input {
+        /* WORKAROUND: Aligns in Webkit/Blink.
+                       Pick your poisons / frameworks. */
+        position: relative;
+        top: 1px;
     }
 
     &__input--date {
@@ -100,15 +104,16 @@ $break-tiny: 640px;
 
 
 .explainer-video-section {
-    padding-top: 40px;
+    padding-top: $standard-spacing * 3;
+    padding-bottom: $standard-spacing * 2;
     text-align: center;
+    background-color: $color-subtle-gray-background;
 
     summary::-webkit-details-marker {
        display: none;
     }
 
     &__title {
-        text-decoration: underline;
     }
 }
 

@@ -1,16 +1,18 @@
 @import 'constants.scss';
 
 .gray-box {
-    border: solid thin $color-box-border;
+    box-shadow: 0 1px 5px rgba(black, 0.1);
+    border: 1px solid $color-gray-background;
     background-color: white;
+    margin-bottom: $standard-spacing * 2;
 
     &__title {
-        background-color: $color-gray-background;
-        padding: $standard-spacing;
+        background-color: $color-subtle-gray-background;
+        padding: $standard-spacing $standard-spacing*2;
     }
 
     &__body {
-        padding: $standard-spacing;
-        padding-top: 0;
+        padding: $standard-spacing * 2;
+        padding-top: $standard-spacing;
     }
 }

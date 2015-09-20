@@ -11,16 +11,12 @@
                     Om du ønsker å endre selve annonsen, kan du gjøre
                     dette ved å klikke på annonsen det gjelder.
                 </p>
-                <p>
-                    <%= button_to 'Legg inn en ny annonse', new_ad_path, class: "button button-primary" %>
-                </p>
+                <%= button_to "Legg ut en ny annonse", new_ad_path, method: "get", class: "button button-primary" %>
             <% end %>
 
             <section class="u-push-down">
                 <%= render partial: "owned_ad_item", collection: @ads, as: 'ad' %>
             </section>
-
         </div>
-
     </div>
 </div>

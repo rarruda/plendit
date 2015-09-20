@@ -6,27 +6,55 @@
     }
 }
 
-// hacky bits due to higher specificity of some default selectors in
-// skeleton than the bem classes
-input.ad-status-box__button {
-    width: 200px;
-    color: white;
-    background-color: $color-plendit-blue;
-    border-color: transparent;
-}
+/* hacky bits due to higher specificity of some default selectors in
+   skeleton than the bem classes */
+.button {
+    &.ad-status-box__button {
+        width: 200px;
+        color: white;
+        background-color: $color-plendit-blue;
 
-input.ad-status-box__button--blue {
-    background-color: $color-plendit-blue;
-}
+        &:hover, &:focus {
+          background-color: darken($color-plendit-blue, 5);
+        }
+        &:active {
+          background-color: darken($color-plendit-blue, 10);
+        }
 
-input.ad-status-box__button--yellow {
-    background-color: $color-state-yellow;
-}
+        /* NOTE: Selector appears redundant. Content removed. */
+        &--blue {}
 
-input.ad-status-box__button--red {
-    background-color: $color-state-red;
-}
+        &--yellow {
+            background-color: $color-state-yellow;
 
-input.ad-status-box__button--green {
-    background-color: $color-state-green;
+            &:hover, &:focus {
+              background-color: darken($color-state-yellow, 5);
+            }
+            &:active {
+              background-color: darken($color-state-yellow, 10);
+            }
+        }
+
+        &--red {
+            background-color: $color-state-red;
+
+            &:hover, &:focus {
+              background-color: darken($color-state-red, 5);
+            }
+            &:active {
+              background-color: darken($color-state-red, 10);
+            }
+        }
+
+        &--green {
+            background-color: $color-state-green;
+
+            &:hover, &:focus {
+              background-color: darken($color-state-green, 5);
+            }
+            &:active {
+              background-color: darken($color-state-green, 10);
+            }
+        }
+    }
 }
