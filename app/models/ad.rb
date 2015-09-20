@@ -180,11 +180,10 @@ class Ad < ActiveRecord::Base
   # Elasticsearch::Model::Response::Result craziness.
   # look, its in the AdDecorator decorator too!
   def to_param
-    [self.id, self.safe_title.parameterize].join('----')[0,64]
-#    if not self.title.blank?
-#      [self.id, self.title.parameterize].join('----')[0,64]
-#    else
-#      self.id.to_s
-#    end
+    if not self.title.blank?
+      [self.id, self.title.parameterize].join('----')[0,64]
+    else
+      self.id.to_s
+    end
   end
 end
