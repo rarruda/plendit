@@ -49,20 +49,33 @@ User.all.each {|u| u.confirm}
   User.find( uid ).add_role :site_admin
 }
 
+# geocoding API has a per second limit. Thus we insert some sleep statements. Dirty but it works
 
 ### Location
 Location.create({"id"=>"1", "user_id"=>"1", "address_line"=>"Sjøgata 4 / 124", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9104908", "lon"=>"10.723998"})
+sleep(1.seconds)
 Location.create({"id"=>"2", "user_id"=>"2", "address_line"=>"Grensen  5-7", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9137514", "lon"=>"10.743866"})
+sleep(1.seconds)
 Location.create({"id"=>"3", "user_id"=>"1", "address_line"=>"Grensen  5-7", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9137514", "lon"=>"10.743866"})
+sleep(1.seconds)
 Location.create({"id"=>"4", "user_id"=>"5", "address_line"=>"Slottsplassen 1", "city"=>"Oslo", "state"=>"OSlo", "post_code"=>"0010", "lat"=>"60.3980137", "lon"=>"5.3213388"})
+sleep(1.seconds)
 Location.create({"id"=>"5", "user_id"=>"36", "address_line"=>"MAJORSTUVEIEN 36", "city"=>"Oslo", "state"=>"oslo", "post_code"=>"0367", "lat"=>"59.928026", "lon"=>"10.715181"})
+sleep(1.seconds)
 Location.create({"id"=>"6", "user_id"=>"36", "address_line"=>"Støperigata 2", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0250", "lat"=>"59.9106012", "lon"=>"10.7251834"})
+sleep(1.seconds)
 Location.create({"id"=>"7", "user_id"=>"35", "address_line"=>"Bentsebrugata 23B", "city"=>"Oslo", "state"=>"Norge", "post_code"=>"0469", "lat"=>"59.9382258", "lon"=>"10.7611172"})
+sleep(1.seconds)
 Location.create({"id"=>"8", "user_id"=>"41", "address_line"=>"Tennisveien 16 A", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0777", "lat"=>"59.9528818", "lon"=>"10.6981449"})
+sleep(1.seconds)
 Location.create({"id"=>"9", "user_id"=>"42", "address_line"=>"Nedre Slottsgate 4", "city"=>"Oslo", "state"=>"Oslo", "post_code"=>"0157", "lat"=>"59.9106119", "lon"=>"10.7412764"})
+sleep(1.seconds)
 Location.create({"id"=>"10", "user_id"=>"38", "address_line"=>"Munkegata 5", "city"=>"Oslo", "state"=>"", "post_code"=>"0656", "lat"=>"59.9081214", "lon"=>"10.7686497"})
+sleep(1.seconds)
 Location.create({"id"=>"11", "user_id"=>"38", "address_line"=>"Tostrupsgate 25", "city"=>"Oslo", "state"=>"", "post_code"=>"0264", "lat"=>"59.9174109", "lon"=>"10.7023501"})
+sleep(1.seconds)
 Location.create({"id"=>"12", "user_id"=>"41", "address_line"=>"Bjørn Stallares vei 15", "city"=>"Oslo", "state"=>"", "post_code"=>"0574", "lat"=>"59.9324324", "lon"=>"10.7803472"})
+sleep(1.seconds)
 Location.create({"id"=>"13", "user_id"=>"40", "address_line"=>"Vækerøveien 169c", "city"=>"Oslo", "state"=>"", "post_code"=>"0751", "lat"=>"59.9418199", "lon"=>"10.6425691"})
 
 
