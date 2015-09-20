@@ -65,7 +65,7 @@ class FeedbacksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_feedback
-      @feedback = Feedback.find(params[:id])
+      @feedback = Feedback.find(params[:id]).decorate
     end
 
     # Callback to create a user notification when a feedback was left.
