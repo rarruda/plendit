@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   has_paper_trail :only => [ :payment_provider_vid, :birthday, :country_of_residence, :nationality,
-    :first_name, :last_name, :name, :personhood, :email, :phone_number, :pays_vat, :status ]
+    :first_name, :last_name, :name, :personhood, :email, :phone_number, :pays_vat, :status ], :ignore => [:encrypted_password]
 
   rolify
 
@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_many :notifications, foreign_key: 'user_id', :class_name => "Notification"
 
   has_one  :user_payment_account, dependent: :destroy, autosave: true
+  has_many :user_payment_cards
 
 
   accepts_nested_attributes_for :user_payment_account, :reject_if => proc { |attributes| attributes['account_number'].blank? }

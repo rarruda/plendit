@@ -20,8 +20,7 @@ Rails.application.routes.draw do
       post 'cancel'
     end
   end
-
-  #get 'verify_sms', path: '/users/verify_sms', as: :verify_sms, to: 'users#verify_sms'
+  resources :user_payment_cards, path: '/me/card', param: :guid, only: [:index, :new, :create, :destroy]
 
 
   # see: https://github.com/plataformatec/devise/blob/master/lib/devise/rails/routes.rb

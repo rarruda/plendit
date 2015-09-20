@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Guid:</strong>
+  <%= @user_payment_card.guid %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_payment_card.user %>
+</p>
+
+<p>
+  <strong>Card vid:</strong>
+  <%= @user_payment_card.card_vid %>
+</p>
+
+<p>
+  <strong>Currency:</strong>
+  <%= @user_payment_card.currency %>
+</p>
+
+<p>
+  <strong>Card type:</strong>
+  <%= @user_payment_card.card_type %>
+</p>
+
+<p>
+  <strong>Access key:</strong>
+  <%= @user_payment_card.access_key %>
+</p>
+
+<p>
+  <strong>Preregistration data:</strong>
+  <%= @user_payment_card.preregistration_data %>
+</p>
+
+<p>
+  <strong>Registration data:</strong>
+  <%= @user_payment_card.registration_data %>
+</p>
+
+<p>
+  <strong>Card registration url:</strong>
+  <%= @user_payment_card.card_registration_url %>
+</p>
+
+<p>
+  <strong>Number alias:</strong>
+  <%= @user_payment_card.number_alias %>
+</p>
+
+<p>
+  <strong>Expiration date:</strong>
+  <%= @user_payment_card.expiration_date %>
+</p>
+
+<p>
+  <strong>Last known status mp:</strong>
+  <%= @user_payment_card.last_known_status_mp %>
+</p>
+
+<p>
+  <strong>Validity mp:</strong>
+  <%= @user_payment_card.validity_mp %>
+</p>
+
+<p>
+  <strong>Active mp:</strong>
+  <%= @user_payment_card.active_mp %>
+</p>
+
+<%= link_to 'Edit', edit_user_payment_card_path(@user_payment_card) %> |
+<%= link_to 'Back', user_payment_cards_path %>
