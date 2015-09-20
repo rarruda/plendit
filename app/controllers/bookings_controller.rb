@@ -32,7 +32,7 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.json
   def create
-    @ad = AdItem.find(booking_params[:ad_item_id]).ad
+    @ad = AdItem.find(booking_params[:ad_item_id]).ad.decorate
 
     respond_to do |format|
       if @booking.save
