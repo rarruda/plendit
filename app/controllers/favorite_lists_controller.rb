@@ -1,4 +1,3 @@
-##class FavoriteListsController < InheritedResources::Base
 class FavoriteListsController < ApplicationController
   before_action :set_favorite_list, only: [:show, :preview, :edit, :update, :destroy]
 
