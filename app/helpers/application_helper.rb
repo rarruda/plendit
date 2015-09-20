@@ -8,7 +8,7 @@ module ApplicationHelper
   def integer_to_decimal(num)
     return nil if num.nil?
     #raise if not num.is_a? Integer
-    ( ( num / 100).to_i + ( num /100.0  ).modulo(1) )
+    ( ( num / 100).to_i + ( num / 100.0 ).modulo(1) )
   end
 
   # a copy of ad.to_param, needs to exist to work around ES clients
