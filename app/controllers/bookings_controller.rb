@@ -130,35 +130,35 @@ class BookingsController < ApplicationController
     def notify_about_decline
       Notification.new(
         user_id: @booking.from_user.id,
-        message: "#{@booking.user.display_name} har avslått din forespørsel om å leie \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.user.display_name} har avslått din forespørsel om å leie \"#{@booking.ad.display_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_accept
       Notification.new(
         user_id: @booking.from_user.id,
-        message: "#{@booking.user.display_name} har godkjent din forespørsel om å leie \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.user.display_name} har godkjent din forespørsel om å leie \"#{@booking.ad.display_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_cancel
       Notification.new(
         user_id: @booking.user.id,
-        message: "#{@booking.from_user.display_name} har kansellert bookingen på \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.from_user.display_name} har kansellert bookingen på \"#{@booking.ad.display_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_new_booking
       Notification.new(
         user_id: @booking.user.id,
-        message: "#{@booking.from_user.display_name} ønsker å leie \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.from_user.display_name} ønsker å leie \"#{@booking.ad.display_title}\"",
         notifiable: @booking ).save
     end
 
     def notify_about_updated_booking
       Notification.new(
         user_id: @booking.user.id,
-        message: "#{@booking.from_user.display_name} har oppdatert bookingen på \"#{@booking.ad.safe_title}\"",
+        message: "#{@booking.from_user.display_name} har oppdatert bookingen på \"#{@booking.ad.display_title}\"",
         notifiable: @booking ).save
     end
 
