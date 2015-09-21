@@ -393,6 +393,11 @@ form {
   display: inline;
 }
 
+.u-link-like {
+  color: $color-plendit-blue;
+  text-decoration: underline;
+}
+
 details.u-implode-summary {
   outline: none;
 }
