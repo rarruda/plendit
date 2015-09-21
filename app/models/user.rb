@@ -39,11 +39,19 @@ class User < ActiveRecord::Base
   #accepts_nested_attributes_for :user_images
 
 
-  #validates :name, presence: true
-  #validates :phone_number, presence: true, format: { with: /\A[0-9]{8}\z/, message: "only allows numbers" }
+  #validates :phone_number, presence: true,
+  #  format: { with: /\A[0-9]{8}\z/, message: "valid 8 digit mobile number required" },
+  #  :unless => proc { |a| a['phone_number'].blank? }
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "må være gyldig" }
 
   #validates :image_url
+
+  #only when if the bank account number is not blank
+  validates :nationality,          presence: true, :unless => Proc.new { |a| a.user_payment_account.nil? }
+  validates :country_of_residence, presence: true, :unless => Proc.new { |a| a.user_payment_account.nil? }
+
+  #between 10 and 120 years, only when if the bank account number is not blank
+  validate :birthday, :birthday_should_be_reasonable, :unless => Proc.new { |a| a.user_payment_account.nil? }
 
 
 
@@ -229,5 +237,12 @@ class User < ActiveRecord::Base
     bookings.sort do |a,b| b.updated_at <=> a.updated_at end
   end
 
+  private
+
+  def birthday_should_be_reasonable
+    if self.birthday < 120.years.ago || self.birthday > 14.years.ago
+      errors.add(:birthday, "you can not be older then 120, and can not be younger then 14.")
+    end
+  end
 
 end

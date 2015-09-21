@@ -2,7 +2,7 @@
 
     <%- if @user.errors.any? -%>
         <div>
-            <%= pluralize(@user.errors.count, "error") %> prohibited this ad from being saved:
+            TRANSLATE_ME: <%= pluralize(@user.errors.count, "error") %> prohibited your profile from being updated:
             <ul>
                 <% @user.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
