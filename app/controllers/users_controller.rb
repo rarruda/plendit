@@ -64,6 +64,8 @@ class UsersController < ApplicationController
     user_params_safe = user_params
     if @user.phone_number != user_params['current_phone_number']
       user_params_safe['unconfirmed_phone_number'] = user_params['current_phone_number']
+    else
+      user_params_safe['unconfirmed_phone_number'] = nil
     end
     user_params_safe.except!('current_phone_number')
 
@@ -200,6 +202,7 @@ class UsersController < ApplicationController
         :personhood, :nationality, :country_of_residence,
         :password, :password_confirmation,
         :current_phone_number, :phone_number_confirmation_token,
+         user_payment_account_attributes: [:id, :bank_account_number]
       )
     end
 
