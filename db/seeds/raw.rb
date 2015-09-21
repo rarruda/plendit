@@ -319,12 +319,12 @@ Feedback.create({"id"=>"15", "ad_id"=>"5", "from_user_id"=>"9", "score"=>"5", "b
 
 ### FavoriteAd
 
-
+# Note: the next step fails, it might be because a validation fails, and
+# the errors are supressed if validation is triggered by a state transition
+# during the migration. An easy way to check if this is the case is to ad
+# "a.save!" as the first line of the block, which will throw validation errors.
 Ad.unscoped.all.each{|a|
-  # not using a bang method here makes the seed work. I do not know why.
-  # if you add ! to review, somehow the state transition fails silently,
-  # which in turn makes the approve! call fail loudly.
-  a.submit_for_review
+  a.submit_for_review!
   a.approve!
 }
 
