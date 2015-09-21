@@ -1,9 +1,22 @@
 <div class="container">
-
-    <h2>Lag konto</h2>
-
     <div class="row">
-        <div class="two-thirds column">
+        <div class="twelve columns">
+
+            <h2>Bli en plendit-bruker</h2>
+
+            <p>
+
+
+            </p>
+
+            <p>
+                Hvis du allerede har en konto på <strong>Facebook</strong>, hos
+                <strong>Google</strong> eller på <strong>SPiD</strong> kan du
+                <%= link_to "logge inn", new_user_session_path %> med den uten å opprette en egen
+                konto først. Det betyr også at hvis du har en bruke på <strong>VG</strong>,
+                <strong>Aftenposten</strong> eller <strong>FINN</strong> allerede, så kan du logge rett inn.
+            </p>
+
             <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
                 <%= devise_error_messages! %>
@@ -19,16 +32,15 @@
 
                 <div class="row">
                     <div class="two-thirds column">
-                        <%= f.label :last_name, "FIXME: Etternavn:" %>
+                        <%= f.label :last_name, "Etternavn:" %>
                         <%= f.text_field :last_name %>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="two-thirds column">
-                        <%= f.label :birthday, "FIXME: Fødselsdato:" %>
+                        <%= f.label :birthday, "Fødselsdato:" %>
                         <%= f.date_field :birthday %>
-                        Det trenger vi pga av ditt og datt.
                     </div>
                 </div>
 
@@ -48,9 +60,6 @@
 
                 <div class="field">
                     <%= f.label :password %>
-                    <% if @validatable %>
-                      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-                    <% end %>
                     <%= f.password_field :password, autocomplete: "off" %>
                 </div>
 
@@ -60,7 +69,7 @@
               </div>
 
               <div class="actions">
-                <%= f.submit "Sign up", class: "button button-primary" %>
+                <%= f.submit "Opprett konto", class: "button button-primary" %>
               </div>
             <% end %>
 

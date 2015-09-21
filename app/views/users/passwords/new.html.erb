@@ -1,14 +1,28 @@
-<h2>Forgot your password?</h2>
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h2>Glemt passord?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= devise_error_messages! %>
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+                <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+                <p>
+                    Hvis du har glemt passordet ditt kan vi sende deg en e-post for å tilbakestille det.
+                    Fyll inn e-post adressen din i skjemaet under.
+                </p>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions", class: "button button-primary" %>
-  </div>
-<% end %>
+                <div class="field">
+                    <%= f.label :email %><br />
+                    <%= f.email_field :email, autofocus: true %>
+                </div>
+
+                <div class="actions">
+                    <%= f.submit "Send e-post", class: "button button-primary" %>
+                </div>
+            <% end %>
+
+        </div>
+    </div>
+</div>
+
+

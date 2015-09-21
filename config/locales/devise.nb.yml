@@ -4,8 +4,8 @@
 nb:
   devise:
     confirmations:
-      confirmed: "Oversett meg! Your email address has been successfully confirmed."
-      send_instructions: "Du vil innen få minutter motta en e-post med instruksjoner for å aktivere din konto."
+      confirmed: "Din e-post addresse er nå bekreftet."
+      send_instructions: "Du vil innen kort tid motta en e-post med instruksjoner for å aktivere din konto."
       send_paranoid_instructions: "Hvis e-postadressen din finnes i vår database vil du innen få minutter motta en e-post med instruksjoner for å aktivere din konto."
     failure:
       already_authenticated: "Du er allerede logget inn."

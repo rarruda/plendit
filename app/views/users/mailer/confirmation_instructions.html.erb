@@ -1,9 +1,16 @@
-<p>Welcome <%= @email %>!</p>
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h2>Velkommen <%= @email %>!</h2>
+            <p>
+                Bekreft e-post adressen din med følgende lenke:
 
-<p>You can confirm your account email through the link below:</p>
-
-<%
-    # only_patch should probably be replaced with proper config. Error was this when loading seeds
-    # ActionView::Template::Error: Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
- %>
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token, only_path: true) %></p>
+                <%
+                   # only_patch should probably be replaced with proper config. Error was this when loading seeds
+                   # ActionView::Template::Error: Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
+                %>
+                <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token, only_path: true) %>
+            </p>
+        </div>
+    </div>
+</div>
