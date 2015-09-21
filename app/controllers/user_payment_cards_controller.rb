@@ -47,7 +47,7 @@ class UserPaymentCardsController < ApplicationController
   # DELETE /user_payment_cards/1
   # DELETE /user_payment_cards/1.json
   def destroy
-    @user_payment_card.active = false
+    @user_payment_card.active_mp = false
     @user_payment_card.save
     #invoke delayed job to set card to inactive in mangopay.
 

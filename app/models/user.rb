@@ -80,7 +80,11 @@ class User < ActiveRecord::Base
     if: :phone_pending_changed?,
     if: :phone_number_changed?
 
-
+  # this should be a delayed job:
+  #  * an equivalent callback should be considered, for when updating information:
+  after_save :provision_with_mangopay,
+    if: :is_profile_complete?,
+    if: Proc.new { |u| u.payment_provider_vid.nil? }
 
   def safe_avatar_url
     # Gravatar: "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?r=pg&d=mm" ### &d=#{our_own_generic_profile_image_url}
@@ -239,9 +243,33 @@ class User < ActiveRecord::Base
 
   private
 
+  def provision_with_mangopay
+    puts "Provisioning user with Mangopay:"
+    mp = MangopayService.new( self ).provision_user
+    pp mp
+  end
+
+
   def birthday_should_be_reasonable
     if self.birthday < 120.years.ago || self.birthday > 14.years.ago
       errors.add(:birthday, "you can not be older then 120, and can not be younger then 14.")
+    end
+  end
+
+
+  def is_profile_complete?
+    if  self.first_name.nil? ||
+        self.last_name.nil? ||
+        self.email.nil? ||
+        self.birthday.nil? ||
+        self.personhood.nil? ||
+        self.country_of_residence.nil? ||
+        self.nationality.nil?
+        puts "profile is NOT complete"
+      false
+    else
+        puts "profile IS complete"
+      true
     end
   end
 

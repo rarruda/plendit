@@ -38,6 +38,20 @@ class MangopayService
   end
 
 
+  # Disable an existing card. This is the equivalent of deleting it.
+  # Note: It is an irreversible action.
+  def disable_registered_card(params)
+    begin
+      MangoPay::Card.update(
+        'Id'     => params.card_vid,
+        'Active' => false
+        )
+    rescue => e
+      puts e
+      #logger.error e
+      return nil
+    end
+  end
 
 
 # NOTE: DUMMY CODE BELOW THIS LINE
@@ -97,30 +111,62 @@ class MangopayService
   # def capture_booking( booking )
   # end
 
-  def user_provisionable?( user )
-    false if user.id.nil?
-    # Check: personhood, firstname, last_name, email, birthday, ...
+  def user_provisionable?
+    false if @user.id.nil? ||
+      @user.personhood.nil? ||
+      @user.first_name.nil? ||
+      @user.last_name.nil? ||
+      @user.email.nil? ||
+      @user.birthday.nil? ||
+      @user.country_of_residence.nil? ||
+      @user.nationality.nil?
   end
 
   ## FIRST CHECK IF THE USER_ACCOUNT HAS ALL THE relevant information.
   ## see method above.
   # def provision_user_account( user )
-    def provision_user(user)
+    def provision_user
       # START OF USER_ACCOUNT_CREATION
       begin
-        mangopay_user = MangoPay::User.create(
-          'Id'          => user.id,
-          'PersonType'  => user.personhood,
-          'FirstName'   => user.first_name,
-          'LastName'    => user.last_name,
-          'Email'       => user.email,
-          'Birthday'    => user.birthday.strftime('%s'),
-          'Nationality' => user.nationality,
-          'CountryOfResidence' => user.country_of_residence,
-          'Tag'         => "manual id=#{user.id}",
-          );
-        user.payment_provider_id = mangopay_user['Id']
-        user.save
+        if @user.natural?
+          mangopay_user = MangoPay::NaturalUser.create(
+            'PersonType'  => @user.personhood,
+            'FirstName'   => @user.first_name,
+            'LastName'    => @user.last_name,
+            'Email'       => @user.email,
+            'Birthday'    => @user.birthday.strftime('%s').to_i,
+            'Nationality' => @user.nationality,
+            'CountryOfResidence' => @user.country_of_residence,
+            'Tag'         => "id=#{@user.id}"
+            #Optional:
+            #'Address' => {
+            #  'AddressLine1' =>
+            #  'City'         =>
+            #  'PostalCode'   =>
+            #  'Country'      =>
+            # }
+            );
+        else
+          #NOT A NATURAL PERSON....
+          # NOT TESTED
+          mangopay_user = MangoPay::LegalUser.create(
+            'PersonType'  => @user.personhood,
+            'FirstName'   => @user.first_name,
+            'LastName'    => @user.last_name,
+            'Email'       => @user.email,
+            #'Birthday'    => @user.birthday.strftime('%s'),
+            #'Nationality' => @user.nationality,
+            'CountryOfResidence' => @user.country_of_residence,
+            'Tag'         => "id=#{@user.id}"
+            #Optional:
+            #'Address.AddressLine1' =>
+            #'Address.City'         =>
+            #'Address.PostalCode'   =>
+            #'Address.Country'      =>
+            );
+        end
+        @user.payment_provider_vid = mangopay_user['Id']
+        @user.save!
         # END OF USER_ACCOUNT_CREATION
       rescue => e
         puts e
@@ -131,19 +177,19 @@ class MangopayService
     def provision_wallets(user)
       begin
         wallet_in = MangoPay::Wallet.create(
-            'Owners'      => user.id,
+            'Owners'      => @user.id,
             'Currency'    => PLENDIT_CURRENCY_CODE,
             'Description' => 'money_in',
             'Tag'         => 'pay_in'
           );
       rescue => e
         puts e
-        logger.error e
+        #logger.error e
       end
 
       begin
         wallet_out = MangoPay::Wallet.create(
-            'Owners'      => user.id,
+            'Owners'      => @user.id,
             'Currency'    => PLENDIT_CURRENCY_CODE,
             'Description' => 'money_out',
             'Tag'         => 'pay_out'
@@ -154,15 +200,15 @@ class MangopayService
       end
     end
 
-    def provision_bank_accounts(user)
+    def provision_bank_accounts
       begin
         raise 'No addresses connected to this user.' if user.locations.length == 0
 
-        MangoPay::BankAccount.create( user.id, {
-          'OwnerName'    => user.name,
-          'UserId'       => user.id,
-          'OwnerAddress' => "1 rue des Miserables(foo bar__test-value), #{user.country_of_residence}",
-          'IBAN'         => self.bank_account_iban
+        MangoPay::BankAccount.create( @user.id, {
+          'OwnerName'    => @user.name,
+          'UserId'       => @user.id,
+          'OwnerAddress' => "1 rue des Miserables(foo bar__test-value), #{@user.country_of_residence}",
+          'IBAN'         => @user.user_payment_account.bank_account_iban
         } )
         #self.payment_provider_id = #...
       rescue => e
@@ -174,7 +220,6 @@ class MangopayService
 
   #### By default, you can’t create a payin over EUR 2500
   #### It is imperative to inform your users if you are registering their cards.
-  #### TIP : You can download our graphic KIT http://docs.mangopay.com/files/2013/09/KIT.zip
 
   ### ALL FAILURES should be written to LOG+DB
 
