@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   has_many :user_payment_cards
 
 
-  accepts_nested_attributes_for :user_payment_account, :reject_if => proc { |attributes| attributes['account_number'].blank? }
+  accepts_nested_attributes_for :user_payment_account, :reject_if => proc { |attributes| attributes['bank_account_number'].blank? }
   #accepts_nested_attributes_for :user_images
 
 

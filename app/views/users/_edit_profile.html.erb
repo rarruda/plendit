@@ -106,7 +106,7 @@
         <%= f.fields_for :user_payment_account do |acc_builder| %>
           <%#= acc_builder.hidden_field :id %>
           <%= acc_builder.label :bank_account_number %>
-          <%= acc_builder.text_field :bank_account_number %>
+          <%= acc_builder.text_field :bank_account_number, { maxlength: 13 } %>
         <% end %>
         <p>
             <small>Vi trenger kontonummer for å utbetale penger til deg som utleier</small>
