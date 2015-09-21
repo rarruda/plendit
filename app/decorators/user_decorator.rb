@@ -15,4 +15,8 @@ class UserDecorator < Draper::Decorator
     object.ads.published.decorate
   end
 
+  def current_phone_number
+    object.unconfirmed_phone_number || object.phone_number
+  end
+
 end
