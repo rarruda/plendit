@@ -246,7 +246,7 @@ class User < ActiveRecord::Base
   def provision_with_mangopay
     puts "Provisioning user with Mangopay:"
     mp = MangopayService.new( self ).provision_user
-    pp mp
+    logger.info mp
   end
 
 
