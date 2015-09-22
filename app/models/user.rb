@@ -251,7 +251,7 @@ class User < ActiveRecord::Base
 
 
   def birthday_should_be_reasonable
-    if self.birthday < 120.years.ago || self.birthday > 14.years.ago
+    if self.birthday.nil? || self.birthday < 120.years.ago || self.birthday > 14.years.ago
       errors.add(:birthday, "you can not be older then 120, and can not be younger then 14.")
     end
   end
