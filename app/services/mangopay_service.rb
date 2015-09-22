@@ -12,6 +12,7 @@ class MangopayService
   # see flow at: https://docs.mangopay.com/api-references/card-registration/
   def pre_register_card
     # It wont work if you dont have a registered user with the mangopay platform.
+    puts "payment_provider_vid is nil. Cant create a pre_registration" if @user.payment_provider_vid.nil?
     return nil if @user.payment_provider_vid.nil?
 
     begin
@@ -20,7 +21,8 @@ class MangopayService
         'Currency' => "NOK",
         'CardType' => "CB_VISA_MASTERCARD"
       )
-      pp card_reg
+      puts card_reg
+
       card_info = {
         user_id:               @user.id,
         card_vid:              card_reg['Id'],
@@ -29,6 +31,8 @@ class MangopayService
         card_registration_url: card_reg['CardRegistrationURL'],
         last_known_status_mp:  card_reg['Status']
       }
+      puts card_info
+
       return card_info
     rescue => e
       puts e
