@@ -22,7 +22,7 @@ class UserPaymentCardsController < ApplicationController
         @user_payment_card = UserPaymentCard.new(pre_registered_card)
         @user_payment_card.save
       else
-        logger.error 'error pre-registering the card. THIS IS NOT GOOD!'
+        logger.error "ERROR Pre-registrating the card. THIS IS NOT GOOD! => #{pre_registered_card}"
       end
     end
   end
