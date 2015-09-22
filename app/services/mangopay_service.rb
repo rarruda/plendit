@@ -125,6 +125,8 @@ class MangopayService
       @user.birthday.nil? ||
       @user.country_of_residence.nil? ||
       @user.nationality.nil?
+
+    true
   end
 
   ## FIRST CHECK IF THE USER_ACCOUNT HAS ALL THE relevant information.
@@ -188,8 +190,11 @@ class MangopayService
             'Description' => 'money_in',
             'Tag'         => 'pay_in'
           );
+
+        puts "created wallet_in:#{wallet_in}"
       rescue => e
         puts e
+        puts wallet_in
         #logger.error e
       end
 
@@ -200,8 +205,11 @@ class MangopayService
             'Description' => 'money_out',
             'Tag'         => 'pay_out'
           );
+
+        puts "created wallet_out:#{wallet_out}"
       rescue => e
         puts e
+        puts wallet_out
         #logger.error e
       end
     end
