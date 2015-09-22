@@ -103,14 +103,21 @@
             </div>
         <% end %>
 
-        <%= f.fields_for :user_payment_account do |acc_builder| %>
-          <%#= acc_builder.hidden_field :id %>
-          <%= acc_builder.label :bank_account_number %>
-          <%= acc_builder.text_field :bank_account_number, { maxlength: 13 } %>
-        <% end %>
-        <p>
-            <small>Vi trenger kontonummer for å utbetale penger til deg som utleier</small>
-        </p>
+        <%- if @user.phone_verified? -%>
+        <%# only show bank account form, if you have confirmed your phone with us. %>
+            <%= f.fields_for :user_payment_account do |acc_builder| %>
+              <%#= acc_builder.hidden_field :id %>
+              <%= acc_builder.label :bank_account_number %>
+              <%= acc_builder.text_field :bank_account_number, { maxlength: 13 } %>
+            <% end %>
+            <p>
+                <small>Vi trenger kontonummer for å utbetale penger til deg som utleier</small>
+            </p>
+        <%- else -%>
+            <p>
+                <small>TRANSLATE_ME: Når du har verifisert din epost, da har du mulighet å konfigurere din bank konto nummer.</small>
+            </p>
+        <%- end -%>
 
         <div class="row">
             <div class="twelve columns">
