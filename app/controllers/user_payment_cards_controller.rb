@@ -1,11 +1,15 @@
 class UserPaymentCardsController < ApplicationController
   before_action :set_user_payment_card, only: [:destroy]
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
+
+  # check that the user is provisioned in mangopay:
+  #before_action :authenticate_user!
+
 
   # GET /user_payment_cards
   # GET /user_payment_cards.json
   def index
-    @user_payment_cards = UserPaymentCard.all.decorate
+    @user_payment_cards = UserPaymentCard.where(user: current_user)
   end
 
 
@@ -47,8 +51,7 @@ class UserPaymentCardsController < ApplicationController
   # DELETE /user_payment_cards/1
   # DELETE /user_payment_cards/1.json
   def destroy
-    @user_payment_card.active_mp = false
-    @user_payment_card.save
+    @user_payment_card.disable
     #invoke delayed job to set card to inactive in mangopay.
 
     redirect_to user_payment_cards_url, notice: 'UserPaymentCard was successfully destroyed.'
@@ -57,12 +60,13 @@ class UserPaymentCardsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_payment_card
-      @user_payment_card = UserPaymentCard.find_by(guid: params[:guid])
+      @user_payment_card = UserPaymentCard.find_by(guid: params[:guid], user_id: current_user.id)
     end
 
     def user_payment_card_params
-      # these our internal only: :card_registration_url, :number_alias, :expiration_date, :last_known_status_mp, :validity_mp, :active_mp
-      params.require(:user_payment_card).permit(:guid, :user_id, :card_vid, :currency, :card_type, :access_key, :preregistration_data, :registration_data)
+      # these our internal only: :user_id, :card_registration_url, :number_alias, :expiration_date, :last_known_status_mp, :validity_mp, :active_mp,
+      #     :access_key, :preregistration_data, :currency, :card_vid, :card_type,
+      params.require(:user_payment_card).permit(:guid, :registration_data)
     end
 end
 

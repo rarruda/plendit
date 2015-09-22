@@ -12,8 +12,7 @@ class MangopayService
   # see flow at: https://docs.mangopay.com/api-references/card-registration/
   def pre_register_card
     # It wont work if you dont have a registered user with the mangopay platform.
-    puts "payment_provider_vid is nil. Cant create a pre_registration" if @user.payment_provider_vid.nil?
-    return nil if @user.payment_provider_vid.nil?
+    raise 'payment_provider_vid is nil. Can not create a pre_registration for a card.' if @user.payment_provider_vid.nil?
 
     begin
       card_reg = MangoPay::CardRegistration.create(
@@ -44,13 +43,15 @@ class MangopayService
 
   # Disable an existing card. This is the equivalent of deleting it.
   # Note: It is an irreversible action.
-  def disable_registered_card(params)
+  def disable_registered_card(card_vid)
     begin
-      MangoPay::Card.update(
-        'Id'     => params.card_vid,
+      c = MangoPay::Card.update(
+        'Id'     => card_vid,
         'Active' => false
         )
+      puts "disabled card_vid:#{card_vid} => #{c}"
     rescue => e
+      puts "error disabling card_vid:#{card_vid} => #{c}"
       puts e
       #logger.error e
       return nil

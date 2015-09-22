@@ -6,7 +6,7 @@ class UserPaymentCard < ActiveRecord::Base
 
 
   # Never show "deleted" cards. (inactive)
-  default_scope { where.not( active_mp: false ) } #either true or nil.
+  default_scope { where( 'active_mp = true' ) }
   #user_id: current_user.id,
   #FIXME: dont ever show cards that belong to other users...
 
@@ -15,10 +15,24 @@ class UserPaymentCard < ActiveRecord::Base
 
   before_validation :set_guid, :on => :create
 
+  # We should never wipe cards from our system, but if we do, disable them first:
+  before_destroy :disable,
+    if: :card_vid?,
+    if: :active_mp?
 
 
   def to_param
     self.guid
+  end
+
+  def disable
+    if self.last_known_status_mp == 'VALIDATED'
+      mp = MangopayService( self.user ).disable_registered_card( self.card_vid )
+      logger.info "deprovision_from_mangopay: #{mp}"
+    else
+      logger.info "wont deprovision_from_mangopay a non-validated card: #{self}"
+    end
+    self.active_mp = false
   end
 
   private
