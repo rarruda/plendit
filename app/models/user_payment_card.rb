@@ -7,7 +7,8 @@ class UserPaymentCard < ActiveRecord::Base
 
   # Never show "deleted" cards. (inactive)
   default_scope { where.not( active_mp: false ) } #either true or nil.
-
+  #user_id: current_user.id,
+  #FIXME: dont ever show cards that belong to other users...
 
   validates_uniqueness_of :guid
 
