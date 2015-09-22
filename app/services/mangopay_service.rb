@@ -146,7 +146,7 @@ class MangopayService
             #  'Country'      =>
             # }
             );
-            logger.info "MangopayService.provision_user mangopay_user: #{mangopay_user}"
+            logger.warn "MangopayService.provision_user mangopay_user: #{mangopay_user}"
         else
           #NOT A NATURAL PERSON....
           # NOT TESTED
