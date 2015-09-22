@@ -4,20 +4,16 @@ window.controllers.cardInputter = {
     dependencies: ["$element", "Card", "mangoPay"],
     callable: function(ele, Card, mangoPay) {
         var form;
-
-        //mangoPay.cardRegistration.baseURL = "https://api.sandbox.mangopay.com";
-        //mangoPay.cardRegistration.clientId = {your-client-id};
-
-        //mangoPay.cardRegistration.init({
-        //    cardRegistrationURL: {CardRegistrationURL property},
-        //    preregistrationData: {PreregistrationData property},
-        //    accessKey: {AccessKey property},
-        //    Id: {Id property}
-        //});
+        var preregistrationData;
+        var cardRegistrationUrl;
+        var accessKey;
+        var cardId;
+        var clientId;
 
         init();
 
         function init() {
+
             form = ele.querySelector('form');
             var c = ele.querySelector("[data-card-holder]");
 
@@ -31,6 +27,12 @@ window.controllers.cardInputter = {
             });
 
             form.addEventListener("submit", onSubmit);
+
+            preregistrationData = form.preregistrationData.value;
+            cardRegistrationUrl = form.cardRegistrationUrl.value;
+            accessKey = form.accessKey.value;
+            clientId = form.clientId.value;
+            cardId = form.cardId.value;
         }
 
         function onSubmit(evt) {
@@ -41,11 +43,31 @@ window.controllers.cardInputter = {
                 renderErrors(errors);
             }
             else {
-                console.log("woo. submit it to the max.");
+                cardRegistrationPromise(cardInfo).then(onCardRegistrationSuccess, onCardRegistrationFailure)
             }
         }
 
+        function onCardRegistrationSuccess(card) {
+            console.log("card reg OK");
+            console.log(card);
+        }
+
+        function onCardRegistrationFailure(err) {
+            console.log("card reg fail");
+            console.log(err);
+        }
+
         function cardRegistrationPromise(cardData) {
+            // todo: pick up baseUrl from form as well, it's different in prod and dev
+            mangoPay.cardRegistration.baseURL = "https://api.sandbox.mangopay.com";
+            mangoPay.cardRegistration.clientId = clientId;
+            mangoPay.cardRegistration.init({
+                cardRegistrationURL: cardRegistrationUrl,
+                preregistrationData: preregistrationData,
+                accessKey: accessKey,
+                Id: cardId
+            });
+
             return new Promise(function(resolve, reject) {
                 mangoPay.cardRegistration.registerCard(cardData, resolve, reject);
             });
@@ -80,7 +102,7 @@ window.controllers.cardInputter = {
             var cnum = (form.number.value || "").replace(/\s/g, '');
             return {
                 cardNumber: cnum,
-                cardExpirationDate: form.expiry.value,
+                cardExpirationDate: form.expiry.value.replace(/\D/g, ''),
                 cardCvx: form.cvc.value,
                 cardType: typeFromCardNumber(cnum)
             }

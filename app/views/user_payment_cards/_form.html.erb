@@ -28,25 +28,17 @@
                 <strong>
                   TEST ENVIRONMENT. DO NOT USE REAL CARD NUMBERS!! <br>
                   Only use numbers listed in the <%= link_to 'mangopay documentation', 'https://docs.mangopay.com/api-references/test-payment/' %>.
+                    Mangopay test visa car num: <code>4970100000000154</code>. csc: <code>123</code>.
                 </strong>
               </p>
             <%- end -%>
 
-            <%= hidden_field_tag( :preregistrationData, @user_payment_card.preregistration_data ) %>
-            <%= hidden_field_tag( :accessKeyRef,        @user_payment_card.access_key ) %>
-<!--
-<script>
-    var cardRegistrationURL = "<%= ( @user_payment_card.card_registration_url || "#") %>";
-    var preregistrationData = "<%= @user_payment_card.preregistration_data %>";
-    var accessKey           = "<%= @user_payment_card.access_key %>";
-    var ajaxUrl             = "<%#= user_payment_card_path %>"; //<?php print $returnUrl; ?>";
-    var redirectUrl         = "<%#= user_payment_card_path %>"; //"<?php print $returnUrl; ?>";
-</script>
- -->
-<!--
-            <input type="hidden" name="data" value="">
-            <input type="hidden" name="accessKeyRef" value="">
- -->
+            <%= hidden_field_tag :cardRegistrationUrl, ( @user_payment_card.card_registration_url || "#") %>
+            <%= hidden_field_tag :preregistrationData,   @user_payment_card.preregistration_data %>
+            <%= hidden_field_tag :accessKey,             @user_payment_card.access_key %>
+            <%= hidden_field_tag :cardId,                @user_payment_card.card_vid %>
+            <%= hidden_field_tag :clientId,              :plendit %>
+
             <div class="row">
                 <div class="twelve columns">
                     <label for="number">Kortnummer:</label>
