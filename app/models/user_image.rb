@@ -18,9 +18,12 @@ class UserImage < ActiveRecord::Base
     :hash_data   => ":class/:attachment/:id",
     :hash_secret => "longSuperDuperSecretSaltStringForObfuscation", #ENV['PCONF_PAPERCLIP_HASH_SALT']
     :default_url => nil,
-    :preserve_files => "false", #true for Soft-delete (delete only from database, not from storage/s3)
+    :preserve_files => false, #true for Soft-delete (delete only from database, not from storage/s3)
     :url         => ":s3_domain_url",
     :path        => "/images/users/:user_id/:style/:hash.:extension",
+    #:url        => ':s3_alias_url',
+    #:s3_host_alias => 'imgcdn.plendit.com',
+    #:bucket     => 'foobar',
   }
 
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/jpg", "image/png"]
