@@ -14,6 +14,9 @@ PLENDIT_CURRENCY_CODE = 'NOK'
 
 POSTAL_CODES = YAML.load_file("#{Rails.root}/config/data/postal_codes.yml")
 
+#Used in google maps API:
+COUNTRY_GEO_BOUNDS = [ [57.5,4], [72,32] ]
+
 
 # "kr 50.000,-"
 Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
