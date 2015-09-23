@@ -8,9 +8,10 @@ class Location < ActiveRecord::Base
   # consider custom validator to we only accept valid post_codes.
 
   # FIXME: need to gracefully handle failed geocode lookups
-  geocoded_by :address, :latitude => :lat, :longitude => :lon
-  geocoder_options region: PLENDIT_COUNTRY_CODE, bounds: COUNTRY_GEO_BOUNDS
 
+  geocoded_by :address, :latitude => :lat, :longitude => :lon
+  # region and bounds increase precision, but geocoder doesnt support that gracefully now.
+  #Geocoder.search( :address, :params => { :region => PLENDIT_COUNTRY_CODE, :bounds => COUNTRY_GEO_BOUNDS}
 
   enum status: { active: 0, deleted: 1 }
 
@@ -33,4 +34,5 @@ class Location < ActiveRecord::Base
   def set_city_from_postal_code
     self.city = Location.city_from_postal_code( self.post_code )
   end
+
 end
