@@ -11,9 +11,6 @@
             <%= render partial: "edit_profile" %>
             <%= render partial: "edit_registration" %>
 
-            <%= render layout: "gray_box", locals: {title: "Bytte Profilbilde", id: "profile-image"} do %>
-              <%= render('profile_image_box.html', user: current_user) %>
-            <% end %>
             <%= render layout: "gray_box", locals: {title: "Endre adresser", id: "locations"} do %>
               <%= link_to "Se og rediger mine adresser.", locations_path %>
             <% end %>
@@ -28,7 +25,6 @@
                     <li><%= link_to "Rediger personalia", anchor: "personal-info" %></li>
                     <li><%= link_to "Bytte passord", anchor: "password" %></li>
                     <li><%= link_to "Legg til kredittkort", user_payment_cards_path %></li>
-                    <li><%= link_to "Bytte profilbilde", anchor: "profile-image" %></li>
                     <li><%= link_to "Rediger adresser", anchor: "locations" %></li>
                     <li><%= link_to "Rediger tilkoblede kontoer", anchor: "identities" %></li>
                 </ul>

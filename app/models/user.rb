@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
 
 
   accepts_nested_attributes_for :user_payment_account, :reject_if => proc { |attributes| attributes['bank_account_number'].blank? }
-  #accepts_nested_attributes_for :user_images
+  accepts_nested_attributes_for :user_images
 
 
   #validates :phone_number, presence: true,

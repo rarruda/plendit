@@ -31,8 +31,9 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    # required to build one user_payment_account virtually, so that we have something to render:
+    # required to build one user_payment_account/user_image virtually, so that we have something to render:
     @user.build_user_payment_account if @user.user_payment_account.nil?
+    @user.user_images.build          if @user.user_images.blank?
   end
 
   # Never gets called, as users are created in users/registrations_controller
@@ -69,8 +70,13 @@ class UsersController < ApplicationController
     end
     user_params_safe.except!('current_phone_number')
 
+
     respond_to do |format|
       if @user.update(user_params_safe)
+        # annoying that we have to save first up there and then save again below:
+        @user.image_url = @user.user_images.avatar.first.image.url(:avatar_huge) if not @user.user_images.avatar.first.blank?
+        @user.save
+
         format.html { redirect_to ( request.env['HTTP_REFERER'] || users_edit_path ) }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -90,62 +96,7 @@ class UsersController < ApplicationController
     end
   end
 
-
-  # FIXME: (RA) this should be done like for user_payment_account nested model.
-  # POST/PUT /me/update_avatar
-  def update_avatar
-
-#pp @user
-#pp @user.user_images
-
-    # NOTE: we use user_avatar_params
-    if @user.user_images.avatar.size == 0
-      @user.user_images.build( user_avatar_params )
-    else
-      # FIXME: somehow we are not deleting images from S3. EEK!
-      @user.user_images.avatar.each{ |a| a.destroy }
-      @user.user_images.build( user_avatar_params )
-    end
-#pp @user
-#pp @user.user_images
-
-
-    respond_to do |format|
-      if @user.save
-        # wierd that we have to save first up there and then save again below:
-        @user.image_url = @user.user_images.avatar.first.image.url(:avatar_huge) if not @user.user_images.avatar.first.nil?
-        @user.save
-
-#pp @user
-#pp @user.user_images
-
-        format.json { render json: @user_image.to_dropzone_gallery.to_json, :status => 200 }
-        format.html { redirect_to users_edit_users_path, notice: 'User image/Avatar was successfully added.'}
-      else
-        # NOTE: should we drop support for dropzone/json here?
-        #  you need to send an error header, otherwise Dropzone
-        #  will not interpret the response as an error:
-        format.json { render json: { error: @user.errors.full_messages.join(',')}, :status => 400 }
-        format.html { redirect_to users_edit_users_path, notice: 'User image/Avatar had issues being created.'}
-      end
-    end
-
-  end
-
-  # DELETE /me/destroy_avatar
-  def destroy_avatar
-    @user.user_images.avatar.each{ |a| a.destroy }
-
-    # now set the image_url to nil and save it.
-    @user.image_url = nil
-    @user.save
-
-    respond_to do |format|
-      format.html { redirect_to users_edit_users_path, notice: 'User avatar was successfully destroyed.' }
-      format.json { head :no_content }
-      #format.json { render json: { message: "successfully destroyed" }, :status => 200 }
-    end
-  end
+  # eventually we should support deleting avatars.
 
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
@@ -202,7 +153,8 @@ class UsersController < ApplicationController
         :personhood, :nationality, :country_of_residence,
         :password, :password_confirmation,
         :current_phone_number, :phone_number_confirmation_token,
-         user_payment_account_attributes: [:id, :bank_account_number]
+         user_payment_account_attributes: [:id, :bank_account_number],
+         user_images_attributes: [:id, :image, :category]
       )
     end
 

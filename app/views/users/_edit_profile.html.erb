@@ -119,6 +119,22 @@
             </p>
         <%- end -%>
 
+        <div class="row u-push-down">
+            <div class="three columns">
+              <%= render('shared/avatar.html', user: @user, size: "huge") %>
+            </div>
+            <div class="nine columns">
+              <p>
+                <%= f.fields_for :user_images do |uimg_builder| %>
+                  <%#= uimg_builder.hidden_field :id %>
+                  <%= uimg_builder.hidden_field :category, :value => 'avatar' %>
+                  <%= uimg_builder.label :image, 'Last opp profil bilde' %>
+                  <%= uimg_builder.file_field :image %>
+                <% end %>
+              </p>
+            </div>
+        </div>
+
         <div class="row">
             <div class="twelve columns">
                 <%= f.submit "Oppdater", class: "u-pull-right button" %>
