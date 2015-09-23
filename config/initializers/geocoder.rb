@@ -1,3 +1,30 @@
+# This class implements a cache with simple delegation to the Redis store, but
+# when it creates a key/value pair, it also sends an EXPIRE command with a TTL.
+# It should be fairly simple to do the same thing with Memcached.
+class AutoexpireCacheRedis
+  def initialize(store, ttl = 86400)
+    @store = store
+    @ttl = ttl
+  end
+
+  def [](url)
+    @store.[](url)
+  end
+
+  def []=(url, value)
+    @store.[]=(url, value)
+    @store.expire(url, @ttl)
+  end
+
+  def keys
+    @store.keys
+  end
+
+  def del(url)
+    @store.del(url)
+  end
+end
+
 Geocoder.configure(
   # geocoding options
   # :timeout      => 3,           # geocoding service timeout (secs)
@@ -13,8 +40,8 @@ Geocoder.configure(
   :lookup       => :google,       # name of geocoding service (symbol)
   :api_key      => ENV['PCONF_GOOGLE_GEOCODING_KEY'], # API key for geocoding service
   :use_https    => true,          # HTTPS must be enabled when using a google with an API key
-  # :cache        => nil,         # cache object (must respond to #[], #[]=, and #keys)
-  # :cache_prefix => "geocoder:", # prefix (string) to use for all cache keys
+  :cache        => AutoexpireCacheRedis.new(REDIS, 1.week.to_i), # cache object (must respond to #[], #[]=, and #keys)
+  :cache_prefix => "geocoder:",   # prefix (string) to use for all cache keys
 
 
   # exceptions that should not be rescued by default

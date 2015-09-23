@@ -7,6 +7,7 @@ The steps needed are described in detail below. Roughly, setup consis of:
 
 - Install postgres.app and start it
 - Install elasticsearch and start it
+- Install redis and start it
 - Check out the code
 - Install ruby
 - Install ruby gems the project depends on
@@ -115,7 +116,7 @@ $ heroku run rake db:seed:raw
 
 * Services (job queues, cache servers, search engines, etc.)
 
-Only PostgreSQL >= 9.4 and ElasticSearch >= 1.6 for now.
+Only PostgreSQL >= 9.4, Redis >= 3.0 and ElasticSearch >= 1.6 for now.
 
 In the future we will also have an support for varnish caching.
 
@@ -124,6 +125,17 @@ In the future we will also have an support for varnish caching.
 Any version will probably sufice. The simplest way to install this for mac
 users is probably to use http://postgresapp.com/ . The homebrew version is
 also a possiblity
+
+* Redis
+
+We have only tested with Redis >= 3.0. Other versions could work. For development
+ you can just download the precompiled tarball from http://redis.io/.
+ Homebrew does not have redis 3.0 yet. (though it could still work with an older
+ version of redis).
+
+To start: (after unpacking the tarball)
+`./src/redis-server`
+
 
 * ElasticSearch (re)initialization
 

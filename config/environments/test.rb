@@ -47,4 +47,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = false
 
+  # configure REDIS
+  # consider connection pooling: https://github.com/mperham/connection_pool
+  REDIS = Redis.new( url: ( ENV['PCONF_REDIS_URL'] || ENV['REDIS_URL']) )
 end

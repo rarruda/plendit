@@ -84,6 +84,11 @@ gem 'faker'
 # postgresql is required for both production and development
 gem 'pg'
 
+# Redis used for event queuing and caching
+gem 'redis', '~> 3.2.1'
+# for connection pooling redis:
+#gem 'connection_pool', '~> 2.2.0'
+
 # icons for the UI
 gem 'evil_icons'
 

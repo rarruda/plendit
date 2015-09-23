@@ -98,4 +98,7 @@ Rails.application.configure do
   # Elasticsearch: (in Heroku)
   Elasticsearch::Model.client = Elasticsearch::Client.new host: ENV['SEARCHBOX_URL']
 
+  # configure REDIS
+  # consider connection pooling: https://github.com/mperham/connection_pool
+  REDIS = Redis.new( url: ( ENV['PCONF_REDIS_URL'] || ENV['REDIS_URL']) )
 end
