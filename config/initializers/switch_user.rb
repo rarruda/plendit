@@ -27,7 +27,14 @@ SwitchUser.setup do |config|
   config.controller_guard = lambda do |current_user, request|
     #Rails.env.development? and
     ( current_user.email.split("@").last == 'plendit.com' or
-     ['rarruda0@gmail.com', 'runefh@gmail.com'].include? current_user.email ) and
+     ['rarruda0@gmail.com',
+      'runefh@gmail.com',
+      'trygveleite@gmail.com',
+      'bordvik@gmail.com',
+      'eirikdysthe@gmail.com',
+      'jan@finn.no',
+      'helmers@me.com'
+      ].include? current_user.email ) and
     request.env["action_controller.instance"].user_signed_in? and current_user.has_role? 'site_admin'
   end
 
