@@ -10,39 +10,27 @@
         </div>
     <% end %>
 
+
+
     <div class="row">
-        <div class="six columns">
-            <%= f.label :address_line, "Adresse:" %>
+        <div class="eight columns">
+            <%= f.label :address_line, "Gateadresse:" %>
             <%= f.text_field :address_line, class: "u-full-width" %>
         </div>
     </div>
 
-    <div class="row">
+    <%# FIXME: only submit if there are 4 digits typed in the post_code field. Avoid unnescessary round trips %>
+    <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
+        <div class="two columns">
+            <%= f.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
+        </div>
         <div class="six columns">
-            <%= f.label :post_code, "Postnummer:" %>
-            <%= f.text_field :post_code, class: "u-full-width"  %>
+            <input type="text" class="u-full-width" disabled placeholder="<%= @location.city || 'Poststed' %>" data-postal-place>
         </div>
     </div>
-
-    <div class="row">
-        <div class="six columns">
-            <%= f.label :city, "Poststed: (fixme: auto)" %>
-            <%= f.text_field :city, class: "u-full-width"  %>
-        </div>
-    </div>
-
-    <!--
-    <div class="field">
-        <%= f.label :lat %><br>
-        <%= f.text_field :lat, :disabled => true %>
-    </div>
-    <div class="field">
-        <%= f.label :lon %><br>
-        <%= f.text_field :lon, :disabled => true %>
-    </div>
-    -->
 
     <div class="actions">
         <%= f.submit "Legg til sted" %>
     </div>
+
 <% end %>

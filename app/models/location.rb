@@ -12,15 +12,12 @@ class Location < ActiveRecord::Base
   after_validation :geocode, if: ->(obj){ obj.address_line.present? and obj.changed? }
   before_save :set_city_from_postal_code
 
-  # TODO (RA): fix: probably a performance / memory hog:
-  @@postal_codes = YAML.load_file("#{Rails.root}/config/data/postal_codes.yml")
-
   def address
     [address_line, post_code, "Norway"].compact.join(', ')
   end
 
   def self.city_from_postal_code(postal_code)
-    @@postal_codes[postal_code]
+    POSTAL_CODES[postal_code]
   end
 
   private

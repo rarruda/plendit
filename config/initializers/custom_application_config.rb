@@ -12,6 +12,9 @@ include ActionView::Helpers::NumberHelper
 PLENDIT_COUNTRY_CODE  = 'NO'
 PLENDIT_CURRENCY_CODE = 'NOK'
 
+POSTAL_CODES = YAML.load_file("#{Rails.root}/config/data/postal_codes.yml")
+
+
 # "kr 50.000,-"
 Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
 Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5_000, delimiter: "." )
