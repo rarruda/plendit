@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
-  ActiveAdmin.routes(self)
-  get 'admin/switch_user' => 'switch_user#set_current_user'
-  get 'switch_user',               to: redirect('/')
-  get 'switch_user/remember_user', to: redirect('/')
+  scope '/internal-backstage' do
+    ActiveAdmin.routes(self)
+    get 'admin/switch_user' => 'switch_user#set_current_user'
+    get 'switch_user',               to: redirect('/')
+    get 'switch_user/remember_user', to: redirect('/')
+  end
 
   resources :locations, path: '/me/locations' do
     member do
