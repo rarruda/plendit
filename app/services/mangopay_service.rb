@@ -77,7 +77,7 @@ class MangopayService
   # CAPTURE A PAYMENT
   # this should be called once
   # https://docs.mangopay.com/api-references/payins/preauthorized-payin/
-  def capture_payment
+  def payment_capture
     # def charge_booking( booking )
     # maybe this is the capture step??
     MangoPay::PayIn::PreAuthorized.create?(
@@ -95,7 +95,7 @@ class MangopayService
 
 
   # to preregister a payment: (create a payment, but not make a capture)
-  def create_payment_preauth
+  def payment_preauth_create
     MangoPay::PreAuthorization.create(
       'CardId'       => booking.from_user.cards.pickone._id, # ????
       'DebitedFunds' => booking.amount,
@@ -182,7 +182,7 @@ class MangopayService
       end
     end
 
-    def provision_wallets(user)
+    def provision_wallets
       begin
         wallet_in = MangoPay::Wallet.create(
             'Owners'      => @user.id,
