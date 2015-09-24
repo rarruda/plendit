@@ -26,7 +26,7 @@ class Ad < ActiveRecord::Base
   # todo: how to validate location present before publish?
   #validates :location, presence: true
 
-  default_scope { where.not( status: Ad.statuses[:suspended] ) }
+  default_scope { where("ads.status NOT IN (?)", [ Ad.statuses[:suspended], Ad.statuses[:deleted] ]) }
   scope :for_user, ->(user) { where( user_id: user.id ) }
   scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
   scope :waiting_review, -> { where( status: Ad.statuses[:waiting_review] ) }
