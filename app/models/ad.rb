@@ -14,7 +14,7 @@ class Ad < ActiveRecord::Base
   has_many :ad_images, autosave: true, dependent: :destroy
   belongs_to :location
 
-  enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5 }
+  enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5, deleted: 6 }
   enum category: { bap: 0, motor: 1, realestate: 2 }
 
   accepts_nested_attributes_for :location, :reject_if => :all_blank
@@ -67,6 +67,7 @@ class Ad < ActiveRecord::Base
     state :paused
     state :stopped
     state :suspended
+    state :deleted
 
     event :submit_for_review do
       transitions :from => :draft, :to => :waiting_review
@@ -96,6 +97,14 @@ class Ad < ActiveRecord::Base
       transitions :to => :suspended
       after do
         logger.info 'ad is suspended. this is a black hole. there is no way out.'
+      end
+    end
+    event :delete do
+      transitions :to => :deleted
+      # lots of checks here for dangling references, if it would be removed from the database.
+      # self.destroy would then wipe it away. but that's dangerous.
+      after do
+        logger.info 'ad is deleted. this is a black hole. there is no way out.'
       end
     end
     #event :unsuspend do
