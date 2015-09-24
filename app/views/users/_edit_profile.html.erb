@@ -68,40 +68,51 @@
                 <%= f.label :email, 'E-post:' %>
                 <%= f.text_field :email, class: 'u-full-width' %>
             </div>
-
+        </div>
+        <div class="row">
+            <div class="twelve columns">
+                <% if @user.pending_reconfirmation? %>
+                    <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %>. Check your email for instructions on how to confirm it.
+                        To have the email resent, please go <%= link_to "here", new_user_confirmation_path %>. Your previous email will be kept on file until you have verified the new one.
+                    </div>
+                    <%# FIXME(RA): make the link a post to the user's current email.
+            link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>
+                <% else %>
+                    <div>
+                        <%= evil_icon 'ei-check', size: :s, class: 'u-fill-green' %>
+                        <span>E-post adressen er bekreftet!</span>
+                    </div>
+                <% end %>
+            </div>
         </div>
 
-        <% if @user.pending_reconfirmation? %>
-            <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %>. Check your email for instructions on how to confirm it.
-            To have the email resent, please go <%= link_to "here", new_user_confirmation_path %>. Your previous email will be kept on file until you have verified the new one.
-            </div>
-            <%# FIXME(RA): make the link a post to the user's current email.
-            link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>
-        <% else %>
-            <div>
-                <%= evil_icon 'ei-check', size: :s, class: 'u-fill-green' %>
-                <span>E-post adressen er bekreftet!</span>
-            </div>
-        <% end %>
 
-        <div class="row u-push-down">
+        <div class="row u-push-down-only">
             <div class="six columns">
                 <%= f.label :current_phone_number, 'Telefonnummer:' %>
                 <%= f.text_field :current_phone_number, { class: "u-full-width", maxlength: 8 } %>
             </div>
         </div>
-
-        <% if @user.phone_pending_confirmation? %>
-            <div>
-                Currently waiting confirmation for: <%= @user.unconfirmed_phone_number %>. Last confirmed number: <%= @user.phone_number %>. Please confirm your new number <%= link_to 'here', verify_sms_users_path %>. If you need a new sms sent, please click <%= link_to 'here', '#' %>.
-                <%# FIXME(RA): Create a page to send a New SMS. Should refuse to send too often, otherwise we go bankrupt. %>
+        <div class="row">
+            <div class="twelve columns">
+                <% if @user.phone_pending_confirmation? %>
+                    <div>
+                        <%= evil_icon 'ei-close-o', size: :s, class: "u-fill-red" %>
+                        <span>Telefonnummeret er ikke bekreftet!</span>
+                        <p>
+                            Telefonnummer <%= @user.unconfirmed_phone_number %> er ikke bekreftet.
+                            <%= link_to 'Bekreft telefonnummer nå', verify_sms_users_path %>
+                            <%# FIXME(RA): Create a page to send a New SMS. Should refuse to send too often, otherwise we go bankrupt. %>
+                        </p>
+                    </div>
+                <% else %>
+                    <div>
+                        <%= evil_icon 'ei-check', size: :s, class: 'u-fill-green' %>
+                        <span>Telefonnummeret er bekreftet!</span>
+                    </div>
+                <% end %>
             </div>
-        <% else %>
-            <div>
-                <%= evil_icon 'ei-check', size: :s, class: 'u-fill-green' %>
-                <span>Telefonnummeret er bekreftet!</span>
-            </div>
-        <% end %>
+        </div>
 
         <%- if @user.phone_verified? -%>
         <%# only show bank account form, if you have confirmed your phone with us. %>

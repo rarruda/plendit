@@ -377,6 +377,11 @@ form {
   margin-top: $standard-spacing * 2;
 }
 
+/* standard class for spacing things vertically */
+.u-push-down-only {
+  margin-top: $standard-spacing * 2;
+}
+
 .u-push-down-lots {
   margin-top: 24px;
 }
