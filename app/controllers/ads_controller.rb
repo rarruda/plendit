@@ -164,6 +164,16 @@ class AdsController < ApplicationController
     end
   end
 
+  # DELETE /ads/1
+  # DELETE /ads/1.json
+  def destroy
+    if @ad.archive
+      redirect_to users_path
+    else
+      alert: 'Ad was NOT deleted.'
+    end
+  end
+
   # GET /ads/new
   def new
     @ad_categories = Rails.configuration.x.ads.categories
