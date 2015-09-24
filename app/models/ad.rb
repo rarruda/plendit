@@ -130,6 +130,11 @@ class Ad < ActiveRecord::Base
     fav_count > 0 ? true : false
   end
 
+  def is_deletable
+    # todo: add ever_published flag in model
+    false
+  end
+
   # helper methods for generating urls for the three different image sizes, and which has the
   ## default fallback to stock images. (so that it will degrate nicely)
   def safe_image_url( size )

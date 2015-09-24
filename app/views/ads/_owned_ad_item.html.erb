@@ -10,4 +10,13 @@
         <%= ad.summary %>
     </p>
     <p><%= ad.display_status %>. Oppdatert <%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %></p>
+    <p>
+        <% if ad.is_deletable %>
+            <%= button_to "Slett", users_ad_path(ad), method: :delete, class: "button", form_class: "u-inline" %>
+        <% else %>
+            <%= button_to "Deaktiver", users_ad_path(ad), method: :delete, class: "button", form_class: "u-inline" %>
+            <small>Historikk for utleie, samt tilbakemeldinger på utleie, vil fortsatt være tilgjengelig.</small>
+        <% end %>
+    </p>
+
 </div>
