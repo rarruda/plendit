@@ -8,20 +8,7 @@
 
     <div data-controller="cardInputter">
         <div data-card-holder></div>
-        <%= form_for @user_payment_card, url: ( @user_payment_card.card_registration_url || "#"),:html => {:class => 'u-push-down'} do |f| %>
-
-<!-- BEGIN: do we really want these error messages here? -->
-            <% if @user_payment_card.errors.any? %>
-              <div id="error_explanation">
-                <h2><%= pluralize(@user_payment_card.errors.count, "error") %> prohibited this user_payment_card from being saved:</h2>
-                <ul>
-                <% @user_payment_card.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-                </ul>
-              </div>
-            <% end %>
-<!-- END: do we really want these error messages here? -->
+        <form class="u-push-down">
 
             <%- if not Rails.env.production? -%>
               <p>
@@ -33,10 +20,10 @@
               </p>
             <%- end -%>
 
-            <%= hidden_field_tag :cardRegistrationUrl, ( @user_payment_card.card_registration_url || "#") %>
-            <%= hidden_field_tag :preregistrationData,   @user_payment_card.preregistration_data %>
-            <%= hidden_field_tag :accessKey,             @user_payment_card.access_key %>
-            <%= hidden_field_tag :cardId,                @user_payment_card.card_vid %>
+            <%= hidden_field_tag :cardRegistrationUrl,   @user_payment_card['card_registration_url'] %>
+            <%= hidden_field_tag :preregistrationData,   @user_payment_card['preregistration_data'] %>
+            <%= hidden_field_tag :accessKey,             @user_payment_card['access_key'] %>
+            <%= hidden_field_tag :cardId,                @user_payment_card['card_vid'] %>
             <%= hidden_field_tag :clientId,              :plendit %>
 
             <div class="row">
@@ -66,7 +53,7 @@
                 <button type="submit" data-save-card class="u-pull-right button button-primary">Lagre kort</button>
                 <%= evil_icon 'ei-spinner-2', size: 'm', class: 'u-fill-green u-pull-right u-hidden' %>
             </div>
-        <% end %>
+        </form>
         <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
     </div>
 
