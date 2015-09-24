@@ -5,9 +5,26 @@ $greenish: rgb(193, 236, 193);
 $blueish: rgb(213, 235, 255);
 
 .provider-box {
-    height: 80px;
-}
+    height: 90px;
+    border-bottom: solid thin $color-box-border;
+    padding-top: $standard-spacing;
 
+    &:last-of-type {
+        border-bottom: 0;
+    }
+
+    &__logo-box {
+        display: inline-block;
+        width: 150px;
+        height: 70px;
+        line-height: 70px;
+        text-align: center;
+    }
+
+    &__logo {
+        vertical-align: middle;
+    }
+}
 
 .bubble-box {
     margin-bottom: $standard-spacing * 2;

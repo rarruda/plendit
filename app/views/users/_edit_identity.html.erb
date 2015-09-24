@@ -27,27 +27,26 @@
   # ** fix so that after linking an account, they are redirected back here.
   # ** do we want to enable disconnecting identities? yes. Hook that up to link
 %>
-
     <p>
-        Oversikt over hvilke brukerprofiler som er til din konto.
+        Du kan koble din plendit-konto til andre tjenester du bruker. Det gjør
+        det lettere for deg å logge inn.
     </p>
-
     <div>
         <% providers.each do |provider| %>
             <div class="provider-box">
-                <%= image_tag provider[:image], size: provider[:image_size], alt: "" %>
+                <div class="provider-box__logo-box">
+                    <%= image_tag provider[:image], size: provider[:image_size], alt: "", class: 'provider-box__logo' %>
+                </div>
                 <% if current_user.connected_to_provider provider[:id] %>
-                    Tilkoblet!
-                    <%= evil_icon 'ei-check', size: :l, class: "u-pull-right u-fill-green" %>
+                    <%= evil_icon 'ei-check', size: :m, class: "u-pull-right u-fill-green" %>
                     <a href="#" class="button">Koble fra</a>
                 <% else %>
                     <%= button_to user_omniauth_authorize_path(provider[:id]), class: "button", form_class: "u-inline" do %>
-                        Koble Plendit til <%= provider[:name] %>
+                        Koble til
                     <% end %>
-                    <%= evil_icon 'ei-close-o', size: :l, class: "u-pull-right u-fill-red" %>
+                    <%= evil_icon 'ei-close-o', size: :m, class: "u-pull-right u-fill-red" %>
                 <% end %>
             </div>
-            <hr>
         <% end %>
     </div>
 
