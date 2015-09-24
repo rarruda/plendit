@@ -18,7 +18,8 @@
 
     &__title {
         margin: 0;
-        padding-top: 12px;
+        padding-top: $standard-spacing;
+        padding-bottom: $standard-spacing;
     }
 
     &--published {
