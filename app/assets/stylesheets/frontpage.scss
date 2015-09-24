@@ -112,6 +112,8 @@ $break-tiny: 640px;
     }
 
     &__video {
+        border: 0;
+
         @media screen and (max-width: 560px) {
             width: 100%;
         }
