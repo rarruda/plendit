@@ -188,7 +188,7 @@ window.controllers.resultMap = {
             var marker = new google.maps.Marker({
                 position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
                 icon: {
-                    url: '/images/single_stroke.svg',
+                    url: '/images/single_stroke.png',
                     scaledSize: new google.maps.Size(45, 40),
                     anchor: new google.maps.Point(10, 40)
                 },
@@ -203,9 +203,8 @@ window.controllers.resultMap = {
             var marker = new google.maps.Marker({
                 position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
                 icon: {
-                    url: '/images/multiple_stroke.svg',
+                    url: '/images/multiple_stroke.png',
                     scaledSize: new google.maps.Size(45, 40),
-                    //scaledSize: new google.maps.Size(64, 54),
                     anchor: new google.maps.Point(10, 40)
                 },
                 map: map
