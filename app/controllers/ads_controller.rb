@@ -170,7 +170,7 @@ class AdsController < ApplicationController
     if @ad.archive
       redirect_to users_path
     else
-      alert: 'Ad was NOT deleted.'
+      redirect_to @ad, alert: 'Ad was NOT deleted.'
     end
   end
 
