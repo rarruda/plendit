@@ -7,7 +7,8 @@ Rails.application.routes.draw do
     get 'switch_user/remember_user', to: redirect('/')
   end
 
-  resources :locations, path: '/me/locations' do
+
+  resources :locations, path: '/me/locations', only: [:index, :new, :create, :edit, :update, :destroy] do
     member do
       post 'make_favorite'
     end
@@ -40,7 +41,7 @@ Rails.application.routes.draw do
   }
 
 
-  resource :users, path: '/me', only: [:index, :update] do
+  resource :users, path: '/me', only: [:index, :edit, :update] do
     #resources :favorite_lists do
     #  resources :favorite_ads
     #end
@@ -48,7 +49,6 @@ Rails.application.routes.draw do
       get '/',  to: 'users#index'
       post 'ads/create'
       get 'ads', to: 'ads#list'
-      get 'edit', to: 'users#edit', as: 'users_edit'
 
       post 'update_avatar'
       delete 'destroy_avatar'

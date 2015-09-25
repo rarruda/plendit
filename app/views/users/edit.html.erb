@@ -10,11 +10,7 @@
 
             <%= render partial: "edit_profile" %>
             <%= render partial: "edit_registration" %>
-
-            <%= render layout: "gray_box", locals: {title: "Endre adresser", id: "locations"} do %>
-              <%= link_to "Se og rediger mine adresser.", locations_path %>
-            <% end %>
-
+            <%= render partial: "locations/list" %>
             <%= render partial: "edit_identity" %>
 
         </div>

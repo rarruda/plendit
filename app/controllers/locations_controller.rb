@@ -6,12 +6,7 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.json
   def index
-    @locations = Location.where( user_id: view_context.get_current_user_id, status: Location.statuses[:active] ).order(:address_line)
-  end
-
-  # GET /locations/1
-  # GET /locations/1.json
-  def show
+    redirect_to edit_users_path
   end
 
   # GET /locations/new
@@ -31,48 +26,36 @@ class LocationsController < ApplicationController
     @location = Location.new(location_params)
     @location.user_id = view_context.get_current_user_id
 
-    respond_to do |format|
-      if @location.save
-        format.html { redirect_to @location, notice: 'Location was successfully created.' }
-        format.json { render :show, status: :created, location: @location }
-      else
-        format.html { render :new }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
-      end
+    if @location.save
+      redirect_to edit_users_path(:anchor => 'locations'), notice: 'Location was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /locations/1
   # PATCH/PUT /locations/1.json
   def update
-    respond_to do |format|
-      if @location.update(location_params)
-        format.html { redirect_to @location, notice: 'Location was successfully updated.' }
-        format.json { render :show, status: :ok, location: @location }
-      else
-        format.html { render :edit }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
-      end
+    if @location.update(location_params)
+      redirect_to edit_users_path(:anchor => 'locations'), notice: 'Location was successfully updated.'
+    else
+      render :edit
     end
   end
 
   # POST /me/make_favorite/1
   def make_favorite
     current_user.set_favorite_location(@location)
-    respond_to do |format|
-      format.html { redirect_to locations_url }
-    end
 
+    redirect_to edit_users_path(:anchor => 'locations')
   end
 
   # DELETE /locations/1
   # DELETE /locations/1.json
   def destroy
     @location.deleted!
-    respond_to do |format|
-      format.html { redirect_to locations_url }
-      format.json { head :no_content }
-    end
+
+    redirect_to edit_users_path(:anchor => 'locations')
   end
 
   private
