@@ -43,8 +43,8 @@ class Ad < ActiveRecord::Base
   settings index: { number_of_shards: 4 } do
     mappings do
       indexes :id,            type: :integer
-      indexes :title,         type: :string, boost: 100
-      indexes :body,          type: :string
+      indexes :title,         type: :string, analyzer: 'norwegian', boost: 100
+      indexes :body,          type: :string, analyzer: 'norwegian'
       indexes :geo_location,  type: :geo_point, lat_lon: true, geohash: true
       indexes :price,         type: :integer
       indexes :tags,          type: :string, analyzer: 'keyword'
@@ -52,7 +52,7 @@ class Ad < ActiveRecord::Base
       indexes :insurance_required, type: :integer
       indexes :ad_images do
         indexes :id,          type: :integer
-        indexes :description, type: :string
+        indexes :description, type: :string, analyzer: 'norwegian'
         indexes :weight,      type: :integer
       end
       indexes :user do
