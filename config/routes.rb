@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       post 'cancel'
     end
   end
-  resources :user_payment_cards, path: '/me/card', param: :guid, only: [:index, :new, :create, :destroy]
+  resources :user_payment_cards, path: '/me/cards', param: :guid, only: [:index, :new, :create, :destroy]
 
 
   # see: https://github.com/plataformatec/devise/blob/master/lib/devise/rails/routes.rb
