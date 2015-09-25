@@ -101,9 +101,21 @@ class Ad < ActiveRecord::Base
     end
     event :delete do
       transitions :to => :deleted
-      # lots of checks here for dangling references, if it would be removed from the database.
-      # self.destroy would then wipe it away. but that's dangerous.
+
       after do
+        # lots of checks here for dangling references, if it would be removed from the database.
+        #   self.destroy would then wipe it away. but that's dangerous.
+        #   for now is_deleted always returns false. we never let it be true to be safe.
+        #
+        # We should also consider renaming internally 'delete' to 'archive', and never
+        #   removing it from the database.
+        if is_deletable? and false
+          self.destroy
+          logger.info 'did delete ad from the database.'
+        else
+          logger.info 'did not delete ad from the database.'
+        end
+
         logger.info 'ad is deleted. this is a black hole. there is no way out.'
       end
     end
@@ -139,7 +151,7 @@ class Ad < ActiveRecord::Base
     fav_count > 0 ? true : false
   end
 
-  def is_deletable
+  def is_deletable?
     # todo: add ever_published flag in model
     false
   end

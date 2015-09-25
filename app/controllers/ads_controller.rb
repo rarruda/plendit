@@ -167,7 +167,7 @@ class AdsController < ApplicationController
   # DELETE /ads/1
   # DELETE /ads/1.json
   def destroy
-    if @ad.archive
+    if @ad.delete
       redirect_to users_path
     else
       redirect_to @ad, alert: 'Ad was NOT deleted.'
