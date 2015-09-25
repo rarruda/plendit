@@ -32,8 +32,11 @@ window.controllers.postalPlaceFetcher = {
         function fetchPostalPlace(evt) {
             if (lastSeen != evt.target.value) {
                 lastSeen = evt.target.value;
-                var url = baseUrl + "?postal_code=" + evt.target.value;
-                xhr.get(url).then(updatePostalPlace);
+                var pnum = evt.target.value.replace(/\D/g)
+                if (pnum.length == 4) {
+                    var url = baseUrl + "?postal_code=" + evt.target.value;
+                    xhr.get(url).then(updatePostalPlace);
+                }
             }
         }
 
