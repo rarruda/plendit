@@ -9,8 +9,11 @@
             <% end %>
 
             <%= render partial: "edit_profile" %>
-            <%= render partial: "edit_registration" %>
+            <%= render layout: "gray_box", locals: {title: "Legg til kredittkort"} do %>
+                <%= link_to "Legg til kredittkort", user_payment_cards_path %>
+            <% end %>
             <%= render partial: "locations/list" %>
+            <%= render partial: "edit_registration" %>
             <%= render partial: "edit_identity" %>
 
         </div>
@@ -19,9 +22,9 @@
             <%= render layout: "gray_box"  do %>
                 <ul>
                     <li><%= link_to "Rediger personalia", anchor: "personal-info" %></li>
-                    <li><%= link_to "Bytte passord", anchor: "password" %></li>
                     <li><%= link_to "Legg til kredittkort", user_payment_cards_path %></li>
                     <li><%= link_to "Rediger adresser", anchor: "locations" %></li>
+                    <li><%= link_to "Bytte passord", anchor: "password" %></li>
                     <li><%= link_to "Rediger tilkoblede kontoer", anchor: "identities" %></li>
                 </ul>
             <% end %>
