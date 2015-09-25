@@ -16,7 +16,8 @@ class AdsController < ApplicationController
     :stop,
     :suspend,
     :submit_for_review,
-    :update
+    :update,
+    :destroy
   ]
 
   before_action :authenticate_user!, :except => [
@@ -167,7 +168,7 @@ class AdsController < ApplicationController
   # DELETE /ads/1
   # DELETE /ads/1.json
   def destroy
-    if @ad.delete
+    if @ad.delete!
       redirect_to users_path
     else
       redirect_to @ad, alert: 'Ad was NOT deleted.'
