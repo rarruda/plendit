@@ -12,6 +12,7 @@ class Ad < ActiveRecord::Base
   has_many :received_feedbacks, :class_name => "Feedback"
   has_many :ad_items, autosave: true, dependent: :destroy #will leave dangling links in old bookings/favorites.
   has_many :ad_images, autosave: true, dependent: :destroy
+  has_many :bookings, through: :ad_items
   belongs_to :location
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5, deleted: 6 }
@@ -151,9 +152,12 @@ class Ad < ActiveRecord::Base
     fav_count > 0 ? true : false
   end
 
+  def is_favorited?
+    not FavoriteAd.where(ad: self).empty?
+  end
+
   def is_deletable?
-    # todo: add ever_published flag in model
-    false
+    !self.is_favorited? && self.bookings.empty?
   end
 
   # helper methods for generating urls for the three different image sizes, and which has the
