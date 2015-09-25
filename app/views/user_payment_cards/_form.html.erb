@@ -3,8 +3,7 @@
 
     <div data-controller="cardInputter">
         <div data-card-holder></div>
-        <form class="u-push-down">
-
+        <%= form_for UserPaymentCard.new, :html => { class: 'u-push-down' } do |f| %>
             <%- if not Rails.env.production? -%>
               <p>
                 <strong>
@@ -15,11 +14,16 @@
               </p>
             <%- end -%>
 
-            <%= hidden_field_tag :cardRegistrationUrl,   @user_payment_card['card_registration_url'] %>
-            <%= hidden_field_tag :preregistrationData,   @user_payment_card['preregistration_data'] %>
-            <%= hidden_field_tag :accessKey,             @user_payment_card['access_key'] %>
-            <%= hidden_field_tag :cardId,                @user_payment_card['card_vid'] %>
+            <%= hidden_field_tag :cardRegistrationUrl,   @user_payment_card.card_registration_url %>
+            <%= hidden_field_tag :preregistrationData,   @user_payment_card.preregistration_data %>
+            <%= hidden_field_tag :accessKey,             @user_payment_card.access_key %>
+            <%= hidden_field_tag :cardId,                @user_payment_card.card_vid %>
             <%= hidden_field_tag :clientId,              :plendit %>
+
+            <%# the following fields + csfr needs to be posted to the form URL for card creation. %>
+            <%# card_vid == Id //// registration_data == RegistrationData %>
+            <%= hidden_field_tag :card_vid,              '' %>
+            <%= hidden_field_tag :registration_data,     '' %>
 
             <div class="row">
                 <div class="twelve columns">
@@ -48,8 +52,8 @@
                 <button type="submit" data-save-card class="u-pull-right button button-primary">Lagre kort</button>
                 <%= evil_icon 'ei-spinner-2', size: 'm', class: 'u-fill-green u-pull-right u-hidden' %>
             </div>
-        </form>
-        <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
+            <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
+        <% end %>
     </div>
 
 <% end %>

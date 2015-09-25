@@ -1,6 +1,6 @@
 class UserPaymentCardsController < ApplicationController
   before_action :set_user_payment_card, only: [:destroy]
-  before_action :set_cardreg_redis_key, only: [:new]
+  before_action :set_cardreg_redis_key, only: [:new, :create]
   before_action :authenticate_user!
 
   # check that the user is provisioned in mangopay:
@@ -22,14 +22,14 @@ class UserPaymentCardsController < ApplicationController
     if not @user_payment_card = REDIS.get( @cardreg_redis_key )
 
       logger.info 'Creating a new Card Pre-registration with MangoPay, as no previous preregistrations could be found'
-      pre_registered_card = MangopayService.new( current_user ).pre_register_card
+      @user_payment_card = MangopayService.new( current_user ).pre_register_card
 
-      if not pre_registered_card.nil?
-        logger.info "Pre-registration worked: #{pre_registered_card}"
+      if not @user_payment_card.nil?
+        logger.info "Pre-registration worked: #{@user_payment_card}"
         # Caching result serialized as json in REDIS:
-        REDIS.setex( @cardreg_redis_key, MANGOPAY_PRE_REGISTERED_CARD_TTL, pre_registered_card.to_json )
+        REDIS.setex( @cardreg_redis_key, MANGOPAY_PRE_REGISTERED_CARD_TTL, @user_payment_card.to_json )
       else
-        logger.error "ERROR Pre-registrating the card. THIS IS NOT GOOD! Things will fail... => #{pre_registered_card}"
+        logger.error "ERROR Pre-registrating the card. THIS IS NOT GOOD! Things will fail... => #{@user_payment_card}"
       end
     else
       # fetch from cache worked. deserialize it here.
@@ -41,19 +41,35 @@ class UserPaymentCardsController < ApplicationController
   # POST /user_payment_cards
   # POST /user_payment_cards.json
   def create
-    @user_payment_card = UserPaymentCard.new(user_payment_card_params)
+    puts "user_payment_card_params: #{user_payment_card_params}"
 
-    # once a card registration worked, drop it from cache.
-    REDIS.del( @cardreg_redis_key )
+    # finish card registration:
+    mangopay_service = MangopayService.new(current_user)
+    mp_result = mangopay_service.post_register_card(user_payment_card_params['card_vid'], user_payment_card_params['registration_data'])
+    puts "mp: #{mp_result}"
 
-    respond_to do |format|
-      if @user_payment_card.save
-        format.html { redirect_to @user_payment_card, notice: 'UserPaymentCard was successfully created.' }
-        format.json { render :show, status: :created, location: @user_payment_card }
-      else
-        format.html { render :new }
-        format.json { render json: @user_payment_card.errors, status: :unprocessable_entity }
-      end
+    if mp_result.status != 200
+      #{"Message":"the card registration has already been processed","Type":"cardregistration_already_process","Id":"f5facd58-4b88-4618-ad21-d2c95bfce8e4#1443217025","Date":1443217026.0,"errors":null}
+      logger.error "Failed the final stage of registering the credit card. This is SUPER SAD!"
+      redirect_to user_payment_card_path, notice: 'UserPaymentCard failed registration.'
+    else
+      # registration went well.
+      # clear cache:
+      REDIS.del( @cardreg_redis_key )
+
+      # get card details:
+      card_info = mangopay_service.get_card( user_payment_card_params['card_vid'] )
+    end
+
+    puts "card_info: #{card_info}"
+    # build card details in database:
+    # @user_payment_card = UserPaymentCard.new( card_vid: user_payment_card_params['card_vid'], card_info )
+
+
+    if @user_payment_card.save
+      redirect_to user_payment_card_path, notice: 'UserPaymentCard was successfully created.'
+    else
+      redirect_to user_payment_cards_path, notice: 'UserPaymentCard was successfully destroyed.'
     end
   end
 
@@ -63,7 +79,7 @@ class UserPaymentCardsController < ApplicationController
     @user_payment_card.disable
     #invoke delayed job to set card to inactive in mangopay.
 
-    redirect_to user_payment_cards_url, notice: 'UserPaymentCard was successfully destroyed.'
+    redirect_to user_payment_cards_path, notice: 'UserPaymentCard was successfully destroyed.'
   end
 
   private
@@ -84,7 +100,7 @@ class UserPaymentCardsController < ApplicationController
 
       # we probably dont care about: "Id", "UserId":"8479933", "CardType",
       # we care about: "CardId","Currency","Status","ResultCode","ResultMessage"
-      params.require(:user_payment_card).permit(:guid, :card_id, :currency, :status)
+      params.require(:user_payment_card).permit(:guid, :card_vid, :registration_data)
     end
 
     def set_cardreg_redis_key

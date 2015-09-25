@@ -65,10 +65,8 @@ class MangopayService
     #from result, (Save to db?) and show to user :
     #RegistrationData
 
-  def post_register_card(params)
-    MangoPay::CardRegistration.update(
-      'RegistrationData' => 'NEW_REGISTRATION_DATA'
-      )
+  def post_register_card(card_vid, registration_data)
+    MangoPay::CardRegistration.update( card_vid, {'RegistrationData' => 'registration_data'} )
     # now card is registered, and one can make a pre-authorization (pay w/o capture)
   end
 
