@@ -529,3 +529,12 @@ window.controllers.clickthrough = function(ele) {
         evt.target.parentNode.click();
     });
 }
+
+window.controllers.footerPositioning = function(ele) {
+    if (document.body.offsetHeight < window.innerHeight) {
+        ele.style.position = "absolute";
+        ele.style.bottom = "0";
+        ele.style.width = "100%";
+    }
+}
+
