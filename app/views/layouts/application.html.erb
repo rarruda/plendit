@@ -24,7 +24,7 @@
 
 
     <% # todo, split up packages again so we don't load maps on all pages %>
-    <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Rails.configuration.x.map.google_maps_js_api_key}" %>
+    <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Rails.configuration.x.map.google_maps_js_api_key}&language=no" %>
 
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
