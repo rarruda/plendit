@@ -50,9 +50,6 @@ Rails.application.routes.draw do
       post 'ads/create'
       get 'ads', to: 'ads#list'
 
-      post 'update_avatar'
-      delete 'destroy_avatar'
-
       #get 'verify_email'
       get  'verify_sms'
       post 'verify_sms', to: 'users#do_verify_sms'

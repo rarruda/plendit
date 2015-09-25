@@ -2,8 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :finish_signup]
   before_action :set_user, only: [
     :show, :edit, :update, :destroy, :confirmation,
-    :verify_sms, :do_verify_sms, :mark_all_notifications_noticed,
-    :update_avatar, :destroy_avatar
+    :verify_sms, :do_verify_sms, :mark_all_notifications_noticed
   ]
 
   def index
@@ -96,7 +95,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # eventually we should support deleting avatars.
+  # FIXME: eventually we should support deleting avatars.
 
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
@@ -156,9 +155,5 @@ class UsersController < ApplicationController
          user_payment_account_attributes: [:id, :bank_account_number],
          user_images_attributes: [:id, :image, :category]
       )
-    end
-
-    def user_avatar_params
-      params.require(:user_image).permit(:image).merge( user_id: current_user.id, category: 'avatar' )
     end
 end
