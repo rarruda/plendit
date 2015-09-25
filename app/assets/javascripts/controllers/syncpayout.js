@@ -30,7 +30,7 @@ window.controllers.syncPayout = {
                         destination.value = 0;
                     }
                     else {
-                        destination.value = price * 0.90;
+                        destination.value = price * 1.10;
                     }
                 }
 
