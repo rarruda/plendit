@@ -4,7 +4,13 @@
     <div class="row">
         <div class="nine columns">
             <h1>Favoritter</h1>
-            <%= render partial: "favorite_item", collection: @favorite_ads, as: :favorite_ad %>
+            <% if @favorite_ads.empty? %>
+                <p>
+                    Du har ikke lagret noen favoritter
+                </p>
+            <% else %>
+                <%= render partial: "favorite_item", collection: @favorite_ads, as: :favorite_ad %>
+            <% end %>
         </div>
     </div>
 </div>
