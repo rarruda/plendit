@@ -4,7 +4,6 @@ class AdsController < ApplicationController
   before_action :set_ad, only: [
     :unavailability,
     :approve,
-    :double_calendar,
     :edit,
     :gallery,
     :image_manager,
@@ -12,7 +11,6 @@ class AdsController < ApplicationController
     :preview,
     :resume,
     :show,
-    :single_calendar,
     :stop,
     :suspend,
     :submit_for_review,
@@ -22,25 +20,21 @@ class AdsController < ApplicationController
 
   before_action :authenticate_user!, :except => [
     :unavailability,
-    :double_calendar,
     :gallery,
     :index,
     :search,
-    :show,
-    :single_calendar
+    :show
   ]
 
   before_action :require_authorization, :except => [
     :unavailability,
     :create,
-    :double_calendar,
     :gallery,
     :index,
     :list,
     :new,
     :search,
-    :show,
-    :single_calendar
+    :show
   ]
 
   after_action :notify_about_approval, only: [ :approve ]
@@ -194,27 +188,6 @@ class AdsController < ApplicationController
     # FIXME: add support for: end_date
     #
     render partial: "ads/unavailability", locals: { start_date: start_date, ad: @ad }
-  end
-
-
-  # GET /ads/1/double_calendar?date=day_or_month
-  def double_calendar
-    if params[:date].nil?
-      date = Date.today
-    else
-      date = params[:date].to_date
-    end
-    render "shared/_double_pageable_calendar", layout: false, locals: { date: date, ad: @ad }
-  end
-
-  # GET /ads/1/single_calendar?date=day_or_month
-  def single_calendar
-    if params[:date].nil?
-      date = Date.today
-    else
-      date = params[:date].to_date
-    end
-    render "shared/_single_pageable_calendar", layout: false, locals: { date: date, ad: @ad }
   end
 
   # POST /ads
