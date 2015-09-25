@@ -148,7 +148,12 @@ You can then start elasticsearch in a terminal with the `elasticsearch` command.
 Note, homebrew will also explain how to make elasticsearch start automatically.
 You can do that if you prefer.
 
+To index (or re-index) ElasticSearch:
+```
+$ rake search:reindex
+```
 
+The manual commands to index, slowly are (one ad at a time):
 ```
 $ rails console
 Ad.__elasticsearch__.delete_index!
@@ -159,8 +164,8 @@ Ad.published.import
 If you are running it for the very first time, you probably dont need to
  delete the index. But it wont break anything if you do so.
 
-Note: for large datasets, this could take a while. This should also be
- converted to a rake task.
+Note: for large datasets, this could take a while. So prefer to use the rake
+ task, which perform bulk operations, which is much faster.
 
 * Starting the server (development)
 
