@@ -38,16 +38,14 @@
                 <input disabled="true" type="text" name="day_price" class="u-full-width" placeholder="Kr 0" data-payout-for="ad[price_in_h]">
             </div>
         </div>
-
     </div>
 
     <label class="u-push-down">
         <%= f.check_box :insurance_required %>
         <span class="label-body">
-            Leietaker må tegne <a href="#">forsikring</a> for å leie gjenstanden.
+            Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %> for å leie gjenstanden.
         </span>
     </label>
-
 
     <label class="u-push-down">
         Henteadresse:
