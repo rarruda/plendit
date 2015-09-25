@@ -14,4 +14,12 @@ class MiscController < ApplicationController
     render text: ( params[:postal_code].length == 4 ? ( POSTAL_CODES[params[:postal_code]] || "ugyldig" ) : "Poststed..." )
   end
 
+  #def price_estimate(price, category, insurance)
+  #  price = params[:price]
+  #  category = params[:category]
+  #  insurance = params[:insurance]
+  #  final_price  = price * ( 1 + PLENDIT_FEE_PCT )
+  #  final_price += price * ( 1 + PLENDIT_INSURANCE_FEES[category] ) if insurance
+  #  render text: ( final_price )
+  #end
 end
