@@ -20,12 +20,12 @@
             <%= f.hidden_field :previous_url, value: request.fullpath %>
             <% if ad.is_favorite_of( current_user ) %>
                 <%= f.button class: "button booking-request-form__book-button" do %>
-                    <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart--favorite") %>
+                    <%= evil_icon 'ei-heart', size: :s, class: "booking-request-form__heart--favorite" %>
                     Fjern fra favoritter
                 <% end %>
             <% else %>
                 <%= f.button class: "button booking-request-form__book-button" do %>
-                    <%= image_tag("favorite_icon.png", size: "23x22", alt: "", class: "booking-request-form__heart") %>
+                    <%= evil_icon 'ei-heart', size: :s, class: "booking-request-form__heart" %>
                     Legg til i favoritter
                 <% end %>
             <% end %>
