@@ -40,7 +40,7 @@ Geocoder.configure(
   :language     => PLENDIT_COUNTRY_CODE,
   :api_key      => ENV['PCONF_GOOGLE_GEOCODING_KEY'], # API key for geocoding service
   :use_https    => true,          # HTTPS must be enabled when using a google with an API key
-  :cache        => AutoexpireCacheRedis.new(REDIS, 1.week.to_i), # cache object (must respond to #[], #[]=, and #keys)
+  :cache        => AutoexpireCacheRedis.new(REDIS, 1.month.to_i), # cache object (must respond to #[], #[]=, and #keys)
   :cache_prefix => "geocoder:",   # prefix (string) to use for all cache keys
 #  :google       => {
 #    :api_key   => ENV['PCONF_GOOGLE_GEOCODING_KEY'], # API key for geocoding service
