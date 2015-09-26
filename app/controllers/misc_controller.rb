@@ -13,12 +13,14 @@ class MiscController < ApplicationController
     render text: ( params[:postal_code].length == 4 ? ( POSTAL_CODES[params[:postal_code]] || "ugyldig" ) : "Poststed..." )
   end
 
-  #def price_estimate(price, category, insurance)
-  #  price = params[:price]
-  #  category = params[:category]
-  #  insurance = params[:insurance]
-  #  final_price  = price * ( 1 + PLENDIT_FEE_PCT )
-  #  final_price += price * ( 1 + PLENDIT_INSURANCE_FEES[category] ) if insurance
-  #  render text: ( final_price )
-  #end
+  def renter_price_estimate
+    price = params[:price].to_f
+    category = params[:category]
+    insurance = params[:insurance]
+
+    final_price  = price * ( 1.0 + Plendit::Application.config.x.platform.fee_in_percent )
+    final_price += price * Plendit::Application.config.x.insurance.price_in_percent[category.to_sym] if insurance == 'true'
+
+    render text: final_price
+  end
 end

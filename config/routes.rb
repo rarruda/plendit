@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   scope '/resources' do
     get 'postal_place', to: 'misc#postal_place'
     get 'mangopay/callback'
+    get 'renter_price_estimate', to: 'misc#renter_price_estimate'
   end
 
 
