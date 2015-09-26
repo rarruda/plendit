@@ -46,6 +46,7 @@ class Ad < ActiveRecord::Base
       indexes :title,         type: :string, analyzer: 'norwegian', boost: 100
       indexes :body,          type: :string, analyzer: 'norwegian'
       indexes :geo_location,  type: :geo_point, lat_lon: true, geohash: true
+      indexes :geo_precision, type: :string, index: :not_analyzed
       indexes :price,         type: :integer
       indexes :tags,          type: :string, analyzer: 'keyword'
       indexes :category,      type: :string
@@ -73,6 +74,7 @@ class Ad < ActiveRecord::Base
     event :submit_for_review do
       transitions :from => :draft, :to => :waiting_review
       after do
+        # FIXME: do not ad be submitted for review if location does not have a latlon.
         logger.error "submiting for review..."
       end
     end
@@ -184,7 +186,7 @@ class Ad < ActiveRecord::Base
     as_json(
       only: [:id, :title, :body, :category, :price ],
       include: { user: { only: :id }, ad_images: { only: [:id, :description, :weight] } },
-      methods: [:tags, :geo_location]
+      methods: [:tags, :geo_location, :geo_precision]
     )
   end
 
@@ -195,6 +197,11 @@ class Ad < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  # used in as_indexed_json
+  def geo_precision
+    self.location.geo_precision
   end
 
   # used in as_indexed_json
