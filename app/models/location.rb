@@ -4,28 +4,30 @@ class Location < ActiveRecord::Base
 
   validates :user, presence: true
   validates :address_line, presence: true
-  validates :post_code, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 9999 }
-  validate :post_code_must_exist
-
-  # this validation wont work as :geocode_with_region is only called after validation.
-  #validates [:lat,:lon], numericality: true ###, unless: Proc.new { |a| a.post_code.blank? }
+  validates :post_code, presence: true, format: { with: /\A[0-9]{4}\z/, message: "må vare 4 nummer langt." }
+  validate  :post_code_must_exist
+  #validates :lat, presence: true, numericality: true
+  #validates :lon, presence: true, numericality: true
 
   enum status: { active: 0, deleted: 1 }
-
+  enum geo_precision: { unk: 0, high: 1, mid: 2, low: 3, post_code: 5 }
 
   default_scope { where.not( status: Location.statuses[:deleted] ).order(favorite: :desc, address_line: :asc) }
 
 
-  after_validation :geocode_with_region, if: ->(obj){ obj.address_line.present? and ( obj.address_line_changed? or obj.post_code_changed? ) }
+  before_validation :geocode_with_region, if: ->(obj){ obj.post_code.present? and ( obj.address_line_changed? or obj.post_code_changed? ) }
 
   before_save :set_city_from_postal_code
 
-  def address
-    [address_line, post_code, "Norway"].compact.join(', ')
-  end
+
 
   def self.city_from_postal_code(postal_code)
     POSTAL_CODES[postal_code]
+  end
+
+  def is_geocoded?
+    true if self.lat.is_a? Numeric and self.lon.is_a? Numeric and not self.geo_precision.nil? and self.geo_precision.includes? [:high, :mid, :low, :post_code]
+    false
   end
 
   private
@@ -40,24 +42,42 @@ class Location < ActiveRecord::Base
   end
 
   def geocode_with_region
-    results = Geocoder.search(self.address, :params => { :region => PLENDIT_COUNTRY_CODE, :bounds => COUNTRY_GEO_BOUNDS, :language => PLENDIT_COUNTRY_CODE})
+    #https://developers.google.com/maps/documentation/geocoding/intro#GeocodingResponses
+    #https://developers.google.com/maps/documentation/geocoding/intro#ComponentFiltering
+    results = Geocoder.search( self.address_line, :params => { :components => "postal_code:#{self.post_code}|country:#{PLENDIT_COUNTRY_CODE}", :region => PLENDIT_COUNTRY_CODE, :language => PLENDIT_COUNTRY_CODE})
     if geo = results.first
+
       self.lat = geo.latitude
       self.lon = geo.longitude
-    else
-      logger.error "geocoding failed for location_id:#{self.id}."
+      self.geo_precision_type = geo.geometry['location_type']
+      self.geo_precision = case geo.geometry['location_type']
+      when 'ROOFTOP'
+        :high
+      when 'RANGE_INTERPOLATED', 'GEOMETRIC_CENTER'
+        :mid
+      when 'APPROXIMATE'
+        :low
+      else
+        :unk
+      end
 
-      # FIXME: need to gracefully handle failed geocode lookups. Possiblities:
-      #   1) Use geo location of the postal code?
-      #   2) add validation that the geocoding worked, before allowing it to be saved? (eek?)
-      #   3) use lots of time and get address line to be auto completed from a database?
-      #   https://developers.google.com/maps/documentation/geocoding/intro#Results
-      #results = Geocoder.search(self.address, :params => { :region => PLENDIT_COUNTRY_CODE, :bounds => COUNTRY_GEO_BOUNDS, :language => PLENDIT_COUNTRY_CODE})
-      #if geo = results.first
-      #  self.lat           = geo.latitude
-      #  self.lon           = geo.longitude
-      #  self.geoprecision  = geo.geometry['location_type']
-      #end
+      logger.info "found address geocoding for location_id:#{self.id}"
+    else
+      logger.error "failed address geocoding for location_id:#{self.id}. Retrying based on post code alone."
+      results = Geocoder.search( self.post_code, :params => { :components => "country:#{PLENDIT_COUNTRY_CODE}", :region => PLENDIT_COUNTRY_CODE, :language => PLENDIT_COUNTRY_CODE})
+
+      if geo = results.first
+
+        self.lat = geo.latitude
+        self.lon = geo.longitude
+        self.geo_precision_type = geo.geometry['location_type']
+        self.geo_precision = :post_code
+
+        logger.info "found post_code geocoding for location_id:#{self.id}"
+      else
+        logger.error "failed post_code geocoding for location_id:#{self.id}. This should never happen."
+      end
     end
   end
+
 end
