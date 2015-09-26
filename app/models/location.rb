@@ -26,7 +26,7 @@ class Location < ActiveRecord::Base
   end
 
   def is_geocoded?
-    true if self.lat.is_a? Numeric and self.lon.is_a? Numeric and not self.geo_precision.nil? and self.geo_precision.includes? [:high, :mid, :low, :post_code]
+    true if self.lat.is_a? Numeric and self.lon.is_a? Numeric and [:high, :mid, :low, :post_code].include? self.geo_precision
     false
   end
 
