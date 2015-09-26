@@ -79,7 +79,7 @@ class Ad < ActiveRecord::Base
       end
     end
     event :approve do
-      transitions :from => :waiting_review, :to => :published
+      transitions :from => :waiting_review, :to => :published, :guard => :ad_location_is_geocoded?
     end
     event :pause do
       transitions :from => [:published, :stopped], :to => :paused
@@ -144,7 +144,6 @@ class Ad < ActiveRecord::Base
     not ( self.stopped? or self.suspended? )
   end
 
-
   def related_ads_from_user
     self.user.ads.reject { |ad| ad.id == self.id }
   end
@@ -160,6 +159,11 @@ class Ad < ActiveRecord::Base
 
   def is_deletable?
     !self.is_favorited? && self.bookings.empty?
+  end
+
+  def ad_location_is_geocoded?
+    false if self.location.nil?
+    self.location.is_geocoded?
   end
 
   # helper methods for generating urls for the three different image sizes, and which has the
