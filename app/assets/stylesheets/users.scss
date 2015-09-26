@@ -101,3 +101,10 @@ $blueish: rgb(213, 235, 255);
     }
 
 }
+
+.card-input {
+    &__card-holder {
+        padding-top: $standard-spacing * 2;
+        padding-bottom: $standard-spacing * 3;
+    }
+}
