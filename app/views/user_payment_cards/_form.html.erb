@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="six columns">
                     <label for="expiry">Utløpsdato:</label>
-                    <input class="u-full-width" name="expiry" placeholder="04/16" id="expiry" type="text">
+                    <input class="u-full-width" name="expiry" placeholder="<%= 1.year.from_now.strftime('%m/%y') %>" id="expiry" type="text">
                 </div>
                 <div class="six columns">
                     <label for="cvc">Kontrollnummer:</label>
