@@ -14,10 +14,10 @@
               </p>
             <%- end -%>
 
-            <%= hidden_field_tag :cardRegistrationUrl,   @user_payment_card.card_registration_url %>
-            <%= hidden_field_tag :preregistrationData,   @user_payment_card.preregistration_data %>
-            <%= hidden_field_tag :accessKey,             @user_payment_card.access_key %>
-            <%= hidden_field_tag :cardId,                @user_payment_card.card_vid %>
+            <%= hidden_field_tag :cardRegistrationUrl,   @user_payment_card[:card_registration_url] %>
+            <%= hidden_field_tag :preregistrationData,   @user_payment_card[:preregistration_data] %>
+            <%= hidden_field_tag :accessKey,             @user_payment_card[:access_key] %>
+            <%= hidden_field_tag :cardId,                @user_payment_card[:card_vid] %>
             <%= hidden_field_tag :clientId,              :plendit %>
 
             <%# the following fields + csfr needs to be posted to the form URL for card creation. %>
@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="six columns">
                     <label for="expiry">Utløpsdato:</label>
-                    <input class="u-full-width" name="expiry" placeholder="04/16" id="expiry" type="text">
+                    <input class="u-full-width" name="expiry" placeholder="<%= 1.year.from_now.strftime('%m/%y') %>" id="expiry" type="text">
                 </div>
                 <div class="six columns">
                     <label for="cvc">Kontrollnummer:</label>

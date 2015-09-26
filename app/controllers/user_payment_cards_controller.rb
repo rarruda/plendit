@@ -33,7 +33,7 @@ class UserPaymentCardsController < ApplicationController
       end
     else
       # fetch from cache worked. deserialize it here.
-      @user_payment_card = JSON.parse( @user_payment_card, object_class: OpenStruct )
+      @user_payment_card = JSON.parse( @user_payment_card ).symbolize_keys
     end
   end
 
