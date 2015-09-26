@@ -1,4 +1,4 @@
-<div class="top-bar <%= if overlaid then "top-bar--overlaid" end %>">
+<div class="top-bar">
 
     <a class="top-bar__logo-link" href="/">
         <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "top-bar__logo", size: "115x33" %>
@@ -34,7 +34,7 @@
                data-anchor-for="[data-floating-notifications]"
                data-clear-notifications-url="<%= mark_all_notifications_noticed_users_path %>"
                >Varsler
-                <% if current_user.unseen_notifications_count != 10000 %>
+                <% unless current_user.unseen_notifications_count == 0 %>
                     <span class="top-bar__notification-count" data-notification-count>
                         <%= current_user.unseen_notifications_count %>
                     </span>

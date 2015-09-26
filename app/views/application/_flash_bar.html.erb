@@ -1,8 +1,5 @@
-<% 
-    overlaid = !(defined? overlaid).nil? && overlaid
-%>
 <% if notice or alert %>
-    <div class="flash-bar <%=  overlaid ? "flash-bar--overlaid" : "" %>">
+    <div class="flash-bar">
         <div class="container">
             <% if notice %>
                 <%= notice %>
