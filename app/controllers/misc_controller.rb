@@ -3,7 +3,7 @@ class MiscController < ApplicationController
 
   def frontpage
     @hide_search_field = true
-    @overlaid_top_bar = true
+    @overlaid_top_bar = false
     @hero_video = Rails.configuration.x.frontpage.hero_videos.sample
   end
 

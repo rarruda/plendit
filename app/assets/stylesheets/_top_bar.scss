@@ -4,23 +4,20 @@ $top-bar-height: 52px;
 
 .top-bar {
     background-color: $color-plendit-blue;
-    min-height: $top-bar-height;
+    height: $top-bar-height;
     padding: 10px 12px 0 12px;
     color: white;
+    position: relative;
 
-    &--overlaid {
-        @media screen and (min-width: 640px) {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 199;
-            background-color: rgba(42, 150, 255, 0.7);
-        }
+    @media screen and (max-width: 640px) {
+        height: $top-bar-height * 2;
     }
+
 
     &__form {
         display: inline;
     }
+
 
     &__search-holder {
         background-color: white;
@@ -29,22 +26,53 @@ $top-bar-height: 52px;
         border: solid thin $color-box-border;
 
     }
-    
-    & &__search-input {
-        color: black;
-        border: none;
-        height: 24px;
-        margin: 0;
-        vertical-align: baseline;
 
-        @media screen and (max-width: 640px) {
-            width: 44%;
+    & &__search-input {
+        height: 32px;
+        margin-left: 10px;
+        margin-bottom: 0;
+        vertical-align: 4px;
+        background-color: rgba(#fff, 0.65);
+        color: black;
+        border-color: darken($color-plendit-blue, 3);
+        box-shadow: 0 1px 1px rgba(darken($color-plendit-blue, 10), 0.3) inset;
+
+        /* NOTE: Ok, this is not ideal.  */
+        &::-webkit-input-placeholder {
+            color: rgba(mix($color-plendit-blue, black), 0.5);
         }
+        &::-moz-placeholder {
+            color: rgba(mix($color-plendit-blue, black), 0.5);
+        }
+        &:-ms-input-placeholder {
+            color: rgba(mix($color-plendit-blue, black), 0.5);
+        }
+        &::-ms-input-placeholder {
+            color: rgba(mix($color-plendit-blue, black), 0.5);
+        }
+
+        &:focus {
+            background-color: rgba(white, 0.9);
+            box-shadow: 0 1px 1px rgba(darken($color-plendit-blue, 10), 0.5) inset;
+        }
+
+        @media screen and (max-width: 320px) {
+            width: 100px;
+        }
+    }
+
+    &__navbar-name {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100px;
+        display: inline-block;
     }
 
     &__search-icon {
         vertical-align: middle;
     }
+
 
     &__logo-link {
         &:hover {
@@ -54,17 +82,11 @@ $top-bar-height: 52px;
 
     &__logo {
         vertical-align: middle;
-        @media screen and (max-width: 640px) {
-            width: 38%;
-        }
+        margin-bottom: 12px;
     }
 
     &__rightbox {
-        display: block;
         float: right;
-        height: 38px;
-        line-height: 38px;
-
 
         @media screen and (max-width: 640px) {
             float: none;
@@ -73,13 +95,14 @@ $top-bar-height: 52px;
 
     &__navbar-link {
         color: white;
+        text-decoration: none;
     }
 
     &__avatar {
         vertical-align: middle;
         margin-bottom: 5px;
     }
-    
+
     &__notification-count {
         height: 18px;
         min-width: 18px;
@@ -90,16 +113,18 @@ $top-bar-height: 52px;
         padding-right: 3px;
         background-color: #e7384a;
         display: inline-block;
-        position: relative;
-        top: -10px;
-        left: -4px;
+        position: absolute;
+        top: -9px;
+        right: -6px;
         text-align: center;
     }
 
     &__top-section {
         margin-left: $standard-spacing / 2;
         margin-right: $standard-spacing / 2;
+        text-decoration: none;
         color: white;
+        position: relative;
     }
 
     &__admin-link {
@@ -107,6 +132,7 @@ $top-bar-height: 52px;
         color: white;
         border-radius: 6px;
         padding: 6px;
+        display: none;
     }
 
 }

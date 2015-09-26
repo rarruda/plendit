@@ -6,31 +6,35 @@
 
     <% unless @hide_search_field %>
         <%= form_tag("/search", method: "get", class: "top-bar__form") do %>
+            <%= text_field_tag 'q','', type: "text",  class: "top-bar__search-input", placeholder: 'Hva vil du leie?'  %>
+            <!--
             <span class="top-bar__search-holder">
                 <%= evil_icon 'ei-search', size: :s, class: 'top-bar__search-icon' %>
-                <%= text_field_tag 'q','', type: "text",  class: "top-bar__search-input", placeholder: 'Hva vil du leie?'  %>
             </span>
+            -->
         <% end %>
     <% end %>
 
-    <span class="top-bar__rightbox">
+    <div class="top-bar__rightbox">
         <% if user_signed_in? %>
 
-            <%= render('shared/avatar.html', user: current_user, size: "tiny", css_class: "top-bar__avatar") %>
+            <%= link_to users_path, :class => "top-bar__navbar-link" do %>
+                <%= render('shared/avatar.html', user: current_user, size: "tiny", css_class: "top-bar__avatar") %>
+                <span class="top-bar__navbar-name"><%= current_user.display_name %></span>
+            <% end %>
 
-            <strong class="top-bar__top-section">
-                <%= link_to current_user.display_name, users_path, :class => "top-bar__navbar-link" %>
-                <% if current_user.is_site_admin? %>
-                    <%= link_to 'admin', admin_root_path, class: "top-bar__admin-link" %>
-                <% end %>
-            </strong>
+
+            <% if current_user.is_site_admin? %>
+                <%= link_to 'admin', admin_root_path, class: "top-bar__admin-link" %>
+            <% end %>
+
             |
             <a class="top-bar__top-section" href="#"
                data-controller="menuAnchor resetUnseenNotificationCount"
                data-anchor-for="[data-floating-notifications]"
                data-clear-notifications-url="<%= mark_all_notifications_noticed_users_path %>"
                >Varsler
-                <% if current_user.unseen_notifications_count != 0 %>
+                <% if current_user.unseen_notifications_count != 10000 %>
                     <span class="top-bar__notification-count" data-notification-count>
                         <%= current_user.unseen_notifications_count %>
                     </span>
@@ -45,7 +49,7 @@
             <%= link_to t(:sign_up), new_user_registration_path, :class => "top-bar__navbar-link"  %> |
             <%= link_to t(:log_in), new_user_session_path, :class => "top-bar__navbar-link"  %>
         <% end %>
-    </span>
+    </div>
 
 </div>
 
