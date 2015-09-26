@@ -38,4 +38,20 @@
     </details>
 </div>
 
+<div class="container u-push-down-only">
+    <div class="if-branding-section">
+        <div class="if-branding-section__centerer">
+            <%= image_tag "logos/if_150x148.png", size: "150x148", alt: "", class: "u-pull-left if-branding-section__logo" %>
+            <h2>Skadeforsikring fra IF opp til 1 million.</h2>
+            <p>
+                Slipp alle bekymringer. Hos plendit kan du velge å forsikre tingene
+                du leier ut. Ved skade har du som utleier ingen egenandel og verdien
+                av utleieobjektet dekkes opp til 1 million kroner.
+            </p>
+            <p>
+                <%= link_to 'Les mer om forsikring her.', Rails.configuration.x.customerservice.insurance_info %>
+            </p>
+        </div>
+    </div>
+</div>
 <%= render partial: "front_popular_box" %>

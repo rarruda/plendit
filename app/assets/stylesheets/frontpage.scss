@@ -120,3 +120,14 @@ $break-tiny: 640px;
     }
 }
 
+.if-branding-section {
+    &__centerer {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: left;
+    }
+    &__logo {
+        margin-top: $standard-spacing;
+        margin-right: $standard-spacing;
+    }
+}
