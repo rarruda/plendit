@@ -36,30 +36,38 @@
 
         <div class="row">
             <div class="two-thirds column">
-                <details class="u-implode-summary">
-                    <summary>
-                        <input type="checkbox" checked data-controller="clickthrough"><span> Norsk statsborger</span>
-                    </summary>
+                <% if @user.nationality == 'NO' %> 
+                    <details class="u-implode-summary">
+                        <summary>
+                            <input type="checkbox" checked data-controller="clickthrough"><span> Norsk statsborger</span>
+                        </summary>
                     <div>
+                <% end %>
                         <%= f.label :nationality, 'Statsborgerskap:' %>
                         <%= f.country_select( :nationality, priority_countries: ["NO", "SE", "DK", "DE"], format: :with_flag) %>
+                <% if @user.nationality == 'NO' %> 
                     </div>
                 </details>
+                <% end %>
             </div>
         </div>
 
         <div class="row">
             <div class="two-thirds column">
 
-                <details class="u-implode-summary">
-                    <summary>
-                        <input type="checkbox" checked data-controller="clickthrough"><span> Bosatt i Norge</span>
-                    </summary>
-                    <div>
+                <% if @user.country_of_residence == 'NO' %> 
+                    <details class="u-implode-summary">
+                        <summary>
+                            <input type="checkbox" checked data-controller="clickthrough"><span> Bosatt i Norge</span>
+                        </summary>
+                        <div>
+                <% end %>
                         <%= f.label :country_of_residence, 'Bosatt i:' %>
                         <%= f.country_select( :country_of_residence, priority_countries: ["NO", "SE", "DK", "DE"], format: :with_flag) %>
-                    </div>
-                </details>
+                <% if @user.country_of_residence == 'NO' %> 
+                        </div>
+                    </details>
+                <% end %>
             </div>
         </div>
 
