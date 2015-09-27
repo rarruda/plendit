@@ -126,8 +126,15 @@ $break-tiny: 640px;
         margin: 0 auto;
         text-align: left;
     }
+    
     &__logo {
-        margin-top: $standard-spacing;
-        margin-right: $standard-spacing;
+        padding-top: 24px;
+        padding-right: $standard-spacing;
+        padding-bottom: 64px;
+        box-sizing: content-box;
+
+        @media screen and (max-width: 640px) {
+            padding-bottom: 0;
+        }
     }
 }
