@@ -19,7 +19,6 @@ COUNTRY_GEO_BOUNDS = [ [57.5,4], [72,32] ]
 
 
 # "kr 50.000,-"
-Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
 Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5_000, delimiter: "." )
 
 Plendit::Application.config.x.map.default_center_coordinates = { lat: 61.5, lon: 11.0 }
@@ -42,6 +41,21 @@ Plendit::Application.config.x.insurance.price_in_percent     = {
   motor:      0.09,
   realestate: 0.09
  }
+
+Plendit::Application.config.x.insurance.reservation_value   = {
+  bap:         0,
+  motor:       1_000_00,
+  realestate:  0
+ }
+
+Plendit::Application.config.x.insurance.deductible_value = {
+  bap:         1_500_00,
+  motor:      12_000_00,
+  realestate: 12_000_00
+ }
+
+# should be a hash: bap: 1_500, motor: 1_000_000, realestate: 500_000
+Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
 
 Plendit::Application.config.x.ads.categories = [
   {
