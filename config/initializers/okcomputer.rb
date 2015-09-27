@@ -12,3 +12,9 @@ OkComputer::Registry.register "check_mangopay",       HealthCheck::Mangopay.new
 # Known missing checks:
 # amazon s3 buckets can be reached
 # google geocoder API can be reached
+# mandrill email sending
+
+# facebook oauth2
+# google oauth2
+# spid oauth2
+
