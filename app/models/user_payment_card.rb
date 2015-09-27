@@ -1,5 +1,5 @@
 class UserPaymentCard < ActiveRecord::Base
-  has_paper_trail #:ignore => [:access_key, :preregistration_data, :registration_data, :card_registration_url]
+  has_paper_trail
 
 
   belongs_to :user
