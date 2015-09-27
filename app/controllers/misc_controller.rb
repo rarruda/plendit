@@ -7,9 +7,6 @@ class MiscController < ApplicationController
   end
 
   def postal_place
-    # FIXME: we should receive requests for postal_code which is 4 chars long.
-    #   handling it here, and not in JS is pretty ugly.
-    # Return invalid if the post_code does not exist.
     render text: ( params[:postal_code].length == 4 ? ( POSTAL_CODES[params[:postal_code]] || "ugyldig" ) : "Poststed..." )
   end
 
