@@ -86,11 +86,12 @@ class Booking < ActiveRecord::Base
   end
 
   def sum_paid_to_owner
-    self.amount * 0.88
+    self.amount
   end
 
+  # this is seriously bogus:
   def sum_paid_by_renter
-    self.amount
+    self.amount * (1 + Plendit::Application.config.x.platform.fee_in_percent )
   end
 
   # duration_in_days rounded up for fractions of a day.
