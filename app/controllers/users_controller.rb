@@ -111,21 +111,21 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /verify_sms
+  # GET /me/verify_sms
   def verify_sms
     # if user already has phone verified, take him somewhere else.
     unless @user.phone_pending_confirmation?
-      redirect_to @user, notice: 'Your phone_number was already verified. no need to try to verify it again.'
+      redirect_to edit_users_path, notice: 'Your phone_number was already verified. no need to try to verify it again.'
     end
   end
 
-  # POST /verify_sms
+  # POST /me/verify_sms
   def do_verify_sms
     if @user.phone_number_confirmation_token == user_params['phone_number_confirmation_token'] and
        @user.confirm_phone_number!
-      redirect_to @user, notice: 'Your phone_number was successfully verified.'
+      redirect_to edit_users_path, notice: 'Your phone_number was successfully verified.'
     else
-      redirect_to @user, notice: 'Your phone_number was NOT verified, please check the code, and try again. Eventually try resending a new verification code.'
+      redirect_to verify_sms_users_path, notice: 'Your phone_number was NOT verified, please check the code, and try again. Eventually try resending a new verification code.'
     end
   end
 

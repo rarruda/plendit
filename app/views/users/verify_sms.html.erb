@@ -3,12 +3,6 @@
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
-                I feltene under kan du redigere din profil. Husk at
-                det bare er ditt fornavn som vises til andre brukere.
-            <% end %>
-
-
 
 
             <%= render layout: "gray_box", locals: {title: "Verify Phone Number"} do %>
@@ -28,21 +22,9 @@
                             <%= submit_tag "Bekreft", class: "u-pull-right button-primary" %>
                         </div>
                     </div>
-
                 </form>
-
             <% end %>
 
-        </div>
-        <div class="four columns">
-            <%= render layout: "gray_box", locals: {title: "Flere valg"} do %>
-                <ul>
-                    <li><a href="#">Rediger profil</a></li>
-                    <li><a href="#">Verifisering</a></li>
-                    <li><a href="#">Tilbakemeldinger</a></li>
-                    <li><a href="#">Favoritter</a></li>
-                </ul>
-            <% end %>
         </div>
     </div>
 </div>

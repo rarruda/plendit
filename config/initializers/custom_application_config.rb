@@ -11,6 +11,7 @@ include ActionView::Helpers::NumberHelper
 # Global Constants:
 PLENDIT_COUNTRY_CODE  = 'NO'
 PLENDIT_CURRENCY_CODE = 'NOK'
+PLENDIT_COUNTRY_PHONE_CODE = '+47'
 
 POSTAL_CODES = YAML.load_file("#{Rails.root}/config/data/postal_codes.yml")
 

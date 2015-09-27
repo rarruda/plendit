@@ -12,9 +12,7 @@ module SmsVerifiable
     # do all transformations for phone_number confirmation.
   def confirm_phone_number!
     if self.unconfirmed_phone_number.nil?
-      logger.tagged("user_id:#{self.id}") {
-        logger.error "tried to confirm an unconfirmed_phone_number that is nil. This should never happen."
-      }
+      logger.tagged("user_id:#{self.id}") { logger.error "tried to confirm an unconfirmed_phone_number that is nil. This should never happen." }
       nil
     else
       self.phone_number              = self.unconfirmed_phone_number
@@ -32,18 +30,18 @@ module SmsVerifiable
 
   # is_phone_pending_confirmation?
   def phone_pending_confirmation?
-    not unconfirmed_phone_number.nil?
-  end
-
-  def phone_pending_changed?
-    unconfirmed_phone_number_changed?
+    if self.phone_number.blank? or not self.unconfirmed_phone_number.blank?
+      true
+    else
+      false
+    end
   end
 
   private
+  # create confirmation token if a user wants to change his phone number.
   def set_phone_attributes
-    #self.phone_number = false
     # 6 digit zero padded number as a string.
-    self.phone_number_confirmation_token = ( SecureRandom.hex(3).to_i(16) % 1000000 ).to_s.rjust( 6, "0" )
+    self.phone_number_confirmation_token = ( SecureRandom.hex(3).to_i(16) % 1_000_000 ).to_s.rjust( 6, "0" )
     # removes all white spaces, hyphens, and parenthesis
     self.unconfirmed_phone_number.to_s.gsub!(/[\s\-\(\)]+/, '')
   end

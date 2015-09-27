@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_paper_trail :only => [ :payment_provider_vid, :birthday, :country_of_residence, :nationality,
-    :first_name, :last_name, :name, :personhood, :email, :phone_number, :pays_vat, :status ],
+    :first_name, :last_name, :name, :personhood, :email, :unconfirmed_email,
+    :phone_number, :unconfirmed_phone_number, :pays_vat, :status ],
     :skip => [:encrypted_password, :current_sign_in_at, :remember_created_at, :created_at,
       :confirmation_sent_at, :last_sign_in_at, :phone_number_confirmation_sent_at, :reset_password_sent_at,
       :confirmation_token, :unlock_token, :reset_password_token, :phone_number_confirmation_token]
@@ -68,20 +69,17 @@ class User < ActiveRecord::Base
   enum personhood: { natural: 0, legal_business: 1, legal_organization: 2 }
 
 
-
-  # only act on the phone settings, if the phone number was changed.
-  # TODO: add trigger so that its possible to re-send codes for the current unverified phone number.
-  before_create :set_phone_attributes
-
+  # Set phone confirmation tokens before saving.
+  # But only if the unconfirmed phone number was changed to something that isnt blank.
   before_save :set_phone_attributes,
-    if: :phone_pending_confirmation?,
-    if: :phone_pending_changed?,
-    if: :phone_number_changed?
+    if: :unconfirmed_phone_number_changed?,
+    unless: "unconfirmed_phone_number.blank?"
 
+  # Send an SMS if the unconfirmed phone number changed to something that isnt blank.
   after_save  :send_sms_for_phone_confirmation,
-    if: :phone_pending_confirmation?,
-    if: :phone_pending_changed?,
-    if: :phone_number_changed?
+    if: :unconfirmed_phone_number_changed?,
+    unless: "unconfirmed_phone_number.blank?"
+
 
   # this should be a delayed job:
   #  * an equivalent callback should be considered, for when updating information:
@@ -274,10 +272,10 @@ class User < ActiveRecord::Base
         self.personhood.nil? ||
         self.country_of_residence.nil? ||
         self.nationality.nil?
-        puts "profile is NOT complete"
+      logger.tagged("user_id:#{self.id}") { logger.error "profile is NOT complete" }
       false
     else
-        puts "profile IS complete"
+      logger.tagged("user_id:#{self.id}") { logger.error "profile IS complete" }
       true
     end
   end

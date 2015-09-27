@@ -106,12 +106,14 @@
                 <% if @user.phone_pending_confirmation? %>
                     <div>
                         <%= evil_icon 'ei-close-o', size: :s, class: "u-fill-red" %>
-                        <span>Telefonnummeret er ikke bekreftet!</span>
-                        <p>
-                            Telefonnummer <%= @user.unconfirmed_phone_number %> er ikke bekreftet.
-                            <%= link_to 'Bekreft telefonnummer nå', verify_sms_users_path %>
+                        <small>
+                            Telefonnummer <%= @user.unconfirmed_phone_number %> er ikke bekreftet!
+                            <% if not @user.unconfirmed_phone_number.blank? %>
+                                <%= link_to 'Bekreft telefonnummer nå', verify_sms_users_path %>
+                                <%#= link_to 'send ny melding', foo_bar_path %>
+                            <% end %>
                             <%# FIXME(RA): Create a page to send a New SMS. Should refuse to send too often, otherwise we go bankrupt. %>
-                        </p>
+                        </small>
                     </div>
                 <% else %>
                     <div>
@@ -134,7 +136,7 @@
             </p>
         <%- else -%>
             <p>
-                <small>TRANSLATE_ME: Når du har verifisert din epost, da har du mulighet å konfigurere din bank konto nummer.</small>
+                <small>Når du har verifisert din epost og mobil telefon, da har du mulighet å konfigurere din bank konto nummer.</small>
             </p>
         <%- end -%>
 
