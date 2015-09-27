@@ -45,7 +45,11 @@ window.controllers.cardInputter = {
                 renderErrors(errors);
             }
             else {
-                cardRegistrationPromise(cardInfo).then(onCardRegistrationSuccess, onCardRegistrationFailure)
+                disableSubmit();
+                showSpinner();
+                cardRegistrationPromise(cardInfo)
+                    .then(onCardRegistrationSuccess, onCardRegistrationFailure)
+                    .catch(function(e) { console.log(e.stack) })
             }
         }
 
@@ -59,6 +63,9 @@ window.controllers.cardInputter = {
         }
 
         function onCardRegistrationFailure(err) {
+            enableSubmit();
+            hideSpinner();
+            showRegError(err);
             console.log("card reg fail");
             console.log(err);
         }
@@ -77,6 +84,42 @@ window.controllers.cardInputter = {
             return new Promise(function(resolve, reject) {
                 mangoPay.cardRegistration.registerCard(cardData, resolve, reject);
             });
+        }
+
+        function disableSubmit() {
+            var submitButton = form.querySelector("button[type=submit]");
+            submitButton.disabled = true;
+        }
+
+        function enableSubmit() {
+            var submitButton = form.querySelector("button[type=submit]");
+            submitButton.disabled = false;
+        }
+
+        function showSpinner() {
+            toggleSpinner(false);
+        }
+
+        function hideSpinner() {
+            toggleSpinner(true);
+        }
+
+        function toggleSpinner(state) {
+            // using class, not data attribute because evil icons don't
+            // support data attributes
+            var toggler = ele.querySelector(".data-spinner");
+            toggler.classList.toggle("u-hidden", state);
+        }
+
+        function showRegError(err) {
+            var cont = ele.querySelector("[data-error]");
+            cont.querySelector("code").textContent = "" + err.ResultCode + ": " + err.ResultMessage;
+            cont.classList.remove("u-hidden");
+        }
+
+        function hideRegError(err) {
+            var ele = document.querySelector("data-error");
+            ele.classList.add("u-hidden");
         }
 
         function renderErrors(errors) {

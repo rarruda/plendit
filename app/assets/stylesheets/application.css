@@ -29,6 +29,10 @@
     fill: red;
 }
 
+.u-fill-blue {
+    fill: #2a96ff;
+}
+
 select[disabled] {
     opacity: 0.5;
 }
