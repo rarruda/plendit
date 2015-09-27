@@ -17,6 +17,8 @@
             <%= button_to "Deaktiver", users_ad_path(ad), method: :delete, class: "button", form_class: "u-inline" %>
             <small>Historikk for utleie, samt tilbakemeldinger på utleie, vil fortsatt være tilgjengelig.</small>
         <% end %>
-    </p>
 
+        <!-- todo: this should be button_to edit_availability_path(ad) -->
+        <button class="button">Marker som opptatt</button>
+    </p>
 </div>
