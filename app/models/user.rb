@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :favorite_lists
   has_many :favorite_ads, :through => :favorite_lists
   has_many :user_images, dependent: :destroy, autosave: true
+  has_many :user_documents
 
   # received_bookings == bookings:
   has_many :bookings, :through => :ad_items
