@@ -28,7 +28,10 @@ Rails.application.configure do
   #config.static_cache_control = "public, max-age=#{1.day.to_i}"
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = Uglifier.new(
+    # Remove all console.* functions
+    compress: { drop_console: true }
+  )
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
