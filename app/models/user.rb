@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   has_paper_trail :only => [ :payment_provider_vid, :birthday, :country_of_residence, :nationality,
-    :first_name, :last_name, :name, :personhood, :email, :phone_number, :pays_vat, :status ], :ignore => [:encrypted_password]
+    :first_name, :last_name, :name, :personhood, :email, :phone_number, :pays_vat, :status ],
+    :skip => [:encrypted_password, :current_sign_in_at, :remember_created_at, :created_at,
+      :confirmation_sent_at, :last_sign_in_at, :phone_number_confirmation_sent_at, :reset_password_sent_at,
+      :confirmation_token, :unlock_token, :reset_password_token, :phone_number_confirmation_token]
 
   rolify
 
@@ -84,7 +87,13 @@ class User < ActiveRecord::Base
   #  * an equivalent callback should be considered, for when updating information:
   after_save :provision_with_mangopay,
     if: :is_profile_complete?,
-    if: Proc.new { |u| u.payment_provider_vid.nil? }
+    if: Proc.new { |u| u.payment_provider_vid.blank? }
+
+
+#  after_save :provision_wallets_with_mangopay,
+#    if: :is_profile_complete?,
+#    if: Proc.new { |u| u.payment_provider_vid.blank? }
+#    if: Proc.new { |u| u.user_payment_account.payin_wallet_vid.blank? }
 
   def safe_avatar_url
     # Gravatar: "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?r=pg&d=mm" ### &d=#{our_own_generic_profile_image_url}
