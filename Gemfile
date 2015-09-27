@@ -89,6 +89,9 @@ gem 'redis', '~> 3.2.1'
 # for connection pooling redis:
 #gem 'connection_pool', '~> 2.2.0'
 
+# health check for the app:
+gem 'okcomputer'
+
 # icons for the UI
 gem 'evil_icons'
 

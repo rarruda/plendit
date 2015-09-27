@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   scope '/internal-backstage' do
+    mount OkComputer::Engine, at: "health-check"
     ActiveAdmin.routes(self)
     get 'admin/switch_user' => 'switch_user#set_current_user'
     get 'switch_user',               to: redirect('/')

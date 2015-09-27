@@ -244,6 +244,16 @@ List av test bankkonto nummer:
 
 Will probably be deployed via capistrano. For now, there is no deployment.
 
+* Checking application status
+
+Go to the following URL for a health-check overview of the application and
+  its requirement statuses:
+
+`http://localhost:3000/internal-backstage/health-check/all.json`
+
+For checking that the application is up:
+`http://localhost:3000/internal-backstage/health-check/`
+
 * Generating Model and Controller UML diagrams
 
 Using railroady: ( https://github.com/preston/railroady )
@@ -262,7 +272,7 @@ The UML diagram will then be available as a pdf file at doc/erd.pdf
 
 * Admin UI
 
-To access the admin interface go to http://localhost:3000/admin/
+To access the admin interface go to http://localhost:3000/internal-backstage/admin/
 
 You will need to be logged in and to have the :site_admin role set in
 your user. To do so:
