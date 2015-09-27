@@ -1,40 +1,34 @@
 window.controllers = window.controllers || {};
 
-window.controllers.syncPayout = {
-    callable: function(root) {
-        init();
+window.controllers.payoutFetcher = {
+    dependencies: ['$element', 'utils'],
+    callable: function(ele, utils) {
+        var insuranceBox = ele.querySelector("[data-insurance]");
+        var priceInput = ele.querySelector("[data-price]");
+        var calculatedPriceOutput = ele.querySelector("[data-payout]");
+        var category = ele.getAttribute('data-category');
+        var priceUrl = ele.getAttribute('data-price-url');
+        var callback = utils.debounce(fetchPayout, 700);
+        var lastPrice = "";
+        var lastInsurance = "";
 
-        function init() {
-            var inputs = root.querySelectorAll("[data-payout-source]");
-            for (var n = 0, e; e = inputs[n++];) {
-                initInput(e);
+        [insuranceBox, priceInput].forEach(function(e) {
+            e.addEventListener('change', callback);
+            e.addEventListener('keyup', callback);
+            e.addEventListener('blur', callback);
+        });
+
+        function fetchPayout(evt) {
+            if (lastPrice != priceInput.value || lastInsurance != insuranceBox.checked) {
+                lastPrice = priceInput.value;
+                lastInsurance = insuranceBox.checked;
+                var url = priceUrl + "?price=" + lastPrice + "&insurance=" + lastInsurance + "&category=" + category;
+                xhr.get(url).then(updatePostalPlace);
             }
         }
 
-        function initInput(source) {
-            var destination = root.querySelector("[data-payout-for=\"" + source.getAttribute("name") + "\"]");
-            var syncer = makeSyncer(source, destination);
-            source.addEventListener('change', syncer);
-            source.addEventListener('keyup', syncer);
-            syncer();
-        }
-
-        function makeSyncer(source, destination) {
-            return function(evt) {
-                var price = parseFloat(source.value);
-                if (isNaN(price)) {
-                    destination.value = "";
-                }
-                else {
-                    if (price == 0) {
-                        destination.value = 0;
-                    }
-                    else {
-                        destination.value = price * 1.10;
-                    }
-                }
-
-            }
+        function updatePostalPlace(xhr) {
+            calculatedPriceOutput.value = xhr.responseText;
         }
     }
-};
+}

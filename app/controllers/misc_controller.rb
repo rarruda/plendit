@@ -14,13 +14,11 @@ class MiscController < ApplicationController
   end
 
   def renter_price_estimate
-    price = params[:price].to_f
+    price = (params[:price].to_f * 100).to_i
     category = params[:category]
     insurance = params[:insurance]
-
     final_price  = price * ( 1.0 + Plendit::Application.config.x.platform.fee_in_percent )
     final_price += price * Plendit::Application.config.x.insurance.price_in_percent[category.to_sym] if insurance == 'true'
-
-    render text: final_price
+    render text: '%.2f' % (final_price / 100)
   end
 end

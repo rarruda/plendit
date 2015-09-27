@@ -1,4 +1,4 @@
-<%= form_for(@ad, url: (users_ad_path @ad), data: {"main-form" => ""}) do |f| %>
+<%= form_for(@ad, url: (users_ad_path @ad), data: {main_form: '', controller: 'payoutFetcher', category: @ad.category, price_url: renter_price_estimate_path}) do |f| %>
     <% if @ad.errors.any? %>
         <div id="error_explanation">
             <h2><%= pluralize(@ad.errors.count, "error") %> prohibited this ad from being saved:</h2>
@@ -20,29 +20,29 @@
     <label>Overskrift:</label>
     <%= f.text_field :title, class: 'u-full-width' %>
 
-    <div data-controller="syncPayout" class="u-push-down">
+    <div class="u-push-down">
         <div class="row">
             <div class="five columns">
                 <label>
                     <span class="label-body">Utbetales til deg</span>
                 </label>
                 <%= f.number_field :price_in_h,
-                        class: "u-full-width",
-                        placeholder: "Kr 0",
-                        data: {"payout-source" => ""} %>
+                        class: 'u-full-width',
+                        placeholder: 'Kr 0',
+                        data: { price: '' } %>
             </div>
             <div class="five columns">
                 <label>
-                    <span class="label-body">Pris for utleie pr dag</span>
+                    <span class="label-body">Utleiepris pr. dag</span>
                 </label>
                 <%# FIXME: do a callback to the server. %>
-                <input disabled="true" type="text" name="day_price" class="u-full-width" placeholder="Kr 0" data-payout-for="ad[price_in_h]">
+                <input disabled="true" type="text" name="day_price" class="u-full-width" placeholder="Kr 0" data-payout>
             </div>
         </div>
     </div>
 
     <label class="u-push-down">
-        <%= f.check_box :insurance_required %>
+        <%= f.check_box :insurance_required, data: {insurance: ''} %>
         <span class="label-body">
             Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %> for å leie gjenstanden.
         </span>
