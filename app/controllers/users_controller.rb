@@ -72,9 +72,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update(user_params_safe)
-        # annoying that we have to save first up there and then save again below:
-        @user.image_url = @user.user_images.avatar.first.image.url(:avatar_huge) if not @user.user_images.avatar.first.blank?
-        @user.save
+        # annoying that we have to save first up there and then save again below: #@user.user_images.avatar.empty?
+        if not @user.user_images.avatar.first.image_file_name.blank?
+          @user.image_url = @user.user_images.avatar.first.image.url(:avatar_huge)
+          @user.save
+        end
 
         format.html { redirect_to ( request.env['HTTP_REFERER'] || users_edit_path ) }
         format.json { render :show, status: :ok, location: @user }

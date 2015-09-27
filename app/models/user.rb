@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
 
 
   accepts_nested_attributes_for :user_payment_account, :reject_if => proc { |attributes| attributes['bank_account_number'].blank? }
-  accepts_nested_attributes_for :user_images
+  accepts_nested_attributes_for :user_images, :reject_if => proc { |attributes| ( not attributes['user_images_attributes'].nil? ) and attributes['user_images_attributes'].any? { |uia| uia.image_file_name.blank? } }
 
 
   #validates :phone_number, presence: true,
