@@ -4,7 +4,7 @@ class Location < ActiveRecord::Base
 
   validates :user, presence: true
   validates :address_line, presence: true
-  validates :post_code, presence: true, format: { with: /\A[0-9]{4}\z/, message: "må vare 4 nummer langt." }
+  validates :post_code, presence: true, format: { with: /\A[0-9]{4}\z/, message: "må være 4 siffer." }
   validate  :post_code_must_exist
   #validates :lat, presence: true, numericality: true
   #validates :lon, presence: true, numericality: true
