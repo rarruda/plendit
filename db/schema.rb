@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926211717) do
+ActiveRecord::Schema.define(version: 20150927171020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -316,6 +316,10 @@ ActiveRecord::Schema.define(version: 20150926211717) do
     t.string   "payment_provider_vid"
     t.string   "nationality",                       limit: 2
     t.string   "country_of_residence",              limit: 2
+    t.string   "home_address_line"
+    t.string   "home_post_code"
+    t.string   "home_city"
+    t.string   "home_state"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

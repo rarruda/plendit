@@ -150,6 +150,7 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:first_name, :last_name, :birthday, :email,
         :personhood, :nationality, :country_of_residence,
+        :home_address_line, :home_post_code,
         :password, :password_confirmation,
         :current_phone_number, :phone_number_confirmation_token,
          user_payment_account_attributes: [:id, :bank_account_number],

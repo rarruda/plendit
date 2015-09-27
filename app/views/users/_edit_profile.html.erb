@@ -36,7 +36,7 @@
 
         <div class="row">
             <div class="two-thirds column">
-                <% if @user.nationality == 'NO' %> 
+                <% if @user.nationality == 'NO' %>
                     <details class="u-implode-summary">
                         <summary>
                             <input type="checkbox" checked data-controller="clickthrough"><span> Norsk statsborger</span>
@@ -44,8 +44,8 @@
                     <div>
                 <% end %>
                         <%= f.label :nationality, 'Statsborgerskap:' %>
-                        <%= f.country_select( :nationality, priority_countries: ["NO", "SE", "DK", "DE"], format: :with_flag) %>
-                <% if @user.nationality == 'NO' %> 
+                        <%= f.country_select( :nationality, priority_countries: ["NO", "SE", "DK", "FI", "PL", "DE"], format: :with_flag) %>
+                <% if @user.nationality == 'NO' %>
                     </div>
                 </details>
                 <% end %>
@@ -55,7 +55,7 @@
         <div class="row">
             <div class="two-thirds column">
 
-                <% if @user.country_of_residence == 'NO' %> 
+                <% if @user.country_of_residence == 'NO' %>
                     <details class="u-implode-summary">
                         <summary>
                             <input type="checkbox" checked data-controller="clickthrough"><span> Bosatt i Norge</span>
@@ -63,8 +63,8 @@
                         <div>
                 <% end %>
                         <%= f.label :country_of_residence, 'Bosatt i:' %>
-                        <%= f.country_select( :country_of_residence, priority_countries: ["NO", "SE", "DK", "DE"], format: :with_flag) %>
-                <% if @user.country_of_residence == 'NO' %> 
+                        <%= f.country_select( :country_of_residence, priority_countries: ["NO", "SE", "DK", "FI", "PL", "DE"], format: :with_flag) %>
+                <% if @user.country_of_residence == 'NO' %>
                         </div>
                     </details>
                 <% end %>
@@ -124,7 +124,29 @@
             </div>
         </div>
 
-        <%- if @user.phone_verified? -%>
+        <%- if @user.phone_verified? #and @user.email_verified? -%>
+
+            <div class="row">
+                <div class="eight columns">
+                    <%= f.label :home_address_line, "Gateadresse:" %>
+                    <%= f.text_field :home_address_line, class: "u-full-width" %>
+                </div>
+            </div>
+
+            <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
+                <div class="two columns">
+                    <%= f.number_field :home_post_code, class: "u-full-width", placeholder: "Postnr.", maxlength: 5, data: {"postal-code" => ""} %>
+                </div>
+                <div class="six columns">
+                    <input type="text" class="u-full-width" disabled placeholder="<%= @user.home_city || 'Poststed' %>" data-postal-place>
+                </div>
+            </div>
+            <p>
+                <small>Vi trenger din addresse som er koblet til din bank konto nummer.</small>
+            </p>
+
+
+
         <%# only show bank account form, if you have confirmed your phone with us. %>
             <%= f.fields_for :user_payment_account do |acc_builder| %>
               <%#= acc_builder.hidden_field :id %>

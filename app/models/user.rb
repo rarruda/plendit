@@ -57,6 +57,10 @@ class User < ActiveRecord::Base
   #between 10 and 120 years, only when if the bank account number is not blank
   validate :birthday, :birthday_should_be_reasonable, :unless => Proc.new { |a| a.user_payment_account.nil? }
 
+  validates :home_address_line, presence: true, :unless => Proc.new { |a| a.user_payment_account.nil? }
+  validates :home_post_code,    presence: true, format: { with: /\A[0-9]{4}\z/, message: "må være 4 siffer." },
+    :unless => Proc.new { |a| a.user_payment_account.nil? }
+
 
 
   # From: http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html
@@ -68,6 +72,8 @@ class User < ActiveRecord::Base
   #natural person, legal_person, legal_organization
   enum personhood: { natural: 0, legal_business: 1, legal_organization: 2 }
 
+
+  before_save :set_city_from_postal_code
 
   # Set phone confirmation tokens before saving.
   # But only if the unconfirmed phone number was changed to something that isnt blank.
@@ -278,6 +284,10 @@ class User < ActiveRecord::Base
       logger.tagged("user_id:#{self.id}") { logger.error "profile IS complete" }
       true
     end
+  end
+
+  def set_city_from_postal_code
+    self.home_city = POSTAL_CODES[self.home_post_code]
   end
 
 end
