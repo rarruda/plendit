@@ -4,7 +4,7 @@ class Booking < ActiveRecord::Base
 
   extend TimeSplitter::Accessors
 
-  SECS_IN_DAY = 24*60*60
+  has_paper_trail
 
   split_accessor :starts_at
   split_accessor :ends_at
@@ -96,7 +96,7 @@ class Booking < ActiveRecord::Base
   # duration_in_days rounded up for fractions of a day.
   #  Minimum duration of one day.
   def duration_in_days
-    d = ( (self.ends_at - self.starts_at) / SECS_IN_DAY  ).ceil
+    d = ( (self.ends_at - self.starts_at) / 1.day.to_i  ).ceil
     raise "You cant have a negative duration for a booking" if d < 0
 
     d == 0 ? 1 : d
