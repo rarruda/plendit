@@ -212,6 +212,9 @@ a {
     }
   }
 
+  &:disabled, &:hover:disabled {
+    background-color: grayscale($color-plendit-blue);
+  }
 }
 
 
