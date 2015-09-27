@@ -18,7 +18,6 @@
             <small>Historikk for utleie, samt tilbakemeldinger på utleie, vil fortsatt være tilgjengelig.</small>
         <% end %>
 
-        <!-- todo: this should be button_to edit_availability_path(ad) -->
-        <button class="button">Marker som opptatt</button>
+        <%= link_to "Endre tilgjengelighet", edit_availability_ad_path(ad), class: 'button' %>
     </p>
 </div>

@@ -5,6 +5,7 @@ class AdsController < ApplicationController
     :unavailability,
     :approve,
     :edit,
+    :edit_availability,
     :gallery,
     :image_manager,
     :pause,
@@ -213,6 +214,8 @@ class AdsController < ApplicationController
   def edit
   end
 
+  def edit_availability
+  end
 
   # PATCH/PUT /ads/1
   # PATCH/PUT /ads/1.json

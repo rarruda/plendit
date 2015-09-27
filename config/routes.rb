@@ -97,6 +97,7 @@ Rails.application.routes.draw do
       get 'double_calendar'
       get 'single_calendar'
       get 'image_manager'
+      get 'edit_availability'
       post 'pause'
       post 'stop'
       post 'approve'
