@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
   has_paper_trail :only => [ :payment_provider_vid, :birthday, :country_of_residence, :nationality,
     :first_name, :last_name, :name, :personhood, :email, :unconfirmed_email,
-    :phone_number, :unconfirmed_phone_number, :pays_vat, :status ],
+    :phone_number, :unconfirmed_phone_number, :pays_vat, :status
+    :home_address_line, :home_post_code, :home_city, :home_state ],
     :skip => [:encrypted_password, :current_sign_in_at, :remember_created_at, :created_at,
       :confirmation_sent_at, :last_sign_in_at, :phone_number_confirmation_sent_at, :reset_password_sent_at,
       :confirmation_token, :unlock_token, :reset_password_token, :phone_number_confirmation_token]
