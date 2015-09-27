@@ -30,6 +30,7 @@ class UserPaymentCardsController < ApplicationController
         REDIS.setex( @cardreg_redis_key, MANGOPAY_PRE_REGISTERED_CARD_TTL, @user_payment_card.to_json )
       else
         logger.error "ERROR Pre-registrating the card. THIS IS NOT GOOD! Things will fail... => #{@user_payment_card}"
+        redirect_to user_payment_cards_path, notice: 'UserPaymentCard pre-registration failed. Cannot register a new card.'
       end
     else
       # fetch from cache worked. deserialize it here.
