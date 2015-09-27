@@ -1,6 +1,6 @@
 class UserPaymentCardsController < ApplicationController
   before_action :set_user_payment_card, only: [:destroy]
-  before_action :set_cardreg_redis_key, only: [:new, :create]
+  before_action :set_cardreg_redis_key, only: [:new, :create, :flush_cache]
   before_action :authenticate_user!
 
   # check that the user is provisioned in mangopay:
@@ -13,6 +13,10 @@ class UserPaymentCardsController < ApplicationController
     @user_payment_cards = UserPaymentCard.where(user: current_user)
   end
 
+  def flush_cache
+    logger.info "flushing card cache for user_id:#{current_user.id}"
+    REDIS.del( @cardreg_redis_key )
+  end
 
   # GET /user_payment_cards/new
   def new
