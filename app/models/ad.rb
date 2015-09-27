@@ -162,7 +162,7 @@ class Ad < ActiveRecord::Base
   end
 
   def ad_location_is_geocoded?
-    false if self.location.nil?
+    return false if self.location.nil?
     self.location.is_geocoded?
   end
 
