@@ -43,7 +43,13 @@ class PhoneVerificationService
 
       if ENV['PCONF_TWILIO_ENABLED']
         # this should be done via a delayed job of some sort:
-        TWILIO_CLIENT.account.messages.create( from: from, to: to, body: body )
+        begin
+          TWILIO_CLIENT.account.messages.create( from: from, to: to, body: body )
+        rescue => e
+          Rails.logger.tagged("user_id:#{@user.id}") { Rails.logger.error "Error from Twilio API sending SMS: exception: #{e}" }
+          Rails.logger.tagged("user_id:#{@user.id}") { Rails.logger.error "Error from Twilio API sending SMS: From: #{from} To: #{to} Body: '#{body}'" }
+          # FIXME: Need to raise an warning to the user that we could not send an sms to the user. most likely an invalid number....
+        end
       else
         Rails.logger.tagged("user_id:#{@user.id}") { Rails.logger.info "SMS: twilio not called to save money" }
       end

@@ -6,7 +6,8 @@ module SmsVerifiable
 
 
   def current_phone_number
-    self.unconfirmed_phone_number || self.phone_number
+    self.unconfirmed_phone_number if not self.unconfirmed_phone_number.blank?
+    self.phone_number
   end
 
     # do all transformations for phone_number confirmation.
