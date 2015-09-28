@@ -4,7 +4,7 @@
 Paperclip.options[:command_path] = "~/homebrew/bin/"
 
 Paperclip::Attachment.default_options[:storage]        = :s3
-Paperclip::Attachment.default_options[:url]            = ":s3_domain_url"
+Paperclip::Attachment.default_options[:url]            = ":s3_alias_url"
 Paperclip::Attachment.default_options[:s3_host_name]   = ENV['PCONF_S3_HOST_NAME']
 Paperclip::Attachment.default_options[:s3_host_alias]  = ENV['PCONF_S3_CDN_ALIAS']
 Paperclip::Attachment.default_options[:s3_credentials] = {
