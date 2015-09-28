@@ -11,18 +11,14 @@ class AdImage < ActiveRecord::Base
   }
 
   has_attached_file :image, {
-    :styles      => { 
-      :thumb => "#{DIMENSIONS[:thumb][:width]}x#{DIMENSIONS[:thumb][:height]}#",
+    :styles      => {
+      :thumb        => "#{DIMENSIONS[:thumb][:width]}x#{DIMENSIONS[:thumb][:height]}#",
       :searchresult => "#{DIMENSIONS[:searchresult][:width]}x#{DIMENSIONS[:searchresult][:height]}#",
-      :hero => "#{DIMENSIONS[:hero][:width]}x#{DIMENSIONS[:hero][:height]}#",
-      :gallery => "#{DIMENSIONS[:gallery][:width]}"
+      :hero         => "#{DIMENSIONS[:hero][:width]}x#{DIMENSIONS[:hero][:height]}#",
+      :gallery      => "#{DIMENSIONS[:gallery][:width]}"
     },
-    :hash_data   => ":class/:attachment/:id",
-    :hash_secret => "longSuperDuperSecretSaltStringForObfuscation", #ENV['PCONF_PAPERCLIP_HASH_SALT']
     :default_url => "/images/:style/missing.png",
-    #:preserve_files => "true", #Soft-delete (delete only from database, not from storage/s3)
-    :url         => ":s3_domain_url",
-    :path        => "/images/ads/:ad_id/:style/:hash.:extension", #### "/system/ad_image/:ad_id/:style/:hash.:extension"
+    :path        => "/images/ads/:ad_id/:style/:hash.:extension",
   }
 
   scope :for_ad_id, ->(ad_id) { where( ad_id: ad_id ) }

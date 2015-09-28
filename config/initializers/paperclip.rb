@@ -3,16 +3,23 @@
 
 Paperclip.options[:command_path] = "~/homebrew/bin/"
 
-Paperclip::Attachment.default_options[:storage]      = :s3
-Paperclip::Attachment.default_options[:url]          = ":s3_domain_url"
-Paperclip::Attachment.default_options[:s3_host_name] = ENV['PCONF_S3_HOST_NAME']
+Paperclip::Attachment.default_options[:storage]        = :s3
+Paperclip::Attachment.default_options[:url]            = ":s3_domain_url"
+Paperclip::Attachment.default_options[:s3_host_name]   = ENV['PCONF_S3_HOST_NAME']
+Paperclip::Attachment.default_options[:s3_host_alias]  = ENV['PCONF_S3_CDN_ALIAS']
 Paperclip::Attachment.default_options[:s3_credentials] = {
   :bucket            => ENV['PCONF_S3_BUCKET_NAME'],
   :access_key_id     => ENV['PCONF_AWS_ACCESS_KEY_ID'],
   :secret_access_key => ENV['PCONF_AWS_SECRET_ACCESS_KEY']
 }
-# FIXME: we currently use the same bucket for both user_image and ad_image.
-#  They probably deserve separate buckets.
+Paperclip::Attachment.default_options[:hash_data]      = ":class/:attachment/:id"
+Paperclip::Attachment.default_options[:hash_secret]    = ENV['PCONF_PAPERCLIP_HASH_SALT'],
+Paperclip::Attachment.default_options[:preserve_files] = false
+# :preserve_files => "true", #Soft-delete (delete only from database, not from storage/s3)
+
+
+# NOTE: Keep in mind, we use a different bucket for user_documents. (with different credentials...)
+
 
 # Allow interpolation of :ad_id and user_id
 Paperclip.interpolates :ad_id do |attachment, style|

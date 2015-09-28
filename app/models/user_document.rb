@@ -4,14 +4,18 @@ class UserDocument < ActiveRecord::Base
   has_paper_trail
 
   has_attached_file :document, {
-    #:styles      => { thumbnail: "200x200>" }
-    :hash_data   => ":class/:attachment/:id",
-    :hash_secret => "longSuperDuperSecretSaltStringForObfuscation__BUT_notTheSameAsAnyOtherModelThatWeUse", #ENV['PCONF_PAPERCLIP_HASH_SALT_DOCUMENTS']
-    :default_url => nil,
+    #:styles        => { thumbnail: "200x200>" }
+    # https://github.com/thoughtbot/paperclip#uri-obfuscation
+    :path           => "/documents/users/:user_id/:hash.:filename",
     :preserve_files => true, #true for Soft-delete (delete only from database, not from storage/s3)
-    :url         => ":s3_domain_url",
-    :path        => "/images/users/:user_id/:style/:hash.:extension",
-    #:bucket     => 'secure_document_bucket',
+    :hash_secret    => ENV['PCONF_DOCUMENTS_PAPERCLIP_HASH_SALT'],
+    :default_url    => nil,
+    :s3_host_alias  => nil,
+    :s3_credentials => {
+      :bucket            => ENV['PCONF_DOCUMENTS_S3_BUCKET_NAME'],
+      :access_key_id     => ENV['PCONF_DOCUMENTS_AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['PCONF_DOCUMENTS_AWS_SECRET_ACCESS_KEY']
+    },
   }
 
   enum category: { unknown: 0, drivers_license: 1, passport: 2, id_card: 3, other: 5 }

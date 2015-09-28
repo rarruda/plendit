@@ -10,20 +10,9 @@ class UserImage < ActiveRecord::Base
       avatar_huge: "120x120>",
       avatar_medium: "64x64>"
     },
-##      :thumb => "#{DIMENSIONS[:thumb][:width]}x#{DIMENSIONS[:thumb][:height]}#",
-##      :searchresult => "#{DIMENSIONS[:searchresult][:width]}x#{DIMENSIONS[:searchresult][:height]}#",
-##      :hero => "#{DIMENSIONS[:hero][:width]}x#{DIMENSIONS[:hero][:height]}#",
-##      :gallery => "#{DIMENSIONS[:gallery][:width]}"
-##    },
-    :hash_data   => ":class/:attachment/:id",
-    :hash_secret => "longSuperDuperSecretSaltStringForObfuscation", #ENV['PCONF_PAPERCLIP_HASH_SALT']
-    :default_url => nil,
+    :default_url    => nil,
+    :path           => "/images/users/:user_id/:style/:hash.:extension",
     :preserve_files => false, #true for Soft-delete (delete only from database, not from storage/s3)
-    :url         => ":s3_domain_url",
-    :path        => "/images/users/:user_id/:style/:hash.:extension",
-    #:url        => ':s3_alias_url',
-    #:s3_host_alias => 'imgcdn.plendit.com',
-    #:bucket     => 'foobar',
   }
 
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/jpg", "image/png"]
