@@ -13,6 +13,8 @@ class UserImage < ActiveRecord::Base
     :default_url    => nil,
     :path           => "/images/users/:user_id/:style/:hash.:extension",
     :preserve_files => false, #true for Soft-delete (delete only from database, not from storage/s3)
+    :hash_data      => ":class/:attachment/:id",
+    :hash_secret    => ENV['PCONF_PAPERCLIP_HASH_SALT'],
   }
 
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/jpg", "image/png"]

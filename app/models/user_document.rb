@@ -6,8 +6,9 @@ class UserDocument < ActiveRecord::Base
   has_attached_file :document, {
     #:styles        => { thumbnail: "200x200>" }
     # https://github.com/thoughtbot/paperclip#uri-obfuscation
-    :path           => "/documents/users/:user_id/:hash.:filename",
+    :path           => "/documents/users/:user_id/:hash.:extension", # :filename
     :preserve_files => true, #true for Soft-delete (delete only from database, not from storage/s3)
+    :hash_data      => ":class/:attachment/:id",
     :hash_secret    => ENV['PCONF_DOCUMENTS_PAPERCLIP_HASH_SALT'],
     :default_url    => nil,
     :s3_host_alias  => nil,

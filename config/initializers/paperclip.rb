@@ -12,8 +12,6 @@ Paperclip::Attachment.default_options[:s3_credentials] = {
   :access_key_id     => ENV['PCONF_AWS_ACCESS_KEY_ID'],
   :secret_access_key => ENV['PCONF_AWS_SECRET_ACCESS_KEY']
 }
-Paperclip::Attachment.default_options[:hash_data]      = ":class/:attachment/:id"
-Paperclip::Attachment.default_options[:hash_secret]    = ENV['PCONF_PAPERCLIP_HASH_SALT'],
 Paperclip::Attachment.default_options[:preserve_files] = false
 # :preserve_files => "true", #Soft-delete (delete only from database, not from storage/s3)
 

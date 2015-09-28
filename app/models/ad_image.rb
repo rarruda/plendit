@@ -19,6 +19,8 @@ class AdImage < ActiveRecord::Base
     },
     :default_url => "/images/:style/missing.png",
     :path        => "/images/ads/:ad_id/:style/:hash.:extension",
+    :hash_data   => ":class/:attachment/:id",
+    :hash_secret => ENV['PCONF_PAPERCLIP_HASH_SALT'],
   }
 
   scope :for_ad_id, ->(ad_id) { where( ad_id: ad_id ) }
