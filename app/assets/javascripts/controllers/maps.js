@@ -143,7 +143,18 @@ window.controllers.resultMap = {
             google.maps.event.addListener(map, 'zoom_changed', notifyWillChange);
             google.maps.event.addListener(map, 'click', onMapClick);
 
+            var showHereButton = createShowHereButton();
+            showHereButton.index = 1;
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(showHereButton);
+
             return map;
+        }
+
+        function createShowHereButton() {
+            var e = E("div", null, E("button.button.button-notprimary", {onclick: onShowHereClick}, "Søk her"));
+            e.style.paddingTop = "12px";
+            e.style.paddingLeft = "12px";
+            return e;
         }
 
         function onMapClick() {
@@ -151,6 +162,22 @@ window.controllers.resultMap = {
                 infoBox.close();
                 infoBox = null;
             }
+        }
+
+        function onShowHereClick() {
+            if ("geolocation" in navigator) {
+                utils.geoPromise().then(onGeolocation).catch(onGeoFail);
+            }
+        }
+
+        function onGeolocation(pos) {
+            var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
+            map.setCenter(location);
+            map.setZoom(14);
+        }
+
+        function onGeoFail() {
+            console.log("geolocation failed or not allowed");
         }
 
         function notifyWillChange() {
