@@ -14,7 +14,8 @@ Paperclip::Attachment.default_options[:s3_credentials] = {
 }
 Paperclip::Attachment.default_options[:preserve_files] = false
 # :preserve_files => "true", #Soft-delete (delete only from database, not from storage/s3)
-
+# for s3 options see: http://www.rubydoc.info/gems/paperclip/Paperclip/Storage/S3
+# https://github.com/thoughtbot/paperclip/wiki/Restricting-Access-to-Objects-Stored-on-Amazon-S3
 
 # NOTE: Keep in mind, we use a different bucket for user_documents. (with different credentials...)
 

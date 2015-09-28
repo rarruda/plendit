@@ -12,6 +12,7 @@ class UserDocument < ActiveRecord::Base
     :hash_secret    => ENV['PCONF_DOCUMENTS_PAPERCLIP_HASH_SALT'],
     :default_url    => nil,
     :s3_host_alias  => nil,
+    :s3_permissions => :private,
     :s3_credentials => {
       :bucket            => ENV['PCONF_DOCUMENTS_S3_BUCKET_NAME'],
       :access_key_id     => ENV['PCONF_DOCUMENTS_AWS_ACCESS_KEY_ID'],
