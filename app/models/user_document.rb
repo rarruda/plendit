@@ -11,7 +11,7 @@ class UserDocument < ActiveRecord::Base
     :hash_data      => ":class/:attachment/:id",
     :hash_secret    => ENV['PCONF_DOCUMENTS_PAPERCLIP_HASH_SALT'],
     :default_url    => nil,
-    :url            => ":s3_domain_url"
+    :url            => ":s3_domain_url",
     :s3_host_alias  => nil,
     :s3_permissions => :private,
     :s3_credentials => {
