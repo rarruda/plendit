@@ -12,5 +12,11 @@ window.plenditUtils = {
             timeout = setTimeout(later, wait);
             if (callNow) func.apply(context, args);
         };
+    },
+
+    geoPromise: function() {
+        return new Promise(function(resolve, reject) {
+            navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
     }
 }
