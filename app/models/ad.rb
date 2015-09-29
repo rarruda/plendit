@@ -140,12 +140,31 @@ class Ad < ActiveRecord::Base
   end
 
 
+
   def world_viewable?
     not ( self.stopped? or self.suspended? )
   end
 
   def related_ads_from_user
     self.user.ads.reject { |ad| ad.id == self.id }
+  end
+
+  # encapsulate ensure_require so we are ensure insurance on
+  #   categories that insurance is mandatory.
+  def insurance_required= arg
+    if self.category == 'bap'
+      super
+    else
+      super '1'
+    end
+  end
+
+  def insurance_required
+    if self.category == 'bap'
+      super
+    else
+      '1'
+    end
   end
 
   def is_favorite_of( user )

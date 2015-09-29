@@ -35,14 +35,18 @@
                 <label>
                     <span class="label-body">Utleiepris pr. dag</span>
                 </label>
-                <%# FIXME: do a callback to the server. %>
                 <input disabled="true" type="text" name="day_price" class="u-full-width" placeholder="Kr 0" data-payout>
             </div>
         </div>
     </div>
 
     <label class="u-push-down">
+
+    <%# insurance is only optional in category 'bap' %>
+    <% if @ad.category == 'bap' %>
         <%= f.check_box :insurance_required, data: {insurance: ''} %>
+    <%# else %>
+    <% end %>
         <span class="label-body">
             Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %> for å leie gjenstanden.
         </span>
