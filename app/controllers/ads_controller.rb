@@ -78,7 +78,7 @@ class AdsController < ApplicationController
       format.json
     end
 
-    save_map_bounds bounds
+    save_map_bounds @map_bounds
   end
 
   # GET /ads/1/gallery
