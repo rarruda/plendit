@@ -6,7 +6,8 @@
         <div class="twelve columns">
             <%= render partial: "shared/ad_title_box", locals: { ad: @booking.ad } %>
 
-            <h2>Leieforespørsel til <%= @booking.ad.user.display_name%></h2>
+            <h2>Leieforespørsel til <%= @booking.user.decorate.display_name %></h2>
+            FIXME: Velg dato og tidspunkt at du ønsker å hente "item":
 
             <%= render 'form' %>
 
