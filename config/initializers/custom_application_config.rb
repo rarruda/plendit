@@ -26,10 +26,10 @@ Plendit::Application.config.x.map.default_center_coordinates = { lat: 61.5, lon:
 Plendit::Application.config.x.map.default_zoom_level         = 6
 Plendit::Application.config.x.map.google_maps_js_api_key     ='AIzaSyAwciykMKFfGsTiDrqAwg80C5FCSq6vQr8'
 
-Plendit::Application.config.x.customerservice.email          = 'kundesenter__at__plendit.no'
+Plendit::Application.config.x.customerservice.email          = 'kundesenter@plendit.no'
 Plendit::Application.config.x.customerservice.contact_form   = 'https://plendit.zendesk.com/hc/no/requests/new'
 Plendit::Application.config.x.customerservice.website        = 'https://plendit.zendesk.com/'
-Plendit::Application.config.x.customerservice.insurance_info = 'https://plendit.zendesk.com/' # todo: update when article exists
+Plendit::Application.config.x.customerservice.insurance_info = 'https://plendit.zendesk.com/hc/no/articles/204988442-Hvordan-fungerer-forsikringen-'
 
 Plendit::Application.config.x.organization.phone_number      ='+47 97 04 43 99'
 Plendit::Application.config.x.organization.org_id            ='915 252 230'
