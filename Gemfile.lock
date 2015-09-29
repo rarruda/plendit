@@ -168,6 +168,7 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashie (3.4.2)
+    httplog (0.2.11)
     i18n (0.7.0)
     i18n_data (0.7.0)
     ibanizator (0.3.1)
@@ -431,6 +432,7 @@ DEPENDENCIES
   faker
   geocoder
   guard-rspec
+  httplog
   ibanizator (~> 0.3.1)
   intercom-rails
   jbuilder (~> 2.0)

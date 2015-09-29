@@ -132,7 +132,7 @@ group :development, :test do
   #gem 'faker'
 
   # Trace every http call to the outside world that rails makes.
-  #gem 'httplog'
+  gem 'httplog'
 end
 
 group :production do
