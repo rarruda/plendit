@@ -40,6 +40,10 @@ class AdsController < ApplicationController
 
   after_action :notify_about_approval, only: [ :approve ]
 
+  # its just confusing to have the chat in the search page:
+  skip_after_filter :intercom_rails_auto_include, only: [ :search ]
+
+
   # GET /ads
   # GET /ads.json
   def index
