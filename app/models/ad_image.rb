@@ -30,6 +30,7 @@ class AdImage < ActiveRecord::Base
 
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/jpg", "image/png"]
   validates_attachment_file_name    :image, :matches => [/png\Z/, /jpe?g\Z/]
+  validates_attachment_size         :image, :in => 0..10.megabytes
 
   def self.imageSize(style)
     "#{DIMENSIONS[style][:width]}x#{DIMENSIONS[style][:height]}"
