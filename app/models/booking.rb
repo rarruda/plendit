@@ -44,9 +44,7 @@ class Booking < ActiveRecord::Base
   validates :ad_item_id, :presence => true
   validates :from_user_id, :presence => true
 
-  #validates_numericality_of :amount,
-  #  greater_than: 500,
-  #  message: "must be at least 5 kroner"
+  validates_numericality_of :amount, greater_than: 100_00, message: "must be at least 100 kroner"
 
   before_validation :set_guid, :on => :create
   before_save :calculate_amount,
