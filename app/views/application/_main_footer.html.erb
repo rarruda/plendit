@@ -20,7 +20,11 @@
             <div class="four columns">
                 <h6 class="about-footer__title">Besøk oss på facebook</h6>
                 <ul class="about-footer__list">
-                    <li class="about-footer__list-item"><%= render partial: 'misc/facebook' %></li>
+                    <% if Plendit::Application.config.x.footer.show_facebook_buttons %>
+                        <li class="about-footer__list-item"><%= render partial: 'misc/facebook' %></li>
+                    <% else %>
+                        <li>Kommer snart!</li>
+                    <% end %>
                 </ul>
             </div>
         </div>
