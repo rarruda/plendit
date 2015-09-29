@@ -85,11 +85,11 @@ window.controllers.resultMap = {
         updateMarkers(searchData.groups);
 
         function initMap(searchData) {
-            var center =  {
-                lat: parseFloat(searchData.center.lat),
-                lng: parseFloat(searchData.center.lon)
-            };
-            var zl = parseInt(searchData.zl);
+            var bounds = new google.maps.LatLngBounds();
+            bounds.extend(new google.maps.LatLng(searchData.map_bounds.ne_lat, searchData.map_bounds.ne_lon));
+            bounds.extend(new google.maps.LatLng(searchData.map_bounds.sw_lat, searchData.map_bounds.sw_lon));
+            // todo : get zoomlevel back
+            //var zl = parseInt(searchData.zl);
 
             var styles = [
                 {
@@ -128,15 +128,14 @@ window.controllers.resultMap = {
             var mapOptions = {
                 streetViewControl: false,
                 mapTypeControl: false,
-                center: center,
-                zoom: zl,
+                center: bounds.getCenter(),
+                zoom: 13,
                 maxZoom: 18,
                 minZoom: 4,
                 styles: styles
             };
 
             var map = new google.maps.Map(ele, mapOptions);
-
             google.maps.event.addListener(map, 'center_changed', utils.debounce(onCenterChanged, 1000));
             google.maps.event.addListener(map, 'zoom_changed', utils.debounce(onCenterChanged, 1000));
             google.maps.event.addListener(map, 'center_changed', notifyWillChange);
@@ -146,7 +145,6 @@ window.controllers.resultMap = {
             var showHereButton = createShowHereButton();
             showHereButton.index = 1;
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(showHereButton);
-
             return map;
         }
 

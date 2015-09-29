@@ -54,10 +54,12 @@ class AdsController < ApplicationController
     @supress_footer = true
     @ad_categories = Rails.configuration.x.ads.categories
 
-
     query  = params[:q]
     filter = []
-    options = params.select { |k,v| ['ne_lat','ne_lon','sw_lat','sw_lon','price_min','price_max','category'].include? k }.keep_if{ |k,v| not v.blank? }
+
+    @map_bounds = get_search_bounds params
+    options = params.select { |k,v| ['price_min','price_max','category'].include? k }.keep_if { |k,v| not v.blank? }
+    options = options.merge(@map_bounds)
 
     # Safely transform hash in array:
 #    if options[:category].is_a? Hash
@@ -68,19 +70,15 @@ class AdsController < ApplicationController
 
     @term = params[:q]
 
-    # Load map parameters:
-    map_center_lat, map_center_lon, @map_zl = get_map_view( params )
-    @map_center = {lat: map_center_lat, lon: map_center_lon }
-
-    logger.debug "search>> sending to view map_center: #{@map_center} map_zl:#{@map_zl}"
-
     @result_json = render_to_string( formats: 'json' ).html_safe
-    @result_markup = render_to_string partial: "search_result_box", formats: [:html]
+    @result_markup = render_to_string partial: 'search_result_box', formats: [:html]
 
     respond_to do |format|
       format.html
       format.json
     end
+
+    save_map_bounds bounds
   end
 
   # GET /ads/1/gallery

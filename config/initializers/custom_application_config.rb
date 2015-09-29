@@ -18,10 +18,10 @@ POSTAL_CODES = YAML.load_file("#{Rails.root}/config/data/postal_codes.yml")
 #Used in google maps API:
 COUNTRY_GEO_BOUNDS = [ [57.5,4], [72,32] ]
 
-
 # "kr 50.000,-"
 Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5_000, delimiter: "." )
 
+Plendit::Application.config.x.map.default_bounds             = { ne_lat: 59.97, ne_lon: 10.90, sw_lat: 59.87, sw_lon: 10.61 }
 Plendit::Application.config.x.map.default_center_coordinates = { lat: 61.5, lon: 11.0 }
 Plendit::Application.config.x.map.default_zoom_level         = 6
 Plendit::Application.config.x.map.google_maps_js_api_key     ='AIzaSyAwciykMKFfGsTiDrqAwg80C5FCSq6vQr8'

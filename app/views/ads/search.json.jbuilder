@@ -1,4 +1,4 @@
-json.center @map_center
+json.map_bounds @map_bounds
 json.zl @map_zl
 json.markup @result_markup
 
