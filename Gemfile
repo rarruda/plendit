@@ -12,6 +12,8 @@ gem 'geocoder'
 
 gem 'twilio-ruby', '~> 4'
 
+gem 'intercom-rails'
+
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '< 2.0'
 gem 'dropzonejs-rails'
