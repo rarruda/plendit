@@ -1,0 +1,20 @@
+<%= render layout: "gray_box", locals: {title: "Verifiser Mobil", id: "verify-phone"} do %>
+    <%- if sms_notice -%>
+        <%= sms_notice %>
+    <%- end -%>
+
+    <%#= form_for(@user, url: verify_sms_path(@user), html: { method: :put }) do |f| %>
+    <%= form_tag( verify_sms_users_path ) %>
+        <div class="row">
+            <div class="six columns">
+                <%= label_tag 'user[phone_number_confirmation_token]', "Telefon bekreftelses kode for #{@user.unconfirmed_phone_number}" %>
+                <%= text_field_tag 'user[phone_number_confirmation_token]', '', { class: "u-full-width", maxlength: "8" }  %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="twelve columns">
+                <%= submit_tag "Bekreft", class: "u-pull-right button" %>
+            </div>
+        </div>
+    </form>
+<% end %>

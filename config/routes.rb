@@ -54,8 +54,7 @@ Rails.application.routes.draw do
       get 'ads', to: 'ads#list'
 
       #get 'verify_email'
-      get  'verify_sms'
-      post 'verify_sms', to: 'users#do_verify_sms'
+      post 'verify_sms'
       post 'mark_all_notifications_noticed', to: 'users#mark_all_notifications_noticed'
     end
 

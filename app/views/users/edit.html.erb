@@ -7,7 +7,9 @@
                 I feltene under kan du redigere din profil. Husk at
                 det bare er ditt fornavn som vises til andre brukere.
             <% end %>
-
+            <% if @user.phone_pending_confirmation? %>
+                <%= render partial: "verify_sms" %>
+            <% end %>
             <%= render partial: "edit_profile" %>
             <%= render layout: "gray_box", locals: {title: "Legg til kredittkort"} do %>
                 <%= link_to "Legg til kredittkort", user_payment_cards_path %>

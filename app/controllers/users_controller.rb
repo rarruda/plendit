@@ -2,8 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :finish_signup]
   before_action :set_user, only: [
     :show, :edit, :update, :destroy, :confirmation,
-    :verify_sms, :do_verify_sms, :mark_all_notifications_noticed
+    :verify_sms, :verify_sms, :mark_all_notifications_noticed
   ]
+
+  add_flash_types :sms_notice
+
 
   def index
   end
@@ -113,21 +116,13 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /me/verify_sms
-  def verify_sms
-    # if user already has phone verified, take him somewhere else.
-    unless @user.phone_pending_confirmation?
-      redirect_to edit_users_path, notice: 'Your phone_number was already verified. no need to try to verify it again.'
-    end
-  end
-
   # POST /me/verify_sms
-  def do_verify_sms
+  def verify_sms
     if @user.phone_number_confirmation_token == user_params['phone_number_confirmation_token'] and
        @user.confirm_phone_number!
       redirect_to edit_users_path, notice: 'Your phone_number was successfully verified.'
     else
-      redirect_to verify_sms_users_path, notice: 'Your phone_number was NOT verified, please check the code, and try again. Eventually try resending a new verification code.'
+      redirect_to edit_users_path, sms_notice: 'Your phone_number was NOT verified, please check the code, and try again. Eventually try resending a new verification code.'
     end
   end
 
