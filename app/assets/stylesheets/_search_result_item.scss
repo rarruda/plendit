@@ -1,8 +1,28 @@
 @import 'constants.scss';
 
 .search-result-item {
-    border: solid thin $color-box-border;
+    $two-column-break: 960px;
+    border-bottom: 1px solid $color-box-border;
+
     position: relative;
+
+    @media screen and (min-width: $two-column-break) {
+        width: 50%;
+        display: inline-block;
+        height: 240px;
+        overflow: hidden;
+        float: left;
+        border: none;
+        border-bottom: 1px solid white;
+
+        &:nth-child(even) {
+            border-right: 1px solid white;
+        }
+    }
+
+    @media screen and (min-width: $two-column-break * 1.5) {
+        height: 340px;
+    }
 
     &__link {
         text-decoration: none;
@@ -32,9 +52,12 @@
     }
 
     &__text-container {
-        padding: $standard-spacing / 2;
+        padding: $standard-spacing / 3;
         padding-top: 0;
         width: 64%;
+        position: absolute;
+        bottom: 0;
+        background-color: rgba(white, 0.6)
     }
 
     &__profile {
@@ -52,6 +75,7 @@
     }
 
     &__body {
+        display: none;
         margin-bottom: 0;
     }
 

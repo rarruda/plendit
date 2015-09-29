@@ -65,6 +65,18 @@
 
 $breakpoint: 550px;
 
+
+@mixin search-split-pane($mapWidth) {
+    &__map-box {
+        width: $mapWidth;
+    }
+
+    &__hits-box {
+        left: $mapWidth;
+        width: 100% - $mapWidth;
+    }
+}
+
 .result-container {
     height: 300px;
     overflow: hidden;
@@ -72,7 +84,7 @@ $breakpoint: 550px;
 
     &__map-box {
         position: absolute;
-        width: 65.1%;
+        width: 49.3333333333%;
         top: 0;
         bottom: 0;
 
@@ -83,18 +95,33 @@ $breakpoint: 550px;
     }
 
     &__hits-box {
+        border-left: solid thin $color-box-border;
         position: absolute;
-        left: 65.3333333333%;
-        width: 34.6666666667%;
+        left: 49.3333333333%;
+        width: 50.6666666667%;
         top: 0;
         bottom: 0;
         overflow: scroll;
         overflow-x: hidden;
+        padding-left: 2px;
+        padding-right: 2px;
 
         @media screen and (max-width: $breakpoint) {
             width: 100%;
             left: 0;
         }
+    }
+
+    @media screen and (min-width: 768px) {
+        @include search-split-pane(58%);
+    }
+
+    @media screen and (min-width: 960px) {
+        @include search-split-pane(40%);
+    }
+
+    @media screen and (min-width: 1400px) {
+        @include search-split-pane(50%);
     }
 }
 
