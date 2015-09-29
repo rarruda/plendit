@@ -69,7 +69,6 @@ Rails.application.routes.draw do
   get 'user/:id', to: 'users#show', as: 'user'
 
 
-  get 'faq',      to: 'misc#faq'
   get 'about-us', to: 'misc#about'
   get 'contact',  to: 'misc#contact'
   get 'privacy',  to: 'misc#privacy'

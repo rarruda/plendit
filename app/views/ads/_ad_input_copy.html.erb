@@ -3,9 +3,7 @@
     <h4>Gratis å legge ut</h4>
 
     <p>
-        Det er gratis å legge ut annonser. Plendit tar kun betalt når utleier tjener penger,
-        og kun <%= ( Plendit::Application.config.x.platform.fee_in_percent * 100 ).to_i %>% av
-        den totale leiesummen.
+        Det er gratis å legge ut annonser. Plendit tar kun betalt når utleier tjener penger.
     </p>
 
     <h4>Verifisering</h4>
@@ -18,15 +16,15 @@
     <h4>Betaling</h4>
     <p>
         Betalingen skjer trygt gjennom plendit. Leiesumen reserveres ved bestilling og utbetales
-        når utleien begynner.
+        en dager etter utleien begynner.
     </p>
 
     <h4>Trygghet</h4>
 
     <p>
         <%= image_tag "logos/if_150x148.png", alt: "", class: "ad-input-copy__badge", size: "70x70" %>
-        Ting du leier ut kan forsikres opp til <%= Rails.configuration.x.insurance.max_insurance_value  %>.
-        Les mer om din trygghet utleier <%= link_to "her", help_path %>.
+        Ting du leier ut kan forsikres med IF.
+        Les mer om din trygghet som utleier <%= link_to "her", Plendit::Application.config.x.customerservice.insurance_info %>.
     </p>
 
     <h4>Spørsmål?</h4>
@@ -35,7 +33,7 @@
         <%= link_to 'kundesenteret', Plendit::Application.config.x.customerservice.contact_form %>.
     </p>
     <p>
-        Du kan også lese <%= link_to "ofte stilte spørsmål", faq_path %>.
+        Du kan også lese <%= link_to "ofte stilte spørsmål", Plendit::Application.config.x.customerservice.website %>.
     </p>
 
 </section>

@@ -1,5 +1,5 @@
 class MiscController < ApplicationController
-  layout "article", only: [ :about, :faq, :contact, :help, :privacy, :terms ]
+  layout "article", only: [ :about, :contact, :help, :privacy, :terms ]
 
   def frontpage
     @hide_search_field = true
