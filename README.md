@@ -285,6 +285,12 @@ $ rails console
 
 Where :user_id is the user_id of the user you'd like to be a site_admin.
 
+* Code style
+
+Here are code style guidelines which we call recommended reading:
+https://github.com/bbatsov/rails-style-guide
+https://github.com/bbatsov/ruby-style-guide
+
 
 * Image regeneration and format changes
 
