@@ -8,16 +8,11 @@
         <div class="search-result-item__image-holder">
             <%= image_tag Ad.find(ad.id).safe_image_url(:searchresult), alt: "", class: "search-result-item__image" %>
         </div>
-    <% end %>
-    <%= link_to ad_path( ad ), class: "search-result-item__link" do %>
         <div class="search-result-item__text-container">
-            <h6 class="search-result-item__title"><%= ad.display_title %></h6>
-            <p class="search-result-item__body">
-               <%= (ad.body || "Ingen beskrivelse!")[0..100] %>
-            </p>
+            <h3 class="search-result-item__title"><%= ad.display_title %></h3>
         </div>
     <% end %>
-
+<!--
     <div class="search-result-item__profile">
         <div>
             <%= render('shared/avatar.html', user: User.find(es_ad.user.id), size: "medium" ) %>
@@ -25,5 +20,6 @@
             <%= render('shared/stars.html', rating: User.find(es_ad.user.id).calculate_average_rating, small: true ) %>
         </div>
     </div>
+    -->
     <div class="search-result-item__price-floater"><%= ad.pretty_price %><br>per&nbsp;dag</div>
 </div>
