@@ -11,6 +11,9 @@ class UserPaymentCardsController < ApplicationController
   # GET /user_payment_cards.json
   def index
     @user_payment_cards = UserPaymentCard.where(user: current_user)
+    # from API:
+    mangopay_service = MangopayService.new(current_user)
+    @user_payment_cards_api = UserPaymentCard.where(user: current_user)
   end
 
   def flush_cache
