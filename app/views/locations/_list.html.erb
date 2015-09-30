@@ -14,6 +14,7 @@
                 </thead>
 
                 <tbody>
+                <%# FIXME: buttons are too large (too big padding), so this does not look very good %>
                 <% @user.locations.each do |location| %>
                     <tr>
                         <td class="locations-list__favorite-cell">
@@ -28,8 +29,8 @@
 
                         <td><%= location.address_line %></td>
                         <td><%= location.post_code %> <%= location.city %></td>
-                        <td><%= link_to 'Rediger', edit_location_path(location) %></td>
-                        <td><%= link_to 'Slett', location, method: :delete, data: {confirm: 'Er du sikker på at du vil slette?'} %></td>
+                        <td><%= button_to 'Rediger', edit_location_path(location), :method => :getapp/views/locations/_form.html.erb %></td>
+                        <td><%= button_to 'Slett', location, method: :delete, class: "button", data: {confirm: 'Er du sikker på at du vil slette?'} %></td>
                     </tr>
                 <% end %>
                 </tbody>
