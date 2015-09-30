@@ -34,8 +34,7 @@ class MangopayService
 
       return card_info
     rescue => e
-      puts e
-      #logger.error e
+      LOG.error e
       return nil
     end
   end
@@ -51,9 +50,8 @@ class MangopayService
         )
       puts "disabled card_vid:#{card_vid} => #{c}"
     rescue => e
-      puts "error disabling card_vid:#{card_vid} => #{c}"
-      puts e
-      #logger.error e
+      LOG.error "error disabling card_vid:#{card_vid} => #{c}", {card_vid: card_vid}
+      LOG.error e
       return nil
     end
   end
@@ -191,9 +189,8 @@ class MangopayService
 
         puts "created wallet_in:#{wallet_in}"
       rescue => e
-        puts e
+        LOG.error e
         puts wallet_in
-        #logger.error e
       end
 
       begin
@@ -206,9 +203,8 @@ class MangopayService
 
         puts "created wallet_out:#{wallet_out}"
       rescue => e
-        puts e
+        LOG.error e
         puts wallet_out
-        #logger.error e
       end
     end
 
@@ -224,8 +220,7 @@ class MangopayService
         } )
         #self.payment_provider_id = #...
       rescue => e
-        puts e
-        #logger.error e
+        LOG.error e
       end
    end
 

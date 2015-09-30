@@ -77,7 +77,7 @@ class Ad < ActiveRecord::Base
       transitions :from => :draft, :to => :waiting_review
       after do
         # FIXME: do not ad be submitted for review if location does not have a latlon.
-        logger.error "submiting for review..."
+        LOG.error "submiting for review..."
       end
     end
     event :approve do
@@ -95,13 +95,13 @@ class Ad < ActiveRecord::Base
     event :edit do
       transitions :from => [:waiting_review, :published, :paused, :stopped], :to => :draft
       before do
-        logger.info 'Preparing to edit'
+        LOG.info 'Preparing to edit'
       end
     end
     event :suspend do #reject?
       transitions :to => :suspended
       after do
-        logger.info 'ad is suspended. this is a black hole. there is no way out.'
+        LOG.info 'ad is suspended. this is a black hole. there is no way out.'
       end
     end
     event :delete do
@@ -116,12 +116,12 @@ class Ad < ActiveRecord::Base
         #   removing it from the database.
         if is_deletable? and false
           self.destroy
-          logger.info 'did delete ad from the database.'
+          LOG.info 'did delete ad from the database.'
         else
-          logger.info 'did not delete ad from the database.'
+          LOG.info 'did not delete ad from the database.'
         end
 
-        logger.info 'ad is deleted. this is a black hole. there is no way out.'
+        LOG.info 'ad is deleted. this is a black hole. there is no way out.'
       end
     end
     #event :unsuspend do
@@ -131,14 +131,14 @@ class Ad < ActiveRecord::Base
 
 
   def enter_published
-    logger.error ("ad published... it is now searchable after the toggle is switched.")
+    LOG.error ("ad published... it is now searchable after the toggle is switched.")
     __elasticsearch__.index_document
     ## TODO: notify user that his ad is now live.
   end
 
   def exit_published
     self.__elasticsearch__.delete_document ignore: 404
-    logger.info ">> no longer searchable."
+    LOG.info ">> no longer searchable."
   end
 
 
@@ -198,7 +198,7 @@ class Ad < ActiveRecord::Base
     }
 
     unless stock_images.keys.include? size
-      logger.error "ERROR: wrong image size parameter, falling back to :searchresult"
+      LOG.error "ERROR: wrong image size parameter, falling back to :searchresult"
       size = :searchresult
     end
 

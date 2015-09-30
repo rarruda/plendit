@@ -29,7 +29,7 @@ class Identity < ActiveRecord::Base
         i.image_url   = auth.info.image
         i.nickname    = auth.info.nickname
       else
-        logger.error "unsupported auth.provider:#{auth.provider}, dropping some information on the floor"
+        LOG.error "unsupported auth.provider:#{auth.provider}, dropping some information on the floor"
       end
 
       # Set user.image_url only if its empty

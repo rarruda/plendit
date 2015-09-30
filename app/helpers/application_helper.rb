@@ -15,7 +15,7 @@ module ApplicationHelper
   #  unwillingness to cooperate. (and so we can generate urls w/o an
   #  extra DB roundtrip)
   def ad_to_param_pretty ad
-    #logger.error "to_params >>> #{ad.id}    #{ad.title}"
+    #LOG.error "to_params >>> #{ad.id}    #{ad.title}"
     if not ad.title.blank?
       [ad.id, ad.title.parameterize].join('----')[0,64]
     else

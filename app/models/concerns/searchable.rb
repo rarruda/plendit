@@ -94,7 +94,7 @@ module Searchable
       @search_definition[:fielddata_fields] = ['geo_location','geo_location.geohash']
 
 
-      #logger.debug JSON.pretty_generate @search_definition
+      #LOG.debug JSON.pretty_generate @search_definition
       __elasticsearch__.search( @search_definition )
     end
   end

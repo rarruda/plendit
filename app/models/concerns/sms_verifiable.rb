@@ -13,7 +13,7 @@ module SmsVerifiable
     # do all transformations for phone_number confirmation.
   def confirm_phone_number!
     if self.unconfirmed_phone_number.nil?
-      logger.tagged("user_id:#{self.id}") { logger.error "tried to confirm an unconfirmed_phone_number that is nil. This should never happen." }
+      LOG.error "tried to confirm an unconfirmed_phone_number that is nil. This should never happen.", { user_id: self.id }
       nil
     else
       self.phone_number              = self.unconfirmed_phone_number

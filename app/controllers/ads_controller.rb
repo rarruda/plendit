@@ -196,7 +196,7 @@ class AdsController < ApplicationController
   # POST /ads
   # POST /ads.json
   def create
-    logger.error "Ad Category sent is not supported. This is not ok." if not Ad.categories.include? params[:category]
+    LOG.error "Ad Category sent is not supported. This is not ok." if not Ad.categories.include? params[:category]
     # FIXME: do something about it if there was an error with the category...
 
     @ad = Ad.new(user_id: current_user.id,
@@ -232,7 +232,7 @@ class AdsController < ApplicationController
       ad_params_local.except! 'location_attributes'
     end
 
-    #logger.debug "ad_params_local>> #{ad_params_local}"
+    #LOG.debug "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
       if @ad.update(ad_params_local)
         format.html { render :edit }
@@ -255,9 +255,7 @@ class AdsController < ApplicationController
     def require_authorization
       if not ( ( @ad and @ad.user == current_user ) or current_user.is_site_admin? )
         # throw exception. User not allowed here.
-        logger.tagged("user_id:#{current_user.id}") {
-          logger.error "User not authorized to see this page."
-        }
+        LOG.error "User not authorized to see this page.", { ad_id: @ad.id, user_id: current_user.id }
         raise "User not authorized to see this page."
       end
     end

@@ -28,9 +28,9 @@ class UserPaymentCard < ActiveRecord::Base
   def disable
     if self.last_known_status_mp == 'VALIDATED'
       mp = MangopayService( self.user ).disable_registered_card( self.card_vid )
-      logger.info "deprovision_from_mangopay: #{mp}"
+      LOG.info "deprovision_from_mangopay: #{mp}"
     else
-      logger.info "wont deprovision_from_mangopay a non-validated card: #{self}"
+      LOG.info "wont deprovision_from_mangopay a non-validated card: #{self}"
     end
     self.active_mp = false
   end

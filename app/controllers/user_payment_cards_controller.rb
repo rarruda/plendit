@@ -17,7 +17,7 @@ class UserPaymentCardsController < ApplicationController
   end
 
   def flush_cache
-    logger.info "flushing card cache for user_id:#{current_user.id}"
+    LOG.info "flushing card cache for user_id:#{current_user.id}", {user_id: current_user.id}
     REDIS.del( @cardreg_redis_key )
   end
 
@@ -28,15 +28,15 @@ class UserPaymentCardsController < ApplicationController
     # First look for a card cached in REDIS: (to save API calls)
     if not @user_payment_card = REDIS.get( @cardreg_redis_key )
 
-      logger.info 'Creating a new Card Pre-registration with MangoPay, as no previous preregistrations could be found'
+      LOG.info 'Creating a new Card Pre-registration with MangoPay, as no previous preregistrations could be found'
       @user_payment_card = MangopayService.new( current_user ).pre_register_card
 
       if not @user_payment_card.nil?
-        logger.info "Pre-registration worked: #{@user_payment_card}"
+        LOG.info "Pre-registration worked: #{@user_payment_card}"
         # Caching result serialized as json in REDIS:
         REDIS.setex( @cardreg_redis_key, MANGOPAY_PRE_REGISTERED_CARD_TTL, @user_payment_card.to_json )
       else
-        logger.error "ERROR Pre-registrating the card. THIS IS NOT GOOD! Things will fail... => #{@user_payment_card}"
+        LOG.error "ERROR Pre-registrating the card. THIS IS NOT GOOD! Things will fail... => #{@user_payment_card}"
         redirect_to user_payment_cards_path, notice: 'UserPaymentCard pre-registration failed. Cannot register a new card.'
       end
     else
@@ -58,7 +58,7 @@ class UserPaymentCardsController < ApplicationController
 
     if mp_result.status != 200
       #{"Message":"the card registration has already been processed","Type":"cardregistration_already_process","Id":"f5facd58-4b88-4618-ad21-d2c95bfce8e4#1443217025","Date":1443217026.0,"errors":null}
-      logger.error "Failed the final stage of registering the credit card. This is SUPER SAD!"
+      LOG.error "Failed the final stage of registering the credit card. This is SUPER SAD!"
       redirect_to user_payment_card_path, notice: 'UserPaymentCard failed registration.'
     else
       # registration went well.

@@ -11,7 +11,7 @@ class AdItem < ActiveRecord::Base
     # needs to have 'active', otherwise we show unconfirmed bookings as fully booked.
     # FOR debugging:
     #bookings = Booking.ad_item( self.id ).exclude_past.in_month(year,month).order( :starts_at )
-    # logger.debug pp bookings
+    # LOG.debug pp bookings
 
     availability_cal = {}
 

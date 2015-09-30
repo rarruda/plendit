@@ -7,8 +7,8 @@ module MapViewRememberable
 
   def valid_bounds?( bounds )
     valid = !bounds.nil? && bounds.size == 4
-    logger.debug valid.to_s
-    logger.debug bounds.to_s
+    LOG.debug valid.to_s
+    LOG.debug bounds.to_s
     valid
   end
 
