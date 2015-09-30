@@ -78,6 +78,7 @@ GEM
       thor (~> 0.19)
     builder (3.2.2)
     byebug (6.0.2)
+    cabin (0.7.1)
     callsite (0.0.11)
     choice (0.2.0)
     climate_control (0.0.3)
@@ -420,6 +421,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
+  cabin
   coffee-rails (~> 4.1.0)
   country_select
   devise

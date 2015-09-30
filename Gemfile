@@ -77,6 +77,9 @@ gem 'puma'
 gem 'rack-timeout'
 
 
+# logging:
+gem 'cabin'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
