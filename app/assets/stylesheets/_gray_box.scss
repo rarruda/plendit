@@ -1,7 +1,7 @@
 @import 'constants.scss';
 
 .gray-box {
-    box-shadow: 0 1px 5px rgba(black, 0.1);
+    box-shadow: $subtle-shadow;
     border: 1px solid $color-gray-background;
     background-color: white;
     margin-bottom: $standard-spacing * 2;

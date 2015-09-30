@@ -20,6 +20,8 @@ $color-state-green: #135453;
 $color-state-red: #BA1F29;
 $color-state-yellow: #DB7917;
 
+$subtle-shadow: 0 1px 5px rgba(black, 0.1);
+
 
 @mixin buttonish() {
     display: inline-block;
