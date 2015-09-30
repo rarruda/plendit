@@ -11,11 +11,16 @@ ActiveAdmin.register_page "Dashboard" do
             #t.column selectable_column
             #t.id_column
             t.column("Status") { |a| status_tag a.status }
-            t.column("Title") { |a| link_to a.title, admin_ad_path(a) }
+            t.column("Title")  { |a| link_to a.title, admin_ad_path(a) }
+            t.column("See Listing") { |a| link_to a.title, ad_path(a) }
 
 #      t.column("Assigned To") { |task| task.admin_user.email }
 #      t.column("Due Date") { |task| task.due_date? ? l(task.due_date, :format => :long) : '-' }
         end
+      end
+      panel "UserDocuments waiting_review" do
+        #table_for Ad.waiting_review do |t|
+        #end
       end
     end
   end

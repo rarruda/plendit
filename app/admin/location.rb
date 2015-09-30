@@ -17,18 +17,21 @@ ActiveAdmin.register Location do
   menu :priority => 5
   #actions :index, :show
 
-  permit_params :user_id, :address_line, :city, :state, :post_code, :lat, :lon
+  permit_params :user_id, :address_line, :post_code
 
   index do
     selectable_column
     id_column
     column :user
+    column :favorite
     column :address_line
     column :city
     column :state
     column :post_code
     column :lat
     column :lon
+    column :geo_precision
+    column :status
 
     column :created_at
     actions
