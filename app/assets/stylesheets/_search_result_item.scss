@@ -20,7 +20,7 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        max-width: 100%;
+        width: 74%;
     }
 
     &__link {
@@ -57,5 +57,13 @@
         padding-top: 4px;
         padding-left: 8px;
         padding-right: 8px;
+    }
+
+    &__profile {
+        position: absolute;
+        width: 100px;
+        bottom: 6px;
+        right: 0;
+        text-align: center;
     }
 }

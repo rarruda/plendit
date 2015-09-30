@@ -12,7 +12,6 @@
             <h3 class="search-result-item__title"><%= ad.display_title %></h3>
         </div>
     <% end %>
-<!--
     <div class="search-result-item__profile">
         <div>
             <%= render('shared/avatar.html', user: User.find(es_ad.user.id), size: "medium" ) %>
@@ -20,6 +19,5 @@
             <%= render('shared/stars.html', rating: User.find(es_ad.user.id).calculate_average_rating, small: true ) %>
         </div>
     </div>
-    -->
     <div class="search-result-item__price-floater"><%= ad.pretty_price %><br>per&nbsp;dag</div>
 </div>
