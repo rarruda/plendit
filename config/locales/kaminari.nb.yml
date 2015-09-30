@@ -9,8 +9,8 @@ nb:
           other: Viser <b>alle&nbsp;%{count}</b> %{entry_name}
   views:
     pagination:
-      first: 'Første'
-      last: 'Siste'
-      next: Neste &rsaquo;
-      previous: "&lsaquo; Forrige"
+      first: Første
+      last: Siste
+      next: Neste
+      previous: Forrige
       truncate: "&hellip;"
