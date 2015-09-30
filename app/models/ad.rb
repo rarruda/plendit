@@ -34,6 +34,8 @@ class Ad < ActiveRecord::Base
   scope :published,      -> { where( status: Ad.statuses[:published] ) }
 
   # If there were any changes, except in status, set status to draft:
+  # BUG: works as long as you change any field. does not work when ad_images alone changes:
+  # BUG: images can be changed and it will not send you back to edit modus
   before_save :edit, unless: "self.draft? || self.changes.except('status').empty?"
 
   after_create :create_ad_item
