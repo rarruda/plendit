@@ -111,8 +111,8 @@
                             <% if not @user.unconfirmed_phone_number.blank? %>
                                 <%= link_to 'Bekreft telefonnummer nå', '#verify-phone' %>
                                 <%#= link_to 'send ny melding', foo_bar_path %>
+                                <%# FIXME(RA): Create a controller method to send a New SMS. Should refuse to send too often, otherwise we go bankrupt. %>
                             <% end %>
-                            <%# FIXME(RA): Create a page to send a New SMS. Should refuse to send too often, otherwise we go bankrupt. %>
                         </small>
                     </div>
                 <% else %>
@@ -124,7 +124,7 @@
             </div>
         </div>
 
-        <%- if @user.phone_verified? #and @user.email_verified? -%>
+        <%- if @user.mangopay_provisionable? -%>
 
             <div class="row">
                 <div class="eight columns">
@@ -158,7 +158,7 @@
             </p>
         <%- else -%>
             <p>
-                <small>Når du har verifisert din epost og mobiltelefon, kan du å legge inn kontonummer.</small>
+                <small>Når profilen din er komplett, og vi har bekreftet epost og mobiltelefon, kan du legge inn kontonummer.</small>
             </p>
         <%- end -%>
 

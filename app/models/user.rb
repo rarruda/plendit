@@ -52,16 +52,15 @@ class User < ActiveRecord::Base
 
   #validates :image_url
 
-  #only when if the bank account number is not blank
-  validates :nationality,          presence: true, :unless => Proc.new { |a| a.user_payment_account.nil? }
-  validates :country_of_residence, presence: true, :unless => Proc.new { |a| a.user_payment_account.nil? }
+  #only if user has a the bank account number
+  validates :nationality,          presence: true, :if => :has_bank_account?
+  validates :country_of_residence, presence: true, :if => :has_bank_account?
 
-  #between 10 and 120 years, only when if the bank account number is not blank
-  validate :birthday, :birthday_should_be_reasonable, :unless => Proc.new { |a| a.user_payment_account.nil? }
+  #between 10 and 120 years, only if user has a the bank account number
+  validate :birthday, :birthday_should_be_reasonable, :if => :has_bank_account?
 
-  validates :home_address_line, presence: true, :unless => Proc.new { |a| a.user_payment_account.nil? }
-  validates :home_post_code,    presence: true, format: { with: /\A[0-9]{4}\z/, message: "må være 4 siffer." },
-    :unless => Proc.new { |a| a.user_payment_account.nil? }
+  validates :home_address_line, presence: true, :if => :has_bank_account?
+  validates :home_post_code,    presence: true, format: { with: /\A[0-9]{4,8}\z/, message: "må være kun tall. 4-8 siffer." }, :if => :has_bank_account?
 
 
 
@@ -89,17 +88,19 @@ class User < ActiveRecord::Base
     unless: "unconfirmed_phone_number.blank?"
 
 
-  # this should be a delayed job:
   #  * an equivalent callback should be considered, for when updating information:
   after_save :provision_with_mangopay,
-    if: :is_profile_complete?,
-    if: Proc.new { |u| u.payment_provider_vid.blank? }
+    if: :mangopay_provisionable?,
+    if: :email_verified?,
+    if: :phone_verified?,
+    if: Proc.new { |u| u.payment_provider_vid.blank? ||
+        u.user_payment_account.nil? ||
+        u.user_payment_account.payin_wallet_vid.blank? ||
+        u.user_payment_account.payout_wallet_vid.blank? }
+        # same as: unless: :mangopay_provisioned?
 
 
-#  after_save :provision_wallets_with_mangopay,
-#    if: :is_profile_complete?,
-#    if: Proc.new { |u| u.payment_provider_vid.blank? }
-#    if: Proc.new { |u| u.user_payment_account.payin_wallet_vid.blank? }
+
 
   def safe_avatar_url
     # Gravatar: "http://gravatar.com/avatar/#{Digest::MD5.hexdigest(self.email.strip.downcase)}?r=pg&d=mm" ### &d=#{our_own_generic_profile_image_url}
@@ -256,35 +257,102 @@ class User < ActiveRecord::Base
     bookings.sort do |a,b| b.updated_at <=> a.updated_at end
   end
 
+  #generic methods. we also need more specific versions which restrict based on documents:
+  # if renting a car: valid drivers license and age check.
+  # kyc rules being respected
+  def can_rent?
+    self.mangopay_provisioned?
+  end
+
+  def can_rent_out?
+    self.mangopay_provisioned?
+  end
+
+
+  def has_address?
+    if self.home_address_line.blank? ||
+      self.home_post_code.blank? ||
+      self.home_city.blank?
+      false
+    else
+      true
+    end
+  end
+
+  def has_bank_account?
+    return false if self.user_payment_account.nil? || self.user_payment_account.bank_account_number.blank?
+    true
+  end
+
+  # Same as in MangopayService:
+  # mangopay_provisionable?
+  def profile_complete?
+    if  self.first_name.blank? ||
+        self.last_name.blank? ||
+        self.email.blank? ||
+        self.birthday.blank? ||
+        self.personhood.blank? ||
+        self.country_of_residence.blank? ||
+        self.nationality.blank? ||
+        self.phone_number.blank? ||
+        self.email.blank?
+      false
+    else
+      true
+    end
+  end
+  alias_method :mangopay_provisionable?, :profile_complete?
+
+  def mangopay_provisioned?
+    if self.payment_provider_vid.blank? ||
+      self.user_payment_account.payin_wallet_vid.blank? ||
+      self.user_payment_account.payout_wallet_vid.blank?
+      LOG.error "profile is NOT fully provisioned with mangopay", {user_id: self.id}
+      false
+    else
+      LOG.error "profile IS fully provisioned with mangopay", {user_id: self.id}
+      true
+    end
+  end
+
   private
 
   def provision_with_mangopay
-    puts "Provisioning user with Mangopay:"
-    mp = MangopayService.new( self ).provision_user
-    logger.info mp
+    # instantiating mangopay service:
+    mangopay = MangopayService.new( self )
+
+    #log context starts here.
+
+    if self.payment_provider_vid.blank?
+      LOG.info "Provisioning user with Mangopay:"
+      result = mangopay.provision_user
+      LOG.info "result: #{result}"
+    end
+
+    if self.payment_provider_vid.blank?
+      LOG.error "Refuse to provision wallets, as user is not provisioned with mangopay and registered with us."
+    else
+      # build user_payment_account relation if it doesnt exist from before.
+      self.build_user_payment_account if self.user_payment_account.nil?
+
+      if self.user_payment_account.payin_wallet_vid.blank?
+        LOG.info "Provisioning PayIn wallet with Mangopay:"
+        result = mangopay.provision_payin_wallet
+        LOG.info "result: #{result}"
+      end
+      if self.user_payment_account.payout_wallet_vid.blank?
+        LOG.info "Provisioning PayOut wallet with Mangopay:"
+        result = mangopay.provision_payout_wallet
+        LOG.info "result: #{result}"
+      end
+    end
+    #end log context
   end
 
 
   def birthday_should_be_reasonable
     if self.birthday.nil? || self.birthday < 120.years.ago || self.birthday > 14.years.ago
       errors.add(:birthday, "you can not be older then 120, and can not be younger then 14.")
-    end
-  end
-
-
-  def is_profile_complete?
-    if  self.first_name.nil? ||
-        self.last_name.nil? ||
-        self.email.nil? ||
-        self.birthday.nil? ||
-        self.personhood.nil? ||
-        self.country_of_residence.nil? ||
-        self.nationality.nil?
-      logger.tagged("user_id:#{self.id}") { logger.error "profile is NOT complete" }
-      false
-    else
-      logger.tagged("user_id:#{self.id}") { logger.error "profile IS complete" }
-      true
     end
   end
 
