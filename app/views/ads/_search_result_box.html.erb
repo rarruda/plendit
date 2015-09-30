@@ -3,7 +3,7 @@
         Vi fant ingen treff! Du kan forsøke å søke i et større område på
         kartet, eller endre på søkekriteriene dine.
     <% else %>
-        <%= paginate @ads %>
+        <div class="search-result-box__paging-holder"><%= paginate @ads %></div>
         <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
     <% end %>
 </div>

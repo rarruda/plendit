@@ -162,7 +162,6 @@ $breakpoint: 550px;
     }
 }
 
-
 .pagination {
     li {
         display: inline-block;
@@ -187,4 +186,13 @@ $breakpoint: 550px;
         color: gray;
     }
 
+}
+
+.search-result-box {
+
+    &__paging-holder {
+        text-align: center;
+        background-color: white;
+        padding-bottom: $standard-spacing;
+    }
 }
