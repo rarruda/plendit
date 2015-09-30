@@ -2,62 +2,7 @@
     <h4 class="search-title-box__title" data-controller="hitCount">Viser <%= @ads.count %> av <%= @ads.total_count %> treff for <i><%= @term %></i></h4>
 </div>
 
-<div class="search-filter-section">
-    <div class="container" data-controller="togglableFilters">
-
-        <span class="search-filter-section__toggler" data-filter-toggler>
-            <%= image_tag "filter_arrow.png", alt: "Skjul / vis filter", size: "14x14" %>
-            <br>
-            <small>Filter</small>
-        </span>
-
-        <div data-filter-container data-controller="searchFilterSelection">
-            <%= form_tag({}, class: "search-filter-section__form") do %>
-
-                <div class="row search-filter-section__row">
-                    <div class="six columns">
-                        <%= label_tag(:q, "Søkeord:") %>
-                        <%= text_field_tag(:q, @term, class: "u-full-width" ) %>
-                    </div>
-                    <div class="three columns">
-                        <%= label_tag(:price_min, "Minimumspris:") %>
-                        <%= number_field_tag( :price_min, nil, min: 0, class: "u-full-width") %>
-                    </div>
-                    <div class="three columns">
-                        <%= label_tag(:price_max, "Makspris:") %>
-                        <%= number_field_tag( :price_max, nil, min: 0, class: "u-full-width") %>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="two columns">
-                        <label>Annonsetype:</label>
-                    </div>
-                    <% @ad_categories.each do |a| %>
-                        <div class="three columns">
-                            <%= label_tag do %>
-                                <%= check_box_tag "category[]", a[:category] %>
-                                <span class="label-body"><%= a[:title] %></span>
-                            <% end %>
-                        </div>
-                    <% end %>
-                </div>
-            <% end %>
-        </div>
-
-
-        <div class="search-result-view-chooser" data-controller="responsiveSearchResult">
-            <hr>
-            <div class="search-result-view-chooser__segment-holder">
-                <button data-show-list-toggle class="search-result-view-chooser__segment-button search-result-view-chooser__segment-button--left search-result-view-chooser__segment-button--selected">Vis treff</button>
-                <button data-show-map-toggle class="search-result-view-chooser__segment-button search-result-view-chooser__segment-button--right">Vis kart</button>
-            </div>
-        </div>
-
-    </div>
-
-</div>
+<%= render partial: "search_filter_section" %>
 
 <div class="result-container" data-controller="resultContainerSizeAdjuster">
     <div class="result-container__map-box" data-result-map>
