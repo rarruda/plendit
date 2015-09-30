@@ -17,6 +17,10 @@
         font-size: 120%;
         padding: 12px;
         margin: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 100%;
     }
 
     &__link {
