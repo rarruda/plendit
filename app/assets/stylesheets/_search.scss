@@ -188,6 +188,11 @@ $breakpoint: 550px;
 
 .search-result-box {
 
+    &__no-hits-box {
+        padding: $standard-spacing;
+        background-color: white;
+    }
+
     &__paging-holder {
         text-align: center;
         background-color: white;
