@@ -29,7 +29,7 @@
 
                         <td><%= location.address_line %></td>
                         <td><%= location.post_code %> <%= location.city %></td>
-                        <td><%= button_to 'Rediger', edit_location_path(location), :method => :get %></td>
+                        <td><%= button_to 'Rediger', edit_location_path(location), :method => :get, class: "button" %></td>
                         <td><%= button_to 'Slett', location, method: :delete, class: "button", data: {confirm: 'Er du sikker på at du vil slette?'} %></td>
                     </tr>
                 <% end %>
