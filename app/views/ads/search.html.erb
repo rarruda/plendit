@@ -1,16 +1,16 @@
-<div class="container search-title-box">
-    <h4 class="search-title-box__title" data-controller="hitCount">Viser <%= @ads.count %> av <%= @ads.total_count %> treff for <i><%= @term %></i></h4>
-</div>
-
-<%= render partial: "search_filter_section" %>
-
 <div class="result-container" data-controller="resultContainerSizeAdjuster">
     <div class="result-container__map-box" data-result-map>
         <div class="result-map" data-controller="resultMap">
             <script type="text/json" data-location-info><%= @result_json %></script>
         </div>
     </div>
-    <div class="result-container__hits-box" data-controller="resultList resultPaging" data-result-list>
-        <%= render partial: "search_result_box" %>
+    <div class="result-container__hits-box">
+        <div class="container search-title-box">
+            <h4 class="search-title-box__title" data-controller="hitCount">Viser <%= @ads.count %> av <%= @ads.total_count %> treff for <i><%= @term %></i></h4>
+        </div>
+        <%= render partial: "search_filter_section" %>
+        <div data-controller="resultList resultPaging" data-result-list>
+            <%= render partial: "search_result_box" %>
+        </div>
     </div>
 </div>
