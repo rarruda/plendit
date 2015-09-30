@@ -22,23 +22,9 @@
         margin-bottom: 0;
     }
 
-    &__toggler {
-        left: 50%;
-        right: 50%;
-        position: absolute;
+    &__filter-button-holder {
         text-align: center;
-        display: inline-block;
-        width: 64px;
-        height: 42px;
-        line-height: 14px;
-        padding-top: 4px;
-        margin-top: -46px;
-        border-radius: 90px 90px 0 0;
-        background-color: white;
-
-        &:hover {
-            cursor: pointer;
-        }
     }
+
 }
 

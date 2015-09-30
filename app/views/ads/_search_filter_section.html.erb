@@ -1,11 +1,8 @@
 <div class="search-filter-section">
     <div class="container" data-controller="togglableFilters">
-
-        <span class="search-filter-section__toggler" data-filter-toggler>
-            <%= image_tag "filter_arrow.png", alt: "Skjul / vis filter", size: "14x14" %>
-            <br>
-            <small>Filter</small>
-        </span>
+        <div class="search-filter-section__filter-button-holder">
+            <button type="button" class="button" data-filter-toggler>filter</button>
+        </div>
 
         <div data-filter-container data-controller="searchFilterSelection">
             <%= form_tag({}, class: "search-filter-section__form") do %>
