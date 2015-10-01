@@ -52,9 +52,9 @@ class UserPaymentCardsController < ApplicationController
     puts "user_payment_card_params: #{user_payment_card_params}"
 
     # finish card registration:
-    mangopay_service = MangopayService.new(current_user)
-    mp_result = mangopay_service.post_register_card(user_payment_card_params['card_vid'], user_payment_card_params['registration_data'])
-    puts "mp: #{mp_result}"
+    mangopay_service = MangopayService.new( current_user )
+    mp_result = mangopay_service.post_register_card( user_payment_card_params['card_vid'], user_payment_card_params['registration_data'] )
+    LOG.info "mp: #{mp_result}"
 
     if mp_result.status != 200
       #{"Message":"the card registration has already been processed","Type":"cardregistration_already_process","Id":"f5facd58-4b88-4618-ad21-d2c95bfce8e4#1443217025","Date":1443217026.0,"errors":null}

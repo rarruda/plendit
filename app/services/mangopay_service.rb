@@ -33,7 +33,7 @@ class MangopayService
         last_known_status_mp:  card_reg['Status']
       }
     rescue => e
-      LOG.error e
+      LOG.error e, { user_id: @user.id }
       return nil
     end
     LOG.info card_reg, { user_id: @user.id }
@@ -70,7 +70,7 @@ class MangopayService
       @user.user_payment_card.status_mp = card['Status']
       @user.user_payment_card.save!
     rescue => e
-      LOG.error "error registering card_vid:#{card_vid}", { mangopay_result: card }
+      LOG.error "error registering card_vid:#{card_vid}", { user_id: @user.id, mangopay_result: card }
     end
   end
 
