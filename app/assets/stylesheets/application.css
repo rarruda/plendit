@@ -40,3 +40,8 @@ select[disabled] {
 summary {
     outline: none;
 }
+
+.partner-logo {
+    width: 180px;
+    margin: 12px;
+}
