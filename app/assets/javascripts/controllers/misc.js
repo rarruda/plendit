@@ -516,6 +516,7 @@ window.controllers.clickthrough = function(ele) {
 }
 
 window.controllers.footerPositioning = function(ele) {
+    return;
     if (document.body.offsetHeight < window.innerHeight) {
         ele.style.position = "absolute";
         ele.style.bottom = "0";
