@@ -1,5 +1,5 @@
 <% if defined? @ad.location.lat and defined? @ad.location.lon %>
-    <section class="ad-location-map u-push-down">
+    <section class="ad-location-map u-push-down-only">
         <div class="ad-location-map__map"
              data-geolocation="<%= @ad.location.lat %>,<%= @ad.location.lon %>"
              data-controller="adMap">
