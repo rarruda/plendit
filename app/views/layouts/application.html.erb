@@ -35,6 +35,7 @@
     <header>
         <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field } %>
         <%= render partial: "flash_bar" %>
+        <%= render partial: "broadcast" %>
     </header>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
