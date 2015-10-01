@@ -125,7 +125,7 @@ $break-tiny: 640px;
 
 .if-branding-section {
     &__centerer {
-        max-width: 600px;
+        max-width: 660px;
         margin: 0 auto;
         text-align: left;
     }
@@ -133,11 +133,6 @@ $break-tiny: 640px;
     &__logo {
         padding-top: 24px;
         padding-right: $standard-spacing;
-        padding-bottom: 64px;
         box-sizing: content-box;
-
-        @media screen and (max-width: 640px) {
-            padding-bottom: 0;
-        }
     }
 }
