@@ -9,7 +9,7 @@
             <h4 data-controller="hitCount">Viser <%= @ads.count %> av <%= @ads.total_count %> treff for <i><%= @term %></i></h4>
         </div>
         <%= render partial: "search_filter_section" %>
-        <div data-controller="resultList resultPaging" data-result-list>
+        <div class="result-container__hits-list" data-controller="resultList resultPaging" data-result-list>
             <%= render partial: "search_result_box" %>
         </div>
     </div>

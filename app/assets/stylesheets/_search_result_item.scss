@@ -6,7 +6,7 @@
     position: relative;
 
     &__padder {
-        margin: 0 ($standard-spacing / 2) ($standard-spacing / 2) ($standard-spacing / 2);
+        padding: 0 $standard-spacing $standard-spacing 0;
     }
 
     @media screen and (min-width: $two-column-break) {
@@ -15,18 +15,6 @@
         overflow: hidden;
         float: left;
         border: none;
-
-        &__padder {
-            margin: 0 $standard-spacing ($standard-spacing / 2) $standard-spacing;
-        }
-
-        &:nth-child(odd) &__padder {
-            margin-left: $standard-spacing / 2;
-        }
-
-        &:nth-child(even) &__padder {
-            margin-right: $standard-spacing / 2;
-        }
     }
 
     &__title {
@@ -60,8 +48,8 @@
     &__price-floater {
         position: absolute;
         text-align: center;
-        top: 20px;
-        right: 4px;
+        top: 12px;
+        right: 7px;
         min-width: 100px;
         height: 46px;
         box-shadow: $subtle-shadow;
@@ -78,7 +66,7 @@
         position: absolute;
         width: 100px;
         bottom: 20px;
-        right: 4px;
+        right: 8px;
         text-align: center;
     }
 }
