@@ -271,21 +271,6 @@ window.controllers.calenderPager = {
     }
 };
 
-window.controllers.togglableFilters = {
-    dependencies: ["$element", "eventbus"] ,
-    callable: function(ele, eventBus) {
-        var toggleEle = ele.querySelector("[data-filter-toggler]");
-        var filterEle = ele.querySelector("[data-filter-container]");
-        toggleEle.addEventListener('click', toggle);
-
-        function toggle() {
-            filterEle.classList.toggle("u-hidden");
-            eventBus.emit('filter-toggle');
-            eventBus.emit('layout-changed');
-        }
-    }
-};
-
 window.controllers.resultList = {
     dependencies: ["$element", "eventbus"] ,
     callable: function(ele, eventBus) {
