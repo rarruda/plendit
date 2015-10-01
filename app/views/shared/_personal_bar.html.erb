@@ -4,16 +4,16 @@
             <div class="twelve columns">
                 <%
                     if not defined? selected
-                        selected = "Kontrollpanel"
+                        selected = "Siste nytt"
                     end
 
                     links = [
-                        { text: "Kontrollpanel",     path: users_path },
+                        { text: "Siste nytt",     path: users_path },
                         { text: "Dine annonser",     path: users_ads_path },
+                        { text: "Din profil",        path: edit_users_path },
                         { text: "Dine forespørsler", path: bookings_path },
                         { text: "Leiehistorikk",     path: "#" },
                         { text: "Favoritter",        path: users_favorite_ads_path },
-                        { text: "Din profil",        path: edit_users_path },
                     ]
                     links.map { |e| e[:selected] = e[:text].downcase == selected.downcase }
                 %>
