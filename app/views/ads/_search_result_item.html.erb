@@ -5,9 +5,9 @@
 %>
 <div class="search-result-item" data-adid="<%= ad.id %>">
     <div class="search-result-item__padder">
-        <%= link_to ad_path( ad ), class: "search-result-item__link" do %>
+        <%= link_to ad_path( ad ), class: 'search-result-item__link' do %>
             <div class="search-result-item__image-holder">
-                <%= image_tag Ad.find(ad.id).safe_image_url(:searchresult), alt: "", class: "search-result-item__image" %>
+                <%= image_tag Ad.find(ad.id).safe_image_url(:searchresult), alt: '', class: 'search-result-item__image' %>
             </div>
             <div class="search-result-item__text-container">
                 <h3 class="search-result-item__title"><%= ad.display_title %></h3>
@@ -16,7 +16,7 @@
     </div>
         <div class="search-result-item__profile">
             <div>
-                <%= render('shared/avatar.html', user: User.find(es_ad.user.id), size: "medium" ) %>
+                <%= render('shared/avatar.html', user: User.find(es_ad.user.id), size: 'medium' ) %>
                 <br>
                 <%= render('shared/stars.html', rating: User.find(es_ad.user.id).calculate_average_rating, small: true ) %>
             </div>
