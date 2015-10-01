@@ -30,7 +30,7 @@ Rails.application.configure do
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = Uglifier.new(
     # Remove all console.* functions
-    compress: { drop_console: true }
+    compress: { drop_console: false } #change to true upon release to the world
   )
   # config.assets.css_compressor = :sass
 
