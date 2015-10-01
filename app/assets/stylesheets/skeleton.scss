@@ -406,15 +406,15 @@ form {
   text-decoration: underline;
 }
 
+summary::-webkit-details-marker {
+  display: none;
+}
+
 details.u-implode-summary {
   outline: none;
 }
 
 details.u-implode-summary[open] > summary {
-  display: none;
-}
-
-details.u-implode-summary > summary::-webkit-details-marker {
   display: none;
 }
 
