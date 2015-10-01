@@ -104,24 +104,20 @@ class Ad < ActiveRecord::Base
         LOG.info 'ad is suspended. this is a black hole. there is no way out.'
       end
     end
+
     event :delete do
       transitions :to => :deleted
 
       after do
-        # lots of checks here for dangling references, if it would be removed from the database.
-        #   self.destroy would then wipe it away. but that's dangerous.
-        #   for now is_deleted always returns false. we never let it be true to be safe.
-        #
-        # We should also consider renaming internally 'delete' to 'archive', and never
-        #   removing it from the database.
-        if is_deletable? and false
+        # if ad doesn't have any references, delete it, otherwise, just
+        # use the deleted flag to exclude it from things
+        if is_deletable?
           self.destroy
-          LOG.info 'did delete ad from the database.'
+          LOG.info 'ad deleted from database.'
         else
-          LOG.info 'did not delete ad from the database.'
+          LOG.info 'ad not deleted, only delted flag set'
         end
 
-        LOG.info 'ad is deleted. this is a black hole. there is no way out.'
       end
     end
     #event :unsuspend do
