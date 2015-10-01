@@ -183,19 +183,16 @@ $breakpoint: 550px;
     &__disabled {
         color: gray;
     }
-
 }
 
 .search-result-box {
 
     &__no-hits-box {
         padding: $standard-spacing;
-        background-color: white;
     }
 
     &__paging-holder {
         text-align: center;
-        background-color: white;
         padding-bottom: $standard-spacing;
     }
 }

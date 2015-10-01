@@ -5,12 +5,28 @@
 
     position: relative;
 
+    &__padder {
+        margin: 0 ($standard-spacing / 2) ($standard-spacing / 2) ($standard-spacing / 2);
+    }
+
     @media screen and (min-width: $two-column-break) {
         width: 50%;
         display: inline-block;
         overflow: hidden;
         float: left;
         border: none;
+
+        &__padder {
+            margin: 0 $standard-spacing ($standard-spacing / 2) $standard-spacing;
+        }
+
+        &:nth-child(odd) &__padder {
+            margin-left: $standard-spacing / 2;
+        }
+
+        &:nth-child(even) &__padder {
+            margin-right: $standard-spacing / 2;
+        }
     }
 
     &__title {
@@ -28,7 +44,6 @@
         text-decoration: none;
         color: black;
         display: inline-block;
-        padding: $standard-spacing / 2;
         width: 100%;
     }
 
@@ -45,8 +60,8 @@
     &__price-floater {
         position: absolute;
         text-align: center;
-        top: 12px;
-        right: 0;
+        top: 20px;
+        right: 4px;
         min-width: 100px;
         height: 46px;
         box-shadow: $subtle-shadow;
@@ -62,8 +77,8 @@
     &__profile {
         position: absolute;
         width: 100px;
-        bottom: 6px;
-        right: 0;
+        bottom: 20px;
+        right: 4px;
         text-align: center;
     }
 }
