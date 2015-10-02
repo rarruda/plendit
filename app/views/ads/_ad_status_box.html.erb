@@ -15,6 +15,8 @@
     <% elsif ad.status == 'stopped' %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--blue", method: :get %>
         <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--green" %>
+    <% elsif ad.status == 'waiting_review' %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ad-status-box__button--blue", method: :get %>
     <% end %>
 
     <%- if current_user.is_site_admin? -%>
