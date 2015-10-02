@@ -1,7 +1,7 @@
 #require 'faker'
 #Faker::Config.locale = 'nb-NO'
 
-Geocoder.configure(:lookup => :test)
+Geocoder.configure(:lookup => :test) if Rails.env == 'test'
 
 Geocoder::Lookup::Test.add_stub(
   "Bentsebrugata 23B, 0469, Oslo", [

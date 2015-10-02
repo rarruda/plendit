@@ -1,3 +1,5 @@
+require_relative 'redis.rb'
+
 # This class implements a cache with simple delegation to the Redis store, but
 # when it creates a key/value pair, it also sends an EXPIRE command with a TTL.
 # It should be fairly simple to do the same thing with Memcached.
@@ -35,25 +37,20 @@ Geocoder.configure(
   # :api_key      => nil,         # API key for geocoding service
   # :cache        => nil,         # cache object (must respond to #[], #[]=, and #keys)
   # :cache_prefix => "geocoder:", # prefix (string) to use for all cache keys
-
-  :lookup       => :google,       # name of geocoding service (symbol)
-  :language     => PLENDIT_COUNTRY_CODE,
-  :api_key      => ENV['PCONF_GOOGLE_GEOCODING_KEY'], # API key for geocoding service
-  :use_https    => true,          # HTTPS must be enabled when using a google with an API key
-  :cache        => AutoexpireCacheRedis.new(REDIS, 1.month.to_i), # cache object (must respond to #[], #[]=, and #keys)
-  :cache_prefix => "geocoder:",   # prefix (string) to use for all cache keys
-#  :google       => {
-#    :api_key   => ENV['PCONF_GOOGLE_GEOCODING_KEY'], # API key for geocoding service
-#    :region    => PLENDIT_COUNTRY_CODE,
-#    :bounds    => COUNTRY_GEO_BOUNDS
-#  },
-
   # exceptions that should not be rescued by default
   # (if you want to implement custom error handling);
   # supports SocketError and TimeoutError
   # :always_raise => [],
-
   # calculation options
-  :units     => :km,       # :km for kilometers or :mi for miles
-  # :distances => :linear    # :spherical or :linear
+  # :units        => :km,       # :km for kilometers or :mi for miles
+  # :distances    => :linear    # :spherical or :linear
+
+  :lookup       => :google,
+  :language     => PLENDIT_COUNTRY_CODE,
+  :api_key      => ENV['PCONF_GOOGLE_GEOCODING_KEY'],
+  :use_https    => true,          # HTTPS must be enabled when using a google with an API key
+  :cache        => AutoexpireCacheRedis.new(REDIS, 1.month.to_i),
+  :cache_prefix => "geocoder:",
+  :units        => :km,
+
 )

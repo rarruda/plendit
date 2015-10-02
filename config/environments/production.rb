@@ -97,11 +97,4 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-
-  # Elasticsearch: (in Heroku)
-  Elasticsearch::Model.client = Elasticsearch::Client.new host: ENV['SEARCHBOX_URL']
-
-  # configure REDIS
-  # consider connection pooling: https://github.com/mperham/connection_pool
-  REDIS = Redis.new( url: ( ENV['PCONF_REDIS_URL'] || ENV['REDIS_URL']) )
 end
