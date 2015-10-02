@@ -5,7 +5,7 @@
             kartet, eller endre på søkefilterene dine.
         </p>
     <% else %>
-        <div class="search-result-box__paging-holder"><%= paginate @ads %></div>
+        <div class="search-result-box__paging-holder u-push-down-only"><%= paginate @ads %></div>
         <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
     <% end %>
 </div>
