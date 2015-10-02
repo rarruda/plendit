@@ -11,18 +11,22 @@
         </div>
     <% end %>
 
-<!--
-    <%# if @booking.ad.ad_items.count == 1 %>
+    <% if @booking.ad.ad_items.count == 1 %>
         <%#= f.label :ad_item_id %>
         <%#= @booking.ad.ad_items.first.id %>
         <%= f.hidden_field(:ad_item_id, :value => @booking.ad.ad_items.first.id )%>
-    <%# else %>
+    <% elsif @booking.ad.ad_items.count > 0 %>
+        <%= f.hidden_field(:ad_item_id, :value => @booking.ad.ad_items.first.id )%>
+<!--
         <div class="field">
-            <%#= f.label :ad_item_id %><br>
-            <%#= f.collection_select(:ad_item_id, @booking.ad.ad_items.all, :id, :id) %>
+            <%= f.label :ad_item_id %><br>
+            <%= f.collection_select(:ad_item_id, @booking.ad.ad_items.all, :id, :id) %>
         </div>
-    <%# end %>
  -->
+    <% else %>
+        <%# This will fail miserably. %>
+    <% end %>
+
 <!--
     <div class="field">
         <%= f.label :price %> <br>
