@@ -108,3 +108,39 @@ $blueish: rgb(213, 235, 255);
         padding-bottom: $standard-spacing * 3;
     }
 }
+
+
+.social-button {
+
+    $height: 54px;
+    background-color: gold;
+    border-radius: 6px;
+    border: solid thin rgba(0,0,0,0.2);
+    display: inline-block;
+    width: 320px;
+    height: $height;
+    line-height: $height;
+    color: white;
+    font-size: 18px;
+    display: inline-block;
+    padding: 0 0 3px 3px;
+
+    &--fb {
+        background-color: #3b5998;
+    }
+
+    &__logo {
+        box-sizing: content-box;
+        padding-bottom: 4px;
+        vertical-align: middle;
+    }
+
+    &__text {
+        display: inline-block;
+        border-left: solid thin rgba(0,0,0,0.2);;
+        padding-left: 24px;
+    }
+
+}
+
+
