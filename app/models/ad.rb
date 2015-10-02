@@ -81,7 +81,8 @@ class Ad < ActiveRecord::Base
       end
     end
     event :approve do
-      transitions :from => :waiting_review, :to => :published, :guard => :ad_location_is_geocoded?
+      # only approve ads which have geocoded locations.
+      transitions :from => :waiting_review, :to => :published, :guard => :is_location_geocoded?
     end
     event :pause do
       transitions :from => [:published, :stopped], :to => :paused
@@ -178,9 +179,8 @@ class Ad < ActiveRecord::Base
     !self.is_favorited? && self.bookings.empty?
   end
 
-  def ad_location_is_geocoded?
-    return false if self.location.nil?
-    self.location.is_geocoded?
+  def is_location_geocoded?
+    self.location.nil? ? false : self.location.is_geocoded?
   end
 
   # helper methods for generating urls for the three different image sizes, and which has the
