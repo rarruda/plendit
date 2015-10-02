@@ -122,11 +122,12 @@
 
 <div>
     <% if @ad.published? %>
-        <%= button_tag "lagre", class: "button", form_class: "u-inline", data: {controller: "submitMainForm"}  %>
+        <%= button_tag 'lagre', class: 'button', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
     <% elsif @ad.valid? %>
-        <%= button_tag "lagre", class: "button", form_class: "u-inline", data: {controller: "submitMainForm"}  %>
+        <%= button_tag 'lagre', class: 'button button-primary', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
+        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: 'u-inline', class: 'button' %>
     <% else %>
-        <%= button_tag "lagre", class: "button button-primary", form_class: "u-inline", data: {controller: "submitMainForm"}  %>
+        <%= button_tag 'lagre', class: 'button button-primary', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
     <% end %>
 
     <%= button_to "Forhåndsvisning", (ad_path @ad), method: :get, form_class: "u-inline", class: "button"  %>
