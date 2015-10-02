@@ -10,7 +10,6 @@
             </ul>
         </div>
     <% end %>
-
 <!--
     <%# if @booking.ad.ad_items.count == 1 %>
         <%#= f.label :ad_item_id %>
@@ -29,10 +28,42 @@
         <%= number_to_currency_pretty @booking.ad.price %> per dag
     </div>
  -->
-    <%= render partial: "shared/booking_period_selector", locals: { form: f, ad: @booking.ad } %>
 
+    <div data-controller="kalendaeBookingSelector">
+        <div class="row">
+            <div class="seven columns">
+                <div class="booking-period-selector"><div data-kalendae-container class="u-center"></div></div>
+                <%= f.hidden_field :starts_at_time, value: '12.12' %>
+                <%= f.hidden_field :ends_at_time, value: '12.12' %>
+           </div>
+            <div class="five columns">
+                <ol class="booking-request-summary">
+                    <li>
+                        Fra:
+                         <%= f.text_field :ends_at_date, data: { format: "yyyy.MM.dd" }, class: 'u-pull-right booking-request-summary__input' %>
+                    </li>
+                    <li>
+                        Til:
+                        <%= f.text_field :starts_at_date, data: { format: "yyyy.MM.dd" }, class: 'u-pull-right booking-request-summary__input' %>
+                    </li>
+                    <li>
+                        Antall dager:
+                        <span class="u-pull-right" data-day-count>aasdf</span>
+                    </li>
+                    <li>
+                        Pris per dag:
+                        <span class="u-pull-right"><%= @booking.ad.decorate.pretty_price %></span>
+                    </li>
+                    <li>
+                        <strong>Totalt å betale:</strong>
+                        <span class="u-pull-right" data-total-price>Fetch from server</span>
+                    </li>
+                </ol>
+            </div>
+        </div>
 
-    <div class="actions">
-        <%= f.submit class: "button button-primary" %>
+        <div class="actions">
+            <%= f.submit class: "button button-primary" %>
+        </div>
     </div>
 <% end %>
