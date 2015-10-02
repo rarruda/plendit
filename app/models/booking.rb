@@ -44,10 +44,13 @@ class Booking < ActiveRecord::Base
   validates :ad_item_id, :presence => true
   validates :from_user_id, :presence => true
 
-  validates_numericality_of :amount, greater_than: 100_00, message: "must be at least 100 kroner"
+  validates :amount, numericality: { greater_than: 100_00, message: "must be at least 100 kroner"}
+  validates :amount, numericality: { less_than: 150_000_00, message: "must be at less then 150.000 kroner"}
+
+
 
   before_validation :set_guid, :on => :create
-  before_save :calculate_amount,
+  before_validation :calculate_amount,
     if: :starts_at_changed?,
     if: :ends_at_changed?
 
@@ -78,7 +81,6 @@ class Booking < ActiveRecord::Base
   def calculate_amount
     #platform_fee_pct  = Plendit::Application.config.x.platform.fee_in_percent
     #insurance_fee_pct = Plendit::Application.config.x.insurance.price_in_percent
-    #mva?
 
     self.amount = self.duration_in_days * self.ad.price
   end
