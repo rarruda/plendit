@@ -15,7 +15,7 @@ class Location < ActiveRecord::Base
   default_scope { where.not( status: Location.statuses[:deleted] ).order(favorite: :desc, address_line: :asc) }
 
 
-  before_validation :geocode_with_region, if: ->(obj){ obj.post_code.present? &&d ( obj.address_line_changed? || obj.post_code_changed? ) }
+  before_validation :geocode_with_region, if: ->(obj){ obj.post_code.present? && ( obj.address_line_changed? || obj.post_code_changed? ) }
 
   before_save :set_city_from_postal_code
 
