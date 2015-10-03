@@ -12,7 +12,7 @@ class MangopayService
 
   # register a card:
   # see flow at: https://docs.mangopay.com/api-references/card-registration/
-  def pre_register_card
+  def card_pre_register
     # It wont work if you dont have a registered user with the mangopay platform.
     raise 'payment_provider_vid is nil. Can not create a pre_registration for a card.' if @user.payment_provider_vid.nil?
 
@@ -44,7 +44,7 @@ class MangopayService
 
   # Disable an existing card. This is the equivalent of deleting it.
   # Note: It is an irreversible action.
-  def disable_registered_card(card_vid)
+  def card_disable(card_vid)
     begin
       c = MangoPay::Card.update(
         'Id'     => card_vid,
@@ -62,18 +62,30 @@ class MangopayService
   # you need to save the "Id" of the card in a new model
   #from result, (Save to db?) and show to user :
   #RegistrationData
-  def post_register_card(card_vid, registration_data)
+  def card_post_register(card_vid, registration_data)
     begin
-      card = MangoPay::CardRegistration.update( card_vid, {'RegistrationData' => 'registration_data'} )
+      card = MangoPay::CardRegistration.update( card_vid, {'RegistrationData' => registration_data} )
       # now card is registered, and one can make a pre-authorization (pay w/o capture)
       @user.user_payment_card.card_vid  = card['CardId']
       @user.user_payment_card.status_mp = card['Status']
       @user.user_payment_card.save!
+    rescue MangoPay::ResponseError => e
+      LOG.error "error registering card with mangopay. MangoPay::ResponseError: #{e}", { user_id: @user.id, card_vid: card_vid, mangopay_result: card }
     rescue => e
-      LOG.error "error registering card_vid:#{card_vid}", { user_id: @user.id, mangopay_result: card }
+      LOG.error "error registering card. exception: #{e}", { user_id: @user.id, card_vid: card_vid, mangopay_result: card }
     end
   end
 
+  def card_list
+    begin
+      cards = MangoPay::User.cards( @user.payment_provider_vid )
+    #rescue MangoPay::ResponseError => e
+    #  LOG.error "error fetching list of cards with mangopay. MangoPay::ResponseError: #{e}", { user_id: @user.id, mangopay_result: cards }
+    rescue => e
+      LOG.error "error fetching list of cards with mangopay. exception: #{e}", { user_id: @user.id, mangopay_result: cards }
+    end
+    cards
+  end
 
   def user_provisionable?
     return false if @user.id.blank? ||
