@@ -1,34 +1,15 @@
-
-<span class="social-button social-button--fb">
-    <%= image_tag 'logos/fb-45x45.png', size: '45x45', alt: '', class: 'social-button__logo' %>
-    <span class="social-button__text">
-        Logg inn med Facebook
-    </span>
-</span>
-
-<hr class="u-push-down">
-
 <div class="row">
-
-    <div class="four columns">
-        <%= image_tag "facebook/FB-f-Logo__blue_50.png", size: "50x50", alt: "" %>
-        <%= button_to user_omniauth_authorize_path(:facebook), class: "button", form_class: "u-inline" do %>
-            Logg inn med facebook
-        <% end %>
-    </div>
-
-    <div class="four columns">
-        <%= image_tag "logos/google_50x50.png", size: "50x50", alt: "" %>
-        <%= button_to user_omniauth_authorize_path(:google), class: "button", form_class: "u-inline" do %>
-            Logg inn med Google
-        <% end %>
-    </div>
-
-    <div class="four columns">
-        <%= image_tag "logos/spid_117x50.png", size: "117x50", alt: "" %>
-        <%= button_to user_omniauth_authorize_path(:spid), class: "button", form_class: "u-inline" do %>
-            Logg inn med SPiD
-        <% end %>
-    </div>
-
+    <%= link_to user_omniauth_authorize_path(:facebook) do %>
+        <%= social_button(:facebook, nil) %>
+    <% end %>
+    <br>
+    <br>
+    <%= link_to user_omniauth_authorize_path(:google) do %>
+        <%= social_button(:google, nil) %>
+    <% end %>
+    <br>
+    <br>
+    <%= link_to user_omniauth_authorize_path(:spid) do %>
+        <%= social_button(:spid, nil) %>
+    <% end %>
 </div>
