@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002233810) do
+ActiveRecord::Schema.define(version: 20151003112039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -272,8 +272,6 @@ ActiveRecord::Schema.define(version: 20151002233810) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.string   "bank_account_vid"
-    t.string   "payin_wallet_vid"
-    t.string   "payout_wallet_vid"
   end
 
   add_index "user_payment_accounts", ["user_id"], name: "index_user_payment_accounts_on_user_id", using: :btree
@@ -338,6 +336,8 @@ ActiveRecord::Schema.define(version: 20151002233810) do
     t.string   "home_post_code"
     t.string   "home_city"
     t.string   "home_state"
+    t.string   "payin_wallet_vid"
+    t.string   "payout_wallet_vid"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

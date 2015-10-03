@@ -173,7 +173,7 @@ class MangopayService
           'Currency'    => PLENDIT_CURRENCY_CODE,
           'Description' => 'money_in',
         );
-      @user.user_payment_account.payin_wallet_vid = wallet_in['Id']
+      @user.payin_wallet_vid = wallet_in['Id']
       @user.user_payment_account.save!
     rescue => e
       LOG.error "something has gone wrong with provisioning the pay_in wallet at mangopay. exception: #{e}", {user_id: @user.id, mangopay_result: wallet_in }
@@ -189,7 +189,7 @@ class MangopayService
           'Currency'    => PLENDIT_CURRENCY_CODE,
           'Description' => 'money_out'
         );
-      @user.user_payment_account.payout_wallet_vid = wallet_out['Id']
+      @user.payout_wallet_vid = wallet_out['Id']
       @user.user_payment_account.save!
     rescue => e
       LOG.error "something has gone wrong with provisioning the pay_out wallet at mangopay. exception: #{e}", {user_id: @user.id, mangopay_result: wallet_out }
@@ -251,7 +251,7 @@ class MangopayService
       'ExecutionType'  => 'DIRECT',
       'DebitedFunds'   => booking.amount,
       'Fees'           => booking.fees?,             #<===== to be implemented
-      'CreditedWalletId'   => booking.owner_user.user_payment_account.payin_wallet_vid,
+      'CreditedWalletId'   => booking.owner_user.payin_wallet_vid,
       'PreauthorizationId' => "foobar",              ###### foobar??? where does it come from?
     );
   end

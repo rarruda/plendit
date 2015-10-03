@@ -95,8 +95,8 @@ class User < ActiveRecord::Base
     if: :phone_verified?,
     if: Proc.new { |u| u.payment_provider_vid.blank? ||
         u.user_payment_account.nil? ||
-        u.user_payment_account.payin_wallet_vid.blank? ||
-        u.user_payment_account.payout_wallet_vid.blank? }
+        u.payin_wallet_vid.blank? ||
+        u.payout_wallet_vid.blank? }
         # same as: unless: :mangopay_provisioned?
 
 
@@ -305,8 +305,8 @@ class User < ActiveRecord::Base
 
   def mangopay_provisioned?
     if self.payment_provider_vid.blank? ||
-      self.user_payment_account.payin_wallet_vid.blank? ||
-      self.user_payment_account.payout_wallet_vid.blank?
+      self.payin_wallet_vid.blank? ||
+      self.payout_wallet_vid.blank?
       LOG.error "profile is NOT fully provisioned with mangopay", {user_id: self.id}
       false
     else
@@ -335,12 +335,12 @@ class User < ActiveRecord::Base
       # build user_payment_account relation if it doesnt exist from before.
       self.build_user_payment_account if self.user_payment_account.nil?
 
-      if self.user_payment_account.payin_wallet_vid.blank?
+      if self.payin_wallet_vid.blank?
         LOG.info "Provisioning PayIn wallet with Mangopay:"
         result = mangopay.provision_payin_wallet
         LOG.info "result: #{result}"
       end
-      if self.user_payment_account.payout_wallet_vid.blank?
+      if self.payout_wallet_vid.blank?
         LOG.info "Provisioning PayOut wallet with Mangopay:"
         result = mangopay.provision_payout_wallet
         LOG.info "result: #{result}"
