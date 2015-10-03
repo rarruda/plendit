@@ -84,6 +84,15 @@
             <% if resource.errors.empty? %>
                 </details>
             <% end %>
+
+            <hr>
+
+            <h2>Bli bedriftskunde?</h2>
+
+            <p>
+                Meld deg inn med <%= link_to 'dette skjemaet.', Plendit::Application.config.x.signup.bedriftskunde_signup_link %>
+            </p>
+
         </div>
     </div>
 
