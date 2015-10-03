@@ -164,6 +164,11 @@ class Booking < ActiveRecord::Base
   #  end
   #end
 
+
+  def to_param
+    self.guid
+  end
+
   private
 
   def set_guid
