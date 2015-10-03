@@ -121,6 +121,7 @@ class BookingsController < ApplicationController
     def set_booking_from_params
       new_booking = booking_params.merge( {
         'from_user_id' => current_user.id,
+        'insured'      => AdItem.find( booking_params[:ad_item_id] ).ad.insurance_required,
         'status'       => 'created'
       })
 
