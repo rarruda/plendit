@@ -31,7 +31,7 @@ class MessagesController < ApplicationController
     def notify_user
       Notification.new(
         user_id: @message.to_user.id,
-        message: "#{@message.decorate.from_user.display_name} sent you a message about \"#{@message.decorate.booking.ad.display_title}\".",
+        message: "Melding fra #{@message.decorate.from_user.display_name} om \"#{@message.decorate.booking.ad.display_title}\".",
         notifiable: @message.booking).save
     end
 
