@@ -103,8 +103,6 @@ Rails.application.routes.draw do
       post 'resume'
       post 'submit_for_review'
     end
-    # probably should be moved to /me:
-    resources :bookings
   end
 
   # fixme: should be retired in the future:
