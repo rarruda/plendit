@@ -216,7 +216,7 @@ window.controllers.resultMap = {
                 icon: {
                     url: '/images/single_stroke.png',
                     scaledSize: new google.maps.Size(45, 40),
-                    anchor: new google.maps.Point(10, 40)
+                    anchor: new google.maps.Point(70, 40)
                 },
                 map: map
             });
