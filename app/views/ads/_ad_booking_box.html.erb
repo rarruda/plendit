@@ -10,7 +10,8 @@
 
     <div class="ad-booking-box__button-holder">
         <% if ad.published? && !current_user_is_owner(ad) %>
-            <%= form_tag new_ad_booking_path( @ad ), method: :get do %>
+            <%= form_tag new_booking_path, method: :get do %>
+                <%= hidden_field_tag :ad_id, @ad.id %>
                 <%= button_tag("Gå til booking", {class: "u-push-down button button-primary availability-section__book"}) %>
             <% end %>
         <% end %>

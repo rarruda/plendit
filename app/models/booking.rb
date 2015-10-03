@@ -39,12 +39,14 @@ class Booking < ActiveRecord::Base
     :query_options => { :active => nil }
   }
   validate :validate_starts_at_before_ends_at
+  validate :validate_starts_at
+  validate :validate_ends_at
   validates_uniqueness_of :guid
 
   validates :ad_item_id, :presence => true
   validates :from_user_id, :presence => true
 
-  validates :amount, numericality: { greater_than: 100_00, message: "must be at least 100 kroner"}
+  validates :amount, numericality: { greater_than:  100_00, message: "must be at least 100 kroner"}
   validates :amount, numericality: { less_than: 150_000_00, message: "must be at less then 150.000 kroner"}
 
 
@@ -141,6 +143,15 @@ class Booking < ActiveRecord::Base
       errors.add(:ends_at, "ends_at cannot be before starts_at") if self.ends_at < self.starts_at
   end
 
+  def validate_starts_at
+      errors.add(:starts_at, "starts_at cannot be in the past") if self.starts_at < DateTime.now
+      errors.add(:starts_at, "starts_at cannot be over 9 months in the future") if self.starts_at > 9.months.from_now
+  end
+
+  def validate_ends_at
+      errors.add(:ends_at, "ends_at cannot be over one year in the future") if self.ends_at > 12.months.from_now
+  end
+
   # Comparable
   def <=>(other)
     if self.starts_at < other.starts_at
@@ -163,6 +174,11 @@ class Booking < ActiveRecord::Base
   #    1
   #  end
   #end
+
+
+  def to_param
+    self.guid
+  end
 
   private
 

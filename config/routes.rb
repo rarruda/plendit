@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, path: '/me/bookings' do
+  resources :bookings, path: '/me/bookings', param: :guid do
     resources :messages
     member do
       get 'show_price'
@@ -103,8 +103,6 @@ Rails.application.routes.draw do
       post 'resume'
       post 'submit_for_review'
     end
-    # probably should be moved to /me:
-    resources :bookings
   end
 
   # fixme: should be retired in the future:

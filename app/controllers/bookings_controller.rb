@@ -115,12 +115,13 @@ class BookingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_booking
-      @booking = Booking.find(params[:id]).decorate
+      @booking = Booking.find_by( guid: params[:guid] ).decorate
     end
 
     def set_booking_from_params
       new_booking = booking_params.merge( {
         'from_user_id' => current_user.id,
+        'insured'      => AdItem.find( booking_params[:ad_item_id] ).ad.insurance_required,
         'status'       => 'created'
       })
 
