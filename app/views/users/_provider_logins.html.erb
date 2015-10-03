@@ -1,15 +1,9 @@
 <div class="row">
-    <%= link_to user_omniauth_authorize_path(:facebook) do %>
-        <%= social_button(:facebook, nil) %>
-    <% end %>
+    <%= link_to social_button(:facebook, nil), user_omniauth_authorize_path(:facebook) %>
     <br>
     <br>
-    <%= link_to user_omniauth_authorize_path(:google) do %>
-        <%= social_button(:google, nil) %>
-    <% end %>
+    <%= link_to social_button(:google, nil), user_omniauth_authorize_path(:google) %>
     <br>
     <br>
-    <%= link_to user_omniauth_authorize_path(:spid) do %>
-        <%= social_button(:spid, nil) %>
-    <% end %>
+    <%= link_to social_button(:spid, nil), user_omniauth_authorize_path(:spid) %>
 </div>
