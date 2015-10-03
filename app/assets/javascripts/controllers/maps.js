@@ -278,13 +278,21 @@ window.controllers.resultMap = {
             var searchItems = searchService.getMostRecentSearchResult();
             var item = searchItems.ads[id];
 
-            if (infoBox) { infoBox.close(); }
-            infoBox = makeInfoBox(renderSinglePopup(item));
+            if (infoBox && infoBox.mid === id) {
+                infoBox.close();
+                infoBox = null;
+                return;
+            }
+            else if (infoBox) {
+                infoBox.close();
+            }
+
+            infoBox = makeInfoBox(renderSinglePopup(item), id);
             infoBox.open(map, marker);
         }
 
-        function makeInfoBox(content) {
-            return new InfoBox({
+        function makeInfoBox(content, mid) {
+            var ib = new InfoBox({
                 content: content,
                 disableAutoPan: true,
                 maxWidth: 320,
@@ -292,9 +300,9 @@ window.controllers.resultMap = {
                 pixelOffset: new google.maps.Size(-150, -44),
                 infoBoxClearance: new google.maps.Size(1, 1),
                 closeBoxURL: ""
-                //closeBoxMargin: "12px 4px 2px 2px"
-                //closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
             });
+            ib.mid = mid;
+            return ib;
         }
 
         function renderSinglePopup(item) {
