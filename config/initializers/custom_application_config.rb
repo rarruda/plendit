@@ -148,4 +148,4 @@ Plendit::Application.config.x.frontpage.explainer_video_url = 'https://www.youtu
 
 Plendit::Application.config.x.footer.show_facebook_buttons = true
 
-Plendit::Application.config.x.signup.bedriftskunde_signup_link = 'https://plendit.no'
+Plendit::Application.config.x.signup.bedriftskunde_signup_link = 'http://goo.gl/forms/HkNI7f85XO'
