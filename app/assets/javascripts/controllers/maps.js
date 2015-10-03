@@ -297,13 +297,13 @@ window.controllers.resultMap = {
         }
 
         function renderSinglePopup(item) {
-            var ele = E('div.result-infoview', null,
+            return E('div.result-infoview', null,
                 E('a.result-infoview__body', {href: item.listing_url},
-                    E('h5.result-infoview__title', null, item.title),
-                    E('p', null, item.body)
+                    E('div.result-infoview__image-holder', null,
+                        E('img.result-infoview__image', {src: item.image_url})),
+                    E('h5.result-infoview__title', null, item.title)
                 )
             );
-            ele.style.backgroundImage = "url(" + item.image_url + ")";
             return ele;
         }
     }
