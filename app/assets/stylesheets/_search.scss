@@ -48,8 +48,7 @@
 }
 
 .multi-marker-box {
-    width: 324px;
-    height: 380px;
+    max-height: 380px;
     overflow-y: scroll;
 }
 
