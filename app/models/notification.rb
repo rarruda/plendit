@@ -26,7 +26,7 @@ class Notification < ActiveRecord::Base
     if self.notifiable.is_a? Ad
       Rails.application.routes.url_helpers.ad_path self.notifiable.id
     elsif notifiable.is_a? Booking
-      Rails.application.routes.url_helpers.booking_path self.notifiable.id
+      Rails.application.routes.url_helpers.booking_path self.notifiable.guid
     else
       "/"
     end
