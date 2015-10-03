@@ -19,71 +19,65 @@
                 Hvis du foretrekker det kan du opprette en egen plendit-konto under:
             </p>
 
-            <% if resource.errors.empty? %>
-                <details class="u-implode-summary u-push-down">
-                    <summary><h2 class="u-link-like">Lag en konto</h2></summary>
-            <% end %>
-                <div>
-                    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <div>
+                <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-                        <%= devise_error_messages! %>
+                    <%= devise_error_messages! %>
 
-                        <%= f.hidden_field( :personhood, value: 'natural' ) %>
+                    <%= f.hidden_field( :personhood, value: 'natural' ) %>
 
-                        <div class="row">
-                            <div class="two-thirds column">
-                                <%= f.label :first_name, "Fornavn:" %>
-                                <%= f.text_field :first_name, autofocus: true %>
-                            </div>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :first_name, "Fornavn:" %>
+                            <%= f.text_field :first_name, autofocus: true %>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="two-thirds column">
-                                <%= f.label :last_name, "Etternavn:" %>
-                                <%= f.text_field :last_name %>
-                            </div>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :last_name, "Etternavn:" %>
+                            <%= f.text_field :last_name %>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="two-thirds column">
-                                <%= f.label :birthday, "Fødselsdato:" %>
-                                <%= f.date_field :birthday %>
-                            </div>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :birthday, "Fødselsdato:" %>
+                            <%= f.date_field :birthday %>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="two-thirds column">
-                                <%= f.label :email, "E-post:" %>
-                                <%= f.email_field :email %>
-                            </div>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :email, "E-post:" %>
+                            <%= f.email_field :email %>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="two-thirds column">
-                                <%= f.label :unconfirmed_phone_number, "Telefonnummer:" %>
-                                <%= f.text_field :unconfirmed_phone_number, :maxlength=>"8" %>
-                            </div>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :unconfirmed_phone_number, "Telefonnummer:" %>
+                            <%= f.text_field :unconfirmed_phone_number, :maxlength=>"8" %>
                         </div>
+                    </div>
 
-                        <div class="field">
+                    <div class="row">
+                            <div class="two-thirds column">
                             <%= f.label :password %>
                             <%= f.password_field :password, autocomplete: "off" %>
                         </div>
 
-                        <div class="field">
-                            <%= f.label :password_confirmation %>
-                            <%= f.password_field :password_confirmation, autocomplete: "off" %>
-                        </div>
+                    <div class="field">
+                        <%= f.label :password_confirmation %>
+                        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                    </div>
 
-                        <div class="actions">
-                            <%= f.submit "Opprett konto", class: "button button-primary" %>
-                        </div>
-                    <% end %>
+                    <div class="actions">
+                        <%= f.submit "Opprett konto", class: "button button-primary" %>
+                    </div>
+                <% end %>
 
-                </div>
-            <% if resource.errors.empty? %>
-                </details>
-            <% end %>
+            </div>
 
             <hr>
 
