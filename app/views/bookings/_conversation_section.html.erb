@@ -11,7 +11,8 @@
     <% if ['cancelled','declined'].include? @booking.status %>
         Det er ikke lenger mulig å sende meldinger på denne forespørselen.
     <% else %>
-        <%= form_for :message, url: booking_messages_path( @booking )  do |f| %>
+        <%= form_for :message, url: booking_messages_path( @booking ) do |f| %>
+            <%= f.hidden_field :booking_id, value: @booking.id %>
             <%= f.text_area :content, class: 'u-full-width', data: { controller: 'autoSizeTextArea' }, placeholder: 'Meldingstekst...' %>
             <p>
                 <%= f.submit 'Send melding', class: 'u-pull-right button button-primary' %>

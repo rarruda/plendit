@@ -7,7 +7,6 @@ class MessagesController < ApplicationController
   # POST /messages.json
   def create
     @message = Message.new(message_params)
-    @message.booking_id   = params[:booking_id]
     @message.from_user_id = current_user.id
     @message.to_user_id = ( @message.from_user_id == @message.booking.from_user_id ) ? @message.booking.ad.user.id : @message.booking.from_user_id
 
