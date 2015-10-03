@@ -19,6 +19,21 @@
                 <td class="booking-price-summary__price"><%= number_to_currency_pretty @booking.sum_paid_to_owner, unit: 'kr' %></td>
             </tr>
         <% else %>
+            <%# FIXME: do we really want all this information here? %>
+            <tr class="booking-price-summary__summary-row">
+                <th>Utbetales til utleier</th>
+                <td class="booking-price-summary__price"><%= number_to_currency_pretty @booking.sum_paid_to_owner, unit: 'kr' %></td>
+            </tr>
+            <tr>
+                <th>Platform Fee</th>
+                <td class="booking-price-summary__price"><%= number_to_currency_pretty @booking.platform_fee_amount, unit: 'kr' %></td>
+            </tr>
+            <% if @booking.insurance_amount >= 0 %>
+            <tr>
+                <th>Forsikring</th>
+                <td class="booking-price-summary__price"><%= number_to_currency_pretty @booking.insurance_amount, unit: 'kr' %></td>
+            </tr>
+            <% end %>
             <tr>
                 <th>Totalt å betale</th>
                 <td class="booking-price-summary__price"><%= number_to_currency_pretty @booking.sum_paid_by_renter, unit: 'kr' %></td>

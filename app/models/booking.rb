@@ -56,6 +56,17 @@ class Booking < ActiveRecord::Base
     if: :starts_at_changed?,
     if: :ends_at_changed?
 
+  before_validation :calculate_fee,
+    if: :starts_at_changed?,
+    if: :ends_at_changed?,
+    if: :amount_changed?
+
+  before_validation :calculate_insurance,
+    if: :starts_at_changed?,
+    if: :ends_at_changed?,
+    if: :amount_changed?,
+    if: :insured_changed?
+
 
 
   aasm :column => :status, :enum => true do
@@ -81,19 +92,28 @@ class Booking < ActiveRecord::Base
   # fixme: real data for this, and something like .humanize on the prices/amounts
   # fixme: add booking_item for VAT, platform_fees(us), insurance, etc.
   def calculate_amount
-    #platform_fee_pct  = Plendit::Application.config.x.platform.fee_in_percent
-    #insurance_fee_pct = Plendit::Application.config.x.insurance.price_in_percent
-
     self.amount = self.duration_in_days * self.ad.price
+  end
+
+  def calculate_fee
+    self.platform_fee_amount = ( self.amount * Plendit::Application.config.x.platform.fee_in_percent ).to_i
+  end
+
+  def calculate_insurance
+    # ensure that ads in MOTOR + REALESTATE categories will always have insurance:
+    if ['bap','realestate'].include? self.ad.category || self.insured?
+      self.insurance_amount = ( self.amount * Plendit::Application.config.x.insurance.price_in_percent[self.ad.category.to_sym] ).to_i
+    else
+      self.insurance_amount = 0
+    end
   end
 
   def sum_paid_to_owner
     self.amount
   end
 
-  # this is seriously bogus:
   def sum_paid_by_renter
-    self.amount * (1 + Plendit::Application.config.x.platform.fee_in_percent )
+    ( self.amount + self.platform_fee_amount + self.insurance_amount )
   end
 
   # duration_in_days rounded up for fractions of a day.
