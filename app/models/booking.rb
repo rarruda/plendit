@@ -74,6 +74,8 @@ class Booking < ActiveRecord::Base
     state :accepted #, :enter => :trigger_notification, :exit => :trigger_notification
     state :cancelled
     state :declined #, :enter => :trigger_notification
+    state :started
+    state :finished
 
     event :accept do
       transitions :from => [:created,:declined], :to => :accepted
@@ -84,6 +86,12 @@ class Booking < ActiveRecord::Base
     end
     event :decline do
       transitions :from => [:created,:accepted], :to => :declined
+    end
+    event :start do
+      transitions :from => :accepted, :to => :started
+    end
+    event :finish do
+      transitions :from => :started, :to => :finished
     end
   end
 
