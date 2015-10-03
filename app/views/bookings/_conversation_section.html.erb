@@ -9,7 +9,7 @@
 
     <div>
     <% if ['cancelled','declined'].include? @booking.status %>
-        'cant add messages anymore...'
+        Det er ikke lenger mulig å sende meldinger på denne forespørselen.
     <% else %>
         <%= form_for :message, url: booking_messages_path( @booking )  do |f| %>
             <%= f.text_area :content, class: 'u-full-width', data: { controller: 'autoSizeTextArea' }, placeholder: 'Meldingstekst...' %>
