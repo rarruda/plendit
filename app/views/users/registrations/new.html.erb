@@ -27,53 +27,58 @@
                     <%= f.hidden_field( :personhood, value: 'natural' ) %>
 
                     <div class="row">
-                        <div class="two-thirds column">
+                        <div class="one-third column">
                             <%= f.label :first_name, "Fornavn:" %>
-                            <%= f.text_field :first_name, autofocus: true %>
+                            <%= f.text_field :first_name, autofocus: true, class: 'u-full-width'  %>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="two-thirds column">
+                        <div class="one-third column">
                             <%= f.label :last_name, "Etternavn:" %>
-                            <%= f.text_field :last_name %>
+                            <%= f.text_field :last_name, class: 'u-full-width'  %>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="two-thirds column">
+                        <div class="one-third column">
                             <%= f.label :birthday, "Fødselsdato:" %>
-                            <%= f.date_field :birthday %>
+                            <%= f.date_field :birthday, class: 'u-full-width'  %>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="two-thirds column">
+                        <div class="one-third column">
                             <%= f.label :email, "E-post:" %>
-                            <%= f.email_field :email %>
+                            <%= f.email_field :email, class: 'u-full-width'  %>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="two-thirds column">
+                        <div class="one-third column">
                             <%= f.label :unconfirmed_phone_number, "Telefonnummer:" %>
-                            <%= f.text_field :unconfirmed_phone_number, :maxlength=>"8" %>
+                            <%= f.text_field :unconfirmed_phone_number, :maxlength=>"8", class: 'u-full-width'  %>
                         </div>
                     </div>
 
                     <div class="row">
-                            <div class="two-thirds column">
-                            <%= f.label :password %>
-                            <%= f.password_field :password, autocomplete: "off" %>
+                            <div class="one-third column">
+                                <%= f.label :password, 'Passord:' %>
+                                <%= f.password_field :password, autocomplete: "off", class: 'u-full-width'  %>
+                            </div>
                         </div>
 
-                    <div class="field">
-                        <%= f.label :password_confirmation %>
-                        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                    <div class="row">
+                            <div class="one-third column">
+                                <%= f.label :password_confirmation, 'Bekreft passord' %>
+                                <%= f.password_field :password_confirmation, autocomplete: "off", class: 'u-full-width'  %>
+                        </div>
                     </div>
 
-                    <div class="actions">
-                        <%= f.submit "Opprett konto", class: "button button-primary" %>
+                    <div class="row">
+                        <div class="one-third column">
+                            <%= f.submit "Opprett konto", class: "button button-primary" %>
+                        </div>
                     </div>
                 <% end %>
 
