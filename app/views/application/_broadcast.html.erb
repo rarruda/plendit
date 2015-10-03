@@ -1,5 +1,5 @@
 <% if broadcast_html = REDIS.get('global_broadcast_html')  %>
-    <div class="flash-bar">
+    <div class="flash-bar flash-bar--broadcast">
         <div class="container">
             <% if broadcast_html %>
                 <%= html_safe broadcast_html %>
