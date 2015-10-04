@@ -1,9 +1,5 @@
-<div class="profile-sidebar-summary">
-    <%= render('shared/avatar.html', user: user, size: "large") %>
-    <br>
-    <strong><%= user.display_name %></strong>
-    <br>
+<div class="profile-sidebar-summary u-push-down">
+    <%= render('shared/avatar.html', user: user, size: "huge") %>
+    <p><%= user.display_name %></p>
     <%= render('shared/stars.html', rating: user.calculate_average_rating, num_ratings: user.received_feedbacks.size) %>
-    <br>
-    Medlem siden <%= user.created_at.strftime("%B %Y") %>
 </div>

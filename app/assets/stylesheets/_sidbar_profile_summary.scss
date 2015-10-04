@@ -2,5 +2,11 @@
 
 .profile-sidebar-summary {
     padding: $standard-spacing;
+    padding-top: $standard-spacing * 2;
+    padding-bottom: $standard-spacing * 2;
+    box-shadow: $subtle-shadow;
+    border: 1px solid $color-gray-background;
+    background-color: white;
     text-align: center;
+    background-color: white;
 }

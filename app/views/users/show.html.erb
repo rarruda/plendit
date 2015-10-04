@@ -23,8 +23,10 @@
         </div>
 
         <div class="four columns">
-            <%= render partial: "shared/sidebar_profile_summary", locals: { user: @user } %>
-            <%= render partial: "shared/profile_quality_box", locals: { user: @user } %>
+            <div class="u-push-down">
+                <%= render partial: "shared/sidebar_profile_summary", locals: { user: @user } %>
+                <%= render partial: "shared/profile_quality_box", locals: { user: @user } %>
+            </div>
         </div>
     </div>
 </div>
