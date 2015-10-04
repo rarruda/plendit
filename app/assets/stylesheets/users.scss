@@ -6,7 +6,6 @@ $blueish: rgb(213, 235, 255);
 
 .provider-box {
     height: 90px;
-    border-bottom: solid thin $color-box-border;
     padding-top: $standard-spacing;
 
     &:last-of-type {
@@ -22,6 +21,10 @@ $blueish: rgb(213, 235, 255);
     }
 
     &__logo {
+        vertical-align: middle;
+    }
+
+    &__status {
         vertical-align: middle;
     }
 }
