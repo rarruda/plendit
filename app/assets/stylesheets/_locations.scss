@@ -1,10 +1,6 @@
 .locations-list {
+    list-style: none;
 
-    &__favorite-cell {
-        text-align: center;
-        padding-left: 0;
-        padding-right: 0;
-    }
 
     .locations-list__favorite-button--gold {
         fill: gold;

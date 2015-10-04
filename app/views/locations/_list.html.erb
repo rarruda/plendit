@@ -1,45 +1,22 @@
-<%= render layout: "gray_box", locals: {title: "Rediger adresser", id: "locations"} do %>
-<div class="container locations-list">
-    <div class="row">
-        <div class="twelve columns">
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Favoritt</th>
-                        <th>Adresse</th>
-                        <th>Poststed</th>
-                        <th colspan="2"></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                <%# FIXME: buttons are too large (too big padding), so this does not look very good %>
-                <% @user.locations.each do |location| %>
-                    <tr>
-                        <td class="locations-list__favorite-cell">
-                            <% if location.favorite %>
-                                <%= evil_icon 'ei-star', size: :s, class: 'locations-list__favorite-button locations-list__favorite-button--gold' %>
-                            <% else %>
-                                <%= button_to make_favorite_location_path(location), class: "button" do %>
-                                    <%= evil_icon 'ei-star', size: :s, class: 'locations-list__favorite-button' %>
-                                <% end %>
-                            <% end %>
-                        </td>
-
-                        <td><%= location.address_line %></td>
-                        <td><%= location.post_code %> <%= location.city %></td>
-                        <td><%= button_to 'Rediger', edit_location_path(location), :method => :get, class: "button" %></td>
-                        <td><%= button_to 'Slett', location, method: :delete, class: "button", data: {confirm: 'Er du sikker på at du vil slette?'} %></td>
-                    </tr>
-                <% end %>
-                </tbody>
-            </table>
-
-            <div>
-                <%= link_to 'Legg til sted', new_location_path %>
-            </div>
-        </div>
+<%= render layout: "gray_box", locals: {title: "Adresser", id: "locations"} do %>
+    <div>
+        <ol  class="locations-list">
+            <% @user.locations.each do |location| %>
+                <li>
+                    <% if location.favorite %>
+                        <%= evil_icon 'ei-star', size: :s, class: 'locations-list__favorite-button locations-list__favorite-button--gold' %>
+                    <% else %>
+                        <%= button_to make_favorite_location_path(location), class: "button", form_class: "u-inline" do %>
+                            <%= evil_icon 'ei-star', size: :s, class: 'locations-list__favorite-button' %>
+                        <% end %>
+                    <% end %>
+                    <span>
+                        <%= "#{location.address_line}, #{location.post_code} #{location.city}" %>
+                        <small><%= link_to "Rediger", edit_location_path(location) %></small>
+                    </span>
+                    <span><%= button_to 'Slett', location, method: :delete, class: "button", form_class: "u-inline u-pull-right", data: {confirm: 'Er du sikker på at du vil slette?'} %></span>
+                </li>
+            <% end %>
+        </ol>
     </div>
-</div>
 <% end %>
