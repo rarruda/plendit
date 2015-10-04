@@ -351,6 +351,7 @@ window.controllers.kalendaeBookingSelector = {
 
         var from_date = ele.querySelector('[name="booking[starts_at_date]"]');
         var to_date = ele.querySelector('[name="booking[ends_at_date]"]');
+        var day_count = ele.querySelector('[data-day-count]');
         var rangeString = from_date.value + " - " + to_date.value;
 
         var k = new Kalendae({
@@ -366,13 +367,19 @@ window.controllers.kalendaeBookingSelector = {
             window.k = k;
             var dates = this.getSelectedAsText();
 
+            if (dates.length == 0) {
+                day_count.textContent = 0;
+            }
             if (dates.length == 2) {
                 from_date.value = dates[0];
                 to_date.value = dates[1];
+                dayDelta = moment(dates[1]).diff(moment(dates[0]), 'days') + 1;
+                day_count.textContent = dayDelta;
             }
             else {
                 from_date.value = dates[0];
                 to_date.value = dates[0];
+                day_count.textContent = 1;
             }
         });
     }
