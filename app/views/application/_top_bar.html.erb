@@ -7,11 +7,6 @@
     <% unless @hide_search_field %>
         <%= form_tag("/search", method: "get", class: "top-bar__form") do %>
             <%= text_field_tag 'q','', type: "text",  class: "top-bar__search-input", placeholder: 'Hva vil du leie?'  %>
-            <!--
-            <span class="top-bar__search-holder">
-                <%= evil_icon 'ei-search', size: :s, class: 'top-bar__search-icon' %>
-            </span>
-            -->
         <% end %>
     <% end %>
 
