@@ -6,7 +6,7 @@ class UserPaymentCard < ActiveRecord::Base
 
 
   # Never show "deleted" cards. (inactive)
-  default_scope { where( 'active_mp = true' ) }
+  default_scope { where( 'active = true' ) }
   #user_id: current_user.id,
   #FIXME: dont ever show cards that belong to other users...
 
@@ -18,7 +18,7 @@ class UserPaymentCard < ActiveRecord::Base
   # We should never wipe cards from our system, but if we do, disable them first:
   before_destroy :disable,
     if: :card_vid?,
-    if: :active_mp?
+    if: :active?
 
 
   def to_param

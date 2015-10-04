@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151003220137) do
+ActiveRecord::Schema.define(version: 20151004003524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -279,18 +279,19 @@ ActiveRecord::Schema.define(version: 20151003220137) do
   add_index "user_payment_accounts", ["user_id"], name: "index_user_payment_accounts_on_user_id", using: :btree
 
   create_table "user_payment_cards", force: :cascade do |t|
-    t.string   "guid",                 limit: 36
+    t.string   "guid",            limit: 36
     t.integer  "user_id"
     t.string   "card_vid"
-    t.string   "currency",             limit: 3
+    t.string   "currency",        limit: 3
     t.string   "card_type"
-    t.string   "number_alias",         limit: 16
-    t.string   "expiration_date",      limit: 4
-    t.string   "last_known_status_mp"
-    t.string   "validity_mp"
-    t.boolean  "active_mp",                       default: true, null: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.string   "number_alias",    limit: 16
+    t.string   "expiration_date", limit: 4
+    t.string   "validity"
+    t.boolean  "active",                     default: true, null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.string   "card_provider"
+    t.string   "country",         limit: 3
   end
 
   add_index "user_payment_cards", ["card_vid"], name: "index_user_payment_cards_on_card_vid", using: :btree
