@@ -208,7 +208,7 @@ class AdsController < ApplicationController
     if @ad.save
       redirect_to edit_users_ad_path(@ad)
     else
-      redirect_to new_ad_path, alert: "Couldn't create ad!"
+      redirect_to new_ad_path, alert: "Annonsen kunne ikke opprettes!"
     end
   end
 
@@ -263,7 +263,7 @@ class AdsController < ApplicationController
     def notify_about_approval
       Notification.new(
         user_id: @ad.user.id,
-        message: "Your ad has been approved. It is now published",
+        message: "Annonsen din \"#{@ad.display_title}\" er nå godkjent og publisert",
         notifiable: @ad).save
     end
 
