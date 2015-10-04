@@ -33,6 +33,14 @@
     fill: #2a96ff;
 }
 
+.u-fill-gray {
+    fill: gray;
+}
+
+.u-fill-gold {
+    fill: gold;
+}
+
 select[disabled] {
     opacity: 0.5;
 }

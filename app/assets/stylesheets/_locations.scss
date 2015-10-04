@@ -1,8 +1,22 @@
 .locations-list {
     list-style: none;
 
+    &__item {
+        overflow: auto;
+    }
 
-    .locations-list__favorite-button--gold {
-        fill: gold;
+    &__star-button {
+        border: none;
+        background-color: white;
+        vertical-align: bottom;
+        display: inline-block;
+        padding: 0;
+        height: 25px;
+    }
+
+    &__star-holder {
+        display: inline-block;
+        width: 40px;
+        text-align: center;
     }
 }
