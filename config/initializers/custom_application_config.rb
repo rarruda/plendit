@@ -83,29 +83,35 @@ Plendit::Application.config.x.ads.categories = [
 ]
 
 Plendit::Application.config.x.frontpage.popular_ads = [
-  { title: 'Bil',
-    term:  'bil',
-    image: 'promo_imgs/bil.jpg'
+  { title:    'Bil',
+    term:     'bil',
+    category: 'motor',
+    image:    'promo_imgs/bil.jpg'
   },
-  { title: 'Bolig',
-    term:  'bolig',
-    image: 'promo_imgs/bolig.jpg'
+  { title:    'Bolig',
+    term:     'bolig',
+    category: 'realestate',
+    image:    'promo_imgs/bolig.jpg'
   },
-  { title: 'Verktøy',
-    term:  'verktøy',
-    image: 'promo_imgs/verktoy.jpg'
+  { title:    'Verktøy',
+    term:     'verktøy',
+    category: 'bap',
+    image:    'promo_imgs/verktoy.jpg'
   },
-  { title: 'Scooter',
-    term:  'scooter',
-    image: 'promo_imgs/scooter.jpg'
+  { title:    'Scooter',
+    term:     'scooter',
+    category: 'motor',
+    image:    'promo_imgs/scooter.jpg'
   },
-  { title: 'Sykkel',
-    term:  'sykkel',
-    image: 'promo_imgs/sykkel.jpg'
+  { title:    'Sykkel',
+    term:     'sykkel',
+    category: 'bap',
+    image:    'promo_imgs/sykkel.jpg'
   },
-  { title: 'Telt',
-    term:  'telt',
-    image: 'promo_imgs/telt.jpg'
+  { title:    'Telt',
+    term:     'telt',
+    category: 'bap',
+    image:    'promo_imgs/telt.jpg'
   }
 ]
 

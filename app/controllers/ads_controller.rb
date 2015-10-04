@@ -73,6 +73,7 @@ class AdsController < ApplicationController
     @ads = Ad.search( query, filter, options).page( params[:page] ).results
 
     @term = params[:q]
+    @selected_categories = params[:category] || []
 
     @result_json = render_to_string( formats: 'json' ).html_safe
     @result_markup = render_to_string partial: 'search_result_box', formats: [:html]

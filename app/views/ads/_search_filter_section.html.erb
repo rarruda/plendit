@@ -28,7 +28,7 @@
                         <% @ad_categories.each do |a| %>
                             <div class="three columns">
                                 <%= label_tag do %>
-                                    <%= check_box_tag "category[]", a[:category] %>
+                                    <%= check_box_tag "category[]", a[:category], @selected_categories.include?(a[:category]) %>
                                     <span class="label-body"><%= a[:title] %></span>
                                 <% end %>
                             </div>
