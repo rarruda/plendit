@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004115854) do
+ActiveRecord::Schema.define(version: 20151004145029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,6 +229,29 @@ ActiveRecord::Schema.define(version: 20151004115854) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
+  create_table "transactions", force: :cascade do |t|
+    t.string   "guid",             limit: 36
+    t.string   "src_vid"
+    t.integer  "src_type"
+    t.string   "dst_vid"
+    t.integer  "dst_type"
+    t.integer  "category"
+    t.integer  "booking_id"
+    t.string   "transaction_vid"
+    t.integer  "transaction_type"
+    t.integer  "status_mp"
+    t.integer  "amount"
+    t.integer  "fees"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "transactions", ["booking_id"], name: "index_transactions_on_booking_id", using: :btree
+  add_index "transactions", ["dst_vid"], name: "index_transactions_on_dst_vid", using: :btree
+  add_index "transactions", ["guid"], name: "index_transactions_on_guid", using: :btree
+  add_index "transactions", ["src_vid"], name: "index_transactions_on_src_vid", using: :btree
+  add_index "transactions", ["transaction_vid"], name: "index_transactions_on_transaction_vid", using: :btree
+
   create_table "user_documents", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "guid",                  limit: 36
@@ -374,6 +397,7 @@ ActiveRecord::Schema.define(version: 20151004115854) do
   add_foreign_key "messages", "users", column: "from_user_id"
   add_foreign_key "messages", "users", column: "to_user_id"
   add_foreign_key "notifications", "users"
+  add_foreign_key "transactions", "bookings"
   add_foreign_key "user_documents", "users"
   add_foreign_key "user_payment_accounts", "users"
   add_foreign_key "user_payment_cards", "users"
