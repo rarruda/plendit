@@ -29,6 +29,8 @@
                 </div>
             </div>
             <hr>
+            <%= render partial: "payment", locals: {booking: @booking} %>
+            <hr>
             <%= render partial: "conversation_section", locals: {booking: @booking} %>
         </div>
     </div>
