@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004003524) do
+ActiveRecord::Schema.define(version: 20151004115854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,16 +71,6 @@ ActiveRecord::Schema.define(version: 20151004003524) do
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
   add_index "ads", ["user_id"], name: "index_ads_on_user_id", using: :btree
-
-  create_table "booking_items", force: :cascade do |t|
-    t.integer  "booking_id"
-    t.integer  "category"
-    t.integer  "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "booking_items", ["booking_id"], name: "index_booking_items_on_booking_id", using: :btree
 
   create_table "bookings", force: :cascade do |t|
     t.integer  "ad_item_id"
@@ -371,7 +361,6 @@ ActiveRecord::Schema.define(version: 20151004003524) do
   add_foreign_key "ad_items", "ads"
   add_foreign_key "ads", "locations"
   add_foreign_key "ads", "users"
-  add_foreign_key "booking_items", "bookings"
   add_foreign_key "bookings", "ad_items"
   add_foreign_key "bookings", "users", column: "from_user_id"
   add_foreign_key "favorite_ads", "ads"
