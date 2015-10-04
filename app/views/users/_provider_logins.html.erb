@@ -1,11 +1,12 @@
+<%# todo: this should share / be the same as the _provider_logins partial %>
 <div class="row">
-    <%= link_to social_button(:facebook, nil), user_omniauth_authorize_path(:facebook) %>
+    <%= link_to social_button(:facebook, nil), user_omniauth_authorize_path(:facebook), class: 'u-no-underline' %>
     <br>
     <br>
-    <%= link_to social_button(:google, nil), user_omniauth_authorize_path(:google) %>
+    <%= link_to social_button(:google,  nil), user_omniauth_authorize_path(:google), class: 'u-no-underline' %>
     <br>
     <br>
-    <%= link_to social_button(:spid, nil), user_omniauth_authorize_path(:spid) %>
+    <%= link_to social_button(:spid,  nil), user_omniauth_authorize_path(:spid), class: 'u-no-underline' %>
     <br>
     <br>
     <p>

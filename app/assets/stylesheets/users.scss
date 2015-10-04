@@ -147,7 +147,7 @@ $blueish: rgb(213, 235, 255);
     &__text {
         display: inline-block;
         border-left: solid thin rgba(0,0,0,0.2);;
-        padding-left: 24px;
+        padding-left: $standard-spacing;
         height: $height - 2;
     }
 }

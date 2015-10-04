@@ -1,0 +1,15 @@
+<%# todo: this should share / be the same as the _provider_logins partial %>
+<div class="row">
+    <%= link_to social_button(:facebook, 'Opprett bruker med Facebook'), user_omniauth_authorize_path(:facebook), class: 'u-no-underline' %>
+    <br>
+    <br>
+    <%= link_to social_button(:google,  'Opprett bruker med Google'), user_omniauth_authorize_path(:google), class: 'u-no-underline' %>
+    <br>
+    <br>
+    <%= link_to social_button(:spid,  'Opprett bruker med SPiD'), user_omniauth_authorize_path(:spid), class: 'u-no-underline' %>
+    <br>
+    <br>
+    <p>
+        Ved å opprette bruker aksepterer du <%= link_to 'brukervilkårene.', terms_path %>
+    </p>
+</div>
