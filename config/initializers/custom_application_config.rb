@@ -55,6 +55,12 @@ Plendit::Application.config.x.insurance.deductible_value = {
   realestate: 12_000_00
  }
 
+Plendit::Application.config.x.insurance.is_required = {
+  bap:        false,
+  motor:      true,
+  realestate: true
+}
+
 # should be a hash: bap: 1_500, motor: 1_000_000, realestate: 500_000
 Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
 

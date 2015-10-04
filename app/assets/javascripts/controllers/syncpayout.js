@@ -12,16 +12,16 @@ window.controllers.payoutFetcher = {
         var lastPrice = "";
         var lastInsurance = "";
 
-        [insuranceBox, priceInput].forEach(function(e) {
+        [insuranceBox, priceInput].filter(function(e) { return e }).forEach(function(e) {
             e.addEventListener('change', callback);
             e.addEventListener('keyup', callback);
             e.addEventListener('blur', callback);
         });
 
         function fetchPayout(evt) {
-            if (lastPrice != priceInput.value || lastInsurance != insuranceBox.checked) {
+            if (lastPrice != priceInput.value || (insuranceBox && lastInsurance !== insuranceBox.checked)) {
                 lastPrice = priceInput.value;
-                lastInsurance = insuranceBox.checked;
+                lastInsurance = insuranceBox ? insuranceBox.checked : null;
                 var url = priceUrl + "?price=" + lastPrice + "&insurance=" + lastInsurance + "&category=" + category;
                 xhr.get(url).then(updatePostalPlace);
             }
