@@ -30,7 +30,7 @@ class UserPaymentCard < ActiveRecord::Base
       mp = MangopayService( self.user ).card_disable( self.card_vid )
       LOG.info "deprovision_from_mangopay: #{mp}"
     else
-      LOG.info "wont deprovision_from_mangopay a non-validated card: #{self}"
+      LOG.info "wont deprovision_from_mangopay a non-validated card: #{self}", { user_id: self.user.id, card_id: self.id }
     end
     self.active_mp = false
   end
