@@ -7,7 +7,6 @@
     <tr>
       <th>Number alias</th>
       <th>Expiration date</th>
-      <th>Last known status mp</th>
       <th>Validity mp</th>
       <th>Active mp</th>
       <th></th>
@@ -19,9 +18,8 @@
       <tr>
         <td><%= user_payment_card.number_alias %></td>
         <td><%= user_payment_card.expiration_date %></td>
-        <td><%= user_payment_card.last_known_status_mp %></td>
-        <td><%= user_payment_card.validity_mp %></td>
-        <td><%= user_payment_card.active_mp %></td>
+        <td><%= user_payment_card.validity %></td>
+        <td><%= user_payment_card.active %></td>
         <td><%= link_to 'Destroy', user_payment_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
