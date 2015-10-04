@@ -72,7 +72,7 @@ class FeedbacksController < ApplicationController
     def notify_user
       Notification.new(
         user_id: @feedback.user.id,
-        message: "You have received a feedback for an item you own",
+        message: "Du har mottat en tilbakemelding",
         notifiable: @feedback).save
     end
 
