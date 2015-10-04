@@ -1,37 +1,28 @@
 <%= render partial: "shared/personal_bar", locals: { selected: "Forespørsler" } %>
 
 <div class="container">
+    <%= render partial: "shared/hero_image", locals: { ad: @booking.ad } %>
+    <%= render partial: "shared/ad_title_box", locals: { ad: @booking.ad } %>
+
+
+    <% if current_user.owns_booking_item? @booking %>
+        <h3 class="u-push-down"><%= @booking.from_user.display_name %> ønsker å leie av deg</h3>
+    <% else %>
+        <h3 class="u-push-down">Din forespørsel til <%= @booking.user.display_name %>.</h3>
+    <% end %>
+
     <div class="row">
-        <%= render partial: "shared/hero_image", locals: { ad: @booking.ad } %>
-        <div class="twelve columns">
-            <%= render partial: "shared/ad_title_box", locals: { ad: @booking.ad } %>
-
-            <!-- Debug
-            booking status: <strong><%= @booking.status %></strong>
-            -->
-
-            <% if current_user.owns_booking_item? @booking %>
-                <h3 class="u-push-down"><%= @booking.from_user.display_name %> ønsker å leie av deg</h3>
-            <% else %>
-                <h3 class="u-push-down">Din forespørsel til <%= @booking.user.display_name %>.</h3>
-            <% end %>
-
-            <div data-controller="readOnlyCalendar" data-date-range="<%= "#{@booking.starts_at_date} - #{@booking.ends_at_date}" %>"></div>
-
-            <hr>
-
-            <div class="row">
-                <div class="six columns">
-                    <%= render partial: "booking_controls", locals: {booking: @booking} %>
-                </div>
-                <div class="six columns">
-                    <%= render partial: "booking_price_summary", locals: {booking: @booking} %>
-                </div>
-            </div>
-            <hr>
-            <%= render partial: "payment", locals: {booking: @booking} %>
-            <hr>
-            <%= render partial: "conversation_section", locals: {booking: @booking} %>
+        <div class="seven columns">
+            <div data-controller="readOnlyCalendar" class="u-push-down" data-date-range="<%= "#{@booking.starts_at_date} - #{@booking.ends_at_date}" %>"></div>
+        </div>
+        <div class="five columns">
+            <%= render partial: "booking_price_summary", locals: {booking: @booking} %>
+            <%= render partial: "booking_controls", locals: {booking: @booking} %>
         </div>
     </div>
+
+    <hr>
+    <%= render partial: "payment", locals: {booking: @booking} %>
+    <hr>
+    <%= render partial: "conversation_section", locals: {booking: @booking} %>
 </div>

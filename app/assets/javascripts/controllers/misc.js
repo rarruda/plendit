@@ -386,7 +386,7 @@ window.controllers.kalendaeBookingSelector = {
 };
 
 window.controllers.readOnlyCalendar = function(ele) {
-    var calCount = 3;
+    var calCount = 2;
     if (window.innerWidth < 660) { calCount = 1; }
     else if (window.innerWidth < 972) { calCount = 2; }
 
