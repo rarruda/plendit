@@ -15,6 +15,7 @@ class Booking < ActiveRecord::Base
   has_one :ad, through: :ad_item
   has_one :user, through: :ad
   has_many :messages
+  has_many :transactions
 
   enum status: { created: 0, accepted: 1, cancelled: 2, declined: 3 }
 
@@ -124,6 +125,10 @@ class Booking < ActiveRecord::Base
     ( self.amount + self.platform_fee_amount + self.insurance_amount )
   end
 
+  def sum_plaform_fee_and_insurance
+    ( self.platform_fee_amount + self.insurance_amount )
+  end
+
   # duration_in_days rounded up for fractions of a day.
   #  Minimum duration of one day.
   def duration_in_days
@@ -131,6 +136,12 @@ class Booking < ActiveRecord::Base
     raise "You cant have a negative duration for a booking" if d < 0
 
     d == 0 ? 1 : d
+  end
+
+
+  def last_preauthorization_vid
+    # should be ordered by id first...
+    self.transactions.preauth.last.transaction_vid
   end
 
   ###
