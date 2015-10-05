@@ -5,6 +5,8 @@ class UserDecorator < Draper::Decorator
   decorates_association :bookings
   decorates_association :sent_bookings
   decorates_association :received_messages
+  decorates_association :received_feedbacks
+  decorates_association :recent_feedback
 
   def display_name
     self.first_name.blank? ? "Navn mangler" : self.first_name
