@@ -41,6 +41,10 @@
     fill: gold;
 }
 
+.u-fill-brown {
+    fill: #a56800;
+}
+
 select[disabled] {
     opacity: 0.5;
 }
