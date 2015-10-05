@@ -2,7 +2,7 @@
     <table class="profile-quality-box__table">
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= image_tag("time_icon.png", size: "19x19", alt: "", class: "profile-quality-box__icon" ) %>
+                <%= image_tag 'time_icon.png', size: '19x19', alt: '', class: 'profile-quality-box__icon' %>
                 Svartid:
             </th>
             <td class="profile-quality-box__td">
@@ -11,7 +11,7 @@
         </tr>
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= image_tag("speech_bubble_icon.png", size: "19x19", alt: "", class: "profile-quality-box__icon" ) %>
+                <%= image_tag 'speech_bubble_icon.png', size: '19x19', alt: '', class: 'profile-quality-box__icon' %>
                 Svarprosent:
             </th>
             <td class="profile-quality-box__td">
@@ -20,7 +20,7 @@
         </tr>
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= image_tag("time_icon.png", size: "19x19", alt: "", class: "profile-quality-box__icon") %>
+                <%= image_tag 'time_icon.png', size: '19x19', alt: '', class: 'profile-quality-box__icon' %>
                 Sist sett:
             </th>
             <td class="profile-quality-box__td">
@@ -30,11 +30,11 @@
     </table>
     <div class="profile-quality-box__verified-badge">
         <% if @user.phone_verified? and @user.email_verified? %>
-            <%= image_tag("verified.png", size: "57x56", alt: "") %>
+            <%= image_tag 'verified.png', size: '57x56', alt: '' %>
             <br>
             Denne brukeren er verifisert
         <% else %>
-            <%= image_tag("warning_shield.png", size: "64x64", alt: "") %>
+            <%= image_tag 'warning_shield.png', size: '64x64', alt: '' %>
             <br>
             Denne brukeren er IKKE (helt) verifisert ennå.
         <% end %>
@@ -44,28 +44,29 @@
     <table class="profile-quality-box__table">
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= image_tag("phone_icon.png", size: "19x19", alt: "" ) %>
+                <%= image_tag 'phone_icon.png', size: '19x19', alt: '' %>
                 Phone:
             </th>
             <td class="profile-quality-box__td">
                 <% if @user.phone_verified? %>
-                    Verifisert! <%= image_tag "safety_check.png" %>
+                    Verifisert! <%= image_tag 'safety_check.png' %>
                 <% else %>
-                    Ikke verifisert! <tt>:(</tt><%#= image_tag "safety_check.png" %>
+                    Ikke verifisert! <tt>:(</tt><%#= image_tag 'safety_check.png' %>
                 <% end %>
             </td>
         </tr>
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= image_tag("mail_icon.png", size: "19x19", alt: "" ) %>
+                <%= image_tag 'mail_icon.png', size: '19x19', alt: '' %>
                 epost:
             </th>
             <td class="profile-quality-box__td">
                 <% if @user.email_verified? %>
-                    Verifisert! <%= image_tag "safety_check.png" %>
+                    Verifisert! <%= image_tag 'safety_check.png' %>
                 <% else %>
-                    Ikke verifisert! <tt>:(</tt><%#= image_tag "safety_check.png" %>
-                <% end %>            </td>
+                    Ikke verifisert! <tt>:(</tt><%#= image_tag 'safety_check.png' %>
+                <% end %>
+            </td>
         </tr>
     </table>
 
