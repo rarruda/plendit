@@ -39,7 +39,7 @@ class AdDecorator < Draper::Decorator
   end
 
   def summary
-    truncate( self.body , line_width: 240 )
+    truncate self.body, length: 240
   end
 
   def to_param
