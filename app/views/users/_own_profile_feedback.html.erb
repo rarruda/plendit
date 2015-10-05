@@ -1,0 +1,16 @@
+<%= link_to users_feedback_path(feedback), class: 'own-profile-feedback' do %>
+    <div class="own-profile-feedback__avatar-box">
+        <%= render 'shared/avatar', user: feedback.from_user %>
+        <br>
+        <%= feedback.from_user.display_name %>
+    </div>
+    <div class="own-profile-feedback__text-box">
+        <h4>
+            <%= render 'shared/stars.html', rating: feedback.user.calculate_average_rating %>
+            <%= feedback.ad.display_title %>
+        </h4>
+        <p class="own-profile-feedback__description">
+            <%= feedback.body %>
+        </p>
+    </div>
+<% end %>

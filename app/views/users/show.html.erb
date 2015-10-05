@@ -7,25 +7,24 @@
                 <% if @user.published_ads.empty? %>
                   <%= @user.display_name %> har ikke lagt ut noe til leie ennå.
                 <% else %>
-                  <%= render partial: "own_profile_ad", collection: @user.published_ads, as: :ad %>
+                  <%= render partial: 'own_profile_ad', collection: @user.published_ads, as: :ad %>
                 <% end %>
             </section>
 
-            <section class="profile-self-ads-section">
-                <h5>Tilbakemeldinger</h5>
+            <section class="profile-self-ads-section u-push-down">
+                <h2>Tilbakemeldinger</h2>
                 <% if @user.recent_feedback.empty? %>
-                  Brukeren har ikke fått noen tilbakemeldinger ennå.
+                  <%= @user.display_name %> har ikke mottatt noen tilbakemeldinger ennå.
                 <% else %>
-                  <small>( <%= @user.recent_feedback.length %> av <%= @user.received_feedbacks.length %> )</small>
-                  <%= render partial: "shared/feedback_item_box", collection: @user.recent_feedback, as: 'feedback' %>
+                  <%= render partial: 'own_profile_feedback', collection: @user.recent_feedback, as: :feedback %>
                 <% end %>
             </section>
         </div>
 
         <div class="four columns">
             <div class="u-push-down">
-                <%= render partial: "shared/sidebar_profile_summary", locals: { user: @user } %>
-                <%= render partial: "shared/profile_quality_box", locals: { user: @user } %>
+                <%= render partial: 'shared/sidebar_profile_summary', locals: { user: @user } %>
+                <%= render partial: 'shared/profile_quality_box', locals: { user: @user } %>
             </div>
         </div>
     </div>
