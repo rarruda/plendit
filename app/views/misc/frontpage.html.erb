@@ -12,7 +12,7 @@
 
     <div class="front-search-block__splash">
         <h1 class="front-search-block__title">LEI DET DU TRENGER</h1>
-        <p class="front-search-block__copy">og spar penger! Mer enn <%= Rails.configuration.x.view.current_num_ads  %> ting til leie.</p>
+        <p class="front-search-block__copy">og spar penger! Mer enn <%= Rails.configuration.x.view.current_num_ads %> ting til leie.</p>
 
         <div>
             <%= form_tag("/search", method: "get") do %>
@@ -47,7 +47,7 @@
                 Slipp alle bekymringer. Hos plendit kan du velge å forsikre tingene
                 du leier ut. Ved skade har du som utleier ingen egenandel eller bonustap.
                 <strong>
-                    <%= link_to 'Les mer om forsikring', Rails.configuration.x.customerservice.insurance_info %>.
+                    <%= link_to 'Les mer om forsikring', Rails.configuration.x.customerservice.insurance_info, target: '_blank' %>.
                 </strong>
             </p>
         </div>

@@ -24,16 +24,16 @@
     <p>
         <%= image_tag "logos/if_150x148.png", alt: "", class: "ad-input-copy__badge", size: "70x70" %>
         Ting du leier ut kan forsikres med IF.
-        Les mer om din trygghet som utleier <%= link_to "her", Plendit::Application.config.x.customerservice.insurance_info %>.
+        Les mer om din trygghet som utleier <%= link_to "her", Plendit::Application.config.x.customerservice.insurance_info, target: '_blank' %>.
     </p>
 
     <h4>Spørsmål?</h4>
     <p>
         Ved spørsmål om tjenesten, ta gjerne kontakt med
-        <%= link_to 'kundesenteret', Plendit::Application.config.x.customerservice.contact_form %>.
+        <%= link_to 'kundesenteret', Plendit::Application.config.x.customerservice.contact_form, target: '_blank' %>.
     </p>
     <p>
-        Du kan også lese <%= link_to "ofte stilte spørsmål", Plendit::Application.config.x.customerservice.website %>.
+        Du kan også lese <%= link_to "ofte stilte spørsmål", Plendit::Application.config.x.customerservice.website, target: '_blank' %>.
     </p>
 
 </section>
