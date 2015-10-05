@@ -5,9 +5,9 @@
             <section class="profile-self-ads-section u-push-down">
                 <h2>Annonser</h2>
                 <% if @user.published_ads.empty? %>
-                  Brukeren har ikke lagt ut noe til leie ennå.
+                  <%= @user.display_name %> har ikke lagt ut noe til leie ennå.
                 <% else %>
-                  <%= render partial: "shared/slim_promoted_ad", collection: @user.published_ads, as: :ad %>
+                  <%= render partial: "own_profile_ad", collection: @user.published_ads, as: :ad %>
                 <% end %>
             </section>
 
