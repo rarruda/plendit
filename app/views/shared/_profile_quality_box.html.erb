@@ -1,8 +1,9 @@
 <div class="profile-quality-box">
+
     <table class="profile-quality-box__table">
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= image_tag 'time_icon.png', size: '19x19', alt: '', class: 'profile-quality-box__icon' %>
+                <%= evil_icon 'ei-calendar', size: 'small', class: 'profile-quality-box__icon' %>
                 Svartid:
             </th>
             <td class="profile-quality-box__td">
@@ -11,7 +12,7 @@
         </tr>
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= image_tag 'speech_bubble_icon.png', size: '19x19', alt: '', class: 'profile-quality-box__icon' %>
+                <%= evil_icon 'ei-comment', size: 'small', class: 'profile-quality-box__icon' %>
                 Svarprosent:
             </th>
             <td class="profile-quality-box__td">
@@ -20,7 +21,7 @@
         </tr>
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= image_tag 'time_icon.png', size: '19x19', alt: '', class: 'profile-quality-box__icon' %>
+                <%= evil_icon 'ei-clock', size: 'small', class: 'profile-quality-box__icon' %>
                 Sist sett:
             </th>
             <td class="profile-quality-box__td">
@@ -28,46 +29,29 @@
             </td>
         </tr>
     </table>
-    <div class="profile-quality-box__verified-badge">
-        <% if @user.phone_verified? and @user.email_verified? %>
-            <%= image_tag 'verified.png', size: '57x56', alt: '' %>
-            <br>
-            Denne brukeren er verifisert
-        <% else %>
-            <%= image_tag 'warning_shield.png', size: '64x64', alt: '' %>
-            <br>
-            Denne brukeren er IKKE (helt) verifisert ennå.
-        <% end %>
-    </div>
-</div>
-<div class="profile-quality-box">
-    <table class="profile-quality-box__table">
-        <tr class="profile-quality-box__row">
-            <th class="profile-quality-box__th">
-                <%= image_tag 'phone_icon.png', size: '19x19', alt: '' %>
-                Phone:
-            </th>
-            <td class="profile-quality-box__td">
-                <% if @user.phone_verified? %>
-                    Verifisert! <%= image_tag 'safety_check.png' %>
-                <% else %>
-                    Ikke verifisert! <tt>:(</tt><%#= image_tag 'safety_check.png' %>
-                <% end %>
-            </td>
-        </tr>
-        <tr class="profile-quality-box__row">
-            <th class="profile-quality-box__th">
-                <%= image_tag 'mail_icon.png', size: '19x19', alt: '' %>
-                epost:
-            </th>
-            <td class="profile-quality-box__td">
+
+    <div>
+        <ol class="profile-quality-box__verifications-list">
+            <li>
                 <% if @user.email_verified? %>
-                    Verifisert! <%= image_tag 'safety_check.png' %>
+                    <%= evil_icon 'ei-check', size: 'small', class: 'u-fill-green profile-quality-box__icon' %>
+                    <span>e-postadresse (verifisert)</span>
                 <% else %>
-                    Ikke verifisert! <tt>:(</tt><%#= image_tag 'safety_check.png' %>
+                    <%= evil_icon 'ei-minus', size: 'small', class: 'u-fill-brown profile-quality-box__icon' %>
+                    <span>e-postadresse (ikke verifisert)</span>
                 <% end %>
-            </td>
-        </tr>
-    </table>
+            </li>
+
+            <li>
+                <% unless @user.phone_verified? %>
+                    <%= evil_icon 'ei-check', size: 'small', class: 'u-fill-green profile-quality-box__icon' %>
+                    <span>telefonnummer (verifisert)</span>
+                <% else %>
+                    <%= evil_icon 'ei-minus', size: 'small', class: 'u-fill-brown profile-quality-box__icon' %>
+                    <span>telefonnummer (ikke verifisert)</span>
+                <% end %>
+            </li>
+        </ol>
+    </div>
 
 </div>

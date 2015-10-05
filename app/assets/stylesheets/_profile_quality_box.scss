@@ -28,12 +28,14 @@
         text-align: right;
     }
 
-    &__verified-badge {
-        padding: $standard-spacing;
-        text-align: center;
+    &__icon {
+        vertical-align: bottom;
     }
 
-    &__icon {
-        vertical-align: text-bottom;
+    &__verifications-list {
+        padding: $standard-spacing;
+        list-style: none;
+        margin: 0;
     }
+
 }
