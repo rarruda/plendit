@@ -1,9 +1,9 @@
 @import 'constants.scss';
 
 .profile-quality-box {
-    border: solid thin $color-box-border;
     background-color: white;
-
+    border: 1px solid $color-gray-background;
+    box-shadow: $subtle-shadow;
 
     &__table {
         width: 100%;
@@ -31,5 +31,9 @@
     &__verified-badge {
         padding: $standard-spacing;
         text-align: center;
+    }
+
+    &__icon {
+        vertical-align: text-bottom;
     }
 }
