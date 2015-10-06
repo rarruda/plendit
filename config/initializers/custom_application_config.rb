@@ -18,6 +18,8 @@ POSTAL_CODES = YAML.load_file("#{Rails.root}/config/data/postal_codes.yml")
 #Used in google maps API:
 COUNTRY_GEO_BOUNDS = [ [57.5,4], [72,32] ]
 
+Plendit::Application.config.x.application_mode.beta = true
+
 # "kr 50.000,-"
 Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5_000, delimiter: "." )
 
