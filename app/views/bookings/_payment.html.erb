@@ -1,11 +1,19 @@
+  <%# FIXME: this belongs only in the first step of setting up a booking. so it now renders in the wrong place %>
   <%# FIXME: target route is not yet defined! %>
   <%= form_for :booking, url: booking_path( @booking ) do |f| %>
       <%= f.hidden_field :booking_guid, value: @booking.guid %>
-      <%= select(:booking_payment_card, :guid, current_user.user_payment_cards.map{ |upc| ["#{upc.number_alias} -- #{upc.expiration_date}", upc.guid] } ) %>
+      <% if current_user.user_payment_cards.length >= 2 %>
+        <%= select(:booking_payment_card, :guid, current_user.user_payment_cards.map{ |upc| ["#{upc.number_alias} -- #{upc.expiration_date}", upc.guid] } ) %>
+        FIXME: (fiks språk) Du må først velge en kreditt kort som du ønsker å betale fra.
+      <% else %>
+        <%= f.label 'booking_payment_card[guid]', "#{upc.number_alias} -- #{upc.expiration_date}" %>
+        <%= f.hidden_field 'booking_payment_card[guid]', value: current_user.user_payment_cards.first.guid %>
+      <%# else %>
+      <% end %>
           <%= f.submit 'Reserver med kreditt kort', class: 'u-pull-right button button-primary' %>
       <p>
         <small>
-        FIXME: (fiks språk) Du må først velge en kreditt kort som du ønsker å betale fra. Din førspørsel blir sendt etter reservering av total beløp skjer.
+        FIXME: (fiks språk) Din førspørsel blir sendt etter reservering av total beløp skjer.
         Du blir belastet kun om din førspørsel blir godkjent av utleieren. Du kan gratis avbestille om du gjør det over 4 dager på forhånd, og da penger er refundert til din kreditt kort.
         Om du vil avbestille etter det, da får du ikke refusjon.
         </small>
