@@ -2,6 +2,7 @@
 
 .notification-box {
     background-color: white;
+    box-shadow: $subtle-shadow;
 
     &__up-triangle {
         display: none;
@@ -9,7 +10,7 @@
 
     &__top {
         padding: $standard-spacing;
-        border-bottom: solid thin $color-box-border;
+        border-bottom: solid thin $color-gray-background;
     }
 
     &__list {
@@ -21,7 +22,7 @@
         padding: $standard-spacing / 3;
         margin: 0;
         list-style: none;
-        border-bottom: solid thin $color-box-border;
+        border-bottom: solid thin $color-gray-background;
         display: flex;
 
         &:last-of-type {
@@ -54,7 +55,7 @@
         z-index: 10;
         width: 400px;
         background-color: white;
-        border: solid thin $color-box-border;
+        border: solid thin $color-gray-background;
         border-radius: 4px;
 
         &__up-triangle {
