@@ -1,7 +1,16 @@
-<div class="u-push-down">
-    <h3><%= favorite_ad.ad.display_title %></h3>
-    <p><%= favorite_ad.ad.summary %></p>
-    <span><%= link_to "Gå til annonsen", ad_path( favorite_ad.ad ) %></span>
-    <span><%= link_to 'Slett fra favoritter', users_favorite_ad_path( favorite_ad.id ), method: :delete, data: { confirm: 'Virkelig slette?' } %></span>
+<% ad = favorite_ad.ad %>
+<div class="my-favorite-ad">
+    <div class="my-favorite-ad__img-box">
+        <%= link_to ad_path( ad ) do %>
+            <%= image_tag ad.safe_image_url(:thumb), size: '90x60', alt: '' %>
+        <% end %>
+    </div>
+
+    <div class="my-favorite-ad__text-box">
+        <h4><%= link_to ad.display_title, ad_path( ad ) %></h4>
+        <div class="my-favorite-ad__description">
+            <%= ad.summary %>
+        </div>
+        <%= button_to 'Slett fra favoritter', users_favorite_ad_path( favorite_ad.id ), method: :delete, data: { confirm: 'Virkelig slette?' }, form_class: 'u-inline', class: 'button u-pull-right u-push-down-only' %>
+    </div>
 </div>
-<hr>

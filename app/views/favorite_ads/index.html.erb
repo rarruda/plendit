@@ -2,15 +2,18 @@
 
 <div class="container">
     <div class="row">
-        <div class="nine columns">
+        <div class="ten columns">
             <h1>Favoritter</h1>
-            <% if @favorite_ads.empty? %>
-                <p>
-                    Du har ikke lagret noen favoritter
-                </p>
-            <% else %>
-                <%= render partial: "favorite_item", collection: @favorite_ads, as: :favorite_ad %>
-            <% end %>
+
+            <div class="u-push-down">
+                <% if @favorite_ads.empty? %>
+                    <p>
+                        Du har ikke lagret noen favoritter
+                    </p>
+                <% else %>
+                    <%= render partial: "favorite_item", collection: @favorite_ads, as: :favorite_ad %>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>

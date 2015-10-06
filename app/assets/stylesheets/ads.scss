@@ -1,3 +1,35 @@
 // Place all the styles related to the Ads controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "constants";
+
+.my-favorite-ad {
+    padding: $standard-spacing * 2;
+    background-color: white;
+    border-top: 1px solid $color-gray-background;
+    border-left: 1px solid $color-gray-background;
+    border-right: 1px solid $color-gray-background;
+    box-shadow: $subtle-shadow;
+    display: flex;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+
+    &:last-of-type {
+        border-bottom: 1px solid $color-gray-background;
+    }
+
+    &__img-box {
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin-right: $standard-spacing * 2;
+    }
+
+    &__description, &__text-box {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}

@@ -1,11 +1,11 @@
-<%= link_to ad_path(ad), class: 'public-profile-ad' do %>
+<div class="public-profile-ad">
     <div class="public-profile-ad__img-box">
-        <%= image_tag ad.safe_image_url(:thumb), width: '90x60', alt: '' %>
+        <%= image_tag ad.safe_image_url(:thumb), size: '90x60', alt: '' %>
     </div>
     <div class="public-profile-ad__text-box">
         <h4><%= ad.display_title %></h4>
-        <p class="public-profile-ad__description">
+        <div class="public-profile-ad__description">
             <%= ad.summary %>
-        </p>
+        </div>
     </div>
-<% end %>
+</div>
