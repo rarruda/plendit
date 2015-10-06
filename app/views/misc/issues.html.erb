@@ -3,28 +3,21 @@
     <h1>Takk for hjelpen!</h1>
 
     <p class="u-push-down">
+        Hei! Takk for at du tar deg tid til å teste plendit. Vi tar gjerne
+        imot tilbakemeldinger. Enten kan du bruke knappen nederst i høyre 
+        hjørne for å chatte, send oss en epost på
+        <%= mail_to Rails.configuration.x.customerservice.email, Rails.configuration.x.customerservice.email %>, snakk
+        til oss på <%= link_to '#finn-sandbox-plendit', 'https://sch-chat.slack.com/messages/finn-sandbox-plendit/' %>
+        på slack, eller kom og pirk på en av oss i kontorlandskapet.
 
-        Hei! Takk for at du tar deg tid til å teste plendit. Vi tar gjerne imot
-        tilbakemeldinger. Enten kan du bruke <%= evil_icon 'ei-comment'  %> knappen nederst i høyre hjørne
-        for å chatte, send oss en epost på 
-        <%= mail_to Rails.configuration.x.customerservice.email, Rails.configuration.x.customerservice.email %>,
-        snakk til oss på <%= link_to '#finn-sandbox-plendit', 'https://sch-chat.slack.com/messages/finn-sandbox-plendit/' %>
-        på slack, eller kom å pirk på en av oss i kontorlandskapet.
     </p>
 </div>
 
 <h1>Begrensninger i betaversjonen</h1>
 
-<p class="u-push-down">
-    Det er fortsatt en del funksjonalitet som mangler, og en del bugs.
-    Følgende saker er vi klar over allerede:
-</p>
-
+<p class="u-push-down-only">I første fase av betatestingen er følgende funksjoner ikke aktiverte:</p>
 <ul>
-    <li>Betaling mangler</li>
-    <li>Booking er ikke skrudd på siden betaling mangler</li>
-    <li>Det er ikke mulig å laste opp legitimasjon</li>
-    <li>Det er ikke mulig å få sendt sms kode på nytt uten å endre telefon nummer</li>
-    <li>Det er mulig å legge ut annonse med forsikring, selv om utleie pris
-        per dag er under 160 kr, og verdi er under 4000 kr.</li>
+    <li>Betaling</li>
+    <li>Booking</li>
+    <li>Opplasting av ID</li>
 </ul>
