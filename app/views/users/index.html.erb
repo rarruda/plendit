@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="six columns">
+        <div class="twelve columns">
             <%= render layout: "bubble_box", locals: {title: "Mine annonser"} do %>
                 <% unless current_user.ads.empty? %>
                     <ul>
@@ -20,14 +20,11 @@
                 <%= button_to "Legg ut en ny annonse", new_ad_path, method: "get", class: "button button-primary" %>
             <% end %>
 
-            <%= render layout: "bubble_box", locals: {title: "Utestående vurderinger", color: "blue"} do %>
+            <%= render layout: "bubble_box", locals: {title: "Utestående vurderinger"} do %>
                 <div>Ingen utestående vurderinger.</div>
             <% end %>
-        </div>
 
-        <div class="six columns">
-
-            <%= render layout: "bubble_box", locals: {title: "Forespørsler", color: "red"} do %>
+            <%= render layout: "bubble_box", locals: {title: "Forespørsler"} do %>
                 <% unless current_user.current_bookings.empty? %>
                     <ul>
                         <% current_user.current_bookings.each do |booking| %>
@@ -43,7 +40,7 @@
                 <% end %>
             <% end %>
 
-            <%= render layout: "bubble_box", locals: {title: "Siste meldinger", color: "green"} do %>
+            <%= render layout: "bubble_box", locals: {title: "Siste meldinger"} do %>
                 <% unless current_user.received_messages.empty? %>
                     <ul>
                         <% current_user.received_messages.each do |message| %>
@@ -58,7 +55,6 @@
                     Du ikke mottatt noen meldinger
                 <% end %>
             <% end %>
-
         </div>
     </div>
 </div>

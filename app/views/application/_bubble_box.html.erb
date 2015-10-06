@@ -1,11 +1,7 @@
-<%
-    color_class =  defined?(color).nil? ? "green" : color
-%>
-<section class="<%= "bubble-box bubble-box" %> u-push-down-lots">
+<section class="bubble-box bubble-box u-push-down-lots">
     <h2 class="bubble-box__title"><%= title %></h2>
-    <span class="bubble-box__handle <%= "bubble-box__handle--#{color_class}" %>"></span>
-    <div class="<%= "bubble-box__body bubble-box__body--#{color_class}" %>">
+    <span class="bubble-box__handle"></span>
+    <div class="<%= "bubble-box__body" %>">
         <%= yield %>
     </div>
 </section>
-
