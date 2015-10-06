@@ -150,7 +150,7 @@ window.controllers.resultMap = {
         }
 
         function createShowHereButton() {
-            var e = E("div", null, E("button.button.button-notprimary", {onclick: onShowHereClick}, "Søk her"));
+            var e = E("div", null, E("button.button.button-notprimary", {onclick: onShowHereClick}, "Søk der du er"));
             e.style.paddingTop = "12px";
             e.style.paddingLeft = "12px";
             return e;
