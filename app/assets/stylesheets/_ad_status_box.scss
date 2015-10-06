@@ -11,20 +11,23 @@
 .button {
     &.ad-status-box__button {
         width: 200px;
-        color: white;
-        background-color: $color-plendit-blue;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
 
-        &:hover, &:focus {
-          background-color: darken($color-plendit-blue, 5);
-        }
-        &:active {
-          background-color: darken($color-plendit-blue, 10);
-        }
+        &--blue {
+            color: white;
+            background-color: $color-plendit-blue;
 
-        /* NOTE: Selector appears redundant. Content removed. */
-        &--blue {}
+            &:hover, &:focus {
+              background-color: darken($color-plendit-blue, 5);
+            }
+            &:active {
+              background-color: darken($color-plendit-blue, 10);
+            }
+        }
 
         &--yellow {
+            color: white;
             background-color: $color-state-yellow;
 
             &:hover, &:focus {
@@ -36,6 +39,7 @@
         }
 
         &--red {
+            color: white;
             background-color: $color-state-red;
 
             &:hover, &:focus {
@@ -47,6 +51,7 @@
         }
 
         &--green {
+            color: white;
             background-color: $color-state-green;
 
             &:hover, &:focus {

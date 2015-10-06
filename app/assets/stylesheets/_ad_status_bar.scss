@@ -2,17 +2,18 @@
 
 .ad-status-bar {
     min-height: 52px;
-    color: white;
-    background-color: $color-state-yellow;
+    background-color: white;
     text-align: center;
-
+    box-shadow: $subtle-shadow;
+    position: relative;
+    z-index: 1;
     
     &__summary::-webkit-details-marker {
         display: none;
     }
 
     &__link {
-        color: white;
+        xxcolor: white;
         text-decoration: underline;
     }
 
@@ -23,22 +24,22 @@
     }
 
     &--published {
-        background-color: $color-state-green;
+        xxbackground-color: $color-state-green;
     }
 
     &--draft {
-        background-color: $color-state-yellow;
+        xxbackground-color: $color-state-yellow;
     }
 
     &--waiting_review {
-        background-color: $color-state-yellow;
+        xxbackground-color: $color-state-yellow;
     }
 
     &--paused {
-        background-color: $color-state-red;
+        xxbackground-color: $color-state-red;
     }
 
     &--stopped {
-        background-color: $color-state-red;
+        xxbackground-color: $color-state-red;
     }
 }
