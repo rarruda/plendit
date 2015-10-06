@@ -131,7 +131,7 @@ GEM
       multi_json
     equalizer (0.0.11)
     erubis (2.7.0)
-    evil_icons (1.7.7)
+    evil_icons (1.7.8)
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -429,7 +429,7 @@ DEPENDENCIES
   dropzonejs-rails
   elasticsearch-model
   elasticsearch-rails
-  evil_icons
+  evil_icons (~> 1.7.8)
   factory_girl_rails
   faker
   geocoder
