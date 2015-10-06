@@ -8,7 +8,7 @@
                 <% if @user.published_ads.empty? %>
                   <%= @user.display_name %> har ikke lagt ut noe til leie ennå.
                 <% else %>
-                  <%= render partial: 'own_profile_ad', collection: @user.published_ads, as: :ad %>
+                  <%= render partial: 'public_profile_ad', collection: @user.published_ads, as: :ad %>
                 <% end %>
             </section>
 
@@ -17,7 +17,7 @@
                 <% if @user.recent_feedback.empty? %>
                   <%= @user.display_name %> har ikke mottatt noen tilbakemeldinger ennå.
                 <% else %>
-                  <%= render partial: 'own_profile_feedback', collection: @user.recent_feedback, as: :feedback %>
+                  <%= render partial: 'public_profile_feedback', collection: @user.recent_feedback, as: :feedback %>
                 <% end %>
             </section>
         </div>
