@@ -1,7 +1,10 @@
 <span class="social-button <%= "social-button--#{network[:id]}" %>">
-    <%= image_tag network[:img], size: '45x45', alt: '', class: 'social-button__logo' %>
+    <% if network.has_key? :icon %>
+        <%= evil_icon network[:icon], size: 'm', class: 'u-fill-white' %>
+    <% else %>
+        <%= image_tag network[:img], size: '45x45', alt: '', class: 'social-button__logo-image' %>
+    <% end %>
     <span class="social-button__text">
         <%= text %>
     </span>
 </span>
-

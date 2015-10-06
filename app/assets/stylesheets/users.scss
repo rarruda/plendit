@@ -116,11 +116,12 @@ $blueish: rgb(213, 235, 255);
 .social-button {
 
     $height: 54px;
+
     background-color: gold;
     border-radius: 6px;
     border: solid thin rgba(0,0,0,0.2);
     display: inline-block;
-    width: 320px;
+    width: 360px;
     height: $height;
     line-height: $height;
     color: white;
@@ -138,20 +139,21 @@ $blueish: rgb(213, 235, 255);
 
     &--google {
         background-color: rgb(218, 79, 70);
-
     }
 
-    &__logo {
-        box-sizing: content-box;
-        padding-bottom: 6px;
-        vertical-align: middle;
+    &__logo-image {
+        margin-left: 2px;
+        margin-right: 3px;
+
     }
 
     &__text {
-        display: inline-block;
-        border-left: solid thin rgba(0,0,0,0.2);;
-        padding-left: $standard-spacing;
+        padding-left: 12px;
         height: $height - 2;
+        margin-bottom: 2px;
+        border-left: solid thin rgba(0,0,0,0.2);
+        display: inline-block;
+        vertical-align: text-bottom;
     }
 }
 

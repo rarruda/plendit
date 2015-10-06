@@ -3,18 +3,18 @@ module SocialButtonsHelper
   @@networks = {
     facebook: {
       name: 'Facebook',
-      img: 'logos/fb-45x45.png',
-      id: 'fb',
+      icon: 'ei-sc-facebook',
+      id:   'fb',
     },
     google: {
       name: 'Google',
-      img: 'logos/google-45x45.png',
-      id: 'google',
+      icon: 'ei-sc-google-plus',
+      id:   'google',
     },
     spid: {
       name: 'SPiD',
-      img: 'logos/spid-45x45.png',
-      id: 'spid',
+      img:  'logos/spid-45x45.png',
+      id:   'spid',
     }
   }
 
