@@ -59,9 +59,13 @@ summary {
     outline: none;
 }
 
-.partner-logo {
-    width: 180px;
-    margin: 12px;
+.partner-box {
+    &__logo {
+       vertical-align: middle;
+        max-width: 180px;
+        max-height: 90px;
+        margin: 12px;
+    }
 }
 
 .large-plendbot-face {
