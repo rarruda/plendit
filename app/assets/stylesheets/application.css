@@ -17,6 +17,8 @@
  *= require_self
  */
 
+@import 'constants.scss';
+
 .icon {
     fill: black;
 }
@@ -56,4 +58,12 @@ summary {
 .partner-logo {
     width: 180px;
     margin: 12px;
+}
+
+.large-plendbot-face {
+    background-color: rgb(237, 230, 217);
+    padding: 12px;
+    margin: 12px;
+    border-radius: 50%;
+    border: solid 3px white;
 }
