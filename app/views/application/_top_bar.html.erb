@@ -18,12 +18,10 @@
                 <span class="top-bar__navbar-name"><%= current_user.display_name %></span>
             <% end %>
 
-
             <% if current_user.is_site_admin? %>
                 <%= link_to 'admin', admin_root_path, class: "top-bar__admin-link" %>
             <% end %>
 
-            |
             <a class="top-bar__top-section" href="#"
                data-controller="menuAnchor resetUnseenNotificationCount"
                data-anchor-for="[data-floating-notifications]"
@@ -35,7 +33,7 @@
                     </span>
                 <% end %>
             </a>
-            |
+
             <span class="top-bar__top-section">
                 <%= link_to "Logg ut", destroy_user_session_path, method: :delete, :class => "top-bar__navbar-link" %>
             </span>
