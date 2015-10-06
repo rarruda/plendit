@@ -13,6 +13,11 @@ class UserDecorator < Draper::Decorator
     #( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
   end
 
+  def display_name_posessive
+    name = self.display_name
+    name[-1] == 's' ? "#{name}'" + '\'' : "#{name}s"
+  end
+
   def published_ads
     object.ads.published.decorate
   end
