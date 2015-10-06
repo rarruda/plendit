@@ -4,17 +4,15 @@
             <div class="four columns">
                 <h6 class="about-footer__title">Plendit AS</h6>
                 <ul class="about-footer__list">
-                    <li class="about-footer__list-item"><%= mail_to Rails.configuration.x.customerservice.email, nil, class: 'about-footer__list-link' %></li>
-                    <li class="about-footer__list-item"><%= Plendit::Application.config.x.organization.phone_number %></li>
-                    <li class="about-footer__list-item">Org nr: <%= Plendit::Application.config.x.organization.org_id %></li>
+                    <li class="about-footer__list-item"><%= link_to 'Kontaktinformasjon', contact_path, class: "about-footer__list-link" %></li>
+                    <li class="about-footer__list-item"><%= link_to 'Om oss', about_us_path, class: "about-footer__list-link" %></li>
                 </ul>
             </div>
             <div class="four columns">
                 <h6 class="about-footer__title">Kundeservice</h6>
                 <ul class="about-footer__list">
                     <li class="about-footer__list-item"><%= link_to 'Ofte stilte spørsmål',  Rails.configuration.x.customerservice.website, target: '_blank', class: "about-footer__list-link" %></li>
-                    <li class="about-footer__list-item"><%= link_to 'Kontaktinformasjon', contact_path, class: "about-footer__list-link" %></li>
-                    <li class="about-footer__list-item"><%= link_to 'Om oss', about_us_path, class: "about-footer__list-link" %></li>
+                    <li class="about-footer__list-item"><%= mail_to Rails.configuration.x.customerservice.email, nil, class: 'about-footer__list-link' %></li>
                 </ul>
             </div>
             <div class="four columns">
