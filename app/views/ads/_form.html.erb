@@ -50,6 +50,9 @@
         <span class="label-body">
             Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %> for å leie gjenstanden.
         </span>
+        <% if @ad.category == 'bap' %>
+            <small>* Forsikring kan bare velges dersom pris per døgn er minimum kr 160 og verdien på utleieobjektet er kr 4000 eller mer.</small>
+        <% end %>
     </label>
 
     <label class="u-push-down">
