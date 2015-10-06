@@ -15,7 +15,18 @@ class ApplicationController < ActionController::Base
       #http_basic_authenticate_with name: ENV['PCONF_HTTP_AUTH_USERNAME'], password: ENV['PCONF_HTTP_AUTH_PASSWORD'] if Rails.env.production?
       authenticate_or_request_with_http_basic 'Test ENV'  do |name, password|
         #PCONF_HTTP_AUTH_CRED_LIST="user:secret,user2:password2"
-        ENV['PCONF_HTTP_AUTH_CRED_LIST'].split(',').include? "#{name}:#{password}" || ( name == ENV['PCONF_HTTP_AUTH_USERNAME'] && password == ENV['PCONF_HTTP_AUTH_PASSWORD'] )
+        authenticated = false
+
+        if (ENV.has_key? 'PCONF_HTTP_AUTH_CRED_LIST') && (ENV['PCONF_HTTP_AUTH_CRED_LIST'].split(',').include? "#{name}:#{password}")
+          authenticated = true
+        end
+
+        if (ENV.has_key? 'PCONF_HTTP_AUTH_USERNAME') && (ENV.has_key? 'PCONF_HTTP_AUTH_PASSWORD') && 
+              name == ENV['PCONF_HTTP_AUTH_USERNAME'] && password == ENV['PCONF_HTTP_AUTH_PASSWORD'] then
+          authenticated = true
+        end
+
+        authenticated
       end
     end
 
