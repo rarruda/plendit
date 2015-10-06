@@ -233,6 +233,9 @@ class AdsController < ApplicationController
       ad_params_local.except! 'location_attributes'
     end
 
+    # remove registration_number from all not motor categories.
+    ad_params_local.except! 'registration_number' unless @ad.category == 'motor'
+
     #LOG.debug "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
       if @ad.update(ad_params_local)
@@ -271,6 +274,7 @@ class AdsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
       params.require(:ad).permit( :title, :body, :price_in_h, :tag_list, :insurance_required,
+        :registration_number,
         :location_id, :location_attributes => [:address_line, :post_code] )
     end
 
