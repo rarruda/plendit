@@ -19,6 +19,5 @@ function main() {
     c.registerInstance('utils', plenditUtils);
     c.scanControllers(controllers);
     c.scanServices(services);
-    console.log("Running controllerator now!");
     c.run();
 }
