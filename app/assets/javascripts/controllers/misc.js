@@ -278,6 +278,7 @@ window.controllers.resultList = {
         function onSearchResult(result) {
             if (result && result.markup != null) {
                 ele.innerHTML = result.markup;
+                ele.parentElement.scrollTop = 0;
             }
         }
     }
