@@ -7,7 +7,7 @@
                 Svartid:
             </th>
             <td class="profile-quality-box__td">
-                innen et par timer
+                ukjent
             </td>
         </tr>
         <tr class="profile-quality-box__row">
@@ -16,7 +16,7 @@
                 Svarprosent:
             </th>
             <td class="profile-quality-box__td">
-                100%
+                ukjent
             </td>
         </tr>
         <tr class="profile-quality-box__row">
@@ -25,7 +25,7 @@
                 Sist sett:
             </th>
             <td class="profile-quality-box__td">
-                2 timer siden
+                ukjent
             </td>
         </tr>
     </table>
@@ -43,7 +43,7 @@
             </li>
 
             <li>
-                <% unless @user.phone_verified? %>
+                <% if @user.phone_verified? %>
                     <%= evil_icon 'ei-check', size: 'small', class: 'u-fill-green profile-quality-box__icon' %>
                     <span>telefonnummer (verifisert)</span>
                 <% else %>
