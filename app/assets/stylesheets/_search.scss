@@ -1,7 +1,13 @@
 @import 'constants.scss';
 
 .search-result-view-chooser {
-    margin: $standard-spacing ($standard-spacing * 2) ;
+    box-shadow: $subtle-shadow;
+    z-index: 1;
+    position: relative;
+
+    &__inner {
+        margin: $standard-spacing ($standard-spacing * 2) 0;
+    }
 
     &__segment-holder {
         text-align: center;

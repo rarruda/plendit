@@ -458,7 +458,6 @@ window.controllers.autoFocus = function(ele) {
     ele.focus();
 };
 
-
 window.controllers.responsiveSearchResult = {
     dependencies: ["$element", "eventbus"],
     callable: function(ele, eventBus) {
@@ -471,8 +470,8 @@ window.controllers.responsiveSearchResult = {
         init();
 
         function init() {
-            list = document.querySelector("[data-result-list]");
-            map = document.querySelector("[data-result-map]");
+            list = document.querySelector("[data-hits-view]");
+            map = document.querySelector("[data-map-view]");
             mapButton = document.querySelector("[data-show-map-toggle]");
             listButton = document.querySelector("[data-show-list-toggle]");
 
