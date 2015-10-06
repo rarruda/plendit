@@ -414,6 +414,10 @@ summary::-webkit-details-marker {
   display: none;
 }
 
+.u-default-summary::-webkit-details-marker {
+  display: inline-block;
+}
+
 details.u-implode-summary {
   outline: none;
 }

@@ -70,7 +70,7 @@
                         { class: 'u-full-width' } ) %>
 
             <details>
-                <summary>Skriv inn en annen adresse:</summary>
+                <summary class="u-default-summary">Skriv inn en annen adresse:</summary>
                 <div>
 
                     <%= f.fields_for :location, Location.new(user_id: current_user.id) do |fl| %>
@@ -112,13 +112,13 @@
 
     <% if @ad.category == 'motor' %>
     <div class="u-push-down">
-        <label>Registreringsnummer</label>
+        <label>Registreringsnummer:</label>
         <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
     </div>
     <% end %>
 
     <div class="u-push-down">
-        <label>Beskrivelse</label>
+        <label>Beskrivelse:</label>
         <%= f.text_area :body, class: 'u-full-width', data: { controller: 'autoSizeTextArea' } %>
         <small>Viste du: Du kan bruke #hashtags i annonsen din. Det gjør det enklere å finne den i søket.</small>
     </div>
