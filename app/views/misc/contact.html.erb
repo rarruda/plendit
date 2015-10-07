@@ -5,12 +5,14 @@
         <th>E-post:</th>
         <td><%= mail_to Rails.configuration.x.customerservice.email %></td>
     </tr>
+    <% if Plendit::Application.config.x.organization.phone_number %>
     <tr>
         <th>Telefon:</th>
         <td><%= Plendit::Application.config.x.organization.phone_number %></td>
     </tr>
+    <% end %>
     <tr>
         <th>Postadresse:</th>
-        <td></td>
+        <td>Plendit AS, Grensen 5-7, 0159 Oslo</td>
     </tr>
 </table>

@@ -33,8 +33,9 @@ Plendit::Application.config.x.customerservice.contact_form   = 'https://plendit.
 Plendit::Application.config.x.customerservice.website        = 'https://plendit.zendesk.com/'
 Plendit::Application.config.x.customerservice.insurance_info = 'https://plendit.zendesk.com/hc/no/articles/204988442-Hvordan-fungerer-forsikringen-'
 
-Plendit::Application.config.x.organization.phone_number      ='+47 97 04 43 99'
-Plendit::Application.config.x.organization.org_id            ='915 252 230'
+Plendit::Application.config.x.organization.phone_number      = nil #'+47 97 04 43 99'
+Plendit::Application.config.x.organization.address           = 'Plendit AS, Grensen 5-7, 0159 Oslo'
+Plendit::Application.config.x.organization.org_id            = '915 252 230'
 
 Plendit::Application.config.x.google.analytics_id            = ( Rails.env == 'production' ) ? 'UA-67449731-1' : 'UA-67449731-2'
 
