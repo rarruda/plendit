@@ -215,8 +215,8 @@ window.controllers.resultMap = {
                 position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
                 icon: {
                     url: '/images/single_stroke.png',
-                    scaledSize: new google.maps.Size(45, 40),
-                    anchor: new google.maps.Point(70, 40)
+                    scaledSize: new google.maps.Size(45, 38),
+                    // anchor: new google.maps.Point(32, 53)
                 },
                 map: map
             });
