@@ -80,8 +80,7 @@ gem 'rack-timeout'
 # logging:
 gem 'cabin'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+
 
 # to generate fake data to rake db:seed the database:
 gem 'faker'
@@ -106,6 +105,14 @@ gem 'evil_icons', '~> 1.7.8'
 gem "autoprefixer-rails"
 
 group :development, :test do
+  # Use Capistrano for deployment
+  gem 'capistrano',         require: false
+  gem 'capistrano-rvm',     require: false
+  gem 'capistrano-rails',   require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano3-puma',   require: false
+  #gem 'capistrano-ext'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
