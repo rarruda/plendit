@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require 'polyfills/dom4.js'
 //= require 'polyfills/better-dom.js'
 //= require 'polyfills/better-i18n-plugin.js'
 //= require 'polyfills/better-dateinput-polyfill.js'
