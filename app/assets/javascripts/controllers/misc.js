@@ -293,7 +293,11 @@ window.controllers.hitCount = {
         eventBus.on('map-will-change', onSearchStarted);
 
         function onSearchResult(result) {
-            ele.textContent = "" + Math.min(result.paging.default_per_page, result.paging.total_count) + " treff av " + result.paging.total_count + ".";
+            var start = ((result.paging.current_page - 1) * result.paging.default_per_page) + 1;
+            var end = Math.min(
+                    result.paging.total_count,
+                    result.paging.current_page * result.paging.default_per_page);
+            ele.textContent = "Treff " + start + " - " + end + " av " + result.paging.total_count + ".";
         }
 
         function onSearchStarted() {
