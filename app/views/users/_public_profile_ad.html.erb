@@ -1,4 +1,4 @@
-<div class="public-profile-ad">
+<%= link_to ad, class: 'public-profile-ad' do %>
     <div class="public-profile-ad__img-box">
         <%= image_tag ad.safe_image_url(:thumb), size: '90x60', alt: '' %>
     </div>
@@ -8,4 +8,4 @@
             <%= ad.summary %>
         </div>
     </div>
-</div>
+<% end %>
