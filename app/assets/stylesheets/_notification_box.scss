@@ -3,49 +3,36 @@
 .notification-box {
     background-color: white;
     box-shadow: $subtle-shadow;
+    padding-top: $standard-spacing / 2;
+    padding-bottom: $standard-spacing / 2;
 
-    &__up-triangle {
-        display: none;
-    }
-
-    &__top {
-        padding: $standard-spacing;
-        border-bottom: solid thin $color-gray-background;
-    }
-
-    &__list {
-        margin-bottom: 0;
-    }
-
-    &__row,
-    &__row--read {
-        padding: $standard-spacing / 3;
-        margin: 0;
-        list-style: none;
-        border-bottom: solid thin $color-gray-background;
+    &__item {
+        padding-top: $standard-spacing / 2;
+        padding-bottom: $standard-spacing / 2;
+        padding-right: $standard-spacing;
         display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: black;
+        border-bottom: solid thin $color-gray-background;
 
-        &:last-of-type {
-            border-bottom: 0;
+
+        &--read {
+             background-color: $color-subtle-gray-background;
         }
     }
 
-    &__row--read {
-        background-color: $color-subtle-gray-background;
-    }
-
     &__avatar {
-        width: 56px;
+        width: 66px;
         text-align: center;
+        flex-grow: 0;
         flex-shrink: 0;
     }
 
     &__body {
-        padding-left: $standard-spacing;
     }
 
-    &__para {
-        margin: 0;
+    &__message {
     }
 
     @media screen and (min-width: 640px) {

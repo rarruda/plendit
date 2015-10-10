@@ -4,41 +4,25 @@
 
     <div class="notification-box u-hidden" data-floating-notifications>
         <span class="notification-box__up-triangle"></span>
-        <div class="notification-box__top">
-            <h4>Varsler</h4>
-        </div>
 
-        <ol class="notification-box__list">
-
-            <% if notifications.any? %>
-                <% current_user.recent_notifications.each do |n| %>
-                    <% if n.status == "read" %>
-                        <li class="notification-box__row--read">
-                    <% else %>
-                        <li class="notification-box__row">
-                    <% end %>
-                        <div class="notification-box__avatar">
-                            <%= render('shared/avatar.html', user: n.source_user, size: "small") %>
+        <% if notifications.any? %>
+            <% current_user.recent_notifications.each do |n| %>
+                <%= link_to n.source_path, class: "notification-box__item #{'notification-box__item--read' if n.status != 'fresh'}" do %>
+                    <div class="notification-box__avatar">
+                        <%= render('shared/avatar.html', user: n.source_user, size: "small") %>
+                    </div>
+                    <div class="notification-box__body">
+                        <div class="notification-box__message">
+                            <%= n.message %>
                         </div>
-                        <div class="notification-box__body">
-                            <p class="notification-box__para">
-                                <%= link_to n.message, n.source_path %>
-                            </p>
-                            <p class="notification-box__para">
-                                <small><%= n.updated_at.to_formatted_s(:plendit_short_datetime) %></small>
-                            </p>
-                        </div>
-                    </li>
+                        <small><%= n.updated_at.to_formatted_s(:plendit_short_datetime) %></small>
+                    </div>
                 <% end %>
-            <% else %>
-                <li class="notification-box__row">
-                    <p class="notification-box__para">
-                        Ingen varsler.
-                    </p>
-                </li>
             <% end %>
-
-        </ol>
-
+        <% else %>
+            <div class="notification-box__item"> 
+                Ingen varsler.
+            </div>
+        <% end %>
     </div>
 <% end %>
