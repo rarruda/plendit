@@ -87,8 +87,9 @@ class User < ActiveRecord::Base
   # Send an SMS if the unconfirmed phone number changed to something that isnt blank.
   after_save  :send_sms_for_phone_confirmation,
     if: :unconfirmed_phone_number_changed?,
-    unless: "unconfirmed_phone_number.blank?"
-
+    if: :phone_number_confirmation_token_changed?,
+    unless: "unconfirmed_phone_number.blank?",
+    if: :sms_sending_cool_off_elapsed?
 
   #  * an equivalent callback should be considered, for when updating information:
   after_save :provision_with_mangopay,

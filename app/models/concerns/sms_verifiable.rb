@@ -19,7 +19,8 @@ module SmsVerifiable
       self.phone_number              = self.unconfirmed_phone_number
       self.unconfirmed_phone_number  = nil
       self.phone_number_confirmed_at = Time.now
-      self.phone_number_confirmation_token = nil
+      self.phone_number_confirmation_token   = nil
+      self.phone_number_confirmation_sent_at = nil
 
       self.save!
     end
@@ -38,6 +39,11 @@ module SmsVerifiable
     end
   end
 
+  def sms_sending_cool_off_elapsed?
+    return true if self.phone_number_confirmation_sent_at.blank?
+    ( Time.now > self.phone_number_confirmation_sent_at + SMS_COOL_OFF_PERIOD )
+  end
+
   private
   # create confirmation token if a user wants to change his phone number.
   def set_phone_attributes
@@ -48,7 +54,16 @@ module SmsVerifiable
   end
 
   def send_sms_for_phone_confirmation
-    PhoneVerificationService.new( user_id: id ).process
+    if self.sms_sending_cool_off_elapsed? || self.phone_number_confirmation_sent_at.blank?
+      self.phone_number_confirmation_sent_at = Time.now
+      LOG.info "Sending SMS for verification", {user_id: self.id, phone_number: self.phone_number}
+      PhoneVerificationService.new( user_id: id ).process
+    else
+      LOG.info "NOT Sending SMS for verification, as a previous attempt was done at #{self.phone_number_confirmation_sent_at}, which is less then #{SMS_COOL_OFF_PERIOD} seconds ago.",
+        user_id: self.id,
+        phone_number_confirmation_sent_at: self.phone_number_confirmation_sent_at,
+        phone_number: self.phone_number
+    end
   end
 
 end

@@ -6,7 +6,6 @@ RSpec.describe User, :type => :model do
 
 
   context "attributes" do
-
     it "has email" do
       expect(User.new(email: "x@y.z")).to have_attributes(email: "x@y.z")
     end
@@ -32,6 +31,27 @@ RSpec.describe User, :type => :model do
   #   end
   # end
 
+  context 'when setting phone_number' do
+    let(:user) { FactoryGirl.create :user }
+
+    #before { allow(MangopayService).to receive(:initialize).with(user: user).and_return(true) }
+    #before { allow(MangopayService).to receive(:provision_user).and_return(true) }
+
+    it "will have a phone_verification confirmation_token" do
+      #allow(PhoneVerificationService).to receive(:send_sms).and_return {}
+
+      # stub:
+      #MangopayService.stub(:).and_return('')
+
+
+      user.unconfirmed_phone_number = '99994444'
+      user.save
+      expect(user.phone_number_confirmation_token).to match(/[0-9]{2}/)
+    end
+  end
+
+  context 'when confirming phone_number' do
+  end
 
 
 end

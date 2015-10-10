@@ -7,7 +7,7 @@
                 I feltene under kan du redigere din profil. Husk at
                 det bare er ditt fornavn som vises til andre brukere.
             <% end %>
-            <% if @user.phone_pending_confirmation? %>
+            <% if @user.phone_pending_confirmation? && ! @user.unconfirmed_phone_number.blank?  %>
                 <%= render partial: "verify_sms" %>
             <% end %>
             <%= render partial: "edit_profile" %>
