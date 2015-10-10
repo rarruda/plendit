@@ -22,6 +22,11 @@ class FavoriteAdsController < ApplicationController
     end
   end
 
+  def destroy
+    ad = @current_user.favorite_ads.find_by(ad_id: params[:id])
+    ad.destroy
+    redirect_to users_favorite_ads_path
+  end
 
 
   private
@@ -33,6 +38,7 @@ class FavoriteAdsController < ApplicationController
       )
       @favorite_ad = @favorite_list.favorite_ads.find_by( ad_id: params[:favorite_ad][:ad_id] )
     end
+
 
     def favorite_ad_params
       params.require(:favorite_ad).permit(:favorite_list_id, :ad_id, :previous_url)
