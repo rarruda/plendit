@@ -5,7 +5,7 @@
             kartet, eller endre på søkefilterene dine.
         </p>
     <% else %>
-        <% cache exipires_in: 10.minutes do %>
+        <% cache ['html_ad_list', @ads.map{|e| e._id}], expires_in: 10.minutes do %>
             <%= render partial: "search_result_item", collection: @ads, as: 'ad' %>
             <div class="search-result-box__paging-holder u-push-down-only"><%= paginate @ads %></div>
         <% end %>

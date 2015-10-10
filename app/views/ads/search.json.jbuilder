@@ -10,10 +10,10 @@ json.paging do
   json.default_per_page @ads.default_per_page
 end
 
-json.cache! @ads, expires_in: 10.minutes do
+json.cache! ['json_ad_list', @ads.map{|e| e._id}], expires_in: 10.minutes do
   json.ads do
     @ads.each do |ad|
-      json.cache! ad._id, expires_in: 10.minutes do
+      json.cache! ['json_ad_item', ad._id], expires_in: 10.minutes do
         json.set! ad._id do
           json.id ad._id
           json.location ad._source.geo_location
