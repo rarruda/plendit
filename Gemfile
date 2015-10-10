@@ -95,6 +95,9 @@ gem 'redis', '~> 3.2.1'
 # for connection pooling redis:
 #gem 'connection_pool', '~> 2.2.0'
 
+# fragment caching and sessions can use redis
+gem 'redis-rails'
+
 # health check for the app:
 gem 'okcomputer'
 
