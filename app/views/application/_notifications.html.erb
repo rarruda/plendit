@@ -21,7 +21,12 @@
             <% end %>
         <% else %>
             <div class="notification-box__item"> 
-                Ingen varsler.
+                <div class="notification-box__avatar">
+                    <%= plendbot_avatar(:small) %>
+                </div>
+                <div class="notification-box__body">
+                    Ingen varsler.
+                </div>
             </div>
         <% end %>
     </div>
