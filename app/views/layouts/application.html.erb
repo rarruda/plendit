@@ -28,10 +28,15 @@
 
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
-    <%= render partial: "google_analytics_tag" %>
+
+    <% cache 'analytics' do %>
+        <%= render partial: "google_analytics_tag" %>
+    <% end %>
 </head>
 <body>
-    <%= evil_icons_sprite %>
+    <% cache 'evil_icons' do %>
+        <%= evil_icons_sprite %>
+    <% end %>
     <header>
         <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field } %>
         <%= render partial: "flash_bar" %>
@@ -41,7 +46,9 @@
     <%= content_for?(:content) ? yield(:content) : yield %>
 
     <% if not @supress_footer %>
-        <%= render partial: "main_footer" %>
+        <% cache 'footer' do %>
+            <%= render partial: "main_footer" %>
+        <% end %>
     <% end %>
 </body>
 </html>

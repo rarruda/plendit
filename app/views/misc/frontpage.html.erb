@@ -41,7 +41,7 @@
 <div class="container u-push-down-only">
     <div class="if-branding-section">
         <div class="if-branding-section__centerer">
-            <%= image_tag "logos/if_150x148.png", size: "60x59", alt: "", class: "u-pull-left if-branding-section__logo" %>
+            <%= image_tag 'logos/if_150x148.png', size: '60x59', alt: '', class: 'u-pull-left if-branding-section__logo' %>
             <h2>Skadeforsikring fra IF</h2>
             <p>
                 Slipp alle bekymringer. Hos plendit kan du velge å forsikre tingene
@@ -53,4 +53,6 @@
         </div>
     </div>
 </div>
-<%= render partial: "front_popular_box" %>
+<% cache 'front_popular_box' do %>
+    <%= render partial: 'front_popular_box' %>
+<% end %>
