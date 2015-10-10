@@ -7,7 +7,7 @@
 
         <% if notifications.any? %>
             <% current_user.recent_notifications.each do |n| %>
-                <% cache do %>
+                <% cache exipires_in: 10.minutes do %>
                     <%= link_to n.source_path, class: "notification-box__item #{'notification-box__item--read' if n.status != 'fresh'}" do %>
                         <div class="notification-box__avatar">
                             <%= render('shared/avatar.html', user: n.source_user, size: "small") %>

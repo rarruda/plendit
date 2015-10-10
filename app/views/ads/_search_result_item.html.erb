@@ -1,4 +1,4 @@
-<% cache("ad_item_#{ad.id}", expires_in: 1.minute) do %>
+<% cache expires_in: 10.minutes do %>
 
 <%
    # fixme: this is a bit eew. We need to figure out better how to work with ES results
