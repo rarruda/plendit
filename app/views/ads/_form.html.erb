@@ -131,7 +131,7 @@
     <%= render partial: 'shared/image_manager', locals: { ad: @ad } %>
 </div>
 
-<div>
+<div class="u-push-down">
     <% if @ad.published? %>
         <%= button_tag 'lagre', class: 'button', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
     <% elsif @ad.valid? %>
