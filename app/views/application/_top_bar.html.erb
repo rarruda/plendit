@@ -14,7 +14,7 @@
         <% if user_signed_in? %>
 
             <%= link_to users_path, :class => "top-bar__navbar-link" do %>
-                <%= render('shared/avatar.html', user: current_user, size: "tiny", css_class: "top-bar__avatar") %>
+                <%= avatar_image current_user, :tiny, class: 'top-bar__avatar' %>
                 <span class="top-bar__navbar-name"><%= current_user.display_name %></span>
             <% end %>
 

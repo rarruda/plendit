@@ -16,7 +16,7 @@
     </div>
         <div class="search-result-item__profile">
             <div>
-                <%= render('shared/avatar.html', user: User.find(es_ad.user.id), size: 'medium' ) %>
+                <%= avatar_image User.find(es_ad.user.id), :medium %>
                 <br>
                 <%= render('shared/stars.html', rating: User.find(es_ad.user.id).calculate_average_rating, small: true ) %>
             </div>

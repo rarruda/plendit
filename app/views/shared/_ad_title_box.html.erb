@@ -1,6 +1,6 @@
 <div class="ad-title-box">
     <div class="ad-title-box__avatar-holder">
-        <%= render('shared/avatar.html', user: ad.user, size: "large" ) %>
+        <%= avatar_image ad.user, :large %>
         <br>
         <strong><%= link_to ad.user.display_name, user_path( ad.user.id ) %></strong>
         <br>

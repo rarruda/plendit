@@ -1,6 +1,6 @@
 <div class="row feedback-item-box">
     <div class="three columns feedback-item-box__avatar-box">
-        <%= render('shared/avatar.html', user: feedback.from_user, size: "medium" ) %>
+        <%= avatar_image feedback.from_user, :medium %>
         <p><%= link_to feedback.from_user.display_name, user_path( feedback.from_user.id ) %></p>
     </div>
     <div class="nine columns feedback-item-box__body">
