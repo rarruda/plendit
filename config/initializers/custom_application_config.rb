@@ -111,12 +111,7 @@ Plendit::Application.config.x.frontpage.popular_ads = [
     category: 'bap',
     image:    'promo_imgs/sykkel.jpg'
   },
-  { title:    'Telt',
-    term:     'telt',
-    category: 'bap',
-    image:    'promo_imgs/telt.jpg'
-  },
-  { title:    'Halloween kostyme',
+  { title:    'Halloween-kostyme',
     term:     'kostyme',
     category: 'bap',
     image:    'promo_imgs/Halloween.jpg'
