@@ -189,7 +189,7 @@ class User < ActiveRecord::Base
         user = User.new(
           name: auth.info.name,
           first_name: auth.info.first_name,
-          last_name: auth.info.first_name,
+          last_name: auth.info.last_name,
           #birthday: auth.info.birthday, #<-- not sure all oauth providers provide this field... possibly different formats too.
           email: email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
           image_url: auth.info.image,
