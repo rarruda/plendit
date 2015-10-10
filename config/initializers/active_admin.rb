@@ -233,3 +233,8 @@ ActiveAdmin.setup do |config|
   #
   # config.filters = true
 end
+
+# https://github.com/intercom/intercom-rails/issues/79
+ActiveAdmin::BaseController.class_eval do
+  skip_filter :intercom_rails_auto_include
+end
