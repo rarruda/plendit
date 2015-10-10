@@ -10,17 +10,21 @@ json.paging do
   json.default_per_page @ads.default_per_page
 end
 
-json.ads do
-  @ads.each do |ad|
-    json.set! ad._id do
-      json.id ad._id
-      json.location ad._source.geo_location
-      json.geohash ad.fields['geo_location.geohash'].last
-      json.title ad._source.title
-      json.price ad._source.price
-      json.body ad._source.body
-      json.image_url ad_image_url(ad._id)
-      json.listing_url (ad_path ad._id)
+json.cache! @ads, expires_in: 1.minute do
+  json.ads do
+    @ads.each do |ad|
+      json.cache! ad._id, expires_in: 1.minute do
+        json.set! ad._id do
+          json.id ad._id
+          json.location ad._source.geo_location
+          json.geohash ad.fields['geo_location.geohash'].last
+          json.title ad._source.title
+          json.price ad._source.price
+          json.body ad._source.body
+          json.image_url ad_image_url(ad._id)
+          json.listing_url (ad_path ad._id)
+        end
+      end
     end
   end
 end

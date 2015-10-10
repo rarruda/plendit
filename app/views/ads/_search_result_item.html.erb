@@ -1,3 +1,5 @@
+<% cache("ad_item_#{ad.id}", expires_in: 1.minute) do %>
+
 <%
    # fixme: this is a bit eew. We need to figure out better how to work with ES results
    es_ad = ad
@@ -23,3 +25,5 @@
         </div>
         <div class="search-result-item__price-floater"><%= ad.pretty_price %><br>per&nbsp;dag</div>
 </div>
+
+<% end %>

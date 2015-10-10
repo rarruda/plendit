@@ -7,16 +7,18 @@
 
         <% if notifications.any? %>
             <% current_user.recent_notifications.each do |n| %>
-                <%= link_to n.source_path, class: "notification-box__item #{'notification-box__item--read' if n.status != 'fresh'}" do %>
-                    <div class="notification-box__avatar">
-                        <%= render('shared/avatar.html', user: n.source_user, size: "small") %>
-                    </div>
-                    <div class="notification-box__body">
-                        <div class="notification-box__message">
-                            <%= n.message %>
+                <% cache do %>
+                    <%= link_to n.source_path, class: "notification-box__item #{'notification-box__item--read' if n.status != 'fresh'}" do %>
+                        <div class="notification-box__avatar">
+                            <%= render('shared/avatar.html', user: n.source_user, size: "small") %>
                         </div>
-                        <small><%= n.updated_at.to_formatted_s(:plendit_short_datetime) %></small>
-                    </div>
+                        <div class="notification-box__body">
+                            <div class="notification-box__message">
+                                <%= n.message %>
+                            </div>
+                            <small><%= n.updated_at.to_formatted_s(:plendit_short_datetime) %></small>
+                        </div>
+                    <% end %>
                 <% end %>
             <% end %>
         <% else %>
