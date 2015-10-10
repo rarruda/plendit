@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   # Force basic http authentication for the entire app, except in the callback url:
   def force_http_authentication
     if Rails.env.production? && ! ( request.params['controller'] == 'mangopay' && request.params['action'] == 'callback' )
+      # request.full_path != '/resources/mangopay/callback'
       #http_basic_authenticate_with name: ENV['PCONF_HTTP_AUTH_USERNAME'], password: ENV['PCONF_HTTP_AUTH_PASSWORD'] if Rails.env.production?
       authenticate_or_request_with_http_basic 'Test ENV'  do |name, password|
         #PCONF_HTTP_AUTH_CRED_LIST="user:secret,user2:password2"
