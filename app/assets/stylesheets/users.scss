@@ -1,8 +1,7 @@
 @import "constants";
 
 .provider-box {
-    height: 90px;
-    padding-top: $standard-spacing;
+    height: 48px;
 
     &:last-of-type {
         border-bottom: 0;
@@ -10,13 +9,12 @@
 
     &__logo-box {
         display: inline-block;
-        width: 150px;
-        height: 70px;
-        line-height: 70px;
-        text-align: center;
+        width: 90px;
     }
 
     &__logo {
+        height: 35px;
+        width: auto;
         vertical-align: middle;
     }
 

@@ -38,13 +38,13 @@
                     <%= image_tag provider[:image], size: provider[:image_size], alt: "", class: 'provider-box__logo' %>
                 </div>
                 <% if current_user.connected_to_provider provider[:id] %>
-                    <%= evil_icon 'ei-check', size: :m, class: "u-fill-green provider-box__status" %>
+                    <%= evil_icon 'ei-check', size: :s, class: "u-fill-green provider-box__status" %>
                     <a href="#" class="button u-pull-right">Koble fra</a>
                 <% else %>
                     <%= button_to user_omniauth_authorize_path(provider[:id]), class: "button u-pull-right", form_class: "u-inline" do %>
                         Koble til
                     <% end %>
-                    <%= evil_icon 'ei-close-o', size: :m, class: "u-fill-red provider-box__status" %>
+                    <%= evil_icon 'ei-close-o', size: :s, class: "u-fill-red provider-box__status" %>
                 <% end %>
             </div>
         <% end %>
