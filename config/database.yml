@@ -23,6 +23,7 @@ test:
   host: localhost
 
 production:
+  adapter: postgresql
   url: <%= ENV['DATABASE_URL'] %>
   #<<: *default
   #database: plendit
