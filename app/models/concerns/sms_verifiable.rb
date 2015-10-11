@@ -6,7 +6,7 @@ module SmsVerifiable
 
 
   def current_phone_number
-    self.unconfirmed_phone_number if not self.unconfirmed_phone_number.blank?
+    return self.unconfirmed_phone_number unless self.unconfirmed_phone_number.blank?
     self.phone_number
   end
 
@@ -54,15 +54,15 @@ module SmsVerifiable
   end
 
   def send_sms_for_phone_confirmation
-    if self.sms_sending_cool_off_elapsed? || self.phone_number_confirmation_sent_at.blank?
+    if self.sms_sending_cool_off_elapsed?
       self.phone_number_confirmation_sent_at = Time.now
-      LOG.info "Sending SMS for verification", {user_id: self.id, phone_number: self.phone_number}
+      LOG.info "Sending SMS for verification", {user_id: self.id, unconfirmed_phone_number: self.unconfirmed_phone_number}
       PhoneVerificationService.new( user_id: id ).process
     else
       LOG.info "NOT Sending SMS for verification, as a previous attempt was done at #{self.phone_number_confirmation_sent_at}, which is less then #{SMS_COOL_OFF_PERIOD} seconds ago.",
         user_id: self.id,
         phone_number_confirmation_sent_at: self.phone_number_confirmation_sent_at,
-        phone_number: self.phone_number
+        unconfirmed_phone_number: self.unconfirmed_phone_number
     end
   end
 
