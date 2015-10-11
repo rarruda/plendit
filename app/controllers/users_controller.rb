@@ -44,12 +44,11 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    # TRANSLATEME:
     @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: 'Bruker opprettet.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -120,27 +119,25 @@ class UsersController < ApplicationController
 
   # POST /me/verify_sms
   def verify_sms
-    # TRANSLATEME:
     if @user.phone_number_confirmation_token == user_params['phone_number_confirmation_token'] &&
        @user.confirm_phone_number!
-      redirect_to edit_users_path, notice: 'Your phone_number was successfully verified.'
+      redirect_to edit_users_path, notice: 'Mobilnummeret ditt er verifisert.'
     else
-      redirect_to edit_users_path, sms_notice: 'Your phone_number was NOT verified, please check the code, and try again. Eventually try resending a new verification code.'
+      redirect_to edit_users_path, sms_notice: 'Mobilnummeret ble IKKE verifisert. Kontroler koden og forsøk igjen. Du må kanskje få tilsendt en ny kode.'
     end
   end
 
   # POST /me/resend_verification_sms
   def resend_verification_sms
-    # TRANSLATEME:
     if ! @user.sms_sending_cool_off_elapsed?
-      redirect_to edit_users_path, sms_notice: 'You need to wait a bit longer before requesting a new sms with the code.'
+      redirect_to edit_users_path, sms_notice: 'Det er for kort tid siden vi sendte deg en verifikasjonskode. Prøv igjen om litt.'
     elsif @user.unconfirmed_phone_number.blank? || @user.phone_number_confirmation_token.blank?
-      redirect_to edit_users_path, notice: 'Refuse to send again a code to an unknown phone number.' #If your phone number is not correct, try updating it again.
+      redirect_to edit_users_path, notice: 'Ukjent telefonnumer. Kunne ikke sende verifikasjonskode. Oppdater nummeret ditt for å prøve igjen.'
     else
       @user.send_sms_for_phone_confirmation
       @user.save!
 
-      redirect_to edit_users_path, sms_notice: 'Sent a verification code to your phone, it should arrive in a moment.'
+      redirect_to edit_users_path, sms_notice: 'En verifikasjonskode er sendt til din telefon.'
     end
   end
 
