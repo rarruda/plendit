@@ -2,22 +2,29 @@
    # fixme: this is a bit eew. We need to figure out better how to work with ES results
    ad = AdDecorator.new(ad)
 %>
-<div class="owned-ad-item">
-    <h4><%= link_to  ad.display_title, edit_ad_path(ad) %></h4>
-    <p>
-      <%# fixme: set size here %>
-      <%= image_tag ad.safe_image_url(:thumb), alt: "", class: "u-pull-right owned-ad-item__thumb" %>
-        <%= ad.summary %>
-    </p>
-    <p><%= ad.display_status %>. Oppdatert <%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %></p>
-    <p>
-        <% if ad.is_deletable? %>
-            <%= button_to "Slett", users_ad_path(ad), method: :delete, class: "button", form_class: "u-inline" %>
-        <% else %>
-            <%= button_to "Deaktiver", users_ad_path(ad), method: :delete, class: "button", form_class: "u-inline" %>
-            <small>Historikk for utleie, samt tilbakemeldinger på utleie, vil fortsatt være tilgjengelig.</small>
-        <% end %>
 
-        <%= link_to "Endre tilgjengelighet", edit_availability_ad_path(ad), class: 'button' %>
-    </p>
-</div>
+
+<div class="my-ads">
+    <div class="my-ads__img-box">
+        <%= image_tag ad.safe_image_url(:thumb), size: '90x60', alt: '' %>
+    </div>
+    <div class="my-ads__text-box">
+        <h4><%= ad.display_title %></h4>
+        <div class="my-ads__description">
+            <%= ad.summary %>
+        </div>
+        <div class="my-ads__status">
+            <%= status_label ad %>
+        </div>
+        <div class="controls">
+            <% if ad.is_deletable? %>
+                <%= button_to "Slett", users_ad_path(ad), method: :delete, class: "button", form_class: "u-inline" %>
+            <% else %>
+                <%= button_to "Deaktiver", users_ad_path(ad), method: :delete, class: "button", form_class: "u-inline" %>
+                <small>Historikk for utleie, samt tilbakemeldinger på utleie, vil fortsatt være tilgjengelig.</small>
+            <% end %>
+
+            <%= link_to "Endre tilgjengelighet", edit_availability_ad_path(ad), class: 'button' %>
+        </div>
+    </div>
+  </div>

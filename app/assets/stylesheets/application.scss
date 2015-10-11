@@ -75,3 +75,17 @@ summary {
     border: solid 3px white;
     box-shadow: $subtle-shadow;
 }
+
+.status-label {
+    &--green {
+        color: $color-state-green;
+    }
+
+    &--yellow {
+        color: $color-state-yellow;
+    }
+
+    &--red {
+        color: $color-state-red;
+    }
+}
