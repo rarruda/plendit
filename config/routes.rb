@@ -55,6 +55,7 @@ Rails.application.routes.draw do
 
       #get 'verify_email'
       post 'verify_sms'
+      post 'resend_verification_sms'
       post 'mark_all_notifications_noticed', to: 'users#mark_all_notifications_noticed'
     end
 

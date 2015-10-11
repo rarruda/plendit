@@ -76,18 +76,17 @@ class User < ActiveRecord::Base
   enum personhood: { natural: 0, legal_business: 1, legal_organization: 2 }
 
 
-  before_save :set_city_from_postal_code
+  after_validation :set_city_from_postal_code
 
   # Set phone confirmation tokens before saving.
   # But only if the unconfirmed phone number was changed to something that isnt blank.
-  before_save :set_phone_attributes,
+  after_validation :set_phone_attributes,
     if: :unconfirmed_phone_number_changed?,
     unless: "unconfirmed_phone_number.blank?"
 
   # Send an SMS if the unconfirmed phone number changed to something that isnt blank.
   before_save  :send_sms_for_phone_confirmation,
     if: :unconfirmed_phone_number_changed?,
-    if: :phone_number_confirmation_token_changed?,
     unless: "unconfirmed_phone_number.blank?",
     if: :sms_sending_cool_off_elapsed?
 

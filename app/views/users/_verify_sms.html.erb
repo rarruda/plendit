@@ -10,11 +10,15 @@
                 <%= label_tag 'user[phone_number_confirmation_token]', "Kode fra SMS sendt til #{@user.unconfirmed_phone_number}" %>
                 <%= text_field_tag 'user[phone_number_confirmation_token]', '', { class: 'u-full-width', maxlength: 8 }  %>
             </div>
-        </div>
-        <div class="row">
             <div class="twelve columns">
                 <%= submit_tag 'Bekreft', class: 'u-pull-right button' %>
             </div>
+
+        </div>
+    </form>
+    <%= form_tag( resend_verification_sms_users_path ) %>
+        <div class="row">
+            <%= submit_tag 'Send ny melding', class: 'u-pull-right button' %>
         </div>
     </form>
 <% end %>

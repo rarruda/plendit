@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :finish_signup]
   before_action :set_user, only: [
     :show, :edit, :update, :destroy, :confirmation,
-    :verify_sms, :verify_sms, :mark_all_notifications_noticed
+    :verify_sms, :verify_sms, :mark_all_notifications_noticed,
+    :resend_verification_sms
   ]
 
   add_flash_types :sms_notice
@@ -43,6 +44,7 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
+    # TRANSLATEME:
     @user = User.new(user_params)
 
     respond_to do |format|
@@ -118,11 +120,27 @@ class UsersController < ApplicationController
 
   # POST /me/verify_sms
   def verify_sms
-    if @user.phone_number_confirmation_token == user_params['phone_number_confirmation_token'] and
+    # TRANSLATEME:
+    if @user.phone_number_confirmation_token == user_params['phone_number_confirmation_token'] &&
        @user.confirm_phone_number!
       redirect_to edit_users_path, notice: 'Your phone_number was successfully verified.'
     else
       redirect_to edit_users_path, sms_notice: 'Your phone_number was NOT verified, please check the code, and try again. Eventually try resending a new verification code.'
+    end
+  end
+
+  # POST /me/resend_verification_sms
+  def resend_verification_sms
+    # TRANSLATEME:
+    if ! @user.sms_sending_cool_off_elapsed?
+      redirect_to edit_users_path, sms_notice: 'You need to wait a bit longer before requesting a new sms with the code.'
+    elsif @user.unconfirmed_phone_number.blank? || @user.phone_number_confirmation_token.blank?
+      redirect_to edit_users_path, notice: 'Refuse to send again a code to an unknown phone number.' #If your phone number is not correct, try updating it again.
+    else
+      @user.send_sms_for_phone_confirmation
+      @user.save!
+
+      redirect_to edit_users_path, sms_notice: 'Sent a verification code to your phone, it should arrive in a moment.'
     end
   end
 
