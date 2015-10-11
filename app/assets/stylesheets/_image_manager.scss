@@ -1,7 +1,6 @@
 @import 'constants.scss';
 
 .image-manager {
-
     transition: opacity 0.2s;
 
     &__item {
@@ -12,28 +11,19 @@
     }
 
     &__thumb-box {
+
     }
 
     &__thumb {
-        border: solid thin #ccc;
+        width: 100%;
+        height: auto;
     }
 
     &__controls {
         text-align: right;
-
     }
 
-    form {
-        display: inline;
-    }
-
-    &__delete-button {
-        color: white;
-        background-color: $color-button-delete;
-    }
-
-    &__primary-button {
-        color: white;
-        background-color: $color-plendit-blue;
+    &__button {
+        margin-left: $standard-spacing / 2;
     }
 }
