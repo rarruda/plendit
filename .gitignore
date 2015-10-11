@@ -30,6 +30,7 @@
 
 # Useful for env vars needed to run, but not for checking in
 secret.env
+config/env.yml
 
 # RubyMine settings folder
 /.idea
