@@ -23,7 +23,7 @@ Plendit::Application.config.x.application_mode.beta = true
 # "kr 50.000,-"
 Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5_000, delimiter: "." )
 
-Plendit::Application.config.x.map.default_bounds             = { ne_lat: 59.97, ne_lon: 10.90, sw_lat: 59.87, sw_lon: 10.61 }
+Plendit::Application.config.x.map.default_bounds             = { ne_lat: 59.97, ne_lon: 10.90, sw_lat: 59.87, sw_lon: 10.61, zl: 13 }
 Plendit::Application.config.x.map.default_center_coordinates = { lat: 61.5, lon: 11.0 }
 Plendit::Application.config.x.map.default_zoom_level         = 6
 Plendit::Application.config.x.map.google_maps_js_api_key     ='AIzaSyAwciykMKFfGsTiDrqAwg80C5FCSq6vQr8'

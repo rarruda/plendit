@@ -105,7 +105,9 @@ gem 'okcomputer'
 gem 'evil_icons', '~> 1.7.8'
 
 # prefix CSS rules that need it
-gem "autoprefixer-rails"
+gem 'autoprefixer-rails'
+
+gem 'rschema'
 
 group :development, :test do
   # Use Capistrano for deployment
@@ -145,7 +147,7 @@ group :development, :test do
   #gem 'faker'
 
   # Trace every http call to the outside world that rails makes.
-  gem 'httplog'
+  #gem 'httplog'
 end
 
 group :production do

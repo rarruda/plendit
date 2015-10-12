@@ -130,7 +130,7 @@ window.controllers.resultMap = {
                 streetViewControl: false,
                 mapTypeControl: false,
                 center: bounds.getCenter(),
-                zoom: 13,
+                zoom: searchData.map_bounds.zl,
                 maxZoom: 18,
                 minZoom: 4,
                 styles: styles

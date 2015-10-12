@@ -186,7 +186,6 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashie (3.4.2)
-    httplog (0.2.11)
     i18n (0.7.0)
     i18n_data (0.7.0)
     ibanizator (0.3.1)
@@ -370,6 +369,7 @@ GEM
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rolify (4.1.1)
+    rschema (1.1.1)
     rspec (3.3.0)
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
@@ -479,7 +479,6 @@ DEPENDENCIES
   faker
   geocoder
   guard-rspec
-  httplog
   ibanizator (~> 0.3.1)
   intercom-rails
   jbuilder (~> 2.0)
@@ -507,6 +506,7 @@ DEPENDENCIES
   redis (~> 3.2.1)
   redis-rails
   rolify (~> 4)
+  rschema
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
