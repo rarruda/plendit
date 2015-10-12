@@ -15,12 +15,12 @@ module MapViewRememberable
   def bounds_from_params( params )
     bounds = params.select { |k, v| ['ne_lat','ne_lon','sw_lat','sw_lon'].include? k }.keep_if { |k,v| not v.blank? }
     bounds = bounds.merge(bounds) { |k, v| Float(v) } rescue nil
-    return bounds if (valid_bounds? bounds) else nil
+    bounds if (valid_bounds? bounds)
   end
 
   def bounds_from_cookie
     bounds = JSON.parse cookies[:map_bounds] rescue nil
-    return bounds if (valid_bounds? bounds) else nil
+    bounds if (valid_bounds? bounds)
   end
 
   def save_map_bounds( bounds )
