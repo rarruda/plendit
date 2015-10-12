@@ -262,8 +262,6 @@ window.controllers.resultMap = {
                 return lastSearch.ads[e];
             });
 
-            console.log(items);
-
             var multiContent = E('div.multi-marker-box', null,
                 items.map(renderSinglePopup)
             );
