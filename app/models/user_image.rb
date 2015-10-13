@@ -18,6 +18,6 @@ class UserImage < ActiveRecord::Base
   }
 
   validates_attachment_content_type :image, :content_type => ["image/jpeg", "image/jpg", "image/png"]
-  validates_attachment_file_name    :image, :matches => [/png\Z/, /jpe?g\Z/]
+  validates_attachment_file_name    :image, :matches => [/png\Z/i, /jpe?g\Z/i]
   validates_attachment_size         :image, :in => 0..2.megabytes
 end
