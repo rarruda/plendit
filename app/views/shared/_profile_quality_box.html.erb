@@ -33,7 +33,7 @@
     <div>
         <ol class="profile-quality-box__verifications-list">
             <li>
-                <% if @user.email_verified? %>
+                <% if user.email_verified? %>
                     <%= evil_icon 'ei-check', size: 'small', class: 'u-fill-green profile-quality-box__icon' %>
                     <span>e-postadresse (verifisert)</span>
                 <% else %>
@@ -43,7 +43,7 @@
             </li>
 
             <li>
-                <% if @user.phone_verified? %>
+                <% if user.phone_verified? %>
                     <%= evil_icon 'ei-check', size: 'small', class: 'u-fill-green profile-quality-box__icon' %>
                     <span>telefonnummer (verifisert)</span>
                 <% else %>
