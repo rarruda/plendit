@@ -15,7 +15,12 @@ class FeedbacksController < ApplicationController
 
   # GET /feedbacks/new
   def new
-    @feedback = Feedback.new
+    # Note: this will be a proper feedback object, but that needs to be
+    # refactored a bit once we decide how they are supposed to work.
+    # IOW this is just random objects used for writing some html that
+    # will be needed regardless of behaviour.
+    # Perhaps /me/booking/<guid>/give_feedback ?
+    @ad = Ad.find_by(status: 2).decorate
   end
 
   # GET /feedbacks/1/edit

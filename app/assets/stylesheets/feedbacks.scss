@@ -1,3 +1,44 @@
-// Place all the styles related to the Feedbacks controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "constants";
+
+
+.feedback-box {
+    background-color: white;
+    box-shadow: $subtle-shadow;
+    border: 1px solid $color-gray-background;
+
+    &__ad-item {
+        padding: $standard-spacing * 2;
+        display: flex;
+        align-items: center;
+        color: black;
+        text-decoration: none;
+        border-bottom: 1px solid $color-gray-background;
+
+        &-img-box {
+            flex-grow: 0;
+            flex-shrink: 0;
+            margin-right: $standard-spacing * 2;
+        }
+
+        &-description, &-text-box {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+    }
+
+    &__feedback {
+        padding: $standard-spacing * 2;
+        overflow: auto;
+    }
+
+    &__submit {
+        margin-left: $standard-spacing / 2;
+    }
+
+    &__star-label {
+        display: inline;
+    }
+}
+

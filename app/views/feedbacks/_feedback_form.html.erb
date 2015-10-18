@@ -1,0 +1,22 @@
+<div class="feedback-box">
+    <div class="feedback-box__ad-item">
+        <div class="feedback-box__ad-item-img-box">
+             <%= image_tag @ad.safe_image_url(:thumb), size: '90x60', alt: '' %>
+        </div>
+        <div class="feedback-box__ad-item-text-box">
+            <h4><%= @ad.display_title%></h4>
+            <div class="feedback-box__ad-item-description">
+                <%= @ad.summary %>
+            </div>
+        </div>
+    </div>
+    <div class="feedback-box__feedback">
+        <label class="feedback-box__star-label">Stjerner:</label>
+        <%= render('shared/stars.html', rating: 4, small: true ) %>
+
+        <label class="u-full-width">Tilbakemelding:</label>
+        <textarea class="u-full-width"></textarea>
+        <button class="button button-primary u-pull-right feedback-box__submit">Gi tilbakemelding</button>
+        <button class="button u-pull-right">avbryt</button>
+    </div>
+</div>
