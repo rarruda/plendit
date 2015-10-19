@@ -246,7 +246,15 @@ List av test bankkonto nummer:
 
 * Deployment instructions
 
-Will probably be deployed via capistrano. For now, there is no deployment.
+To deploy to beta:
+```
+bundle exec cap production deploy
+```
+
+To deploy to dev:
+```
+git push heroku
+```
 
 * Checking application status
 
