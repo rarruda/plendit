@@ -230,6 +230,11 @@
         display: inline-block;
         width: 130px;
     }
+
+    &__help-link {
+        font-size: small;
+        text-decoration: underline;
+    }
 }
 
 

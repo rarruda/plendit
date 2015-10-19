@@ -33,7 +33,7 @@
         <%= render partial: "google_analytics_tag" %>
     <% end %>
 </head>
-<body>
+<body data-controller="helpToggler">
     <% cache 'evil_icons' do %>
         <%= evil_icons_sprite %>
     <% end %>

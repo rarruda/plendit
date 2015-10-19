@@ -30,19 +30,21 @@
                     <li>
                         <%= link_to 'Telefonnummer', '#', class: 'user-verifications__action-link' %>
                         <%= evil_icon 'ei-exclamation', size: :t, class: 'u-fill-red u-v-bottom' %>
-                        Ikke verifisert <small>(hjelp)</small>
-                        <div class="user-verification__help">
+                        Ikke verifisert <span class="user-verifications__help-link" data-help-label-for="phone">(hvorfor?)</span>
+                        <div class="user-verifications__help u-hidden" data-help-text-for="phone">
                             Vi trenger et bekreftet telefonnumer før du kan
                             leie, eller leie ut, på plendit.
+                            <a href="#" target="_blank">Les mer.</a>
                         </div>
                     </li>
                     <li>
                         <%= link_to 'Førerkort', '#', class: 'user-verifications__action-link' %>
                         <%= evil_icon 'ei-check', size: :t, class: 'u-fill-green u-v-bottom' %>
-                        Verifisert
-
-                        <div class="user-verification__help">
+                        Verifisert 
+                        <span class="user-verifications__help-link" data-help-label-for="drivers-permit">(hvorfor?)</span>
+                        <div class="user-verifications__help u-hidden" data-help-text-for="drivers-permit">
                             Vi trenger bilde av førerkort for at du skal kunne leie motorkjøretøy.
+                            <a href="#" target="_blank">Les mer.</a>
                         </div>
 
                     </li>
@@ -50,18 +52,21 @@
                         <%= link_to 'Identitetskort', '#', class: 'user-verifications__action-link' %>
                         <%= evil_icon 'ei-eye', size: :t, class: 'u-fill-brown u-v-bottom' %>
                         Til kontroll
-                        <div class="user-verification__help">
+                        <span class="user-verifications__help-link" data-help-label-for="id-card">(hvorfor?)</span>
+                        <div class="user-verifications__help u-hidden" data-help-text-for="id-card">
                             Dette er påkrevet for å kunne utbetale summer over ,-20 000 i året.
+                            <a href="#" target="_blank">Les mer.</a>
                         </div>
                     </li>
                     <li>
                         <%= link_to 'Båtførerbevis', '#', class: 'user-verifications__action-link' %>
                         <%= evil_icon 'ei-plus', size: :t, class: 'u-fill-gray u-v-bottom' %>
-                        Ikke lastet opp <small>(hjelp)</small>
-                        <div class="user-verification__help">
-                            Vi trenger bilde av båtførerbevis for at du skal kunne leie båt.
-                        </div>
+                        Ikke lastet opp <span class="user-verifications__help-link" data-help-label-for="boat-permit">(hvorfor?)</span>
 
+                        <div class="user-verifications__help u-hidden" data-help-text-for="boat-permit">
+                            Vi trenger bilde av båtførerbevis for at du skal kunne leie båt.
+                            <a href="#" target="_blank">Les mer.</a>
+                        </div>
                     </li>
                 </ol>
             </div>

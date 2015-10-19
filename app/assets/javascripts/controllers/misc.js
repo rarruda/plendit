@@ -524,3 +524,16 @@ window.controllers.clickthrough = function(ele) {
         evt.target.parentNode.click();
     });
 }
+
+window.controllers.helpToggler = function(ele) {
+    Array.from(document.querySelectorAll("[data-help-label-for]"))
+        .forEach(function(label) {
+            var helpBox = document.querySelector("[data-help-text-for=\"" + label.getAttribute('data-help-label-for') + "\"]");
+            label.addEventListener('click', function(e) {
+                helpBox.classList.toggle('u-hidden');
+            })
+        })
+    ele.addEventListener("click", function(evt) {
+        evt.target.parentNode.click();
+    });
+}
