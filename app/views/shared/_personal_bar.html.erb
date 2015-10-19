@@ -4,22 +4,22 @@
             <div class="twelve columns">
                 <%
                     if not defined? selected
-                        selected = "Siste nytt"
+                        selected = 'Siste nytt'
                     end
 
                     links = [
-                        { text: "Siste nytt",        path: users_path },
-                        { text: "Annonser",          path: users_ads_path },
-                        { text: "Profil",            path: edit_users_path },
-                        { text: "Forespørsler",      path: bookings_path },
-                        #  BETA: show this link again. { text: "Leiehistorikk",     path: "#" },
-                        { text: "Favoritter",        path: users_favorite_ads_path },
+                        { text: 'Siste nytt',        path: users_path },
+                        { text: 'Annonser',          path: users_ads_path },
+                        { text: 'Profil',            path: edit_users_path },
+                        { text: 'Forespørsler',      path: bookings_path },
+                        #  BETA: show this link again. { text: 'Leiehistorikk',     path: '#' },
+                        { text: 'Favoritter',        path: users_favorite_ads_path },
                     ]
                     links.map { |e| e[:selected] = e[:text].downcase == selected.downcase }
                 %>
 
                 <% links.each do |link| %>
-                    <a class="personal-bar__link <%= link[:selected] ? "personal-bar__link--active" : ""%>"
+                    <a class="personal-bar__link <%= link[:selected] ? 'personal-bar__link--active' : ''%>"
                        href="<%= link[:path] %>"><%= link[:text] %></a>
                 <% end %>
              </div>
