@@ -1,0 +1,88 @@
+<%= render partial: 'shared/personal_bar', locals: {selected: 'profil'} %>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <h1>Din profil</h1>
+
+            <div class="biz-card">
+                <div class="biz-card__avatar">
+                    <%= avatar_image current_user, :huge %>
+                </div>
+                <div class="biz-card__details">
+                    <%= "#{@user.first_name} #{@user.last_name}" %>
+                    <br>
+                    <%= @user.email %>
+                    <br>
+                    Tlf: <%= @user.phone_number || 'Ikke registrert mobilnummer' %>
+                    <br>
+                    <%= link_to 'Rediger min profil', edit_users_path %>
+                    <br>
+                    <%= link_to 'Gå til min offentlige profil', user_path(current_user) %>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="user-verifications">
+                <h2>Mine verifiseringer</h2>
+                <ol class="user-verifications__list">
+                    <li>
+                        <%= link_to 'Telefonnummer', '#', class: 'user-verifications__action-link' %>
+                        <%= evil_icon 'ei-exclamation', size: :t, class: 'u-fill-red u-v-bottom' %>
+                        Ikke verifisert <small>(hjelp)</small>
+                        <div class="user-verification__help">
+                            Vi trenger et bekreftet telefonnumer før du kan
+                            leie, eller leie ut, på plendit.
+                        </div>
+                    </li>
+                    <li>
+                        <%= link_to 'Førerkort', '#', class: 'user-verifications__action-link' %>
+                        <%= evil_icon 'ei-check', size: :t, class: 'u-fill-green u-v-bottom' %>
+                        Verifisert
+
+                        <div class="user-verification__help">
+                            Vi trenger bilde av førerkort for at du skal kunne leie motorkjøretøy.
+                        </div>
+
+                    </li>
+                    <li>
+                        <%= link_to 'Identitetskort', '#', class: 'user-verifications__action-link' %>
+                        <%= evil_icon 'ei-eye', size: :t, class: 'u-fill-brown u-v-bottom' %>
+                        Til kontroll
+                        <div class="user-verification__help">
+                            Dette er påkrevet for å kunne utbetale summer over ,-20 000 i året.
+                        </div>
+                    </li>
+                    <li>
+                        <%= link_to 'Båtførerbevis', '#', class: 'user-verifications__action-link' %>
+                        <%= evil_icon 'ei-plus', size: :t, class: 'u-fill-gray u-v-bottom' %>
+                        Ikke lastet opp <small>(hjelp)</small>
+                        <div class="user-verification__help">
+                            Vi trenger bilde av båtførerbevis for at du skal kunne leie båt.
+                        </div>
+
+                    </li>
+                </ol>
+            </div>
+
+            <hr>
+
+            <div class="user-identities">
+                <h2>Mine tilkoblede identiteter</h2>
+                <ol>
+                    <li>
+                        <%= link_to 'Facebook', '#' %>
+                    </li>
+                    <li>
+                        <%= link_to 'Google', '#' %>
+                    </li>
+                    <li>
+                        <%= link_to 'SPiD', '#' %>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+

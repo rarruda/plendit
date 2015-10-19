@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       get '/',  to: 'users#index'
       post 'ads/create'
       get 'ads', to: 'ads#list'
+      get 'private_profile', to: 'users#private_profile'
 
       #get 'verify_email'
       post 'verify_sms'

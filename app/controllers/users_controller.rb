@@ -31,6 +31,10 @@ class UsersController < ApplicationController
     @user = User.find( params[:id] ).decorate
   end
 
+  def private_profile
+    @user = current_user
+  end
+
 
   # GET /users/1/edit
   def edit

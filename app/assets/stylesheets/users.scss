@@ -212,3 +212,28 @@
 
 }
 
+.biz-card {
+    background-color: white;
+    padding: $standard-spacing;
+}
+
+
+.user-verifications {
+    background-color: white;
+    padding: $standard-spacing;
+
+    &__list {
+        list-style: none;
+    }
+
+    &__action-link {
+        display: inline-block;
+        width: 130px;
+    }
+}
+
+
+.user-identities {
+    background-color: white;
+    padding: $standard-spacing;
+}
