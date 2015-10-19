@@ -16,7 +16,11 @@ The steps needed are described in detail below. Roughly, setup consis of:
 - Run rake task to load sample user data
 - Run rails console and run elasticsearch related commands
 
-At this point you should be able to start the server with `rails server`.
+At this point you should be able to start the server with `bundle exec passenger start`.
+
+Using `rails s` should still work, but not if you want to use passenger
+  (as we do in production). For more information about passenger take a look at:
+  https://www.phusionpassenger.com/library/walkthroughs/start/ruby.html#no-bundle-exec-rails-server-yet
 
 
 Things you may want to cover:

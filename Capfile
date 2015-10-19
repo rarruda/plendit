@@ -23,10 +23,10 @@ require 'capistrano/deploy'
 # require 'capistrano/rails/migrations'
 # require 'capistrano/passenger'
 
-require 'capistrano/rails'
-require 'capistrano/bundler'
 require 'capistrano/rvm'
-require 'capistrano/puma'
+require 'capistrano/bundler'
+require 'capistrano/rails'
+require 'capistrano/passenger'
 
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined

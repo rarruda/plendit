@@ -87,15 +87,14 @@ GEM
     capistrano-bundler (1.1.4)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-passenger (0.1.1)
+      capistrano (~> 3.0)
     capistrano-rails (1.1.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
-    capistrano3-puma (1.2.1)
-      capistrano (~> 3.0)
-      puma (>= 2.6)
     choice (0.2.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -186,6 +185,7 @@ GEM
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashie (3.4.2)
+    httplog (0.2.11)
     i18n (0.7.0)
     i18n_data (0.7.0)
     ibanizator (0.3.1)
@@ -282,6 +282,9 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (= 0.3.0)
+    passenger (5.0.20)
+      rack
+      rake (>= 0.8.1)
     pg (0.18.3)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
@@ -289,14 +292,12 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    puma (2.14.0)
     rack (1.6.4)
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
       rack (~> 1.4)
     rack-test (0.6.3)
       rack (>= 1.0)
-    rack-timeout (0.3.2)
     railroady (1.3.1)
     rails (4.2.1)
       actionmailer (= 4.2.1)
@@ -464,9 +465,9 @@ DEPENDENCIES
   cabin
   capistrano
   capistrano-bundler
+  capistrano-passenger
   capistrano-rails
   capistrano-rvm
-  capistrano3-puma
   coffee-rails (~> 4.1.0)
   country_select
   devise
@@ -479,6 +480,7 @@ DEPENDENCIES
   faker
   geocoder
   guard-rspec
+  httplog
   ibanizator (~> 0.3.1)
   intercom-rails
   jbuilder (~> 2.0)
@@ -495,9 +497,8 @@ DEPENDENCIES
   omniauth-spid
   paper_trail (~> 4.0.0)
   paperclip (~> 4.2)
+  passenger (~> 5.0.20)
   pg
-  puma
-  rack-timeout
   railroady
   rails (= 4.2.1)
   rails-erd

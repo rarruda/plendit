@@ -72,20 +72,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-# Use Puma as the app server
-gem 'puma'
-gem 'rack-timeout'
-
+# Use Passenger as the app server
+gem 'passenger', '~> 5.0.20'
 
 # logging:
 gem 'cabin'
 
-
-
-# to generate fake data to rake db:seed the database:
-gem 'faker'
-# Consider using it later for future generation of seed data:
-#gem 'seed_dump'
 
 # postgresql is required for both production and development
 gem 'pg'
@@ -111,11 +103,11 @@ gem 'rschema'
 
 group :development, :test do
   # Use Capistrano for deployment
-  gem 'capistrano',         require: false
-  gem 'capistrano-rvm',     require: false
-  gem 'capistrano-rails',   require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano3-puma',   require: false
+  gem 'capistrano',           require: false
+  gem 'capistrano-rvm',       require: false
+  gem 'capistrano-rails',     require: false
+  gem 'capistrano-bundler',   require: false
+  gem 'capistrano-passenger', require: false
   #gem 'capistrano-ext'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -144,10 +136,14 @@ group :development, :test do
   gem 'guard-rspec', require: false
 
   gem 'factory_girl_rails'
-  #gem 'faker'
+
+  # to generate fake data to rake db:seed the database:
+  gem 'faker'
+  # Consider using it later for future generation of seed data:
+  #gem 'seed_dump'
 
   # Trace every http call to the outside world that rails makes.
-  #gem 'httplog'
+  gem 'httplog'
 end
 
 group :production do
