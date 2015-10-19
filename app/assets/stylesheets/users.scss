@@ -215,6 +215,20 @@
 .biz-card {
     background-color: white;
     padding: $standard-spacing;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+    &__avatar {
+        width: 120px;
+        flex-shrink: 0;
+    }
+
+    &__details {
+        padding-left: $standard-spacing;
+        flex-grow: 1;
+   }
 }
 
 
