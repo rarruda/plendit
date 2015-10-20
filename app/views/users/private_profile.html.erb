@@ -107,20 +107,8 @@
 
             <hr>
 
-            <div class="user-identities">
-                <h2>Mine tilkoblede identiteter</h2>
-                <ol>
-                    <li>
-                        <%= link_to 'Facebook', '#' %>
-                    </li>
-                    <li>
-                        <%= link_to 'Google', '#' %>
-                    </li>
-                    <li>
-                        <%= link_to 'SPiD', '#' %>
-                    </li>
-                </ol>
-            </div>
+            <%= render partial: "edit_identity" %>
+
         </div>
     </div>
 </div>
