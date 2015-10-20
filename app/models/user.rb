@@ -276,7 +276,7 @@ class User < ActiveRecord::Base
       :missing
     elsif d[:front].status == 'approved' && d[:back].status == 'approved'
       :verified
-    elsif d[:front].status == 'pending' || d[:back].status == 'pending'
+    elsif d[:front].status == 'pending_approval' || d[:back].status == 'pending_approval'
       :pending
     else
       :rejected # probably not good enough
