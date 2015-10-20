@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006114135) do
+ActiveRecord::Schema.define(version: 20151020214525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -260,7 +260,7 @@ ActiveRecord::Schema.define(version: 20151006114135) do
     t.integer  "user_id"
     t.string   "guid",                  limit: 36
     t.integer  "category"
-    t.boolean  "approved"
+    t.integer  "status"
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"
