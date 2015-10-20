@@ -270,6 +270,32 @@ class User < ActiveRecord::Base
     self.mangopay_provisioned?
   end
 
+  def drivers_license_status
+    d = self.drivers_license
+    if d.nil?
+      :missing
+    elsif d[:front].approved && d[:back].approved
+      :verified
+    elsif !d[:front].approved || !d[:back].approved
+      :pending
+    else
+      :rejected # probably not good enough
+    end
+  end
+
+  def drivers_license
+    sides = self.user_documents.where(category: 1)
+
+    if sides.size > 2
+      LOG.error "User #{self.id} - #{self.decorate.display_name} has too many drivers license images"
+      # fixme: return what?
+      nil
+    elsif sides.size == 2
+      {front: sides[0], back: sides[1]}
+    else
+      nil
+    end
+  end
 
   def has_address?
     if self.home_address_line.blank? ||
