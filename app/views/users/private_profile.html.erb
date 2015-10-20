@@ -29,14 +29,15 @@
                 <ol class="user-verifications__list">
                     <li>
                         <%= link_to 'Telefonnummer', '#', class: 'user-verifications__action-link' %>
-                        
+
                         <% if @user.phone_verified? %>
-                            <%= evil_icon 'ei-check', size: :t, class: 'u-fill-green u-v-bottom' %> Verifisert
+                            <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
                         <% else %>
-                            <%# todo: state when it's sent and waiting for pin to be entered %> 
-                            <%= evil_icon 'ei-exclamation', size: :t, class: 'u-fill-red u-v-bottom' %>
-                            Ikke verifisert
-                            <span class="user-verifications__help-link" data-help-label-for="phone">(hvorfor?)</span>
+                            <%# todo: state when it's sent and waiting for pin to be entered %>
+                            <%= evil_icon 'exclamation-circle', 'Ikke verifisert', class: 'fa-lg u-fill-red u-v-bottom' %>
+                            <span class="user-verifications__help-link" data-help-label-for="phone">
+                                <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
+                            </span>
                         <% end %>
 
                         <div class="user-verifications__help u-hidden" data-help-text-for="phone">
@@ -47,14 +48,16 @@
                     </li>
                     <li>
                         <%= link_to 'E-post', '#', class: 'user-verifications__action-link' %>
-                        
+
                         <% if @user.email_verified? %>
-                            <%= evil_icon 'ei-check', size: :t, class: 'u-fill-green u-v-bottom' %> Verifisert
+                            <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
                         <% else %>
-                            <%# todo: state when it's sent and waiting for pin to be entered %> 
-                            <%= evil_icon 'ei-exclamation', size: :t, class: 'u-fill-red u-v-bottom' %>
-                            Ikke verifisert
-                            <span class="user-verifications__help-link" data-help-label-for="email">(hvorfor?)</span>
+                            <%# todo: state when it's sent and waiting for pin to be entered %>
+                            <%= icon 'exclamation-circle ', 'Ikke verifisert', class: 'fa-lg u-fill-red u-v-bottom' %>
+
+                            <span class="user-verifications__help-link" data-help-label-for="email">
+                                <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
+                            </span>
                         <% end %>
 
                         <div class="user-verifications__help u-hidden" data-help-text-for="email">
@@ -65,9 +68,11 @@
                     </li>
                     <li>
                         <%= link_to 'Førerkort', '#', class: 'user-verifications__action-link' %>
-                        <%= evil_icon 'ei-check', size: :t, class: 'u-fill-green u-v-bottom' %>
-                        Verifisert 
-                        <span class="user-verifications__help-link" data-help-label-for="drivers-permit">(hvorfor?)</span>
+                        <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
+
+                        <span class="user-verifications__help-link" data-help-label-for="drivers-permit">
+                            <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
+                        </span>
                         <div class="user-verifications__help u-hidden" data-help-text-for="drivers-permit">
                             Vi trenger bilde av førerkort for at du skal kunne leie motorkjøretøy.
                             <a href="#" target="_blank">Les mer.</a>
@@ -75,18 +80,22 @@
                     </li>
                     <li>
                         <%= link_to 'Identitetskort', '#', class: 'user-verifications__action-link' %>
-                        <%= evil_icon 'ei-eye', size: :t, class: 'u-fill-brown u-v-bottom' %>
-                        Til kontroll
-                        <span class="user-verifications__help-link" data-help-label-for="id-card">(hvorfor?)</span>
+                        <%= icon 'hourglass-half', 'Til kontroll', class: 'fa-lg u-fill-brown u-v-bottom' %>
+
+                        <span class="user-verifications__help-link" data-help-label-for="id-card">
+                            <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
+                        </span>
                         <div class="user-verifications__help u-hidden" data-help-text-for="id-card">
-                            Dette er påkrevet for å kunne utbetale summer over ,-20 000 i året.
+                            Dette er påkrevet for å kunne utbetale summer over 20 000,- i året.
                             <a href="#" target="_blank">Les mer.</a>
                         </div>
                     </li>
                     <li>
                         <%= link_to 'Båtførerbevis', '#', class: 'user-verifications__action-link' %>
-                        <%= evil_icon 'ei-plus', size: :t, class: 'u-fill-gray u-v-bottom' %>
-                        Ikke lastet opp <span class="user-verifications__help-link" data-help-label-for="boat-permit">(hvorfor?)</span>
+                        <%= icon 'plus-circle', 'Ikke lastet opp', class: 'fa-lg u-fill-gray u-v-bottom' %>
+                        <span class="user-verifications__help-link" data-help-label-for="boat-permit">
+                            <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
+                        </span>
 
                         <div class="user-verifications__help u-hidden" data-help-text-for="boat-permit">
                             Vi trenger bilde av båtførerbevis for at du skal kunne leie båt.
