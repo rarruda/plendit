@@ -43,7 +43,6 @@ Rails.application.routes.draw do
     #edit: 'edit/profile'
   }
 
-
   resource :users, path: '/me', only: [:index, :edit, :update] do
     #resources :favorite_lists do
     #  resources :favorite_ads
@@ -53,6 +52,8 @@ Rails.application.routes.draw do
       post 'ads/create'
       get 'ads', to: 'ads#list'
       get 'private_profile', to: 'users#private_profile'
+      get 'verify/drivers_license', to: 'users#verify_drivers_license'
+      post 'verify/drivers_license', to: 'users#upload_drivers_license'
 
       #get 'verify_email'
       post 'verify_sms'

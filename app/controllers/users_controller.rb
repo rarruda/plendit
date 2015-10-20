@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, :except => [:show, :finish_signup]
+  before_action :authenticate_user!, :except => [:show, :finish_signup, :upload_drivers_license, :verify_drivers_license]
   before_action :set_user, only: [
     :show, :edit, :update, :destroy, :confirmation,
     :verify_sms, :verify_sms, :mark_all_notifications_noticed,
@@ -7,6 +7,30 @@ class UsersController < ApplicationController
   ]
 
   add_flash_types :sms_notice
+
+
+  def verify_drivers_license
+    @license = current_user.drivers_license
+  end
+
+  def upload_drivers_license
+    current_license = current_user.drivers_license
+    if !current_license.nil?
+      current_license[:front].destroy!
+      current_license[:back].destroy!
+    end
+
+    front = UserDocument.new(user: current_user, category: :drivers_license)
+    front.document = params[:front]
+    front.save!
+
+    back = UserDocument.new(user: current_user, category: :drivers_license)
+    back.document = params[:back]
+    back.save!
+
+    @license = current_user.drivers_license
+    render :verify_drivers_license
+  end
 
 
   def index
