@@ -274,7 +274,7 @@ class User < ActiveRecord::Base
     d = self.drivers_license
     if d.nil?
       :missing
-    elsif d[:fronts].status == 'approved' && d[:back].status == 'approved'
+    elsif d[:front].status == 'approved' && d[:back].status == 'approved'
       :verified
     elsif d[:front].status == 'pending' || d[:back].status == 'pending'
       :pending
