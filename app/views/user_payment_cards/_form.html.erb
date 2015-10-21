@@ -4,7 +4,7 @@
          data-card-preregistration-data="<%= @user_payment_card[:preregistration_data] %>"
          data-card-access-key="<%= @user_payment_card[:access_key] %>"
          data-card-vid="<%= @user_payment_card[:card_vid] %>"
-         data-card-client-id="plendit"
+         data-card-client-id="<%= MangoPay.configuration.client_id %>"
          class="card-input">
 
         <div class="card-input__card-holder">
