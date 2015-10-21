@@ -272,7 +272,7 @@ class User < ActiveRecord::Base
 
   def drivers_license_status
     d = self.drivers_license
-    if d.nil?
+    if d.nil? || d[:front].nil? || d[:back].nil?
       :missing
     elsif d[:front].status == 'approved' && d[:back].status == 'approved'
       :verified
@@ -284,7 +284,7 @@ class User < ActiveRecord::Base
   end
 
   def drivers_license
-    {front: self.user_documents.drivers_license_front, back: self.user_documents.drivers_license_back}
+    {front: self.user_documents.where(category: 'drivers_license_front').first, back: self.user_documents.where( category: 'drivers_license_back').first}
   end
 
   def has_address?
