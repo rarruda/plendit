@@ -9,37 +9,20 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # Force basic http authentication for the entire app, except in the callback url:
+  # Force basic http authentication for the entire app, except in some callback urls:
+  #PCONF_HTTP_AUTH_CRED_LIST="user:secret,user2:password2"
   def force_http_authentication
-    if Rails.env.production? && ! ( request.params['controller'] == 'mangopay' && request.params['action'] == 'callback' )
-      # request.full_path != '/resources/mangopay/callback'
-      #http_basic_authenticate_with name: ENV['PCONF_HTTP_AUTH_USERNAME'], password: ENV['PCONF_HTTP_AUTH_PASSWORD'] if Rails.env.production?
-      authenticate_or_request_with_http_basic 'Test ENV'  do |name, password|
-        #PCONF_HTTP_AUTH_CRED_LIST="user:secret,user2:password2"
-        authenticated = false
-
-        if (ENV.has_key? 'PCONF_HTTP_AUTH_CRED_LIST') && (ENV['PCONF_HTTP_AUTH_CRED_LIST'].split(',').include? "#{name}:#{password}")
-          authenticated = true
-        end
-
-        if (ENV.has_key? 'PCONF_HTTP_AUTH_USERNAME') && (ENV.has_key? 'PCONF_HTTP_AUTH_PASSWORD') && 
-              name == ENV['PCONF_HTTP_AUTH_USERNAME'] && password == ENV['PCONF_HTTP_AUTH_PASSWORD'] then
-          authenticated = true
-        end
-
-        authenticated
-      end
-    end
-
-    # extra password protection in admin pages:
-    # should also REQUIRE SSL!
-    #if request.params['controller'].starts_with? 'admin'
-    #  authenticate_or_request_with_http_basic 'Test ENV'  do |name, password|
-    #    #name == ENV['PCONF_HTTP_AUTH_ADMIN_USERNAME'] && password == ENV['PCONF_HTTP_AUTH_ADMIN_PASSWORD']
-    #    name == ENV['PCONF_HTTP_AUTH_USERNAME'] && password == ENV['PCONF_HTTP_AUTH_PASSWORD']
-    #  end
-    #end
+    authenticate_or_request_with_http_basic 'Test ENV'  do |name, password|
+      ( ENV.has_key? 'PCONF_HTTP_AUTH_CRED_LIST' ) && ( ENV['PCONF_HTTP_AUTH_CRED_LIST'].split(',').include? "#{name}:#{password}" )
+    end if require_http_authentication?
   end
+
+  def require_http_authentication?
+    Rails.env.production? &&
+    ! ( request.path == '/resources/mangopay/callback' ||
+        request.path =~ /\/me\/auth\/(\w+)\/callback/ )
+  end
+
 
   def after_sign_in_path_for(resource)
     request.env['omniauth.origin'] || stored_location_for(resource) || root_path
