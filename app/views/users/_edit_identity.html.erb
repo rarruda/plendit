@@ -25,7 +25,6 @@
   # FIXME:
   # ** use array of identity providers or similar from config or models
   # ** fix so that after linking an account, they are redirected back here.
-  # ** do we want to enable disconnecting identities? yes. Hook that up to link
 %>
     <p>
         Du kan koble din plendit-konto til andre tjenester du bruker. Det gjør
@@ -35,17 +34,19 @@
         <% providers.each do |provider| %>
             <div class="provider-box">
                 <div class="provider-box__logo-box">
-                    <%= image_tag provider[:image], size: provider[:image_size], alt: "", class: 'provider-box__logo' %>
+                    <%= image_tag provider[:image], size: provider[:image_size], alt: '', class: 'provider-box__logo' %>
                 </div>
                 <% if current_user.connected_to_provider provider[:id] %>
                     <%= icon 'check-circle', '', class: "fa-lg u-fill-green provider-box__status" %>
-                    <a href="#" class="button u-pull-right"><%= icon 'chain-broken', '' %> Koble fra</a>
+                    <%= button_to identity_users_path,
+                          method: :delete, params: { 'user[identity][provider]' => provider[:id] }, class: "button u-pull-right", form_class: "u-inline" do %>
+                      <%= icon 'chain-broken',  'Koble fra' %>
+                    <% end %>
                 <% else %>
+                    <%= icon 'times-circle', '', class: "fa-lg u-fill-red provider-box__status" %>
                     <%= button_to user_omniauth_authorize_path(provider[:id]), class: "button u-pull-right", form_class: "u-inline" do %>
                         <%= icon 'chain', '' %> Koble til
                     <% end %>
-
-                    <%= icon 'times-circle', '', class: "fa-lg u-fill-red provider-box__status" %>
                 <% end %>
             </div>
         <% end %>

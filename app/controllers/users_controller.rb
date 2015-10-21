@@ -129,6 +129,17 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE /me/identity
+  def destroy_identity
+    if current_user.identities.find_by(provider: params[:user][:identity][:provider]).destroy!
+      redirect_to :back, notice: "disconnected your account from #{params[:user][:identity][:provider]}"
+    else
+      redirect_to :back, notice: "failed disconnecting your account from #{params[:user][:identity][:provider]}"
+    end
+  rescue ActionController::RedirectBackError
+    redirect_to edit_users_path #( anchor: 'identities' )
+  end
+
   # FIXME: eventually we should support deleting avatars.
 
   # GET/PATCH /users/:id/finish_signup
@@ -194,7 +205,8 @@ class UsersController < ApplicationController
         :password, :password_confirmation,
         :current_phone_number, :phone_number_confirmation_token,
          user_payment_account_attributes: [:id, :bank_account_number],
-         user_images_attributes: [:id, :image, :category]
+         user_images_attributes: [:id, :image, :category],
+         identity_attributes: [:provider]
       )
     end
 end

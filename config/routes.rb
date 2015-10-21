@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       post 'verify_sms'
       post 'resend_verification_sms'
       post 'mark_all_notifications_noticed', to: 'users#mark_all_notifications_noticed'
+      delete 'identity', to: 'users#destroy_identity'
     end
 
     # maybe these should be in the "namespace" users ?

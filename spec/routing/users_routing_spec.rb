@@ -30,6 +30,13 @@ RSpec.describe "routing to users", :type => :routing do
         :action => "edit",
       )
     end
+
+    it 'routes /me/identity to users#destroy_identity' do
+      expect(:delete => "/me/identity").to route_to(
+        :controller => "users",
+        :action => "destroy_identity",
+      )
+    end
   end
 
   context "Ads routes" do
