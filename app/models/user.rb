@@ -284,8 +284,7 @@ class User < ActiveRecord::Base
   end
 
   def drivers_license
-    sides = self.user_documents.where(category: [1, 2])
-    {front: sides[0], back: sides[1]} if sides.size == 2
+    {front: self.user_documents.drivers_license_front, back: self.user_documents.drivers_license_back}
   end
 
   def has_address?
