@@ -47,7 +47,7 @@
                    <%= icon 'plus-circle', 'Last opp', class: 'fa-fw u-fill-gray' %>
                 <% elsif current_user.drivers_license_status == :pending %>
                    <%= icon 'eye', 'Venter på godkjenning', class: 'fa-fw u-fill-brown' %>
-                <% elsif current_user.drivers_license_status == :veified %>
+                <% elsif current_user.drivers_license_status == :verified %>
                    <%= icon 'check-circle-o', 'Godkjent', class: 'fa-fw u-fill-green' %>
                 <% elsif current_user.drivers_license_status == :rejected %>
                    <%= icon 'exclamation-triangle', 'Avvist', class: 'fa-fw u-fill-gold' %>
