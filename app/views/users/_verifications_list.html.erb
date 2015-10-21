@@ -5,10 +5,10 @@
                 <%= link_to 'Telefonnummer', '#', class: 'user-verifications__action-link' %>
 
                 <% if @user.phone_verified? %>
-                    <%= icon 'check-circle', 'Verifisert', class: 'fa-fw u-fill-green' %>
+                    <%= icon_verification_ok %>
                 <% else %>
                     <%# todo: state when it's sent and waiting for pin to be entered %>
-                    <%= icon 'exclamation-circle', 'Ikke verifisert', class: 'fa-fw u-fill-red' %>
+                    <%= icon_verification_required %>
                     <span class="user-verifications__help-link" data-help-label-for="phone">
                         <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
                     </span>
@@ -24,10 +24,10 @@
                 <%= link_to 'E-post', '#', class: 'user-verifications__action-link' %>
 
                 <% if @user.email_verified? %>
-                    <%= icon 'check-circle', 'Verifisert', class: 'fa-fw u-fill-green' %>
+                    <%= icon_verification_ok %>
                 <% else %>
                     <%# todo: state when it's sent and waiting for pin to be entered %>
-                    <%= icon 'exclamation-circle ', 'Ikke verifisert', class: 'fa-fw u-fill-red' %>
+                    <%= icon_verification_required %>
 
                     <span class="user-verifications__help-link" data-help-label-for="email">
                         <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
@@ -44,14 +44,14 @@
                 <%= link_to 'Førerkort', verify_drivers_license_users_path, class: 'user-verifications__action-link' %>
 
                 <% if current_user.drivers_license_status == :verified %>
-                   <%= icon 'check-circle-o', 'Godkjent', class: 'fa-fw u-fill-green' %>
+                    <%= icon_verification_ok %>
                 <% else %>
                     <% if current_user.drivers_license_status == :missing %>
-                       <%= icon 'plus-circle', 'Last opp', class: 'fa-fw u-fill-gray' %>
+                       <%= icon_verification_missing %>
                     <% elsif current_user.drivers_license_status == :pending %>
-                       <%= icon 'eye', 'Venter på godkjenning', class: 'fa-fw u-fill-brown' %>
+                       <%= icon_verification_pending %>
                     <% elsif current_user.drivers_license_status == :rejected %>
-                       <%= icon 'exclamation-triangle', 'Avvist', class: 'fa-fw u-fill-gold' %>
+                       <%= icon_verification_rejected %>
                     <% else %>
                         <!-- Unknown status -->
                     <% end %>
@@ -72,14 +72,14 @@
                 <%= link_to 'Identitetskort', verify_id_card_users_path, class: 'user-verifications__action-link' %>
 
                 <% if current_user.id_card_status == :verified || current_user.drivers_license_status == :verified %>
-                   <%= icon 'check-circle-o', 'Godkjent', class: 'fa-fw u-fill-green' %>
+                   <%= icon_verification_ok %>
                 <% else %>
                     <% if current_user.id_card_status == :missing %>
-                       <%= icon 'plus-circle', 'Last opp', class: 'fa-fw u-fill-gray' %>
+                       <%= icon_verification_missing %>
                     <% elsif current_user.id_card_status == :pending %>
-                       <%= icon 'eye', 'Venter på godkjenning', class: 'fa-fw u-fill-brown' %>
+                       <%= icon_verification_pending %>
                     <% elsif current_user.id_card_status == :rejected %>
-                       <%= icon 'exclamation-triangle', 'Avvist', class: 'fa-fw u-fill-gold' %>
+                       <%= icon_verification_rejected %>
                     <% else %>
                         <!-- Unknown status -->
                     <% end %>
@@ -98,7 +98,7 @@
             </li>
             <li>
                 <%= link_to 'Båtførerbevis', '#', class: 'user-verifications__action-link' %>
-                <%= icon 'plus-circle', 'Ikke lastet opp', class: 'fa-fw u-fill-gray' %>
+                    <%= icon_verification_missing %>
                 <span class="user-verifications__help-link" data-help-label-for="boat-permit">
                     <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
                 </span>
