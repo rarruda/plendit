@@ -199,6 +199,12 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /me/payment
+  def payment
+    @user_payment_cards = current_user.user_payment_cards
+  end
+
+
   # POST /mark_all_notifications_noticed
   def mark_all_notifications_noticed
     @user.notifications

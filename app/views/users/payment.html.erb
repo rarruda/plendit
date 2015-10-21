@@ -1,0 +1,19 @@
+<%= render partial: "shared/personal_bar", locals: {selected: 'Betaling'} %>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <h1>Din profil</h1>
+
+            <%= render partial: "user_payment_cards/list" %>
+            <%#= render partial: "user_payment_account/index" %>
+
+            <%#= render partial: "users/payment/transaction" %>
+
+        </div>
+
+        <div class="four columns">
+            <%= render partial: "users/payment/payout_wallet_balance" %>
+        </div>
+    </div>
+</div>
