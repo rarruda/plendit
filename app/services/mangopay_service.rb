@@ -55,13 +55,13 @@ class MangopayService
           card_vid:  card['CardId'],
           status_mp: card['Status']
         )
-      #@user.user_payment_card.card_vid  = card['CardId']
-      #@user.user_payment_card.status_mp = card['Status']
       @user.user_payment_card.save!
     rescue MangoPay::ResponseError => e
       LOG.error "error registering card with mangopay. MangoPay::ResponseError: #{e}", { user_id: @user.id, card_vid: card_vid, mangopay_result: card }
+      false
     rescue => e
       LOG.error "error registering card. exception: #{e}", { user_id: @user.id, card_vid: card_vid, mangopay_result: card }
+      false
     end
   end
 
