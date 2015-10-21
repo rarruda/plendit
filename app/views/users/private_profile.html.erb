@@ -22,88 +22,87 @@
                 </div>
             </div>
 
-            <hr>
+            <%= render layout: "gray_box", locals: {title: 'Mine verifiseringer'} do %>
+                <div class="user-verifications">
+                    <ol class="user-verifications__list">
+                        <li>
+                            <%= link_to 'Telefonnummer', '#', class: 'user-verifications__action-link' %>
 
-            <div class="user-verifications">
-                <h2>Mine verifiseringer</h2>
-                <ol class="user-verifications__list">
-                    <li>
-                        <%= link_to 'Telefonnummer', '#', class: 'user-verifications__action-link' %>
+                            <% if @user.phone_verified? %>
+                                <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
+                            <% else %>
+                                <%# todo: state when it's sent and waiting for pin to be entered %>
+                                <%= icon 'exclamation-circle', 'Ikke verifisert', class: 'fa-lg u-fill-red u-v-bottom' %>
+                                <span class="user-verifications__help-link" data-help-label-for="phone">
+                                    <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
+                                </span>
+                            <% end %>
 
-                        <% if @user.phone_verified? %>
+                            <div class="user-verifications__help u-hidden" data-help-text-for="phone">
+                                Vi trenger et bekreftet telefonnumer før du kan
+                                leie, eller leie ut, på plendit.
+                                <a href="#" target="_blank">Les mer.</a>
+                            </div>
+                        </li>
+                        <li>
+                            <%= link_to 'E-post', '#', class: 'user-verifications__action-link' %>
+
+                            <% if @user.email_verified? %>
+                                <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
+                            <% else %>
+                                <%# todo: state when it's sent and waiting for pin to be entered %>
+                                <%= icon 'exclamation-circle ', 'Ikke verifisert', class: 'fa-lg u-fill-red u-v-bottom' %>
+
+                                <span class="user-verifications__help-link" data-help-label-for="email">
+                                    <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
+                                </span>
+                            <% end %>
+
+                            <div class="user-verifications__help u-hidden" data-help-text-for="email">
+                                Vi trenger en bekreftet e-postadresse før du kan
+                                leie, eller leie ut, på plendit.
+                                <a href="#" target="_blank">Les mer.</a>
+                            </div>
+                        </li>
+                        <li>
+                            <%= link_to 'Førerkort', verify_drivers_license_users_path, class: 'user-verifications__action-link' %>
                             <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
-                        <% else %>
-                            <%# todo: state when it's sent and waiting for pin to be entered %>
-                            <%= evil_icon 'exclamation-circle', 'Ikke verifisert', class: 'fa-lg u-fill-red u-v-bottom' %>
-                            <span class="user-verifications__help-link" data-help-label-for="phone">
+
+                            <span class="user-verifications__help-link" data-help-label-for="drivers-permit">
                                 <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
                             </span>
-                        <% end %>
+                            <div class="user-verifications__help u-hidden" data-help-text-for="drivers-permit">
+                                Vi trenger bilde av førerkort for at du skal kunne leie motorkjøretøy.
+                                <a href="#" target="_blank">Les mer.</a>
+                            </div>
+                        </li>
+                        <li>
+                            <%= link_to 'Identitetskort', '#', class: 'user-verifications__action-link' %>
+                            <%= icon 'hourglass-half', 'Til kontroll', class: 'fa-lg u-fill-brown u-v-bottom' %>
 
-                        <div class="user-verifications__help u-hidden" data-help-text-for="phone">
-                            Vi trenger et bekreftet telefonnumer før du kan
-                            leie, eller leie ut, på plendit.
-                            <a href="#" target="_blank">Les mer.</a>
-                        </div>
-                    </li>
-                    <li>
-                        <%= link_to 'E-post', '#', class: 'user-verifications__action-link' %>
-
-                        <% if @user.email_verified? %>
-                            <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
-                        <% else %>
-                            <%# todo: state when it's sent and waiting for pin to be entered %>
-                            <%= icon 'exclamation-circle ', 'Ikke verifisert', class: 'fa-lg u-fill-red u-v-bottom' %>
-
-                            <span class="user-verifications__help-link" data-help-label-for="email">
+                            <span class="user-verifications__help-link" data-help-label-for="id-card">
                                 <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
                             </span>
-                        <% end %>
+                            <div class="user-verifications__help u-hidden" data-help-text-for="id-card">
+                                Dette er påkrevet for å kunne utbetale summer over 20 000,- i året.
+                                <a href="#" target="_blank">Les mer.</a>
+                            </div>
+                        </li>
+                        <li>
+                            <%= link_to 'Båtførerbevis', '#', class: 'user-verifications__action-link' %>
+                            <%= icon 'plus-circle', 'Ikke lastet opp', class: 'fa-lg u-fill-gray u-v-bottom' %>
+                            <span class="user-verifications__help-link" data-help-label-for="boat-permit">
+                                <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
+                            </span>
 
-                        <div class="user-verifications__help u-hidden" data-help-text-for="email">
-                            Vi trenger en bekreftet e-postadresse før du kan
-                            leie, eller leie ut, på plendit.
-                            <a href="#" target="_blank">Les mer.</a>
-                        </div>
-                    </li>
-                    <li>
-                        <%= link_to 'Førerkort', verify_drivers_license_users_path, class: 'user-verifications__action-link' %>
-                        <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
-
-                        <span class="user-verifications__help-link" data-help-label-for="drivers-permit">
-                            <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
-                        </span>
-                        <div class="user-verifications__help u-hidden" data-help-text-for="drivers-permit">
-                            Vi trenger bilde av førerkort for at du skal kunne leie motorkjøretøy.
-                            <a href="#" target="_blank">Les mer.</a>
-                        </div>
-                    </li>
-                    <li>
-                        <%= link_to 'Identitetskort', '#', class: 'user-verifications__action-link' %>
-                        <%= icon 'hourglass-half', 'Til kontroll', class: 'fa-lg u-fill-brown u-v-bottom' %>
-
-                        <span class="user-verifications__help-link" data-help-label-for="id-card">
-                            <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
-                        </span>
-                        <div class="user-verifications__help u-hidden" data-help-text-for="id-card">
-                            Dette er påkrevet for å kunne utbetale summer over 20 000,- i året.
-                            <a href="#" target="_blank">Les mer.</a>
-                        </div>
-                    </li>
-                    <li>
-                        <%= link_to 'Båtførerbevis', '#', class: 'user-verifications__action-link' %>
-                        <%= icon 'plus-circle', 'Ikke lastet opp', class: 'fa-lg u-fill-gray u-v-bottom' %>
-                        <span class="user-verifications__help-link" data-help-label-for="boat-permit">
-                            <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
-                        </span>
-
-                        <div class="user-verifications__help u-hidden" data-help-text-for="boat-permit">
-                            Vi trenger bilde av båtførerbevis for at du skal kunne leie båt.
-                            <a href="#" target="_blank">Les mer.</a>
-                        </div>
-                    </li>
-                </ol>
-            </div>
+                            <div class="user-verifications__help u-hidden" data-help-text-for="boat-permit">
+                                Vi trenger bilde av båtførerbevis for at du skal kunne leie båt.
+                                <a href="#" target="_blank">Les mer.</a>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            <% end %>
 
             <hr>
 
