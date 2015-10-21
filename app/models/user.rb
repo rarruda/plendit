@@ -318,6 +318,27 @@ class User < ActiveRecord::Base
     self.user_documents.find_by(category: UserDocument.categories[:id_card])
   end
 
+  def delete_current_boat_license
+    self.user_documents.where(category: UserDocument.categories[:boat_license]).destroy_all
+  end
+
+  def boat_license_status
+    card = self.boat_license
+    if card.nil?
+      :missing
+    elsif card.status == 'approved'
+      :verified
+    elsif card.status == 'pending_approval'
+      :pending
+    else
+      :rejected # probably not good enough
+    end
+  end
+
+  def boat_license
+    self.user_documents.find_by(category: UserDocument.categories[:boat_license])
+  end
+
   def has_address?
     if self.home_address_line.blank? ||
       self.home_post_code.blank? ||

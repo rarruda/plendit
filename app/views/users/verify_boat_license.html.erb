@@ -1,0 +1,51 @@
+<%= render partial: 'shared/personal_bar', locals: { selected: 'Profil' } %>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <h1>Båtførerbevis</h1>
+
+            <% if current_user.boat_license_status == :missing %>
+                <p>
+                    For å kunne leie båt må vi
+                    ha et gyldig båtførerbevis fra deg.
+                </p>
+
+                <p>
+                    Du kan lese mer om krav til dokumentasjon og hvordan
+                    plendit behandler personlige dokumenter
+                    <%= link_to 'på kundesenteret.', '#' %>
+                </p>
+
+                 <%= form_for '', html: { multipart: true } do |f| %>
+                    <%= f.label :image, 'Last opp bilde av båtførerbevis her:' %>
+                    
+                    <%= f.file_field :image %>
+                    <br>
+                    <%= f.submit 'Last opp', class: 'button button-primary' %>
+                <% end %>
+            <% elsif current_user.boat_license_status == :pending %>
+                <p>
+                    <%= plendbot_avatar :huge, class: 'u-pull-left' %>
+                    Båtførerbevis ditt er lastet opp og sendt til kontroll.
+                    Du får en melding når det er godkjent.
+                </p>
+                <p>
+                    <%= link_to 'Tilbake til min profil', users_path %>
+                </p>
+            <% elsif current_user.boat_license_status == :verified %>
+                <p>
+                    <%= plendbot_avatar :huge, class: 'u-pull-left' %>
+                    Båtførerbevis ditt er allerede godkjent!
+                </p>
+                <p>
+                    <%= link_to 'Tilbake til min profil', users_path %>
+                </p>
+            <% else %>
+                Unknown state
+            <% end %>
+        </div>
+    </div>
+</div>
+
+

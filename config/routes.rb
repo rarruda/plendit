@@ -57,6 +57,8 @@ Rails.application.routes.draw do
 
       get 'verify/id_card', to: 'users#verify_id_card'
       post 'verify/id_card', to: 'users#upload_id_card'
+      get 'verify/boat_license', to: 'users#verify_boat_license'
+      post 'verify/boat_license', to: 'users#upload_boat_license'
 
       #get 'verify_email'
       post 'verify_sms'

@@ -40,6 +40,17 @@ class UsersController < ApplicationController
     render :verify_id_card
   end
 
+  def verify_boat_license
+    @card = current_user.boat_license
+  end
+
+  def upload_boat_license
+    current_user.delete_current_boat_license
+    @card = UserDocument.new(user: current_user, category: :boat_license, status: :pending_approval)
+    @card.document = params[:image]
+    @card.save!
+    render :verify_boat_license
+  end
 
   def index
   end

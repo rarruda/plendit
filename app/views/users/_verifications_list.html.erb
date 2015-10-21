@@ -95,11 +95,25 @@
 
             </li>
             <li>
-                <%= link_to 'Båtførerbevis', '#', class: 'user-verifications__action-link' %>
-                    <%= icon_verification_missing %>
-                <span class="user-verifications__help-link" data-help-label-for="boat-permit">
-                    <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
-                </span>
+                <%= link_to 'Båtførerbevis', verify_boat_license_users_path, class: 'user-verifications__action-link' %>
+
+                <% if current_user.boat_license_status == :verified %>
+                   <%= icon_verification_ok %>
+                <% else %>
+                    <% if current_user.boat_license_status == :missing %>
+                       <%= icon_verification_missing %>
+                    <% elsif current_user.boat_license_status == :pending %>
+                       <%= icon_verification_pending %>
+                    <% elsif current_user.boat_license_status == :rejected %>
+                       <%= icon_verification_rejected %>
+                    <% else %>
+                        <!-- Unknown status -->
+                    <% end %>
+
+                    <span class="user-verifications__help-link" data-help-label-for="boat-permit">
+                        <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
+                    </span>
+                <% end %>
 
                 <div class="user-verifications__help u-hidden" data-help-text-for="boat-permit">
                     Vi trenger bilde av båtførerbevis for at du skal kunne leie båt.
