@@ -16,8 +16,9 @@
                     ]
 
                     unless Plendit::Application.config.x.application_mode.beta
-                        links << { text: 'Leiehistorikk',     path: '#' }
-                        links << { text: 'Betaling',          path: payment_users_path }
+                        links << { text: '[Leiehistorikk]',     path: '#' }
+                        links << { text: '[Betaling]',          path: payment_users_path }
+                        links << { text: '[NyProfil]',          path: private_profile_users_path }
                     end
 
                     links.map { |e| e[:selected] = e[:text].downcase == selected.downcase }
