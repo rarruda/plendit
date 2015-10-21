@@ -29,10 +29,10 @@
                             <%= link_to 'Telefonnummer', '#', class: 'user-verifications__action-link' %>
 
                             <% if @user.phone_verified? %>
-                                <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
+                                <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green' %>
                             <% else %>
                                 <%# todo: state when it's sent and waiting for pin to be entered %>
-                                <%= icon 'exclamation-circle', 'Ikke verifisert', class: 'fa-lg u-fill-red u-v-bottom' %>
+                                <%= icon 'exclamation-circle', 'Ikke verifisert', class: 'fa-lg u-fill-red' %>
                                 <span class="user-verifications__help-link" data-help-label-for="phone">
                                     <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
                                 </span>
@@ -48,10 +48,10 @@
                             <%= link_to 'E-post', '#', class: 'user-verifications__action-link' %>
 
                             <% if @user.email_verified? %>
-                                <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
+                                <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green' %>
                             <% else %>
                                 <%# todo: state when it's sent and waiting for pin to be entered %>
-                                <%= icon 'exclamation-circle ', 'Ikke verifisert', class: 'fa-lg u-fill-red u-v-bottom' %>
+                                <%= icon 'exclamation-circle ', 'Ikke verifisert', class: 'fa-lg u-fill-red' %>
 
                                 <span class="user-verifications__help-link" data-help-label-for="email">
                                     <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
@@ -66,7 +66,7 @@
                         </li>
                         <li>
                             <%= link_to 'Førerkort', verify_drivers_license_users_path, class: 'user-verifications__action-link' %>
-                            <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green u-v-bottom' %>
+                            <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green' %>
 
                             <span class="user-verifications__help-link" data-help-label-for="drivers-permit">
                                 <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
@@ -78,7 +78,7 @@
                         </li>
                         <li>
                             <%= link_to 'Identitetskort', '#', class: 'user-verifications__action-link' %>
-                            <%= icon 'hourglass-half', 'Til kontroll', class: 'fa-lg u-fill-brown u-v-bottom' %>
+                            <%= icon 'hourglass-half', 'Til kontroll', class: 'fa-lg u-fill-brown' %>
 
                             <span class="user-verifications__help-link" data-help-label-for="id-card">
                                 <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
@@ -90,7 +90,7 @@
                         </li>
                         <li>
                             <%= link_to 'Båtførerbevis', '#', class: 'user-verifications__action-link' %>
-                            <%= icon 'plus-circle', 'Ikke lastet opp', class: 'fa-lg u-fill-gray u-v-bottom' %>
+                            <%= icon 'plus-circle', 'Ikke lastet opp', class: 'fa-lg u-fill-gray' %>
                             <span class="user-verifications__help-link" data-help-label-for="boat-permit">
                                 <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
                             </span>
