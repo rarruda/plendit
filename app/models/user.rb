@@ -339,32 +339,13 @@ class User < ActiveRecord::Base
     # instantiating mangopay service:
     mangopay = MangopayService.new( self )
 
-    #log context starts here.
-
     if self.payment_provider_vid.blank?
-      LOG.info "Provisioning user with Mangopay:"
-      result = mangopay.provision_user
-      LOG.info "result: #{result}"
+      mangopay.provision_user
     end
 
-    if self.payment_provider_vid.blank?
-      LOG.error "Refuse to provision wallets, as user is not provisioned with mangopay and registered with us."
-    else
-      # build user_payment_account relation if it doesnt exist from before.
-      self.build_user_payment_account if self.user_payment_account.nil?
-
-      if self.payin_wallet_vid.blank?
-        LOG.info "Provisioning PayIn wallet with Mangopay:"
-        result = mangopay.provision_payin_wallet
-        LOG.info "result: #{result}"
-      end
-      if self.payout_wallet_vid.blank?
-        LOG.info "Provisioning PayOut wallet with Mangopay:"
-        result = mangopay.provision_payout_wallet
-        LOG.info "result: #{result}"
-      end
+    if ( ! self.payment_provider_vid.blank? ) && ( self.payin_wallet_vid.blank? || self.payout_wallet_vid.blank? )
+      mangopay.provision_wallets
     end
-    #end log context
   end
 
 
