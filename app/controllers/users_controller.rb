@@ -14,11 +14,7 @@ class UsersController < ApplicationController
   end
 
   def upload_drivers_license
-    current_license = current_user.drivers_license
-    if !current_license.nil?
-      current_license[:front].destroy!
-      current_license[:back].destroy!
-    end
+    current_user.delete_current_drivers_license
 
     front = UserDocument.new(user: current_user, category: :drivers_license_front, status: :pending_approval)
     front.document = params[:front]

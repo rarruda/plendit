@@ -283,8 +283,18 @@ class User < ActiveRecord::Base
     end
   end
 
+  def delete_current_drivers_license
+    self.user_documents
+      .where(category: [ UserDocument.categories[:drivers_license_front], UserDocument.categories[:drivers_license_back] ])
+      .destroy_all
+  end
+
   def drivers_license
-    {front: self.user_documents.where(category: 'drivers_license_front').first, back: self.user_documents.where( category: 'drivers_license_back').first}
+    sides = {
+      front: self.user_documents.find_by(category: UserDocument.categories[:drivers_license_front]),
+      back: self.user_documents.where( category: UserDocument.categories[:drivers_license_back])
+    }
+    sides if sides.none? { |k, v| v.nil? }
   end
 
   def has_address?
