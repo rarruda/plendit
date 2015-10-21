@@ -20,11 +20,11 @@ class UsersController < ApplicationController
       current_license[:back].destroy!
     end
 
-    front = UserDocument.new(user: current_user, category: :drivers_license_front, status: 2)
+    front = UserDocument.new(user: current_user, category: :drivers_license_front, status: :pending_approval)
     front.document = params[:front]
     front.save!
 
-    back = UserDocument.new(user: current_user, category: :drivers_license_back, status: 2)
+    back = UserDocument.new(user: current_user, category: :drivers_license_back, status: :pending_approval)
     back.document = params[:back]
     back.save!
 
