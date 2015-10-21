@@ -284,17 +284,8 @@ class User < ActiveRecord::Base
   end
 
   def drivers_license
-    sides = self.user_documents.where(category: 1)
-
-    if sides.size > 2
-      LOG.error "User #{self.id} - #{self.decorate.display_name} has too many drivers license images"
-      # fixme: return what?
-      nil
-    elsif sides.size == 2
-      {front: sides[0], back: sides[1]}
-    else
-      nil
-    end
+    sides = self.user_documents.where(category: [1, 2])
+    {front: sides[0], back: sides[1]} if sides.size == 2
   end
 
   def has_address?
