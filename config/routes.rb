@@ -25,9 +25,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/me/cards/flush_cache', as: 'cards_flush_cache', to: 'user_payment_cards#flush_cache'
-  resources :user_payment_cards, path: '/me/cards', param: :guid, only: [:index, :new, :create, :destroy, :flush_cache]
-
+  resources :user_payment_cards, path: '/me/cards', param: :guid, only: [:index, :new, :create, :destroy]
+  # move to /me/payment/cards
 
   # see: https://github.com/plataformatec/devise/blob/master/lib/devise/rails/routes.rb
   devise_for :users, :controllers => {
