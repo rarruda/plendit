@@ -42,7 +42,18 @@
             </li>
             <li>
                 <%= link_to 'Førerkort', verify_drivers_license_users_path, class: 'user-verifications__action-link' %>
-                <%= icon 'check-circle', 'Verifisert', class: 'fa-lg u-fill-green' %>
+
+                <% if current_user.drivers_license_status == :missing %>
+                   <%= icon 'plus-circle', 'Last opp', class: 'fa-fw u-fill-gray' %>
+                <% elsif current_user.drivers_license_status == :pending %>
+                   <%= icon 'eye', 'Venter på godkjenning', class: 'fa-fw u-fill-brown' %>
+                <% elsif current_user.drivers_license_status == :veified %>
+                   <%= icon 'check-circle-o', 'Godkjent', class: 'fa-fw u-fill-green' %>
+                <% elsif current_user.drivers_license_status == :rejected %>
+                   <%= icon 'exclamation-triangle', 'Avvist', class: 'fa-fw u-fill-gold' %>
+                <% else %>
+                    <!-- Unknown status -->
+                <% end %>
 
                 <span class="user-verifications__help-link" data-help-label-for="drivers-permit">
                     <%= icon 'info-circle', 'hvorfor?', class: 'fa-lg' %>
