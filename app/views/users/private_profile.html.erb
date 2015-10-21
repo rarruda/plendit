@@ -5,22 +5,27 @@
         <div class="eight columns">
             <h1>Din profil</h1>
 
-            <div class="biz-card">
-                <div class="biz-card__avatar">
-                    <%= avatar_image current_user, :huge %>
+
+            <%= render layout: "gray_box", locals: {title: ''} do %>
+
+                <div class="biz-card">
+                    <div class="biz-card__avatar">
+                        <%= avatar_image current_user, :huge %>
+                    </div>
+                    <div class="biz-card__details">
+                        <strong><%= current_user.display_name %></strong>
+                        <br>
+                        <%= current_user.email %>
+                        <br>
+                        Tlf: <%= current_user.phone_number || 'Ikke registrert mobilnummer' %>
+                        <br>
+                        <%= link_to 'Rediger min profil', edit_users_path %>
+                        <br>
+                        <%= link_to 'Gå til min offentlige profil', user_path(current_user) %>
+                    </div>
                 </div>
-                <div class="biz-card__details">
-                    <%= "#{@user.first_name} #{@user.last_name}" %>
-                    <br>
-                    <%= @user.email %>
-                    <br>
-                    Tlf: <%= @user.phone_number || 'Ikke registrert mobilnummer' %>
-                    <br>
-                    <%= link_to 'Rediger min profil', edit_users_path %>
-                    <br>
-                    <%= link_to 'Gå til min offentlige profil', user_path(current_user) %>
-                </div>
-            </div>
+            <% end %>
+
 
             <%= render layout: "gray_box", locals: {title: 'Mine verifiseringer'} do %>
                 <div class="user-verifications">
@@ -103,8 +108,6 @@
                     </ol>
                 </div>
             <% end %>
-
-            <hr>
 
             <%= render partial: "edit_identity" %>
 
