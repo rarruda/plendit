@@ -297,6 +297,10 @@ class User < ActiveRecord::Base
     sides if sides.none? { |k, v| v.nil? }
   end
 
+  def delete_current_id_card
+    self.user_documents.where(category: UserDocument.categories[:id_card]).destroy_all
+  end
+
   def id_card_status
     card = self.id_card
     if card.nil?

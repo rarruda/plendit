@@ -3,42 +3,46 @@
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <h1>ID KOERT!</h1>
+            <h1>Identitetsbevis</h1>
 
-            <% if current_user.drivers_license_status == :missing %>
+            <% if current_user.id_card_status == :missing %>
                 <p>
-                    For at du skal kunne leie en bil trenger vi at du laster
-                    opp bilder av forsiden og baksiden av førerkortet ditt.
+                    For å kunne overføre summer over 2500 euro må vi
+                    ha et gyldig identitetsbevis fra deg.
+                </p>
+
+                <p>
+                    Merk, hvis du har et førerkort kan du
+                    <%= link_to 'laste det opp her.', verify_drivers_license_users_path %>
+                    Førerkort er et gyldig identitetsbevis.
                 </p>
 
                 <p>
                     Du kan lese mer om krav til dokumentasjon og hvordan
                     plendit behandler personlige dokumenter
-                    <%= link_to 'på kundesenteret', '#' %>.
+                    <%= link_to 'på kundesenteret.', '#' %>
                 </p>
 
-                <p>Last opp bilder av førerkort her:</p>
-
                  <%= form_for '', html: { multipart: true } do |f| %>
-                    Forside: <%= f.file_field 'front' %>
-                    <br>
-                    Bakside: <%= f.file_field 'back' %>
+                    <%= f.label :image, 'Last opp bilde av identitetsbevis her:' %>
+                    
+                    <%= f.file_field :image %>
                     <br>
                     <%= f.submit 'Last opp', class: 'button button-primary' %>
                 <% end %>
-            <% elsif current_user.drivers_license_status == :pending %>
+            <% elsif current_user.id_card_status == :pending %>
                 <p>
                     <%= plendbot_avatar :huge, class: 'u-pull-left' %>
-                    Førerkortet ditt er lastet opp og sendt til kontroll.
+                    Identitetsbeviset ditt er lastet opp og sendt til kontroll.
                     Du får en melding når det er godkjent.
                 </p>
                 <p>
                     <%= link_to 'Tilbake til min profil', users_path %>
                 </p>
-            <% elsif current_user.drivers_license_status == :verified %>
+            <% elsif current_user.id_card_status == :verified %>
                 <p>
                     <%= plendbot_avatar :huge, class: 'u-pull-left' %>
-                    Førerkortet ditt er allerede godkjent!
+                    Identitetsbeviset ditt er allerede godkjent!
                 </p>
                 <p>
                     <%= link_to 'Tilbake til min profil', users_path %>

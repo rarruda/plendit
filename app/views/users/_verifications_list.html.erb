@@ -67,8 +67,6 @@
                 </div>
             </li>
             <li>
-                 IT IS NOW <%= current_user.id_card_status %><br>
-
                 <%= link_to 'Identitetskort', verify_id_card_users_path, class: 'user-verifications__action-link' %>
 
                 <% if current_user.id_card_status == :verified || current_user.drivers_license_status == :verified %>

@@ -28,6 +28,18 @@ class UsersController < ApplicationController
     render :verify_drivers_license
   end
 
+  def verify_id_card
+    @card = current_user.id_card
+  end
+
+  def upload_id_card
+    current_user.delete_current_id_card
+    @card = UserDocument.new(user: current_user, category: :id_card, status: :pending_approval)
+    @card.document = params[:image]
+    @card.save!
+    render :verify_id_card
+  end
+
 
   def index
   end
