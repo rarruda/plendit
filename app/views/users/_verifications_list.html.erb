@@ -43,21 +43,24 @@
             <li>
                 <%= link_to 'Førerkort', verify_drivers_license_users_path, class: 'user-verifications__action-link' %>
 
-                <% if current_user.drivers_license_status == :missing %>
-                   <%= icon 'plus-circle', 'Last opp', class: 'fa-fw u-fill-gray' %>
-                <% elsif current_user.drivers_license_status == :pending %>
-                   <%= icon 'eye', 'Venter på godkjenning', class: 'fa-fw u-fill-brown' %>
-                <% elsif current_user.drivers_license_status == :verified %>
+                <% if current_user.drivers_license_status == :verified %>
                    <%= icon 'check-circle-o', 'Godkjent', class: 'fa-fw u-fill-green' %>
-                <% elsif current_user.drivers_license_status == :rejected %>
-                   <%= icon 'exclamation-triangle', 'Avvist', class: 'fa-fw u-fill-gold' %>
                 <% else %>
-                    <!-- Unknown status -->
+                    <% if current_user.drivers_license_status == :missing %>
+                       <%= icon 'plus-circle', 'Last opp', class: 'fa-fw u-fill-gray' %>
+                    <% elsif current_user.drivers_license_status == :pending %>
+                       <%= icon 'eye', 'Venter på godkjenning', class: 'fa-fw u-fill-brown' %>
+                    <% elsif current_user.drivers_license_status == :rejected %>
+                       <%= icon 'exclamation-triangle', 'Avvist', class: 'fa-fw u-fill-gold' %>
+                    <% else %>
+                        <!-- Unknown status -->
+                    <% end %>
+
+                    <span class="user-verifications__help-link" data-help-label-for="drivers-permit">
+                        <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
+                    </span>
                 <% end %>
 
-                <span class="user-verifications__help-link" data-help-label-for="drivers-permit">
-                    <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
-                </span>
                 <div class="user-verifications__help u-hidden" data-help-text-for="drivers-permit">
                     Vi trenger bilde av førerkort for at du skal kunne leie motorkjøretøy.
                     <a href="#" target="_blank">Les mer.</a>
