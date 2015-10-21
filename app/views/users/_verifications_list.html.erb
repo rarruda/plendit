@@ -67,16 +67,34 @@
                 </div>
             </li>
             <li>
-                <%= link_to 'Identitetskort', '#', class: 'user-verifications__action-link' %>
-                <%= icon 'hourglass-half', 'Til kontroll', class: 'fa-fw u-fill-brown' %>
+                 IT IS NOW <%= current_user.id_card_status %><br>
 
-                <span class="user-verifications__help-link" data-help-label-for="id-card">
-                    <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
-                </span>
+                <%= link_to 'Identitetskort', verify_id_card_users_path, class: 'user-verifications__action-link' %>
+
+                <% if current_user.id_card_status == :verified || current_user.drivers_license_status == :verified %>
+                   <%= icon 'check-circle-o', 'Godkjent', class: 'fa-fw u-fill-green' %>
+                <% else %>
+                    <% if current_user.id_card_status == :missing %>
+                       <%= icon 'plus-circle', 'Last opp', class: 'fa-fw u-fill-gray' %>
+                    <% elsif current_user.id_card_status == :pending %>
+                       <%= icon 'eye', 'Venter på godkjenning', class: 'fa-fw u-fill-brown' %>
+                    <% elsif current_user.id_card_status == :rejected %>
+                       <%= icon 'exclamation-triangle', 'Avvist', class: 'fa-fw u-fill-gold' %>
+                    <% else %>
+                        <!-- Unknown status -->
+                    <% end %>
+
+                    <span class="user-verifications__help-link" data-help-label-for="id-card">
+                        <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
+                    </span>
+
+                <% end %>
+
                 <div class="user-verifications__help u-hidden" data-help-text-for="id-card">
                     Dette er påkrevet for å kunne utbetale summer over 20 000,- i året.
                     <a href="#" target="_blank">Les mer.</a>
                 </div>
+
             </li>
             <li>
                 <%= link_to 'Båtførerbevis', '#', class: 'user-verifications__action-link' %>

@@ -297,6 +297,23 @@ class User < ActiveRecord::Base
     sides if sides.none? { |k, v| v.nil? }
   end
 
+  def id_card_status
+    card = self.id_card
+    if card.nil?
+      :missing
+    elsif card.status == 'approved'
+      :verified
+    elsif card.status == 'pending_approval'
+      :pending
+    else
+      :rejected # probably not good enough
+    end
+  end
+
+  def id_card
+    self.user_documents.find_by(category: UserDocument.categories[:id_card])
+  end
+
   def has_address?
     if self.home_address_line.blank? ||
       self.home_post_code.blank? ||
