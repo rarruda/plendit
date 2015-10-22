@@ -406,8 +406,8 @@ class User < ActiveRecord::Base
 
   def document_rejection_reason category
     document = self.user_documents
-      .where.not(rejection_reason: nil)
-      .find_by(category: category)
+      .where(category: category)
+      .find { |e| !e.rejection_reason.blank? }
     document.rejection_reason if !document.nil?
   end
 
