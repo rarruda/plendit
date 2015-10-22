@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020214525) do
+ActiveRecord::Schema.define(version: 20151022130546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -268,6 +268,7 @@ ActiveRecord::Schema.define(version: 20151020214525) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.date     "expires_at"
+    t.string   "rejection_reason"
   end
 
   add_index "user_documents", ["guid"], name: "index_user_documents_on_guid", using: :btree
