@@ -109,6 +109,7 @@ group :development, :test do
   gem 'capistrano-rails',     require: false
   gem 'capistrano-bundler',   require: false
   gem 'capistrano-passenger', require: false
+  gem 'slackistrano',         require: false
   #gem 'capistrano-ext'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

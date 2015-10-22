@@ -41,6 +41,47 @@ set :keep_releases, 10
 
 set :passenger_restart_with_touch, true
 
+# slackistrano
+set :slack_webhook, ENV['PCONF_SLACK_WEBHOOK_CAPISTRANO']
+
+#set :slack_via_slackbot, true
+#set :slack_team, "plendit"
+#set :slack_token, "xxxxxxxxxxxxxxxxxxxxxxxx"
+#set :slack_channel, '#notifications-events'
+set :slack_username, -> { 'Capistrano' }
+set :slack_revision, `git rev-parse origin/master`.strip!
+set :slack_title_finished,    -> { nil }
+set :slack_msg_finished,      -> { nil }
+set :slack_fallback_finished, -> { "#{fetch(:slack_deploy_user)} deployed #{fetch(:application)} on #{fetch(:stage)}" }
+set :slack_commit_history,    -> { %x(git log --format='%h %an: %s' #{fetch(:previous_revision)}^..HEAD) }
+set :slack_fields_finished, [
+  {
+    title: "Project",
+    value: "<https://gitlab.com/plendit/#{fetch(:application)}|#{fetch(:application)}>",
+    short: true
+  },
+  {
+    title: "Environment",
+    value: fetch(:stage),
+    short: true
+  },
+  {
+    title: "Deployer",
+    value: fetch(:slack_deploy_user),
+    short: true
+  },
+  {
+    title: "Revision",
+    value: "<https://gitlab.com/plendit/#{fetch(:application)}/commit/#{fetch(:slack_revision)}|#{fetch(:slack_revision)[0..6]}>",
+    short: true
+  } #,
+  # {
+  #   title: "Commits",
+  #   value: "h: #{fetch(:slack_commit_history)}",
+  #   short: false
+  # }
+]
+
 namespace :deploy do
 
   after :restart, :clear_cache do
