@@ -50,10 +50,6 @@
         <span class="label-body">
             Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %> for å leie gjenstanden.
         </span>
-        <% if @ad.category == 'bap' %>
-            <br>
-            <small>* Forsikring kan bare velges dersom verdien på utleieobjektet er kr 4000 eller mer.</small>
-        <% end %>
     </label>
 
     <label class="u-push-down">
