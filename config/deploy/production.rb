@@ -8,7 +8,7 @@
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
 
-server 'sbox-plendit-web01.plendit.com', user: 'deployer', roles: %w{app web}
+server 'sbox-plendit-web01.plendit.com', user: 'deployer', roles: %w{app web db}
 server 'sbox-plendit-web02.plendit.com', user: 'deployer', roles: %w{app web}
 
 # role-based syntax

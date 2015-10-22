@@ -157,6 +157,13 @@ To index (or re-index) ElasticSearch:
 $ rake search:reindex
 ```
 
+There is also a capistrano command which triggers the same rake task for reindexing:
+ (but in production).
+```
+$ cap production search:reindex
+```
+
+
 The manual commands to index, slowly are (one ad at a time):
 ```
 $ rails console

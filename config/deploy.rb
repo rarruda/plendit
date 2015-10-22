@@ -145,4 +145,16 @@ namespace :deploy do
   after  :finished,     :loadbalancer_check_on
 end
 
+namespace :search do
+  desc 'Reindex'
+  task :reindex do
+    on roles(:db) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, "search:reindex"
+        end
+      end
+    end
+  end
+end
 
