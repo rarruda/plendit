@@ -274,6 +274,8 @@ class User < ActiveRecord::Base
     d = self.drivers_license
     if d.nil? || d[:front].nil? || d[:back].nil?
       :missing
+    elsif d[:front].status == 'not_approved' || d[:back].status == 'not_approved'
+      :rejected
     elsif d[:front].status == 'approved' && d[:back].status == 'approved'
       :verified
     elsif d[:front].status == 'pending_approval' || d[:back].status == 'pending_approval'
@@ -292,9 +294,9 @@ class User < ActiveRecord::Base
   def drivers_license
     sides = {
       front: self.user_documents.find_by(category: UserDocument.categories[:drivers_license_front]),
-      back: self.user_documents.where( category: UserDocument.categories[:drivers_license_back])
+      back:  self.user_documents.find_by(category: UserDocument.categories[:drivers_license_back])
     }
-    sides if sides.none? { |k, v| v.nil? }
+    sides if sides.size == 2 && sides.none? { |k, v| v.nil? }
   end
 
   def delete_current_id_card
