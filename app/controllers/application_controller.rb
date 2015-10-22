@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def require_http_authentication?
     Rails.env.production? &&
-    ! ( request.path == '/resources/mangopay/callback' ||
+    ! ( ['/privacy', '/resources/mangopay/callback'].include? request.path ||
         request.path =~ /\/me\/auth\/(\w+)\/callback/ )
   end
 
