@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022130546) do
+ActiveRecord::Schema.define(version: 20151022182721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,11 +305,12 @@ ActiveRecord::Schema.define(version: 20151022130546) do
     t.string   "number_alias",    limit: 16
     t.string   "expiration_date", limit: 4
     t.string   "validity"
-    t.boolean  "active",                     default: true, null: false
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.boolean  "active",                     default: true,  null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.string   "card_provider"
     t.string   "country",         limit: 3
+    t.boolean  "favorite",                   default: false
   end
 
   add_index "user_payment_cards", ["card_vid"], name: "index_user_payment_cards_on_card_vid", using: :btree
