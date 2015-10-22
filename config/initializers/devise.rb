@@ -242,7 +242,7 @@ Devise.setup do |config|
   config.omniauth :spid, ENV['PCONF_SPID_CLIENT_ID'], ENV['PCONF_SPID_CLIENT_SECRET'],
     {
       :client_options => {
-       :site => 'https://finn.payment.schibsted.no/api/2'
+       :site => ENV['PCONF_SPID_CLIENT_URL'] || 'https://payment.schibsted.no/api/2'
      }
     }
 
