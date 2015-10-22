@@ -299,6 +299,14 @@ class User < ActiveRecord::Base
     sides if sides.size == 2 && sides.none? { |k, v| v.nil? }
   end
 
+  def drivers_license_rejection_reason
+    side = self.user_documents
+      .where.not(rejection_reason: nil)
+      .find_by(category: [UserDocument.categories[:drivers_license_front],  UserDocument.categories[:drivers_license_back]])
+
+    side.rejection_reason if !side.nil?
+  end
+
   def delete_current_id_card
     self.user_documents.where(category: UserDocument.categories[:id_card]).destroy_all
   end
