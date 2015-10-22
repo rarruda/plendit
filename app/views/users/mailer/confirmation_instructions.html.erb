@@ -5,11 +5,7 @@
             <p>
                 Bekreft e-postadressen din med følgende lenke:
 
-                <%
-                   # only_patch should probably be replaced with proper config. Error was this when loading seeds
-                   # ActionView::Template::Error: Missing host to link to! Please provide the :host parameter, set default_url_options[:host], or set :only_path to true
-                %>
-                <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token, only_path: true) %>
+                <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %>
             </p>
         </div>
     </div>
