@@ -11,15 +11,11 @@
                     opp bilder av forsiden og baksiden av førerkortet ditt.
                 </p>
 
-                <p>
-                    Du kan lese mer om krav til dokumentasjon og hvordan
-                    plendit behandler personlige dokumenter
-                    <%= link_to 'på kundesenteret', '#' %>.
-                </p>
+                <%= render partial: 'privacy_box' %>
 
                 <p>Last opp bilder av førerkort her:</p>
 
-                 <%= form_for '', html: { multipart: true } do |f| %>
+                <%= form_for '', html: { multipart: true } do |f| %>
                     Forside: <%= f.file_field 'front' %>
                     <br>
                     Bakside: <%= f.file_field 'back' %>

@@ -11,13 +11,9 @@
                     ha et gyldig båtførerbevis fra deg.
                 </p>
 
-                <p>
-                    Du kan lese mer om krav til dokumentasjon og hvordan
-                    plendit behandler personlige dokumenter
-                    <%= link_to 'på kundesenteret.', '#' %>
-                </p>
-
-                 <%= form_for '', html: { multipart: true } do |f| %>
+                <%= render partial: 'privacy_box' %>
+                
+                <%= form_for '', html: { multipart: true } do |f| %>
                     <%= f.label :image, 'Last opp bilde av båtførerbevis her:' %>
                     
                     <%= f.file_field :image %>
