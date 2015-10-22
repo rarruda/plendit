@@ -76,8 +76,35 @@ class UsersController < ApplicationController
 
   def private_profile
     @user = current_user
+    @verifications = self.user_verifications @user
   end
 
+  def user_verifications user
+    [
+      OpenStruct.new({
+        title: 'Førerkort',
+        state: user.drivers_license_status,
+        rejected: user.drivers_license_status == :rejected,
+        rejection_reason: user.drivers_license_rejection_reason,
+        path: verify_drivers_license_users_path
+      }),
+      OpenStruct.new({
+        title: 'Båtførerbevis',
+        state: user.boat_license_status,
+        rejected: user.boat_license_status == :rejected,
+        rejection_reason: user.boat_license_rejection_reason,
+        path: verify_boat_license_users_path
+      }),
+      OpenStruct.new({
+        title: 'Identitetsbevis',
+        state: user.drivers_license_status == :approved || user.id_card_status == :approved ? :approved : user.id_card_status,
+        rejected: user.id_card_status == :rejected,
+        rejection_reason: user.drivers_license_rejection_reason,
+        path: verify_id_card_users_path
+      })
+    ]
+
+  end
 
   # GET /users/1/edit
   def edit

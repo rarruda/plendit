@@ -40,104 +40,34 @@
                     <a href="#" target="_blank">Les mer.</a>
                 </div>
             </li>
-            <li>
-                <h5>Førerkort <%= verification_state_label current_user.drivers_license_status %></h5>
 
-                <% if current_user.drivers_license_status == :rejected %>
-                    <p><strong>Årsak:</strong> <%= current_user.drivers_license_rejection_reason || 'Ingen årsak gitt' %></p>
+        </ol>
+
+
+        <hr>
+        <% @verifications.each do |v| %>
+            <div class="u-push-down">
+                <span><%= v.title %> <%= verification_state_label v.state %></span>
+                <br>
+
+                <% if v.rejected %>
+                    <p><span>Årsak:</span> <%= v.rejection_reason || 'Ingen årsak gitt' %></p>
                 <% end %>
 
-                <% if current_user.drivers_license_status == :missing || current_user.drivers_license_status == :rejected %>
-                    <%= link_to verify_drivers_license_users_path do %>
+                <% if v.rejected %>
+                    <%= link_to v.path do %>
                         <%= icon_verification_missing %>
                         Last opp
                     <% end %>
                 <% end %>
+            </div>
 
-                <hr>
+        <% end %>
 
-                <%= link_to 'Førerkort', verify_drivers_license_users_path, class: 'user-verifications__action-link' %>
 
-                <% if current_user.drivers_license_status == :verified %>
-                    <%= icon_verification_ok %>
-                <% else %>
-                    <% if current_user.drivers_license_status == :missing %>
-                       <%= icon_verification_missing %>
-                    <% elsif current_user.drivers_license_status == :pending %>
-                       <%= icon_verification_pending %>
-                    <% elsif current_user.drivers_license_status == :rejected %>
-                       <%= icon_verification_rejected %>
-                    <% else %>
-                        <!-- Unknown status -->
-                    <% end %>
-
-                    <span class="user-verifications__help-link" data-help-label-for="drivers-permit">
-                        <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
-                    </span>
-                <% end %>
-
-                <div class="user-verifications__help u-hidden" data-help-text-for="drivers-permit">
-                    Vi trenger bilde av førerkort for at du skal kunne leie motorkjøretøy.
-                    <a href="#" target="_blank">Les mer.</a>
-                </div>
-            </li>
-            <li>
-                <%= link_to 'Identitetskort', verify_id_card_users_path, class: 'user-verifications__action-link' %>
-
-                <% if current_user.id_card_status == :verified || current_user.drivers_license_status == :verified %>
-                   <%= icon_verification_ok %>
-                <% else %>
-                    <% if current_user.id_card_status == :missing %>
-                       <%= icon_verification_missing %>
-                    <% elsif current_user.id_card_status == :pending %>
-                       <%= icon_verification_pending %>
-                    <% elsif current_user.id_card_status == :rejected %>
-                       <%= icon_verification_rejected %>
-                    <% else %>
-                        <!-- Unknown status -->
-                    <% end %>
-
-                    <span class="user-verifications__help-link" data-help-label-for="id-card">
-                        <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
-                    </span>
-
-                <% end %>
-
-                <div class="user-verifications__help u-hidden" data-help-text-for="id-card">
-                    Dette er påkrevet for å kunne utbetale summer over 20 000,- i året.
-                    <a href="#" target="_blank">Les mer.</a>
-                </div>
-
-            </li>
-            <li>
-                <%= link_to 'Båtførerbevis', verify_boat_license_users_path, class: 'user-verifications__action-link' %>
-
-                <% if current_user.boat_license_status == :verified %>
-                   <%= icon_verification_ok %>
-                <% else %>
-                    <% if current_user.boat_license_status == :missing %>
-                       <%= icon_verification_missing %>
-                    <% elsif current_user.boat_license_status == :pending %>
-                       <%= icon_verification_pending %>
-                    <% elsif current_user.boat_license_status == :rejected %>
-                       <%= icon_verification_rejected %>
-                    <% else %>
-                        <!-- Unknown status -->
-                    <% end %>
-
-                    <span class="user-verifications__help-link" data-help-label-for="boat-permit">
-                        <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
-                    </span>
-                <% end %>
-
-                <div class="user-verifications__help u-hidden" data-help-text-for="boat-permit">
-                    Vi trenger bilde av båtførerbevis for at du skal kunne leie båt.
-                    <a href="#" target="_blank">Les mer.</a>
-                </div>
-            </li>
-        </ol>
 
         <%= render partial: 'privacy_box' %>
+
 
     </div>
 
