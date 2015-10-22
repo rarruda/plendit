@@ -532,8 +532,5 @@ window.controllers.helpToggler = function(ele) {
             label.addEventListener('click', function(e) {
                 helpBox.classList.toggle('u-hidden');
             })
-        })
-    ele.addEventListener("click", function(evt) {
-        evt.target.parentNode.click();
-    });
+        });
 }
