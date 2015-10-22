@@ -6,9 +6,11 @@
     <%= link_to social_button(:google,  nil), user_omniauth_authorize_path(:google), class: 'u-no-underline' %>
     <br>
     <br>
+<% unless Plendit::Application.config.x.application_mode.beta %>
     <%= link_to social_button(:spid,  nil), user_omniauth_authorize_path(:spid), class: 'u-no-underline' %>
     <br>
     <br>
+<% end %>
     <p>
         Ved å logge inn aksepterer du <%= link_to 'brukervilkårene.', terms_path %>
     </p>
