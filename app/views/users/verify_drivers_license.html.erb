@@ -5,13 +5,18 @@
         <div class="eight columns">
             <h1>Førerkort</h1>
 
-            <% if current_user.drivers_license_status == :missing %>
+            <% if current_user.drivers_license_status == :missing || current_user.drivers_license_status == :rejected %>
                 <p>
                     For at du skal kunne leie en bil trenger vi at du laster
                     opp bilder av forsiden og baksiden av førerkortet ditt.
                 </p>
 
-                <%= render partial: 'privacy_box' %>
+                <% if !current_user.drivers_license_rejection_reason.blank? %>
+                    <p>
+                        Du lastet opp et førerkort som ble avvist.
+                        Årsaken var: <%= current_user.drivers_license_rejection_reason %>. 
+                    </p>
+                <% end %>
 
                 <p>Last opp bilder av førerkort her:</p>
 
@@ -40,10 +45,11 @@
                     <%= link_to 'Tilbake til min profil', users_path %>
                 </p>
             <% else %>
-                Unknown state
+                Unknown state: <%= current_user.drivers_license_status %>
             <% end %>
+
+            <%= render partial: 'privacy_box' %>
+
         </div>
     </div>
 </div>
-
-
