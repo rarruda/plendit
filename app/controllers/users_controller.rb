@@ -82,6 +82,22 @@ class UsersController < ApplicationController
   def user_verifications user
     [
       OpenStruct.new({
+        title: 'Telefonnummer',
+        state: user.phone_verified? ? :verified : :required,
+        rejected: false,
+        rejection_reason: nil,
+        path: '#'
+      }),
+      OpenStruct.new({
+        title: 'E-post',
+        state: user.email_verified? ? :verified : :required,
+        rejected: false,
+        rejection_reason: nil,
+        path: '#',
+        link_text: 'Ikke mottatt verifiseringslink?',
+        question?: true
+      }),
+      OpenStruct.new({
         title: 'Førerkort',
         state: user.drivers_license_status,
         rejected: user.drivers_license_status == :rejected,
@@ -89,21 +105,20 @@ class UsersController < ApplicationController
         path: verify_drivers_license_users_path
       }),
       OpenStruct.new({
+        title: 'Identitetsbevis',
+        state: user.drivers_license_status == :verified || user.id_card_status == :verified ? :approved : user.id_card_status,
+        rejected: user.id_card_status == :rejected,
+        rejection_reason: user.drivers_license_rejection_reason,
+        path: verify_id_card_users_path
+      }),
+      OpenStruct.new({
         title: 'Båtførerbevis',
         state: user.boat_license_status,
         rejected: user.boat_license_status == :rejected,
         rejection_reason: user.boat_license_rejection_reason,
         path: verify_boat_license_users_path
-      }),
-      OpenStruct.new({
-        title: 'Identitetsbevis',
-        state: user.drivers_license_status == :approved || user.id_card_status == :approved ? :approved : user.id_card_status,
-        rejected: user.id_card_status == :rejected,
-        rejection_reason: user.drivers_license_rejection_reason,
-        path: verify_id_card_users_path
       })
     ]
-
   end
 
   # GET /users/1/edit

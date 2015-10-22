@@ -249,7 +249,6 @@
     }
 }
 
-
 .user-identities {
     background-color: white;
     padding: $standard-spacing;
@@ -263,13 +262,12 @@
     font-style: italic;
 }
 
-
 .verification-state-label {
-    margin-left: $standard-spacing;
-    font-size: 76%;
+    margin-left: $standard-spacing / 2;
+    font-size: 90%;
     font-weight: normal;
 
-    &--missing {
+    &--required {
         color: red;
     }
 
@@ -277,5 +275,23 @@
         color: green;
     }
 
+    &--missing {
+        color: gray;
+    }
 }
 
+.verification-item {
+    &__status {
+        margin: 0;
+    }
+
+    &__link {
+        margin-left: $standard-spacing / 2;
+    }
+
+    &__rejection {
+        margin: $standard-spacing / 4;
+        margin-left: $standard-spacing / 2;
+
+    }
+}

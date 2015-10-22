@@ -15,6 +15,10 @@ module IconHelper
     icon 'plus-circle', '', class: 'fa-fw u-fill-gray'
   end
 
+  def icon_question
+    icon 'question-circle', '', class: 'fa-fw u-fill-gray'
+  end
+
   def icon_verification_required
     icon 'plus-circle', 'Last opp', class: 'fa-fw u-fill-red'
   end

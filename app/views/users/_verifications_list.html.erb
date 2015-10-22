@@ -1,74 +1,26 @@
 <%= render layout: "gray_box", locals: {title: 'Mine verifiseringer'} do %>
     <div class="user-verifications">
-        <ol class="user-verifications__list">
-            <li>
-                <%= link_to 'Telefonnummer', '#', class: 'user-verifications__action-link' %>
-
-                <% if @user.phone_verified? %>
-                    <%= icon_verification_ok %>
-                <% else %>
-                    <%# todo: state when it's sent and waiting for pin to be entered %>
-                    <%= icon_verification_required %>
-                    <span class="user-verifications__help-link" data-help-label-for="phone">
-                        <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
-                    </span>
-                <% end %>
-
-                <div class="user-verifications__help u-hidden" data-help-text-for="phone">
-                    Vi trenger et bekreftet telefonnumer før du kan
-                    leie, eller leie ut, på plendit.
-                    <a href="#" target="_blank">Les mer.</a>
-                </div>
-            </li>
-            <li>
-                <%= link_to 'E-post', '#', class: 'user-verifications__action-link' %>
-
-                <% if @user.email_verified? %>
-                    <%= icon_verification_ok %>
-                <% else %>
-                    <%# todo: state when it's sent and waiting for pin to be entered %>
-                    <%= icon_verification_required %>
-
-                    <span class="user-verifications__help-link" data-help-label-for="email">
-                        <%= icon 'info-circle', 'hvorfor?', class: 'fa-fw' %>
-                    </span>
-                <% end %>
-
-                <div class="user-verifications__help u-hidden" data-help-text-for="email">
-                    Vi trenger en bekreftet e-postadresse før du kan
-                    leie, eller leie ut, på plendit.
-                    <a href="#" target="_blank">Les mer.</a>
-                </div>
-            </li>
-
-        </ol>
-
-
-        <hr>
         <% @verifications.each do |v| %>
-            <div class="u-push-down">
-                <span><%= v.title %> <%= verification_state_label v.state %></span>
-                <br>
-
+            <div class="verification-item u-push-down-only">
+                <p class="verification-item__status">
+                    <%= v.title %> <%= verification_state_label v.state %>
+                </p>
                 <% if v.rejected %>
-                    <p><span>Årsak:</span> <%= v.rejection_reason || 'Ingen årsak gitt' %></p>
+                    <p class="verification-item__rejection">
+                        <span>Årsak:</span> <%= v.rejection_reason || 'Ingen årsak gitt' %>
+                    </p>
                 <% end %>
 
-                <% if v.rejected %>
-                    <%= link_to v.path do %>
-                        <%= icon_verification_missing %>
-                        Last opp
-                    <% end %>
+                <% if v.rejected || v.state == :missing || v.state == :required %>
+                    <p class="verification-item__link">
+                        <%= link_to v.path do %>
+                            <%= v.question? ? icon_question : icon_verification_missing %>
+                            <%= v.link_text || 'Last opp' %>
+                        <% end %>
+                    </p>
                 <% end %>
             </div>
-
         <% end %>
-
-
-
         <%= render partial: 'privacy_box' %>
-
-
     </div>
-
 <% end %>
