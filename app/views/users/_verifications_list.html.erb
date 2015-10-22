@@ -44,7 +44,7 @@
                 <h5>Førerkort <%= verification_state_label current_user.drivers_license_status %></h5>
 
                 <% if current_user.drivers_license_status == :rejected %>
-                    <p><strong>Årsak:</strong> <%= current_user.drivers_license_rejection_reason %></p>
+                    <p><strong>Årsak:</strong> <%= current_user.drivers_license_rejection_reason || 'Ingen årsak gitt' %></p>
                 <% end %>
 
                 <% if current_user.drivers_license_status == :missing || current_user.drivers_license_status == :rejected %>
@@ -53,7 +53,6 @@
                         Last opp
                     <% end %>
                 <% end %>
-
 
                 <hr>
 

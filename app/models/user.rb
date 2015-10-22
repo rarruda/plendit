@@ -300,11 +300,10 @@ class User < ActiveRecord::Base
   end
 
   def drivers_license_rejection_reason
-    side = self.user_documents
-      .where.not(rejection_reason: nil)
-      .find_by(category: [UserDocument.categories[:drivers_license_front],  UserDocument.categories[:drivers_license_back]])
-
-    side.rejection_reason if !side.nil?
+    document_rejection_reason([
+      UserDocument.categories[:drivers_license_front],
+      UserDocument.categories[:drivers_license_back]
+    ])
   end
 
   def delete_current_id_card
@@ -328,6 +327,10 @@ class User < ActiveRecord::Base
     self.user_documents.find_by(category: UserDocument.categories[:id_card])
   end
 
+  def id_card_rejection_reason
+    document_rejection_reason(UserDocument.categories[:id_card])
+  end
+
   def delete_current_boat_license
     self.user_documents.where(category: UserDocument.categories[:boat_license]).destroy_all
   end
@@ -347,6 +350,10 @@ class User < ActiveRecord::Base
 
   def boat_license
     self.user_documents.find_by(category: UserDocument.categories[:boat_license])
+  end
+
+  def boat_license_rejection_reason
+    document_rejection_reason(UserDocument.categories[:boat_license])
   end
 
   def has_address?
@@ -396,6 +403,13 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def document_rejection_reason category
+    document = self.user_documents
+      .where.not(rejection_reason: nil)
+      .find_by(category: category)
+    document.rejection_reason if !document.nil?
+  end
 
   def provision_with_mangopay
     # instantiating mangopay service:
