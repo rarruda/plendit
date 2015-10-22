@@ -138,11 +138,11 @@ namespace :deploy do
   end
 
   before :starting,     :check_revision
-  before :starting,     :loadbalancer_check_off
+  #before :starting,     :loadbalancer_check_off
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
-  after  :finished,     :loadbalancer_check_on
+  #after  :finished,     :loadbalancer_check_on
 end
 
 namespace :search do
