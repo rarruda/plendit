@@ -262,3 +262,20 @@
     border: solid thin darken($color-privacy-yellow, 30);
     font-style: italic;
 }
+
+
+.verification-state-label {
+    margin-left: $standard-spacing;
+    font-size: 76%;
+    font-weight: normal;
+
+    &--missing {
+        color: red;
+    }
+
+    &--verified {
+        color: green;
+    }
+
+}
+

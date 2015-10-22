@@ -1,18 +1,18 @@
 module IconHelper
   def icon_verification_ok
-    icon 'check-circle-o', 'Godkjent', class: 'fa-fw u-fill-green'
+    icon 'check-circle-o', 'Verifisert', class: 'fa-fw u-fill-green'
   end
 
   def icon_verification_pending
-    icon 'eye', 'Venter på godkjenning', class: 'fa-fw u-fill-brown'
+    icon 'eye', 'Til kontroll', class: 'fa-fw u-fill-brown'
   end
 
   def icon_verification_rejected
-    icon 'exclamation-triangle', 'Avvist', class: 'fa-fw u-fill-gold'
+    icon 'exclamation-triangle', 'Ikke godkjent', class: 'fa-fw u-fill-gold'
   end
 
   def icon_verification_missing
-    icon 'plus-circle', 'Last opp', class: 'fa-fw u-fill-gray'
+    icon 'plus-circle', '', class: 'fa-fw u-fill-gray'
   end
 
   def icon_verification_required

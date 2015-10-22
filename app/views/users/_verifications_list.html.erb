@@ -41,6 +41,24 @@
                 </div>
             </li>
             <li>
+                <h5>Førerkort <%= verification_state_label current_user.drivers_license_status %></h5>
+
+                <% if current_user.drivers_license_status == :rejected %>
+                    <p>
+                        Ikke godkjent fordi lol
+                    </p>
+                <% end %>
+
+                <% if current_user.drivers_license_status == :missing || current_user.drivers_license_status == :rejected %>
+                    <%= link_to verify_drivers_license_users_path do %>
+                        <%= icon_verification_missing %>
+                        Last opp
+                    <% end %>
+                <% end %>
+
+
+                <hr>
+
                 <%= link_to 'Førerkort', verify_drivers_license_users_path, class: 'user-verifications__action-link' %>
 
                 <% if current_user.drivers_license_status == :verified %>
