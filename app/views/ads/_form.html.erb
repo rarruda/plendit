@@ -24,18 +24,12 @@
         <div class="row">
             <div class="five columns">
                 <label>
-                    <span class="label-body">Utbetales til deg</span>
+                    <span class="label-body">Utleiepris pr. dag</span>
                 </label>
                 <%= f.number_field :price_in_h,
                         class: 'u-full-width',
                         placeholder: 'Kr 0',
                         data: { price: '' } %>
-            </div>
-            <div class="five columns">
-                <label>
-                    <span class="label-body">Utleiepris pr. dag</span>
-                </label>
-                <input disabled="true" type="text" name="day_price" class="u-full-width" placeholder="Kr 0" data-payout>
             </div>
         </div>
     </div>
@@ -47,12 +41,12 @@
         <%= f.check_box :insurance_required, data: {insurance: ''} %>
     <%# else %>
     <% end %>
-        <span class="label-body">
+        <span>
             Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %> for å leie gjenstanden.
         </span>
     </label>
 
-    <label class="u-push-down">
+    <label class="u-push-down-only">
         Henteadresse:
     </label>
 
