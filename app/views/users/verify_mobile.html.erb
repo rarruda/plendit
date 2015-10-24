@@ -1,0 +1,68 @@
+<%= render partial: 'shared/personal_bar', locals: { selected: 'Profil' } %>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <h1>Mobilnummer</h1>
+
+            <% if current_user.phone_verified? %>
+
+                <p>
+                    Du har bekreftet mobilnummeret ditt. Alt er
+                    i orden. Nummeret vi har registrert er:
+                    <strong><%= current_user.phone_number %>.</strong>
+                </p>
+                <p>
+                    <%= link_to 'Tilbake til min profil', users_path %>
+                </p>
+
+            <% elsif current_user.phone_pending_confirmation? %>
+
+                <p>
+                    Vi har sendt deg en sikkerhetskode til telefonnummer
+                    <strong><%= current_user.unconfirmed_phone_number %>.</strong>
+                    Skriv inn koden for å bekrefte mobilnummeret.
+                </p>
+                <div>
+                    Hvis du ikke har fått en SMS kan du bestille en ny:
+                    <%= button_to 'Send ny kode', verify_mobile_users_path, form_class: 'u-inline', class: 'button', params: {perform: 'request_token'} %>
+                </div>
+
+                <% Array(@errors).each do |error| %>
+                    <p><strong><%= error %></strong></p>
+                <% end %>
+
+                <%= form_tag do %>
+                    <%= label_tag :token, 'Sikkerhetskode:' %>
+                    <%= text_field_tag :token, '', pattern: '^\d{6}' %>
+                    <%= hidden_field_tag :perform, :set_token %>
+                    <br>
+                    <%= submit_tag 'Bekreft', class: 'button button-primary' %>
+                <% end %>
+
+            <% else %>
+
+                <p>
+                    <% Array(@errors).each do |error| %>
+                        <p><strong><%= error %></strong></p>
+                    <% end %>
+                    
+                </p>
+                <p>
+                    Vi har ikke registrert et mobilnummer.
+                </p>
+
+                <p>
+                    <%= form_tag do %>
+                        <%= label_tag :phone_number, 'Mobilnummer:' %>
+                        <%= text_field_tag :phone_number, current_user.phone_number, pattern: '^\d{8}' %>
+                        <%= hidden_field_tag :perform, :set_number %>
+                        <br>
+                        <%= submit_tag 'Lagre', class: 'button button-primary' %>
+                    <% end %>
+                </p>
+
+            <% end %>
+        </div>
+    </div>
+</div>

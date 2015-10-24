@@ -52,6 +52,33 @@ class UsersController < ApplicationController
     render :verify_boat_license
   end
 
+  def verify_mobile
+  end
+
+  def verify_mobile_post
+    if params[:perform] == 'set_number'
+      current_user.unconfirmed_phone_number = params[:phone_number]
+      current_user.save
+      @errors = current_user.errors
+    elsif params[:perform] == 'request_token'
+      if current_user.sms_sending_cool_off_elapsed?
+        @errors = ['Det er for kort tid siden vi sendte deg en verifikasjonskode. Prøv igjen om litt.']
+      elsif current_user.unconfirmed_phone_number.blank? || current_user.phone_number_confirmation_token.blank?
+        @errors =['Ukjent telefonnumer. Kunne ikke sende verifikasjonskode. Oppdater nummeret ditt for å prøve igjen.']
+      else
+        current_user.send_sms_for_phone_confirmation
+        current_user.save!
+      end
+    elsif params[:perform] == 'set_token'
+      if current_user.phone_number_confirmation_token == params[:token]
+        current_user.confirm_phone_number!
+      else
+        @errors = ["Feil sikkerhetskode!"]
+      end
+    end
+    render :verify_mobile
+  end
+
   def index
   end
 
@@ -86,7 +113,7 @@ class UsersController < ApplicationController
         state: user.phone_verified? ? :verified : :required,
         rejected: false,
         rejection_reason: nil,
-        path: '#',
+        path: verify_mobile_users_path,
         link_text: 'Bekreft telefonnummer nå',
         question?: true
 
