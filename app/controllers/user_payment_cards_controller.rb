@@ -1,5 +1,5 @@
 class UserPaymentCardsController < ApplicationController
-  before_action :set_user_payment_card, only: [:destroy]
+  before_action :set_user_payment_card, only: [:destroy, :make_favorite]
   before_action :set_mangopay_client, only: [:index, :new, :create, :destroy]
   before_action :authenticate_user!
 
@@ -51,10 +51,17 @@ class UserPaymentCardsController < ApplicationController
     end
   end
 
+  # POST /me/cards/make_favorite/1
+  def make_favorite
+    @user_payment_card.set_favorite
+
+    redirect_to payment_users_path
+  end
+
+
   # DELETE /user_payment_cards/1
   def destroy
     @user_payment_card.disable
-
     redirect_to user_payment_cards_path, notice: 'UserPaymentCard was successfully destroyed.'
   end
 

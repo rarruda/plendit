@@ -20,9 +20,11 @@ class UserPaymentCard < ActiveRecord::Base
     if: :card_vid?,
     if: :active?
 
-
-  def to_param
-    self.guid
+  def set_favorite
+    Location.transaction do
+      self.update(favorite: true)
+      self.user.user_payment_cards.where.not(id: self.id).each { |l| l.update(favorite: false) }
+    end
   end
 
   def disable
@@ -33,6 +35,10 @@ class UserPaymentCard < ActiveRecord::Base
       LOG.info "wont deprovision_from_mangopay a non-validated card: #{self}", { user_id: self.user.id, card_id: self.id }
     end
     self.active_mp = false
+  end
+
+  def to_param
+    self.guid
   end
 
   private

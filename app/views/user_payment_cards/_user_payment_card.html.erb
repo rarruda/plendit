@@ -1,8 +1,32 @@
 
 <tr>
-  <td><%= user_payment_card.number_alias %></td>
-  <td><%= user_payment_card.expiration_date %></td>
-  <td><%= user_payment_card.validity %></td>
-  <td><%= user_payment_card.active %></td>
-  <td><%= link_to 'Destroy', user_payment_card, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  <td>
+    <% if user_payment_card.card_provider == 'VISA' %>
+      <%= icon 'cc-visa', class: "fa-lg" %>
+    <% elsif user_payment_card.card_provider == 'MASTERCARD' %>
+      <%= icon 'cc-mastercard', class: "fa-lg" %>
+    <% else %>
+      <%= icon 'credit-card', class: "fa-lg" %>
+    <% end %>
+    <%# FIXME: move prettifying code to decorator %>
+  <td><%= user_payment_card.number_alias.scan(/.{4}/).join(" ") %></td>
+  <td><%= user_payment_card.expiration_date.scan(/.{2}/).join("/") %></td>
+  <td>
+    <%# make_favorite %>
+    <% if user_payment_card.favorite %>
+      <%= icon 'star', class: "fa-lg", style: "color:gold" %>
+    <% else %>
+      <%# FIXME: kidnapping style from locations. that is wrong in a lot of levels %>
+      <%= button_to make_favorite_user_payment_card_path( user_payment_card ), class: "locations-list__star-button u-pull-right", form_class: "u-inline" do %>
+        <%= icon 'star-o', class: "fa-lg" %>
+      <% end %>
+    <% end %>
+  </td>
+  <td>
+    <%# params: { 'user[user_payment_card][guid]' => user_payment_card.guid } %>
+    <%# FIXME: evil to style directly in the html tags %>
+    <%= button_to user_payment_card, method: :delete, class: "button u-pull-right", style:"background-color:red ; color:white", form_class: "u-inline", data: { confirm: 'Are you sure?' } do %>
+      <%= icon 'trash', 'Slett' %>
+    <% end %>
+  </td>
 </tr>

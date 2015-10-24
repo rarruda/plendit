@@ -25,7 +25,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_payment_cards, path: '/me/cards', param: :guid, only: [:index, :new, :create, :destroy]
+  resources :user_payment_cards, path: '/me/cards', param: :guid, only: [:index, :new, :create, :destroy] do
+    member do
+      post 'make_favorite'
+    end
+  end
   # move to /me/payment/cards
 
   # see: https://github.com/plataformatec/devise/blob/master/lib/devise/rails/routes.rb
