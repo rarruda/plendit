@@ -54,24 +54,18 @@
                         </div>
                     </div>
 
+
                     <div class="row">
                         <div class="one-third column">
-                            <%= f.label :unconfirmed_phone_number, "Telefonnummer:" %>
-                            <%= f.text_field :unconfirmed_phone_number, :maxlength=>"8", class: 'u-full-width'  %>
+                            <%= f.label :password, 'Passord:' %>
+                            <%= f.password_field :password, autocomplete: "off", class: 'u-full-width'  %>
                         </div>
                     </div>
 
                     <div class="row">
-                            <div class="one-third column">
-                                <%= f.label :password, 'Passord:' %>
-                                <%= f.password_field :password, autocomplete: "off", class: 'u-full-width'  %>
-                            </div>
-                        </div>
-
-                    <div class="row">
-                            <div class="one-third column">
-                                <%= f.label :password_confirmation, 'Bekreft passord' %>
-                                <%= f.password_field :password_confirmation, autocomplete: "off", class: 'u-full-width'  %>
+                        <div class="one-third column">
+                            <%= f.label :password_confirmation, 'Bekreft passord' %>
+                            <%= f.password_field :password_confirmation, autocomplete: "off", class: 'u-full-width'  %>
                         </div>
                     </div>
 
