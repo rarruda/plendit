@@ -1,10 +1,10 @@
 <%= render partial: "shared/personal_bar", locals: {selected: 'Betaling'} %>
 
+<p id="notice"><%= notice %></p>
+
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <h1>Din profil</h1>
-
             <%= render partial: "user_payment_cards/list" %>
             <%#= render partial: "user_payment_account/index" %>
 

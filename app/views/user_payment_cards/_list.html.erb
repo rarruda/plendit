@@ -1,13 +1,12 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Dine Betalingskort</h1>
+<%= render layout: "gray_box", locals: {title: "Dine Betalingskort", id: "betalingskort"} do %>
 
-<table>
-  <tbody>
-    <%= render @user_payment_cards %>
-  </tbody>
-</table>
+  <table>
+    <tbody>
+      <%= render @user_payment_cards %>
+    </tbody>
+  </table>
+  <br>
+  <%= link_to 'Legg til', new_user_payment_card_path %>
 
-<br>
-
-<%= link_to 'Legg til', new_user_payment_card_path %>
+<% end %>
