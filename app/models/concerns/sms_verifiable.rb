@@ -1,16 +1,11 @@
 module SmsVerifiable
   extend ActiveSupport::Concern
 
-  #included do
-  #end
-
-
   def current_phone_number
-    return self.unconfirmed_phone_number unless self.unconfirmed_phone_number.blank?
-    self.phone_number
+    self.unconfirmed_phone_number.blank? ? self.phone_number : self.unconfirmed_phone_number
   end
 
-    # do all transformations for phone_number confirmation.
+  # do all transformations for phone_number confirmation.
   def confirm_phone_number!
     if self.unconfirmed_phone_number.nil?
       LOG.error "tried to confirm an unconfirmed_phone_number that is nil. This should never happen.", { user_id: self.id }
@@ -30,13 +25,8 @@ module SmsVerifiable
     not self.phone_number.blank?
   end
 
-  # is_phone_pending_confirmation?
   def phone_pending_confirmation?
-    if self.phone_number.blank? or not self.unconfirmed_phone_number.blank?
-      true
-    else
-      false
-    end
+    self.unconfirmed_phone_number.present?
   end
 
   def sms_sending_cool_off_elapsed?
