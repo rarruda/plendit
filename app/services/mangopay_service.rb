@@ -336,6 +336,11 @@ class MangopayService
 
 ### UNIT TESTS are something i miss.
 
+  # Get the balance of the payout wallet from mangopay.
+  #def wallet_payout_balance
+  #end
+
+
 
   # to preregister a payment: (create a preauthorization//create a payment, but not make a capture)
   def payment_preauth_create booking, card_id
