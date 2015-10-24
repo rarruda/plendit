@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, :except => [:show, :finish_signup, :upload_drivers_license, :verify_drivers_license]
+  before_action :authenticate_user!, :except => [:show, :finish_signup]
   before_action :set_user, only: [
     :show, :edit, :update, :destroy, :confirmation,
     :verify_sms, :verify_sms, :mark_all_notifications_noticed,
