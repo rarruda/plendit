@@ -43,7 +43,7 @@ class LocationsController < ApplicationController
     end
   end
 
-  # POST /me/make_favorite/1
+  # POST /locations/make_favorite/1
   def make_favorite
     current_user.set_favorite_location(@location)
 
