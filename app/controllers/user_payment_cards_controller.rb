@@ -28,14 +28,14 @@ class UserPaymentCardsController < ApplicationController
 
   # POST /user_payment_cards
   def create
-    puts "user_payment_card_params: #{user_payment_card_params}"
+    LOG.info "user_payment_card_params: #{user_payment_card_params}"
 
     if @mangopay.card_post_register( user_payment_card_params['card_vid'], user_payment_card_params['registration_data'] )
 
       # card registration went well. now get the details: (should happen in model actually:)
       card_info = @mangopay.get_card( user_payment_card_params['card_vid'] )
 
-      puts "card_info: #{card_info}"
+      LOG.info "card_info: #{card_info}"
       # build card details in database:
       #@user_payment_card = UserPaymentCard.new( card_vid: user_payment_card_params['card_vid'], card_info )
 
@@ -54,14 +54,11 @@ class UserPaymentCardsController < ApplicationController
   # DELETE /user_payment_cards/1
   def destroy
     @user_payment_card.disable
-    #@mangopay.card_disable
-    #invoke delayed job to set card to inactive in mangopay.
 
     redirect_to user_payment_cards_path, notice: 'UserPaymentCard was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_user_payment_card
       @user_payment_card = UserPaymentCard.find_by(guid: params[:guid], user_id: current_user.id)
     end
