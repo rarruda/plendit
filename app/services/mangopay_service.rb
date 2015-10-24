@@ -102,8 +102,7 @@ class MangopayService
       cards.each do |c|
         card = @user.user_payment_cards.find_by(card_vid: c['Id'])
         # if the card does not exist from before.
-        if card.blank?
-          @user.user_payment_cards.new(
+        mp_card = {
             card_vid:  c['Id'],
             card_type: c['CardType'],
             card_provider: c['CardProvider'],
@@ -113,12 +112,13 @@ class MangopayService
             expiration_date: c['ExpirationDate'],
             validity:  c['Validity'],
             active:    c['Active']
-            );
-          #@user.save!
-          LOG.info "Created a new card.", { user_id: @user.id, card_vid: c['Id'] }
+        }
+        if card.blank?
+          @user.user_payment_cards.new(mp_card)
         else
-          LOG.warn "Should be Updating card information... but no code here..", { user_id: @user.id, card_id: card.id, card_vid: c['Id'] }
-          #card.update #with data from api.
+          mp_card.delete(:card_vid)
+
+          card.update(mp_card)
         end
       end
       @user.save!
