@@ -86,7 +86,10 @@ class UsersController < ApplicationController
         state: user.phone_verified? ? :verified : :required,
         rejected: false,
         rejection_reason: nil,
-        path: '#'
+        path: '#',
+        link_text: 'Bekreft telefonnummer nå',
+        question?: true
+
       }),
       OpenStruct.new({
         title: 'E-post',

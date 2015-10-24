@@ -17,7 +17,7 @@
                         <br>
                         <%= current_user.email %>
                         <br>
-                        Tlf: <%= current_user.phone_number.empty? ? 'Ikke registrert mobilnummer' : current_user.phone_number %>
+                        Tlf: <%= current_user.phone_number.blank? ? 'Ikke registrert mobilnummer' : current_user.phone_number %>
                         <br>
                         <%= link_to 'Rediger min profil', edit_users_path %>
                         <br>
