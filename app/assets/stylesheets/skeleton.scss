@@ -34,7 +34,7 @@
   position: relative;
   width: $desktop;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 ($standard-spacing * 2);
   box-sizing: border-box;
 
   @media (min-width: $bigscreen) {
