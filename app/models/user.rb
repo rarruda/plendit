@@ -366,7 +366,7 @@ class User < ActiveRecord::Base
   # Same as in MangopayService:
   # mangopay_provisionable?
   def profile_complete?
-    [ 
+    [
       self.first_name,
       self.last_name,
       self.email,
