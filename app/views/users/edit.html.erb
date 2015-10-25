@@ -8,12 +8,12 @@
                 det bare er ditt fornavn som vises til andre brukere.
             <% end %>
             <% if @user.phone_pending_confirmation? && ! @user.unconfirmed_phone_number.blank?  %>
-                <%= render partial: "verify_sms" %>
+                <%= render partial: "verify_sms" if Plendit::Application.config.x.application_mode.beta %>
             <% end %>
             <%= render partial: "edit_profile" %>
             <%= render partial: "locations/list" %>
             <%= render partial: "edit_registration" %>
-            <%= render partial: "edit_identity" %>
+            <%= render partial: "edit_identity" if Plendit::Application.config.x.application_mode.beta %>
 
         </div>
 
@@ -23,7 +23,9 @@
                     <li><%= link_to "Rediger personalia", anchor: "personal-info" %></li>
                     <li><%= link_to "Adresser", anchor: "locations" %></li>
                     <li><%= link_to "Bytte passord", anchor: "password" %></li>
+                    <% if Plendit::Application.config.x.application_mode.beta %>
                     <li><%= link_to "Rediger tilkoblede kontoer", anchor: "identities" %></li>
+                    <% end %>
                 </ul>
             <% end %>
         </div>
