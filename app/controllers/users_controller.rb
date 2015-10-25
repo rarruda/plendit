@@ -187,9 +187,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
 
-    # FIXME: user_payment_account / bank_account_number is NEVER updated.
-    #@user.build_user_payment_account if @user.user_payment_account.nil?
-
     # TODO: move this code to its own method.
     user_params_safe = user_params
     if @user.phone_number != user_params['current_phone_number']
@@ -200,20 +197,15 @@ class UsersController < ApplicationController
     user_params_safe.except!('current_phone_number')
 
 
-    respond_to do |format|
-      if @user.update(user_params_safe)
-        # annoying that we have to save first up there and then save again below: #@user.user_images.avatar.empty?
-        if not @user.user_images.avatar.first.image_file_name.blank?
-          @user.image_url = @user.user_images.avatar.first.image.url(:avatar_huge)
-          @user.save
-        end
-
-        format.html { redirect_to ( request.env['HTTP_REFERER'] || users_edit_path ) }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if @user.update(user_params_safe)
+      # annoying that we have to save first up there and then save again below: #@user.user_images.avatar.empty?
+      if not @user.user_images.avatar.first.image_file_name.blank?
+        @user.image_url = @user.user_images.avatar.first.image.url(:avatar_huge)
+        @user.save
       end
+      redirect_to ( request.env['HTTP_REFERER'] || users_edit_path )
+    else
+      render :edit
     end
   end
 
