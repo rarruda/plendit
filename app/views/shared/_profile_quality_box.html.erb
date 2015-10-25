@@ -3,7 +3,7 @@
     <table class="profile-quality-box__table">
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= evil_icon 'ei-calendar', size: 'small', class: 'profile-quality-box__icon' %>
+                <%= icon 'calendar', class: 'fa-lg profile-quality-box__icon' %>
                 Svartid:
             </th>
             <td class="profile-quality-box__td">
@@ -12,7 +12,7 @@
         </tr>
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= evil_icon 'ei-comment', size: 'small', class: 'profile-quality-box__icon' %>
+                <%= icon 'comment-o', class: 'fa-lg profile-quality-box__icon' %>
                 Svarprosent:
             </th>
             <td class="profile-quality-box__td">
@@ -21,7 +21,7 @@
         </tr>
         <tr class="profile-quality-box__row">
             <th class="profile-quality-box__th">
-                <%= evil_icon 'ei-clock', size: 'small', class: 'profile-quality-box__icon' %>
+                <%= icon 'clock-o', class: 'fa-lg profile-quality-box__icon' %>
                 Sist sett:
             </th>
             <td class="profile-quality-box__td">
@@ -34,20 +34,20 @@
         <ol class="profile-quality-box__verifications-list">
             <li>
                 <% if user.email_verified? %>
-                    <%= evil_icon 'ei-check', size: 'small', class: 'u-fill-green profile-quality-box__icon' %>
+                    <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
                     <span>e-postadresse (verifisert)</span>
                 <% else %>
-                    <%= evil_icon 'ei-minus', size: 'small', class: 'u-fill-brown profile-quality-box__icon' %>
+                    <%= icon 'times-circle-o', class: 'fa-lg u-fill-brown profile-quality-box__icon' %>
                     <span>e-postadresse (ikke verifisert)</span>
                 <% end %>
             </li>
 
             <li>
                 <% if user.phone_verified? %>
-                    <%= evil_icon 'ei-check', size: 'small', class: 'u-fill-green profile-quality-box__icon' %>
+                    <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
                     <span>telefonnummer (verifisert)</span>
                 <% else %>
-                    <%= evil_icon 'ei-minus', size: 'small', class: 'u-fill-brown profile-quality-box__icon' %>
+                    <%= icon 'times-circle-o', class: 'fa-lg u-fill-brown profile-quality-box__icon' %>
                     <span>telefonnummer (ikke verifisert)</span>
                 <% end %>
             </li>
