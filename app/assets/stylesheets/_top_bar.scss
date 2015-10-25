@@ -2,8 +2,6 @@
 
 $top-bar-height: 52px;
 
-$double-top-bar-breakpoint: 639px;
-
 .top-bar {
     background-color: $color-plendit-blue;
     height: $top-bar-height;
@@ -11,7 +9,7 @@ $double-top-bar-breakpoint: 639px;
     color: white;
     position: relative;
 
-    @media screen and (max-width: $double-top-bar-breakpoint) {
+    @media (max-width: $mobile) {
         height: $top-bar-height * 2;
     }
 
@@ -55,7 +53,8 @@ $double-top-bar-breakpoint: 639px;
             box-shadow: 0 1px 1px rgba(darken($color-plendit-blue, 10), 0.5) inset;
         }
 
-        @media screen and (max-width: 320px) {
+        /* NOTE: This breakpoint is hardcoded. */
+        @media (max-width: 320px) {
             width: 100px;
         }
     }
@@ -88,7 +87,7 @@ $double-top-bar-breakpoint: 639px;
     &__rightbox {
         float: right;
 
-        @media screen and (max-width: $double-top-bar-breakpoint) {
+        @media (max-width: $mobile) {
             float: none;
         }
     }

@@ -1,13 +1,15 @@
+@import 'constants.scss';
+
 .ad-title-image {
     &__holder {
         width: 100%;
         height: 412px;
 
-        @media screen and (max-width: 640px) {
+        @media (max-width: $mobile) {
             height: 240px;
         }
 
-        @media screen and (min-width: 1401px) {
+        @media (min-width: $tablet) {
             height: 600px;
         }
     }

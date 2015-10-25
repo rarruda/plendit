@@ -1,5 +1,6 @@
-.gallery {
+@import 'constants.scss';
 
+.gallery {
     &__image {
         width: 100%;
         height: auto;
@@ -19,11 +20,11 @@
         background-position: 50% 50%;
         width: 16.6666%;
 
-        @media screen and (max-width: 800px) {
+        @media (max-width: $desktop) {
             width: 20%;
         }
 
-        @media screen and (max-width: 600px) {
+        @media (max-width: $tablet) {
             width: 25%;
         }
     }

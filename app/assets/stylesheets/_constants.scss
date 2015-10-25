@@ -1,5 +1,16 @@
 //$main-font: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
 
+
+/* Breakpoints */
+/* Mobile is set as a maximum, whereas the other sizes are minimums.
+   There should always be a 1px difference between mobile & tablet in
+   this configuration. */
+$mobile: 767px;
+$tablet: 768px;
+$desktop: 960px;
+$bigscreen: 1200px;
+
+
 $standard-spacing: 12px;
 $large-spacing: $standard-spacing * 3;
 
