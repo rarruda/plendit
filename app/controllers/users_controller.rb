@@ -169,8 +169,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    # required to build one user_payment_account/user_image virtually, so that we have something to render:
-    @user.build_user_payment_account if @user.user_payment_account.nil?
+    # required to build one user_image virtually, so that we have something to render:
     @user.user_images.build          if @user.user_images.blank?
   end
 
@@ -309,7 +308,6 @@ class UsersController < ApplicationController
         :home_address_line, :home_post_code,
         :password, :password_confirmation,
         :current_phone_number, :phone_number_confirmation_token,
-         user_payment_account_attributes: [:id, :bank_account_number],
          user_images_attributes: [:id, :image, :category],
          identity_attributes: [:provider]
       )

@@ -101,48 +101,28 @@
             </div>
         </div>
 
-        <%- if @user.mangopay_provisionable? -%>
 
-            <div class="row">
-                <div class="eight columns">
-                    <%= f.label :home_address_line, "Gateadresse:" %>
-                    <%= f.text_field :home_address_line, class: "u-full-width" %>
-                </div>
+        <div class="row">
+            <div class="eight columns">
+                <%= f.label :home_address_line, "Gateadresse:" %>
+                <%= f.text_field :home_address_line, class: "u-full-width" %>
             </div>
-
-            <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
-                <div class="two columns">
-                    <%= f.label :home_post_code, 'Postnr.' %>
-                    <%= f.number_field :home_post_code, class: 'u-full-width', placeholder: 'Postnr.', maxlength: 5, data: {postal_code: ''} %>
-                </div>
-                <div class="six columns">
-                    <%= label_tag :poststed, 'Poststed' %>
-                    <input type="text" id="poststed" name="poststed" class="u-full-width" disabled placeholder="<%= @user.home_city || 'Poststed' %>" data-postal-place>
-                </div>
+        </div>
+        <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
+            <div class="two columns">
+                <%= f.label :home_post_code, 'Postnr.' %>
+                <%= f.number_field :home_post_code, class: 'u-full-width', placeholder: 'Postnr.', maxlength: 5, data: {postal_code: ''} %>
             </div>
-            <p>
-                <small>Vi trenger addressen som hører til bankkontoen din.</small>
-            </p>
-
-
-            <div class="row">
-                <div class="eight columns">
-                    <%# only show bank account form, if you have confirmed your phone with us. %>
-                    <%= f.fields_for :user_payment_account do |acc_builder| %>
-                        <%#= acc_builder.hidden_field :id %>
-                        <%= acc_builder.label :bank_account_number, "Kontonummer" %>
-                        <%= acc_builder.text_field :bank_account_number, { maxlength: 13, class: 'u-full-width' }  %>
-                    <% end %>
-                    <p>
-                        <small>Vi trenger kontonummer for å utbetale penger til deg som utleier</small>
-                    </p>
-                </div>
+            <div class="six columns">
+                <%= label_tag :poststed, 'Poststed' %>
+                <input type="text" id="poststed" name="poststed" class="u-full-width" disabled placeholder="<%= @user.home_city || 'Poststed' %>" data-postal-place>
             </div>
-        <%- else -%>
-            <p>
-                <small>Når profilen din er komplett, og vi har bekreftet epost og mobiltelefon, kan du legge inn kontonummer.</small>
-            </p>
-        <%- end -%>
+        </div>
+        <p>
+            <small>Vi trenger addressen som hører til bankkontoen din.</small>
+        </p>
+
+
 
         <div class="row u-push-down">
             <div class="three columns">
