@@ -86,6 +86,15 @@ class UsersController < ApplicationController
     render :verify_mobile
   end
 
+  def verify_email
+  end
+
+  def verify_email_post
+    current_user.send_confirmation_instructions
+    render :verify_email
+  end
+
+
   def index
   end
 
@@ -130,7 +139,7 @@ class UsersController < ApplicationController
         state: user.email_verified? ? :verified : :required,
         rejected: false,
         rejection_reason: nil,
-        path: '#',
+        path: verify_email_users_path,
         link_text: 'Ikke mottatt verifiseringslink?',
         question?: true
       }),

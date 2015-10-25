@@ -1,0 +1,30 @@
+<%= render partial: 'shared/personal_bar', locals: { selected: 'Profil' } %>
+
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <h1>E-post</h1>
+
+            <% if current_user.email_verified? %>
+                <p>
+                    Din e-postadresse er bekreftet.
+                </p>
+            <% else %>
+                <p>
+                    Vi har sendt en e-post til adressen:
+                    <%= current_user.unconfirmed_email %>. Den inneholder
+                    en lenke for å bekrefte at dette er din adresse.
+                </p>
+                <div>
+                    Har du ikke fått e-post?
+                    <%= button_to 'Send ny e-post', verify_email_users_path, form_class: 'u-inline', class: 'button' %>
+                </div>
+            <% end %>
+
+            <p>
+                <%= link_to 'Tilbake til min profil', users_path %>
+            </p>
+
+        </div>
+    </div>
+</div>

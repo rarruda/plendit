@@ -210,12 +210,9 @@ class User < ActiveRecord::Base
     user
   end
 
-
-  # ugh, this is soooo ugly! Look at app/views/users/confirmations/new.html.erb
   def email_verified?
-    self.email && self.email !~ /\Atemp-/
+    self.email.present? && self.unconfirmed_email.blank?
   end
-
 
   def recent_notifications
     self.notifications.order("created_at desc").limit(10)
