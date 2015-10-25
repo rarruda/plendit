@@ -1,0 +1,15 @@
+<tr>
+  <td><%= transaction.date %> </td>
+  <td><%= transaction.from_user.first_name || transaction.to_user.first_name %></td>
+  <td><%= transaction.booking.ad.title %></td>
+  <td>
+    <% if transaction.inn %>
+      <%= icon 'sign-in', class: "fa-lg" %>
+    <% else %>
+        <%= icon 'sign-out', class: "fa-lg" %>
+    <% end %>
+  </td>
+  <td>
+    <%= transaction.amount %>
+  </td>
+</tr>
