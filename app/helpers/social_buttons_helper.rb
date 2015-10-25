@@ -3,11 +3,13 @@ module SocialButtonsHelper
   @@networks = {
     facebook: {
       name: 'Facebook',
+      #icon: 'facebook',
       icon: 'ei-sc-facebook',
       id:   'fb',
     },
     google: {
       name: 'Google',
+      #icon: 'google',
       icon: 'ei-sc-google-plus',
       id:   'google',
     },
