@@ -24,7 +24,7 @@ class UserPaymentAccount < ActiveRecord::Base
 
   private
   def user_is_provisioned
-    if self.user.mangopay_provisioned?
+    unless self.user.mangopay_provisioned?
       errors.add(:base, "You are not yet provisioned with mangopay")
     end
   end
