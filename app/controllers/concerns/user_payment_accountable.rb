@@ -1,16 +1,13 @@
 module UserPaymentAccountable
   extend ActiveSupport::Concern
 
-  # GET /me/user_payment_accounts
-  #def index
-  #end
 
-  # GET /me/user_payment_accounts
+  # GET /me/bank_account
   def bank_account
     render 'edit_user_payment_account'
   end
 
-  # POST /me/user_payment_accounts
+  # POST /me/bank_account
   def update_bank_account
     @user = current_user
     if @user_payment_account.update(user_payment_account_params)
