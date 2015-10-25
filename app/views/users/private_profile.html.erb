@@ -15,7 +15,7 @@
                     <div class="biz-card__details">
                         <strong><%= current_user.display_name %></strong>
                         <br>
-                        <%= current_user.email %>
+                        <%= current_user.display_email %>
                         <br>
                         Tlf: <%= current_user.phone_number.blank? ? 'Ikke registrert mobilnummer' : current_user.phone_number %>
                         <br>

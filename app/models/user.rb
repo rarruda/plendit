@@ -211,7 +211,9 @@ class User < ActiveRecord::Base
   end
 
   def email_verified?
-    self.email.present? && self.unconfirmed_email.blank?
+    self.email.present? &&
+    !self.email.start_with?('temp-') &&
+    ( self.unconfirmed_email.blank? || self.unconfirmed_email == self.email)
   end
 
   def recent_notifications
