@@ -45,7 +45,7 @@ class UserPaymentCard < ActiveRecord::Base
 
   private
   def user_is_provisioned
-    if self.user.payment_provider_vid.blank?
+    if self.user.mangopay_provisioned?
       errors[:base] << "You are not yet provisioned with mangopay"
     end
   end
