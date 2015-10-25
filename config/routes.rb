@@ -71,6 +71,9 @@ Rails.application.routes.draw do
       get  'verify/email', to: 'users#verify_email'
       post 'verify/email', to: 'users#verify_email_post'
 
+      get  'finish_signup', to: 'users#finish_signup'
+      patch 'finish_signup', to: 'users#finish_signup'
+
       #get  'verify_email'
       post 'verify_sms'
       post 'resend_verification_sms'

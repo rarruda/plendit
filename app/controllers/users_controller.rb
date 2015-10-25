@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     :show, :edit, :update, :destroy, :confirmation,
     :verify_sms, :verify_sms, :resend_verification_sms,
     :mark_all_notifications_noticed, :payment,
-    :bank_account, :update_bank_account
+    :bank_account, :update_bank_account, :finish_signup
   ]
 
   before_action :set_user_payment_account, only: [:payment, :bank_account, :update_bank_account]
@@ -247,8 +247,8 @@ class UsersController < ApplicationController
     if request.patch? && params[:user] #&& params[:user][:email]
       if @user.update(user_params)
         @user.skip_reconfirmation!
-        sign_in(@user, :bypass => true)
-        redirect_to @user, notice: 'Your profile was successfully updated.'
+        sign_in(@user, bypass: true)
+        redirect_to private_profile_users_path
       else
         @show_errors = true
       end
