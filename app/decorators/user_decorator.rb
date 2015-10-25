@@ -9,8 +9,12 @@ class UserDecorator < Draper::Decorator
   decorates_association :recent_feedback
 
   def display_name
-    self.first_name.blank? ? "Navn mangler" : self.first_name
+    self.first_name.blank? ? 'Navn mangler' : self.first_name
     #( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
+  end
+
+  def display_email
+    self.email_verified? ? self.email : 'E-post ikke verifisert'
   end
 
   def display_name_posessive
