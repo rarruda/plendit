@@ -12,6 +12,7 @@ class UserPaymentCard < ActiveRecord::Base
 
   validates_uniqueness_of :guid
 
+  validate :user_is_provisioned
 
   before_validation :set_guid, :on => :create
 
@@ -19,6 +20,7 @@ class UserPaymentCard < ActiveRecord::Base
   before_destroy :disable,
     if: :card_vid?,
     if: :active?
+
 
   def set_favorite
     Location.transaction do
@@ -42,6 +44,12 @@ class UserPaymentCard < ActiveRecord::Base
   end
 
   private
+  def user_is_provisioned
+    if self.user.payment_provider_vid.blank?
+      errors[:base] << "You are not yet provisioned with mangopay"
+    end
+  end
+
 
   def set_guid
     self.guid = loop do
