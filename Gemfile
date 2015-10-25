@@ -94,7 +94,6 @@ gem 'redis-rails'
 gem 'okcomputer'
 
 # icons for the UI
-gem 'evil_icons', '~> 1.7.8'
 gem 'font-awesome-sass'
 
 # prefix CSS rules that need it

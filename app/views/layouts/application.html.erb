@@ -34,9 +34,6 @@
     <% end %>
 </head>
 <body data-controller="helpToggler">
-    <% cache 'evil_icons' do %>
-        <%= evil_icons_sprite %>
-    <% end %>
     <header>
         <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field } %>
         <%= render partial: "flash_bar" %>
