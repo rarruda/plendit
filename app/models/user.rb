@@ -358,7 +358,7 @@ class User < ActiveRecord::Base
   end
 
   def has_bank_account?
-    [self.user_payment_account, self.user_payment_account.bank_account_number].all?
+    self.user_payment_account.present? && self.user_payment_account.bank_account_number
   end
 
   # Same as in MangopayService:
