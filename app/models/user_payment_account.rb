@@ -10,15 +10,25 @@ class UserPaymentAccount < ActiveRecord::Base
   validates :bank_account_number, uniqueness: {message: "(account number) is in use by another user in plendit."}, unless: 'bank_account_number.nil?'
   validate  :is_bank_account_number_valid?, unless: 'bank_account_number.nil?'
   validate  :is_bank_account_iban_valid?,   unless: 'bank_account_number.nil?'
+  validate  :user_is_provisioned
 
   # above validations, and before_validations should have a IF statement checking if bank_account is not nil?
 
   after_save :provision_with_mangopay,
-    if: 'user.mangopay_provisioned?',
-    if: 'user.has_address?'
+    if: 'mangopay_provisionable?'
 
+
+  def mangopay_provisionable?
+    self.user.mangopay_provisioned? && self.user.has_address?
+  end
 
   private
+  def user_is_provisioned
+    if self.user.mangopay_provisioned?
+      errors.add(:base, "You are not yet provisioned with mangopay")
+    end
+  end
+
   def set_bank_account_iban
     self.bank_account_iban = Ibanizator.new.calculate_iban country_code: PLENDIT_COUNTRY_CODE, account_number: self.bank_account_number
   end
@@ -38,7 +48,6 @@ class UserPaymentAccount < ActiveRecord::Base
   def normalize_bank_account_number
     self.bank_account_number.gsub!(/(\s|\.)+/, "")
   end
-
 
   def provision_with_mangopay
     # mangopay dont support de-provisioning of bank accounts...
