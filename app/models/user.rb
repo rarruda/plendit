@@ -354,36 +354,27 @@ class User < ActiveRecord::Base
   end
 
   def has_address?
-    if self.home_address_line.blank? ||
-      self.home_post_code.blank? ||
-      self.home_city.blank?
-      false
-    else
-      true
-    end
+    [self.home_address_line, self.home_post_code, self.home_city].all?
   end
 
   def has_bank_account?
-    return false if self.user_payment_account.nil? || self.user_payment_account.bank_account_number.blank?
-    true
+    [self.user_payment_account, self.user_payment_account.bank_account_number].all?
   end
 
   # Same as in MangopayService:
   # mangopay_provisionable?
   def profile_complete?
-    if  self.first_name.blank? ||
-        self.last_name.blank? ||
-        self.email.blank? ||
-        self.birthday.blank? ||
-        self.personhood.blank? ||
-        self.country_of_residence.blank? ||
-        self.nationality.blank? ||
-        self.phone_number.blank? ||
-        self.email.blank?
-      false
-    else
-      true
-    end
+    [ 
+      self.first_name,
+      self.last_name,
+      self.email,
+      self.birthday,
+      self.personhood,
+      self.country_of_residence,
+      self.nationality,
+      self.phone_number,
+      self.email
+    ].all?
   end
   alias_method :mangopay_provisionable?, :profile_complete?
 
