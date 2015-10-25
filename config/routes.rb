@@ -51,27 +51,27 @@ Rails.application.routes.draw do
     #  resources :favorite_ads
     #end
     member do
-      get '/',  to: 'users#index'
+      get  '/',  to: 'users#index'
       post 'ads/create'
-      get 'ads', to: 'ads#list'
-      get 'private_profile', to: 'users#private_profile'
-      get 'payment'
-      get 'bank_account'
+      get  'ads', to: 'ads#list'
+      get  'private_profile', to: 'users#private_profile'
+      get  'payment'
+      get  'bank_account'
       post 'bank_account', to: 'users#update_bank_account'
 
-      get 'verify/drivers_license', to: 'users#verify_drivers_license'
+      get  'verify/drivers_license', to: 'users#verify_drivers_license'
       post 'verify/drivers_license', to: 'users#upload_drivers_license'
 
-      get 'verify/id_card', to: 'users#verify_id_card'
+      get  'verify/id_card', to: 'users#verify_id_card'
       post 'verify/id_card', to: 'users#upload_id_card'
-      get 'verify/boat_license', to: 'users#verify_boat_license'
+      get  'verify/boat_license', to: 'users#verify_boat_license'
       post 'verify/boat_license', to: 'users#upload_boat_license'
-      get 'verify/mobile', to: 'users#verify_mobile'
+      get  'verify/mobile', to: 'users#verify_mobile'
       post 'verify/mobile', to: 'users#verify_mobile_post'
-      get 'verify/email', to: 'users#verify_email'
+      get  'verify/email', to: 'users#verify_email'
       post 'verify/email', to: 'users#verify_email_post'
 
-      #get 'verify_email'
+      #get  'verify_email'
       post 'verify_sms'
       post 'resend_verification_sms'
       post 'mark_all_notifications_noticed', to: 'users#mark_all_notifications_noticed'
