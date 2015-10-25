@@ -83,16 +83,14 @@
 
 
 .social-button {
-
     $height: 54px;
 
-    background-color: gold;
     border-radius: 6px;
     border: solid thin rgba(0,0,0,0.2);
     display: inline-block;
     width: 300px;
     height: $height;
-    line-height: $height;
+    line-height: 35px;
     color: white;
     font-size: 18px;
     display: inline-block;
@@ -110,19 +108,26 @@
         background-color: rgb(218, 79, 70);
     }
 
-    &__logo-image {
-        margin-left: 2px;
-        margin-right: 3px;
-
+    &__icon-holder {
+        display: inline-block;
+        height: $height;
+        line-height: $height;
+        width: 52px;
+        text-align: center;
+        border-right: solid thin rgba(0,0,0,0.2);
+        margin-top: -1px;
+        margin-right: 2px;
+        padding-right: 2px;
     }
 
-    &__text {
-        padding-left: 12px;
-        height: $height - 2;
-        margin-bottom: 2px;
-        border-left: solid thin rgba(0,0,0,0.2);
-        display: inline-block;
-        vertical-align: text-bottom;
+    &__logo-icon {
+        vertical-align: middle;
+    }
+
+    &__logo-image {
+        vertical-align: middle;
+        margin-left: 2px;
+        margin-right: 3px;
     }
 }
 

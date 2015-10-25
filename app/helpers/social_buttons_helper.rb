@@ -4,13 +4,13 @@ module SocialButtonsHelper
     facebook: {
       name: 'Facebook',
       #icon: 'facebook',
-      icon: 'ei-sc-facebook',
+      icon: 'facebook',
       id:   'fb',
     },
     google: {
       name: 'Google',
       #icon: 'google',
-      icon: 'ei-sc-google-plus',
+      icon: 'google',
       id:   'google',
     },
     spid: {
