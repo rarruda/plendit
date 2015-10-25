@@ -122,6 +122,7 @@
             <small>Vi trenger addressen som hører til bankkontoen din.</small>
         </p>
 
+        <%= render partial: 'privacy_box' unless Plendit::Application.config.x.application_mode.beta %>
 
 
         <div class="row u-push-down">
