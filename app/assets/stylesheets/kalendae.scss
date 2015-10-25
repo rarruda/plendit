@@ -57,7 +57,12 @@
 }
 
 /** Month Container **/
-.kalendae .k-calendar {display: inline-block;zoom:1;*display:inline;width:246px;vertical-align:top;}
+.kalendae .k-calendar {display: inline-block;zoom:1;*display:inline;width:246px;vertical-align:top;
+
+    @media (min-width: $tablet) and (max-width: $desktop) {
+        width: 200px;
+    }
+}
 
 /** Month Separator **/
 .kalendae .k-separator {display: inline-block;zoom:1;*display:inline;width:2px;vertical-align:top;background:#ddd;height:252px;margin:0px 10px;}
@@ -125,6 +130,10 @@
     width:246px;
     display:block;
     overflow:hidden;
+
+    @media (min-width: $tablet) and (max-width: $desktop) {
+        width: 200px;
+    }
 }
 
 
@@ -150,6 +159,10 @@
     width:31px;
     padding:1px 0;
     color:black;
+
+    @media (min-width: $tablet) and (max-width: $desktop) {
+        width: 24px;
+    }
 }
 
 .kalendae .k-days span {
@@ -163,6 +176,10 @@
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     color:#999;
+
+    @media (min-width: $tablet) and (max-width: $desktop) {
+        width: 18px;
+    }
 }
 
 /** Today **/
