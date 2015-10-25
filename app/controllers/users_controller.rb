@@ -1,10 +1,17 @@
 class UsersController < ApplicationController
+  include UserPaymentAccountable
+
   before_action :authenticate_user!, :except => [:show, :finish_signup]
+
   before_action :set_user, only: [
     :show, :edit, :update, :destroy, :confirmation,
-    :verify_sms, :verify_sms, :mark_all_notifications_noticed,
-    :resend_verification_sms
+    :verify_sms, :verify_sms, :resend_verification_sms,
+    :mark_all_notifications_noticed, :payment,
+    :bank_account, :update_bank_account
   ]
+
+  before_action :set_user_payment_account, only: [:payment, :bank_account, :update_bank_account]
+
 
   add_flash_types :sms_notice
 
@@ -273,7 +280,7 @@ class UsersController < ApplicationController
 
   # GET /me/payment
   def payment
-    @user_payment_cards = current_user.user_payment_cards
+    @user_payment_cards = current_user.user_payment_cards.sort
   end
 
 

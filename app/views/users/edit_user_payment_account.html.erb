@@ -1,0 +1,44 @@
+<%= render layout: "gray_box", locals: {title: "Kontonummer", id: "kontonummer"} do %>
+
+<%- if @user_payment_account.errors.any? -%>
+    <div>
+        TRANSLATE_ME: <%= pluralize(@user_payment_account.errors.count, "error") %> prohibited your bank account number from being updated:
+        <ul>
+            <% @user_payment_account.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+        </ul>
+    </div>
+<%- end -%>
+
+<%- if @user.mangopay_provisionable? -%>
+  <%= form_for( @user_payment_account, url: bank_account_users_path, html: { method: :post } ) do |f| %>
+    <div class="row">
+        <div class="eight columns">
+          <%# only show bank account form, if you have confirmed your phone with us. %>
+          <%= f.label :bank_account_number, "Kontonummer" %>
+          <%= f.text_field :bank_account_number, { maxlength: 13, class: 'u-full-width' }  %>
+          <p>
+              <small>Vi trenger kontonummer for å utbetale penger til deg som utleier</small>
+          </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="twelve columns">
+            <%= f.submit "Oppdater", class: "u-pull-right button" %>
+        </div>
+    </div>
+  <% end %>
+<%- else -%>
+    <p>
+        <small>Når profilen din er komplett, og vi har bekreftet epost og mobiltelefon, kan du legge inn kontonummer.</small>
+    </p>
+    Før du kan registrere kontonummer, vi trenger:
+    <ul>
+      <li>bekreftet epost</li>
+      <li>bekreftet mobiltelefon</li>
+      <li>addresse</li>
+    </ul>
+<%- end -%>
+
+<% end %>

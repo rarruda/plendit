@@ -55,7 +55,10 @@ Rails.application.routes.draw do
       post 'ads/create'
       get 'ads', to: 'ads#list'
       get 'private_profile', to: 'users#private_profile'
-      get 'payment', to: 'users#payment'
+      get 'payment'
+      get 'bank_account'
+      post 'bank_account', to: 'users#update_bank_account'
+
       get 'verify/drivers_license', to: 'users#verify_drivers_license'
       post 'verify/drivers_license', to: 'users#upload_drivers_license'
 

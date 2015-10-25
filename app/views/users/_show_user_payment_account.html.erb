@@ -1,0 +1,30 @@
+<%= render layout: "gray_box", locals: {title: "Kontonummer", id: "kontonummer"} do %>
+
+<%- if @user.mangopay_provisionable? -%>
+    <div class="row">
+        <div class="eight columns">
+          bank_account_number:
+          <%= @user.user_payment_account.bank_account_number %>
+          <p>
+              <small>Vi trenger kontonummer for å utbetale penger til deg som utleier</small>
+          </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="twelve columns">
+            <%= link_to "Oppdater", bank_account_users_path %>
+        </div>
+    </div>
+<%- else -%>
+    <p>
+        <small>Når profilen din er komplett, og vi har bekreftet epost og mobiltelefon, kan du legge inn kontonummer.</small>
+    </p>
+    Før du kan registrere kontonummer, vi trenger:
+    <ul>
+      <li>bekreftet epost</li>
+      <li>bekreftet mobiltelefon</li>
+      <li>addresse</li>
+    </ul>
+<%- end -%>
+
+<% end %>
