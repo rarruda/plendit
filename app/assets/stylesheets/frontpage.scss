@@ -13,6 +13,8 @@
         width: 100%;
         text-align: center;
         padding-top: 40px;
+        padding-left: $standard-spacing;
+        padding-right: $standard-spacing;
 
         @media (max-width: $desktop) {
             padding-top: 28px;
