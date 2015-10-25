@@ -1,9 +1,5 @@
 @import 'constants.scss';
 
-$break-large: 1280px;
-$break-small: 800px;
-$break-tiny: 640px;
-
 .front-search-block {
     position: relative;
     z-index: 1;
@@ -79,11 +75,11 @@ $break-tiny: 640px;
         overflow: hidden;
         width: 100%;
 
-        @media (max-width: $bigscreen) {
+        @media (max-width: $desktop) {
             height: 400px;
         }
 
-        @media (max-width: $desktop) {
+        @media (max-width: $tablet) {
             height: 340px;
         }
 
