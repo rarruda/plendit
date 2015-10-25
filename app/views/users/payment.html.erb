@@ -2,6 +2,7 @@
 
 <p id="notice"><%= notice %></p>
 
+<% if current_user.mangopay_provisioned? %>
 <div class="container">
     <div class="row">
         <div class="eight columns">
@@ -9,8 +10,7 @@
             <hr>
             <%= render partial: "users/show_user_payment_account" %>
             <hr>
-            <%#= render partial: "users/payment/transaction" %>
-
+            <%#= render partial: "users/payment/transaction_list" %>
         </div>
 
         <div class="four columns">
@@ -18,3 +18,25 @@
         </div>
     </div>
 </div>
+<% else %>
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+          <%= render layout: "gray_box", locals: {title: "Betaling", id: "payment"} do %>
+            <!-- FIXME: need better text/layout -->
+            TRANSLATE_ME: You must have a verified email and phone number before you can make / receive payments.
+
+            <p>
+                <small>Når profilen din er komplett (inkl. addresse), og vi har bekreftet epost og mobiltelefon, kan du legge inn kontonummer / kreditt kort / få betalt.</small>
+            </p>
+            Før du kan registrere kontonummer, vi trenger:
+            <ul>
+              <% unless current_user.email_verified? %> <li><%= link_to 'bekreftet epost', edit_users_path( anchor: 'personal-info' ) %> </li> <% end %>
+              <% unless current_user.phone_verified? %> <li><%= link_to 'bekreftet mobiltelefon', edit_users_path( anchor: 'personal-info' ) %></li> <% end %>
+              <% unless current_user.has_address? %> <li><%= link_to 'addresse', edit_users_path( anchor: 'personal-info' ) %></li><% end %>
+            </ul>
+          <% end %>
+        </div>
+    </div>
+</div>
+<% end %>

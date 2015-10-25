@@ -1,6 +1,6 @@
 <%= render layout: "gray_box", locals: {title: "Kontonummer", id: "kontonummer"} do %>
 
-<%- if @user_payment_account.errors.any? -%>
+  <%- if @user_payment_account.errors.any? -%>
     <div>
         TRANSLATE_ME: <%= pluralize(@user_payment_account.errors.count, "error") %> prohibited your bank account number from being updated:
         <ul>
@@ -9,9 +9,8 @@
             <% end %>
         </ul>
     </div>
-<%- end -%>
+  <%- end -%>
 
-<%- if @user.mangopay_provisionable? -%>
   <%= form_for( @user_payment_account, url: bank_account_users_path, html: { method: :post } ) do |f| %>
     <div class="row">
         <div class="eight columns">
@@ -29,16 +28,5 @@
         </div>
     </div>
   <% end %>
-<%- else -%>
-    <p>
-        <small>Når profilen din er komplett, og vi har bekreftet epost og mobiltelefon, kan du legge inn kontonummer.</small>
-    </p>
-    Før du kan registrere kontonummer, vi trenger:
-    <ul>
-      <li>bekreftet epost</li>
-      <li>bekreftet mobiltelefon</li>
-      <li>addresse</li>
-    </ul>
-<%- end -%>
 
 <% end %>
