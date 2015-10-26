@@ -3,11 +3,13 @@ Rails.application.routes.draw do
   scope '/internal-backstage' do
     mount OkComputer::Engine, at: "health-check"
     ActiveAdmin.routes(self)
-    get 'admin/switch_user' => 'switch_user#set_current_user'
-    get 'switch_user',               to: redirect('/')
-    get 'switch_user/remember_user', to: redirect('/')
+    get  'admin/switch_user' => 'switch_user#set_current_user'
+    get  'switch_user',               to: redirect('/')
+    get  'switch_user/remember_user', to: redirect('/')
+    get  '/',                         to: 'backstage#index', as: 'backstage'
+    get  'broadcast',                 to: 'backstage#broadcast'
+    post 'broadcast',                 to: 'backstage#broadcast'
   end
-
 
   resources :locations, path: '/me/locations', only: [:index, :new, :create, :edit, :update, :destroy] do
     member do

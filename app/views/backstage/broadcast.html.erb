@@ -1,0 +1,18 @@
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h1>Broadcast message</h1>
+
+            <div>
+                <%= form_tag controller: 'backstage', action: 'broadcast', method: 'post' do %>
+                    <%= text_area_tag :message, @message, size: "60x6" %>
+                    <br>
+                    <%= submit_tag 'Endre broadcast', class: 'button button-primary' %>
+                <% end %>
+            </div>
+
+            <%= link_to 'Back to backstage', backstage_path %>
+
+        </div>
+    </div>
+</div>
