@@ -32,15 +32,21 @@ class BackstageController < ApplicationController
   end
 
   def kyc_document
+    #fixme: redirect to kyc index when approved?
     @user_document = UserDocument.find_by(guid: params[:guid]).decorate
     if request.patch?
       @user_document.update(kyc_params)
       if params[:commit] == 'reject'
         @user_document.not_approved!
       elsif params[:commit] == 'approve'
-        user_document.approve!
+        @user_document.approved!
       end
     end
+  end
+
+  def kyc_image
+    user_document = UserDocument.find_by(guid: params[:guid])
+    redirect_to user_document.document.expiring_url(10)
   end
 
   private

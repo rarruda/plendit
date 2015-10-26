@@ -28,16 +28,18 @@
                 <%= form_for @user_document, url: {controller: 'backstage', action: 'kyc_document'} do |f| %>
                     <div>Category: <%= d.display_category %></div>
                     <br>
-                    IMG GOES HERE
+                    <%= image_tag kyc_image_path(@user_document) %>
                     <br>
-                    <%= f.label :expires_at %> <%= f.date_select :expires_at, end_year: 2050, include_blank: true %>
+                    <%= f.label :expires_at, 'Expires at:' %> <%= f.date_select :expires_at, end_year: 2050, include_blank: true %>
                     <br>
-                    <%= f.label :rejection_reason %> <%= f.text_field :rejection_reason %>
+                    <%= f.label :rejection_reason, 'Rejection reason:' %> <%= f.text_field :rejection_reason %>
                     <br>
-                    <%= f.submit 'Approve', value: 'approve' %>
-                    <%= f.submit 'Reject', value: 'reject' %>
+                    <%= f.submit 'Approve', value: 'approve', class: 'button' %>
+                    <%= f.submit 'Reject', value: 'reject', class: 'button' %>
                 <% end %>
             </div>
+            <%= link_to 'Back to KYC documents', pending_kyc_reviews_path %>
+            <br>
             <%= link_to 'Back to backstage', backstage_path %>
         </div>
     </div>

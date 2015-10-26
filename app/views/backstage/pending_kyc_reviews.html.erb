@@ -7,7 +7,7 @@
                 <ul>
                     <% @user_documents.each do |doc| %>
                         <li>
-                            <%= link_to "#{doc.user.display_name}: #{doc.display_category}", kyc_document_path(doc) %>
+                            <%= link_to "#{doc.user.display_full_name}: #{doc.display_category}", kyc_document_path(doc) %>
                         </li>
                     <% end %>
                 </ul>

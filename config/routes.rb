@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get   'pending_kyc_reviews',       to: 'backstage#pending_kyc_reviews'
     get   'kyc_document/:guid',        to: 'backstage#kyc_document', as: 'kyc_document'
     patch 'kyc_document/:guid',        to: 'backstage#kyc_document'
+    get   'kyc_image/:guid',           to: 'backstage#kyc_image', as: 'kyc_image'
   end
 
   resources :locations, path: '/me/locations', only: [:index, :new, :create, :edit, :update, :destroy] do
