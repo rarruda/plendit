@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get  '/',                         to: 'backstage#index', as: 'backstage'
     get  'broadcast',                 to: 'backstage#broadcast'
     post 'broadcast',                 to: 'backstage#broadcast'
+    get  'pending_ad_reviews',        to: 'backstage#pending_ad_reviews'
   end
 
   resources :locations, path: '/me/locations', only: [:index, :new, :create, :edit, :update, :destroy] do

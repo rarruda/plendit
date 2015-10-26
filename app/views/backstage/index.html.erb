@@ -12,14 +12,19 @@
                     <th>Request host:</th>
                     <td><%= request.host %></td>
                 </tr>
+                <tr>
+                    <th>Ads pending review:</th>
+                    <td><%= @pending_ads_cnt %></td>
+                </tr>
             </table>
 
             <hr>
 
             <ul>
-                <li><%= link_to 'ActiveAdmin', admin_root_path %></li>
-                <li><%= link_to 'Health check', ok_computer_path %></li>
-                <li><%= link_to 'Broadcast', broadcast_path %></li>
+                <li><%= link_to 'ActiveAdmin', admin_root_path %> - Go to model admin UI</li>
+                <li><%= link_to 'Health check', ok_computer_path %> - Service health</li>
+                <li><%= link_to 'Broadcast', broadcast_path %> - Change broadcast message</li>
+                <li><%= link_to 'Pending ads', pending_ad_reviews_path %> - Review submitted ads</li>
             </ul>
 
         </div>

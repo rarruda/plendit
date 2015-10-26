@@ -3,7 +3,7 @@
         <div class="twelve columns">
             <h1>Broadcast message</h1>
 
-            <div>
+            <div class="u-push-down">
                 <%= form_tag controller: 'backstage', action: 'broadcast', method: 'post' do %>
                     <%= text_area_tag :message, @message, size: "60x6" %>
                     <br>

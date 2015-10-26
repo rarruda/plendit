@@ -1,0 +1,20 @@
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h1>Pending reviews</h1>
+
+            <div class="u-push-down">
+                <ul>
+                    <% @ads.each do |ad| %>
+                        <li>
+                            <%= link_to ad.title, ad %> - <%= time_ago_in_words(ad.updated_at) %> siden.
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
+
+            <%= link_to 'Back to backstage', backstage_path %>
+
+        </div>
+    </div>
+</div>
