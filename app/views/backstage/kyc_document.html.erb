@@ -1,0 +1,44 @@
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h1>User document verification</h1>
+
+            <div class="u-push-down">
+                <% 
+                    d = @user_document
+                    u = @user_document.user
+                %>
+
+                <div>
+                    <%= avatar_image u, :huge %>
+                </div>
+
+                <div>
+                    Navn: <%= u.display_full_name %>
+                </div>
+
+                <div>
+                    Adresse: <%= "#{u.home_address_line}. #{u.home_post_code} #{u.home_city}" %>
+                </div>
+
+                <div>
+                    Fødselsdato: <%= u.birthday.to_s %>
+                </div>
+                <hr>
+                <%= form_for @user_document, url: {controller: 'backstage', action: 'kyc_document'} do |f| %>
+                    <div>Category: <%= d.display_category %></div>
+                    <br>
+                    IMG GOES HERE
+                    <br>
+                    <%= f.label :expires_at %> <%= f.date_select :expires_at, end_year: 2050, include_blank: true %>
+                    <br>
+                    <%= f.label :rejection_reason %> <%= f.text_field :rejection_reason %>
+                    <br>
+                    <%= f.submit 'Approve', value: 'approve' %>
+                    <%= f.submit 'Reject', value: 'reject' %>
+                <% end %>
+            </div>
+            <%= link_to 'Back to backstage', backstage_path %>
+        </div>
+    </div>
+</div>

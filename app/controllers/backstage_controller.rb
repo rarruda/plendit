@@ -27,8 +27,25 @@ class BackstageController < ApplicationController
   end
 
   def pending_kyc_reviews
-    # prune out license backpages so we don't show two items for a license? 
-    @documents = UserDocument.where(status: UserDocument::statuses[:pending_approval]).decorate
+    # prune out license backpages so we don't show two items for a license?
+    @user_documents = UserDocument.where(status: UserDocument::statuses[:pending_approval]).decorate
   end
 
+  def kyc_document
+    @user_document = UserDocument.find_by(guid: params[:guid]).decorate
+    if request.patch?
+      @user_document.update(kyc_params)
+      if params[:commit] == 'reject'
+        @user_document.not_approved!
+      elsif params[:commit] == 'approve'
+        user_document.approve!
+      end
+    end
+  end
+
+  private
+
+  def kyc_params
+    params[:user_document].permit(:rejection_reason, :expires_at)
+  end
 end
