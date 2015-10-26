@@ -3,16 +3,16 @@ Rails.application.routes.draw do
   scope '/internal-backstage' do
     mount OkComputer::Engine, at: "health-check"
     ActiveAdmin.routes(self)
-    get  'admin/switch_user' => 'switch_user#set_current_user'
-    get  'switch_user',               to: redirect('/')
-    get  'switch_user/remember_user', to: redirect('/')
-    get  '/',                         to: 'backstage#index', as: 'backstage'
-    get  'broadcast',                 to: 'backstage#broadcast'
-    post 'broadcast',                 to: 'backstage#broadcast'
-    get  'pending_ad_reviews',        to: 'backstage#pending_ad_reviews'
-    get  'pending_kyc_reviews',       to: 'backstage#pending_kyc_reviews'
-    get  'kyc_document/:guid',        to: 'backstage#kyc_document', as: 'kyc_document'
-    patch 'kyc_document/:guid',       to: 'backstage#kyc_document'
+    get   'admin/switch_user' => 'switch_user#set_current_user'
+    get   'switch_user',               to: redirect('/')
+    get   'switch_user/remember_user', to: redirect('/')
+    get   '/',                         to: 'backstage#index', as: 'backstage'
+    get   'broadcast',                 to: 'backstage#broadcast'
+    post  'broadcast',                 to: 'backstage#broadcast'
+    get   'pending_ad_reviews',        to: 'backstage#pending_ad_reviews'
+    get   'pending_kyc_reviews',       to: 'backstage#pending_kyc_reviews'
+    get   'kyc_document/:guid',        to: 'backstage#kyc_document', as: 'kyc_document'
+    patch 'kyc_document/:guid',        to: 'backstage#kyc_document'
   end
 
   resources :locations, path: '/me/locations', only: [:index, :new, :create, :edit, :update, :destroy] do
