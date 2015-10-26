@@ -13,6 +13,7 @@ class Ad < ActiveRecord::Base
   has_many :ad_items, autosave: true, dependent: :destroy #will leave dangling links in old bookings/favorites.
   has_many :ad_images, autosave: true, dependent: :destroy
   has_many :bookings, through: :ad_items
+  belongs_to :price
   belongs_to :location
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5, deleted: 6 }
