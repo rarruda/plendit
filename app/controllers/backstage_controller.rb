@@ -7,6 +7,7 @@ class BackstageController < ApplicationController
 
   def index
     @pending_ads_cnt = Ad.where(status: Ad::statuses[:waiting_review]).count
+    @pending_kyc_cnt = UserDocument.where(status: UserDocument::statuses[:pending_approval]).count
   end
 
   def broadcast
@@ -23,6 +24,11 @@ class BackstageController < ApplicationController
 
   def pending_ad_reviews
     @ads = Ad.where(status: Ad::statuses[:waiting_review])
+  end
+
+  def pending_kyc_reviews
+    # prune out license backpages so we don't show two items for a license? 
+    @documents = UserDocument.where(status: UserDocument::statuses[:pending_approval]).decorate
   end
 
 end

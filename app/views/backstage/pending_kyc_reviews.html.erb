@@ -1,0 +1,18 @@
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h1>Pending reviews</h1>
+
+            <div class="u-push-down">
+                <ul>
+                    <% @documents.each do |doc| %>
+                        <li>
+                            <%= link_to "#{doc.user.display_name}: #{doc.display_category}", '#' %>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
+            <%= link_to 'Back to backstage', backstage_path %>
+        </div>
+    </div>
+</div>

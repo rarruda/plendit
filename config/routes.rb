@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get  'broadcast',                 to: 'backstage#broadcast'
     post 'broadcast',                 to: 'backstage#broadcast'
     get  'pending_ad_reviews',        to: 'backstage#pending_ad_reviews'
+    get  'pending_kyc_reviews',       to: 'backstage#pending_kyc_reviews'
   end
 
   resources :locations, path: '/me/locations', only: [:index, :new, :create, :edit, :update, :destroy] do
