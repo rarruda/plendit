@@ -13,6 +13,10 @@ class UserDecorator < Draper::Decorator
     #( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
   end
 
+  def display_full_name
+    "#{self.first_name || '(fornavn mangler)'} #{self.last_name || '(etternavn mangler)'}"
+  end
+
   def display_email
     self.email_verified? ? self.email : 'E-post ikke verifisert'
   end
