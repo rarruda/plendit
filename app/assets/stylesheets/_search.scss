@@ -66,9 +66,6 @@
 }
 
 
-$breakpoint: 550px;
-
-
 @mixin search-split-pane($mapWidth) {
     &__map-box {
         width: $mapWidth;
@@ -91,7 +88,7 @@ $breakpoint: 550px;
         top: 0;
         bottom: 0;
 
-        @media screen and (max-width: $breakpoint) {
+        @media (max-width: $mobile) {
             width: 100%;
             display: none;
         }
@@ -107,7 +104,7 @@ $breakpoint: 550px;
         overflow: scroll;
         overflow-x: hidden;
 
-        @media screen and (max-width: $breakpoint) {
+        @media (max-width: $mobile) {
             width: 100%;
             left: 0;
         }
@@ -117,16 +114,14 @@ $breakpoint: 550px;
         padding-left: $standard-spacing;
     }
 
-    @media screen and (min-width: 768px) {
-        @include search-split-pane(58%);
+    @media (min-width: $bigscreen) {
+        @include search-split-pane(50%);
     }
-
-    @media screen and (min-width: 960px) {
+    @media (min-width: $desktop) and (max-width: $bigscreen) {
         @include search-split-pane(40%);
     }
-
-    @media screen and (min-width: 1400px) {
-        @include search-split-pane(50%);
+    @media (min-width: $tablet) and (max-width: $desktop) {
+        @include search-split-pane(58%);
     }
 }
 
@@ -141,7 +136,7 @@ $breakpoint: 550px;
 .search-result-view-chooser {
     display: none;
 
-    @media screen and (max-width: $breakpoint) {
+    @media (max-width: $mobile) {
         display: block;
     }
 }

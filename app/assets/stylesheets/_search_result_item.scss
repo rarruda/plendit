@@ -1,15 +1,13 @@
 @import 'constants.scss';
 
 .search-result-item {
-    $two-column-break: 960px;
-
     position: relative;
 
     &__padder {
         padding: 0 $standard-spacing $standard-spacing 0;
     }
 
-    @media screen and (min-width: $two-column-break) {
+    @media (min-width: $desktop) {
         width: 50%;
         display: inline-block;
         overflow: hidden;

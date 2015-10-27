@@ -35,7 +35,7 @@
     &__message {
     }
 
-    @media screen and (min-width: 640px) {
+    @media (min-width: $tablet) {
         position: absolute;
         top: 24px;
         left: 500px;
