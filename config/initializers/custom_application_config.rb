@@ -92,7 +92,7 @@ Plendit::Application.config.x.frontpage.popular_ads = [
     image:    'promo_imgs/bil.jpg'
   },
   { title:    'Bolig',
-    term:     'bolig',
+    term:     '',
     category: 'realestate',
     image:    'promo_imgs/bolig.jpg'
   },
