@@ -152,7 +152,7 @@ class UsersController < ApplicationController
       }),
       OpenStruct.new({
         title: 'Identitetsbevis',
-        state: user.drivers_license_status == :verified || user.id_card_status == :verified ? :approved : user.id_card_status,
+        state: user.drivers_license_status == :verified || user.id_card_status == :verified ? :verified : user.id_card_status,
         rejected: user.id_card_status == :rejected,
         rejection_reason: user.drivers_license_rejection_reason,
         path: verify_id_card_users_path
