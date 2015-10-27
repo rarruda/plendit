@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="seven columns">
+        <div class="twelve columns">
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
             <div class="new-ad-category-selector">
                 <% @ad_categories.each do |a| %>
@@ -13,7 +13,10 @@
                 <% end %>
             </div>
         </div>
-        <div class="four columns offset-by-one column">
+    </div>
+
+    <div class="row">
+        <div class="six columns">
             <%= render partial: "ad_input_copy" %>
         </div>
     </div>
