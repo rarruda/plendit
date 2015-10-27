@@ -28,7 +28,8 @@
                 <%= form_for @user_document, url: {controller: 'backstage', action: 'kyc_document'} do |f| %>
                     <div>Category: <%= d.display_category %></div>
                     <br>
-                    <%= image_tag kyc_image_path(@user_document) %>
+                    <%= image_tag kyc_image_path(@user_document), class: 'u-full-width' %>
+                    <%= link_to 'Show full image', kyc_image_path(@user_document), target: '_blank' %>
                     <br>
                     <%= f.label :expires_at, 'Expires at:' %> <%= f.date_select :expires_at, end_year: 2050, include_blank: true %>
                     <br>
