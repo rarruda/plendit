@@ -15,7 +15,7 @@
 
             <%= link_to users_path, :class => "top-bar__navbar-link" do %>
                 <%= avatar_image current_user, :tiny, class: 'top-bar__avatar' %>
-                <span class="top-bar__navbar-name"><%= current_user.display_name %></span>
+                <span class="top-bar__navbar-section"><%= current_user.display_name %></span>
             <% end %>
 
             <% if current_user.is_site_admin? %>
