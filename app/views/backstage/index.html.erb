@@ -13,11 +13,11 @@
                     <td><%= request.host %></td>
                 </tr>
                 <tr>
-                    <th>Ads pending review:</th>
+                    <th><%= link_to 'Ads pending review:', pending_ad_reviews_path %></th>
                     <td><%= @pending_ads_cnt %></td>
                 </tr>
                 <tr>
-                    <th>KYC docs pending review:</th>
+                    <th><%= link_to 'KYC docs pending review:', pending_kyc_reviews_path %></th>
                     <td><%= @pending_kyc_cnt %></td>
                 </tr>
             </table>
