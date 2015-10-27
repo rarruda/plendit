@@ -128,7 +128,9 @@ $top-bar-height: 52px;
 
     &__admin-link {
         background-color: #b51b1b;
-        color: white;
+        background: linear-gradient(90deg, red, orange, orange, yellow, green, green);
+        color: black;
+        font-weight: bold;
         padding: 6px;
         box-shadow: $subtle-shadow;
     }

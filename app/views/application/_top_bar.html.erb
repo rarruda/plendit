@@ -19,7 +19,7 @@
             <% end %>
 
             <% if current_user.is_site_admin? %>
-                <%= link_to 'admin', admin_root_path, class: "top-bar__admin-link" %>
+                <%= link_to 'backstage!', backstage_path, class: "top-bar__admin-link" %>
             <% end %>
 
             <a class="top-bar__top-section" href="#"
