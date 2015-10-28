@@ -15,7 +15,7 @@ RSpec.describe Price, type: :model do
 
   it "does not allow adding an extra price which aggregated is lower then a previous unit price" do
     price = FactoryGirl.create(:price)
-    price.price_items.build(unit: 'day', amount: 25_00, effective_from_unit: 2 )
+    price.price_items.create(unit: 'day', amount: 25_00, effective_from_unit: 2 )
     expect( price ).not_to be_valid
   end
 end

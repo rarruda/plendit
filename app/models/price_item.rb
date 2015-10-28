@@ -14,7 +14,7 @@ class PriceItem < ActiveRecord::Base
   #private
   # validate price_item is saned compared to other price_items in this price structure.
   def amount_should_be_reasonable
-    prev_price_item = PriceItem.where( "price_id = ? AND unit = ?", self.price, self.unit ).order(effective_from_unit: :desc).limit(1).first
+    prev_price_item = PriceItem.where( "price_id = ? AND unit = ?", self.price_id, self.unit ).order(effective_from_unit: :desc).limit(1).first
     return true if prev_price_item.empty?
 
     if ( self.amount * self.effective_from_unit ) > prev_price_item.amount
