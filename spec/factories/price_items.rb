@@ -3,7 +3,7 @@ FactoryGirl.define do
     price nil
     unit  'day'
     amount 100_00
-    effective_from_unit 0
+    effective_from_unit 1
 
     factory :price_item_hour do
       unit 'hour'
