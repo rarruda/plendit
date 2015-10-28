@@ -147,6 +147,11 @@ group :development, :test do
   gem 'httplog'
 end
 
+group :test do
+  # mock/prevent http calls from going out to the world
+  gem 'webmock'
+end
+
 group :production do
   # this gem is important to run in heroku. Enables static assets, and routes logs to stdout.
   # https://github.com/heroku/rails_12factor
