@@ -1,4 +1,4 @@
-module PriceHumanizeable
+module Priceable
   extend ActiveSupport::Concern
 
   included do

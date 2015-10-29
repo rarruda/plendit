@@ -3,7 +3,7 @@ include ActionView::Helpers::TextHelper
 class Ad < ActiveRecord::Base
   include AASM
   include Searchable
-  include PriceHumanizeable
+  include Priceable
 
   #acts_as_ordered_taggable
   acts_as_taggable
@@ -13,13 +13,14 @@ class Ad < ActiveRecord::Base
   has_many :ad_items, autosave: true, dependent: :destroy #will leave dangling links in old bookings/favorites.
   has_many :ad_images, autosave: true, dependent: :destroy
   has_many :bookings, through: :ad_items
-  belongs_to :price
+  has_many :price_rules
   belongs_to :location
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5, deleted: 6 }
   enum category: { bap: 0, motor: 1, realestate: 2 }
 
   accepts_nested_attributes_for :location, :reject_if => :all_blank
+  accepts_nested_attributes_for :price_rules, :reject_if => :all_blank
 
   validates :user,  presence: true
   validates :title, length: { in: 0..255 }, :unless => :new_record?

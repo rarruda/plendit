@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026202016) do
+ActiveRecord::Schema.define(version: 20151028143009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,11 +68,9 @@ ActiveRecord::Schema.define(version: 20151026202016) do
     t.boolean  "insurance_required"
     t.boolean  "requires_vat"
     t.string   "registration_number"
-    t.integer  "price_id"
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
-  add_index "ads", ["price_id"], name: "index_ads_on_price_id", using: :btree
   add_index "ads", ["user_id"], name: "index_ads_on_user_id", using: :btree
 
   create_table "bookings", force: :cascade do |t|
@@ -201,21 +199,16 @@ ActiveRecord::Schema.define(version: 20151026202016) do
   add_index "notifications", ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
-  create_table "price_items", force: :cascade do |t|
-    t.integer  "price_id"
+  create_table "price_rules", force: :cascade do |t|
     t.integer  "unit"
     t.integer  "amount"
     t.integer  "effective_from_unit"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.integer  "ad_id"
   end
 
-  add_index "price_items", ["price_id"], name: "index_price_items_on_price_id", using: :btree
-
-  create_table "prices", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  add_index "price_rules", ["ad_id"], name: "index_price_rules_on_ad_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -407,7 +400,6 @@ ActiveRecord::Schema.define(version: 20151026202016) do
   add_foreign_key "ad_images", "ads"
   add_foreign_key "ad_items", "ads"
   add_foreign_key "ads", "locations"
-  add_foreign_key "ads", "prices"
   add_foreign_key "ads", "users"
   add_foreign_key "bookings", "ad_items"
   add_foreign_key "bookings", "users", column: "from_user_id"
@@ -422,7 +414,7 @@ ActiveRecord::Schema.define(version: 20151026202016) do
   add_foreign_key "messages", "users", column: "from_user_id"
   add_foreign_key "messages", "users", column: "to_user_id"
   add_foreign_key "notifications", "users"
-  add_foreign_key "price_items", "prices"
+  add_foreign_key "price_rules", "ads"
   add_foreign_key "transactions", "bookings"
   add_foreign_key "user_documents", "users"
   add_foreign_key "user_payment_accounts", "users"
