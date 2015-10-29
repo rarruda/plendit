@@ -101,6 +101,8 @@ gem 'autoprefixer-rails'
 
 gem 'rschema'
 
+gem 'nested_form_fields'
+
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano',           require: false

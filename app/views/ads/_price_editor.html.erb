@@ -1,0 +1,19 @@
+<div class="price-editor">
+    <div>
+        <%= f.nested_fields_for :price_rules do |rule| %>
+            <div>
+                <% if rule.object.required? %>
+                    Pris per døgn: <%= rule.text_field :amount_in_h %>
+                <% else %>
+                    Pris per dag over
+                    <%= rule.hidden_field :unit, value: 'day'  %>
+                    <%= rule.text_field :effective_from_unit, size: 3 %>
+                    dager, kr.
+                    <%= rule.text_field :amount_in_h, size: 8 %>
+                    <%= rule.remove_nested_fields_link 'Slett', class: 'button', role: 'button' %>
+                <% end %>
+            </div>
+        <% end %>
+        <div><%= f.add_nested_fields_link :price_rules %></div>
+    </div>
+</div>

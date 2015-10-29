@@ -205,6 +205,7 @@ class AdsController < ApplicationController
       location: current_user.favorite_location,
       insurance_required: true
     )
+    @ad.price_rules.push PriceRule.default_rule
 
     if @ad.save
       redirect_to edit_users_ad_path(@ad)
@@ -274,9 +275,11 @@ class AdsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
       params.require(:ad).permit( :title, :body, :price_in_h, :tag_list, :insurance_required,
-        :registration_number,
-        :location_id, :location_attributes => [:address_line, :post_code] )
+        :registration_number, :location_id,
+        :location_attributes => [:address_line, :post_code],
+        :price_rules_attributes => [:amount_in_h, :unit, :effective_from_unit, :id, :_destroy])
     end
+
 
     def ad_can_be_shown?
       @ad.status == 'published' ||

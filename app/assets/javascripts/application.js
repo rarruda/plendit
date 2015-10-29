@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require nested_form_fields
 //= require 'polyfills/dom4.js'
 //= require 'polyfills/better-dom.js'
 //= require 'polyfills/better-i18n-plugin.js'
