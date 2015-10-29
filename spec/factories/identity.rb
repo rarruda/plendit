@@ -1,6 +1,3 @@
-
-Faker::Config.locale = 'nb-NO'
-
 FactoryGirl.define do
   factory :identity do
     provider   'google'

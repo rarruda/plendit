@@ -7,23 +7,20 @@ class PriceCalculator
   attr_accessor :starts_at, :ends_at
   attr_accessor :unit, :duration_in_unit
 
-  # price_from_rules should probably get cached?
-  #   recalculating it often could be a bit expensive.
-  #attr_reader :price_from_rules
 
   validates :ad, presence: true
 
-  validates :duration_in_unit, numericality: { only_integer: true } if "unit.present?"
-  validates :unit, inclusion: { in: ['day','hour'] } if "duration_in_unit.present?"
+  validates :duration_in_unit, numericality: { only_integer: true }, if: "unit.present?"
+  validates :unit, inclusion: { in: ['day','hour'] }, if: "duration_in_unit.present?"
 
-  validate :validate_starts_at_before_ends_at if "self.ends_at.present? && self.starts_at.present?"
+  validate :validate_starts_at_before_ends_at, if: "self.ends_at.present? && self.starts_at.present?"
 
   def platform_fee
-    ( price_from_rules * self.duration_in_unit * ( Plendit::Application.config.x.platform.fee_in_percent ) ).round
+    ( price_from_rules * Plendit::Application.config.x.platform.fee_in_percent ).round
   end
 
   def insurance_fee
-    return ( price_from_rules * self.duration_in_unit * ( Plendit::Application.config.x.insurance.price_in_percent[self.ad.category.to_sym] ) ).round if self.ad.insurance_required
+    return ( price_from_rules * Plendit::Application.config.x.insurance.price_in_percent[self.ad.category.to_sym] ).round if self.ad.insurance_required
     0_00
   end
 
@@ -37,55 +34,39 @@ class PriceCalculator
 
 
 
-
-  private
   def price_from_rules
-    price_rule.amount * self.duration_in_unit
+    self.ad.price_rules
+      .map { |e| e.price_for_duration duration }
+      .reject { |e| e.nil? }
+      .min
+
   end
 
+#  private
+
   # duration in seconds
-  #  oportunistically save duration_in_unit
+  # (either from :unit + :duration_in_unit or from :starts_at + :ends_at)
+  #  oportunistically save :duration_in_unit && :unit
   def duration
     if self.unit.present? && self.duration_in_unit.present?
       ( self.duration_in_unit * ( self.unit == 'hour' ? 1.hour : 1.day ) ).to_i
-    elsif
-      # fallback, use interval between ends_at and starts_at
-      duration_in_sec = self.ends_at.to_i - self.starts_at.to_i
-      self.unit       = ( duration_in_sec < 24.hours ? 'hour' : 'day' )
+    elsif self.starts_at.present? && self.starts_at.present?
+      duration_in_sec = ( self.ends_at - self.starts_at ).to_i
 
-      if self.unit == 'day'
+      if duration_in_sec >= 24.hours
+        self.unit = 'day'
         self.duration_in_unit = ( duration_in_sec / 1.day.to_f ).ceil
       else
         # note: this will always be >= 0 and <= 24
+        self.unit = 'hour'
         self.duration_in_unit = ( duration_in_sec / 1.hour.to_f ).ceil
       end
+      duration_in_sec
     else
       raise "cannot compute duration. need more information."
     end
   end
 
-
-  # find price rule.
-  # NOTE: always round up.
-  def price_rule
-    if duration < 1.day.to_i
-      # number of hours:
-      effective_from_unit = ( duration / 1.hour ).ceil
-
-      effective_price_rule = self.ad.price_rules.effective_from( 'hour', effective_from_unit ).first
-      # found a hourly rule, use that:
-      if effective_price_rule.present?
-        return effective_price_rule
-      else
-        # use a day rule, with minimum possible number of days
-        effective_from_unit = 1
-      end
-    else
-      effective_from_unit = ( duration / 1.day ).ceil
-    end
-
-    self.ad.price_rules.effective_from( 'day', effective_from_unit ).first
-  end
 
   def validate_starts_at_before_ends_at
       errors.add(:ends_at, "ends_at cannot be before starts_at") if self.ends_at < self.starts_at

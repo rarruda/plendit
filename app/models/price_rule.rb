@@ -36,6 +36,18 @@ class PriceRule < ActiveRecord::Base
     self.amount = ( _price.to_f * 100 ).to_i
   end
 
+  # duration in seconds
+  def price_for_duration duration
+    if self.hour?
+      num_hours = ( duration / 1.hour.to_f ).ceil
+      return ( num_hours * self.amount ).round if num_hours >= self.effective_from_unit
+    elsif self.day?
+      num_days = ( duration / 1.day.to_f ).ceil
+      return ( num_days * self.amount ).round if num_days >= self.effective_from_unit
+    end
+    nil
+  end
+
   #private
   # validate price_rule is saned compared to other price_rules in this price structure.
   def amount_should_be_reasonable
