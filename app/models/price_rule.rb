@@ -12,11 +12,18 @@ class PriceRule < ActiveRecord::Base
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
+  scope :effective_from, ->(unit, duration) do
+    where( "unit = ? AND effective_from_unit <= ?", PriceRule.units[unit.to_sym], duration )
+    .order(effective_from_unit: :desc)
+    .limit(1)
+  end
+
+
   #private
   # validate price_rule is saned compared to other price_rules in this price structure.
   def amount_should_be_reasonable
     prev_price_rule = PriceRule.where( "ad_id = ? AND unit = ? AND effective_from_unit < ?",
-      self.ad_id, PriceRule.units[self.unit.to_sym], self.effective_from_unit ).order(effective_from_unit: :desc).limit(1).first
+      self.ad_id, PriceRule.units[self.unit.to_sym], self.effective_from_unit ).first
     return true if prev_price_rule.nil?
 
     if ( self.amount * self.effective_from_unit ) < prev_price_rule.amount
