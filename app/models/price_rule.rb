@@ -12,12 +12,29 @@ class PriceRule < ActiveRecord::Base
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
+  def self.default_rule
+    PriceRule.new(unit: 'day', amount: 25_00, effective_from_unit: 1)
+  end
+
   scope :effective_from, ->(unit, duration) do
     where( "unit = ? AND effective_from_unit <= ?", PriceRule.units[unit.to_sym], duration )
     .order(effective_from_unit: :desc)
     .limit(1)
   end
 
+  def required?
+    self.day? && self.effective_from_unit == 1
+  end
+
+  def amount_in_h
+    return nil if self.amount.nil?
+    ( ( self.amount / 100).to_i + ( self.amount / 100.0  ).modulo(1) )
+  end
+
+  # save prices in integer, from human format input
+  def amount_in_h=( _price )
+    self.amount = ( _price.to_f * 100 ).to_i
+  end
 
   #private
   # validate price_rule is saned compared to other price_rules in this price structure.
