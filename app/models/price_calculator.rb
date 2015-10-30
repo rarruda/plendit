@@ -32,14 +32,11 @@ class PriceCalculator
     price_from_rules - ( self.platform_fee + self.insurance_fee )
   end
 
-
-
   def price_from_rules
     self.ad.price_rules
       .map { |e| e.price_for_duration duration }
-      .reject { |e| e.nil? }
+      .compact
       .min
-
   end
 
 #  private
