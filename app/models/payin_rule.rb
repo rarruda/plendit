@@ -13,7 +13,11 @@ class PayinRule < ActiveRecord::Base
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
   def self.default_rule
-    PayinRule.new(unit: 'day', payin_amount: 25_00, effective_from: 1)
+    PayinRule.new(unit: 'day', effective_from: 1, payin_amount: 25_00)
+  end
+
+  def self.single_amount_rule payin_amount, ad
+    PayinRule.new(unit: 'day', effective_from: 1, payin_amount: payin_amount)
   end
 
   scope :effective_from, ->(unit, duration) do

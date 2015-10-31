@@ -252,7 +252,16 @@ class AdsController < ApplicationController
 
   def payout_estimates
     prices = (params[:price] || []).map(&:to_f).reject(&:zero?).map {|e| (e * 100).to_i }
-    render text: "Estimates for #{prices.to_s}"
+    rules = prices.map { |e| PayinRule.single_amount_rule e, @ad }
+    calc = @ad.booking_calculator
+    estimates = rules.map do |rule|
+      {
+        payin_amount: view_context.format_monetary_full( calc.payin_amount rule ),
+        payout_amount: view_context.format_monetary_full( calc.payout_amount rule ),
+        total_fee: view_context.format_monetary_full( calc.total_fee rule )
+      }
+    end
+    render text: "Estimates: #{estimates.to_s}"
   end
 
   private
