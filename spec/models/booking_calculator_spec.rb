@@ -5,18 +5,18 @@ RSpec.describe BookingCalculator, type: :model do
 
   context 'when we override the payin_rule from the ad' do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
-        ad: FactoryGirl.build( :ad_bap,
-          user: FactoryGirl.build(:user),
-          payin_rules: [ FactoryGirl.build(:payin_rule, effective_from: 1, unit: 'day', payin_amount: 100_00 ) ]
+        ad: FactoryGirl.build_stubbed( :ad_bap,
+          user: FactoryGirl.build_stubbed(:user),
+          payin_rules: [ FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day', payin_amount: 100_00 ) ]
         )
       )
     }
     let(:payin_rule) {
       {
-        day:      FactoryGirl.build(:payin_rule, effective_from: 1, unit: 'day',  payin_amount: 200_00 ),
-        day_four: FactoryGirl.build(:payin_rule, effective_from: 4, unit: 'day',  payin_amount: 150_00 ),
-        hour:     FactoryGirl.build(:payin_rule, effective_from: 1, unit: 'hour', payin_amount:  50_00 ),
-        hour_two: FactoryGirl.build(:payin_rule, effective_from: 2, unit: 'hour', payin_amount:  40_00 )
+        day:      FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day',  payin_amount: 200_00 ),
+        day_four: FactoryGirl.build_stubbed(:payin_rule, effective_from: 4, unit: 'day',  payin_amount: 150_00 ),
+        hour:     FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'hour', payin_amount:  50_00 ),
+        hour_two: FactoryGirl.build_stubbed(:payin_rule, effective_from: 2, unit: 'hour', payin_amount:  40_00 )
       }
     }
 
@@ -45,10 +45,38 @@ RSpec.describe BookingCalculator, type: :model do
     end
   end
 
+  context 'when we override the payin_rule from the ad, which has insurance' do
+    let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
+        ad: FactoryGirl.build_stubbed( :ad_motor,
+          user: FactoryGirl.build_stubbed(:user),
+          insurance_required: true,
+          payin_rules: [ FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day', payin_amount: 100_00 ) ]
+        )
+      )
+    }
+    let(:payin_rule) {
+      {
+        day:      FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day',  payin_amount: 300_00 ),
+        hour:     FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'hour', payin_amount:  70_00 )
+      }
+    }
+
+    it "should calculate price of minimum unit with a day rule" do
+      expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq ( 30_00)
+      expect(booking_calculator.insurance_fee payin_rule[:day]).to  eq ( 27_00)
+      expect(booking_calculator.payout_amount payin_rule[:day]).to  eq (243_00)
+    end
+
+    it "should calculate price of minimum unit with an hour rule" do
+      expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  7_00)
+      expect(booking_calculator.insurance_fee payin_rule[:hour]).to  eq (  6_30)
+      expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 56_70)
+    end
+  end
 
   context 'when ad does not have insurance and has only day price' do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
-        ad: FactoryGirl.build( :ad_bap,
+        ad: FactoryGirl.build_stubbed( :ad_bap,
           user: FactoryGirl.build(:user),
           payin_rules: [ FactoryGirl.build(:payin_rule, effective_from: 1, unit: 'day', payin_amount: 100_00 ) ]
         )
@@ -96,8 +124,8 @@ RSpec.describe BookingCalculator, type: :model do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
         ad: FactoryGirl.build_stubbed( :ad_bap,
           insurance_required: true,
-          user: FactoryGirl.build(:user),
-          payin_rules: [ FactoryGirl.build(:payin_rule, unit: 'day', effective_from: 1, payin_amount: 100_00 ) ]
+          user: FactoryGirl.build_stubbed(:user),
+          payin_rules: [ FactoryGirl.build_stubbed(:payin_rule, unit: 'day', effective_from: 1, payin_amount: 100_00 ) ]
         )
       )
     }
@@ -126,7 +154,7 @@ RSpec.describe BookingCalculator, type: :model do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
         ad: FactoryGirl.build_stubbed( :ad_bap,
           insurance_required: true,
-          user: FactoryGirl.build(:user),
+          user: FactoryGirl.build_stubbed(:user),
           payin_rules: [
             FactoryGirl.build(:payin_rule, unit: 'hour', effective_from: 1, payin_amount:  50_00 ),
             FactoryGirl.build(:payin_rule, unit: 'hour', effective_from: 4, payin_amount:  30_00 ),
