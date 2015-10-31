@@ -173,6 +173,12 @@ class Ad < ActiveRecord::Base
     end
   end
 
+  def is_insurance_required?
+    # todo1: how is this compared to the one above?
+    # todo2: Do we need to think of a case where config is not up to date?
+    Plendit::Application.config.x.insurance.is_required[self.category]
+  end
+
   def is_favorite_of( user )
     fav_count = FavoriteAd.joins(:favorite_list).where(favorite_lists: { user_id: user }, ad: self.id ).count
     fav_count > 0 ? true : false
