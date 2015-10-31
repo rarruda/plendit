@@ -182,7 +182,7 @@ class UsersController < ApplicationController
   def update
 
     # TODO: move this code to its own method.
-    # http://stackoverflow.com/a/20533963/2455161
+    # cleaner solution suggestion: http://stackoverflow.com/a/20533963/2455161
     user_params_safe = user_params
     if @user.phone_number != user_params['current_phone_number']
       user_params_safe['unconfirmed_phone_number'] = user_params['current_phone_number']
