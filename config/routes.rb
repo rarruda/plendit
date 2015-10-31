@@ -58,10 +58,10 @@ Rails.application.routes.draw do
     #  resources :favorite_ads
     #end
     member do
-      get  '/',                       to: 'users#index'
+      get  '/',                        to: 'users#index'
       post 'ads/create'
-      get  'ads',                     to: 'ads#list'
-      get  'private_profile',         to: 'users#private_profile'
+      get  'ads',                      to: 'ads#list'
+      get  'private_profile',          to: 'users'
       get  'payment'
       match 'bank_account',            to: 'users#update_bank_account', via: [:get, :post]
 
@@ -71,12 +71,12 @@ Rails.application.routes.draw do
       match 'verify/mobile',           to: 'users#verify_mobile', via: [:get, :post]
       match 'verify/email',            to: 'users#verify_email', via: [:get, :post]
 
-      match 'finish_signup',           to: 'users#finish_signup', via: [:get, :patch]
+      match 'finish_signup',           to: 'users', via: [:get, :patch]
 
       #get  'verify_email'
       post 'verify_sms'
       post 'resend_verification_sms'
-      post 'mark_all_notifications_noticed', to: 'users#mark_all_notifications_noticed'
+      post 'mark_all_notifications_noticed', to: 'users'
       delete 'identity', to: 'users#destroy_identity'
     end
 
