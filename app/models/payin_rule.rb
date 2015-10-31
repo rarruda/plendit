@@ -32,8 +32,8 @@ class PayinRule < ActiveRecord::Base
   end
 
   # save prices in integer, from human format input
-  def payin_amount_in_h=( _price )
-    self.payin_amount = ( _price.to_f * 100 ).to_i
+  def payin_amount_in_h=( _payin_amount )
+    self.payin_amount = ( _payin_amount.to_f * 100 ).to_i
   end
 
 
