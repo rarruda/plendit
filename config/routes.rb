@@ -63,23 +63,15 @@ Rails.application.routes.draw do
       get  'ads',                     to: 'ads#list'
       get  'private_profile',         to: 'users#private_profile'
       get  'payment'
-      get  'bank_account'
-      post 'bank_account',            to: 'users#update_bank_account'
+      match 'bank_account',            to: 'users#update_bank_account', via: [:get, :post]
 
-      get  'verify/drivers_license',  to: 'users#verify_drivers_license'
-      post 'verify/drivers_license',  to: 'users#upload_drivers_license'
+      match 'verify/drivers_license',  to: 'users#verify_drivers_license', via: [:get, :post]
+      match 'verify/id_card',          to: 'users#verify_id_card', via: [:get, :post]
+      match 'verify/boat_license',     to: 'users#verify_boat_license', via: [:get, :post]
+      match 'verify/mobile',           to: 'users#verify_mobile', via: [:get, :post]
+      match 'verify/email',            to: 'users#verify_email', via: [:get, :post]
 
-      get  'verify/id_card',          to: 'users#verify_id_card'
-      post 'verify/id_card',          to: 'users#upload_id_card'
-      get  'verify/boat_license',     to: 'users#verify_boat_license'
-      post 'verify/boat_license',     to: 'users#upload_boat_license'
-      get  'verify/mobile',           to: 'users#verify_mobile'
-      post 'verify/mobile',           to: 'users#verify_mobile_post'
-      get  'verify/email',            to: 'users#verify_email'
-      post 'verify/email',            to: 'users#verify_email_post'
-
-      get  'finish_signup',           to: 'users#finish_signup'
-      patch 'finish_signup',          to: 'users#finish_signup'
+      match 'finish_signup',           to: 'users#finish_signup', via: [:get, :patch]
 
       #get  'verify_email'
       post 'verify_sms'

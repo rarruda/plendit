@@ -12,88 +12,74 @@ class UsersController < ApplicationController
 
   before_action :set_user_payment_account, only: [:payment, :bank_account, :update_bank_account]
 
-
   add_flash_types :sms_notice
 
 
   def verify_drivers_license
+    if request.post?
+      current_user.delete_current_drivers_license
+
+      front = UserDocument.new(user: current_user, category: :drivers_license_front, status: :pending_approval)
+      front.document = params[:front]
+      front.save!
+
+      back = UserDocument.new(user: current_user, category: :drivers_license_back, status: :pending_approval)
+      back.document = params[:back]
+      back.save!
+    end
     @license = current_user.drivers_license
-  end
-
-  def upload_drivers_license
-    current_user.delete_current_drivers_license
-
-    front = UserDocument.new(user: current_user, category: :drivers_license_front, status: :pending_approval)
-    front.document = params[:front]
-    front.save!
-
-    back = UserDocument.new(user: current_user, category: :drivers_license_back, status: :pending_approval)
-    back.document = params[:back]
-    back.save!
-
-    @license = current_user.drivers_license
-    render :verify_drivers_license
   end
 
   def verify_id_card
+    if request.post?
+      current_user.delete_current_id_card
+      @card = UserDocument.new(user: current_user, category: :id_card, status: :pending_approval)
+      @card.document = params[:image]
+      @card.save!
+    end
     @card = current_user.id_card
   end
 
-  def upload_id_card
-    current_user.delete_current_id_card
-    @card = UserDocument.new(user: current_user, category: :id_card, status: :pending_approval)
-    @card.document = params[:image]
-    @card.save!
-    render :verify_id_card
-  end
-
   def verify_boat_license
+    if request.post?
+      current_user.delete_current_boat_license
+      @card = UserDocument.new(user: current_user, category: :boat_license, status: :pending_approval)
+      @card.document = params[:image]
+      @card.save!
+    end
     @card = current_user.boat_license
   end
 
-  def upload_boat_license
-    current_user.delete_current_boat_license
-    @card = UserDocument.new(user: current_user, category: :boat_license, status: :pending_approval)
-    @card.document = params[:image]
-    @card.save!
-    render :verify_boat_license
-  end
-
   def verify_mobile
-  end
-
-  def verify_mobile_post
-    if params[:perform] == 'set_number'
-      current_user.unconfirmed_phone_number = params[:phone_number]
-      current_user.save
-      @errors = current_user.errors
-    elsif params[:perform] == 'request_token'
-      if current_user.sms_sending_cool_off_elapsed?
-        @errors = ['Det er for kort tid siden vi sendte deg en verifikasjonskode. Prøv igjen om litt.']
-      elsif current_user.unconfirmed_phone_number.blank? || current_user.phone_number_confirmation_token.blank?
-        @errors =['Ukjent telefonnumer. Kunne ikke sende verifikasjonskode. Oppdater nummeret ditt for å prøve igjen.']
-      else
-        current_user.send_sms_for_phone_confirmation
-        current_user.save!
-      end
-    elsif params[:perform] == 'set_token'
-      if current_user.phone_number_confirmation_token == params[:token]
-        current_user.confirm_phone_number!
-      else
-        @errors = ["Feil sikkerhetskode!"]
+    if request.post?
+      if params[:perform] == 'set_number'
+        current_user.unconfirmed_phone_number = params[:phone_number]
+        current_user.save
+        @errors = current_user.errors
+      elsif params[:perform] == 'request_token'
+        if current_user.sms_sending_cool_off_elapsed?
+          @errors = ['Det er for kort tid siden vi sendte deg en verifikasjonskode. Prøv igjen om litt.']
+        elsif current_user.unconfirmed_phone_number.blank? || current_user.phone_number_confirmation_token.blank?
+          @errors =['Ukjent telefonnumer. Kunne ikke sende verifikasjonskode. Oppdater nummeret ditt for å prøve igjen.']
+        else
+          current_user.send_sms_for_phone_confirmation
+          current_user.save!
+        end
+      elsif params[:perform] == 'set_token'
+        if current_user.phone_number_confirmation_token == params[:token]
+          current_user.confirm_phone_number!
+        else
+          @errors = ["Feil sikkerhetskode!"]
+        end
       end
     end
-    render :verify_mobile
   end
 
   def verify_email
+    if request.post?
+      current_user.send_confirmation_instructions
+    end
   end
-
-  def verify_email_post
-    current_user.send_confirmation_instructions
-    render :verify_email
-  end
-
 
   def index
   end
