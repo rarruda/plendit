@@ -1,20 +1,19 @@
 <%
     calc = @ad.booking_calculator
 %>
-
 <% if rule.id.present? %>
     <div class="price-estimate">
         <div class="price-estimate__inner">
             <label class="price-estimate__label">Pris for kunde:</label>
-            <span class="price-estimate__value"><%= number_to_currency_pretty( integer_to_decimal( rule.payin_amount(rule) ) ) %></span>
+            <span class="price-estimate__value"><%= format_monetary_full( rule.payin_amount ) %></span>
             <br>
 
             <label class="price-estimate__label">Leiegebyr / forsikring:</label>
-            <span class="price-estimate__value"><%= number_to_currency_pretty( integer_to_decimal( calc.total_fee(rule) ) ) %></span>
+            <span class="price-estimate__value"><%= format_monetary_full( calc.total_fee(rule) ) %></span>
             <br>
 
             <label class="price-estimate__label">Utbetalt til deg:</label>
-            <span class="price-estimate__value"><%= number_to_currency_pretty( integer_to_decimal( calc.payout_amount(rule) ) ) %></span>
+            <span class="price-estimate__value"><%= format_monetary_full( calc.payout_amount(rule) ) %></span>
         </div>
     </div>
 <% end %>
