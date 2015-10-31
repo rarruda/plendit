@@ -21,7 +21,7 @@ class PayinRule < ActiveRecord::Base
   end
 
   scope :effective_from, ->(unit, duration) do
-    where( "unit = ? AND effective_from <= ?", PriceRule.units[unit.to_sym], duration )
+    where( "unit = ? AND effective_from <= ?", PayinRule.units[unit.to_sym], duration )
     .order(effective_from: :desc)
     .limit(1)
   end
