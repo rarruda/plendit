@@ -205,7 +205,7 @@ class AdsController < ApplicationController
       location: current_user.favorite_location,
       insurance_required: true
     )
-    @ad.price_rules.push PriceRule.default_rule
+    @ad.payin_rules.push PriceRule.default_rule
 
     if @ad.save
       redirect_to edit_users_ad_path(@ad)
@@ -277,7 +277,7 @@ class AdsController < ApplicationController
       params.require(:ad).permit( :title, :body, :price_in_h, :tag_list, :insurance_required,
         :registration_number, :location_id,
         :location_attributes => [:address_line, :post_code],
-        :price_rules_attributes => [:amount_in_h, :unit, :effective_from_unit, :id, :_destroy])
+        :payin_rules_attributes => [:amount_in_h, :unit, :effective_from, :id, :_destroy])
     end
 
 

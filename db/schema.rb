@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028143009) do
+ActiveRecord::Schema.define(version: 20151031170222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,16 +199,16 @@ ActiveRecord::Schema.define(version: 20151028143009) do
   add_index "notifications", ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
-  create_table "price_rules", force: :cascade do |t|
+  create_table "payin_rules", force: :cascade do |t|
     t.integer  "unit"
-    t.integer  "amount"
-    t.integer  "effective_from_unit"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.integer  "payin_amount"
+    t.integer  "effective_from"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "ad_id"
   end
 
-  add_index "price_rules", ["ad_id"], name: "index_price_rules_on_ad_id", using: :btree
+  add_index "payin_rules", ["ad_id"], name: "index_payin_rules_on_ad_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -414,7 +414,7 @@ ActiveRecord::Schema.define(version: 20151028143009) do
   add_foreign_key "messages", "users", column: "from_user_id"
   add_foreign_key "messages", "users", column: "to_user_id"
   add_foreign_key "notifications", "users"
-  add_foreign_key "price_rules", "ads"
+  add_foreign_key "payin_rules", "ads"
   add_foreign_key "transactions", "bookings"
   add_foreign_key "user_documents", "users"
   add_foreign_key "user_payment_accounts", "users"

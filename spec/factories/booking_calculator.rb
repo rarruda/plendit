@@ -1,21 +1,6 @@
 FactoryGirl.define do
-  factory :price_calculator do
+  factory :booking_calculator do
     #ad FactoryGirl.build(:ad)
-
-    trait :duration_2hours do
-      unit  'day'
-      duration_in_unit 2
-    end
-
-    trait :duration_1day do
-      unit  'day'
-      duration_in_unit 1
-    end
-
-    trait :duration_4days do
-      unit  'day'
-      duration_in_unit 4
-    end
 
     trait :time_interval_1h do
       starts_at DateTime.now

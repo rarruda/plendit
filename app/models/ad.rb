@@ -13,7 +13,7 @@ class Ad < ActiveRecord::Base
   has_many :ad_items, autosave: true, dependent: :destroy #will leave dangling links in old bookings/favorites.
   has_many :ad_images, autosave: true, dependent: :destroy
   has_many :bookings, through: :ad_items
-  has_many :price_rules
+  has_many :payin_rules
   belongs_to :location
 
 
@@ -21,7 +21,7 @@ class Ad < ActiveRecord::Base
   enum category: { bap: 0, motor: 1, realestate: 2 }
 
   accepts_nested_attributes_for :location, :reject_if => :all_blank
-  accepts_nested_attributes_for :price_rules, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :payin_rules, :reject_if => :all_blank, :allow_destroy => true
 
   validates :user,  presence: true
   validates :title, length: { in: 0..255 }, :unless => :new_record?

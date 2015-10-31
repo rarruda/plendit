@@ -2,7 +2,7 @@
     <div>
         <strong>Insurance and payout is wrong while we refactor calc stuff</strong>
     </div>
-    <%= f.nested_fields_for :price_rules do |ff| %>
+    <%= f.nested_fields_for :payin_rules do |ff| %>
         <div class="price-editor__row">
             <% if ff.object.required? %>
                 Pris per døgn: <%= ff.text_field :amount_in_h, size: 8, class: 'price-editor__price-input' %>
@@ -18,7 +18,7 @@
             <%= render partial: 'price_input_estimate', locals: { rule: ff.object } %>
     <% end %>
     <hr class="price-editor__ruler">
-    <%= f.add_nested_fields_link :price_rules do %>
+    <%= f.add_nested_fields_link :payin_rules do %>
         <%= icon 'plus', class: 'fa-lg' %> Legg til prisalternativ for dager.
     <% end %>
 </div>
