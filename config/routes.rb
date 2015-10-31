@@ -61,7 +61,7 @@ Rails.application.routes.draw do
       get  '/',                        to: 'users#index'
       post 'ads/create'
       get  'ads',                      to: 'ads#list'
-      get  'private_profile',          to: 'users'
+      get  'private_profile',          controller: 'users'
       get  'payment'
       match 'bank_account',            to: 'users#update_bank_account', via: [:get, :post]
 
@@ -71,12 +71,12 @@ Rails.application.routes.draw do
       match 'verify/mobile',           to: 'users#verify_mobile', via: [:get, :post]
       match 'verify/email',            to: 'users#verify_email', via: [:get, :post]
 
-      match 'finish_signup',           to: 'users', via: [:get, :patch]
+      match 'finish_signup',           controller: 'users', via: [:get, :patch]
 
       #get  'verify_email'
       post 'verify_sms'
       post 'resend_verification_sms'
-      post 'mark_all_notifications_noticed', to: 'users'
+      post 'mark_all_notifications_noticed', controller: 'users'
       delete 'identity', to: 'users#destroy_identity'
     end
 
@@ -119,6 +119,8 @@ Rails.application.routes.draw do
       get 'single_calendar'
       get 'image_manager'
       get 'edit_availability'
+      get 'payout_estimates'
+
       post 'pause'
       post 'stop'
       post 'approve'

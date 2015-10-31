@@ -16,7 +16,8 @@ class AdsController < ApplicationController
     :suspend,
     :submit_for_review,
     :update,
-    :destroy
+    :destroy,
+    :payout_estimates
   ]
 
   before_action :authenticate_user!, :except => [
@@ -249,7 +250,10 @@ class AdsController < ApplicationController
     end
   end
 
-
+  def payout_estimates
+    prices = (params[:price] || []).map(&:to_f).reject(&:zero?).map {|e| (e * 100).to_i }
+    render text: "Estimates for #{prices.to_s}"
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
