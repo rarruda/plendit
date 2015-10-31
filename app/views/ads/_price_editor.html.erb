@@ -5,13 +5,13 @@
     <%= f.nested_fields_for :payin_rules do |ff| %>
         <div class="price-editor__row">
             <% if ff.object.required? %>
-                Pris per døgn: <%= ff.text_field :amount_in_h, size: 8, class: 'price-editor__price-input' %>
+                Pris per døgn: <%= ff.text_field :payin_amount_in_h, size: 8, class: 'price-editor__price-input' %>
             <% else %>
                 Pris per dag ved
                 <%= ff.hidden_field :unit, value: 'day'  %>
-                <%= ff.text_field :effective_from_unit, size: 3 %>
+                <%= ff.text_field :effective_from, size: 3 %>
                 og fler dager:
-                <%= ff.text_field :amount_in_h, size: 8, class: 'price-editor__price-input' %>
+                <%= ff.text_field :payin_amount_in_h, size: 8, class: 'price-editor__price-input' %>
                 <%= ff.remove_nested_fields_link 'Slett', class: 'u-pull-right' %>
             <% end %>
         </div>
