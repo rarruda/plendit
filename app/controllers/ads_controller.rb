@@ -206,7 +206,7 @@ class AdsController < ApplicationController
       location: current_user.favorite_location,
       insurance_required: true
     )
-    @ad.payin_rules.push PriceRule.default_rule
+    @ad.payin_rules.push PayinRule.default_rule
 
     if @ad.save
       redirect_to edit_users_ad_path(@ad)

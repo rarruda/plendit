@@ -25,7 +25,6 @@ class Ad < ActiveRecord::Base
 
   validates :user,  presence: true
   validates :title, length: { in: 0..255 }, :unless => :new_record?
-  validates :price, numericality: { greater_than_or_equal_to: 40_00, less_than: 1_000_000_00 }, :unless => :new_record?
 
   validates :registration_number, length: { in: 0..255 },
     :unless => :new_record?,
