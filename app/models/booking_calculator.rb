@@ -19,6 +19,10 @@ class BookingCalculator
     0_00
   end
 
+  def total_fee payin_rule = nil
+    self.platform_fee(payin_rule) + self.insurance_fee(payin_rule)
+  end
+
   def reservation_amount
     Plendit::Application.config.x.insurance.reservation_value[self.ad.category.to_sym]
   end
