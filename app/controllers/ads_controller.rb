@@ -251,6 +251,9 @@ class AdsController < ApplicationController
   end
 
   def payout_estimates
+    @ad = @ad.dup
+    @ad.readonly!
+    @ad.insurance_required = params[:insurance] == 'true' if params.has_key? :insurance
     prices = (params[:price] || []).map(&:to_f).reject(&:zero?).map {|e| (e * 100).to_i }
     rules = prices.map { |e| PayinRule.single_amount_rule e, @ad }
     calc = @ad.booking_calculator
