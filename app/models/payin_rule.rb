@@ -1,7 +1,7 @@
 class PayinRule < ActiveRecord::Base
   belongs_to :ad
 
-  validates :payin_amount, numericality: { only_integer: true, greater_than_or_equal_to: 25_00, less_than: 1_000_000_00 }
+  validates :payin_amount, numericality: { only_integer: true, greater_than_or_equal_to: 25_00, less_than: 1_000_000_00 }, :unless => :new_record?
   validates :unit, presence: true
   validates :effective_from, numericality: { only_integer: true }
   validates :effective_from, numericality: { greater_than_or_equal_to: 1 }
@@ -13,7 +13,7 @@ class PayinRule < ActiveRecord::Base
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
   def self.default_rule
-    PayinRule.new(unit: 'day', effective_from: 1, payin_amount: 25_00)
+    PayinRule.new(unit: 'day', effective_from: 1)
   end
 
   def self.single_amount_rule payin_amount, ad
