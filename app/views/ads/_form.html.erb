@@ -20,23 +20,8 @@
     <label>Overskrift:</label>
     <%= f.text_field :title, class: 'u-full-width' %>
 
-    <div class="u-push-down">
-        <div class="row">
-            <div class="five columns">
-                <label>
-                    <span class="label-body">Utleiepris pr. dag</span>
-                </label>
-                <%= f.number_field :price_in_h,
-                        class: 'u-full-width',
-                        placeholder: 'Kr 0',
-                        data: { price: '' } %>
-            </div>
-        </div>
-    </div>
+    <label class="u-full-width">Pris:</label>
 
-    <div class="u-push-down">
-        <%= render partial: 'price_editor', locals: {f: f} %>
-    </div>
 
     <label class="u-push-down">
 
@@ -49,6 +34,12 @@
             Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %> for å leie gjenstanden.
         </span>
     </label>
+
+
+    <div class="u-push-down">
+        <%= render partial: 'price_editor', locals: {f: f} %>
+    </div>
+
 
     <label class="u-push-down-only">
         Henteadresse:

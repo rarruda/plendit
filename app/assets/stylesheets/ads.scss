@@ -33,3 +33,18 @@
         text-overflow: ellipsis;
     }
 }
+
+.price-editor {
+    &__ruler {
+        margin: 0;
+    }
+
+    &__price-input {
+        float: right;
+    }
+}
+
+
+.nested_ad_price_rules {
+    margin: 0;
+}
