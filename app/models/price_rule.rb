@@ -40,12 +40,13 @@ class PriceRule < ActiveRecord::Base
   def price_for_duration duration
     if self.hour?
       num_hours = ( duration / 1.hour.to_f ).ceil
-      return ( num_hours * self.amount ).round if num_hours >= self.effective_from_unit
+      ( num_hours * self.amount ).round if num_hours >= self.effective_from_unit
     elsif self.day?
       num_days = ( duration / 1.day.to_f ).ceil
-      return ( num_days * self.amount ).round if num_days >= self.effective_from_unit
+      ( num_days * self.amount ).round if num_days >= self.effective_from_unit
+    else
+      nil
     end
-    nil
   end
 
   #private
