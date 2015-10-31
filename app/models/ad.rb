@@ -256,4 +256,9 @@ class Ad < ActiveRecord::Base
       self.id.to_s
     end
   end
+
+  def booking_calculator
+    BookingCalculator.new(ad: self)
+  end
+
 end
