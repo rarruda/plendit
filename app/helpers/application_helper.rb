@@ -3,7 +3,7 @@ module ApplicationHelper
   # takes an internal monetary value, that is one that is integral,
   # the actual value multiplied by 100, and prints it as a Norwegian
   # localized currency string
-  def format_monetary val
+  def format_monetary_full val
     f = integer_to_decimal val
     number_to_currency f, locale: :nb
   end
