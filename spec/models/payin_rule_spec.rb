@@ -27,7 +27,7 @@ RSpec.describe PayinRule, type: :model do
     expect(payin_rule).to be_valid
   end
 
-  context "has a simple day price rule" do
+  context "when payin_rule has a simple day price rule" do
     let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule, unit: 'day', payin_amount: 200_00,
         ad: FactoryGirl.build_stubbed(:ad_motor) )
       }
@@ -42,19 +42,16 @@ RSpec.describe PayinRule, type: :model do
     end
   end
 
-  context "has a simple hour price rule" do
+  context "when payin_rule has a simple hour price rule" do
     let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule_hour, unit: 'hour', payin_amount: 100_00,
         ad: FactoryGirl.build_stubbed(:ad_motor) )
       }
     let(:duration) { 4.hours.to_i }
 
-    it "should generate correctly prices for one unit" do
-      expect(payin_rule.payin_amount_for_duration).to  eq(100_00)
-    end
+    it { expect(payin_rule.payin_amount_for_duration).to  eq(100_00) }
+    it { expect(payin_rule.payin_amount_for_duration duration).to eq(400_00) }
+  end
 
-    it "should generate correctly prices for multiple units" do
-      expect(payin_rule.payin_amount_for_duration  duration).to eq(400_00)
-    end
 
   context "when payin_rule payin_amount comes as a float" do
     let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule_hour, unit: 'hour', payin_amount_in_h: 250.0,

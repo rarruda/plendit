@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe BookingCalculator, type: :model do
 
-
   context 'when we override the payin_rule from the ad' do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
         ad: FactoryGirl.build_stubbed( :ad_bap,
@@ -20,41 +19,28 @@ RSpec.describe BookingCalculator, type: :model do
       }
     }
 
-    it "should calculate price of minimum unit with a day rule" do
-      expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq ( 20_00)
-      expect(booking_calculator.insurance_fee payin_rule[:day]).to  eq (  0_00)
-      expect(booking_calculator.payout_amount payin_rule[:day]).to  eq (180_00)
-    end
+    it { expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq ( 20_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:day]).to  eq (  0_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:day]).to  eq (180_00) }
 
-    it "should calculate price of minimum unit with a day rule (even if effective_from is 4)" do
-      expect(booking_calculator.platform_fee  payin_rule[:day_four]).to  eq ( 15_00)
-      expect(booking_calculator.insurance_fee payin_rule[:day_four]).to  eq (  0_00)
-      expect(booking_calculator.payout_amount payin_rule[:day_four]).to  eq (135_00)
-    end
+    it { expect(booking_calculator.platform_fee  payin_rule[:day_four]).to  eq ( 15_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:day_four]).to  eq (  0_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:day_four]).to  eq (135_00) }
 
-    it "should calculate price of minimum unit with an hour rule" do
-      expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  5_00)
-      expect(booking_calculator.insurance_fee payin_rule[:hour]).to  eq (  0_00)
-      expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 45_00)
-    end
+    it { expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  5_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:hour]).to  eq (  0_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 45_00) }
 
-    it "should calculate price of minimum unit with an hour rule (even if effective_from is 2)" do
-      expect(booking_calculator.platform_fee  payin_rule[:hour_two]).to  eq (  4_00)
-      expect(booking_calculator.insurance_fee payin_rule[:hour_two]).to  eq (  0_00)
-      expect(booking_calculator.payout_amount payin_rule[:hour_two]).to  eq ( 36_00)
-    end
+    it { expect(booking_calculator.platform_fee  payin_rule[:hour_two]).to  eq (  4_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:hour_two]).to  eq (  0_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:hour_two]).to  eq ( 36_00) }
+  end
 
   context 'when ad has rule coming as a float' do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
         ad: FactoryGirl.build_stubbed( :ad_motor,
           insurance_required: true,
           user: FactoryGirl.build(:user)
-          # payin_rules: [
-          #   FactoryGirl.build(:payin_rule, unit: 'hour', effective_from: 1, payin_amount:  200_00 ),
-          #   FactoryGirl.build(:payin_rule, unit: 'day',  effective_from: 1, payin_amount: 1000_00 ),
-          #   FactoryGirl.build(:payin_rule, unit: 'day',  effective_from: 3, payin_amount:  800_00 ),
-          #   FactoryGirl.build(:payin_rule, unit: 'day',  effective_from: 7, payin_amount:  700_00 ),
-          # ]
         )
       )
     }
@@ -83,17 +69,13 @@ RSpec.describe BookingCalculator, type: :model do
       }
     }
 
-    it "should calculate price of minimum unit with a day rule" do
-      expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq ( 30_00)
-      expect(booking_calculator.insurance_fee payin_rule[:day]).to  eq ( 27_00)
-      expect(booking_calculator.payout_amount payin_rule[:day]).to  eq (243_00)
-    end
+    it { expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq ( 30_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:day]).to  eq ( 27_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:day]).to  eq (243_00) }
 
-    it "should calculate price of minimum unit with an hour rule" do
-      expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  7_00)
-      expect(booking_calculator.insurance_fee payin_rule[:hour]).to  eq (  6_30)
-      expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 56_70)
-    end
+    it { expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  7_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:hour]).to  eq (  6_30) }
+    it { expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 56_70) }
   end
 
   context 'when ad does not have insurance and has only day price' do
@@ -105,7 +87,7 @@ RSpec.describe BookingCalculator, type: :model do
       )
     }
 
-    it "should calculate price of 1 hour" do
+    it "should calculate price of 2 hours" do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 1.hour.from_now
 
