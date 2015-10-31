@@ -54,15 +54,11 @@ class PayinRule < ActiveRecord::Base
 
   private
   def min_duration_in_sec
-    case self.unit
-    when 'hour'
-      1.hour.to_i
-    when 'day'
-      1.day.to_i
-    else
-      raise 'unit must be set'
-      nil
-    end
+    return 1.hour.to_i if self.hour?
+    return 1.day.to_i  if self.day?
+
+    raise 'unit must be set'
+    nil
   end
 
   # validate payin_rule is saned compared to other payin_rules in this price structure.
