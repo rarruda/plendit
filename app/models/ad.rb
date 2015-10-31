@@ -144,6 +144,10 @@ class Ad < ActiveRecord::Base
     LOG.info ">> no longer searchable."
   end
 
+  # method to give the same result as what we had before in the Ad Model.
+  def price
+    self.payin_rules.find_by(unit: PayinRule.units[:day], effective_from: 1).payin_amount
+  end
 
 
   def world_viewable?
