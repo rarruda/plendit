@@ -13,11 +13,11 @@
             <br>
 
             <label class="price-estimate__label">Leiegebyr / forsikring</label>
-            <span class="price-estimate__value"><%= number_to_currency_pretty((calc.platform_fee + calc.insurance_fee) / 100) %></span>
+            <span class="price-estimate__value"><%= number_to_currency_pretty( ( calc.platform_fee(rule) + calc.insurance_fee(rule) ) / 100) %></span>
             <br>
 
             <label class="price-estimate__label">Utbetalt til deg</label>
-            <span class="price-estimate__value"><%= number_to_currency_pretty((rule.amount - (calc.platform_fee + calc.insurance_fee)) / 100) %></span>
+            <span class="price-estimate__value"><%= number_to_currency_pretty( calc.payout_amount(rule) / 100) %></span>
         </div>
     </div>
 <% end %>
