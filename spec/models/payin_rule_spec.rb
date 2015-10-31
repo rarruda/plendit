@@ -55,5 +55,13 @@ RSpec.describe PayinRule, type: :model do
     it "should generate correctly prices for multiple units" do
       expect(payin_rule.payin_amount_for_duration  duration).to eq(400_00)
     end
+
+  context "when payin_rule payin_amount comes as a float" do
+    let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule_hour, unit: 'hour', payin_amount_in_h: 250.0,
+        ad: FactoryGirl.build_stubbed(:ad_motor) )
+      }
+
+    it { expect(payin_rule.payin_amount).to      eq ( 250_00) }
+    it { expect(payin_rule.payin_amount_in_h).to eq ( 250.00) }
   end
 end

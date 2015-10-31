@@ -43,6 +43,28 @@ RSpec.describe BookingCalculator, type: :model do
       expect(booking_calculator.insurance_fee payin_rule[:hour_two]).to  eq (  0_00)
       expect(booking_calculator.payout_amount payin_rule[:hour_two]).to  eq ( 36_00)
     end
+
+  context 'when ad has rule coming as a float' do
+    let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
+        ad: FactoryGirl.build_stubbed( :ad_motor,
+          insurance_required: true,
+          user: FactoryGirl.build(:user)
+          # payin_rules: [
+          #   FactoryGirl.build(:payin_rule, unit: 'hour', effective_from: 1, payin_amount:  200_00 ),
+          #   FactoryGirl.build(:payin_rule, unit: 'day',  effective_from: 1, payin_amount: 1000_00 ),
+          #   FactoryGirl.build(:payin_rule, unit: 'day',  effective_from: 3, payin_amount:  800_00 ),
+          #   FactoryGirl.build(:payin_rule, unit: 'day',  effective_from: 7, payin_amount:  700_00 ),
+          # ]
+        )
+      )
+    }
+    let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day',  payin_amount_in_h: 250.0 ) }
+
+    it { expect(booking_calculator.platform_fee  payin_rule).to     eq (  25_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule).to     eq (  22_50) }
+    it { expect(booking_calculator.payout_amount payin_rule).to     eq ( 202_50) }
+    it { expect(booking_calculator.payin_amount  payin_rule).to     eq ( 250_00) }
+    it { expect(booking_calculator.reservation_amount).to           eq (1000_00) }
   end
 
   context 'when we override the payin_rule from the ad, which has insurance' do
