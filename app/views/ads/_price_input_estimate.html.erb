@@ -1,0 +1,23 @@
+<%
+    calc = PriceCalculator.new
+    calc.ad = @ad
+    calc.unit = 'day' # doesn't matter what it is, getting nums for 1
+    calc.duration_in_unit = 1
+%>
+
+<% if rule.id.present? %>
+    <div class="price-estimate">
+        <div class="price-estimate__inner">
+            <label class="price-estimate__label">Pris</label>
+            <span class="price-estimate__value"><%= number_to_currency_pretty rule.amount_in_h %></span>
+            <br>
+
+            <label class="price-estimate__label">Leiegebyr / forsikring</label>
+            <span class="price-estimate__value"><%= number_to_currency_pretty((calc.platform_fee + calc.insurance_fee) / 100) %></span>
+            <br>
+
+            <label class="price-estimate__label">Utbetalt til deg</label>
+            <span class="price-estimate__value"><%= number_to_currency_pretty((rule.amount - (calc.platform_fee + calc.insurance_fee)) / 100) %></span>
+        </div>
+    </div>
+<% end %>

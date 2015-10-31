@@ -36,15 +36,42 @@
 
 .price-editor {
     &__ruler {
-        margin: 0;
+        margin: $standard-spacing;
     }
 
     &__price-input {
         float: right;
+        margin-bottom: 0;
+    }
+
+    &__row {
+        margin-top: 30px;
+        height: 44px;
+    }
+
+    &__label {
     }
 }
 
-
 .nested_ad_price_rules {
     margin: 0;
+}
+
+
+.price-estimate {
+    overflow: auto;
+
+    &__inner {
+        float: right;
+        width: 200px;
+    }
+
+    &__label {
+        display: inline;
+
+    }
+
+    &__value {
+        float: right;
+    }
 }

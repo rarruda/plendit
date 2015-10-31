@@ -1,23 +1,24 @@
 <div class="price-editor">
     <div>
-        <%= f.nested_fields_for :price_rules do |rule| %>
-            <div>
-                <% if rule.object.required? %>
-                    Pris per døgn: <%= rule.text_field :amount_in_h, size: 8, class: 'price-editor__price-input' %>
-                <% else %>
-                    Pris per dag over
-                    <%= rule.hidden_field :unit, value: 'day'  %>
-                    <%= rule.text_field :effective_from_unit, size: 3 %>
-                    dager, kr.
-                    <%= rule.text_field :amount_in_h, size: 8, class: 'price-editor__price-input' %>
-                    <br>
-                    <%= rule.remove_nested_fields_link 'Slett', class: 'u-pull-right' %>
-                <% end %>
-            </div>
-        <% end %>
-        <hr class="price-editor__ruler">
-        <%= f.add_nested_fields_link :price_rules do %>
-            <%= icon 'plus', class: 'fa-lg' %> Legg til prisalternativ for dager.
-        <% end %>
+        <strong>Insurance and payout is wrong while we refactor calc stuff</strong>
     </div>
+    <%= f.nested_fields_for :price_rules do |ff| %>
+        <div class="price-editor__row">
+            <% if ff.object.required? %>
+                Pris per døgn: <%= ff.text_field :amount_in_h, size: 8, class: 'price-editor__price-input' %>
+            <% else %>
+                Pris per dag ved
+                <%= ff.hidden_field :unit, value: 'day'  %>
+                <%= ff.text_field :effective_from_unit, size: 3 %>
+                og fler dager:
+                <%= ff.text_field :amount_in_h, size: 8, class: 'price-editor__price-input' %>
+                <%= ff.remove_nested_fields_link 'Slett', class: 'u-pull-right' %>
+            <% end %>
+        </div>
+            <%= render partial: 'price_input_estimate', locals: { rule: ff.object } %>
+    <% end %>
+    <hr class="price-editor__ruler">
+    <%= f.add_nested_fields_link :price_rules do %>
+        <%= icon 'plus', class: 'fa-lg' %> Legg til prisalternativ for dager.
+    <% end %>
 </div>
