@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  # takes an internal monetary value, that is one that is integral,
+  # the actual value multiplied by 100, and prints it as a Norwegian
+  # localized currency string
+  def format_monetary val
+    f = integer_to_decimal val
+    number_to_currency f, locale: :nb
+  end
+
   def number_to_currency_pretty( num = nil, options = {unit: ''} )
     return '' if num.nil?
     number_to_currency( num, options ).gsub(/\,00 $/, ",- ")
