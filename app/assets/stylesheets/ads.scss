@@ -57,13 +57,12 @@
     margin: 0;
 }
 
-
 .price-estimate {
     overflow: auto;
 
     &__inner {
         float: right;
-        width: 200px;
+        width: 220px;
     }
 
     &__label {

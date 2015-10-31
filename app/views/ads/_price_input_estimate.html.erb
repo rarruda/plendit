@@ -5,15 +5,15 @@
 <% if rule.id.present? %>
     <div class="price-estimate">
         <div class="price-estimate__inner">
-            <label class="price-estimate__label">Pris for kunde</label>
+            <label class="price-estimate__label">Pris for kunde:</label>
             <span class="price-estimate__value"><%= number_to_currency_pretty rule.payin_amount_in_h %></span>
             <br>
 
-            <label class="price-estimate__label">Leiegebyr / forsikring</label>
+            <label class="price-estimate__label">Leiegebyr / forsikring:</label>
             <span class="price-estimate__value"><%= number_to_currency_pretty( ( calc.platform_fee(rule) + calc.insurance_fee(rule) ) / 100) %></span>
             <br>
 
-            <label class="price-estimate__label">Utbetalt til deg</label>
+            <label class="price-estimate__label">Utbetalt til deg:</label>
             <span class="price-estimate__value"><%= number_to_currency_pretty( calc.payout_amount(rule) / 100) %></span>
         </div>
     </div>
