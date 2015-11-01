@@ -144,12 +144,6 @@ class Ad < ActiveRecord::Base
     LOG.info ">> no longer searchable."
   end
 
-  # method to give the same result as what we had before in the Ad Model.
-  def price
-    self.payin_rules.find_by(unit: PayinRule.units[:day], effective_from: 1).payin_amount
-  end
-
-
   def world_viewable?
     not ( self.stopped? or self.suspended? )
   end
@@ -221,10 +215,16 @@ class Ad < ActiveRecord::Base
   # TODO: find out if we want more information on the Ad, and/or AdImages
   def as_indexed_json(options={})
     as_json(
-      only: [:id, :title, :body, :category, :price ],
+      only: [:id, :title, :body, :category ],
       include: { user: { only: :id }, ad_images: { only: [:id, :description, :weight] } },
-      methods: [:tags, :geo_location, :geo_precision]
+      methods: [:price, :tags, :geo_location, :geo_precision]
     )
+  end
+
+  # method to give the same result as what we had before in the Ad Model.
+  # used in as_indexed_json
+  def price
+    self.payin_rules.find_or_initialize_by(unit: PayinRule.units[:day], effective_from: 1).payin_amount
   end
 
   # used in as_indexed_json

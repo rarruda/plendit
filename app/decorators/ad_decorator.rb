@@ -3,7 +3,13 @@ class AdDecorator < Draper::Decorator
   decorates_association :user
   decorates_association :received_feedbacks
 
+
   def price
+    # https://github.com/drapergem/draper/issues/523 (on draper 1.4)
+    Draper::ViewContext.current.class_eval do
+      include ApplicationHelper # workaround for draper test bug
+    end
+
     return nil if object.price.nil?
     h.integer_to_decimal( object.price )
   end
