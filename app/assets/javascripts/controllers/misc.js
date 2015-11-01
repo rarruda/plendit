@@ -539,21 +539,32 @@ window.controllers.priceEstimateUpdater = {
     dependencies: ["$element", "xhr", "utils"],
     callable: function(ele, xhr, utils) {
         var url = ele.getAttribute("data-estimates-url");
-        var changeFun = utils.debounce(onChange, 1000)
-
         var knownEstimates = {};
+        var changeFun = utils.debounce(onChange, 1000)
         ele.addEventListener("keyup", changeFun);
         ele.addEventListener("change", changeFun);
 
-        function onChange(evt) {
+        var insuranceToggle = document.querySelector("[data-insurance]");
+        if (insuranceToggle) {
+            insuranceToggle.addEventListener("change", function() {
+                knownEstimates = {};
+                onChange();
+            });
+        }
+
+        function onChange() {
             var prices = getCurrentPrices();
-            prices = prices.filter(estimateIsKnown.bind(this, false));
+            prices = prices.filter(estimateIsKnown);
 
             if (prices.length) { 
                 var q = prices
                             .map(function(e) { return "price[]=" + e})
                             .join("&");
 
+                var insuranceEle = document.querySelector("[data-insurance]");
+                if (insuranceEle) {
+                    q += "&insurance=" + insuranceEle.checked.toString();
+                }
                 xhr.getJson(url + "?" + q).then(mergeEstimates).then(updateEstimates);
             }
             else {
@@ -561,7 +572,7 @@ window.controllers.priceEstimateUpdater = {
             }
         }
 
-        function estimateIsKnown(includeInsurance, price) {
+        function estimateIsKnown(price) {
             return !knownEstimates[price];
         }
 
