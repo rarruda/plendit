@@ -5,7 +5,7 @@
     <div class="price-estimate">
         <div class="price-estimate__inner">
             <label class="price-estimate__label">Pris for kunde:</label>
-            <span class="price-estimate__value"><%= format_monetary_full( rule.payin_amount ) %></span>
+            <span class="price-estimate__value"><%= format_monetary_full( calc.payin_amount(rule) ) %></span>
             <br>
 
             <label class="price-estimate__label">Leiegebyr / forsikring:</label>

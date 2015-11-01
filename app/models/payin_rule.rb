@@ -12,6 +12,9 @@ class PayinRule < ActiveRecord::Base
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
+  scope :effective_from_asc, -> { order( :effective_from ) }
+
+
   def self.default_rule
     PayinRule.new(unit: 'day', effective_from: 1)
   end

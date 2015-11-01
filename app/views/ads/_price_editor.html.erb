@@ -1,5 +1,5 @@
 <div class="price-editor" data-controller="priceEstimateUpdater" data-estimates-url="<%= payout_estimates_ad_path @ad %>">
-    <%= f.nested_fields_for :payin_rules do |ff| %>
+    <%= f.nested_fields_for :payin_rules, @ad.payin_rules.effective_from_asc do |ff| %>
         <div data-payin-rule>
             <div class="price-editor__row">
                 <% if ff.object.required? %>
