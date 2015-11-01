@@ -36,7 +36,7 @@ class BookingCalculator
     if payin_rule.present?
       raise "payin_rule is invalid. it does not respond to payin_amount" unless payin_rule.respond_to? 'payin_amount'
 
-      payin_rule.payin_amount
+      payin_rule.payin_amount || 0
     else
       self.ad.payin_rules
         .map { |e| e.payin_amount_for_duration duration }

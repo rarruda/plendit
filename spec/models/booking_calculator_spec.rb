@@ -15,7 +15,8 @@ RSpec.describe BookingCalculator, type: :model do
         day:      FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day',  payin_amount: 200_00 ),
         day_four: FactoryGirl.build_stubbed(:payin_rule, effective_from: 4, unit: 'day',  payin_amount: 150_00 ),
         hour:     FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'hour', payin_amount:  50_00 ),
-        hour_two: FactoryGirl.build_stubbed(:payin_rule, effective_from: 2, unit: 'hour', payin_amount:  40_00 )
+        hour_two: FactoryGirl.build_stubbed(:payin_rule, effective_from: 2, unit: 'hour', payin_amount:  40_00 ),
+        no_payin: FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day',  payin_amount:    nil )
       }
     }
 
@@ -34,6 +35,11 @@ RSpec.describe BookingCalculator, type: :model do
     it { expect(booking_calculator.platform_fee  payin_rule[:hour_two]).to  eq (  4_00) }
     it { expect(booking_calculator.insurance_fee payin_rule[:hour_two]).to  eq (  0_00) }
     it { expect(booking_calculator.payout_amount payin_rule[:hour_two]).to  eq ( 36_00) }
+
+    it { expect(booking_calculator.platform_fee  payin_rule[:no_payin]).to  eq (  0_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:no_payin]).to  eq (  0_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:no_payin]).to  eq (  0_00) }
+
   end
 
   context 'when ad has rule coming as a float' do
