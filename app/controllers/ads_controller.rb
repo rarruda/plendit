@@ -256,15 +256,8 @@ class AdsController < ApplicationController
     @ad.insurance_required = params[:insurance] == 'true' if params.has_key? :insurance
     prices = (params[:price] || []).map(&:to_f).reject(&:zero?).map {|e| (e * 100).to_i }
     rules = prices.map { |e| PayinRule.single_amount_rule e, @ad }
-    calc = @ad.booking_calculator
-    estimates = rules.map do |rule|
-      {
-        payin_amount: view_context.format_monetary_full( calc.payin_amount rule ),
-        payout_amount: view_context.format_monetary_full( calc.payout_amount rule ),
-        total_fee: view_context.format_monetary_full( calc.total_fee rule )
-      }
-    end
-    render text: "Estimates: #{estimates.to_s}"
+    estimates = rules.map { |rule| [rule.payin_amount.to_i, (render_to_string partial: 'price_input_estimate', locals: { rule: rule })] }
+    render json: Hash[estimates]
   end
 
   private

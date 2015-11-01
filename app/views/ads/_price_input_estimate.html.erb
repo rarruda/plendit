@@ -1,7 +1,7 @@
 <%
     calc = @ad.booking_calculator
 %>
-<% if rule.id.present? %>
+<% unless rule.payin_amount.nil? %>
     <div class="price-estimate">
         <div class="price-estimate__inner">
             <label class="price-estimate__label">Pris for kunde:</label>
