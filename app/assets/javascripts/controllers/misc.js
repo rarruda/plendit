@@ -534,3 +534,68 @@ window.controllers.helpToggler = function(ele) {
             })
         });
 }
+
+window.controllers.priceEstimateUpdater = {
+    dependencies: ["$element", "xhr", "utils"],
+    callable: function(ele, xhr, utils) {
+        var url = ele.getAttribute("data-estimates-url");
+        var changeFun = utils.debounce(onChange, 1000)
+
+        var knownEstimates = {};
+        ele.addEventListener("keyup", changeFun);
+        ele.addEventListener("change", changeFun);
+
+        function onChange(evt) {
+            var prices = getCurrentPrices();
+            prices = prices.filter(estimateIsKnown.bind(this, false));
+
+            if (prices.length) { 
+                var q = prices
+                            .map(function(e) { return "price[]=" + e})
+                            .join("&");
+
+                xhr.getJson(url + "?" + q).then(mergeEstimates).then(updateEstimates);
+            }
+            else {
+                updateEstimates();
+            }
+        }
+
+        function estimateIsKnown(includeInsurance, price) {
+            return !knownEstimates[price];
+        }
+
+        function mergeEstimates(estimates) {
+            for (var key in estimates) {
+                knownEstimates[parseFloat(key)] = estimates[key];
+            }
+        }
+
+        function updateEstimates() {
+            var rules = Array.from(document.querySelectorAll("[data-payin-rule]")).forEach(updateEstimate);
+        }
+
+        function updateEstimate(ruleEle) {
+            var price = parseFloat(ruleEle.querySelector("[data-price]").value);
+            if (knownEstimates[price]) {
+                ruleEle.querySelector("[data-estimate-holder]").innerHTML = knownEstimates[price];
+            }
+        }
+
+        function getCurrentPrices() {
+            return Array.from(ele.querySelectorAll("[data-price]"))
+                .map(function(e) { return parseFloat(e.value)})
+                .filter(function(e) { return !isNaN(e) });
+        }
+
+        function estimatesPromise() {
+            xhr.getJson
+        }
+
+        function grabCurrent() {
+
+        }
+    }
+};
+
+
