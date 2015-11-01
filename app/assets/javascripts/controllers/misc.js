@@ -566,9 +566,9 @@ window.controllers.priceEstimateUpdater = {
         }
 
         function mergeEstimates(estimates) {
-            for (var key in estimates) {
-                knownEstimates[parseFloat(key)] = estimates[key];
-            }
+            estimates.forEach(function(e) {
+                knownEstimates[e.price] = e.html;
+            });
         }
 
         function updateEstimates() {

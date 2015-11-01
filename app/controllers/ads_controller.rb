@@ -256,8 +256,14 @@ class AdsController < ApplicationController
     @ad.insurance_required = params[:insurance] == 'true' if params.has_key? :insurance
     prices = (params[:price] || []).map(&:to_f).reject(&:zero?).map {|e| (e * 100).to_i }
     rules = prices.map { |e| PayinRule.single_amount_rule e, @ad }
-    estimates = rules.map { |rule| [rule.payin_amount.to_i / 100.0, (render_to_string partial: 'price_input_estimate', locals: { rule: rule })] }
-    render json: Hash[estimates]
+    estimates = rules.map do |rule|
+      {
+        price: (rule.payin_amount.to_i / 100.0),
+        insurance: params[:insurance] || 'false',
+        html: (render_to_string partial: 'price_input_estimate', locals: { rule: rule }),
+      }
+    end
+    render json: estimates
   end
 
   private
