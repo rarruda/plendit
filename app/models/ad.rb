@@ -173,7 +173,7 @@ class Ad < ActiveRecord::Base
   def is_insurance_required?
     # todo1: how is this compared to the one above?
     # todo2: Do we need to think of a case where config is not up to date?
-    Plendit::Application.config.x.insurance.is_required[self.category]
+    Plendit::Application.config.x.insurance.is_required[self.category.to_sym]
   end
 
   def is_favorite_of( user )
