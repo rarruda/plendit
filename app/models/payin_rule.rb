@@ -8,8 +8,6 @@ class PayinRule < ActiveRecord::Base
   validates :effective_from, numericality: { less_than_or_equal_to: 24 }, if: "self.hour?"
   validates :effective_from, uniqueness:   { scope: [:ad, :unit], message: "can only have one price per effective_unit" }
 
-  validate  :payin_amount_should_be_reasonable
-
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
   scope :effective_from_asc, -> { order( :effective_from ) }
@@ -66,19 +64,6 @@ class PayinRule < ActiveRecord::Base
 
     raise 'unit must be set'
     nil
-  end
-
-  # validate payin_rule is saned compared to other payin_rules in this price structure.
-  def payin_amount_should_be_reasonable
-    prev_payin_rule = PayinRule.where( "ad_id = ? AND unit = ? AND effective_from < ?",
-      self.ad_id, PayinRule.units[self.unit.to_sym], self.effective_from ).first
-    return true if prev_payin_rule.nil?
-
-    if ( self.payin_amount * self.effective_from ) < prev_payin_rule.payin_amount
-      errors.add(:payin_amount, "not allowed to have a total price cheaper over a longer period of #{self.unit}s then over a previous single #{self.unit}.")
-      return false
-    end
-    true
   end
 
 end
