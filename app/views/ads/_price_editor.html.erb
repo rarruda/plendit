@@ -2,7 +2,7 @@
     <div>
         <strong>Insurance and payout is wrong while we refactor calc stuff</strong>
     </div>
-    <%= f.nested_fields_for :payin_rules do |ff| %>
+    <%= f.nested_fields_for :payin_rules, @ad.payin_rules.effective_from_asc do |ff| %>
         <div class="price-editor__row">
             <% if ff.object.required? %>
                 Pris per døgn: <%= ff.text_field :payin_amount_in_h, size: 8, class: 'price-editor__price-input' %>
