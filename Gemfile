@@ -140,6 +140,8 @@ group :development, :test do
 
   gem 'factory_girl_rails'
 
+  gem 'capybara'
+
   # to generate fake data to rake db:seed the database:
   gem 'faker'
   # Consider using it later for future generation of seed data:
