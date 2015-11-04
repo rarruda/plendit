@@ -17,7 +17,7 @@ describe UsersController do
 
   describe "DELETE #identity" do
     it 'should delete a given identity' do
-      current_user = FactoryGirl.build(:user_with_identity)
+      current_user = FactoryGirl.create(:user, identities: [ FactoryGirl.build( :identity ) ] )
 
       to_be_deleted_identity = current_user.identities.select{|k,v| k == 'provider' && v == 'google' }
 
@@ -33,7 +33,7 @@ describe UsersController do
     end
 
     it 'should once deleted a given identity to redirect back' do
-      current_user = FactoryGirl.build(:user_with_identity)
+      current_user = FactoryGirl.create(:user, identities: [ FactoryGirl.build( :identity ) ] )
 
       # referrer (for redirecting back from original form url):
       request.env['HTTP_REFERER'] = 'foo'
