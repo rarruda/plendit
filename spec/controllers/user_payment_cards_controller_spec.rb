@@ -44,26 +44,11 @@ RSpec.describe UserPaymentCardsController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    xit "assigns the requested user_payment_card as @user_payment_card" do
-      user_payment_card = UserPaymentCard.create! valid_attributes
-      get :show, {:id => user_payment_card.to_param}, valid_session
-      expect(assigns(:user_payment_card)).to eq(user_payment_card)
-    end
-  end
 
   describe "GET #new" do
     xit "assigns a new user_payment_card as @user_payment_card" do
       get :new, {}, valid_session
       expect(assigns(:user_payment_card)).to be_a_new(UserPaymentCard)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested user_payment_card as @user_payment_card" do
-      user_payment_card = UserPaymentCard.create! valid_attributes
-      get :edit, {:id => user_payment_card.to_param}, valid_session
-      expect(assigns(:user_payment_card)).to eq(user_payment_card)
     end
   end
 
