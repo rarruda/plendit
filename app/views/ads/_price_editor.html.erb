@@ -3,12 +3,12 @@
         <div data-payin-rule>
             <div class="price-editor__row">
                 <% if ff.object.required? %>
-                    Pris per døgn: <%= ff.text_field :payin_amount_in_h, size: 8, class: 'price-editor__price-input', data: { price: '' } %>
+                    <label class="price-editor__label">Pris per døgn:</label> <%= ff.text_field :payin_amount_in_h, size: 8, class: 'price-editor__price-input', data: { price: '' } %>
                 <% else %>
-                    Pris per dag ved
+                    Ved utleie over 
                     <%= ff.hidden_field :unit, value: 'day'  %>
                     <%= ff.text_field :effective_from, size: 3 %>
-                    og fler dager:
+                    dager, reduseres pris per døgn til:
                     <%= ff.text_field :payin_amount_in_h, size: 8, class: 'price-editor__price-input', data: { price: '' } %>
                     <%= ff.remove_nested_fields_link 'Slett', class: 'u-pull-right' %>
                 <% end %>
