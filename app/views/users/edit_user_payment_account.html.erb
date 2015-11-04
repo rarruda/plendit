@@ -1,5 +1,9 @@
 <%= render layout: "gray_box", locals: {title: "Kontonummer", id: "kontonummer"} do %>
 
+  <%- if payment_account_notice -%>
+    <%= payment_account_notice %>
+  <%- end -%>
+
   <%- if @user_payment_account.errors.any? -%>
     <div>
         TRANSLATE_ME: <%= pluralize(@user_payment_account.errors.count, "error") %> prohibited your bank account number from being updated:

@@ -34,7 +34,8 @@ RSpec.describe UserPaymentCardsController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UserPaymentCardsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
+  #let(:valid_session) { {} }
+  let(:valid_session) { { 'current_user' => FactoryGirl.create( :user_provisioned ) } }
 
   describe "GET #index" do
     xit "assigns all user_payment_cards as @user_payment_cards" do
@@ -123,6 +124,24 @@ RSpec.describe UserPaymentCardsController, type: :controller do
         put :update, {:id => user_payment_card.to_param, :user_payment_card => invalid_attributes}, valid_session
         expect(response).to render_template("edit")
       end
+    end
+  end
+
+  describe "POST #make_favorite" do
+    xit "makes the requested user_payment_card a favorite" do
+      user_payment_card = FactoryGirl.create( :user_payment_card, user: valid_session['current_user'] )
+      response = post :make_favorite, {:guid => user_payment_card.to_param}, valid_session
+
+      expect(response).to change(user_payment_card, :favorite).by(-1)
+    end
+
+    xit "redirects to the user_payment_cards list" do
+      user_payment_card = FactoryGirl.build_stubbed( :user_payment_card )
+
+      response = post :make_favorite, {:guid => user_payment_card.to_param}
+
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(payment_users_path)
     end
   end
 

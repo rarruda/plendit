@@ -12,7 +12,7 @@ class UsersController < ApplicationController
 
   before_action :set_user_payment_account, only: [:payment, :bank_account, :update_bank_account]
 
-  add_flash_types :sms_notice
+  add_flash_types :sms_notice, :payment_card_notice, :payment_account_notice
 
 
   def verify_drivers_license

@@ -6,15 +6,18 @@ class UserPaymentCard < ActiveRecord::Base
 
 
   # Never show "deleted" cards. (inactive)
-  default_scope { where( 'active = true' ) }
+  default_scope { where( active: true ) }
   #user_id: current_user.id,
   #FIXME: dont ever show cards that belong to other users...
 
   validates_uniqueness_of :guid
+  validates :card_vid, presence: true
+
 
   validate :user_is_provisioned
 
   before_validation :set_guid, :on => :create
+  before_create :fetch_details
 
   # We should never wipe cards from our system, but if we do, disable them first:
   before_destroy :disable,
@@ -44,12 +47,19 @@ class UserPaymentCard < ActiveRecord::Base
   end
 
   private
+  def fetch_details
+    unless self.card_vid.blank?
+      self.attributes ||= @mangopay.card_fetch( self.card_vid )
+    else
+      LOG.error "unable to load information from mangopay as card_vid is blank", { user_id: self.user.id, card_id: self.id }
+    end
+  end
+
   def user_is_provisioned
     unless self.user.mangopay_provisioned?
       errors[:base] << "You are not yet provisioned with mangopay"
     end
   end
-
 
   def set_guid
     self.guid = loop do

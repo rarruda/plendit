@@ -1,19 +1,17 @@
 FactoryGirl.define do
   factory :user_payment_card do
-    guid "MyString"
-user nil
-card_vid "MyString"
-currency "MyString"
-card_type "MyString"
-access_key "MyString"
-preregistration_data "MyText"
-registration_data "MyString"
-card_registration_url "MyString"
-number_alias "MyString"
-expiration_date "MyString"
-last_known_status_mp "MyString"
-validity_mp "MyString"
-active_mp ""
+    guid          "0b0180bb-aae3-4a2a-bc06-2101e26e71d6"
+    #user_id       100
+    card_vid      "9077893"
+    card_type     "CB_VISA_MASTERCARD"
+    card_provider "VISA"
+    currency      "NOK"
+    country       "RUS"
+    active        true
+    favorite      false
+    validity        "UNKNOWN"
+    number_alias    "497010XXXXXX0154"
+    expiration_date "0216"
   end
 
 end

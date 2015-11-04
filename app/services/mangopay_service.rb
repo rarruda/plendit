@@ -3,9 +3,6 @@ require 'mangopay'
 # This service should be used via a delayed job of some sort, for most operations.
 class MangopayService
 
-
-  MANGOPAY_CURRENCY='NOK'
-
   def initialize(user)
     @user = user
   end
@@ -20,8 +17,8 @@ class MangopayService
       card_reg = MangoPay::CardRegistration.create(
         'Tag'      => "user_id=#{@user.id}",
         'UserId'   => @user.payment_provider_vid,
-        'Currency' => MANGOPAY_CURRENCY,
-        'CardType' => "CB_VISA_MASTERCARD"
+        'Currency' => MANGOPAY_CURRENCY_CODE,
+        'CardType' => MANGOPAY_DEFAULT_CARD_TYPE
       )
 
       card_info = {
@@ -30,7 +27,7 @@ class MangopayService
         access_key:            card_reg['AccessKey'],
         preregistration_data:  card_reg['PreregistrationData'],
         card_registration_url: card_reg['CardRegistrationURL'],
-        last_known_status_mp:  card_reg['Status']
+        registration_status:   card_reg['Status']
       }
     rescue => e
       LOG.error e, { user_id: @user.id }
@@ -42,27 +39,25 @@ class MangopayService
     return card_info
   end
 
-
-  # you need to save the "Id" of the card in a new model
-  #from result, (Save to db?) and show to user :
-  #RegistrationData
-  def card_post_register(card_vid, registration_data)
+  # create a new user_payment_card instance from RegistrationData
+  def card_post_register( card_preauth_vid, registration_data)
     begin
       # https://docs.mangopay.com/api-references/card-registration/
-      card = MangoPay::CardRegistration.update( card_vid, { 'RegistrationData' => registration_data } )
+      LOG.info "performing card registration from RegistrationData"
+      card = MangoPay::CardRegistration.update( card_preauth_vid, { 'RegistrationData' => registration_data } )
+      LOG.info "Got the following card back: #{card}", { user_id: @user.id }
+
       # now card is registered, and one can make a pre-authorization (pay w/o capture)
-      @user.user_payment_cards.build(
-          card_vid:  card['CardId'],
-          status_mp: card['Status']
-        )
-      @user.user_payment_card.save!
+      @user.user_payment_cards.create!( card_vid: card['CardId'] )
+
     rescue MangoPay::ResponseError => e
-      LOG.error "error registering card with mangopay. MangoPay::ResponseError: #{e}", { user_id: @user.id, card_vid: card_vid, mangopay_result: card }
-      false
+      LOG.error "error registering card with mangopay. MangoPay::ResponseError: #{e}", { user_id: @user.id, card_preauth_vid: card_preauth_vid, mangopay_result: card }
+      return nil
     rescue => e
-      LOG.error "error registering card. exception: #{e}", { user_id: @user.id, card_vid: card_vid, mangopay_result: card }
-      false
+      LOG.error "error registering card. exception: #{e}", { user_id: @user.id, card_preauth_vid: card_preauth_vid, mangopay_result: card }
+      return nil
     end
+    return card['CardId']
   end
 
 
@@ -85,47 +80,64 @@ class MangopayService
   end
 
 
-
-
-  def card_list
+  def card_fetch( card_vid )
     begin
-      cards = MangoPay::User.cards( @user.payment_provider_vid )
+      mp_card = MangoPay::Cards.fetch( card_vid )
+      card = mp_card_translate( mp_card )
+
+    rescue => e
+      LOG.error "error fetching card with mangopay. exception: #{e}", { user_id: @user.id, card_vid: card_vid, mangopay_result: card }
+      return nil
+    end
+    card
+  end
+
+  def card_list( options = {refresh: false} )
+    begin
+      mp_cards = MangoPay::User.cards( @user.payment_provider_vid )
+      mp_cards.each do |mp_card|
+        local_card = @user.user_payment_cards.find_by(card_vid: mp_card['Id'])
+
+        card = mp_card_translate( mp_card )
+
+        if options[:refresh]
+          # if the card does not exist from before.
+          if local_card.blank?
+            @user.user_payment_cards.create(card)
+          else
+            local_card.update(card)
+          end
+          @user.save!
+        end
+
+      end
     rescue => e
       LOG.error "error fetching list of cards with mangopay. exception: #{e}", { user_id: @user.id, mangopay_result: cards }
+      return nil
     end
-    cards
+    # cards
+    @user.user_payment_cards.all
   end
 
   def card_list_refresh
-    begin
-      cards = MangoPay::User.cards( @user.payment_provider_vid )
-      cards.each do |c|
-        card = @user.user_payment_cards.find_by(card_vid: c['Id'])
-        # if the card does not exist from before.
-        mp_card = {
-            card_vid:  c['Id'],
-            card_type: c['CardType'],
-            card_provider: c['CardProvider'],
-            currency:  c['Currency'],
-            country:   c['Country'],
-            number_alias: c['Alias'],
-            expiration_date: c['ExpirationDate'],
-            validity:  c['Validity'],
-            active:    c['Active']
-        }
-        if card.blank?
-          @user.user_payment_cards.new(mp_card)
-        else
-          mp_card.delete(:card_vid)
+    self.card_list( refresh: true )
+  end
 
-          card.update(mp_card)
-        end
-      end
-      @user.save!
-    rescue => e
-      LOG.error "Exception e:#{e} error refreshing cards from mangopay.", { user_id: @user.id, mangopay_result: cards }
-    end
-    cards
+  #private
+  def mp_card_translate ( mp_card )
+    return nil if mp_card.blank? || ! ( mp_card.is_a? Hash )
+
+    {
+      card_vid:        mp_card['Id'],
+      card_type:       mp_card['CardType'],
+      card_provider:   mp_card['CardProvider'],
+      currency:        mp_card['Currency'],
+      country:         mp_card['Country'],
+      number_alias:    mp_card['Alias'],
+      expiration_date: mp_card['ExpirationDate'],
+      validity:        mp_card['Validity'],
+      active:          mp_card['Active']
+    }
   end
 
 
@@ -145,6 +157,8 @@ class MangopayService
 
 
   def provision_user
+    LOG.info "Provisioning user with Mangopay", { user_id: @user.id }
+
     if @user.personhood.blank?
       LOG.error "Refuse to provision user. Don't know the personhood of user. bailing out.", { user_id: @user.id, personhood: @user.personhood }
       return false
@@ -220,12 +234,15 @@ class MangopayService
       @user.save!
     rescue => e
       LOG.error "something has gone wrong with provisioning the user at mangopay. exception: #{e}", {user_id: @user.id, mangopay_result: mangopay_user }
+      return nil
     end
     LOG.info "MangopayService.provision_user #{@user.personhood} mangopay_user: #{mangopay_user}", {user_id: @user.id}
   end
 
   # this method is not throughly tested:
   def provision_wallets
+    LOG.info "Provisioning wallets with Mangopay", { user_id: @user.id }
+
     return true unless @user.payin_wallet_vid.blank? && @user.payout_wallet_vid.blank?
 
     begin
@@ -248,6 +265,7 @@ class MangopayService
       #pp wallets
     rescue => e
       LOG.error "something has gone wrong with fetching list of wallets at mangopay. exception: #{e}", {user_id: @user.id, mangopay_result: wallets }
+      return nil
     end
 
     LOG.info "found payin_wallets:#{wallet_money_in}, saved payin_wallet", { user_id: @user.id, mangopay_result: wallets }    if @user.payin_wallet_vid_changed?
@@ -273,6 +291,7 @@ class MangopayService
       @user.save!
     rescue => e
       LOG.error "Exception e:#{e} something has gone wrong with provisioning the pay_in wallet at mangopay.", {user_id: @user.id, mangopay_result: wallet_in }
+      return nil
     end
     LOG.info "created pay_in wallet:#{wallet_in}", { user_id: @user.id, mangopay_result: wallet_in }
   end
@@ -292,6 +311,7 @@ class MangopayService
       @user.save!
     rescue => e
       LOG.error "Exception e:#{e} something has gone wrong with provisioning the pay_out wallet at mangopay.", {user_id: @user.id, mangopay_result: wallet_out }
+      return nil
     end
     LOG.info "created pay_out wallet:#{wallet_out}", { user_id: @user.id, mangopay_result: wallet_out }
   end
@@ -323,6 +343,7 @@ class MangopayService
       @user.user_payment_account.save!
     rescue => e
       LOG.error "Exception e:'#{e}' has gone wrong with provisioning the bank_account at mangopay.", {user_id: @user.id, mangopay_result: bank_account }
+      return nil
     end
     LOG.info "created bank_account:#{bank_account['Id']}", { user_id: @user.id, bank_account_vid: bank_account['Id'], mangopay_result: bank_account }
 
@@ -386,11 +407,12 @@ class MangopayService
       LOG.info "have created for user_id: #{booking.from_user.id} PreAuthorization: #{preauth}", { user_id: booking.from_user.id, mangopay_result: preauth }
     rescue => e
       LOG.error "Exception e:#{e} for user_id: #{booking.from_user.id} PreAuthorization: #{preauth}", { user_id: booking.from_user.id, mangopay_result: preauth }
+      return nil
     end
 
     if preauth['Status'] == 'FAILED'
       LOG.error "Error for user_id: #{booking.from_user.id} PreAuthorization: #{preauth}", { user_id: booking.from_user.id, mangopay_result: preauth }
-      return false
+      return nil
     else
       return true
     end
@@ -464,6 +486,7 @@ class MangopayService
       LOG.info "Processed PayIn from PreAuthorization for booking_id:#{booking.id} transaction_id:#{t.id}", { booking_id: booking.id, mangopay_result: payin }
     rescue => e
       LOG.error "Exception e:#{e} processing PayIn from PreAuthorization for booking_id:#{booking.id} payin:#{payin}", { booking_id: booking.id, mangopay_result: payin }
+      return nil
     end
 
     if payin['Status'] == 'FAILED'
@@ -518,8 +541,10 @@ class MangopayService
       LOG.info "have created for user_id: #{@user.id} Transfer: #{transaction}", { user_id: @user.id, booking_id: booking.id, mangopay_result: transfer }
     rescue MangoPay::ResponseError => e
       LOG.error "Exception e:#{e} processing transfer for booking_id:#{booking.id}", { booking_id: booking.id, mangopay_result: transfer }
+      return nil
     rescue => e
       LOG.error "Exception e:#{e} processing transfer for booking_id:#{booking.id}", { booking_id: booking.id, mangopay_result: transfer }
+      return nil
     end
 
     if transfer['Status'] == 'FAILED'
@@ -585,6 +610,7 @@ class MangopayService
       LOG.info "have created for user_id: #{@user.id} PayOut: #{payout}", { user_id: @user.id, mangopay_result: payout }
     rescue => e
       LOG.error "Exception e:#{e} processing payout for user_id:#{@user.id}", { user_id: @user.id, mangopay_result: payout }
+      return nil
     end
 
     if payout['Status'] == 'FAILED'

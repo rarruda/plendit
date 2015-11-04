@@ -63,7 +63,7 @@ Rails.application.routes.draw do
       get  'ads',                      to: 'ads#list'
       get  'private_profile',          controller: 'users'
       get  'payment'
-      match 'bank_account',            to: 'users#update_bank_account', via: [:get, :post]
+      match 'bank_account',            via: [:get, :post]
 
       match 'verify/drivers_license',  to: 'users#verify_drivers_license', via: [:get, :post]
       match 'verify/id_card',          to: 'users#verify_id_card', via: [:get, :post]
