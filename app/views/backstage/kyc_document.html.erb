@@ -31,7 +31,7 @@
                     <%= image_tag kyc_image_path(@user_document), class: 'u-full-width' %>
                     <%= link_to 'Show full image', kyc_image_path(@user_document), target: '_blank' %>
                     <br>
-                    <%= f.label :expires_at, 'Expires at:' %> <%= f.date_select :expires_at, end_year: 2050, include_blank: true %>
+                    <%= f.label :expires_at, 'Expires at:' %> <%= f.date_select :expires_at, end_year: 100.years.from_now.year, include_blank: true %>
                     <br>
                     <%= f.label :rejection_reason, 'Rejection reason:' %> <%= f.text_field :rejection_reason %>
                     <br>
