@@ -242,7 +242,7 @@ class AdsController < ApplicationController
     respond_to do |format|
       if @ad.update(ad_params_local)
         format.html { render :edit }
-        format.json { render :show, status: :ok, location: @ad }
+        format.json { render json: @ad.to_json, status: :ok, location: @ad }
       else
         format.html { render :edit }
         format.json { render json: @ad.errors, status: :unprocessable_entity }

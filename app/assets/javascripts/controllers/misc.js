@@ -609,4 +609,20 @@ window.controllers.priceEstimateUpdater = {
     }
 };
 
+window.controllers.adAutoSaver = {
+    dependencies: ["$element", "xhr", "utils"],
+    callable: function(ele, xhr, utils) {
+        var dirty = false;
+        ele.addEventListener("change", handleChange)
 
+        function handleChange() {
+            console.log("form is dirty");
+        }
+
+        function saveForm() {
+            xhr.xhrFormData(ele);
+        }
+
+        window.saver = saveForm
+    }
+};

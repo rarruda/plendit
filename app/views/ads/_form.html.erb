@@ -1,4 +1,4 @@
-<%= form_for(@ad, url: (users_ad_path @ad), data: {main_form: '', category: @ad.category}) do |f| %>
+<%= form_for(@ad, url: (users_ad_path @ad), data: {main_form: '', category: @ad.category, controller: 'adAutoSaver'}) do |f| %>
     <% if @ad.errors.any? %>
         <div id="error_explanation">
             <h2><%= pluralize(@ad.errors.count, "error") %> prohibited this ad from being saved:</h2>
@@ -98,12 +98,9 @@
         </span>
     <% end %>
 
-
     <div class="u-push-down">
         <%= render partial: 'price_editor', locals: {f: f} %>
     </div>
-
-
 
     <% if @ad.category == 'motor' %>
         <div class="u-push-down">
@@ -111,7 +108,6 @@
             <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
         </div>
     <% end %>
-
 
 <%- end -%>
 
