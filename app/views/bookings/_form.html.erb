@@ -27,13 +27,6 @@
         <%# This will fail miserably. %>
     <% end %>
 
-<!--
-    <div class="field">
-        <%= f.label :price %> <br>
-        <%= number_to_currency_pretty @booking.ad.price %> per dag
-    </div>
- -->
-
     <div data-controller="kalendaeBookingSelector">
         <div class="row">
             <div class="seven columns">
@@ -68,8 +61,37 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="seven columns">
+
+    <% if current_user.user_payment_cards.length > 1 %>
+        TRANSLATEME: Velg en kreditt kort til å betale med:
+        <%# would have been nice to call the field below for user_payment_card_guid %>
+        <%= collection_select( :booking, :user_payment_card_id, @booking.from_user.user_payment_cards.decorate, :guid, :pretty_view ) %>
+    <% elsif current_user.user_payment_cards.length == 1 %>
+        TRANSLATEME: Reservasjon for utleie skal komme på denne kreditt kort:
+        <%= f.label 'booking[user_payment_card][guid]', @booking.from_user.user_payment_cards.decorate.first.pretty_view %>
+        <%= f.hidden_field 'booking[user_payment_card][guid]', value: upc.guid %>
+    <% else %>
+        TRANSLATEME: ERROR: You can't pay for this rental. Please register a credit card.
+    <% end %>
+      <p>
+        <small>
+        FIXME: TRANSLATEME: (fiks språk) Din førspørsel blir sendt etter reservering av total beløp skjer.
+        Du blir belastet kun om din førspørsel blir godkjent av utleieren. Du kan gratis avbestille om du gjør det over 4 dager på forhånd, og da penger er refundert til din kreditt kort.
+        Om du vil avbestille etter det, da får du ikke refusjon.
+        </small>
+      </p>
+
+            </div>
+        </div>
+
+
         <div class="actions">
             <%= f.submit class: "button button-primary" %>
         </div>
+
+      <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
+
     </div>
 <% end %>

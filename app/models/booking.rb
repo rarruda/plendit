@@ -11,6 +11,7 @@ class Booking < ActiveRecord::Base
 
   belongs_to :ad_item
   belongs_to :from_user, :class_name => "User"
+  belongs_to :user_payment_card
 
   has_one :ad, through: :ad_item
   has_one :user, through: :ad
@@ -46,10 +47,12 @@ class Booking < ActiveRecord::Base
 
   validates :ad_item_id, :presence => true
   validates :from_user_id, :presence => true
+  validates :user_payment_card_id, :presence => true
 
-  validates :amount, numericality: { greater_than:  100_00, message: "must be at least 100 kroner"}
-  validates :amount, numericality: { less_than: 150_000_00, message: "must be at less then 150.000 kroner"}
+  validates :amount, numericality: { greater_than:  100_00, message: "must be at least 100 kr"}
+  validates :amount, numericality: { less_than: 150_000_00, message: "must be at less then 150.000 kr"}
 
+  validate :validate_user_payment_card_belongs_to_from_user
 
 
   before_validation :set_guid, :on => :create
@@ -60,12 +63,12 @@ class Booking < ActiveRecord::Base
   before_validation :calculate_fee,
     if: :starts_at_changed?,
     if: :ends_at_changed?,
-    if: :amount_changed?
+    if: :payout_amount_changed?
 
   before_validation :calculate_insurance,
     if: :starts_at_changed?,
     if: :ends_at_changed?,
-    if: :amount_changed?,
+    if: :payout_amount_changed?,
     if: :insured_changed?
 
 
@@ -76,53 +79,67 @@ class Booking < ActiveRecord::Base
     state :cancelled
     state :declined #, :enter => :trigger_notification
     state :started
-    state :finished
+    state :finished #can review and create a skademelding
+    #   after 48 hours it got to finished:
+    #state :closed #can review, but not create a skademelding
+    #   after 7 days it got to finished:
+    #state :closed_shut #can neither review nor create a skademelding
+
+    #on created:
+      #mangopay.payment_preauth_create
+    # end
+
 
     event :accept do
       transitions :from => [:created,:declined], :to => :accepted
+      #mangopay.payment_payin_from_preauth
     end
     event :cancel do
       transitions :from => :created, :to => :cancelled
       # only if current_user.id != user.id
+      #mangopay.payment_transfer
     end
     event :decline do
       transitions :from => [:created,:accepted], :to => :declined
+      #mangopay.payment_preauth________foobar__refund
     end
     event :start do
       transitions :from => :accepted, :to => :started
+      # 2 days later: mangopay.payment_transfer
     end
     event :finish do
       transitions :from => :started, :to => :finished
     end
   end
 
+  # FIXME: temporarely in place just during a transition period.
+  #  to be removed.
+  def amount
+    self.payout_amount
+  end
 
-
-  # fixme: real data for this, and something like .humanize on the prices/amounts
-  # fixme: add booking_item for VAT, platform_fees(us), insurance, etc.
   def calculate_amount
-    self.amount = self.duration_in_days * self.ad.price
+    ####self.amount = self.duration_in_days * self.ad.price
+    self.payout_amount = self.booking_calculator.payin_amount
   end
 
   def calculate_fee
-    self.platform_fee_amount = ( self.amount * Plendit::Application.config.x.platform.fee_in_percent ).to_i
+    ####self.platform_fee_amount = ( self.amount * Plendit::Application.config.x.platform.fee_in_percent ).to_i
+    self.platform_fee_amount = self.booking_calculator.platform_fee
   end
 
   def calculate_insurance
-    # ensure that ads in MOTOR + REALESTATE categories will always have insurance:
-    if ['bap','realestate'].include? self.ad.category || self.insured?
-      self.insurance_amount = ( self.amount * Plendit::Application.config.x.insurance.price_in_percent[self.ad.category.to_sym] ).to_i
-    else
-      self.insurance_amount = 0
-    end
+    self.insurance_amount = self.booking_calculator.insurance_fee
   end
 
   def sum_paid_to_owner
-    self.amount
+    ##self.amount
+    self.payout_amount
   end
 
   def sum_paid_by_renter
-    ( self.amount + self.platform_fee_amount + self.insurance_amount )
+    ##( self.amount + self.platform_fee_amount + self.insurance_amount )
+    self.payout_amount + self.platform_fee_amount + self.insurance_amount
   end
 
   def sum_plaform_fee_and_insurance
@@ -131,12 +148,12 @@ class Booking < ActiveRecord::Base
 
   # duration_in_days rounded up for fractions of a day.
   #  Minimum duration of one day.
-  def duration_in_days
-    d = ( (self.ends_at - self.starts_at) / 1.day.to_i  ).ceil
-    raise "You cant have a negative duration for a booking" if d < 0
-
-    d == 0 ? 1 : d
-  end
+  #def duration_in_days
+  #  d = ( (self.ends_at - self.starts_at) / 1.day.to_i  ).ceil
+  #  raise "You cant have a negative duration for a booking" if d < 0
+  #  
+  #  d == 0 ? 1 : d
+  #end
 
 
   def last_preauthorization_vid
@@ -177,6 +194,11 @@ class Booking < ActiveRecord::Base
     end
   end
 
+  def validate_user_payment_card_belongs_to_from_user
+    if self.from_user.user_payment_cards.find( self.user_payment_card_id ).blank?
+      errors.add(:user_payment_card, "card must belong to from_user")
+    end
+  end
 
   def validate_starts_at_before_ends_at
       errors.add(:ends_at, "ends_at cannot be before starts_at") if self.ends_at < self.starts_at
@@ -219,6 +241,10 @@ class Booking < ActiveRecord::Base
     self.guid
   end
 
+  def booking_calculator
+    BookingCalculator.new(ad: self.ad, starts_at: self.starts_at, ends_at: self.ends_at)
+  end
+
   private
 
   def set_guid
@@ -229,4 +255,5 @@ class Booking < ActiveRecord::Base
       break generated_guid unless self.class.exists?(guid: generated_guid)
     end
   end
+
 end
