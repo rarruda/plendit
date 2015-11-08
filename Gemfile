@@ -141,6 +141,7 @@ group :development, :test do
   gem 'factory_girl_rails'
 
   gem 'capybara'
+  gem 'capybara-screenshot'
 
   # to generate fake data to rake db:seed the database:
   gem 'faker'

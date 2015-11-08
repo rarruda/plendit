@@ -102,6 +102,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (1.0.11)
+      capybara (>= 1.0, < 3)
+      launchy
     choice (0.2.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -224,6 +227,8 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     libv8 (3.16.14.11)
     listen (3.0.3)
       rb-fsevent (>= 0.9.3)
@@ -494,6 +499,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
+  capybara-screenshot
   coffee-rails (~> 4.1.0)
   country_select
   devise
