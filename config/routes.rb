@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
 
   scope '/internal-backstage' do
-    mount OkComputer::Engine, at: "health-check"
+    mount OkComputer::Engine, at: "health-check", as: 'ok_computer'
     mount ResqueWeb::Engine,  at: "resque-web"
 
     ActiveAdmin.routes(self)
