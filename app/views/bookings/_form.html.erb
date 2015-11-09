@@ -17,14 +17,8 @@
         <%= f.hidden_field(:ad_item_id, :value => @booking.ad.ad_items.first.id )%>
     <% elsif @booking.ad.ad_items.count > 0 %>
         <%= f.hidden_field(:ad_item_id, :value => @booking.ad.ad_items.first.id )%>
-<!--
-        <div class="field">
-            <%= f.label :ad_item_id %><br>
-            <%= f.collection_select(:ad_item_id, @booking.ad.ad_items.all, :id, :id) %>
-        </div>
- -->
     <% else %>
-        <%# This will fail miserably. %>
+        <%# This will fail miserably. Should never happen. %>
     <% end %>
 
     <div data-controller="kalendaeBookingSelector">
@@ -52,7 +46,8 @@
                         Pris per dag:
                         <span class="u-pull-right"><%= @booking.ad.decorate.pretty_price %></span>
                     </li>
-<!--                     <li>
+<!--
+                    <li>
                         <strong>Totalt å betale:</strong>
                         <span class="u-pull-right" data-total-price>Fetch from server</span>
                     </li>
@@ -67,28 +62,35 @@
     <% if current_user.user_payment_cards.length > 1 %>
         TRANSLATEME: Velg en kreditt kort til å betale med:
         <%# would have been nice to call the field below for user_payment_card_guid %>
+        <%# FIXME: auto-select favorite card %>
         <%= collection_select( :booking, :user_payment_card_id, @booking.from_user.user_payment_cards.decorate, :guid, :pretty_view ) %>
     <% elsif current_user.user_payment_cards.length == 1 %>
         TRANSLATEME: Reservasjon for utleie skal komme på denne kreditt kort:
-        <%= f.label 'booking[user_payment_card][guid]', @booking.from_user.user_payment_cards.decorate.first.pretty_view %>
-        <%= f.hidden_field 'booking[user_payment_card][guid]', value: upc.guid %>
+        <%= f.label 'booking[user_payment_card_id]', @booking.from_user.user_payment_cards.decorate.first.pretty_view %>
+        <%= f.hidden_field 'booking[user_payment_card_id]', value: @booking.from_user.user_payment_cards.decorate.first.guid %>
     <% else %>
-        TRANSLATEME: ERROR: You can't pay for this rental. Please register a credit card.
+        TRANSLATEME: ERROR: You need to have a card registered in your profile, before you can make a reservation. Please register a credit card.
     <% end %>
+
+    <% if current_user.user_payment_cards.length >= 1 %>
       <p>
         <small>
         FIXME: TRANSLATEME: (fiks språk) Din førspørsel blir sendt etter reservering av total beløp skjer.
-        Du blir belastet kun om din førspørsel blir godkjent av utleieren. Du kan gratis avbestille om du gjør det over 4 dager på forhånd, og da penger er refundert til din kreditt kort.
-        Om du vil avbestille etter det, da får du ikke refusjon.
+        Du blir belastet kun om din førspørsel blir godkjent av utleieren. Du kan gratis avbestille, og da penger er refundert til din kreditt kort.
         </small>
       </p>
+    <% end %>
 
             </div>
         </div>
 
 
         <div class="actions">
-            <%= f.submit class: "button button-primary" %>
+            <% unless current_user.user_payment_cards.length == 0 %>
+                <%= f.submit class: "button button-primary" %>
+            <% else %>
+                TRANSLATEME: ERROR: You need to have a card registered in your profile, before you can make a reservation. Please register a credit card <%= link_to 'HERE', new_user_payment_card_path %>.
+            <% end %>
         </div>
 
       <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
