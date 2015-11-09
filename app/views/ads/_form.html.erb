@@ -109,12 +109,16 @@
         </div>
     <% end %>
 
+    <%#= render partial: 'editable_image_subform', locals: { ad: @ad, form: f } %>
+
 <%- end -%>
 
 <div class="u-push-down">
     <%= render partial: 'shared/image_uploader', locals: { ad: @ad } %>
     <%= render partial: 'shared/image_manager', locals: { ad: @ad } %>
 </div>
+
+
 
 <div class="u-push-down">
     <% if @ad.published? %>

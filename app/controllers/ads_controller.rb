@@ -292,7 +292,8 @@ class AdsController < ApplicationController
       params.require(:ad).permit( :title, :body, :price_in_h, :tag_list, :insurance_required,
         :registration_number, :location_id,
         :location_attributes => [:address_line, :post_code],
-        :payin_rules_attributes => [:payin_amount_in_h, :unit, :effective_from, :id, :_destroy])
+        :payin_rules_attributes => [:payin_amount_in_h, :unit, :effective_from, :id, :_destroy],
+        :ad_images_attributes => [:weight, :description, :id, :_destroy ])
     end
 
 

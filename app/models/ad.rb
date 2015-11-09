@@ -20,8 +20,9 @@ class Ad < ActiveRecord::Base
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5, deleted: 6 }
   enum category: { bap: 0, motor: 1, realestate: 2 }
 
-  accepts_nested_attributes_for :location, :reject_if => :all_blank
-  accepts_nested_attributes_for :payin_rules, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :location, reject_if: :all_blank
+  accepts_nested_attributes_for :payin_rules, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :ad_images, reject_if: :all_blank
 
   validates :user,  presence: true
   validates :title, length: { in: 0..255 }, :unless => :new_record?
