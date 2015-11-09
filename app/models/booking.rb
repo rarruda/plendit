@@ -18,15 +18,15 @@ class Booking < ActiveRecord::Base
   has_many :messages
   has_many :transactions
 
-  enum status: { created: 0, accepted: 1, cancelled: 2, declined: 3 }
+  enum status: { created: 0, confirmed: 1, started: 2, in_progress: 3, ended: 4, archived: 5, aborted: 10, cancelled: 11, declined: 12, admin_paused: 99 }
 
   #default_scope { where( status: active ) }
 
   scope :owner_user, ->(user) { joins(:ad).where( 'ads.user_id = ?', user.id ) }
   scope :from_user,  ->(user) { where( from_user_id: user.id ) }
 
-  scope :current,    -> { where( 'status' => [ self.statuses[:created], self.statuses[:accepted] ] ) }
-  scope :active,     -> { where( status: accepted ) }
+  scope :current,    -> { where( 'status' => [ self.statuses[:created], self.statuses[:confirmed], self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
+  scope :active,     -> { where( 'status' => [ self.statuses[:started], self.statuses[:in_progress] ] ) }
   scope :ad_item,    ->(ad_item_id) { where( ad_item_id: ad_item_id ) }
   scope :in_month,   ->(year,month) { where( 'ends_at >= ? and starts_at <= ?',
     DateTime.new(year, month).beginning_of_month, DateTime.new(year, month).end_of_month ) }
@@ -74,43 +74,133 @@ class Booking < ActiveRecord::Base
 
 
   aasm :column => :status, :enum => true do
-    state :created, :initial => true
-    state :accepted #, :enter => :trigger_notification, :exit => :trigger_notification
-    state :cancelled
-    state :declined #, :enter => :trigger_notification
+    state :created, :initial => true #, :enter => mangopay.payment_preauth_create
+    state :confirmed
     state :started
-    state :finished #can review and create a skademelding
-    #   after 48 hours it got to finished:
-    #state :closed #can review, but not create a skademelding
-    #   after 7 days it got to finished:
-    #state :closed_shut #can neither review nor create a skademelding
+    state :in_progress
+    state :ended
+    state :archived
 
-    #on created:
-      #mangopay.payment_preauth_create
-    # end
+    state :aborted
+    state :cancelled
+    state :declined
 
+    state :admin_paused
 
-    event :accept do
-      transitions :from => [:created,:declined], :to => :accepted
-      #mangopay.payment_payin_from_preauth
+    #after_all_transitions :log_status_change
+
+    event :confirm do
+      transitions :from => :created, :to => :confirmed
+
+      after do
+        LOG.info "capture preauth payin... (dummy only)", booking_id: self.id
+        #mangopay.payment_payin_from_preauth
+      end
     end
-    event :cancel do
-      transitions :from => :created, :to => :cancelled
-      # only if current_user.id != user.id
-      #mangopay.payment_transfer
+
+    event :abort do
+      transitions :from => :created, :to => :aborted
+
+      # only if current_user.id == from_user.id
+      after do
+        LOG.info "refund refund preauth payin... (dummy only)", booking_id: self.id
+        #mangopay.payment_transfer________foobar__refund
+      end
     end
+
     event :decline do
-      transitions :from => [:created,:accepted], :to => :declined
-      #mangopay.payment_preauth________foobar__refund
+      transitions :from => :created, :to => :declined
+
+      # only if current_user.id == user.id
+      after do
+        LOG.info "refund refund preauth payin... (dummy only)", booking_id: self.id
+        #mangopay.payment_preauth________foobar__refund
+      end
     end
+
+    event :cancel do
+      transitions :from => [:confirmed,:started], :to => :cancelled do
+        guard do
+          # if started, can still cancel within 24hours.
+          self.started? && ( self.starts_at + 1.day < DateTime.now )
+        end
+      end
+
+      after do
+        LOG.info "refund transfer or refund_payin... (dummy only)", booking_id: self.id
+        #refund transfer or refund_payin
+        #mangopay.payment_transfer____refund_payin
+      end
+    end
+
     event :start do
-      transitions :from => :accepted, :to => :started
-      # 2 days later: mangopay.payment_transfer
+      transitions :from => :confirmed, :to => :started
+
+      after do
+        LOG.info "schedule set_in_progress as new status in 1.day... (dummy only)", booking_id: self.id
+        #Resque.enqueue_in( (self.starts_at + 1.day), foobar_JOB_transition_to_in_progress )
+      end
     end
-    event :finish do
-      transitions :from => :started, :to => :finished
+
+    event :set_in_progress do
+      transitions :from => :started, :to => :in_progress
+
+      after do
+        LOG.info "make transfer of funds... (dummy only)", booking_id: self.id
+        #mangopay.payment_transfer
+        LOG.info "schedule to end at ends_at(#{self.ends_at})... (dummy only)", booking_id: self.id
+        #Resque.enqueue_in( (self.ends_at), foobar_JOB_transition_to_end )
+      end
+    end
+
+    event :end do
+      transitions :from => :in_progress, :to => :ended
+      after do
+        LOG.info "schedule for auto-archival in 7 days.", booking_id: self.id
+        #Resque.enqueue_in( (self.ends_at + 7.days), foobar_JOB_transition_to_archive )
+      end
+    end
+
+    event :archive do
+      transitions :from => :ended, :to => :archived
+    end
+
+    # dont do anything. when manual intervention is required/exception handling:
+    # this is a tar-pit state.
+    event :freeze do
+      transitions :from => [:confirmed, :started, :in_progress, :ended], :to => :admin_paused
     end
   end
+
+
+  def may_send_damage_report?
+    # after started, until 48hours after booking ended.
+    self.started? || self.in_progress? || ( self.ended? && self.ends_at + 2.days < DateTime.now )
+  end
+
+  def may_give_feedback?
+    # after ended, can give feedback
+    self.ended? #|| ( self.ends_at + 7.days ) < DateTime.now
+  end
+
+  def log_status_change
+    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
+  end
+
+  def should_be_in_progress?
+    self.started && ( ( self.starts_at + 1.day ) > DateTime.now )
+  end
+
+  def should_be_ended?
+    self.in_progress && ( ( self.ends_at ) > DateTime.now )
+  end
+
+  def should_be_archived?
+    self.ended && ( ( self.ends_at + 7.days ) > DateTime.now )
+  end
+
+
+
 
   # FIXME: temporarely in place just during a transition period.
   #  to be removed.
@@ -151,7 +241,7 @@ class Booking < ActiveRecord::Base
   #def duration_in_days
   #  d = ( (self.ends_at - self.starts_at) / 1.day.to_i  ).ceil
   #  raise "You cant have a negative duration for a booking" if d < 0
-  #  
+  #
   #  d == 0 ? 1 : d
   #end
 
