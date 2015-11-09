@@ -88,6 +88,7 @@ gem 'redis', '~> 3.2.1'
 #gem 'connection_pool', '~> 2.2.0'
 gem 'resque'
 gem 'resque-web', require: 'resque_web'
+gem 'resque-scheduler'
 
 # fragment caching and sessions can use redis
 gem 'redis-rails'
