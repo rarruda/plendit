@@ -86,6 +86,8 @@ gem 'pg'
 gem 'redis', '~> 3.2.1'
 # for connection pooling redis:
 #gem 'connection_pool', '~> 2.2.0'
+gem 'resque'
+gem 'resque-web', require: 'resque_web'
 
 # fragment caching and sessions can use redis
 gem 'redis-rails'

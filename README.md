@@ -140,6 +140,22 @@ We have only tested with Redis >= 3.0. Other versions could work. For developmen
 To start: (after unpacking the tarball)
 `./src/redis-server`
 
+* Resque worker
+
+To get the job from any queue and do the work, run the following command.
+
+```
+rake resque:work QUEUE='*'
+```
+
+This command helps to test background jobs in development environment. For production:
+```
+rake production resque:work QUEUE='*'
+```
+
+To see the status of the reque queues, its possible to use the dashboard at:
+
+`http://localhost:3000/internal-backstage/resque-web/`
 
 * ElasticSearch (re)initialization
 
