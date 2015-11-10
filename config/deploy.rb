@@ -152,7 +152,9 @@ namespace :deploy do
   after  :finishing,    :cleanup
   after  :finishing,    :restart
   #after  :finished,     :loadbalancer_check_on
+
   after 'deploy:restart', 'resque:restart'
+  after 'deploy:restart', 'resque:scheduler:restart'
 end
 
 namespace :search do

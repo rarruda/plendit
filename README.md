@@ -157,6 +157,11 @@ To see the status of the reque queues, its possible to use the dashboard at:
 
 `http://localhost:3000/internal-backstage/resque-web/`
 
+NOTE: It is recommended that a production deployment of resque-scheduler be hosted on
+ a dedicated Redis database. This is because it uses the KEYS command in redis which
+ is O(N), but must transverse all keys in the keyspace.
+ FROM: https://github.com/resque/resque-scheduler#deployment-notes
+
 * ElasticSearch (re)initialization
 
 Install elasticsearch. Mac uses can use the version from homebrew:
