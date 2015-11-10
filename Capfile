@@ -27,6 +27,7 @@ require 'capistrano/rvm'
 require 'capistrano/bundler'
 require 'capistrano/rails'
 require 'capistrano/passenger'
+require 'capistrano-resque'
 
 require 'slackistrano'
 

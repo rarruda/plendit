@@ -89,6 +89,7 @@ gem 'redis', '~> 3.2.1'
 gem 'resque'
 gem 'resque-web', require: 'resque_web'
 gem 'resque-scheduler'
+gem 'capistrano-resque', "~> 0.2.2", require: false
 
 # fragment caching and sessions can use redis
 gem 'redis-rails'

@@ -41,6 +41,15 @@ set :keep_releases, 10
 
 set :passenger_restart_with_touch, true
 
+
+# capistrano-resque
+# https://github.com/sshingler/capistrano-resque
+set :resque_environment_task, true
+#If you need to pass arbitrary data (like other non-standard environment variables) to the "start" command:
+#set :resque_extra_env, "SEARCH_SERVER=172.18.0.52"
+set :resque_log_file, 'log/resque.log'
+
+
 # slackistrano
 set :slack_webhook, ENV['PCONF_SLACK_WEBHOOK_CAPISTRANO']
 
@@ -143,6 +152,7 @@ namespace :deploy do
   after  :finishing,    :cleanup
   after  :finishing,    :restart
   #after  :finished,     :loadbalancer_check_on
+  after 'deploy:restart', 'resque:restart'
 end
 
 namespace :search do
