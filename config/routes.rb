@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     mount OkComputer::Engine, at: "health-check", as: 'ok_computer'
     mount ResqueWeb::Engine,  at: "resque-web"
 
+    #https://github.com/resque/resque-web/pull/79
+    #https://github.com/resque/resque-web/issues/76
+    ResqueWeb::Engine.eager_load!
+
     ActiveAdmin.routes(self)
     get   'admin/switch_user' => 'switch_user#set_current_user'
     get   'switch_user',               to: redirect('/')
