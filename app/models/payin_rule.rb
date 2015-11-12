@@ -1,7 +1,9 @@
 class PayinRule < ActiveRecord::Base
   belongs_to :ad
 
-  validates :payin_amount, numericality: { only_integer: true, greater_than_or_equal_to: 25_00, less_than: 1_000_000_00 }, :unless => :new_record?
+  validates :payin_amount, numericality: { only_integer: true }, :unless => :new_record?
+  validates :payin_amount, numericality: { greater_than_or_equal_to: 49_00, message: "must be at least 49 kr" }, unless: :new_record?
+  validates :payin_amount, numericality: { less_than: 150_000_00, message: "must be at less then 150.000 kr" }, unless: :new_record?
   validates :unit, presence: true
   validates :effective_from, numericality: { only_integer: true }
   validates :effective_from, numericality: { greater_than_or_equal_to: 1 }
