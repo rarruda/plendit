@@ -1,0 +1,3 @@
+<%= form_for(@ad) do |f| %>
+    <%= render partial: 'editable_image_subform', locals: { ad: @ad, form: f } %>
+<% end %>

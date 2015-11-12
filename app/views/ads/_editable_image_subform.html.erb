@@ -1,14 +1,20 @@
-<div>
-    <h1>Inline pictures</h1>
+<div class="in-image-list">
     <%= form.nested_fields_for :ad_images do |ff| %>
-        <%= ff.hidden_field :weight, data: {weight: ''} %>
+        <% index = form.object.ad_images.index(ff.object) # eew %>
+        <%= ff.hidden_field :weight, data: { weight: '' } %>
         <div class="in-image">
-            <div class="in-image__img-holder">
+            <div class="in-image__img-box">
                 <%= image_tag ff.object.image.url(:thumb) %>
+                <br>
+                <span class="in-image__main-label">Hovedbilde</span>
             </div>
-            <div class="in-image__inputs-holder">
-                <%= ff.text_area :description %>
-                <button>make priamaray</button>
+            <div class="in-image__text-box">
+                <%= ff.text_area :description, placeholder: 'Bildetekst', class: 'in-image__description' %>
+                <br>
+                <div class="in-image__button-holder">
+                    <button class="button <%= index == 0 ? 'u-hidden' : '' %>" >Hovedbilde</button>
+                    <%= ff.remove_nested_fields_link 'Slett', class: 'button' %>
+                </div>
             </div>
         </div>
     <% end %>

@@ -626,3 +626,28 @@ window.controllers.adAutoSaver = {
         window.saver = saveForm
     }
 };
+
+
+window.controllers.imageSubformController = {
+    dependencies: ["$element", "xhr", "utils", "eventbus"],
+    callable: function(ele, xhr, utils, eventbus) {
+        eventbus.on(eventbus.IMAGES_CHANGED, reloadImages);
+        var url = ele.getAttribute("data-url");
+        window.tragger = reloadImages;
+
+        function reloadImages() {
+            xhr.get(url).then(onGotImageHtml);
+        }
+
+        function onGotImageHtml(req) {
+            ele.innerHTML = req.responseText;
+        }
+
+    }
+};
+
+
+
+
+
+

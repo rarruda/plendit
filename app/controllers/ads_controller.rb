@@ -8,6 +8,7 @@ class AdsController < ApplicationController
     :edit_availability,
     :gallery,
     :image_manager,
+    :nested_images,
     :pause,
     :preview,
     :resume,
@@ -17,7 +18,8 @@ class AdsController < ApplicationController
     :submit_for_review,
     :update,
     :destroy,
-    :payout_estimates
+    :payout_estimates,
+    :ad_image
   ]
 
   before_action :authenticate_user!, :except => [
@@ -179,8 +181,20 @@ class AdsController < ApplicationController
     @ad_categories = Rails.configuration.x.ads.categories
   end
 
+  def ad_image
+    img = AdImage.new(ad_image_params)
+    @ad.ad_images.push img
+    img.make_primary
+    @ad.save
+    head :created
+  end
+
   def image_manager
      render partial: "shared/image_manager_item", collection: @ad.ad_images, as: :ad_image
+  end
+
+  def nested_images
+    render layout: false
   end
 
   # GET /ads/1/availability
@@ -293,9 +307,12 @@ class AdsController < ApplicationController
         :registration_number, :location_id,
         :location_attributes => [:address_line, :post_code],
         :payin_rules_attributes => [:payin_amount_in_h, :unit, :effective_from, :id, :_destroy],
-        :ad_images_attributes => [:weight, :description, :id, :_destroy ])
+        :ad_images_attributes => [:image, :weight, :description, :id, :_destroy ])
     end
 
+    def ad_image_params
+      params.require(:ad_image).permit(:image);
+    end
 
     def ad_can_be_shown?
       @ad.status == 'published' ||

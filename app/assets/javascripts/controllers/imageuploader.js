@@ -2,17 +2,18 @@ Dropzone.autoDiscover = false;
 window.controllers.imageUploader = {
     dependencies: ["$element", "eventbus"],
     callable: function(ele, eventbus) {
-        var imagePath = ele.getAttribute("data-image-path");
-        var template = ele.querySelector("[data-dropzone-template]").textContent;
+        var imagePath = ele.getAttribute('data-image-path');
+        var template = ele.querySelector('[data-dropzone-template]').textContent;
 
-        var dropzone = new Dropzone(ele.querySelector("form"), {
+        var dropzone = new Dropzone(ele, {
+            url: imagePath,
             maxFilesize: 16, // Set the maximum file size to 16 MB
-            paramName: "ad_image[image]", // Rails expects the file upload to be something like model[field_name]
+            paramName: 'ad_image[image]',
             addRemoveLinks: false,
-            acceptedFiles: "image/gif,image/jpeg,image/png",
-            uploadMultiple: false,    // upload all files at once (including the form data)
+            acceptedFiles: 'image/gif,image/jpeg,image/png',
+            uploadMultiple: false,
             clickable: true,
-            previewsContainer: "[data-dropzone-preview]",
+            previewsContainer: '[data-dropzone-preview]',
             thumbnailWidth: 80,
             thumbnailHeight: 80,
             autoProcessQueue: true,
@@ -23,26 +24,26 @@ window.controllers.imageUploader = {
         });
 
         function onDropZoneInit() {
+            this.on('sending', addCsrfToken);
             this.on('complete', onComplete);
-            this.on("removedfile", onRemovedfile);
-            this.on("uploadprogress", logger("uploadprogress"));
-            this.on("totaluploadprogress", logger("totaluploadprogress"));
-            this.on("queuecomplete", logger("queuecomplete"));
-            this.on("successmultiple", logger("successmultiple"));
-            this.on("success", logger("success"));
-            this.on("success", onSuccess);
-            this.on("progress", logger("progress"));
+            this.on('success', onSuccess);
+        }
+
+        function addCsrfToken(formData, xhr) {
+            var csrf = getCsrfData();
+            xhr.setRequestHeader('X-CSRF-Token', csrf.token);
+        }
+
+        function getCsrfData() {
+            return {
+                param: (document.querySelector('meta[name="csrf-param"]') || {}).content,
+                token: (document.querySelector('meta[name="csrf-token"]') || {}).content,
+                headerName: 'X-CSRF-Token'
+            };
         }
 
         function onComplete(file) {
             dropzone.removeFile(file);
-        }
-
-        function logger(name) {
-            return function(a,b,c,d) { console.log(name, a,b,c,d) };
-        }
-
-        function onRemovedfile(file) {
         }
 
         function onSuccess() {

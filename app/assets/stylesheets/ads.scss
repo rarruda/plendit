@@ -76,3 +76,45 @@
         float: right;
     }
 }
+
+.in-image {
+    padding: $standard-spacing * 2;
+    background-color: white;
+    border-top: 1px solid $color-gray-background;
+    border-left: 1px solid $color-gray-background;
+    border-right: 1px solid $color-gray-background;
+    border-bottom: 1px solid $color-gray-background;
+    box-shadow: $subtle-shadow;
+    display: flex;
+    color: black;
+    text-decoration: none;
+
+    &__img-box {
+        text-align: center;
+        max-width: 160px;
+        flex-grow: 0;
+        flex-shrink: 1;
+        margin-right: $standard-spacing * 2;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &__text-box {
+        flex-grow: 1;
+    }
+
+    &__description {
+        width: 100%;
+    }
+
+    &__button-holder {
+        text-align: right;
+    }
+
+    &__main-label {
+        visibility: hidden;
+    }
+}
+

@@ -123,6 +123,8 @@ Rails.application.routes.draw do
       get 'double_calendar'
       get 'single_calendar'
       get 'image_manager'
+      get 'nested_images'
+      post 'ad_image'
       get 'edit_availability'
       get 'payout_estimates'
 
