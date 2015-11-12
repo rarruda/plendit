@@ -1,3 +1,4 @@
+<div class="in-form">
 <%= form_for(@ad, url: (users_ad_path @ad), data: {main_form: '', category: @ad.category, controller: 'adAutoSaver'}) do |f| %>
     <% if @ad.errors.any? %>
         <div id="error_explanation">
@@ -11,21 +12,21 @@
         </div>
     <% end %>
 
-    <h1 class="u-push-down">Legg ut tingene dine</h1>
+    <h1 class="u-push-down-only">Legg ut tingene dine</h1>
 
     <!-- debug
     <h5>this Ad has the following category: <b><%= @ad.category %></b></h5>
     -->
 
-    <div class="u-push-down">
+    <div class="u-push-down-only">
         <%= f.label :title, 'Tittel:', class: 'u-full-width' %>
         <%= f.text_field :title, class: 'u-full-width' %>
     </div>
 
-    <div class="u-push-down">
+    <div class="u-push-down-only">
         <%= f.label :body, 'Beskrivelse:' %>
-        <%= f.text_area :body, class: 'u-full-width', data: { controller: 'autoSizeTextArea' } %>
-        <small>Viste du: Du kan bruke #hashtags i annonsen din. Det gjør det enklere å finne den i søket.</small>
+        <%= f.text_area :body, class: 'u-full-width in-form__description', data: { controller: 'autoSizeTextArea' } %>
+        <small>Visste du: Du kan bruke #hashtags i annonsen din. Det gjør det enklere å finne den i søket.</small>
     </div>
 
     <div class="u-push-down-only">
@@ -133,4 +134,5 @@
     <% end %>
 
     <%= button_to "Forhåndsvisning", (ad_path @ad), method: :get, form_class: "u-inline", class: "button"  %>
+</div>
 </div>
