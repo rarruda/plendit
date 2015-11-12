@@ -39,9 +39,9 @@ class Transaction < ActiveRecord::Base
   scope :payout,     -> { where( transaction_type: Transaction.transaction_types[:payout]   ) }
 
   # by state/status:
-  scope :pending_or_processing ->
-                        { where( state: [ Transaction.transaction_types[:pending], Transaction.transaction_types[:processing] ] ) }
-  scope :finished    -> { where( state: Transaction.transaction_types[:finished] ) }
+  scope :pending_or_processing,
+                     -> { where( state: [ Transaction.transaction_types[:pending], Transaction.transaction_types[:processing] ] ) }
+  scope :finished,   -> { where( state: Transaction.transaction_types[:finished] ) }
 
   # by user: (complex...)
   #scope :from_user(user_id) -> { where() } #use src_vid for fast/reliable lookups
