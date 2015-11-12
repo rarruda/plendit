@@ -16,7 +16,8 @@ class Booking < ActiveRecord::Base
   has_one :ad, through: :ad_item
   has_one :user, through: :ad
   has_many :messages
-  has_many :transactions
+  has_many :transactions, as: 'transactionable'
+
 
   enum status: { created: 0, confirmed: 1, started: 2, in_progress: 3, ended: 4, archived: 5, aborted: 10, cancelled: 11, declined: 12, admin_paused: 99 }
 
@@ -51,6 +52,7 @@ class Booking < ActiveRecord::Base
 
   validates :amount, numericality: { greater_than:  100_00, message: "must be at least 100 kr"}
   validates :amount, numericality: { less_than: 150_000_00, message: "must be at less then 150.000 kr"}
+  #validates :amount, numericality: { less_than:  25_000_00, message: "must be at less then  25.000 kr"}, if: "false" #KYC not provisioned
 
   validate :validate_user_payment_card_belongs_to_from_user
 
@@ -74,7 +76,7 @@ class Booking < ActiveRecord::Base
 
 
   aasm :column => :status, :enum => true do
-    state :created, :initial => true #, :enter => mangopay.payment_preauth_create
+    state :created, :initial => true #, :enter => create_transaction_preauth
     state :confirmed
     state :started
     state :in_progress
@@ -90,11 +92,12 @@ class Booking < ActiveRecord::Base
     #after_all_transitions :log_status_change
 
     event :confirm do
+    #, after: :create_transaction_payin do
       transitions :from => :created, :to => :confirmed
 
       after do
         LOG.info "capture preauth payin... (dummy only)", booking_id: self.id
-        #mangopay.payment_payin_from_preauth
+        #self.create_transaction_payin
       end
     end
 
@@ -103,8 +106,8 @@ class Booking < ActiveRecord::Base
 
       # only if current_user.id == from_user.id
       after do
-        LOG.info "refund refund preauth payin... (dummy only)", booking_id: self.id
-        #mangopay.payment_transfer________foobar__refund
+        LOG.info "refund preauth payin... (dummy only)", booking_id: self.id
+        #self.transactions.preauth.finished.each { |t| t.process_cancel_preauth }
       end
     end
 
@@ -114,7 +117,7 @@ class Booking < ActiveRecord::Base
       # only if current_user.id == user.id
       after do
         LOG.info "refund refund preauth payin... (dummy only)", booking_id: self.id
-        #mangopay.payment_preauth________foobar__refund
+        #self.transactions.preauth.finished.each { |t| t.process_cancel_preauth }
       end
     end
 
@@ -129,7 +132,7 @@ class Booking < ActiveRecord::Base
       after do
         LOG.info "refund transfer or refund_payin... (dummy only)", booking_id: self.id
         #refund transfer or refund_payin
-        #mangopay.payment_transfer____refund_payin
+        #Resque.enque( foobar_JOB_mangopay_payment_transfer____refund_payin? )
       end
     end
 
@@ -137,7 +140,7 @@ class Booking < ActiveRecord::Base
       transitions :from => :confirmed, :to => :started
 
       after do
-        LOG.info "schedule set_in_progress as new status in 1.day... (dummy only)", booking_id: self.id
+        LOG.info "schedule auto-set_in_progress as new status in 1.day... (dummy only)", booking_id: self.id
         #Resque.enqueue_in( (self.starts_at + 1.day), foobar_JOB_transition_to_in_progress )
       end
     end
@@ -147,8 +150,9 @@ class Booking < ActiveRecord::Base
 
       after do
         LOG.info "make transfer of funds... (dummy only)", booking_id: self.id
-        #mangopay.payment_transfer
-        LOG.info "schedule to end at ends_at(#{self.ends_at})... (dummy only)", booking_id: self.id
+        #self.create_transaction_transfer
+
+        LOG.info "schedule auto-end at ends_at(#{self.ends_at})... (dummy only)", booking_id: self.id
         #Resque.enqueue_in( (self.ends_at), foobar_JOB_transition_to_end )
       end
     end
@@ -156,7 +160,7 @@ class Booking < ActiveRecord::Base
     event :end do
       transitions :from => :in_progress, :to => :ended
       after do
-        LOG.info "schedule for auto-archival in 7 days.", booking_id: self.id
+        LOG.info "schedule auto-archival in 7 days.", booking_id: self.id
         #Resque.enqueue_in( (self.ends_at + 7.days), foobar_JOB_transition_to_archive )
       end
     end
@@ -167,7 +171,7 @@ class Booking < ActiveRecord::Base
 
     # dont do anything. when manual intervention is required/exception handling:
     # this is a tar-pit state.
-    event :freeze do
+    event :admin_pause do
       transitions :from => [:confirmed, :started, :in_progress, :ended], :to => :admin_paused
     end
   end
@@ -198,6 +202,49 @@ class Booking < ActiveRecord::Base
   def should_be_archived?
     self.ended && ( ( self.ends_at + 7.days ) > DateTime.now )
   end
+
+
+
+
+  def create_transaction_preauth
+    transaction = {
+      transaction_type: 'preauth',
+      amount: self.sum_paid_by_renter,
+      fees:   0,
+    }
+    t = self.transaction.create( transaction )
+    t.process!
+  end
+
+  def create_transaction_payin
+    transaction = {
+      transaction_type: 'payin',
+      amount:   self.sum_paid_by_renter,
+      fees:     0,
+      #FIXME: values below seem to get overwritten in transaction model
+      src_type: :src_preauth_vid,
+      src_vid:  self.transactions.preauth.finished.take.transaction_vid
+    }
+    t = self.transaction.create( transaction )
+    t.process!
+  end
+
+  def cancel_transaction_preauth
+    self.transactions.preauth.finished.take.process_cancel_preauth
+  end
+
+
+  def create_transaction_transfer
+    # later we should make this a split payment!
+    transaction = {
+      transaction_type: 'transfer',
+      amount: self.sum_paid_to_owner,
+      fees:   self.sum_plaform_fee_and_insurance
+    }
+    t = self.transaction.create( transaction )
+    t.process!
+  end
+
 
 
 
