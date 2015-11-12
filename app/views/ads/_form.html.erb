@@ -83,6 +83,17 @@
         <% end %>
     </div>
 
+    <hr>
+
+    <div class="u-push-down">
+        <%= render partial: 'shared/image_uploader', locals: { ad: @ad } %>
+        <div data-controller="imageSubformController" data-url="<%= nested_images_ad_path @ad %>">
+            <%= render partial: 'editable_image_subform', locals: { ad: @ad, form: f } %>
+        </div>
+    </div>
+
+    <hr>
+
     <label class="u-push-down-only">Forsikring:</label>
 
     <% if @ad.is_insurance_required? %>
@@ -108,13 +119,6 @@
             <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
         </div>
     <% end %>
-
-    <div class="u-push-down">
-        <%= render partial: 'shared/image_uploader', locals: { ad: @ad } %>
-        <div data-controller="imageSubformController" data-url="<%= nested_images_ad_path @ad %>">
-            <%= render partial: 'editable_image_subform', locals: { ad: @ad, form: f } %>
-        </div>
-    </div>
 
 <%- end -%>
 
