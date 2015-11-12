@@ -10,15 +10,15 @@ ActiveAdmin.register UserPaymentCard do
     selectable_column
     id_column
     column :user_id
-    column :active_mp
+    column :active
+    column :card_provider
     column :card_type
     column :card_vid
     column :payin_wallet_vid
-    column :expiration_date
-    column :last_known_status_mp
-    column :guid
     column :number_alias
-    column :validity_mp
+    column :expiration_date
+    column :validity
+    column :guid
 
     column :created_at
     actions
