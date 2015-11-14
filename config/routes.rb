@@ -122,7 +122,6 @@ Rails.application.routes.draw do
       get 'unavailability'
       get 'double_calendar'
       get 'single_calendar'
-      get 'image_manager'
       get 'nested_images'
       post 'ad_image'
       get 'edit_availability'
@@ -136,14 +135,6 @@ Rails.application.routes.draw do
       post 'submit_for_review'
     end
   end
-
-  # fixme: should be retired in the future:
-  resources :ad_images do
-    member do
-      post 'make_primary'
-    end
-  end
-
 
 
 

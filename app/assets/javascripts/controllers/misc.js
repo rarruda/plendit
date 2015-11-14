@@ -598,14 +598,6 @@ window.controllers.priceEstimateUpdater = {
                 .map(function(e) { return parseFloat(e.value)})
                 .filter(function(e) { return !isNaN(e) });
         }
-
-        function estimatesPromise() {
-            xhr.getJson
-        }
-
-        function grabCurrent() {
-
-        }
     }
 };
 

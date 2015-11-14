@@ -75,14 +75,6 @@ class AdImagesController < ApplicationController
     end
   end
 
-  def make_primary
-    @ad_image.make_primary
-    respond_to do |format|
-      format.html { redirect_to (users_ad_ad_images_path @ad_image.ad), notice: 'Ad image was made primary.' }
-      format.json { render json: { message: "successfully made primary" }, :status => 200 }
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ad_image
