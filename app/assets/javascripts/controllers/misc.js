@@ -627,13 +627,19 @@ window.controllers.adAutoSaver = {
     }
 };
 
-
 window.controllers.imageSubformController = {
     dependencies: ["$element", "xhr", "utils", "eventbus"],
     callable: function(ele, xhr, utils, eventbus) {
         eventbus.on(eventbus.IMAGES_CHANGED, reloadImages);
         var url = ele.getAttribute("data-url");
-        window.tragger = reloadImages;
+
+        window.tragger = updatePrimality;
+
+        ele.addEventListener("click", function(e) {
+            window.setTimeout(updatePrimality, 10);
+        });
+
+        updatePrimality();
 
         function reloadImages() {
             xhr.get(url).then(onGotImageHtml);
@@ -643,11 +649,23 @@ window.controllers.imageSubformController = {
             ele.innerHTML = req.responseText;
         }
 
+        function updateWeights() {
+            Array.from(ele.querySelectorAll("[data-weight]"))
+                 .forEach(function(e, n) {
+                    e.value = n + 1;
+                 });
+        }
+
+        function updatePrimality() {
+            Array.from(ele.querySelectorAll("[data-in-image]"))
+                 .filter(function(e) {
+                    return e.parentElement.style.display != "none";
+                 })
+                 .forEach(function(e, n) {
+                    e.classList.toggle("in-image--primary", n == 0);
+                 });
+        }
     }
 };
-
-
-
-
 
 

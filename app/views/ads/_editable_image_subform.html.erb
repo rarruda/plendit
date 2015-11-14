@@ -2,7 +2,7 @@
     <%= form.nested_fields_for :ad_images do |ff| %>
         <% index = form.object.ad_images.index(ff.object) # eew %>
         <%= ff.hidden_field :weight, data: { weight: '' } %>
-        <div class="in-image">
+        <div class="in-image" data-in-image>
             <div class="in-image__img-box">
                 <%= image_tag ff.object.image.url(:thumb) %>
                 <br>
@@ -12,7 +12,7 @@
                 <%= ff.text_area :description, placeholder: 'Bildetekst', class: 'in-image__description' %>
                 <br>
                 <div class="in-image__button-holder">
-                    <button class="button <%= index == 0 ? 'u-hidden' : '' %>" >Hovedbilde</button>
+                    <button class="button in-image__make-main-buton">Hovedbilde</button>
                     <%= ff.remove_nested_fields_link 'Slett', class: 'button' %>
                 </div>
             </div>
