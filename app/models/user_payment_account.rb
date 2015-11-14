@@ -2,7 +2,7 @@ class UserPaymentAccount < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :user
-  has_many :transactions, as: 'transactionable'
+  has_many :financial_transactions, as: 'financial_transactionable'
 
   before_validation :normalize_bank_account_number, unless: 'bank_account_number.nil?'
   before_validation :set_bank_account_iban,         unless: 'bank_account_number.nil?'
