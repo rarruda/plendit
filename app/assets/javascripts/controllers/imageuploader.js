@@ -31,7 +31,7 @@ window.controllers.imageUploader = {
 
         function addCsrfToken(formData, xhr) {
             var csrf = utils.getCsrfData();
-            xhr.setRequestHeader('X-CSRF-Token', csrf.token);
+            xhr.setRequestHeader(csrf.headerName, csrf.token);
         }
 
         function onComplete(file) {
