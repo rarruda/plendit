@@ -243,12 +243,12 @@ class MangopayService
   def provision_wallets
     LOG.info "Provisioning wallets with Mangopay", { user_id: @user.id }
 
-    return true unless @user.payin_wallet_vid.blank? && @user.payout_wallet_vid.blank?
+    return true if @user.payin_wallet_vid.present? && @user.payout_wallet_vid.present?
 
     begin
       wallets = MangoPay::User.wallets( @user.payment_provider_vid, {sort: 'CreationDate:asc'} )
 
-      unless wallets.blank?
+      if wallets.present?
         wallet_money_in  = []
         wallet_money_out = []
 
@@ -259,10 +259,11 @@ class MangopayService
 
         @user.payin_wallet_vid  = wallet_money_in.first  if wallet_money_in.length  >= 1 && @user.payin_wallet_vid.blank?
         @user.payout_wallet_vid = wallet_money_out.first if wallet_money_out.length >= 1 && @user.payout_wallet_vid.blank?
-        @user.save!
+      else
+        LOG.info "not doing anything"
       end
 
-      #pp wallets
+      pp wallets
     rescue => e
       LOG.error "something has gone wrong with fetching list of wallets at mangopay. exception: #{e}", {user_id: @user.id, mangopay_result: wallets }
       return nil
@@ -273,7 +274,9 @@ class MangopayService
 
 
     self.provision_payin_wallet  if @user.payin_wallet_vid.blank?
-    self.provision_payout_wallet if @user.payin_wallet_vid.blank?
+    self.provision_payout_wallet if @user.payout_wallet_vid.blank?
+
+    @user.save!
   end
 
   def provision_payin_wallet
