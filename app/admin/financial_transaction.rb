@@ -1,4 +1,4 @@
-ActiveAdmin.register Transaction do
+ActiveAdmin.register FinancialTransaction do
 
   menu :priority => 8
   #actions :index, :show
@@ -20,8 +20,8 @@ ActiveAdmin.register Transaction do
     column(:state)              {|t| status_tag(t.state) }
     column :amount
     column :fees
-    column :transactionable_type
-    column :transactionable_id
+    column :financial_transactionable_type
+    column :financial_transactionable_id
 
     column :created_at
     actions

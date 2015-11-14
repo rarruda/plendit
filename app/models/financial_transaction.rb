@@ -1,26 +1,13 @@
-class Transaction < ActiveRecord::Base
+class FinancialTransaction < ActiveRecord::Base
   include AASM
 
   has_paper_trail
 
-  belongs_to :transactionable, polymorphic: true
+  belongs_to :financial_transactionable, polymorphic: true
 
   #has_one :from_user #?
   #has_one :to_user   #?
 
-  validates :guid,             uniqueness: true
-
-  validates :transaction_type, presence: true
-  validates :src_type,         presence: true
-  validates :src_vid,          presence: true
-  validates :dst_type,         presence: true, unless: "self.preauth?"
-  validates :dst_vid,          presence: true, unless: "self.preauth?"
-  validates :amount,           presence: true, numericality: { only_integer: true }
-  validates :fees,             presence: true, numericality: { only_integer: true }
-
-
-  before_validation :set_guid, :on => :create
-  before_validation :set_vids, :on => :create
 
   enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4 }
   enum nature:           { normal: 0, refund: 10, repudiation:11, settlement: 12 }
@@ -32,16 +19,31 @@ class Transaction < ActiveRecord::Base
 
   enum preauth_payment_status: { not_preauth: 0, preauth_waiting: 1, preauth_validated: 2, preauth_cancelled: 3, preauth_expired: 4 }
 
+
+  before_validation :set_guid, :on => :create
+  before_validation :set_vids, :on => :create
+
+
+  validates :guid,             uniqueness: true
+  validates :transaction_type, presence: true, inclusion: { in: FinancialTransaction.transaction_types.keys }
+  validates :src_type,         presence: true, inclusion: { in: FinancialTransaction.src_types.keys }
+  validates :src_vid,          presence: true
+  validates :dst_type,         presence: true, inclusion: { in: FinancialTransaction.dst_types.keys }, unless: "self.preauth?"
+  validates :dst_vid,          presence: true, unless: "self.preauth?"
+  validates :amount,           presence: true, numericality: { only_integer: true }
+  validates :fees,             presence: true, numericality: { only_integer: true }
+
+
   # by transaction type:
-  scope :preauth,    -> { where( transaction_type: Transaction.transaction_types[:preauth]  ) }
-  scope :payin,      -> { where( transaction_type: Transaction.transaction_types[:payin]    ) }
-  scope :transfer,   -> { where( transaction_type: Transaction.transaction_types[:transfer] ) }
-  scope :payout,     -> { where( transaction_type: Transaction.transaction_types[:payout]   ) }
+  scope :preauth,    -> { where( transaction_type: FinancialTransaction.transaction_types[:preauth]  ) }
+  scope :payin,      -> { where( transaction_type: FinancialTransaction.transaction_types[:payin]    ) }
+  scope :transfer,   -> { where( transaction_type: FinancialTransaction.transaction_types[:transfer] ) }
+  scope :payout,     -> { where( transaction_type: FinancialTransaction.transaction_types[:payout]   ) }
 
   # by state/status:
   scope :pending_or_processing,
-                     -> { where( state: [ Transaction.transaction_types[:pending], Transaction.transaction_types[:processing] ] ) }
-  scope :finished,   -> { where( state: Transaction.transaction_types[:finished] ) }
+                     -> { where( state: [ FinancialTransaction.transaction_types[:pending], FinancialTransaction.transaction_types[:processing] ] ) }
+  scope :finished,   -> { where( state: FinancialTransaction.transaction_types[:finished] ) }
 
   # by user: (complex...)
   #scope :from_user(user_id) -> { where() } #use src_vid for fast/reliable lookups
@@ -82,7 +84,7 @@ class Transaction < ActiveRecord::Base
 
   # triggered on process! (state: pending => processing)
   def process_on_mangopay
-    case self.transaction_type
+    case self.transaction_type.to_sym
     when :preauth
       self.do_preauth
       # dont quite finish, as requires some refreshes until we know that it went through. (all the way to validated)
@@ -108,7 +110,7 @@ class Transaction < ActiveRecord::Base
 
   # triggered externally
   def process_cancel_preauth
-    if self.transaction_type == :preauth
+    if self.transaction_type.to_sym == :preauth
       self.do_preauth_cancel
     else
       raise "Cannot cancel this type of transaction", { transaction_id: self.id, transaction_type: self.transaction_type }
@@ -117,7 +119,7 @@ class Transaction < ActiveRecord::Base
 
   # triggered externally
   def process_refresh
-    case self.transaction_type
+    case self.transaction_type.to_sym
     when :preauth
       self.do_preauth_refresh
     when :payout
@@ -132,33 +134,33 @@ class Transaction < ActiveRecord::Base
   # called from process_on_mangopay
   def do_preauth
     #sanity check
-    unless self.transaction_type == :preauth  &&
-      self.src_type  == :src_card_vid         &&
-      self.dst_type  == :dst_payin_wallet_vid &&
-      self.state     == :created              &&
-      self.transactionable_type == 'Booking'  &&
-      self.transactionable_id.present?
+    unless self.preauth          &&
+      self.src_card_vid?         &&
+      self.dst_payin_wallet_vid? &&
+      self.created?              &&
+      self.financial_transactionable_type == 'Booking'  &&
+      self.financial_transactionable_id.present?
 
       raise "can not process this transaction with this method"
     end
 
     # sanity check: preauth card belongs to correct user:
-    card = self.transactionable.from_user.user_payment_cards.find_by( card_vid: self.src_vid )
+    card = self.financial_transactionable.from_user.user_payment_cards.find_by( card_vid: self.src_vid )
     raise "card does not belong to requester" if card.nil?
 
     begin
       # https://docs.mangopay.com/api-references/card/pre-authorization/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pre_authorization.rb
       preauth = MangoPay::PreAuthorization.create(
-        'Tag'          => "booking_id=#{booking.id}", #from_user_id= to_user_id
-        'AuthorId'     => self.transactionable.from_user.payment_provider_vid,
+        'Tag'          => "booking_id=#{financial_transactionable_id}", #from_user_id= to_user_id
+        'AuthorId'     => self.financial_transactionable.from_user.payment_provider_vid,
         'CardId'       => self.src_vid,
         'DebitedFunds' => {
           'Currency' => PLENDIT_CURRENCY_CODE,
           'Amount'   => self.amount
         },
         'SecureMode'   => 'DEFAULT',
-        'SecureModeReturnURL' => booking_url( self.transactionable.guid ),
+        'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid ),
       )
       self.update(
         transaction_vid: preauth['Id'],
@@ -182,12 +184,12 @@ class Transaction < ActiveRecord::Base
   # called from process_refresh
   def do_preauth_refresh
     #sanity check
-    unless self.transaction_type == :preauth  &&
-      self.src_type  == :src_preauth_vid      &&
-      self.dst_type  == :dst_payin_wallet_vid &&
-      self.state     == :finished             &&
-      self.transactionable_type == 'Booking'  &&
-      self.transactionable_id.present?
+    unless self.preauth?         &&
+      self.src_preauth_vid?      &&
+      self.dst_payin_wallet_vid? &&
+      self.finished?             &&
+      self.financial_transactionable_type == 'Booking'  &&
+      self.financial_transactionable_id.present?
 
       raise "can not refresh this preauth transaction with this method"
     end
@@ -216,12 +218,12 @@ class Transaction < ActiveRecord::Base
   # called from process_cancel_preauth
   def do_preauth_cancel
     #sanity check
-    unless self.transaction_type == :preauth  &&
-      self.src_type  == :src_preauth_vid      &&
-      self.dst_type  == :dst_payin_wallet_vid &&
-      self.state     == :finished             &&
-      self.transactionable_type == 'Booking'  &&
-      self.transactionable_id.present?
+    unless self.preauth?         &&
+      self.src_preauth_vid?      &&
+      self.dst_payin_wallet_vid? &&
+      self.finished?             &&
+      self.financial_transactionable_type == 'Booking'  &&
+      self.financial_transactionable_id.present?
 
       raise "can not cancel this preauth transaction with this method"
     end
@@ -245,6 +247,7 @@ class Transaction < ActiveRecord::Base
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
       LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { transaction_id: self.id, mangopay_result: cancelation }
+      self.fail!
     rescue => e
       LOG.error "Exception e:#{e} processing transaction", { transaction_id: self.id, mangopay_result: cancelation }
     end
@@ -253,11 +256,11 @@ class Transaction < ActiveRecord::Base
   # called from process_on_mangopay
   def do_payin
     #sanity check
-    unless self.transaction_type == :payin    &&
-      self.src_type == :src_preauth_vid       &&
-      self.dst_type == :dst_payin_wallet_vid  &&
-      self.transactionable_type == 'Booking'  &&
-      self.transactionable_id.present?
+    unless self.payin?            &&
+      self.src_preauth_vid?       &&
+      self.dst_payin_wallet_vid?  &&
+      self.financial_transactionable_type == 'Booking'  &&
+      self.financial_transactionable_id.present?
 
       raise "can not process this transaction with this method"
     end
@@ -266,11 +269,11 @@ class Transaction < ActiveRecord::Base
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_in.rb#L30
       # https://docs.mangopay.com/api-references/payins/preauthorized-payin/
       payin = MangoPay::PayIn::PreAuthorized::Direct.create(
-        'Tag'                => "booking_id=#{self.transactionable_id}",
-        'AuthorId'           => self.transactionable.from_user.payment_provider_vid,
-        'CreditedUserId'     => self.transactionable.from_user.payment_provider_vid,
+        'Tag'                => "booking_id=#{self.financial_transactionable_id}",
+        'AuthorId'           => self.financial_transactionable.from_user.payment_provider_vid,
+        'CreditedUserId'     => self.financial_transactionable.from_user.payment_provider_vid,
         'PreauthorizationId' => 'DIRECT',
-        'PreauthorizationId' => self.transactionable.last_preauthorization_vid, #FOOBAR
+        'PreauthorizationId' => self.financial_transactionable.last_preauthorization_vid, #FOOBAR
         'CreditedWalletId'   => self.dst_vid,
         'DebitedFunds'   => {
           'Currency' => PLENDIT_CURRENCY_CODE,
@@ -280,7 +283,7 @@ class Transaction < ActiveRecord::Base
           'Currency' => PLENDIT_CURRENCY_CODE,
           'Amount'   => 0
           },
-        'SecureModeReturnURL' => booking_url( self.transactionable.guid )
+        'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid )
       )
 
       self.update(
@@ -305,11 +308,11 @@ class Transaction < ActiveRecord::Base
   # called from process_on_mangopay
   def do_transfer
     #sanity check
-    unless self.transaction_type == :transfer &&
-      self.src_type == :src_payin_wallet_vid  &&
-      self.dst_type == :dst_payout_wallet_vid &&
-      self.transactionable_type == 'Booking'  &&
-      self.transactionable_id.present?
+    unless self.transfer?         &&
+      self.src_payin_wallet_vid?  &&
+      self.dst_payout_wallet_vid? &&
+      self.financial_transactionable_type == 'Booking'  &&
+      self.financial_transactionable_id.present?
 
       raise "can not process this transaction with this method"
     end
@@ -317,9 +320,9 @@ class Transaction < ActiveRecord::Base
       # https://docs.mangopay.com/api-references/transfers/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/transfer.rb
       transfer = MangoPay::Transfer.create(
-        'Tag'            => "booking_id=#{transactionable.id}",
-        'AuthorId'       => self.transactionable.user.payment_provider_vid,
-        'CreditedUserId' => self.transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
+        'Tag'            => "booking_id=#{financial_transactionable_id}",
+        'AuthorId'       => self.financial_transactionable.user.payment_provider_vid,
+        'CreditedUserId' => self.financial_transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
         'DebitedFunds'   => {
           'Currency' => PLENDIT_CURRENCY_CODE,
           'Amount'   => self.amount #platform_fee_with_insurance is removed in Fees.
@@ -354,11 +357,11 @@ class Transaction < ActiveRecord::Base
   # called from process_on_mangopay
   def do_payout
     #sanity check
-    unless self.transaction_type == :payout   &&
-      self.src_type == :src_payout_wallet_vid &&
-      self.dst_type == :dst_bank_account_vid  &&
-      self.transactionable_type == 'UserPaymentAccount' &&
-      self.transactionable_id.present?
+    unless self.transaction_type.payout? &&
+      self.src_payout_wallet_vid?        &&
+      self.dst_bank_account_vid?         &&
+      self.financial_transactionable_type == 'UserPaymentAccount' &&
+      self.financial_transactionable_id.present?
 
       raise "can not process this transaction with this method"
     end
@@ -366,9 +369,9 @@ class Transaction < ActiveRecord::Base
       # https://docs.mangopay.com/api-references/pay-out-bank-wire/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_out.rb
       payout = MangoPay::PayOut.create(
-        'Tag'            => "user_id=#{self.user_payment_account.user_id}",
-        'AuthorId'       => self.transactionable.user.payment_provider_vid,
-        'CreditedUserId' => self.transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
+        'Tag'            => "user_id=#{self.financial_transactionable.user_id}",
+        'AuthorId'       => self.financial_transactionable.user.payment_provider_vid,
+        'CreditedUserId' => self.financial_transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
         'DebitedFunds'   => {
           'Currency' => PLENDIT_CURRENCY_CODE,
           'Amount'   => self.amount
@@ -377,8 +380,8 @@ class Transaction < ActiveRecord::Base
           'Currency' => PLENDIT_CURRENCY_CODE,
           'Amount'   => payout_fee
           },
-        'DebitedWalletId'  => self.transactionable.user.payout_wallet_vid,
-        'BankAccountId'    => self.transactionable.bank_account_vid,
+        'DebitedWalletId'  => self.financial_transactionable.user.payout_wallet_vid,
+        'BankAccountId'    => self.financial_transactionable.bank_account_vid,
         'BankWireRef'      => "ref: #{self.guid[0..6]}"
       )
       self.update(
@@ -448,14 +451,14 @@ class Transaction < ActiveRecord::Base
     end
   end
 
-  # set vids given that we have a transactionable_type, transactionable_id and transaction_type
+  # set vids given that we have a financial_transactionable_type, financial_transactionable_id and transaction_type
   def set_vids
-    vids = case self.transaction_type
+    self.attributes = case self.transaction_type.to_sym
     when :preauth
       # info comes from booking
       {
         src_type: :src_preauth_vid,
-        src_vid:  self.transactionable.user_payment_card.card_vid,
+        src_vid:  self.financial_transactionable.user_payment_card.card_vid,
         dst_type: nil,
         dst_vid:  nil
       }
@@ -470,7 +473,7 @@ class Transaction < ActiveRecord::Base
                       #... or needs to be specified...
                       # FIXME
         dst_type: :dst_payin_wallet_vid,
-        dst_vid:  self.transactionable.from_user.payin_wallet_vid
+        dst_vid:  self.financial_transactionable.from_user.payin_wallet_vid
       }
     when :transfer
       # info comes from booking
@@ -489,10 +492,9 @@ class Transaction < ActiveRecord::Base
         dst_vid:  self.user_payment_card.bank_account_vid
       }
     else
-      raise "error, unidentified transaction_type", { transaction_id: self.id }
+      LOG.error "error, unidentified transaction_type", { transaction_id: self.id }
+      raise "error, unidentified transaction_type"
     end
-
-    self.update( vids )
   end
 
   def set_guid

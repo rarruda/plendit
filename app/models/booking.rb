@@ -16,7 +16,7 @@ class Booking < ActiveRecord::Base
   has_one :ad, through: :ad_item
   has_one :user, through: :ad
   has_many :messages
-  has_many :transactions, as: 'transactionable'
+  has_many :financial_transactions, as: 'financial_transactionable'
 
 
   enum status: { created: 0, confirmed: 1, started: 2, in_progress: 3, ended: 4, archived: 5, aborted: 10, cancelled: 11, declined: 12, admin_paused: 99 }
@@ -76,7 +76,7 @@ class Booking < ActiveRecord::Base
 
 
   aasm :column => :status, :enum => true do
-    state :created, :initial => true #, :enter => create_transaction_preauth
+    state :created, :initial => true #, :enter => create_financial_transaction_preauth
     state :confirmed
     state :started
     state :in_progress
@@ -89,15 +89,15 @@ class Booking < ActiveRecord::Base
 
     state :admin_paused
 
-    #after_all_transitions :log_status_change
+    after_all_transitions :log_status_change
 
     event :confirm do
-    #, after: :create_transaction_payin do
+    #, after: :create_financial_transaction_payin do
       transitions :from => :created, :to => :confirmed
 
       after do
         LOG.info "capture preauth payin... (dummy only)", booking_id: self.id
-        #self.create_transaction_payin
+        #self.create_financial_transaction_payin
       end
     end
 
@@ -107,7 +107,7 @@ class Booking < ActiveRecord::Base
       # only if current_user.id == from_user.id
       after do
         LOG.info "refund preauth payin... (dummy only)", booking_id: self.id
-        #self.transactions.preauth.finished.each { |t| t.process_cancel_preauth }
+        #self.financial_transactions.preauth.finished.each { |t| t.process_cancel_preauth }
       end
     end
 
@@ -117,7 +117,7 @@ class Booking < ActiveRecord::Base
       # only if current_user.id == user.id
       after do
         LOG.info "refund refund preauth payin... (dummy only)", booking_id: self.id
-        #self.transactions.preauth.finished.each { |t| t.process_cancel_preauth }
+        #self.financial_transactions.preauth.finished.each { |t| t.process_cancel_preauth }
       end
     end
 
@@ -150,7 +150,7 @@ class Booking < ActiveRecord::Base
 
       after do
         LOG.info "make transfer of funds... (dummy only)", booking_id: self.id
-        #self.create_transaction_transfer
+        #self.create_financial_transaction_transfer
 
         LOG.info "schedule auto-end at ends_at(#{self.ends_at})... (dummy only)", booking_id: self.id
         #Resque.enqueue_in( (self.ends_at), foobar_JOB_transition_to_end )
@@ -188,7 +188,7 @@ class Booking < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
+    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for booking_id: #{self.id}"
   end
 
   def should_be_in_progress?
@@ -206,42 +206,42 @@ class Booking < ActiveRecord::Base
 
 
 
-  def create_transaction_preauth
-    transaction = {
+  def create_financial_transaction_preauth
+    financial_transaction = {
       transaction_type: 'preauth',
       amount: self.sum_paid_by_renter,
       fees:   0,
     }
-    t = self.transaction.create( transaction )
+    t = self.financial_transactions.create( financial_transaction )
     t.process!
   end
 
-  def create_transaction_payin
-    transaction = {
+  def create_financial_transaction_payin
+    financial_transaction = {
       transaction_type: 'payin',
       amount:   self.sum_paid_by_renter,
       fees:     0,
-      #FIXME: values below seem to get overwritten in transaction model
+      #FIXME: values below seem to get overwritten in financial_transaction model
       src_type: :src_preauth_vid,
-      src_vid:  self.transactions.preauth.finished.take.transaction_vid
+      src_vid:  self.financial_transactions.preauth.finished.take.financial_transaction_vid
     }
-    t = self.transaction.create( transaction )
+    t = self.financial_transactions.create( financial_transaction )
     t.process!
   end
 
-  def cancel_transaction_preauth
-    self.transactions.preauth.finished.take.process_cancel_preauth
+  def cancel_financial_transaction_preauth
+    self.financial_transactions.preauth.finished.take.process_cancel_preauth
   end
 
 
-  def create_transaction_transfer
+  def create_financial_transaction_transfer
     # later we should make this a split payment!
-    transaction = {
+    financial_transaction = {
       transaction_type: 'transfer',
       amount: self.sum_paid_to_owner,
       fees:   self.sum_plaform_fee_and_insurance
     }
-    t = self.transaction.create( transaction )
+    t = self.financial_transactions.create( financial_transaction )
     t.process!
   end
 
@@ -295,7 +295,7 @@ class Booking < ActiveRecord::Base
 
   def last_preauthorization_vid
     # should be ordered by id first...
-    self.transactions.preauth.last.transaction_vid
+    self.financial_transactions.preauth.last.financial_transaction_vid
   end
 
   ###

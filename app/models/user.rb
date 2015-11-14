@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   has_one  :user_payment_account, dependent: :destroy, autosave: true
   has_many :user_payment_cards
 
-  #has_many :transactions
+  #has_many :financial_transactions, as: 'financial_transactionable'
 
 
   accepts_nested_attributes_for :user_payment_account, :reject_if => proc { |attributes| attributes['bank_account_number'].blank? }
