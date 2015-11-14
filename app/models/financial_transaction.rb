@@ -86,16 +86,16 @@ class FinancialTransaction < ActiveRecord::Base
   def process_on_mangopay
     case self.transaction_type.to_sym
     when :preauth
-      self.do_preauth
+      do_preauth
       # dont quite finish, as requires some refreshes until we know that it went through. (all the way to validated)
     when :payin
-      self.do_payin
+      do_payin
       self.finish!
     when :transfer
-      self.do_transfer
+      do_transfer
       self.finish!
     when :payout
-      self.do_payout
+      do_payout
       # not finished quite yet, requires some refreshes until we know that it went through.
       # so left as processing. refresh_from_mangopay should move this forward.
     else
@@ -134,7 +134,7 @@ class FinancialTransaction < ActiveRecord::Base
   # called from process_on_mangopay
   def do_preauth
     #sanity check
-    unless self.preauth          &&
+    unless self.preauth?         &&
       self.src_card_vid?         &&
       self.dst_payin_wallet_vid? &&
       self.created?              &&
