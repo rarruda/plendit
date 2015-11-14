@@ -252,6 +252,13 @@ class AdsController < ApplicationController
     # remove registration_number from all not motor categories.
     ad_params_local.except! 'registration_number' unless @ad.category == 'motor'
 
+    # remove changes to ad images that no longer exists.
+    # fixes that we try deleiting non-extant stuff if you hit
+    # ctrl-r on the edit page after having already submitted stuff.
+    ad_params_local[:ad_images_attributes].delete_if do |k, v|
+      v.has_key?(:id) && !@ad.ad_images.exists?(id: v[:id])
+    end
+
     #LOG.debug "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
       if @ad.update(ad_params_local)
