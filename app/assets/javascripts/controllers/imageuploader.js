@@ -26,7 +26,7 @@ window.controllers.imageUploader = {
         function onDropZoneInit() {
             this.on('sending', addCsrfToken);
             this.on('complete', onComplete);
-            this.on('success', onSuccess);
+            this.on('queuecomplete', onSuccess);
         }
 
         function addCsrfToken(formData, xhr) {
