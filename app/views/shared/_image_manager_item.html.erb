@@ -11,7 +11,7 @@
 
  
         <% if ad_image_counter != 0 %>
-            <%= button_to 'hovedbilde', make_primary_ad_image_path(ad_image), class: 'button image-manager__button', form_class: 'u-inline' %>
+            <%= link_to 'hovedbilde', make_primary_ad_image_path(ad_image), class: 'button image-manager__button', form_class: 'u-inline', data: {'make-primary'} %>
         <% end %>
 
         <%= button_to 'Slett', ad_image_path(ad_image), method: :delete, params: {previous_url: request.fullpath}, class: 'button image-manager__button', form_class: 'u-inline' %>

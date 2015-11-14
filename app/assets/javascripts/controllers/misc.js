@@ -635,6 +635,8 @@ window.controllers.imageSubformController = {
 
         window.tragger = updatePrimality;
 
+        ele.addEventListener("click", handleMakePrimaryClick)
+
         ele.addEventListener("click", function(e) {
             window.setTimeout(updatePrimality, 10);
         });
@@ -647,6 +649,20 @@ window.controllers.imageSubformController = {
 
         function onGotImageHtml(req) {
             ele.innerHTML = req.responseText;
+        }
+
+        function handleMakePrimaryClick(evt) {
+            var e = evt.target;
+            if (!e.hasAttribute("data-make-primary")) { return; }
+
+            var thisOne = e.closest("[data-in-image]").parentElement;
+            var firstOne = ele.querySelector("[data-in-image]").parentElement;
+
+            if (thisOne !== firstOne) {
+                firstOne.before(thisOne);
+            }
+            updateWeights();
+            updatePrimality();
         }
 
         function updateWeights() {
