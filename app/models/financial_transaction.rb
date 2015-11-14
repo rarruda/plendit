@@ -1,6 +1,10 @@
 class FinancialTransaction < ActiveRecord::Base
   include AASM
 
+  # for mangopay callback urls:
+  include ActionDispatch::Routing::UrlFor
+  include Rails.application.routes.url_helpers
+
   has_paper_trail
 
   belongs_to :financial_transactionable, polymorphic: true
@@ -136,8 +140,7 @@ class FinancialTransaction < ActiveRecord::Base
     #sanity check
     unless self.preauth?         &&
       self.src_card_vid?         &&
-      self.dst_payin_wallet_vid? &&
-      self.created?              &&
+      #self.dst_payin_transaction_vid? &&#
       self.financial_transactionable_type == 'Booking'  &&
       self.financial_transactionable_id.present?
 
@@ -169,6 +172,8 @@ class FinancialTransaction < ActiveRecord::Base
         response_body:   preauth
       )
 
+      set_preauth_payment_status preauth['PaymentStatus']
+
       # update transaction status:
       aasm_change_on_status preauth['Status']
 
@@ -186,7 +191,7 @@ class FinancialTransaction < ActiveRecord::Base
     #sanity check
     unless self.preauth?         &&
       self.src_preauth_vid?      &&
-      self.dst_payin_wallet_vid? &&
+      self.dst_payin_wallet_vid? &&#dst_payin_transaction_vid
       self.finished?             &&
       self.financial_transactionable_type == 'Booking'  &&
       self.financial_transactionable_id.present?
@@ -220,7 +225,7 @@ class FinancialTransaction < ActiveRecord::Base
     #sanity check
     unless self.preauth?         &&
       self.src_preauth_vid?      &&
-      self.dst_payin_wallet_vid? &&
+      self.dst_payin_wallet_vid? &&#dst_payin_transaction_vid
       self.finished?             &&
       self.financial_transactionable_type == 'Booking'  &&
       self.financial_transactionable_id.present?
@@ -457,9 +462,9 @@ class FinancialTransaction < ActiveRecord::Base
     when :preauth
       # info comes from booking
       {
-        src_type: :src_preauth_vid,
+        src_type: :src_card_vid,
         src_vid:  self.financial_transactionable.user_payment_card.card_vid,
-        dst_type: nil,
+        dst_type: nil, #:dst_payin_transaction_vid,
         dst_vid:  nil
       }
       # LATER:
