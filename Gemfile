@@ -44,7 +44,7 @@ gem 'mod11'
 gem 'metamagic'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.5'
 gem 'rails-i18n', '~> 4.0'
 
 gem 'country_select'
