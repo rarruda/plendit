@@ -6,7 +6,10 @@ function main() {
     }
 
     var eventbus = smokesignals.convert({
-        IMAGES_CHANGED: 'images_changed_event'
+        IMAGES_CHANGED: 'images_changed_event',
+        AD_FORM_DIRTY: 'ad-form-dirty',
+        AD_FORM_SAVE_OK: 'ad-form-save-ok',
+        AD_FORM_SAVE_ERROR: 'ad-form-save-error'
     });
 
     var c = new Controllerator();

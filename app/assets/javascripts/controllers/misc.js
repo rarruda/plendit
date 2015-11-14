@@ -602,20 +602,79 @@ window.controllers.priceEstimateUpdater = {
 };
 
 window.controllers.adAutoSaver = {
-    dependencies: ["$element", "xhr", "utils"],
-    callable: function(ele, xhr, utils) {
+    dependencies: ["$element", "xhr", "utils", "eventbus"],
+    callable: function(ele, xhr, utils, eventbus) {
         var dirty = false;
         ele.addEventListener("change", handleChange)
 
         function handleChange() {
             console.log("form is dirty");
+            eventbus.emit(eventbus.AD_FORM_DIRTY);
+            saveForm();
         }
 
         function saveForm() {
-            xhr.xhrFormData(ele);
+            xhr.xhrFormData(ele).then(handleSaveOk).catch(handleSaveError);
         }
 
-        window.saver = saveForm
+        function handleSaveOk(xhr) {
+            // console.log(xhr);
+            eventbus.emit(eventbus.AD_FORM_SAVE_OK);
+        }
+
+        function handleSaveError(xhr) {
+            // console.log(xhr);
+            var errors = JSON.parse(xhr.responseText);
+            eventbus.emit(eventbus.AD_FORM_SAVE_ERROR, errors);
+        }
+    }
+};
+
+window.controllers.publishButton = {
+    dependencies: ["$element", "utils", "eventbus"],
+    callable: function(ele, utils, eventbus) {
+        ele.disabled = false;
+        eventbus.on(eventbus.AD_FORM_SAVE_OK, handleSaveOk);
+        eventbus.on(eventbus.AD_FORM_SAVE_ERROR, handleSaveError);
+        eventbus.on(eventbus.AD_FORM_DIRTY, handleGotDirty);
+
+        function handleGotDirty() {
+            ele.disabled = true;
+        }
+
+        function handleSaveOk() {
+            ele.disabled = false;
+        }
+
+        function handleSaveError() {
+            console.log("nay");
+        }
+    }
+};
+
+
+window.controllers.adErrors = {
+    dependencies: ["$element", "utils", "eventbus"],
+    callable: function(ele, utils, eventbus) {
+        ele.disabled = false;
+        eventbus.on(eventbus.AD_FORM_SAVE_OK, handleSaveOk);
+        eventbus.on(eventbus.AD_FORM_SAVE_ERROR, handleSaveError);
+        eventbus.on(eventbus.AD_FORM_DIRTY, handleGotDirty);
+
+
+        function handleGotDirty() {
+            ele.disabled = true;
+            ele.textContent = "Lagrer annonsen."
+        }
+
+        function handleSaveOk() {
+            ele.disabled = false;
+            ele.textContent = "Annonsen er lagret."
+        }
+
+        function handleSaveError(errors) {
+            ele.textContent = "Annonsen er ikke lagret ennå. " + JSON.stringify(errors);
+        }
     }
 };
 
@@ -624,11 +683,7 @@ window.controllers.imageSubformController = {
     callable: function(ele, xhr, utils, eventbus) {
         eventbus.on(eventbus.IMAGES_CHANGED, reloadImages);
         var url = ele.getAttribute("data-url");
-
-        window.tragger = updatePrimality;
-
         ele.addEventListener("click", handleMakePrimaryClick)
-
         ele.addEventListener("click", function(e) {
             window.setTimeout(updatePrimality, 10);
         });
