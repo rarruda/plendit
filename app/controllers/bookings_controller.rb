@@ -56,14 +56,6 @@ class BookingsController < ApplicationController
     end
   end
 
-  # DELETE /bookings/1
-#  def destroy
-#    @booking.destroy
-#    redirect_to bookings_url
-#    end
-#  end
-
-
   # GET /me/bookings/show_price
   def show_price
     @booking.calculate_amount
@@ -98,42 +90,47 @@ class BookingsController < ApplicationController
 
   private
     def notify_about_decline
-      Notification.new(
+      Notification.create(
         user_id: @booking.from_user.id,
         message: "#{@booking.user.display_name} har avslått din forespørsel om å leie \"#{@booking.ad.display_title}\"",
-        notifiable: @booking ).save
+        notifiable: @booking
+      )
     end
 
     def notify_about_accept
-      Notification.new(
+      Notification.create(
         user_id: @booking.from_user.id,
         message: "#{@booking.user.display_name} har godkjent din forespørsel om å leie \"#{@booking.ad.display_title}\"",
-        notifiable: @booking ).save
+        notifiable: @booking
+      )
     end
 
     def notify_about_cancel
-      Notification.new(
+      Notification.create(
         user_id: @booking.user.id,
         message: "#{@booking.from_user.display_name} har kansellert bookingen på \"#{@booking.ad.display_title}\"",
-        notifiable: @booking ).save
+        notifiable: @booking )
     end
 
     def notify_about_new_booking
-      Notification.new(
+      Notification.create(
         user_id: @booking.user.id,
         message: "#{@booking.from_user.display_name} ønsker å leie \"#{@booking.ad.display_title}\"",
-        notifiable: @booking ).save
+        notifiable: @booking
+      )
     end
 
     def notify_about_updated_booking
-      Notification.new(
+      Notification.create(
         user_id: @booking.user.id,
         message: "#{@booking.from_user.display_name} har oppdatert bookingen på \"#{@booking.ad.display_title}\"",
-        notifiable: @booking ).save
+        notifiable: @booking
+      )
     end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_booking
+      # FIXME: retrict to user/from_user? (so its not public for EVERYONE)
       @booking = Booking.find_by( guid: params[:guid] ).decorate
     end
 
