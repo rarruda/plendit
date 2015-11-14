@@ -1,138 +1,138 @@
 <div class="in-form">
-<%= form_for(@ad, url: (users_ad_path @ad), data: {main_form: '', category: @ad.category, controller: 'adAutoSaver'}) do |f| %>
-    <% if @ad.errors.any? %>
-        <div id="error_explanation">
-            <h2><%= pluralize(@ad.errors.count, "error") %> prohibited this ad from being saved:</h2>
+    <%= form_for(@ad, url: (users_ad_path @ad), data: {main_form: '', category: @ad.category, controller: 'adAutoSaver'}) do |f| %>
+        <% if @ad.errors.any? %>
+            <div id="error_explanation">
+                <h2><%= pluralize(@ad.errors.count, "error") %> prohibited this ad from being saved:</h2>
 
-            <ul>
-                <% @ad.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-            </ul>
-        </div>
-    <% end %>
-
-    <h1 class="u-push-down-only">Legg ut tingene dine</h1>
-
-    <!-- debug
-    <h5>this Ad has the following category: <b><%= @ad.category %></b></h5>
-    -->
-
-    <div class="u-push-down-only">
-        <%= f.label :title, 'Tittel:', class: 'u-full-width' %>
-        <%= f.text_field :title, class: 'u-full-width' %>
-    </div>
-
-    <div class="u-push-down-only">
-        <%= f.label :body, 'Beskrivelse:' %>
-        <%= f.text_area :body, class: 'u-full-width in-form__description', data: { controller: 'autoSizeTextArea' } %>
-        <small>Visste du: Du kan bruke #hashtags i annonsen din. Det gjør det enklere å finne den i søket.</small>
-    </div>
-
-    <div class="u-push-down-only">
-        <label>Henteadresse:</label>
-
-        <%- if @ad.user.locations.length > 0 -%>
-
-            <div data-controller="addressSelectionDimmer">
-                <%= hidden_field_tag "create_new_location", "0" %>
-
-                <%= select( :ad, :location_id,
-                            @ad.user.locations.map{ |l| ["#{l.address_line}, #{l.post_code} #{l.city}", l.id] },
-                            {},
-                            { class: 'u-full-width' } ) %>
-
-                <details>
-                    <summary class="u-default-summary">Skriv inn en annen adresse:</summary>
-                    <div>
-
-                        <%= f.fields_for :location, Location.new(user_id: current_user.id) do |fl| %>
-                            <%= fl.text_field :address_line, class: 'u-full-width', placeholder: 'Gateadresse' %>
-                            <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
-                                <div class="four columns">
-                                    <%= fl.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
-                                </div>
-                                <div class="eight columns">
-                                    <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
-                                </div>
-                            </div>
-                        <% end %>
-
-                    </div>
-                </details>
+                <ul>
+                    <% @ad.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                </ul>
             </div>
-
-        <% else %>
-
-            <div>
-                <%= hidden_field_tag "create_new_location", "1" %>
-
-                <%= f.fields_for :location, Location.new(user_id: current_user.id) do |fl| %>
-                    <%= fl.text_field :address_line, class: 'u-full-width', placeholder: 'Gateadresse' %>
-                    <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
-                        <div class="four columns">
-                            <%= fl.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
-                        </div>
-                        <div class="eight columns">
-                            <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
-                        </div>
-                    </div>
-                <% end %>
-
-            </div>
-
         <% end %>
-    </div>
 
-    <hr>
+        <h1 class="u-push-down-only">Legg ut tingene dine</h1>
 
-    <div class="u-push-down">
-        <%= render partial: 'shared/image_uploader', locals: { ad: @ad } %>
-        <div data-controller="imageSubformController" data-url="<%= nested_images_ad_path @ad %>">
-            <%= render partial: 'editable_image_subform', locals: { ad: @ad, form: f } %>
+        <!-- debug
+        <h5>this Ad has the following category: <b><%= @ad.category %></b></h5>
+        -->
+
+        <div class="u-push-down-only">
+            <%= f.label :title, 'Tittel:', class: 'u-full-width' %>
+            <%= f.text_field :title, class: 'u-full-width' %>
         </div>
-    </div>
 
-    <hr>
+        <div class="u-push-down-only">
+            <%= f.label :body, 'Beskrivelse:' %>
+            <%= f.text_area :body, class: 'u-full-width in-form__description', data: { controller: 'autoSizeTextArea' } %>
+            <small>Visste du: Du kan bruke #hashtags i annonsen din. Det gjør det enklere å finne den i søket.</small>
+        </div>
 
-    <label class="u-push-down-only">Forsikring:</label>
+        <div class="u-push-down-only">
+            <label>Henteadresse:</label>
 
-    <% if @ad.is_insurance_required? %>
-        <p>
-            Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %>
-            for gjenstander av denne typen.
-        </p>
-    <% else %>
-        <span>
-            <%= f.check_box :insurance_required, data: {insurance: ''} %>
-            Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %>
-            for gjenstanden.
-        </span>
-    <% end %>
+            <%- if @ad.user.locations.length > 0 -%>
 
-    <div class="u-push-down">
-        <%= render partial: 'price_editor', locals: {f: f} %>
-    </div>
+                <div data-controller="addressSelectionDimmer">
+                    <%= hidden_field_tag "create_new_location", "0" %>
 
-    <% if @ad.category == 'motor' %>
+                    <%= select( :ad, :location_id,
+                                @ad.user.locations.map{ |l| ["#{l.address_line}, #{l.post_code} #{l.city}", l.id] },
+                                {},
+                                { class: 'u-full-width' } ) %>
+
+                    <details>
+                        <summary class="u-default-summary">Skriv inn en annen adresse:</summary>
+                        <div>
+
+                            <%= f.fields_for :location, Location.new(user_id: current_user.id) do |fl| %>
+                                <%= fl.text_field :address_line, class: 'u-full-width', placeholder: 'Gateadresse' %>
+                                <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
+                                    <div class="four columns">
+                                        <%= fl.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
+                                    </div>
+                                    <div class="eight columns">
+                                        <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
+                                    </div>
+                                </div>
+                            <% end %>
+
+                        </div>
+                    </details>
+                </div>
+
+            <% else %>
+
+                <div>
+                    <%= hidden_field_tag "create_new_location", "1" %>
+
+                    <%= f.fields_for :location, Location.new(user_id: current_user.id) do |fl| %>
+                        <%= fl.text_field :address_line, class: 'u-full-width', placeholder: 'Gateadresse' %>
+                        <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
+                            <div class="four columns">
+                                <%= fl.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
+                            </div>
+                            <div class="eight columns">
+                                <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
+                            </div>
+                        </div>
+                    <% end %>
+
+                </div>
+
+            <% end %>
+        </div>
+
+        <hr>
+
         <div class="u-push-down">
-            <label>Registreringsnummer:</label>
-            <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
+            <%= render partial: 'shared/image_uploader', locals: { ad: @ad } %>
+            <div data-controller="imageSubformController" data-url="<%= nested_images_ad_path @ad %>">
+                <%= render partial: 'editable_image_subform', locals: { ad: @ad, form: f } %>
+            </div>
         </div>
-    <% end %>
 
-<%- end -%>
+        <hr>
 
-<div class="u-push-down">
-    <% if @ad.published? %>
-        <%= button_tag 'lagre', class: 'button', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
-    <% elsif @ad.valid? %>
-        <%= button_tag 'lagre', class: 'button button-primary', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
-        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: 'u-inline', class: 'button' %>
-    <% else %>
-        <%= button_tag 'lagre', class: 'button button-primary', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
-    <% end %>
+        <label class="u-push-down-only">Forsikring:</label>
 
-    <%= button_to "Forhåndsvisning", (ad_path @ad), method: :get, form_class: "u-inline", class: "button"  %>
-</div>
+        <% if @ad.is_insurance_required? %>
+            <p>
+                Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %>
+                for gjenstander av denne typen.
+            </p>
+        <% else %>
+            <span>
+                <%= f.check_box :insurance_required, data: {insurance: ''} %>
+                Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %>
+                for gjenstanden.
+            </span>
+        <% end %>
+
+        <div class="u-push-down">
+            <%= render partial: 'price_editor', locals: {f: f} %>
+        </div>
+
+        <% if @ad.category == 'motor' %>
+            <div class="u-push-down">
+                <label>Registreringsnummer:</label>
+                <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
+            </div>
+        <% end %>
+
+    <%- end -%>
+
+    <div class="u-push-down">
+        <% if @ad.published? %>
+            <%= button_tag 'lagre', class: 'button', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
+        <% elsif @ad.valid? %>
+            <%= button_tag 'lagre', class: 'button button-primary', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
+            <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: 'u-inline', class: 'button' %>
+        <% else %>
+            <%= button_tag 'lagre', class: 'button button-primary', form_class: 'u-inline', data: {controller: 'submitMainForm'}  %>
+        <% end %>
+
+        <%= button_to "Forhåndsvisning", (ad_path @ad), method: :get, form_class: "u-inline", class: "button"  %>
+    </div>
 </div>
