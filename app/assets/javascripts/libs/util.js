@@ -18,5 +18,13 @@ window.plenditUtils = {
         return new Promise(function(resolve, reject) {
             navigator.geolocation.getCurrentPosition(resolve, reject);
         });
+    },
+
+    getCsrfData: function() {
+        return {
+            param: (document.querySelector('meta[name="csrf-param"]') || {}).content,
+            token: (document.querySelector('meta[name="csrf-token"]') || {}).content,
+            headerName: 'X-CSRF-Token'
+        };
     }
 }

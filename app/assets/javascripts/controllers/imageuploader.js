@@ -1,7 +1,7 @@
 Dropzone.autoDiscover = false;
 window.controllers.imageUploader = {
-    dependencies: ["$element", "eventbus"],
-    callable: function(ele, eventbus) {
+    dependencies: ["$element", "eventbus", "utils"],
+    callable: function(ele, eventbus, utils) {
         var imagePath = ele.getAttribute('data-image-path');
         var template = ele.querySelector('[data-dropzone-template]').textContent;
 
@@ -30,16 +30,8 @@ window.controllers.imageUploader = {
         }
 
         function addCsrfToken(formData, xhr) {
-            var csrf = getCsrfData();
+            var csrf = utils.getCsrfData();
             xhr.setRequestHeader('X-CSRF-Token', csrf.token);
-        }
-
-        function getCsrfData() {
-            return {
-                param: (document.querySelector('meta[name="csrf-param"]') || {}).content,
-                token: (document.querySelector('meta[name="csrf-token"]') || {}).content,
-                headerName: 'X-CSRF-Token'
-            };
         }
 
         function onComplete(file) {
