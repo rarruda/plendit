@@ -474,9 +474,7 @@ class FinancialTransaction < ActiveRecord::Base
       # info comes from booking
       {
         src_type: :src_preauth_vid,
-        #src_vid:  nil,# self.booking.transactions.preauth.where(preauth_payment_status: Transaction.preauth_payment_status[:preauth_validated]).limit(1).first?
-                      #... or needs to be specified...
-                      # FIXME
+        #src_vid: #... needs to be specified... cannot be set here.
         dst_type: :dst_payin_wallet_vid,
         dst_vid:  self.financial_transactionable.from_user.payin_wallet_vid
       }
