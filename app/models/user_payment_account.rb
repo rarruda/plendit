@@ -54,12 +54,30 @@ class UserPaymentAccount < ActiveRecord::Base
     # mangopay dont support de-provisioning of bank accounts...
     # But as we only support one bank account at a time that's possibly what we would have done with the previous bank account..
     # Sadly we can't even set a previously created bank_account as not active anymore.
-    mangopay = MangopayService.new( self.user )
 
     if self.bank_account_vid.blank?
       LOG.info "Provisioning bank account with Mangopay:", {user_id: self.user.id, bank_account_iban: self.bank_account_iban}
-      result = mangopay.provision_bank_account
-      LOG.info "result: #{result}", {user_id: self.user.id, bank_account_vid: self.bank_account_vid }
+      begin
+        # https://docs.mangopay.com/api-references/bank-accounts/
+        bank_account = MangoPay::BankAccount.create( self.user.payment_provider_vid, {
+          'Tag'          => "user_id=#{self.user_id}",
+          'OwnerName'    => self.user.name,
+          'Type'         => 'IBAN',
+          'UserId'       => self.user.payment_provider_vid,
+          'IBAN'         => self.bank_account_iban,
+          'OwnerAddress' => {
+            'AddressLine1' => self.user.home_address_line,
+            'City'         => self.user.home_city,
+            'PostalCode'   => self.user.home_post_code,
+            'Country'      => self.user.country_of_residence
+          }
+        } )
+        self.bank_account_vid = bank_account['Id']
+        self.save!
+      rescue => e
+        LOG.error "Exception e:#{e} provisioning at mangopay the bank_account: #{bank_account}", {user_id: @user.id, user_payment_account_id: self.id, mangopay_result: bank_account }
+        return nil
+      end
     end
   end
 

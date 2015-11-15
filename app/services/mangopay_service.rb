@@ -260,39 +260,6 @@ class MangopayService
     LOG.info "created pay_out wallet:#{wallet_out}", { user_id: @user.id, mangopay_result: wallet_out }
   end
 
-  def provision_bank_account
-    # check if user has all necessary information.
-    if not ( @user.has_address? && @user.mangopay_provisioned? )
-      LOG.error 'No addresses connected to this user. Refuse to provision bank account.', { user_id: @user.id }
-      #raise 'No addresses connected to this user.'
-      return false
-    end
-
-    begin
-      # https://docs.mangopay.com/api-references/bank-accounts/
-      bank_account = MangoPay::BankAccount.create( @user.payment_provider_vid, {
-        'Tag'          => "user_id=#{@user.id}",
-        'OwnerName'    => @user.name,
-        'Type'         => 'IBAN',
-        'UserId'       => @user.payment_provider_vid,
-        'IBAN'         => @user.user_payment_account.bank_account_iban,
-        'OwnerAddress' => {
-          'AddressLine1' => @user.home_address_line,
-          'City'         => @user.home_city,
-          'PostalCode'   => @user.home_post_code,
-          'Country'      => @user.country_of_residence
-        }
-      } );
-      @user.user_payment_account.bank_account_vid = bank_account['Id']
-      @user.user_payment_account.save!
-    rescue => e
-      LOG.error "Exception e:'#{e}' has gone wrong with provisioning the bank_account at mangopay.", {user_id: @user.id, mangopay_result: bank_account }
-      return nil
-    end
-    LOG.info "created bank_account:#{bank_account['Id']}", { user_id: @user.id, bank_account_vid: bank_account['Id'], mangopay_result: bank_account }
-
-  end
-
 
 
 
