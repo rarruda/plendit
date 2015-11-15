@@ -8,31 +8,6 @@ class MangopayService
   end
 
 
-
-  # create a new user_payment_card instance from RegistrationData
-  def card_post_register( card_preauth_vid, registration_data)
-    begin
-      # https://docs.mangopay.com/api-references/card-registration/
-      LOG.info "performing card registration from RegistrationData"
-      card = MangoPay::CardRegistration.update( card_preauth_vid, { 'RegistrationData' => registration_data } )
-      LOG.info "Got the following card back: #{card}", { user_id: @user.id }
-
-      # now card is registered, and one can make a pre-authorization (pay w/o capture)
-      @user.user_payment_cards.create!( card_vid: card['CardId'] )
-
-    rescue MangoPay::ResponseError => e
-      LOG.error "error registering card with mangopay. MangoPay::ResponseError: #{e}", { user_id: @user.id, card_preauth_vid: card_preauth_vid, mangopay_result: card }
-      return nil
-    rescue => e
-      LOG.error "error registering card. exception: #{e}", { user_id: @user.id, card_preauth_vid: card_preauth_vid, mangopay_result: card }
-      return nil
-    end
-    return card['CardId']
-  end
-
-
-
-
   def card_list( options = {refresh: false} )
     begin
       mp_cards = MangoPay::User.cards( @user.payment_provider_vid )

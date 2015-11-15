@@ -28,16 +28,21 @@ class UserPaymentCardsController < ApplicationController
   def create
     LOG.info "user_payment_card_params: #{user_payment_card_params}", {user_id: current_user.id}
 
-    if @mangopay.card_post_register( user_payment_card_params['card_vid'], user_payment_card_params['registration_data'] )
-      if UserPaymentCard.create( card_vid: user_payment_card_params['card_vid'] )
-        redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard was successfully created.'
-      else
-        LOG.error "Failed the saving the credit card.", {user_id: current_user.id, card_vid: user_payment_card_params['card_vid'] }
-        redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard was NOT successfully saved.'
-      end
+    @user_payment_card = current_user.user_payment_cards.new(
+      card_reg_vid:      user_payment_card_params['card_vid'],
+      registration_data: user_payment_card_params['registration_data']
+    )
+    @user_payment_card.register
+
+    # as a background job:
+    #@user_payment_card.process!
+
+
+    if @user_payment_card.save
+      redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard was successfully created.'
     else
-      LOG.error "Failed the final stage of registering the credit card.", {user_id: current_user.id}
-      redirect_to payment_users_path, payment_card_notice: 'Failed credit card registration.'
+      LOG.error "Failed the saving the credit card.", {user_id: current_user.id, card_reg_vid: user_payment_card_params['card_reg_vid'] }
+      redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard was NOT successfully saved.'
     end
   end
 

@@ -8,8 +8,9 @@ class UserPaymentCard < ActiveRecord::Base
 
   has_many :validation_transactions, as: 'financial_transactionable'
 
-  # used when pre-registering a card:
+  # used when pre/post-registering a card:
   attr_accessor :card_registration_id, :access_key, :preregistration_data, :card_registration_url, :registration_status
+  attr_accessor :card_reg_vid, :registration_data
 
   # Never show "deleted" cards. (inactive)
   default_scope { where( active: true ) }
@@ -108,9 +109,21 @@ class UserPaymentCard < ActiveRecord::Base
     end
   end
 
+  def register
+    begin
+      card = MangoPay::CardRegistration.update(
+        self.card_reg_vid,
+        { 'RegistrationData' => self.registration_data }
+      )
+      self.card_vid = card['CardId']
+    rescue => e
+      LOG.error "Error: #{e} registering card: #{card}", { user_id: self.user_id }
+    end
+  end
+
   private
 
-  # FIXME: this should be in a background job
+  # FIXME: this should be in a background job (or not, if it already called from a background job)
   # to validate we need to create a Charge, and then cancel it.
   # charges live in financial_transactions.
   def validate_on_mangopay
