@@ -5,8 +5,8 @@ MangoPay.configure do |c|
 end
 
 MANGOPAY_PRE_REGISTERED_CARD_TTL = 1800
-MANGOPAY_CURRENCY_CODE     = 'NOK' #duplicate of PLENDIT_CURRENCY_CODE
-MANGOPAY_DEFAULT_CARD_TYPE = 'CB_VISA_MASTERCARD'
+MANGOPAY_CURRENCY_CODE           = 'NOK' #duplicate of PLENDIT_CURRENCY_CODE
+MANGOPAY_DEFAULT_CARD_TYPE       = 'CB_VISA_MASTERCARD'
 MANGOPAY_CARD_VALIDATION_AMOUNT  = 10_00 #how much to pre-authorize in a card to verify its validity.
 
 # Config for creating callback urls:
