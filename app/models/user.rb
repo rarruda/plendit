@@ -407,7 +407,7 @@ class User < ActiveRecord::Base
       mangopay.provision_user
     end
 
-    if ( ! self.payment_provider_vid.blank? ) && ( self.payin_wallet_vid.blank? || self.payout_wallet_vid.blank? )
+    if self.payment_provider_vid.present? && ( self.payin_wallet_vid.blank? || self.payout_wallet_vid.blank? )
       mangopay.provision_wallets
     end
   end
