@@ -535,6 +535,17 @@ window.controllers.helpToggler = function(ele) {
         });
 }
 
+window.controllers.payinRulesSyncer = {
+    dependencies: ["$element", "utils", "eventbus"],
+    callable: function(ele, utils, eventbus) {
+        eventbus.on(eventbus.AD_FORM_SAVE_OK, handleSaveOk);
+
+        function handleSaveOk() {
+            console.log("in payinrulessyncer");
+        }
+    }
+}
+
 window.controllers.priceEstimateUpdater = {
     dependencies: ["$element", "xhr", "utils"],
     callable: function(ele, xhr, utils) {

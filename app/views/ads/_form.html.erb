@@ -124,9 +124,11 @@
     <%- end -%>
 
     <hr>
-        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: 'u-inline', class: 'button button-primary', data: {controller: "publishButton"} %>
-        <%= button_to "Forhåndsvisning", (ad_path @ad), method: :get, form_class: "u-inline", class: "button"  %>
         <div data-controller="adErrors"></div>
+        <div>
+            <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: 'u-inline', class: 'button button-primary', data: {controller: 'publishButton'} %>
+            <%= button_to 'Forhåndsvisning', (ad_path @ad), method: :get, form_class: 'u-inline', class: 'button' %>
+        </div>
     <hr>
 
     <div class="u-push-down">
