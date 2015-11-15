@@ -46,8 +46,8 @@ class FinancialTransaction < ActiveRecord::Base
 
   # by state/status:
   scope :pending_or_processing,
-                     -> { where( state: [ FinancialTransaction.transaction_types[:pending], FinancialTransaction.transaction_types[:processing] ] ) }
-  scope :finished,   -> { where( state: FinancialTransaction.transaction_types[:finished] ) }
+                     -> { where( state: [ FinancialTransaction.states[:pending], FinancialTransaction.states[:processing] ] ) }
+  scope :finished,   -> { where( state: FinancialTransaction.states[:finished] ) }
 
   # by user: (complex...)
   #scope :from_user(user_id) -> { where() } #use src_vid for fast/reliable lookups
