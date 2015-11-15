@@ -32,22 +32,6 @@ class MangopayService
 
 
 
-  # Disable an existing card. This is the equivalent of deleting it.
-  # Note: It is an irreversible action.
-  def card_disable(card_vid)
-    begin
-      # https://docs.mangopay.com/api-references/card/
-      c = MangoPay::Card.update(
-        'Id'     => card_vid,
-        'Active' => false
-        )
-    rescue => e
-      LOG.error "error disabling card_vid:#{card_vid} => #{c}", { user_id: @user.id, card_vid: card_vid }
-      LOG.error e
-      return nil
-    end
-    LOG.info "disabled card_vid:#{card_vid} => #{c}",{ user_id: @user.id, card_vid: card_vid }
-  end
 
 
   def card_fetch( card_vid )
