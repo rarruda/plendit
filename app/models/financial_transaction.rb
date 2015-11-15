@@ -113,7 +113,7 @@ class FinancialTransaction < ActiveRecord::Base
   # end
 
   # triggered externally
-  def process_cancel_preauth
+  def process_cancel_preauth!
     if self.transaction_type.to_sym == :preauth
       self.do_preauth_cancel
     else
@@ -122,7 +122,7 @@ class FinancialTransaction < ActiveRecord::Base
   end
 
   # triggered externally
-  def process_refresh
+  def process_refresh!
     case self.transaction_type.to_sym
     when :preauth
       self.do_preauth_refresh
@@ -141,7 +141,7 @@ class FinancialTransaction < ActiveRecord::Base
     unless self.preauth?         &&
       self.src_card_vid?         &&
       #self.dst_payin_transaction_vid? &&#
-      self.financial_transactionable_type == 'Booking'  &&
+      ( ['Booking', 'UserPaymentCard'].include? self.financial_transactionable_type ) &&
       self.financial_transactionable_id.present?
 
       raise "can not process this transaction with this method"
@@ -190,10 +190,10 @@ class FinancialTransaction < ActiveRecord::Base
   def do_preauth_refresh
     #sanity check
     unless self.preauth?         &&
-      self.src_preauth_vid?      &&
-      self.dst_payin_wallet_vid? &&#dst_payin_transaction_vid
-      self.finished?             &&
-      self.financial_transactionable_type == 'Booking'  &&
+      self.src_card_vid?         &&
+      #self.dst_payin_wallet_vid? &&#dst_payin_transaction_vid
+      #self.finished?             &&
+      ( ['Booking', 'UserPaymentCard'].include? self.financial_transactionable_type ) &&
       self.financial_transactionable_id.present?
 
       raise "can not refresh this preauth transaction with this method"
@@ -224,10 +224,10 @@ class FinancialTransaction < ActiveRecord::Base
   def do_preauth_cancel
     #sanity check
     unless self.preauth?         &&
-      self.src_preauth_vid?      &&
-      self.dst_payin_wallet_vid? &&#dst_payin_transaction_vid
+      self.src_card_vid?         &&
+      #self.dst_payin_wallet_vid? &&#dst_payin_transaction_vid
       self.finished?             &&
-      self.financial_transactionable_type == 'Booking'  &&
+      ( ['Booking', 'UserPaymentCard'].include? self.financial_transactionable_type ) &&
       self.financial_transactionable_id.present?
 
       raise "can not cancel this preauth transaction with this method"

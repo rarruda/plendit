@@ -1,8 +1,12 @@
 class UserPaymentCard < ActiveRecord::Base
+  include AASM
+
   has_paper_trail
 
 
   belongs_to :user
+
+  has_many :validation_transactions, as: 'financial_transactionable'
 
   # used when pre-registering a card:
   attr_accessor :card_registration_id, :access_key, :preregistration_data, :card_registration_url, :registration_status
@@ -76,10 +80,46 @@ class UserPaymentCard < ActiveRecord::Base
   private
   def refresh
     unless self.card_vid.blank?
-      self.attributes ||= @mangopay.card_fetch( self.card_vid )
+      self.update( card_translate( MangoPay::Card.fetch self.card_vid ) )
+      self.save
     else
       LOG.error "unable to load information from mangopay as card_vid is blank", { user_id: self.user.id, card_id: self.id }
     end
+  end
+
+  # to validate we need to create a Charge, and then cancel it.
+  # charges live in financial_transactions.
+  def validate_on_mangopay
+    t = create_financial_transaction_preauth_for_validation
+    t.process!
+    t.process_refresh!
+    t.process_cancel_preauth!
+  end
+
+  def create_financial_transaction_preauth_for_validation
+    financial_transaction = {
+      transaction_type: 'preauth',
+      amount: MANGOPAY_CARD_VALIDATION_AMOUNT,
+      fees:   0,
+    }
+    self.financial_transactions.create( financial_transaction )
+  end
+
+  def card_translate ( mp_card )
+    return nil if mp_card.blank? || ! ( mp_card.is_a? Hash )
+
+    #careful with the card_vid translation:
+    {
+      card_vid:        mp_card['Id'],
+      card_type:       mp_card['CardType'],
+      card_provider:   mp_card['CardProvider'],
+      currency:        mp_card['Currency'],
+      country:         mp_card['Country'],
+      number_alias:    mp_card['Alias'],
+      expiration_date: mp_card['ExpirationDate'],
+      validity:        mp_card['Validity'],
+      active:          mp_card['Active']
+    }
   end
 
   def user_is_provisioned
