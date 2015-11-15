@@ -56,4 +56,6 @@ Rails.application.configure do
     password:  ENV['PCONF_SMTP_PASSWORD'],
   }
 
+  # for ugh, generating routes within models:
+  routes.default_url_options = config.action_mailer.default_url_options
 end

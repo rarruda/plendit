@@ -84,6 +84,9 @@ Rails.application.configure do
     password:  ENV['PCONF_SMTP_PASSWORD'],
   }
 
+  # for ugh, generating routes within models:
+  routes.default_url_options = config.action_mailer.default_url_options
+
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
