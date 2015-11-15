@@ -3,7 +3,15 @@
 %>
 <% unless rule.payin_amount.nil? %>
     <div class="price-estimate">
-        <div class="price-estimate__inner">
+
+        <div class="price-estimate__left">
+            <% if @ad.insurance_required %>
+                <label>Forsikringssum:</label>
+                <span><%= format_monetary_full( calc.max_insurance_coverage(rule) ) %></span>
+            <% end %>
+        </div>
+
+        <div class="price-estimate__right">
             <label class="price-estimate__label">Pris for kunde:</label>
             <span class="price-estimate__value"><%= format_monetary_full( calc.payin_amount(rule) ) %></span>
             <br>

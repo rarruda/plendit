@@ -60,20 +60,26 @@
 }
 
 .price-estimate {
-    overflow: auto;
+    display: flex;
 
-    &__inner {
-        float: right;
+    &__left {
+        flex: 1 1 auto;
+        align-self: flex-end;
+    }
+
+    &__right {
+        flex: 1 1 auto;
         width: 270px;
+        text-align: right;
     }
 
     &__label {
-        display: inline;
-
+        display: inline-block;
     }
 
     &__value {
-        float: right;
+        display: inline-block;
+        min-width: 90px;
     }
 }
 
