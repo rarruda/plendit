@@ -58,6 +58,12 @@ Plendit::Application.config.x.insurance.deductible_value = {
   realestate: 12_000_00
  }
 
+Plendit::Application.config.x.insurance.max_coverage_factor = {
+  bap:        25,
+  motor:      25,
+  realestate: 25
+ }
+
 Plendit::Application.config.x.insurance.is_required = {
   bap:        false,
   motor:      true,
