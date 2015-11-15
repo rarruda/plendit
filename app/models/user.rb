@@ -382,10 +382,10 @@ class User < ActiveRecord::Base
     if self.payment_provider_vid.blank? ||
       self.payin_wallet_vid.blank? ||
       self.payout_wallet_vid.blank?
-      LOG.error "profile is NOT fully provisioned with mangopay", {user_id: self.id}
+      LOG.debug "profile is NOT fully provisioned with mangopay", {user_id: self.id}
       false
     else
-      LOG.error "profile IS fully provisioned with mangopay", {user_id: self.id}
+      #LOG.debug "profile IS fully provisioned with mangopay", {user_id: self.id}
       true
     end
   end
