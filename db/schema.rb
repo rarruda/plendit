@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151114162653) do
+ActiveRecord::Schema.define(version: 20151115024243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -318,7 +318,7 @@ ActiveRecord::Schema.define(version: 20151114162653) do
     t.string   "card_type"
     t.string   "number_alias",    limit: 16
     t.string   "expiration_date", limit: 4
-    t.string   "validity"
+    t.integer  "validity"
     t.boolean  "active",                     default: true,  null: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false

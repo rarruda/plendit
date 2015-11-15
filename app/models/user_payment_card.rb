@@ -15,8 +15,8 @@ class UserPaymentCard < ActiveRecord::Base
   default_scope { where( active: true ) }
 
 
-  #                CREATED                    UNKNOWN              VALID     INVALID
-  #enum state:    { pending: 1, processing: 2, unknown_validity: 4, _valid: 5, invalid: 10 }
+  # mangopay status:  UNKNOWN                    VALID         INVALID
+  enum validity:    { pending: 1, processing: 2, card_valid: 5, card_invalid: 10, errored: 11 }
 
   validates :guid,     uniqueness: true
   validates :user_id,  presence: true
@@ -34,6 +34,35 @@ class UserPaymentCard < ActiveRecord::Base
     if: :active?
 
 
+  aasm column: 'validity' do
+    state :pending, initial: true
+    state :processing
+    state :card_valid
+    state :card_invalid
+    #state :errored
+
+    event :process, after: :validate_on_mangopay do
+      transitions from: :pending, to: :processing
+    end
+
+    event :finish do
+      transitions from: :processing, to: :card_valid
+    end
+
+    event :invalidate do
+      transitions from: :processing, to: :card_invalid
+    end
+
+    event :fail do
+      transitions from: :processing, to: :errored
+    end
+
+    event :revert do
+      transitions from: [:pending,:processing], to: :pending
+    end
+  end
+
+
   def set_favorite
     UserPaymentCard.transaction do
       self.update(favorite: true)
@@ -48,6 +77,8 @@ class UserPaymentCard < ActiveRecord::Base
     # only "true"/true are true. everything else is false:
     self.active = ( ["true" , true].include? disabled_card['Active'] )
     self.save
+
+    #self.refresh #?
 
     LOG.info "deactivated from mangopay: #{self}", { user_id: self.user.id, card_id: self.id }
   end
@@ -78,15 +109,8 @@ class UserPaymentCard < ActiveRecord::Base
   end
 
   private
-  def refresh
-    unless self.card_vid.blank?
-      self.update( card_translate( MangoPay::Card.fetch self.card_vid ) )
-      self.save
-    else
-      LOG.error "unable to load information from mangopay as card_vid is blank", { user_id: self.user.id, card_id: self.id }
-    end
-  end
 
+  # FIXME: this should be in a background job
   # to validate we need to create a Charge, and then cancel it.
   # charges live in financial_transactions.
   def validate_on_mangopay
@@ -94,6 +118,7 @@ class UserPaymentCard < ActiveRecord::Base
     t.process!
     t.process_refresh!
     t.process_cancel_preauth!
+    refresh
   end
 
   def create_financial_transaction_preauth_for_validation
@@ -105,12 +130,30 @@ class UserPaymentCard < ActiveRecord::Base
     self.financial_transactions.create( financial_transaction )
   end
 
+  def refresh
+    card = card_translate( MangoPay::Card.fetch self.card_vid )
+
+    self.update( card.except(:validity) )
+    case card[:validity]
+    when 'UNKNOWN'
+      self.revert!
+      #same as: self.validity = 'pending'
+    when 'VALID'
+      self.finish!
+    when 'INVALID'
+      self.invalidate!
+    else
+      self.fail!
+    end
+  end
+
+
   def card_translate ( mp_card )
     return nil if mp_card.blank? || ! ( mp_card.is_a? Hash )
 
-    #careful with the card_vid translation:
+    # card_vid was the key for the lookup, so not translating it.
     {
-      card_vid:        mp_card['Id'],
+      #card_vid:        mp_card['Id'],
       card_type:       mp_card['CardType'],
       card_provider:   mp_card['CardProvider'],
       currency:        mp_card['Currency'],
