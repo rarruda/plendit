@@ -255,7 +255,7 @@ class AdsController < ApplicationController
     # remove changes to ad images that no longer exists.
     # fixes that we try deleiting non-extant stuff if you hit
     # ctrl-r on the edit page after having already submitted stuff.
-    if ad_params.has_key? :ad_image_params
+    if ad_params_local.has_key? :ad_images_attributes
       ad_params_local[:ad_images_attributes].delete_if do |k, v|
         v.has_key?(:id) && !@ad.ad_images.exists?(id: v[:id])
       end
