@@ -3,20 +3,29 @@
         <% if booking.created? %>
             <%= button_to "Avslå forespørsel", decline_booking_path(booking), class: "button" %>
             <%= button_to "Godkjenn forespørsel", accept_booking_path(booking), class: "button" %>
-        <% elsif booking.accepted? %>
-            <%# allowed? to decline after accepting? should be "unapprove" %>
+        <% elsif booking.confirmed? || booking.started? %>
+            <%# should be a red button! should have a warning to not be used lightly, as it will trigger admin intervention? %>
             <%= button_to "Avslå forespørsel", decline_booking_path(booking), class: "button" %>
+        <% elsif booking.in_progress? %>
+            TRANSLATEME: booking is in_progress.
+        <% elsif booking.ended? || booking.archived? %>
+            TRANSLATEME: booking is over.
+        <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
         <% else %>
-            Unknown booking state
+            TRANSLATEME: Unknown booking state
         <% end %>
     <% else %>
         <% if booking.created? %>
             <%= button_to "Avbryt forespørsel", cancel_booking_path(booking), class: "button" %>
             <%= link_to "Rediger forespørsel", edit_booking_path(booking), class: "button" %>
-        <% elsif booking.accepted? %>
-            go to payment
+        <% elsif booking.confirmed? || booking.started? %>
+            <%# should be a red button! should have a warning to not be used lightly, as it will trigger admin intervention? %>
+            <%= button_to "Avbryt forespørsel", cancel_booking_path(booking), class: "button" %>
+        <% elsif booking.in_progress? %>
+            TRANSLATEME: booking is in_progress.
+        <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
         <% else %>
-            Unknown booking state
+            TRANSLATEME: Unknown booking state
         <% end %>
     <% end %>
 </div>

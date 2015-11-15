@@ -75,7 +75,7 @@ class BookingsController < ApplicationController
 
   # POST /me/bookings/1/accept
   def accept
-    @booking.accept!
+    @booking.confirm!
     notify_about_accept
     redirect_to @booking
   end
