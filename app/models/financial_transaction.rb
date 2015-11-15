@@ -60,6 +60,8 @@ class FinancialTransaction < ActiveRecord::Base
     state :errored
     state :unknown_state
 
+    after_all_transitions :log_status_change
+
     event :process, after: :process_on_mangopay do
       transitions from: :pending, to: :processing
     end
@@ -69,22 +71,21 @@ class FinancialTransaction < ActiveRecord::Base
     end
 
     event :fail do
-      transitions from: :processing, to: :errored
+      transitions from: [:pending,:processing,:finished], to: :errored
     end
 
-    # possible only for transaction_type: preauth
-    #event :cancel, after: :process_cancel do
-    #  transitions from: :finished, to: :cancelled do
-    #    guard { self.preauth? }
-    #  end
-    #end
+    event :set_unknown_state do
+      transitions from: [:pending,:processing,:finished], to: :unknown_state
+    end
   end
 
   def to_param
     self.guid
   end
 
-
+  def log_status_change
+    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for financial_transaction_id: #{self.id}"
+  end
 
   # triggered on process! (state: pending => processing)
   def process_on_mangopay
@@ -94,10 +95,8 @@ class FinancialTransaction < ActiveRecord::Base
       # dont quite finish, as requires some refreshes until we know that it went through. (all the way to validated)
     when :payin
       do_payin
-      self.finish!
     when :transfer
       do_transfer
-      self.finish!
     when :payout
       do_payout
       # not finished quite yet, requires some refreshes until we know that it went through.
@@ -276,9 +275,7 @@ class FinancialTransaction < ActiveRecord::Base
       payin = MangoPay::PayIn::PreAuthorized::Direct.create(
         'Tag'                => "booking_id=#{self.financial_transactionable_id}",
         'AuthorId'           => self.financial_transactionable.from_user.payment_provider_vid,
-        'CreditedUserId'     => self.financial_transactionable.from_user.payment_provider_vid,
-        'PreauthorizationId' => 'DIRECT',
-        'PreauthorizationId' => self.financial_transactionable.last_preauthorization_vid, #FOOBAR
+        'PreauthorizationId' => self.src_vid,
         'CreditedWalletId'   => self.dst_vid,
         'DebitedFunds'   => {
           'Currency' => PLENDIT_CURRENCY_CODE,
@@ -307,6 +304,7 @@ class FinancialTransaction < ActiveRecord::Base
       self.fail!
     rescue => e
       LOG.error "Exception e:#{e} processing transaction", { transaction_id: self.id, mangopay_result: payin }
+      self.fail!
     end
   end
 
@@ -325,10 +323,12 @@ class FinancialTransaction < ActiveRecord::Base
       # https://docs.mangopay.com/api-references/transfers/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/transfer.rb
       transfer = MangoPay::Transfer.create(
-        'Tag'            => "booking_id=#{financial_transactionable_id}",
-        'AuthorId'       => self.financial_transactionable.user.payment_provider_vid,
-        'CreditedUserId' => self.financial_transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
-        'DebitedFunds'   => {
+        'Tag'              => "booking_id=#{financial_transactionable_id}",
+        'AuthorId'         => self.financial_transactionable.from_user.payment_provider_vid, #owner of the debitedWalletId
+        'CreditedUserId'   => self.financial_transactionable.user.payment_provider_vid,
+        'DebitedWalletId'  => self.src_vid,
+        'CreditedWalletId' => self.dst_vid,
+        'DebitedFunds'     => {
           'Currency' => PLENDIT_CURRENCY_CODE,
           'Amount'   => self.amount #platform_fee_with_insurance is removed in Fees.
         },
@@ -336,8 +336,6 @@ class FinancialTransaction < ActiveRecord::Base
           'Currency' => PLENDIT_CURRENCY_CODE,
           'Amount'   => self.fees
         },
-        'DebitedWalletId'  => self.src_vid,
-        'CreditedWalletId' => self.dst_vid
       )
 
       self.update(
@@ -436,8 +434,9 @@ class FinancialTransaction < ActiveRecord::Base
       #just stay at status processing.
       LOG.info "Staying put in my current state", { transaction_id: self.id, state: state }
     else
-      #unknown status
-      LOG.error "unknown status result from Payout.fetch", { transaction_id: self.id, mangopay_result: payout }
+      #unknown state
+      self.set_unknown_state!
+      LOG.error "unknown status result", { transaction_id: self.id, state: state }
     end
   end
 
@@ -482,17 +481,17 @@ class FinancialTransaction < ActiveRecord::Base
       # info comes from booking
       {
         src_type: :src_payin_wallet_vid,
-        src_vid:  self.from_user.payin_wallet_vid,
+        src_vid:  self.financial_transactionable.from_user.payin_wallet_vid,
         dst_type: :dst_payout_wallet_vid,
-        dst_vid:  self.user.payout_wallet_vid
+        dst_vid:  self.financial_transactionable.user.payout_wallet_vid
       }
     when :payout
       # info comes from user_payment_card
       {
         src_type: :src_payout_wallet_vid,
-        src_vid:  self.user_payment_card.user.payout_wallet_vid,
+        src_vid:  self.financial_transactionable.user.payout_wallet_vid,
         dst_type: :dst_bank_account_vid,
-        dst_vid:  self.user_payment_card.bank_account_vid
+        dst_vid:  self.financial_transactionable.bank_account_vid
       }
     else
       LOG.error "error, unidentified transaction_type", { transaction_id: self.id }

@@ -18,7 +18,6 @@ class Booking < ActiveRecord::Base
   has_many :messages
   has_many :financial_transactions, as: 'financial_transactionable'
 
-
   enum status: { created: 0, confirmed: 1, started: 2, in_progress: 3, ended: 4, archived: 5, aborted: 10, cancelled: 11, declined: 12, admin_paused: 99 }
 
   #default_scope { where( status: active ) }
@@ -75,7 +74,7 @@ class Booking < ActiveRecord::Base
 
 
   aasm :column => :status, :enum => true do
-    state :created, :initial => true #, :enter => create_financial_transaction_preauth
+    state :created, :initial => true, enter: :create_financial_transaction_preauth
     state :confirmed
     state :started
     state :in_progress
@@ -90,37 +89,19 @@ class Booking < ActiveRecord::Base
 
     after_all_transitions :log_status_change
 
-    event :confirm do
-    #, after: :create_financial_transaction_payin do
+    event :confirm, after: :create_financial_transaction_payin do
       transitions :from => :created, :to => :confirmed
-
-      after do
-        LOG.info "capture preauth payin... (dummy only)", booking_id: self.id
-        #self.create_financial_transaction_payin
-      end
     end
 
-    event :abort do
+    event :abort, after: :cancel_financial_transaction_preauth do
       transitions :from => :created, :to => :aborted
-
-      # only if current_user.id == from_user.id
-      after do
-        LOG.info "refund preauth payin... (dummy only)", booking_id: self.id
-        #self.financial_transactions.preauth.finished.each { |t| t.process_cancel_preauth }
-      end
     end
 
-    event :decline do
+    event :decline, after: :cancel_financial_transaction_preauth do
       transitions :from => :created, :to => :declined
-
-      # only if current_user.id == user.id
-      after do
-        LOG.info "refund refund preauth payin... (dummy only)", booking_id: self.id
-        #self.financial_transactions.preauth.finished.each { |t| t.process_cancel_preauth }
-      end
     end
 
-    event :cancel do
+    event :cancel, after: :cancel_financial_transaction_payin do
       transitions :from => [:confirmed,:started], :to => :cancelled do
         guard do
           # if started, can still cancel within 24hours.
@@ -129,8 +110,8 @@ class Booking < ActiveRecord::Base
       end
 
       after do
-        LOG.info "refund transfer or refund_payin... (dummy only)", booking_id: self.id
-        #refund transfer or refund_payin
+        cancel_financial_transaction_payin
+        #refund_payin
         #Resque.enque( foobar_JOB_mangopay_payment_transfer____refund_payin? )
       end
     end
@@ -144,13 +125,12 @@ class Booking < ActiveRecord::Base
       end
     end
 
-    event :set_in_progress do
+    event :set_in_progress do #, after: :create_financial_transaction_preauth do
       transitions :from => :started, :to => :in_progress
 
       after do
         LOG.info "make transfer of funds... (dummy only)", booking_id: self.id
-        #self.create_financial_transaction_transfer
-
+        create_financial_transaction_transfer
         LOG.info "schedule auto-end at ends_at(#{self.ends_at})... (dummy only)", booking_id: self.id
         #Resque.enqueue_in( (self.ends_at), foobar_JOB_transition_to_end )
       end
@@ -169,9 +149,9 @@ class Booking < ActiveRecord::Base
     end
 
     # dont do anything. when manual intervention is required/exception handling:
-    # this is a tar-pit state.
+    # tar-pit state.
     event :admin_pause do
-      transitions :from => [:confirmed, :started, :in_progress, :ended], :to => :admin_paused
+      transitions :from => [:created,:confirmed, :started, :in_progress, :ended], :to => :admin_paused
     end
   end
 
@@ -201,51 +181,6 @@ class Booking < ActiveRecord::Base
   def should_be_archived?
     self.ended && ( ( self.ends_at + 7.days ) > DateTime.now )
   end
-
-
-
-
-  def create_financial_transaction_preauth
-    financial_transaction = {
-      transaction_type: 'preauth',
-      amount: self.sum_paid_by_renter,
-      fees:   0,
-    }
-    t = self.financial_transactions.create( financial_transaction )
-    t.process!
-  end
-
-  def create_financial_transaction_payin
-    financial_transaction = {
-      transaction_type: 'payin',
-      amount:   self.sum_paid_by_renter,
-      fees:     0,
-      #FIXME: values below seem to get overwritten in financial_transaction model
-      src_type: :src_preauth_vid,
-      src_vid:  self.financial_transactions.preauth.finished.take.financial_transaction_vid
-    }
-    t = self.financial_transactions.create( financial_transaction )
-    t.process!
-  end
-
-  def cancel_financial_transaction_preauth
-    self.financial_transactions.preauth.finished.take.process_cancel_preauth
-  end
-
-
-  def create_financial_transaction_transfer
-    # later we should make this a split payment!
-    financial_transaction = {
-      transaction_type: 'transfer',
-      amount: self.sum_paid_to_owner,
-      fees:   self.sum_plaform_fee_and_insurance
-    }
-    t = self.financial_transactions.create( financial_transaction )
-    t.process!
-  end
-
-
-
 
 
   # FIXME: temporarely in place just during a transition period.
@@ -352,6 +287,53 @@ class Booking < ActiveRecord::Base
   end
 
   private
+
+  def create_financial_transaction_preauth
+    financial_transaction = {
+      transaction_type: 'preauth',
+      amount: self.sum_paid_by_renter,
+      fees:   0,
+    }
+    t = self.financial_transactions.create( financial_transaction )
+    t.process!
+  end
+
+  def create_financial_transaction_payin
+    if self.financial_transactions.preauth.finished.present?
+      preauth_transaction_vid = self.financial_transactions.preauth.finished.take.transaction_vid
+      raise "No valid preauth_transaction_vid in place" if preauth_transaction_vid.blank?
+    else
+      raise "No valid preauth_transaction in place" if preauth_transaction_vid.blank?
+    end
+
+    financial_transaction = {
+      transaction_type: 'payin',
+      amount:   self.sum_paid_by_renter,
+      fees:     0,
+      src_type: :src_preauth_vid,
+      src_vid:  preauth_transaction_vid
+    }
+    t = self.financial_transactions.create( financial_transaction )
+    t.process!
+  end
+
+  def cancel_financial_transaction_preauth
+    self.financial_transactions.preauth.finished.take.process_cancel_preauth
+  end
+
+
+  def create_financial_transaction_transfer
+    # later we should make this a split payment!
+    # NOTE: 'amount' will be automatically be deducted for the 'fees'
+    financial_transaction = {
+      transaction_type: 'transfer',
+      amount: self.sum_paid_by_renter,
+      fees:   self.sum_plaform_fee_and_insurance
+    }
+    t = self.financial_transactions.create( financial_transaction )
+    t.process!
+  end
+
 
   def set_guid
     self.guid = loop do
