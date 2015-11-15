@@ -255,12 +255,10 @@ class Booking < ActiveRecord::Base
   end
 
   def calculate_amount
-    ####self.amount = self.duration_in_days * self.ad.price
     self.payout_amount = self.booking_calculator.payin_amount
   end
 
   def calculate_fee
-    ####self.platform_fee_amount = ( self.amount * Plendit::Application.config.x.platform.fee_in_percent ).to_i
     self.platform_fee_amount = self.booking_calculator.platform_fee
   end
 
@@ -269,12 +267,10 @@ class Booking < ActiveRecord::Base
   end
 
   def sum_paid_to_owner
-    ##self.amount
     self.payout_amount
   end
 
   def sum_paid_by_renter
-    ##( self.amount + self.platform_fee_amount + self.insurance_amount )
     self.payout_amount + self.platform_fee_amount + self.insurance_amount
   end
 
@@ -282,22 +278,8 @@ class Booking < ActiveRecord::Base
     ( self.platform_fee_amount + self.insurance_amount )
   end
 
-  # duration_in_days rounded up for fractions of a day.
-  #  Minimum duration of one day.
-  #def duration_in_days
-  #  d = ( (self.ends_at - self.starts_at) / 1.day.to_i  ).ceil
-  #  raise "You cant have a negative duration for a booking" if d < 0
-  #
-  #  d == 0 ? 1 : d
-  #end
 
 
-  def last_preauthorization_vid
-    # should be ordered by id first...
-    self.financial_transactions.preauth.last.financial_transaction_vid
-  end
-
-  ###
   ###
   def include?(date)
     ( date >= self.starts_at and date <= self.ends_at )
@@ -359,18 +341,6 @@ class Booking < ActiveRecord::Base
       1
     end
   end
-
-  # compare it with a date?
-  # TODO: consider merging with the comparable between bookings above.
-  #def <=>(date)
-  #  if self.ends_at.date < date
-  #    -1
-  #  elsif date >= self.starts_at.date and date <= self.ends_at.date
-  #    0
-  #  else
-  #    1
-  #  end
-  #end
 
 
   def to_param
