@@ -16,6 +16,7 @@ class AdsController < ApplicationController
     :stop,
     :suspend,
     :submit_for_review,
+    :unpublish_and_edit,
     :update,
     :destroy,
     :payout_estimates,
@@ -270,6 +271,14 @@ class AdsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @ad.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def unpublish_and_edit
+    if @ad.draft!
+      redirect_to edit_ad_path(@ad)
+    else
+      redirect_to @ad, alert: 'Ad was set to editing suspended.'
     end
   end
 

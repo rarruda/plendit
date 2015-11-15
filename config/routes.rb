@@ -133,6 +133,7 @@ Rails.application.routes.draw do
       post 'suspend'
       post 'resume'
       post 'submit_for_review'
+      post 'unpublish_and_edit'
     end
   end
 
