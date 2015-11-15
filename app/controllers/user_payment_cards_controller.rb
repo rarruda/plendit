@@ -15,13 +15,10 @@ class UserPaymentCardsController < ApplicationController
 
   # GET /me/cards/new
   def new
-    LOG.info 'Creating a new Card Pre-registration with MangoPay', {user_id: current_user.id}
-    @user_payment_card = @mangopay.card_pre_register
-
-    if @user_payment_card.present?
-      LOG.info "Pre-registration worked: #{@user_payment_card}"
-    else
-      LOG.error "ERROR Pre-registrating the card with mangopay. Not possible to render this page... => #{@user_payment_card}", {user_id: current_user.id}
+    begin
+      @user_payment_card = current_user.user_payment_cards.new().pre_register
+    rescue => e
+      LOG.error "ERROR Pre-registrating the card with mangopay. Not possible to render this page... #{e} => #{@user_payment_card}", { user_id: current_user.id }
       redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard pre-registration failed. Cannot register a new card. Please try again later.'
     end
   end

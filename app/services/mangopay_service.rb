@@ -7,37 +7,7 @@ class MangopayService
     @user = user
   end
 
-  # register a card:
-  # see flow at: https://docs.mangopay.com/api-references/card-registration/
-  def card_pre_register
-    # It wont work if you dont have a registered user with the mangopay platform.
-    raise 'payment_provider_vid is nil. Can not create a pre_registration for a card.' if @user.payment_provider_vid.nil?
 
-    begin
-      card_reg = MangoPay::CardRegistration.create(
-        'Tag'      => "user_id=#{@user.id}",
-        'UserId'   => @user.payment_provider_vid,
-        'Currency' => MANGOPAY_CURRENCY_CODE,
-        'CardType' => MANGOPAY_DEFAULT_CARD_TYPE
-      )
-
-      card_info = {
-        user_id:               @user.id,
-        card_vid:              card_reg['Id'],
-        access_key:            card_reg['AccessKey'],
-        preregistration_data:  card_reg['PreregistrationData'],
-        card_registration_url: card_reg['CardRegistrationURL'],
-        registration_status:   card_reg['Status']
-      }
-    rescue => e
-      LOG.error e, { user_id: @user.id }
-      return nil
-    end
-
-    LOG.info card_reg, { user_id: @user.id }
-    LOG.info card_info, { user_id: @user.id }
-    return card_info
-  end
 
   # create a new user_payment_card instance from RegistrationData
   def card_post_register( card_preauth_vid, registration_data)
