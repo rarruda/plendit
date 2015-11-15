@@ -44,14 +44,13 @@ class Booking < ActiveRecord::Base
   validate :validate_starts_at_before_ends_at
   validate :validate_starts_at
   validate :validate_ends_at
-  validates_uniqueness_of :guid
 
-  validates :ad_item_id, :presence => true
-  validates :from_user_id, :presence => true
-  validates :user_payment_card_id, :presence => true
-
-  validates :amount, numericality: { greater_than:  100_00, message: "must be at least 100 kr"}
-  validates :amount, numericality: { less_than: 150_000_00, message: "must be at less then 150.000 kr"}
+  validates :guid,                 uniqueness: true
+  validates :ad_item_id,           presence: true
+  validates :from_user_id,         presence: true
+  validates :user_payment_card_id, presence: true
+  validates :amount,               numericality: { greater_than:  100_00, message: "must be at least 100 kr"}
+  validates :amount,               numericality: { less_than: 150_000_00, message: "must be at less then 150.000 kr"}
   #validates :amount, numericality: { less_than:  25_000_00, message: "must be at less then  25.000 kr"}, if: "false" #KYC not provisioned
 
   validate :validate_user_payment_card_belongs_to_from_user
