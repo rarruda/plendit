@@ -33,19 +33,6 @@ class MangopayService
 
 
 
-
-  def card_fetch( card_vid )
-    begin
-      mp_card = MangoPay::Cards.fetch( card_vid )
-      card = mp_card_translate( mp_card )
-
-    rescue => e
-      LOG.error "error fetching card with mangopay. exception: #{e}", { user_id: @user.id, card_vid: card_vid, mangopay_result: card }
-      return nil
-    end
-    card
-  end
-
   def card_list( options = {refresh: false} )
     begin
       mp_cards = MangoPay::User.cards( @user.payment_provider_vid )
