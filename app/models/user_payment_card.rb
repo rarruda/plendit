@@ -40,7 +40,7 @@ class UserPaymentCard < ActiveRecord::Base
   # Disable an existing card. This is the equivalent of deleting it.
   # Note: It is an irreversible action.
   def disable
-    disabled_card = MangoPay::Card.update( 'Id': card_vid, 'Active': false )
+    disabled_card = MangoPay::Card.update( self.card_vid, { 'Active' => false } )
     # only "true"/true are true. everything else is false:
     self.active = ( ["true" , true].include? disabled_card['Active'] )
     self.save
