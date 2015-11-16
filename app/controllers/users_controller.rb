@@ -11,12 +11,11 @@ class UsersController < ApplicationController
     :finish_signup,
     :mark_all_notifications_noticed,
     :payment,
-    :rental_history
+    :rental_history,
     :resend_verification_sms,
     :show,
     :update,
     :update_bank_account,
-    :verify_sms,
     :verify_sms,
   ]
 
