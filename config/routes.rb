@@ -64,11 +64,11 @@ Rails.application.routes.draw do
     #  resources :favorite_ads
     #end
     member do
-      get  '/',                        to: 'users#index'
-      post 'ads/create'
-      get  'ads',                      to: 'ads#list'
-      get  'private_profile',          controller: 'users'
-      get  'payment'
+      get   '/',                       to: 'users#index'
+      post  'ads/create'
+      get   'ads',                     to: 'ads#list'
+      get   'private_profile',         controller: 'users'
+      get   'payment'
       match 'bank_account',            via: [:get, :post]
 
       match 'verify/drivers_license',  to: 'users#verify_drivers_license', via: [:get, :post]
