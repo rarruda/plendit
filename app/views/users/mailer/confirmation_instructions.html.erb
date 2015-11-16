@@ -3,7 +3,7 @@
         <div class="twelve columns">
             <h2>Velkommen <%= @email %>!</h2>
             <p>
-                Bekreft e-postadressen din med følgende lenke:
+                Bekreft e-postadressen din her:
 
                 <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %>
             </p>
