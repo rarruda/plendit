@@ -4,11 +4,20 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, :except => [:show, :finish_signup]
 
   before_action :set_user, only: [
-    :show, :edit, :update, :destroy, :confirmation,
-    :verify_sms, :verify_sms, :resend_verification_sms,
-    :mark_all_notifications_noticed, :payment,
-    :bank_account, :update_bank_account, :finish_signup,
+    :bank_account,
+    :confirmation,
+    :destroy,
+    :edit,
+    :finish_signup,
+    :mark_all_notifications_noticed,
+    :payment,
     :rental_history
+    :resend_verification_sms,
+    :show,
+    :update,
+    :update_bank_account,
+    :verify_sms,
+    :verify_sms,
   ]
 
   before_action :set_user_payment_account, only: [:payment, :bank_account, :update_bank_account]
