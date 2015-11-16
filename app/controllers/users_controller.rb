@@ -7,7 +7,8 @@ class UsersController < ApplicationController
     :show, :edit, :update, :destroy, :confirmation,
     :verify_sms, :verify_sms, :resend_verification_sms,
     :mark_all_notifications_noticed, :payment,
-    :bank_account, :update_bank_account, :finish_signup
+    :bank_account, :update_bank_account, :finish_signup,
+    :rental_history
   ]
 
   before_action :set_user_payment_account, only: [:payment, :bank_account, :update_bank_account]
@@ -270,6 +271,9 @@ class UsersController < ApplicationController
     @user_payment_cards = current_user.user_payment_cards.sort
   end
 
+  # GET /me/rental_history
+  def rental_history   
+  end
 
   # POST /mark_all_notifications_noticed
   def mark_all_notifications_noticed
