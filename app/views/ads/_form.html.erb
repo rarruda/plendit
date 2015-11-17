@@ -29,6 +29,21 @@
             <small>Visste du: Du kan bruke #hashtags i annonsen din. Det gjør det enklere å finne den i søket.</small>
         </div>
 
+        <% if @ad.category == 'motor' %>
+            <div class="u-push-down-only">
+                <%= f.label :registration_group, 'Gruppe:' %>
+                <%= f.select( :registration_group ) do %>
+                    <% Ad.registration_groups.reject{ |v| v == 'not_motor' }.each do |r| %>
+                        <%= content_tag(:option, t(r.first), value: r.first) %>
+                    <% end %>
+                <% end %>
+            </div>
+            <div class="u-push-down">
+                <label>Registreringsnummer:</label>
+                <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
+            </div>
+        <% end %>
+
         <div class="u-push-down-only">
             <label>Henteadresse:</label>
 
@@ -113,13 +128,6 @@
         <div class="u-push-down">
             <%= render partial: 'price_editor', locals: {f: f} %>
         </div>
-
-        <% if @ad.category == 'motor' %>
-            <div class="u-push-down">
-                <label>Registreringsnummer:</label>
-                <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
-            </div>
-        <% end %>
 
     <%- end -%>
 

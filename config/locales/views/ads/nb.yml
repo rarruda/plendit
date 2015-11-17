@@ -1,0 +1,6 @@
+nb:
+  # From Ad.registration_groups
+  car: 'Bil'
+  caravan: 'Campingvogn eller Tilhenger'
+  scooter: 'Moped, ATV eller Snøscooter'
+  tractor: 'Traktor, Gressklipper eller Snøfreser'
