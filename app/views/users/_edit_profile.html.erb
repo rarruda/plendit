@@ -2,7 +2,7 @@
 
     <%- if @user.errors.any? -%>
         <div>
-            <%= pluralize(@user.errors.count, "error") %> Følgende feil forhindret deg i å oppdatere prodilen din:
+            <%= pluralize(@user.errors.count, "error") %> Følgende feil forhindret deg i å oppdatere profilen din:
             <ul>
                 <% @user.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
