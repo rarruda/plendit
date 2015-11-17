@@ -31,7 +31,11 @@ class Ad < ActiveRecord::Base
 
   validates :registration_number, length: { in: 0..255 },
     :unless => :new_record?,
-    :if => "self.category == 'motor'"
+    :if     => :motor?
+
+  validates :registration_group, presence: true,
+    :unless => :new_record?,
+    :if     => :motor?
 
   # todo: how to validate location present before publish?
   #validates :location, presence: true
