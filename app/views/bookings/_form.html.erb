@@ -60,23 +60,23 @@
             <div class="seven columns">
 
     <% if current_user.user_payment_cards.length > 1 %>
-        TRANSLATEME: Velg en kreditt kort til å betale med:
+        Velg det kredittkortet du ønsker å betale med:
         <%# would have been nice to call the field below for user_payment_card_guid %>
         <%# FIXME: auto-select favorite card %>
         <%= collection_select( :booking, :user_payment_card_id, @booking.from_user.user_payment_cards.decorate, :guid, :pretty_view ) %>
     <% elsif current_user.user_payment_cards.length == 1 %>
-        TRANSLATEME: Reservasjon for utleie skal komme på denne kreditt kort:
+    Reservasjonen skal belastes på følgende kredittkort:
         <%= f.label 'booking[user_payment_card_id]', @booking.from_user.user_payment_cards.decorate.first.pretty_view %>
         <%= f.hidden_field 'booking[user_payment_card_id]', value: @booking.from_user.user_payment_cards.decorate.first.guid %>
     <% else %>
-        TRANSLATEME: ERROR: You need to have a card registered in your profile, before you can make a reservation. Please register a credit card.
+
+Noe gikk galt: Du må registrere kredittkortet ditt før du kan sende en forespørsel.
     <% end %>
 
     <% if current_user.user_payment_cards.length >= 1 %>
       <p>
         <small>
-        FIXME: TRANSLATEME: (fiks språk) Din førspørsel blir sendt etter reservering av total beløp skjer.
-        Du blir belastet kun om din førspørsel blir godkjent av utleieren. Du kan gratis avbestille, og da penger er refundert til din kreditt kort.
+        Om du har dekning på kredittkortet ditt, sendes forespørselen til utleieren. Du blir kunn belastet om din forespørsel blir godkjent av utleier. Dersom ikke, blir pengene tilbakeført til din konto.
         </small>
       </p>
     <% end %>
@@ -89,7 +89,8 @@
             <% unless current_user.user_payment_cards.length == 0 %>
                 <%= f.submit class: "button button-primary" %>
             <% else %>
-                TRANSLATEME: ERROR: You need to have a card registered in your profile, before you can make a reservation. Please register a credit card <%= link_to 'HERE', new_user_payment_card_path %>.
+            Du må ha registrert ditt kredittkort før du kan gjennomføre en booking. Du kan registrere ditt kredittkort 
+                <%= link_to 'her', new_user_payment_card_path %>.
             <% end %>
         </div>
 
