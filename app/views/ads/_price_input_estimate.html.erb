@@ -5,10 +5,8 @@
     <div class="price-estimate">
 
         <div class="price-estimate__left">
-            <% if @ad.insurance_required %>
-                <label>Forsikringssum:</label>
-                <span><%= format_monetary_full( calc.max_insurance_coverage(rule) ) %></span>
-            <% end %>
+            <label>Forsikringssum:</label>
+            <span><%= format_monetary_full( calc.max_insurance_coverage(rule) ) %></span>
         </div>
 
         <div class="price-estimate__right">

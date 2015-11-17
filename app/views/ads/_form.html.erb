@@ -112,18 +112,10 @@
 
         <label class="u-push-down-only">Forsikring:</label>
 
-        <% if @ad.is_insurance_required? %>
-            <p>
-                Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %>
-                for gjenstander av denne typen.
-            </p>
-        <% else %>
-            <span>
-                <%= f.check_box :insurance_required, data: {insurance: ''} %>
-                Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %>
-                for gjenstanden.
-            </span>
-        <% end %>
+        <p>
+            Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %>
+            for gjenstander av denne typen.
+        </p>
 
         <div class="u-push-down">
             <%= render partial: 'price_editor', locals: {f: f} %>

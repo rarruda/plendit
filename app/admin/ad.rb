@@ -2,7 +2,7 @@ ActiveAdmin.register Ad do
 
   menu :priority => 4
 
-  permit_params :user_id, :title, :body, :price, :location_id,:tags,  :status, :category, :insurance_required
+  permit_params :user_id, :title, :body, :price, :location_id,:tags,  :status, :category
 
 
   filter :status, as: :select, collection: ->{ Ad.statuses.keys }
@@ -36,7 +36,6 @@ ActiveAdmin.register Ad do
       f.input :tags
       f.input :status,   as: :select, collection: Ad.statuses.keys
       f.input :category, as: :select, collection: Ad.categories.keys
-      f.input :insurance_required
     end
 
     f.actions

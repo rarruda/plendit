@@ -65,7 +65,6 @@ class Ad < ActiveRecord::Base
       indexes :price,         type: :integer
       indexes :tags,          type: :string, analyzer: 'keyword'
       indexes :category,      type: :string
-      indexes :insurance_required, type: :integer
       indexes :ad_images do
         indexes :id,          type: :integer
         indexes :description, type: :string, analyzer: 'norwegian'
@@ -157,30 +156,6 @@ class Ad < ActiveRecord::Base
 
   def related_ads_from_user
     self.user.ads.reject { |ad| ad.id == self.id }
-  end
-
-  # encapsulate ensure_require so we are ensure insurance on
-  #   categories that insurance is mandatory.
-  def insurance_required= arg
-    if self.category == 'bap'
-      super
-    else
-      super '1'
-    end
-  end
-
-  def insurance_required
-    if self.category == 'bap'
-      super
-    else
-      '1'
-    end
-  end
-
-  def is_insurance_required?
-    # todo1: how is this compared to the one above?
-    # todo2: Do we need to think of a case where config is not up to date?
-    Plendit::Application.config.x.insurance.is_required[self.category.to_sym]
   end
 
   def is_favorite_of( user )

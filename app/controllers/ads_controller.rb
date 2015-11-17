@@ -218,8 +218,7 @@ class AdsController < ApplicationController
 
     @ad = Ad.new(user_id: current_user.id,
       category: params[:category],
-      location: current_user.favorite_location,
-      insurance_required: true
+      location: current_user.favorite_location
     )
     @ad.payin_rules.push PayinRule.default_rule
 
@@ -285,7 +284,6 @@ class AdsController < ApplicationController
   def payout_estimates
     @ad = @ad.dup
     @ad.readonly!
-    @ad.insurance_required = params[:insurance] == 'true' if params.has_key? :insurance
     prices = (params[:price] || []).map(&:to_f).reject(&:zero?).map {|e| (e * 100).to_i }
     rules = prices.map { |e| PayinRule.single_amount_rule e, @ad }
     estimates = rules.map do |rule|
@@ -321,7 +319,7 @@ class AdsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ad_params
-      params.require(:ad).permit( :title, :body, :price_in_h, :tag_list, :insurance_required,
+      params.require(:ad).permit( :title, :body, :price_in_h, :tag_list,
         :registration_number, :registration_group, :location_id,
         :location_attributes => [:address_line, :post_code],
         :payin_rules_attributes => [:payin_amount_in_h, :unit, :effective_from, :id, :_destroy],

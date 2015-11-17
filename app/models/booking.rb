@@ -68,8 +68,7 @@ class Booking < ActiveRecord::Base
   before_validation :calculate_insurance,
     if: :starts_at_changed?,
     if: :ends_at_changed?,
-    if: :payout_amount_changed?,
-    if: :insured_changed?
+    if: :payout_amount_changed?
 
 
 

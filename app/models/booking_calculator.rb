@@ -15,8 +15,7 @@ class BookingCalculator
   end
 
   def insurance_fee payin_rule = nil
-    return ( self.payin_amount(payin_rule) * Plendit::Application.config.x.insurance.price_in_percent[self.ad.category.to_sym] ).round if self.ad.insurance_required
-    0_00
+    ( self.payin_amount(payin_rule) * Plendit::Application.config.x.insurance.price_in_percent[self.ad.category.to_sym] ).round
   end
 
   def total_fee payin_rule = nil
