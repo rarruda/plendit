@@ -43,25 +43,36 @@ Plendit::Application.config.x.platform.fee_in_percent        = 0.10
 Plendit::Application.config.x.insurance.price_in_percent     = {
   bap:        0.08,
   motor:      0.09,
-  realestate: 0.09
+  realestate: 0.09,
+  boat:       0.09,
  }
 
 Plendit::Application.config.x.insurance.reservation_value   = {
   bap:         0,
-  motor:       1_000_00,
-  realestate:  0
+  motor:       1_500_00,
+  realestate:  0,
+  boat:        0,
  }
 
 Plendit::Application.config.x.insurance.deductible_value = {
   bap:         1_500_00,
   motor:      12_000_00,
-  realestate: 12_000_00
+  realestate:  6_000_00,
+  boat:       18_000_00,
+ }
+
+Plendit::Application.config.x.insurance.motor_deductible_value = {
+  car:     12_000_00,
+  caravan: 12_000_00,
+  scooter:  6_000_00,
+  tractor: 12_000_00,
  }
 
 Plendit::Application.config.x.insurance.max_coverage_factor = {
   bap:        25,
   motor:      25,
-  realestate: 25
+  realestate: 25,
+  boat:       25,
  }
 
 # should be a hash: bap: 1_500, motor: 1_000_000, realestate: 500_000
@@ -82,6 +93,11 @@ Plendit::Application.config.x.ads.categories = [
     title:    'Eiendom',
     category: 'realestate',
     image:    'category_realestate.png'
+  },
+  {
+    title:    'Båt',
+    category: 'boat',
+    image:    'category_boat.png'
   }
 ]
 
