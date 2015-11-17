@@ -5,6 +5,14 @@
 TestJob:
   cron: "*/5 * * * *"
 
+DeleteOldEmptyAdsJob:
+  cron: "*/15 * * * *"
+  description: "This job deletes all ads which are empty (and older then 6 hours)"
+
+# Needed jobs:
+# recalculate_users_response_time
+# recalculate_users_rating
+
 #queue_documents_for_indexing:
 #  cron: "0 0 * * *"
 #  # you can use rufus-scheduler "every" syntax in place of cron if you prefer

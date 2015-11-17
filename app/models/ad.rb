@@ -13,7 +13,7 @@ class Ad < ActiveRecord::Base
   has_many :ad_items, autosave: true, dependent: :destroy #will leave dangling links in old bookings/favorites.
   has_many :ad_images, autosave: true, dependent: :destroy
   has_many :bookings, through: :ad_items
-  has_many :payin_rules
+  has_many :payin_rules, autosave: true, dependent: :destroy
   belongs_to :location
 
 
@@ -45,6 +45,7 @@ class Ad < ActiveRecord::Base
   scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
   scope :waiting_review, -> { where( status: Ad.statuses[:waiting_review] ) }
   scope :published,      -> { where( status: Ad.statuses[:published] ) }
+  scope :never_edited,   -> { where( "status = 0 AND title IS NULL AND body IS NULL AND location_id IS NULL AND created_at = updated_at" ) }
 
   # If there were any changes, except in status, set status to draft:
   # BUG: works as long as you change any field. does not work when ad_images alone changes:
