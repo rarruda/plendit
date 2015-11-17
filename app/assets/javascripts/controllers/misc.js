@@ -459,10 +459,6 @@ window.controllers.addressSelectionDimmer = function(ele) {
     }
 };
 
-window.controllers.autoFocus = function(ele) {
-    ele.focus();
-};
-
 window.controllers.responsiveSearchResult = {
     dependencies: ["$element", "eventbus"],
     callable: function(ele, eventBus) {
