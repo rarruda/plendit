@@ -1,17 +1,18 @@
 @import 'constants.scss';
 
 .personal-bar {
-    background-color: black;
+    background-color: white;
     padding-top: $standard-spacing;
     padding-bottom: $standard-spacing;
+    box-shadow: $subtle-shadow;
+    border-bottom: 1px solid $color-gray-background;
 
     &__link {
         text-decoration: none;
-        color: white;
         margin-right: $standard-spacing;
 
         &--active {
-            border-bottom: 4px solid white;
+            border-bottom: 2px solid $color-plendit-blue;
         }
     }
 }
