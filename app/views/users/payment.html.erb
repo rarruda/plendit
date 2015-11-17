@@ -23,14 +23,13 @@
     <div class="row">
         <div class="eight columns">
           <%= render layout: "gray_box", locals: {title: "Betaling", id: "payment"} do %>
-            <!-- FIXME: need better text/layout -->
-            <!-- this makes Renato sad. -->
-            TRANSLATE_ME: You must have a verified email and phone number before you can make / receive payments.
+            <!-- You happy now Renato?. -->
+            Du må verifisere din e-postadresse og ditt telefonnummer før du kan sende og motta penger. 
 
             <p>
-                <small>Når profilen din er komplett (inkl. addresse), og vi har bekreftet epost og mobiltelefon, kan du legge inn kontonummer / kreditt kort / få betalt.</small>
+                <small>Når profilen din er komplett (inkl. addresse), og vi har bekreftet epost og mobiltelefon, kan du legge inn kontonummer, kredittkort og få betalt.</small>
             </p>
-            Før du kan registrere kontonummer, vi trenger:
+            Før du kan registrere ditt kontonummer, trenger vi følgende:
             <ul>
               <% unless current_user.email_verified? %> <li><%= link_to 'bekreftet epost', edit_users_path( anchor: 'personal-info' ) %> </li> <% end %>
               <% unless current_user.phone_verified? %> <li><%= link_to 'bekreftet mobiltelefon', edit_users_path( anchor: 'personal-info' ) %></li> <% end %>

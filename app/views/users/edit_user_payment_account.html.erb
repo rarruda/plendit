@@ -6,7 +6,7 @@
 
   <%- if @user_payment_account.errors.any? -%>
     <div>
-        TRANSLATE_ME: <%= pluralize(@user_payment_account.errors.count, "error") %> prohibited your bank account number from being updated:
+        Følgende feil forhindret deg i å oppdatere kontonummeret ditt: <%= pluralize(@user_payment_account.errors.count, "error") %>
         <ul>
             <% @user_payment_account.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
@@ -22,7 +22,7 @@
           <%= f.label :bank_account_number, "Kontonummer" %>
           <%= f.text_field :bank_account_number, { maxlength: 13, class: 'u-full-width' }  %>
           <p>
-              <small>Vi trenger kontonummer for å utbetale penger til deg som utleier</small>
+              <small>Vi trenger ditt kontonummer for å utbetale penger til deg som utleier</small>
           </p>
         </div>
     </div>

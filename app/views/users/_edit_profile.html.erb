@@ -2,7 +2,7 @@
 
     <%- if @user.errors.any? -%>
         <div>
-            TRANSLATE_ME: <%= pluralize(@user.errors.count, "error") %> prohibited your profile from being updated:
+            <%= pluralize(@user.errors.count, "error") %> Følgende feil forhindret deg i å oppdatere prodilen din:
             <ul>
                 <% @user.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
@@ -57,8 +57,7 @@
         <div class="row">
             <div class="twelve columns">
                 <% if @user.pending_reconfirmation? %>
-                    <div>Currently waiting confirmation for: <%= @user.unconfirmed_email %>. Check your email for instructions on how to confirm it.
-                        To have the email resent, please go <%= link_to "here", new_user_confirmation_path %>. Your previous email will be kept on file until you have verified the new one.
+                    <div>Venter at du skal bekrefte: <%= @user.unconfirmed_email %>. Du skal ha mottatt en e-post med bekreftelseslenke. Om du ikke har mottatt denne e-posten, klikk <%= link_to "here", new_user_confirmation_path %>. Vi beholder din forrige e-postadresse til du har bekreftet din nye.
                     </div>
                     <%# FIXME(RA): make the link a post to the user's current email.
             link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>

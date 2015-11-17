@@ -7,9 +7,9 @@
             <%# should be a red button! should have a warning to not be used lightly, as it will trigger admin intervention? %>
             <%= button_to "Avslå forespørsel", decline_booking_path(booking), class: "button" %>
         <% elsif booking.in_progress? %>
-            TRANSLATEME: booking is in_progress.
+            Denne bookingen er aktiv.
         <% elsif booking.ended? || booking.archived? %>
-            TRANSLATEME: booking is over.
+            Denne bookingen er over og stengt for endringer. 
         <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
         <% else %>
             TRANSLATEME: Unknown booking state
@@ -22,7 +22,7 @@
             <%# should be a red button! should have a warning to not be used lightly, as it will trigger admin intervention? %>
             <%= button_to "Avbryt forespørsel", cancel_booking_path(booking), class: "button" %>
         <% elsif booking.in_progress? %>
-            TRANSLATEME: booking is in_progress.
+            Denne bookingen er aktiv.
         <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
         <% else %>
             TRANSLATEME: Unknown booking state
