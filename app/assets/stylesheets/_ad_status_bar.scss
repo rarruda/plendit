@@ -6,14 +6,12 @@
     text-align: center;
     box-shadow: $subtle-shadow;
     position: relative;
-    z-index: 1;
     
     &__summary::-webkit-details-marker {
         display: none;
     }
 
     &__link {
-        xxcolor: white;
         text-decoration: underline;
     }
 
@@ -24,22 +22,17 @@
     }
 
     &--published {
-        xxbackground-color: $color-state-green;
     }
 
     &--draft {
-        xxbackground-color: $color-state-yellow;
     }
 
     &--waiting_review {
-        xxbackground-color: $color-state-yellow;
     }
 
     &--paused {
-        xxbackground-color: $color-state-red;
     }
 
     &--stopped {
-        xxbackground-color: $color-state-red;
     }
 }
