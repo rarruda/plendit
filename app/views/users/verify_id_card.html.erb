@@ -7,7 +7,7 @@
 
             <% if current_user.id_card_status == :missing %>
                 <p>
-                    For å kunne overføre summer over 2500 euro må vi
+                    For å kunne overføre summer over 20 000 kroner, må vi
                     ha et gyldig identitetsbevis fra deg.
                 </p>
 
@@ -30,7 +30,7 @@
                 <p>
                     <%= plendbot_avatar :huge, class: 'u-pull-left' %>
                     Identitetsbeviset ditt er lastet opp og sendt til kontroll.
-                    Du får en melding når det er godkjent.
+                    Du får en melding fra oss når det er godkjent.
                 </p>
                 <p>
                     <%= link_to 'Tilbake til min profil', users_path %>
