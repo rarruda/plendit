@@ -7,7 +7,7 @@
 
             <% if current_user.drivers_license_status == :missing || current_user.drivers_license_status == :rejected %>
                 <p>
-                    For at du skal kunne leie en bil trenger vi at du laster
+                    For at du skal kunne leie en bil, trenger vi at du laster
                     opp bilder av forsiden og baksiden av førerkortet ditt.
                 </p>
 
@@ -18,7 +18,7 @@
                     </p>
                 <% end %>
 
-                <p>Last opp bilder av førerkort her:</p>
+                <p>Last opp bilder av førerkortet ditt her:</p>
 
                 <%= form_for '', html: { multipart: true } do |f| %>
                     Forside: <%= f.file_field 'front' %>
@@ -31,7 +31,7 @@
                 <p>
                     <%= plendbot_avatar :huge, class: 'u-pull-left' %>
                     Førerkortet ditt er lastet opp og sendt til kontroll.
-                    Du får en melding når det er godkjent.
+                    Du får en melding fra oss når det er godkjent.
                 </p>
                 <p>
                     <%= link_to 'Tilbake til min profil', users_path %>

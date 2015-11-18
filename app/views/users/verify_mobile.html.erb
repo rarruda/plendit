@@ -19,12 +19,12 @@
             <% elsif current_user.phone_pending_confirmation? %>
 
                 <p>
-                    Vi har sendt deg en sikkerhetskode til telefonnummer
+                    Vi har sendt deg en sikkerhetskode på telefonnummer
                     <strong><%= current_user.unconfirmed_phone_number %>.</strong>
                     Skriv inn koden for å bekrefte mobilnummeret.
                 </p>
                 <div>
-                    Hvis du ikke har fått en SMS kan du bestille en ny:
+                    Hvis du ikke har fått en SMS, kan du bestille en ny:
                     <%= button_to 'Send ny kode', verify_mobile_users_path, form_class: 'u-inline', class: 'button', params: {perform: 'request_token'} %>
                 </div>
 

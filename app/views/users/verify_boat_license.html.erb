@@ -7,8 +7,7 @@
 
             <% if current_user.boat_license_status == :missing %>
                 <p>
-                    For å kunne leie båt må vi
-                    ha et gyldig båtførerbevis fra deg.
+                    For at du skal kunne leie en båt, må du laste opp et bilde av båtførerbeviset ditt.
                 </p>
 
                 <%= render partial: 'privacy_box' %>
@@ -23,8 +22,8 @@
             <% elsif current_user.boat_license_status == :pending %>
                 <p>
                     <%= plendbot_avatar :huge, class: 'u-pull-left' %>
-                    Båtførerbevis ditt er lastet opp og sendt til kontroll.
-                    Du får en melding når det er godkjent.
+                    Båtførerbeviset ditt er lastet opp og sendt til kontroll.
+                    Du får en melding fra oss når det er godkjent.
                 </p>
                 <p>
                     <%= link_to 'Tilbake til min profil', users_path %>
