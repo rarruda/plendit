@@ -2,13 +2,13 @@
     <div class="row">
         <div class="twelve columns">
 
-            <h2>Bli en plendit-bruker</h2>
+            <h2>Bli Plendit-bruker</h2>
             <p>
                 Hvis du allerede har en konto på <strong>Facebook</strong>, hos
-                <strong>Google</strong> eller på <strong>SPiD</strong> kan du
-                <%= link_to "logge inn", new_user_session_path %> med den uten å opprette en egen
-                konto først. Det betyr også at hvis du har en bruker på <strong>VG</strong>,
-                <strong>Aftenposten</strong> eller <strong>FINN</strong> allerede, så kan du logge rett inn.
+                <strong>Google</strong> eller på <strong>SPiD</strong>, kan du
+                <%= link_to "logge inn", new_user_session_path %> med den uten å opprette en ny Plendit-konto
+                først.
+                Har du en konto på <strong>VG</strong>, <strong>Aftenposten</strong> eller <strong>FINN.no</strong>, kan du velge å logge rett inn med SPiD.
             </p>
 
             <%= render partial: "users/provider_signups" %>
@@ -16,7 +16,7 @@
             <hr>
 
             <p>
-                Hvis du foretrekker det kan du opprette en egen Plendit-konto under:
+                Om du heller foretrekker å lage en ny Plendit-konto, kan du gjøre det med skjemaet under. 
             </p>
 
             <div>
@@ -80,7 +80,7 @@
 
             <hr>
 
-            <h2>Bli bedriftskunde?</h2>
+            <h2>Ønsker du å bli medlem som bedrift?</h2>
 
             <p>
                 Meld deg inn med <%= link_to 'dette skjemaet.', Plendit::Application.config.x.signup.bedriftskunde_signup_link %>
