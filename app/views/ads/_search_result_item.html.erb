@@ -1,12 +1,7 @@
-<% cache ['html_ad_item', ad.id || ad._id], expires_in: 10.minutes do %>
-    <%
-       # fixme: this is a bit eew. We need to figure out better how to work with ES results
-       es_ad = ad
-       ad = AdDecorator.new(ad)
-    %>
+<% cache ['html_ad_item', ad.id], expires_in: 10.minutes do %>
     <div class="search-result-item" data-adid="<%= ad.id %>">
         <div class="search-result-item__padder">
-            <%= render partial: "shared/search_result_link", locals: {ad: ad, es_ad: es_ad} %>
+            <%= render partial: "shared/search_result_link", locals: { ad: ad } %>
         </div>
     </div>
 <% end %>
