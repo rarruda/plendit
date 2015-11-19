@@ -128,14 +128,8 @@
 
 .if-branding-section {
     &__centerer {
-        max-width: 660px;
+        max-width: 530px;
         margin: 0 auto;
-        text-align: left;
-    }
-
-    &__logo {
-        padding-top: 24px;
-        padding-right: $standard-spacing;
-        box-sizing: content-box;
+        text-align: center;
     }
 }
