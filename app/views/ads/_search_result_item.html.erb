@@ -17,9 +17,9 @@
         </div>
             <div class="search-result-item__profile">
                 <div>
-                    <%= avatar_image User.find(es_ad.user.id), :medium %>
+                    <%= avatar_image User.find(es_ad.user.id), :small %>
                     <br>
-                    <%= render('shared/stars.html', rating: User.find(es_ad.user.id).calculate_average_rating, small: true ) %>
+                    <%= render('shared/stars.html', rating: User.find(es_ad.user.id).calculate_average_rating, size: :tiny ) %>
                 </div>
             </div>
             <div class="search-result-item__price-floater"><%= ad.pretty_price %><br>per&nbsp;dag</div>
