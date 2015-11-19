@@ -5,6 +5,10 @@ module AvatarHelper
   end
 
   def avatar_image(user, size, options = {})
+    avatar_image_from_url user.safe_avatar_url, size, options
+  end
+
+  def avatar_image_from_url(url, size, options = {})
     sizes = {
       huge:   '120x120',
       large:  '80x80',
@@ -14,7 +18,7 @@ module AvatarHelper
     }
 
     css_class = "avatar avatar--#{size} #{options[:class]}"
-    image_tag user.safe_avatar_url, alt: '', class: css_class, size: sizes[size]
+    image_tag url, alt: '', class: css_class, size: sizes[size]
   end
-
 end
+

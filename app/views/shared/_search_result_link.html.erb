@@ -8,7 +8,7 @@
 
     <div class="search-result-link__profile">
         <div>
-            <%= avatar_image User.find(ad.user.id), :small %>
+            <%= avatar_image_from_url ad.user.avatar_url, :small %>
             <br>
             <%= render('shared/stars.html', rating: ad.user.rating, size: :tiny ) %>
         </div>
