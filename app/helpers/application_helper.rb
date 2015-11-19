@@ -8,6 +8,11 @@ module ApplicationHelper
     number_to_currency f, locale: :nb
   end
 
+  def format_monetary_full_pretty val
+    f = integer_to_decimal val
+    number_to_currency_pretty f
+  end
+
   def number_to_currency_pretty( num = nil, options = {unit: ''} )
     return '' if num.nil?
     number_to_currency( num, options ).gsub(/\,00 $/, ",- ")
