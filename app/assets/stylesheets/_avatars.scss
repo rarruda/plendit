@@ -16,6 +16,7 @@ $avatar-tiny-size: 33px;
 
 .avatar--huge {
     @extend .avatar;
+    border: 0;
     width: $avatar-huge-size;
     height: $avatar-huge-size;
 }
