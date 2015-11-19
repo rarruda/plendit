@@ -3,6 +3,10 @@ class MiscController < ApplicationController
 
   def frontpage
     @hide_search_field = true
+    @ads = Ad.published
+             .order(:updated_at)
+             .limit(6)
+             .map { |ad| RecursiveOpenStruct.new(ad.as_indexed_json) }
     @hero_video = Rails.configuration.x.frontpage.hero_videos.sample
   end
 

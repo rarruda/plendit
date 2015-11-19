@@ -38,7 +38,7 @@
     </details>
 </div>
 
-<div class="container u-push-down-only">
+<div class="container u-push-down">
     <div class="if-branding-section">
         <div class="if-branding-section__centerer">
             <%= image_tag 'logos/if_150x148.png', size: '60x59', alt: '' %>
@@ -54,6 +54,18 @@
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div class="latest-ads">
+        <h2>Siste annonser</h2>
+        <% @ads.each do |ad| %>
+            <div class="latest-ads__holder">
+                <%= render partial: "shared/search_result_link", locals: { ad: ad } %>
+            </div>
+        <% end %>
+    </div>
+</div>
+
 <% cache 'front_popular_box' do %>
-    <%= render partial: 'front_popular_box' %>
+    <%#= render partial: 'front_popular_box' %>
 <% end %>

@@ -133,3 +133,21 @@
         text-align: center;
     }
 }
+
+.latest-ads {
+    text-align: center;
+
+    &__holder {
+        padding: 4px;
+        width: 30%;
+        display: inline-block;
+
+        @media (max-width: $desktop) {
+            width: 46%;
+        }
+
+        @media (max-width: 670px) {
+            width: 100%;
+        }
+    }
+}

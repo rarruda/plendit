@@ -107,6 +107,8 @@ gem 'rschema'
 
 gem 'nested_form_fields'
 
+gem 'recursive-open-struct'
+
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano',           require: false
