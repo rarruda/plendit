@@ -1,0 +1,17 @@
+<%= link_to ad_path( ad.id ), class: 'search-result-link' do %>
+    <div class="search-result-link__image-holder">
+        <%= image_tag ad.main_image_url, alt: '', class: 'search-result-link__image' %>
+    </div>
+    <div class="search-result-link__text-container">
+        <h3 class="search-result-link__title"><%= ad.title %></h3>
+    </div>
+
+    <div class="search-result-link__profile">
+        <div>
+            <%= avatar_image User.find(ad.user.id), :small %>
+            <br>
+            <%= render('shared/stars.html', rating: ad.user.rating, size: :tiny ) %>
+        </div>
+    </div>
+    <div class="search-result-link__price-floater"><%= format_monetary_full_pretty(ad.price) %><br>per&nbsp;dag</div>
+<% end %>
