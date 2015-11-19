@@ -75,13 +75,6 @@ Plendit::Application.config.x.insurance.max_coverage_factor = {
   boat:       25,
  }
 
-Plendit::Application.config.x.insurance.max_coverage_factor = {
-  bap:        25,
-  motor:      25,
-  realestate: 25,
-  boat:       25,
- }
-
 # array of arrays [min_value, max_discount_in_pct], whatever is highest.
 Plendit::Application.config.x.insurance.max_discount_after_duration = [
   [   99_00, 0.6 ],
