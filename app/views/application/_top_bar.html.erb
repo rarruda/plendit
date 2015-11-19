@@ -36,10 +36,6 @@
                 <% end %>
             </a>
 
-            <span class="top-bar__top-section">
-                <%= link_to "Logg ut", destroy_user_session_path, method: :delete, :class => "top-bar__navbar-link" %>
-            </span>
-
         <% else %>
             <%= link_to t(:sign_up), new_user_registration_path, :class => "top-bar__navbar-link"  %> |
             <%= link_to t(:log_in), new_user_session_path, :class => "top-bar__navbar-link"  %>
