@@ -23,7 +23,7 @@
                     <% else %>
                         <li class="about-footer__list-item">Kommer snart!</li>
                     <% end %>
-                    <% if !current_user.nil? && current_user.is_site_admin? %>
+                    <% if user_signed_in? && current_user.is_site_admin? %>
                         <li class="about-footer__list-item"><%= link_to 'Backstage!', backstage_path %></li>
                     <% end %>
                 </ul>
