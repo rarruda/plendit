@@ -180,7 +180,7 @@ class UserPaymentCard < ActiveRecord::Base
 
   def user_is_provisioned
     unless self.user.mangopay_provisioned?
-      errors[:base] << "You are not yet provisioned with mangopay"
+      errors[:base] << "You are not yet provisioned with mangopay"
     end
   end
 
