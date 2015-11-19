@@ -1,4 +1,4 @@
-<% cache ['html_ad_item', ad._id], expires_in: 10.minutes do %>
+<% cache ['html_ad_item', ad.id || ad._id], expires_in: 10.minutes do %>
     <%
        # fixme: this is a bit eew. We need to figure out better how to work with ES results
        es_ad = ad
@@ -6,22 +6,7 @@
     %>
     <div class="search-result-item" data-adid="<%= ad.id %>">
         <div class="search-result-item__padder">
-            <%= link_to ad_path( ad ), class: 'search-result-item__link' do %>
-                <div class="search-result-item__image-holder">
-                    <%= image_tag Ad.find(ad.id).safe_image_url(:searchresult), alt: '', class: 'search-result-item__image' %>
-                </div>
-                <div class="search-result-item__text-container">
-                    <h3 class="search-result-item__title"><%= ad.display_title %></h3>
-                </div>
-            <% end %>
+            <%= render partial: "shared/search_result_link", locals: {ad: ad, es_ad: es_ad} %>
         </div>
-            <div class="search-result-item__profile">
-                <div>
-                    <%= avatar_image User.find(es_ad.user.id), :small %>
-                    <br>
-                    <%= render('shared/stars.html', rating: User.find(es_ad.user.id).calculate_average_rating, size: :tiny ) %>
-                </div>
-            </div>
-            <div class="search-result-item__price-floater"><%= ad.pretty_price %><br>per&nbsp;dag</div>
     </div>
 <% end %>

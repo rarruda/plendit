@@ -14,24 +14,25 @@
         float: left;
         border: none;
     }
+}
+
+.search-result-link {
+    background-color: white;
+    text-decoration: none;
+    color: black;
+    display: inline-block;
+    width: 100%;
+    box-shadow: $subtle-shadow;
+    position: relative;
 
     &__title {
         font-size: 120%;
-        padding: 12px;
+        padding: 12px 0 12px 12px;
         margin: 0;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        width: 70%;
-    }
-
-    &__link {
-        background-color: white;
-        text-decoration: none;
-        color: black;
-        display: inline-block;
-        width: 100%;
-        box-shadow: $subtle-shadow;
+        width: 74%;
     }
 
     &__image-holder {
@@ -47,8 +48,8 @@
     &__price-floater {
         position: absolute;
         text-align: center;
-        top: 12px;
-        right: 18px;
+        top: 6px;
+        right: 0;
         min-width: 100px;
         height: 46px;
         box-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
@@ -64,9 +65,10 @@
     &__profile {
         position: absolute;
         width: 100px;
-        bottom: 30px;
-        right: 12px;
+        bottom: 2px;
+        right: -10px;
         text-align: center;
         line-height: 16px;
     }
 }
+
