@@ -191,17 +191,26 @@ class Ad < ActiveRecord::Base
       size = :searchresult
     end
 
+    # fixme: Check that .first here users weight!
     self.ad_images.count > 0 ? self.ad_images.first.image.url(size) : stock_images[size]
   end
 
   # JSON of how ElasticSearch should index this model
   # TODO: find out if we want more information on the Ad, and/or AdImages
   def as_indexed_json(options={})
-    as_json(
-      only: [:id, :title, :body, :category ],
-      include: { user: { only: :id }, ad_images: { only: [:id, :description, :weight] } },
-      methods: [:price, :tags, :geo_location, :geo_precision]
-    )
+    entry = Jbuilder.encode do |json|
+      json.(self, :id, :title, :body, :category, :price, :tags, :geo_precision, :geo_location)
+      json.images self.ad_images, :id, :description, :weight
+      json.main_image_url self.safe_image_url(:searchresult)
+      json.user do |user|
+        json.id self.user.id
+        json.rating self.user.calculate_average_rating
+        json.avatar_url self.user.safe_avatar_url
+      end
+    end
+    # this is silly, but it's expected that as_indexed_json returns an
+    # object, not a json strung that jbuilder gives us.
+    JSON.parse(entry)
   end
 
   # method to give the same result as what we had before in the Ad Model.
