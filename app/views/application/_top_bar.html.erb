@@ -13,10 +13,6 @@
     <div class="top-bar__rightbox">
         <% if user_signed_in? %>
 
-            <%= link_to users_path, :class => "top-bar__navbar-link" do %>
-                <%= avatar_image current_user, :tiny, class: 'top-bar__avatar' %>
-                <span class="top-bar__navbar-section"><%= current_user.display_name %></span>
-            <% end %>
 
             <a class="top-bar__top-section" href="#"
                data-controller="menuAnchor resetUnseenNotificationCount"
@@ -29,6 +25,11 @@
                     </span>
                 <% end %>
             </a>
+
+            <%= link_to users_path, :class => "top-bar__navbar-link" do %>
+                <span class="top-bar__navbar-section">Min side</span>
+                <%= avatar_image current_user, :tiny, class: 'top-bar__avatar' %>
+            <% end %>
 
         <% else %>
             <%= link_to t(:sign_up), new_user_registration_path, :class => "top-bar__navbar-link" %> |
