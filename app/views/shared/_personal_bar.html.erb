@@ -8,24 +8,28 @@
                     end
 
                     links = [
-                        { text: 'Siste nytt',        path: users_path },
-                        { text: 'Annonser',          path: users_ads_path },
-                        { text: 'Profil',            path: private_profile_users_path },
-                        { text: 'Forespørsler',      path: bookings_path },
-                        { text: 'Favoritter',        path: users_favorite_ads_path },
-                        { text: 'Leiehistorikk',     path: rental_history_users_path }
+                        { text: 'Siste nytt',    icon: 'question-circle', path: users_path, },
+                        { text: 'Annonser',      icon: 'file-text-o ',    path: users_ads_path },
+                        { text: 'Profil',        icon: 'user',            path: private_profile_users_path },
+                        { text: 'Forespørsler',  icon: 'question-circle', path: bookings_path },
+                        { text: 'Favoritter',    icon: 'heart',           path: users_favorite_ads_path },
+                        { text: 'Leiehistorikk', icon: 'history',         path: rental_history_users_path }
                     ]
 
                     unless Plendit::Application.config.x.application_mode.beta
-                        links << { text: '[Betaling]',          path: payment_users_path }
+                        links << { text: '[Betaling]',   icon: 'credit-card',       path: payment_users_path }
                     end
 
                     links.map { |e| e[:selected] = e[:text].downcase == selected.downcase }
                 %>
 
                 <% links.each do |link| %>
-                    <a class="personal-bar__link <%= link[:selected] ? 'personal-bar__link--active' : ''%>"
-                       href="<%= link[:path] %>"><%= link[:text] %></a>
+                    <%= link_to link[:path], class: ['personal-bar__link'] do %>
+                        <span class="personal-bar__link-icon">
+                            <%= icon link[:icon] %>
+                        </span>
+                        <%= link[:text] %>
+                    <% end %>
                 <% end %>
              </div>
         </div>

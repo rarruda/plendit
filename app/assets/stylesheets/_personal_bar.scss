@@ -16,15 +16,31 @@
         }
     }
 
+    &__link-icon {
+        display: none;
+    }
+
     @media (max-width: $mobile) {
         &__link {
-            display: block;
+            display: inline-block;
             padding: 4px 0 4px 0;
+            width: 30%;
 
             &--active {
                 text-decoration: underline;
                 border: none;
             }
         }
+
+        &__link-icon {
+            display: inline;
+        }
     }
+
+    @media (max-width: 500px) {
+        &__link {
+            width: 44%;
+        }
+    }
+
 }
