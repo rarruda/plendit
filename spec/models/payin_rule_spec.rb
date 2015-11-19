@@ -22,8 +22,8 @@ RSpec.describe PayinRule, type: :model do
     expect(payin_rule).not_to be_valid
   end
 
-  it "should accept 25 NOK as minimum price" do
-    payin_rule = FactoryGirl.build_stubbed(:payin_rule, payin_amount: 25_00)
+  it "should accept 99 NOK as minimum price" do
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule, payin_amount: 99_00)
     expect(payin_rule).to be_valid
   end
 
@@ -41,6 +41,11 @@ RSpec.describe PayinRule, type: :model do
       expect(payin_rule.payin_amount_for_duration  duration).to eq(800_00)
     end
   end
+
+
+  context "when payin_rule has multiple day price rules" do
+  end
+
 
   context "when payin_rule has a simple hour price rule" do
     let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule_hour, unit: 'hour', payin_amount: 100_00,

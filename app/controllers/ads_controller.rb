@@ -285,11 +285,10 @@ class AdsController < ApplicationController
     @ad = @ad.dup
     @ad.readonly!
     prices = (params[:price] || []).map(&:to_f).reject(&:zero?).map {|e| (e * 100).to_i }
-    rules = prices.map { |e| PayinRule.single_amount_rule e, @ad }
+    rules = prices.map { |e| PayinRule.new( unit: 'day', effective_from: 1, payin_amount: e, ad_id: @ad ) }
     estimates = rules.map do |rule|
       {
-        price: (rule.payin_amount.to_i / 100.0),
-        insurance: params[:insurance] || 'false',
+        price: rule.payin_amount_in_h,
         html: (render_to_string partial: 'price_input_estimate', locals: { rule: rule }),
       }
     end

@@ -4,6 +4,7 @@
 <% unless rule.payin_amount.nil? %>
     <div class="price-estimate">
 
+    <% if rule.valid? %>
         <div class="price-estimate__left">
             <label>Forsikringssum:</label>
             <span><%= format_monetary_full( calc.max_insurance_coverage(rule) ) %></span>
@@ -25,5 +26,11 @@
             <label class="price-estimate__label">Utbetalt til deg:</label>
             <span class="price-estimate__value"><%= format_monetary_full( calc.payout_amount(rule) ) %></span>
         </div>
+    <% else %>
+        <div class="price-estimate__right">
+            INVALID PRICE RULE
+        </div>
+    <% end %>
+
     </div>
 <% end %>

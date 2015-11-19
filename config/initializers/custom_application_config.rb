@@ -75,6 +75,20 @@ Plendit::Application.config.x.insurance.max_coverage_factor = {
   boat:       25,
  }
 
+Plendit::Application.config.x.insurance.max_coverage_factor = {
+  bap:        25,
+  motor:      25,
+  realestate: 25,
+  boat:       25,
+ }
+
+# array of arrays [min_value, max_discount_in_pct], whatever is highest.
+Plendit::Application.config.x.insurance.max_discount_after_duration = [
+  [   99_00, 0.6 ],
+  [  250_00, 0.4 ],
+  [ 1000_00, 0.3 ],
+ ]
+
 # should be a hash: bap: 1_500, motor: 1_000_000, realestate: 500_000
 Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
 
