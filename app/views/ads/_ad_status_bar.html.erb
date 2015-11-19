@@ -1,8 +1,7 @@
-<% if user_signed_in? && (current_user.is_site_admin? || current_user == ad.user) %>
+<% if user_signed_in? && current_user == ad.user %>
     <div class="container">
         <div class="row">
             <div class="ad-status-bar ad-status-bar--<%= ad.status %> u-push-down">
-
                 <div class="ad-status-bar__div">
                     <h5 class="ad-status-bar__title">
                         <% if ad.status == 'published' %>
@@ -22,20 +21,26 @@
                 <div>
                     <%= render partial: "ad_status_box", locals: { ad: ad } %>
                 </div>
-         
-                <%- if current_user.is_site_admin? -%>
-                    <div>
-                        Admin kontroll:
-                    </div>
-                    <div>
-                        <% if ad.status == 'waiting_review' %>
-                            <%= button_to 'Godkjenn', approve_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
-                        <% end %>
-                        <% if ad.status != 'suspended' %>
-                            <%= button_to 'Suspend', suspend_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
-                        <% end %>
-                    </div>
-                <%- end -%>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<% if user_signed_in? && current_user.is_site_admin? %>
+    <div class="container">
+        <div class="row">
+            <div class="ad-status-bar ad-status-bar--<%= ad.status %> u-push-down">
+                <div>
+                    Admin kontroll:
+                </div>
+                <div>
+                    <% if ad.status == 'waiting_review' %>
+                        <%= button_to 'Godkjenn', approve_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
+                    <% end %>
+                    <% if ad.status != 'suspended' %>
+                        <%= button_to 'Suspend', suspend_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
+                    <% end %>
+                </div>
             </div>
         </div>
     </div>
