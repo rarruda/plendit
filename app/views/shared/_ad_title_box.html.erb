@@ -4,7 +4,7 @@
         <br>
         <strong><%= link_to ad.user.display_name, user_path( ad.user.id ) %></strong>
         <br>
-        <%= render('shared/stars.html', small: true, rating: ad.user.calculate_average_rating ) %>
+        <%= render('shared/stars.html', size: :small, rating: ad.user.calculate_average_rating ) %>
     </div>
     <div class="ad-title-box__title-holder">
         <h1 class="ad-title-box__title"><%= ad.display_title %></h1>
