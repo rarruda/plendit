@@ -9,8 +9,8 @@ $top-bar-height: 52px;
     color: white;
     position: relative;
 
-    @media (max-width: $mobile) {
-        xxheight: $top-bar-height * 2;
+    @media (max-width: 480px) {
+        padding: 10px 6px 0 6px;
     }
 
     &__form {
@@ -22,6 +22,12 @@ $top-bar-height: 52px;
         padding: 4px;
         margin-left: 12px;
         border: solid thin $color-box-border;
+    }
+
+    &__me-label {
+        @media (max-width: 361px) {
+            display: none;
+        }
     }
 
     & &__search-input {
@@ -53,9 +59,21 @@ $top-bar-height: 52px;
             box-shadow: 0 1px 1px rgba(darken($color-plendit-blue, 10), 0.5) inset;
         }
 
+        // Logo smaller = 92
+
         /* NOTE: This breakpoint is hardcoded. */
-        @media (max-width: 320px) {
+        @media (max-width: 520px) {
+            width: 128px;
+        }
+
+        /* NOTE: This breakpoint is hardcoded. */
+        @media (max-width: 361px) {
             width: 100px;
+        }
+
+        /* NOTE: This breakpoint is hardcoded. */
+        @media (max-width: 340px) {
+            width: 84px;
         }
     }
 
@@ -81,6 +99,11 @@ $top-bar-height: 52px;
     &__logo {
         vertical-align: middle;
         margin-bottom: 12px;
+
+        @media (max-width: 480px) {
+            width: 92px;
+            margin-bottom: 10px;
+        }
     }
 
     &__rightbox {
