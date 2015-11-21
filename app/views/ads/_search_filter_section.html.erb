@@ -1,38 +1,41 @@
 <div class="search-filter-section">
     <details class="search-filter-section__details">
         <summary class="search-filter-section__summary"><span class="button search-filter-section__expando">filter</span></summary>
-        <div data-controller="searchFilterSelection">
+        <div data-controller="searchFilterSelection" class="search-filter-section__inputs">
             <%= form_tag({}, class: "search-filter-section__form") do %>
 
-                <div class="row search-filter-section__row">
-                    <div class="six columns">
-                        <%= label_tag(:q, "Søkeord:") %>
-                        <%= text_field_tag(:q, @term, class: "u-full-width" ) %>
-                    </div>
-                    <div class="three columns">
-                        <%= label_tag(:price_min, "Minimumspris:") %>
-                        <%= number_field_tag( :price_min, nil, min: 0, class: "u-full-width") %>
-                    </div>
-                    <div class="three columns">
-                        <%= label_tag(:price_max, "Makspris:") %>
-                        <%= number_field_tag( :price_max, nil, min: 0, class: "u-full-width") %>
-                    </div>
-                </div>
-
-
                 <div class="row">
-                    <div class="two columns">
-                        <label>Annonsetype:</label>
-                    </div>
-                    <% @ad_categories.each do |a| %>
-                        <div class="three columns">
-                            <%= label_tag do %>
-                                <%= check_box_tag "category[]", a[:category], @selected_categories.include?(a[:category]) %>
-                                <span class="label-body"><%= a[:title] %></span>
+                    <div class="six columns">
+
+                        <div class="search-filter-section__categories">
+                            <% @ad_categories.each do |a| %>
+                                <div class="">
+                                    <%= label_tag do %>
+                                        <%= check_box_tag 'category[]', a[:category], @selected_categories.include?(a[:category]), class: 'search-filter-section__check' %>
+                                        <span class="label-body"><%= a[:title] %></span>
+                                    <% end %>
+                                </div>
                             <% end %>
                         </div>
-                    <% end %>
+                    </div>
+                    <div class="six columns">
+
+
+                        <div class="search-filter-section__fields">
+                            <%= text_field_tag :q, @term, class: 'u-full-width' %>
+                            <div class="row">
+                                <div class="six columns">
+                                    <%= number_field_tag :price_min, nil, min: 0, class: 'search-filter-section__halfwidth', placeholder: 'Minimumspris' %>
+                                </div>
+                                <div class="six columns">
+                                    <%= number_field_tag :price_max, nil, min: 0, class: 'search-filter-section__halfwidth', placeholder: 'Makspris' %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
             <% end %>
         </div>
     </details>
