@@ -63,7 +63,7 @@ class PayinRule < ActiveRecord::Base
   def apply_max_discount amount
     if self.day? && self.effective_from >= 2
       Plendit::Application.config.x.insurance.max_discount_after_duration
-        .map{ |d| ( amount > d.first ) ? ( ( 1 - d.second ) * amount ).to_i : nil }
+        .map{ |d| ( amount >= d.first ) ? ( ( 1 - d.second ) * amount ).to_i : nil }
         .compact
         .max
     else
