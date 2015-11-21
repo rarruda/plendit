@@ -1,7 +1,6 @@
 <div class="top-bar">
-
     <a class="top-bar__logo-link" href="/">
-        <%= image_tag "plendit_logo.svg", alt: "Plendit homepage", class: "top-bar__logo", size: "115x33" %>
+        <%= image_tag 'plendit_logo.svg', alt: 'Plendit homepage', class: 'top-bar__logo', size: "115x33" %>
     </a>
 
     <% unless @hide_search_field %>
@@ -11,32 +10,27 @@
     <% end %>
 
     <div class="top-bar__rightbox">
-        <% if user_signed_in? %>
-
-
+        <%- if user_signed_in? -%>
             <a class="top-bar__top-section" href="#"
                data-controller="menuAnchor resetUnseenNotificationCount"
                data-anchor-for="[data-floating-notifications]"
                data-clear-notifications-url="<%= mark_all_notifications_noticed_users_path %>"
-               >Varsler
-                <% unless current_user.unseen_notifications_count == 0 %>
+               >
+                <% unless current_user.unseen_notifications_count.zero? %>
                     <span class="top-bar__notification-count" data-notification-count>
                         <%= current_user.unseen_notifications_count %>
                     </span>
                 <% end %>
-            </a>
-
+                <%= image_tag 'notification.svg', class: 'top-bar__notification-logo' %></a>
             <%= link_to users_path, :class => "top-bar__navbar-link" do %>
                 <span class="top-bar__navbar-section top-bar__me-label">Min side</span>
                 <%= avatar_image current_user, :tiny, class: 'top-bar__avatar' %>
             <% end %>
-
-        <% else %>
-            <%= link_to t(:sign_up), new_user_registration_path, :class => "top-bar__navbar-link" %> |
-            <%= link_to t(:log_in), new_user_session_path, :class => "top-bar__navbar-link" %>
+        <%- else -%>
+            <%= link_to t(:sign_up), new_user_registration_path, class: 'top-bar__navbar-link' %> |
+            <%= link_to t(:log_in), new_user_session_path, class: 'top-bar__navbar-link' %>
         <% end %>
     </div>
-
 </div>
 
 <%= render partial: 'notifications' %>
