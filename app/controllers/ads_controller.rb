@@ -282,6 +282,7 @@ class AdsController < ApplicationController
   end
 
   def payout_estimates
+    # we need to receive the full params[:payin_rules_attributes] incl effective_from
     @ad = @ad.dup
     @ad.readonly!
     prices = (params[:price] || []).map(&:to_f).reject(&:zero?).map {|e| (e * 100).to_i }
