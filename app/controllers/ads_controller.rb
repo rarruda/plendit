@@ -104,6 +104,7 @@ class AdsController < ApplicationController
   # GET /ads/1.json
   def show
     @page_has_maps = true
+    @page_needs_no_footer_padding = true
     if not ad_can_be_shown?
       render status: 404, text: "Fixme: Annonsen finnes ikke eller er ikke offentlig"
     end

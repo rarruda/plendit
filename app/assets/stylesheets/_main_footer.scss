@@ -7,6 +7,10 @@
     padding-top: $standard-spacing * 3;
     padding-bottom: $standard-spacing * 3;
 
+    &--nopad {
+        margin-top: 0;
+    }
+
     &__list {
         list-style: none;
         padding-left: 0;
