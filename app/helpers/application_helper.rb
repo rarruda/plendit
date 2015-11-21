@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  # takes an internal monetary value, that is one that is integral,
+  # takes an internal monetary value, (that is one that is integer),
   # the actual value multiplied by 100, and prints it as a Norwegian
   # localized currency string
   def format_monetary_full val
