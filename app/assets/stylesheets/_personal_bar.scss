@@ -8,8 +8,7 @@
     border-bottom: 1px solid $color-gray-background;
 
     &__link {
-        text-decoration: none;
-        margin-right: $standard-spacing;
+        margin-right: $standard-spacing * 2.5;
 
         &--active {
             border-bottom: 2px solid $color-plendit-blue;
@@ -18,7 +17,6 @@
 
     &__link-icon {
         margin-right: 4px;
-        display: none;
     }
 
     @media (max-width: $mobile) {
@@ -27,9 +25,9 @@
             padding: 4px 0 4px 0;
             width: 30%;
             text-align: center;
+            margin-right: $standard-spacing;
 
             &--active {
-                text-decoration: underline;
                 border: none;
             }
         }
