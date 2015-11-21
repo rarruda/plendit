@@ -24,7 +24,7 @@ window.controllers.menuAnchor = {
 
         function positionElement(anchor, subject) {
             if (!responsive.isGriddy()) {
-                var left = "" + (anchor.offsetLeft - 330) + "px";
+                var left = "" + (anchor.offsetLeft - 350) + "px";
                 var top = "" + (anchor.offsetTop + 32) + "px";
                 subject.style.top = top;
                 subject.style.left = left;
