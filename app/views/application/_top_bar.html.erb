@@ -5,8 +5,8 @@
     </a>
 
     <% unless @hide_search_field %>
-        <%= form_tag("/search", method: "get", class: "top-bar__form") do %>
-            <%= text_field_tag 'q','', type: "text",  class: "top-bar__search-input", placeholder: 'Hva vil du leie?'  %>
+        <%= form_tag("/search", method: 'get', class: 'top-bar__form') do %>
+            <%= text_field_tag 'q','', type: 'text', class: 'top-bar__search-input', placeholder: 'Hva vil du leie?', data: { controller: 'responsivePlaceholder'} %>
         <% end %>
     <% end %>
 
@@ -27,7 +27,7 @@
             </a>
 
             <%= link_to users_path, :class => "top-bar__navbar-link" do %>
-                <span class="top-bar__navbar-section top-bar__me-label"></span>
+                <span class="top-bar__navbar-section top-bar__me-label">Min side</span>
                 <%= avatar_image current_user, :tiny, class: 'top-bar__avatar' %>
             <% end %>
 

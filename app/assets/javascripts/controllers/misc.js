@@ -75,6 +75,18 @@ window.controllers.resultContainerSizeAdjuster = {
     }
 };
 
+window.controllers.responsivePlaceholder = {
+    callable: function(ele) {
+        var original = ele.placeholder;
+        window.addEventListener('resize', updatePlaceholder);
+        updatePlaceholder()
+
+        function updatePlaceholder() {
+            ele.placeholder = window.innerWidth > 380 ? original : "Søk";
+        }
+    }
+};
+
 window.services.searchService = {
     name: "searchService",
     dependencies: ["eventbus"],
