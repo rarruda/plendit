@@ -57,7 +57,7 @@ class AdsController < ApplicationController
   # GET /ads/search
   ## GET /ads.json
   def search
-    @include_map = true
+    @page_has_maps = true
     @hide_search_field = true
     @supress_footer = true
     @ad_categories = Rails.configuration.x.ads.categories
@@ -103,7 +103,7 @@ class AdsController < ApplicationController
   # GET /ads/1
   # GET /ads/1.json
   def show
-    @include_map = true
+    @page_has_maps = true
     if not ad_can_be_shown?
       render status: 404, text: "Fixme: Annonsen finnes ikke eller er ikke offentlig"
     end

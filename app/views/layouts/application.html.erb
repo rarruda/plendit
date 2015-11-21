@@ -22,11 +22,13 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= stylesheet_link_tag    'http://fonts.googleapis.com/css?family=Lato:300,400,700' %>
 
-
-    <% # todo, split up packages again so we don't load maps on all pages %>
-    <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Rails.configuration.x.map.google_maps_js_api_key}&language=#{PLENDIT_COUNTRY_CODE}" %>
+    <% if @page_has_maps %>
+        <%= javascript_include_tag "//maps.googleapis.com/maps/api/js?key=#{Rails.configuration.x.map.google_maps_js_api_key}&language=#{PLENDIT_COUNTRY_CODE}" %>
+        <%= javascript_include_tag 'maps' %>
+    <% end %>
 
     <%= javascript_include_tag 'application' %>
+
     <%= csrf_meta_tags %>
 
     <% cache 'analytics' do %>

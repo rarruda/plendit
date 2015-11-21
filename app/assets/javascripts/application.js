@@ -31,7 +31,6 @@
 //= require 'libs/card.js'
 //= require 'libs/createelement.js'
 //= require 'libs/form-to-obj.js'
-//= require 'libs/infobox.js'
 //= require 'libs/kalendae.js'
 //= require 'libs/mangopay-kit.js'
 //= require 'libs/util.js'
@@ -39,7 +38,6 @@
 //= require 'controllerator.js'
 
 //= require 'controllers/imageuploader.js'
-//= require 'controllers/maps.js'
 //= require 'controllers/menuanchor.js'
 //= require 'controllers/misc.js'
 
