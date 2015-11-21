@@ -110,13 +110,6 @@
 
         <hr>
 
-        <label class="u-push-down-only">Forsikring:</label>
-
-        <p>
-            Leietaker må tegne <%= link_to 'forsikring', Rails.configuration.x.customerservice.insurance_info %>
-            for gjenstander av denne typen.
-        </p>
-
         <div class="u-push-down">
             <%= render partial: 'price_editor', locals: {f: f} %>
         </div>
