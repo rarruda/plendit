@@ -14,10 +14,10 @@
 
     &__avatar-holder {
         flex: 0 0 auto;
-        width: 100px;
     }
 
     &__details-holder {
         flex: 1 0 auto;
+        margin-left: $standard-spacing;
     }
 }
