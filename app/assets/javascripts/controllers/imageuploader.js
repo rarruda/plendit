@@ -1,3 +1,6 @@
+window.services = window.services || {};
+window.controllers = window.controllers || {};
+
 Dropzone.autoDiscover = false;
 window.controllers.imageUploader = {
     dependencies: ["$element", "eventbus", "utils"],

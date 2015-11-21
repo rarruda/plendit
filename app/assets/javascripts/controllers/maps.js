@@ -1,3 +1,4 @@
+window.services = window.services || {};
 window.controllers = window.controllers || {};
 
 window.controllers.adMap = {
