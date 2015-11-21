@@ -14,7 +14,6 @@ function main() {
 
     var c = new Controllerator();
     c.registerInstance('eventbus', eventbus);
-    c.registerInstance('tagbox', tagBox);
     c.registerInstance('xhr', xhr);
     c.registerInstance('createElement', createElement);
     c.registerInstance('Card', Card);
