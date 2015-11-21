@@ -5,7 +5,7 @@
     </a>
 
     <% unless @hide_search_field %>
-        <%= form_tag("/search", method: 'get', class: 'top-bar__form') do %>
+        <%= form_tag(search_path, method: 'get', class: 'top-bar__form') do %>
             <%= text_field_tag 'q','', type: 'text', class: 'top-bar__search-input', placeholder: 'Hva vil du leie?', data: { controller: 'responsivePlaceholder'} %>
         <% end %>
     <% end %>
