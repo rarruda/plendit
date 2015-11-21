@@ -1,24 +1,23 @@
 @import 'constants.scss';
 
 .ad-title-box {
-    overflow: auto;
-    position: relative;
-    top: -42px;
-
-    &__avatar-holder {
-        float: left;
-        display: inline-block;
-        width: 120px;
-        text-align: center;
-    }
-
-    &__title-holder {
-        padding-top: 60px;
-
-    }
 
     &__title {
-        margin-left: 160px;
+        margin-top: $standard-spacing;
+        margin-bottom: $standard-spacing;
     }
-    
+
+    &__user-box {
+        display: flex;
+        align-items: center;
+    }
+
+    &__avatar-holder {
+        flex: 0 0 auto;
+        width: 100px;
+    }
+
+    &__details-holder {
+        flex: 1 0 auto;
+    }
 }
