@@ -7,7 +7,7 @@
     </script>
 
     <div class="image-uploader__drop-target dz-message">
-        <button type="button" class="button">Last opp bilder</button>
+        <button type="button" class="button <%= 'button-primary' if @ad.ad_images.size == 0 %>">Last opp bilder</button>
     </div>
     <div data-dropzone-preview class="image-uploader__previews"></div>
 </div>
