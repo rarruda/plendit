@@ -24,9 +24,9 @@
                 %>
 
                 <% links.each do |link| %>
-                    <%= link_to link[:path], class: ['personal-bar__link'] do %>
-                        <span class="personal-bar__link-icon"><%= icon link[:icon] %></span><%= link[:text] %>
-                    <% end %>
+                    <%= link_to link[:path], class: ['personal-bar__link'] do -%>
+                        <span class="personal-bar__link-icon"><%= icon link[:icon] %></span><%= link[:text] -%>
+                    <%- end %>
                 <% end %>
              </div>
         </div>
