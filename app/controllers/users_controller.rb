@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include UserPaymentAccountable
 
   before_action :authenticate_user!, :except => [:show, :finish_signup]
 
@@ -156,6 +155,20 @@ class UsersController < ApplicationController
     @user.user_images.build          if @user.user_images.blank?
   end
 
+  # GET/POST /me/bank_account
+  def bank_account
+    if request.post?
+      #@user = current_user
+      if @user_payment_account.update(user_payment_account_params)
+        redirect_to payment_users_path( anchor: 'kontonummer' ), payment_account_notice: 'bank account was successfully updated.'
+      else
+        render 'edit_user_payment_account', payment_account_notice: 'bank account was NOT saved.'
+      end
+    else
+      render 'edit_user_payment_account'
+    end
+  end
+
   # Never gets called, as users are created in users/registrations_controller
   # FIXME: remove the create method.
   # POST /users
@@ -298,5 +311,13 @@ class UsersController < ApplicationController
          user_images_attributes: [:id, :image, :category],
          identity_attributes: [:provider]
       )
+    end
+
+    def set_user_payment_account
+      @user_payment_account = current_user.user_payment_account || current_user.build_user_payment_account
+    end
+
+    def user_payment_account_params
+      params.require(:user_payment_account).permit(:bank_account_number) || nil
     end
 end
