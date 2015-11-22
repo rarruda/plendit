@@ -5,10 +5,12 @@
     <div class="price-estimate">
 
     <% if rule.valid? %>
-        <div class="price-estimate__left">
-            <label>Forsikringssum:</label>
-            <span><%= format_monetary_full( calc.max_insurance_coverage(rule) ) %></span>
-        </div>
+        <% if rule.day? && rule.effective_from == 1 %>
+            <div class="price-estimate__left">
+                <label>Forsikringssum:</label>
+                <span><%= format_monetary_full( calc.max_insurance_coverage(rule) ) %></span>
+            </div>
+        <% end %>
 
         <div class="price-estimate__right">
             <label class="price-estimate__label">Pris for kunde:</label>
