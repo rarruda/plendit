@@ -1,37 +1,42 @@
-<div class="eight columns">
-<%= render layout: "gray_box", locals: {title: "Kontonummer", id: "kontonummer"} do %>
+<%= render partial: "shared/personal_bar", locals: {selected: 'Betaling'} %>
 
-  <%- if payment_account_notice -%>
-    <%= payment_account_notice %>
-  <%- end -%>
+<div class="container">
+  <div class="row">
+    <div class="eight columns">
+      <%= render layout: "gray_box", locals: {title: "Kontonummer", id: "kontonummer"} do %>
+      <%- if payment_account_notice -%>
+        <%= payment_account_notice %>
+      <%- end -%>
 
-  <%- if @user_payment_account.errors.any? -%>
-    <div>
-        Følgende feil forhindret deg i å oppdatere kontonummeret ditt: <%= pluralize(@user_payment_account.errors.count, "error") %>
-        <ul>
-            <% @user_payment_account.errors.full_messages.each do |message| %>
+      <%- if @user_payment_account.errors.any? -%>
+        <div>
+            Følgende feil forhindret deg i å oppdatere kontonummeret ditt: <%= pluralize(@user_payment_account.errors.count, "error") %>
+            <ul>
+              <% @user_payment_account.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
-            <% end %>
-        </ul>
-    </div>
-  <%- end -%>
+              <% end %>
+            </ul>
+        </div>
+      <%- end -%>
 
-  <%= form_for( @user_payment_account, url: bank_account_users_path, html: { method: :post } ) do |f| %>
-    <div class="row">
-        <div class="eight columns">
-          <%# only show bank account form, if you have confirmed your phone with us. %>
-          <%= f.label :bank_account_number, "Kontonummer" %>
-          <%= f.text_field :bank_account_number, { maxlength: 13, class: 'u-full-width' }  %>
-          <p>
-              <small>Vi trenger ditt kontonummer for å utbetale penger til deg som utleier</small>
-          </p>
+      <%= form_for( @user_payment_account, url: bank_account_users_path, html: { method: :post } ) do |f| %>
+        <div class="row">
+            <div class="eight columns">
+              <%# only show bank account form, if you have confirmed your phone with us. %>
+              <%= f.label :bank_account_number, "Kontonummer" %>
+              <%= f.text_field :bank_account_number, { maxlength: 13, class: 'u-full-width' }  %>
+              <p>
+                  <small>Vi trenger ditt kontonummer for å utbetale penger til deg som utleier</small>
+              </p>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="twelve columns">
-            <%= f.submit "Oppdater", class: "u-pull-right button" %>
+        <div class="row">
+            <div class="twelve columns">
+                <%= f.submit "Oppdater", class: "u-pull-right button" %>
+            </div>
         </div>
+      <% end %>
+    <% end %>
     </div>
-  <% end %>
-<% end %>
+  </div>
 </div>
