@@ -2,44 +2,44 @@ class AdsController < ApplicationController
   include MapViewRememberable
 
   before_action :set_ad, only: [
-    :unavailability,
+    :ad_image,
     :approve,
+    :destroy,
     :edit,
     :edit_availability,
     :gallery,
     :image_manager,
     :nested_images,
     :pause,
+    :payout_estimates,
     :preview,
     :resume,
     :show,
     :stop,
-    :suspend,
     :submit_for_review,
+    :suspend,
+    :unavailability,
     :unpublish_and_edit,
-    :update,
-    :destroy,
-    :payout_estimates,
-    :ad_image
+    :update
   ]
 
   before_action :authenticate_user!, :except => [
-    :unavailability,
     :gallery,
     :index,
     :search,
-    :show
+    :show,
+    :unavailability
   ]
 
   before_action :require_authorization, :except => [
-    :unavailability,
     :create,
     :gallery,
     :index,
     :list,
     :new,
     :search,
-    :show
+    :show,
+    :unavailability
   ]
 
   after_action :notify_about_approval, only: [ :approve ]
