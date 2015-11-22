@@ -16,7 +16,7 @@
                             <div class="notification-box__message">
                                 <%= n.message %>
                             </div>
-                            <small><%= l n.updated_at %></small>
+                            <small><%= time_ago_in_words n.updated_at %> siden</small>
                         </div>
                     <% end %>
                 <% end %>
