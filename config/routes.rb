@@ -69,6 +69,7 @@ Rails.application.routes.draw do
       get   'ads',                     to: 'ads#list'
       get   'private_profile',         controller: 'users'
       get   'payment'
+      get   'new_payout'
       get   'rental_history'
       match 'bank_account',            via: [:get, :post]
 
