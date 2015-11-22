@@ -5,22 +5,8 @@
             <%= form_tag({}, class: "search-filter-section__form") do %>
 
                 <div class="row">
-                    <div class="six columns">
 
-                        <div class="search-filter-section__categories">
-                            <% @ad_categories.each do |a| %>
-                                <div class="">
-                                    <%= label_tag do %>
-                                        <%= check_box_tag 'category[]', a[:category], @selected_categories.include?(a[:category]), class: 'search-filter-section__check' %>
-                                        <span class="label-body"><%= a[:title] %></span>
-                                    <% end %>
-                                </div>
-                            <% end %>
-                        </div>
-                    </div>
-                    <div class="six columns">
-
-
+                    <div class="twelve columns">
                         <div class="search-filter-section__fields">
                             <%= text_field_tag :q, @term, class: 'u-full-width' %>
                             <div class="row">
@@ -32,11 +18,23 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="search-filter-section__categories">
+                            <%= select_tag 'category[]', options_from_collection_for_select(@ad_categories, :category, :title, @selected_category), prompt: 'Søk i alle kategorier', class: 'u-full-width' %>
+                        </div>
+
+
                     </div>
+
                 </div>
+
+
 
 
             <% end %>
         </div>
     </details>
 </div>
+
+
+

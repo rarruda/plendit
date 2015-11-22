@@ -61,12 +61,17 @@ class AdsController < ApplicationController
     @hide_search_field = true
     @supress_footer = true
     @ad_categories = Rails.configuration.x.ads.categories
+    @ad_categories.map! { |e| OpenStruct.new(e) }
 
     query  = params[:q]
     filter = []
 
     @map_bounds = get_search_bounds params
-    options = params.select { |k,v| ['price_min','price_max','category'].include? k }.keep_if { |k,v| not v.blank? }
+
+    options = params.select { |k,v| ['price_min','price_max', 'category'].include? k }.keep_if { |k,v| not v.blank? }
+    options[:category].reject!(&:blank?) if options.has_key? :category
+    options.delete(:category) if options.has_key?(:category) && options[:category].empty?
+
     options = options.merge(@map_bounds)
 
     # Safely transform hash in array:
@@ -77,7 +82,7 @@ class AdsController < ApplicationController
     @ads = Ad.search( query, filter, options).page( params[:page] ).results
 
     @term = params[:q]
-    @selected_categories = params[:category] || []
+    @selected_category = params[:category]
 
     @result_json = render_to_string( formats: 'json' ).html_safe
     @result_markup = render_to_string partial: 'search_result_box', formats: [:html]

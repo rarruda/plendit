@@ -241,7 +241,7 @@ window.controllers.searchFilterSelection = {
         init();
 
         function init() {
-            var inputs = ele.querySelectorAll("input");
+            var inputs = ele.querySelectorAll("input, select");
             for (var n = 0, e; e = inputs[n++];) {
                 e.addEventListener('change', onInputChange);
             }
