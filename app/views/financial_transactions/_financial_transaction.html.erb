@@ -1,5 +1,5 @@
 <tr>
-  <td><%= financial_transaction.created_at %></td>
+  <td><%= l financial_transaction.created_at, format: :shorter_datetime %></td>
   <td><%= financial_transaction.transaction_type %></td>
   <td><%= financial_transaction.from_user_id || financial_transaction.to_user_id %></td>
   <td>

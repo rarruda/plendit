@@ -3,13 +3,13 @@
         <tr class="booking-price-summary__row">
             <th>Leieperiode fra</th>
             <td class="booking-price-summary__td">
-                <%= @booking.starts_at.to_formatted_s(:plendit_short_datetime) %>
+                <%= l @booking.starts_at %>
             </td>
         </tr>
         <tr class="booking-price-summary__row">
             <th>Leieperiode til</th>
             <td class="booking-price-summary__td">
-                <%= @booking.ends_at.to_formatted_s(:plendit_short_datetime) %>
+                <%= l @booking.ends_at %>
             </td>
         </tr>
 

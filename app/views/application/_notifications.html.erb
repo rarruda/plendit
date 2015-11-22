@@ -16,7 +16,7 @@
                             <div class="notification-box__message">
                                 <%= n.message %>
                             </div>
-                            <small><%= n.updated_at.to_formatted_s(:plendit_short_datetime) %></small>
+                            <small><%= l n.updated_at %></small>
                         </div>
                     <% end %>
                 <% end %>

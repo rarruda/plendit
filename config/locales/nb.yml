@@ -3,6 +3,13 @@ nb:
   log_in: "Logg inn"
   sign_up: "Opprett konto"
 
+  time:
+    formats:
+      plendit_short_date: '%d. %b %Y'
+      plendit_short_datetime: '%d.%m.%Y klokka %H.%M'
+      default: '%d.%m.%Y klokka %H.%M'
+      shorter_datetime: '%d.%m.%Y kl. %H.%M'
+
   helpers:
     submit:
       booking:
