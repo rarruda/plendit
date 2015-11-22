@@ -50,8 +50,18 @@ class FinancialTransaction < ActiveRecord::Base
   scope :finished,   -> { where( state: FinancialTransaction.states[:finished] ) }
 
   # by user: (complex...)
-  #scope :from_user(user_id) -> { where() } #use src_vid for fast/reliable lookups
-  #scope :to_user(user_id)   -> { where() } #use dst_vid for fast/reliable lookups
+  # from_user: impacts payin account
+  scope :from_user,  ->(user_id) { where( "( src_type = ? AND src_vid = ?) OR (dst_type = ? AND dst_vid = ? )",
+      FinancialTransaction.src_types[:src_payin_wallet_vid], User.find(user_id).payin_wallet_vid,
+      FinancialTransaction.dst_types[:dst_payin_wallet_vid], User.find(user_id).payin_wallet_vid,
+    )
+  }
+  # to_user: impacts payout account
+  scope :to_user,    ->(user_id) { where( "( src_type = ? AND src_vid = ?) OR (dst_type = ? AND dst_vid = ? )",
+      FinancialTransaction.src_types[:src_payout_wallet_vid], User.find(user_id).payout_wallet_vid,
+      FinancialTransaction.dst_types[:dst_payout_wallet_vid], User.find(user_id).payout_wallet_vid,
+    )
+  }
 
   aasm column: 'state' do
     state :pending, initial: true
@@ -85,6 +95,33 @@ class FinancialTransaction < ActiveRecord::Base
 
   def log_status_change
     LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for financial_transaction_id: #{self.id}"
+  end
+
+  def from_user_id
+    case self.src_type
+    when 'src_preauth_vid'
+      nil
+    when 'src_card_vid'
+      UserPaymentCard.find_by(card_vid: self.src_vid).user_id
+    when 'src_payin_wallet_vid'
+      User.find_by(payin_wallet_vid: self.src_vid).id
+    when 'src_payout_wallet_vid'
+      User.find_by(payout_wallet_vid: self.src_vid).id
+    end
+  end
+
+  def to_user_id
+    case self.dst_type
+    when 'dst_payin_wallet_vid'
+      User.find_by(payin_wallet_vid: self.dst_vid).id
+    when 'dst_payout_wallet_vid'
+      User.find_by(payout_wallet_vid: self.dst_vid).id
+    when 'dst_bank_account_vid'
+      #User.find_by(payout_wallet_vid: self.dst_vid).id
+      UserPaymentAccount.find(payout_wallet_vid: dst_vid).user_id
+    when 'dst_payin_transaction_vid'
+      User.find_by(payin_wallet_vid: self.dst_vid).id
+    end
   end
 
   # triggered on process! (state: pending => processing)

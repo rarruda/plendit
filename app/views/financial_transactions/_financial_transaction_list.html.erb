@@ -3,13 +3,14 @@
 <table>
   <thead>
     <td>Dato</td>
+    <td>Type</td>
     <td>Hvem</td>
     <td>Hva</td>
     <td>Inn/Ut</td>
     <td>Verdi</td>
   </thead>
   <tbody>
-    <%#= render @transactions %>
+    <%= render FinancialTransaction.from_user( current_user )  %>
   </tbody>
 
 </table>
