@@ -1,9 +1,14 @@
 <div class="search-title-box">
     <h4 data-controller="hitCount">
+
+    <% if @ads.total_count.zero? %>
+        Ingen treff.
+    <% else %>
         Treff
         <%= ((@ads.current_page - 1) * @ads.default_per_page) + 1 %>
         -
         <%= [@ads.current_page * @ads.default_per_page, @ads.total_count].min %>
         av
         <%= @ads.total_count %></h4>
+    <% end %>
 </div>

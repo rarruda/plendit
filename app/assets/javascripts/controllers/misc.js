@@ -319,11 +319,16 @@ window.controllers.hitCount = {
         eventBus.on('map-will-change', onSearchStarted);
 
         function onSearchResult(result) {
-            var start = ((result.paging.current_page - 1) * result.paging.default_per_page) + 1;
-            var end = Math.min(
-                    result.paging.total_count,
-                    result.paging.current_page * result.paging.default_per_page);
-            ele.textContent = "Treff " + start + " - " + end + " av " + result.paging.total_count + ".";
+            if (result.paging.total_count == 0) {
+                ele.textContent = "Ingen treff."
+            }
+            else {
+                var start = ((result.paging.current_page - 1) * result.paging.default_per_page) + 1;
+                var end = Math.min(
+                        result.paging.total_count,
+                        result.paging.current_page * result.paging.default_per_page);
+                ele.textContent = "Treff " + start + " - " + end + " av " + result.paging.total_count + ".";
+            }
         }
 
         function onSearchStarted() {
