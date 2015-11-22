@@ -90,6 +90,7 @@ class UsersController < ApplicationController
     end
   end
 
+  # no longer used, index now routes to private_profile
   def index
   end
 

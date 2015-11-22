@@ -64,7 +64,7 @@ Rails.application.routes.draw do
     #  resources :favorite_ads
     #end
     member do
-      get   '/',                       to: 'users#index'
+      get   '/',                       to: 'users#private_profile' #'users#index'
       post  'ads/create'
       get   'ads',                     to: 'ads#list'
       get   'private_profile',         controller: 'users'
