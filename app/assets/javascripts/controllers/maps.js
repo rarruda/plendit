@@ -138,8 +138,7 @@ window.controllers.resultMap = {
             };
 
             var map = new google.maps.Map(ele, mapOptions);
-            google.maps.event.addListener(map, 'center_changed', utils.debounce(onCenterChanged, 1000));
-            google.maps.event.addListener(map, 'zoom_changed', utils.debounce(onCenterChanged, 1000));
+            google.maps.event.addListener(map, 'idle', onAreaChanged);
             google.maps.event.addListener(map, 'center_changed', notifyWillChange);
             google.maps.event.addListener(map, 'zoom_changed', notifyWillChange);
             google.maps.event.addListener(map, 'click', onMapClick);
@@ -188,7 +187,7 @@ window.controllers.resultMap = {
             google.maps.event.trigger(map, 'resize');
         }
 
-        function onCenterChanged() {
+        function onAreaChanged() {
             var bounds = map.getBounds();
             var ne = bounds.getNorthEast();
             var sw = bounds.getSouthWest();
