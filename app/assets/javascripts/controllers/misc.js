@@ -6,7 +6,7 @@ window.services.responsive = {
     callable: function() {
 
         function isGriddy() {
-            return window.innerWidth < 640;
+            return window.innerWidth < 768;
         }
 
         return {
