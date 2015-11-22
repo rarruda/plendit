@@ -400,18 +400,137 @@ class User < ActiveRecord::Base
   end
 
   def provision_with_mangopay
-    # instantiating mangopay service:
-    mangopay = MangopayService.new( self )
+    unless self.mangopay_provisionable?
+      LOG.error "Refuse to provision user. The profile is NOT complete. bailing out.", { user_id: self.id }
+      return false
+    end
 
     if self.payment_provider_vid.blank?
-      mangopay.provision_user
+      begin
+        if self.natural?
+          # https://docs.mangopay.com/api-references/users/natural-users/
+          mangopay_user = MangoPay::NaturalUser.create(
+            'Tag'         => "user_id=#{self.id}",
+            'PersonType'  => self.personhood,
+            'FirstName'   => self.first_name,
+            'LastName'    => self.last_name,
+            'Email'       => self.email,
+            'Birthday'    => self.birthday.strftime('%s').to_i,
+            'Nationality' => self.nationality,
+            'CountryOfResidence' => self.country_of_residence,
+          );
+            #Optional:
+            #'Address' => {
+            #  'AddressLine1' => self.home_address_line,
+            #  'City'         => self.home_city,
+            #  'PostalCode'   => self.home_post_code,
+            #  'Country'      => self.country_of_residence
+            # }
+        elsif self.legal_business? or self.legal_organization?
+          LOG.error "NOT A NATURAL PERSON... Not provisioning user.", { user_id: self.id, personhood: self.personhood }
+          return false
+
+          #code below is NOT TESTED!
+          mangopay_personhood_type = {
+            legal_business:     'BUSINESS',
+            legal_organization: 'ORGANIZATION',
+          }
+
+          #https://docs.mangopay.com/api-references/users/legal-users/
+          mangopay_user = MangoPay::LegalUser.create(
+            'Tag'         => "user_id=#{self.id}",
+            'Name'        => self.name,  #company name
+            'Email'       => self.email, #company email
+            'LegalPersonType'                => mangopay_personhood_type[self.personhood],
+            'LegalRepresentativeFirstName'   => self.first_name,
+            'LegalRepresentativeLastName'    => self.last_name,
+            'LegalRepresentativeBirthday'    => self.birthday.strftime('%s'),
+            'LegalRepresentativeNationality' => self.nationality,
+            'LegalRepresentativeCountryOfResidence' => self.country_of_residence
+          );
+            #Optional:
+            # 'LegalRepresentativeEmail' =>
+            # 'HeadquartersAddress' =>
+            # 'LegalRepresentativeAddress' => {
+            #    'AddressLine1' =>
+            #    'City'         =>
+            #    'PostalCode'   =>
+            #    'Country'      =>
+            # }
+        else
+          raise 'Invalid personhood'
+        end
+        LOG.info "Response from mangopay: #{mangopay_user}", { user_id: self.id }
+        self.update_attributes( payment_provider_vid: mangopay_user['Id'] )
+      rescue => e
+        LOG.error "something has gone wrong with provisioning the user at mangopay. exception: #{e}", { user_id: self.id }
+      end
     end
 
     if self.payment_provider_vid.present? && ( self.payin_wallet_vid.blank? || self.payout_wallet_vid.blank? )
-      mangopay.provision_wallets
+      provision_wallets
     end
   end
 
+  # this method is not throughly tested:
+  def provision_wallets
+    LOG.info "Provisioning wallets with Mangopay", { user_id: self.id }
+
+    if self.payin_wallet_vid.present? && self.payout_wallet_vid.present?
+      LOG.info "Wallets already provisioned with Mangopay", { user_id: self.id }
+      return true
+    end
+
+    if self.payment_provider_vid.blank?
+      LOG.info "User not provisioned, can not provision wallets with Mangopay", { user_id: self.id }
+      return false
+    end
+
+    begin
+      # discover any provisioned wallets:
+      wallets = MangoPay::User.wallets( self.payment_provider_vid, {sort: 'CreationDate:asc'} )
+
+      if wallets.present?
+        wallet_money_in  = []
+        wallet_money_out = []
+
+        wallets.each do |w|
+          wallet_money_in  << w['Id'] if w['Description'] == 'money_in'
+          wallet_money_out << w['Id'] if w['Description'] == 'money_out'
+        end
+
+        self.update_attributes( payin_wallet_vid: wallet_money_in.first)   if wallet_money_in.length  >= 1 && self.payin_wallet_vid.blank?
+        self.update_attributes( payout_wallet_vid: wallet_money_out.first) if wallet_money_out.length >= 1 && self.payout_wallet_vid.blank?
+      else
+        # No wallets present from before, provisioning them:
+        if self.payin_wallet_vid.blank?
+          # https://docs.mangopay.com/api-references/wallets/
+          wallet_in = MangoPay::Wallet.create(
+              'Tag'         => "pay_in user_id=#{self.id}",
+              'Owners'      => [ self.payment_provider_vid ],
+              'Currency'    => PLENDIT_CURRENCY_CODE,
+              'Description' => 'money_in',
+            );
+          self.update_attributes( payin_wallet_vid: wallet_in['Id'] )
+        end
+
+        if self.payout_wallet_vid.blank?
+          # https://docs.mangopay.com/api-references/wallets/
+          wallet_out = MangoPay::Wallet.create(
+              'Tag'         => "pay_out user_id=#{self.id}",
+              'Owners'      => [ self.payment_provider_vid ],
+              'Currency'    => PLENDIT_CURRENCY_CODE,
+              'Description' => 'money_out'
+            );
+          self.update_attributes( payout_wallet_vid: wallet_out['Id'] )
+        end
+
+      end
+    rescue => e
+      LOG.error "something has gone wrong with fetching list of wallets at mangopay. exception: #{e}", { user_id: self.id }
+      return nil
+    end
+  end
 
   def birthday_should_be_reasonable
     if self.birthday.nil? || self.birthday < 120.years.ago || self.birthday > 14.years.ago
