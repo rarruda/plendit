@@ -3,48 +3,54 @@ window.controllers = window.controllers || {};
 window.controllers.menuAnchor = {
     dependencies: ["$element", "eventbus", "responsive"] ,
     callable: function(ele, eventBus, responsive) {
-
         var targetSelector = ele.getAttribute("data-anchor-for");
         var targetBox = document.querySelector(targetSelector);
-        var anchorId = (new Date()).getTime();
-        var visible = false;
+        window.addEventListener("resize", positionElement);
 
-        ele.addEventListener("click", onAnchorClick);
-        eventBus.on("anchor-toggle", onAnchorToggleEvent);
+        attachorize();
 
-        function onAnchorClick(evt) {
-            evt.preventDefault();
-            eventBus.emit("anchor-toggle", anchorId);
-            toggle();
+        function attachorize() {
+            window.setTimeout(function() {
+                ele.addEventListener("click", show);
+            }, 1);
         }
 
-        function onAnchorToggleEvent(id) {
-            if (id != anchorId) { hide(); }
-        }
-
-        function positionElement(anchor, subject) {
+        function positionElement() {
             if (!responsive.isGriddy()) {
-                var left = "" + (anchor.offsetLeft - 350) + "px";
-                var top = "" + (anchor.offsetTop + 32) + "px";
-                subject.style.top = top;
-                subject.style.left = left;
+                var left = "" + (ele.offsetLeft - 350) + "px";
+                var top = "" + (ele.offsetTop + 32) + "px";
+                targetBox.style.top = top;
+                targetBox.style.left = left;
+            }
+            else {
+                targetBox.style.top = 0;
+                targetBox.style.left = 0;
             }
         }
 
-        function toggle() {
-            if (visible) { hide(); } 
-            else { show(); } 
-        }
+        function hide(evt) {
+            var hideIt = false;
+            if (responsive.isGriddy()) {
+                var container = evt.target.closest("[data-anchor-for]");
+                hideIt = !!container;
+            }
+            else {
+                var container = evt.target.closest("[data-floating-notifications]");
+                hideIt = !container;
+            }
 
-        function hide() {
-            targetBox.classList.add("u-hidden");
-            visible = false;
+            if (hideIt) {
+                targetBox.classList.add("u-hidden");
+                window.removeEventListener("click", hide, 'true');
+                attachorize();                
+            }
         }
 
         function show() {
             positionElement(ele, targetBox);
             targetBox.classList.remove("u-hidden");
-            visible = true;
+            ele.removeEventListener("click", show);
+            window.addEventListener("click", hide, 'true');
         }
     }
 }
