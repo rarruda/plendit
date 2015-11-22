@@ -20,7 +20,7 @@
                             <li>
                                 <%= link_to ad.display_title, ad %>
                                 <%= ad.display_status %>
-                                <small>(oppdatert <%= ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
+                                <small>(oppdatert sist <%= time_ago_in_words( ad.updated_at ) %> siden)</small>
                             </li>
                         <% end %>
                     </ul>
@@ -41,7 +41,7 @@
                             <li>
                                 <%= link_to booking.ad.display_title, booking %>
                                 <%= booking.display_status %>
-                                <small>(oppdatert <%= booking.ad.updated_at.to_formatted_s(:plendit_short_datetime) %>)</small>
+                                <small>(oppdatert sist <%= time_ago_in_words( booking.ad.updated_at ) %> siden)</small>
                             </li>
                         <% end %>
                     </ul>
@@ -57,7 +57,7 @@
                             <li>
                                 <%= link_to message.booking.ad.display_title, message.booking %>
                                 <p><%= message.content[0..60] %></p>
-                                <small>(<%= message.created_at.to_formatted_s(:plendit_short_datetime) %>)</small>
+                                <small>(sendt <%= time_ago_in_words( message.created_at ) %> siden)</small>
                             </li>
                         <% end %>
                     </ul>
