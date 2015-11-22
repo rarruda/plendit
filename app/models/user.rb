@@ -390,6 +390,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def fetch_payout_wallet_balance
+    return nil unless self.mangopay_provisioned?
+
+    payout_wallet = MangoPay::Wallet.fetch( self.payout_wallet_vid )
+    return payout_wallet['Balance']['Amount']
+  end
+
   private
 
   def document_rejection_reason category
