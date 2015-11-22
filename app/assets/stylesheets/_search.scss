@@ -35,6 +35,10 @@
         box-sizing: border-box;
         width: 50%;
         float: left;
+
+        &:focus {
+            outline: 0;
+        }
     }
 
     &__segment-button--left {
@@ -63,6 +67,7 @@
 
 .search-title-box {
     text-align: center;
+    padding-bottom: $standard-spacing;
 }
 
 
