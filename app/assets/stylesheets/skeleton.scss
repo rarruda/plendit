@@ -428,7 +428,11 @@ details.u-implode-summary[open] > summary {
   }
 }
 
-
+@media (max-width: $mobile) {
+  .u-only-when-grid {
+    display: none;
+  }
+}
 
 
 /* Misc
