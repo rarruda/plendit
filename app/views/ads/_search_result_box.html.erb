@@ -1,8 +1,8 @@
 <div>
     <% if @ads.empty? %>
         <p class="search-result-box__no-hits-box u-push-down">
-            Vi fant ingen treff! Du kan forsøke å søke i et større område på
-            kartet, eller endre på søkefilterene dine.
+             Ingen treff. Tips: Prøv å zoome ut på kartet eller
+             gjør endringer i søkefilteret.
         </p>
     <% else %>
         <% cache ['html_ad_list', @ads.map{|e| e._id}], expires_in: 10.minutes do %>
