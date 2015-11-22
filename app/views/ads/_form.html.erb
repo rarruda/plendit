@@ -14,7 +14,7 @@
         <%
         case @ad.category
         when 'bap' %>
-            <h1 class="u-push-down-only">Legg ut tingene dine</h1>
+            <h1 class="u-push-down-only">Legg ut ting</h1>
         <% when 'boat' %>
             <h1 class="u-push-down-only">Legg ut båt</h1>
 
@@ -32,10 +32,6 @@
         <% else %>
             <h1 class="u-push-down-only">Legg ut ting</h1>
         <% end %>
-
-        <!-- debug
-        <h5>this Ad has the following category: <b><%= @ad.category %></b></h5>
-        -->
 
         <div class="u-push-down-only">
             <%= f.label :title, 'Tittel:', class: 'u-full-width' %>
