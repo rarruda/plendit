@@ -11,8 +11,27 @@
                 </ul>
             </div>
         <% end %>
+        <%
+        case @ad.category
+        when 'bap' %>
+            <h1 class="u-push-down-only">Legg ut tingene dine</h1>
+        <% when 'boat' %>
+            <h1 class="u-push-down-only">Legg ut båt</h1>
 
-        <h1 class="u-push-down-only">Legg ut tingene dine</h1>
+            <small>
+                Inntil videre kan man kun leie ut båter opp til 24 fot,
+                vi jobber for å finne en god løsning på større båter!
+            </small>
+        <% when 'motor' %>
+            <h1 class="u-push-down-only">Legg ut kjøretøy</h1>
+            <small>
+                Her kan du legge ut kun registrert kjøretøy.
+            </small>
+        <% when 'realestate' %>
+            <h1 class="u-push-down-only">Legg ut eiendom</h1>
+        <% else %>
+            <h1 class="u-push-down-only">Legg ut ting</h1>
+        <% end %>
 
         <!-- debug
         <h5>this Ad has the following category: <b><%= @ad.category %></b></h5>
@@ -116,6 +135,8 @@
 
     <%- end -%>
 
+    <hr>
+        <%= link_to 'Mer informasjon om forsikring.', Plendit::Application.config.x.customerservice.insurance_info, :target => '_blank' %>
     <hr>
 
     <div data-controller="adErrors"></div>
