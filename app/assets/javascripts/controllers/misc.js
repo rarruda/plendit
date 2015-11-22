@@ -67,15 +67,24 @@ window.controllers.resetUnseenNotificationCount = function(ele) {
 };
 
 window.controllers.resultContainerSizeAdjuster = {
-    dependencies: ["$element", "eventbus"],
-    callable: function(ele, eventBus) {
+    dependencies: ["$element", "eventbus", "responsive"],
+    callable: function(ele, eventBus, responsive) {
         window.addEventListener('resize', adjustHeight);
-        eventBus.on('filter-toggle', adjustHeight);
         adjustHeight();
 
         function adjustHeight() {
             var height = window.innerHeight - ele.offsetTop;
-            ele.style.height = height + "px";
+            var map = ele.querySelector("[data-map-view]")
+            var hits = ele.querySelector("[data-hits-view]")
+
+            if (responsive.isGriddy()) {
+                hits.style.height = height + "px";
+                hits.style.display = "block";
+            }
+            else {
+                hits.style.height = null;
+            }
+            map.style.height = height + "px";
         }
     }
 };

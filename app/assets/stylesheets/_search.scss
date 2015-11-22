@@ -64,12 +64,10 @@
     overflow-y: scroll;
 }
 
-
 .search-title-box {
     text-align: center;
     padding-bottom: $standard-spacing;
 }
-
 
 @mixin search-split-pane($mapWidth) {
     &__map-box {
@@ -83,15 +81,12 @@
 }
 
 .result-container {
-    height: 300px;
-    overflow: hidden;
     position: relative;
 
     &__map-box {
         position: absolute;
         width: 49.3333333333%;
-        top: 0;
-        bottom: 0;
+        height: 300px;
 
         @media (max-width: $mobile) {
             width: 100%;
@@ -104,14 +99,14 @@
         position: absolute;
         left: 49.3333333333%;
         width: 50.6666666667%;
-        top: 0;
-        bottom: 0;
         overflow: scroll;
         overflow-x: hidden;
 
         @media (max-width: $mobile) {
             width: 100%;
             left: 0;
+            overflow: visible;
+            overflow-x: visible;
         }
     }
 
