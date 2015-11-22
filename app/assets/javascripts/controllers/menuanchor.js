@@ -16,7 +16,7 @@ window.controllers.menuAnchor = {
         }
 
         function positionElement() {
-            if (!responsive.isGriddy()) {
+            if (responsive.isGriddy()) {
                 var left = "" + (ele.offsetLeft - 350) + "px";
                 var top = "" + (ele.offsetTop + 32) + "px";
                 targetBox.style.top = top;
@@ -30,7 +30,7 @@ window.controllers.menuAnchor = {
 
         function hide(evt) {
             var hideIt = false;
-            if (responsive.isGriddy()) {
+            if (!responsive.isGriddy()) {
                 var container = evt.target.closest("[data-anchor-for]");
                 hideIt = !!container;
             }

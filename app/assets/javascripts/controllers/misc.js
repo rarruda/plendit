@@ -6,11 +6,16 @@ window.services.responsive = {
     callable: function() {
 
         function isGriddy() {
-            return window.innerWidth < 768;
+            return window.innerWidth > 767;
+        }
+
+        function isCollapsed() {
+            return !isGriddy();
         }
 
         return {
-            isGriddy: isGriddy
+            isGriddy: isGriddy,
+            isCollapsed: isCollapsed
         }
     }
 };
@@ -451,7 +456,7 @@ window.controllers.listingCalendar = function(ele) {
 window.controllers.videoTrigger = {
     dependencies: ['$element', 'responsive'],
     callable: function(ele, responsive) {
-        if (!responsive.isGriddy()) {
+        if (responsive.isGriddy()) {
             ele.play();
         }
     }
