@@ -281,7 +281,7 @@ class UsersController < ApplicationController
   end
 
   # GET /me/rental_history
-  def rental_history   
+  def rental_history
   end
 
   # POST /mark_all_notifications_noticed
