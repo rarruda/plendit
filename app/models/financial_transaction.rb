@@ -32,10 +32,11 @@ class FinancialTransaction < ActiveRecord::Base
   validates :transaction_type, presence: true, inclusion: { in: FinancialTransaction.transaction_types.keys }
   validates :src_type,         presence: true, inclusion: { in: FinancialTransaction.src_types.keys }
   validates :src_vid,          presence: true
-  validates :dst_type,         presence: true, inclusion: { in: FinancialTransaction.dst_types.keys }, unless: "self.preauth?"
-  validates :dst_vid,          presence: true, unless: "self.preauth?"
-  validates :amount,           presence: true, numericality: { only_integer: true }
+  validates :dst_type,         presence: true, inclusion: { in: FinancialTransaction.dst_types.keys }, unless: :preauth?
+  validates :dst_vid,          presence: true, unless: :preauth?
   validates :fees,             presence: true, numericality: { only_integer: true }
+  validates :amount,           presence: true, numericality: { only_integer: true }
+  validates :amount,           presence: true, numericality: { greater_than_or_equal_to: Rails.configuration.x.platform.payout_fee_amount }, if: :payout?
 
 
   # by transaction type:
