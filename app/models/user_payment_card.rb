@@ -77,9 +77,8 @@ class UserPaymentCard < ActiveRecord::Base
     disabled_card = MangoPay::Card.update( self.card_vid, { 'Active' => false } )
     # only "true"/true are true. everything else is false:
     self.active = ( ["true" , true].include? disabled_card['Active'] )
-    self.save
 
-    #self.refresh #?
+    refresh
 
     LOG.info "deactivated from mangopay: #{self}", { user_id: self.user.id, card_id: self.id }
   end
