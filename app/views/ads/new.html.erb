@@ -4,7 +4,12 @@
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
             <div class="new-ad-category-selector">
                 <% @ad_categories.each do |a| %>
-                    <%= button_to(ads_create_users_path, form_class: "u-inline", class: "button new-ad-category-selector__button", params: {category: a[:category]}) do %>
+                    <%= button_to(ads_create_users_path,
+                            form_class: "u-inline",
+                                class: "button new-ad-category-selector__button",
+                                params: { category: a[:category] },
+                                disabled: ( ! current_user.can_rent_out?( a[:category] ) ),
+                        ) do %>
                         <div class="new-ad-category-selector__icon">
                             <%= image_tag a[:image], size: '76x63' %>
                         </div>
@@ -17,6 +22,11 @@
 
     <div class="row">
         <div class="six columns">
+            <% @ad_categories.each do |a|
+                unless current_user.can_rent_out?( a[:category] ) %>
+                    FIXME/TRANSLATEME: explain why you can not rent out in the <%= a[:title] %> category. <br>
+            <%  end %>
+            <% end %>
             <%= render partial: "ad_input_copy" %>
         </div>
     </div>

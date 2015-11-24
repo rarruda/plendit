@@ -257,15 +257,29 @@ class User < ActiveRecord::Base
     bookings.sort do |a,b| b.updated_at <=> a.updated_at end
   end
 
-  #generic methods. we also need more specific versions which restrict based on documents:
-  # if renting a car: valid drivers license and age check.
-  # kyc rules being respected
-  def can_rent?
-    self.mangopay_provisioned?
+  def can_rent? category = nil
+    return false unless self.mangopay_provisioned?
+    return false unless ( self.email_verified? || ( self.identities.length >= 0 ) )
+
+    return true if self.phone_verified? && case category
+    when :bap
+      true
+    when :realestate
+      self.id_card_status == :verified
+    when :motor
+      self.drivers_license_status == :verified
+    when :boat
+      self.boat_license_status == :verified
+    end
+
+    false
   end
 
-  def can_rent_out?
-    self.mangopay_provisioned?
+  # does not use category parameter for now.
+  def can_rent_out? category = nil
+    return false unless self.mangopay_provisioned? && ( self.email_verified? || ( self.identities.length >= 0 ) ) && self.phone_verified?
+
+    true
   end
 
   def drivers_license_status
