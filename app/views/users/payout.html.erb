@@ -1,0 +1,43 @@
+<%= render partial: "shared/personal_bar", locals: {selected: 'Betaling'} %>
+
+<div class="container">
+  <div class="row">
+    <div class="eight columns">
+    <%= render layout: "gray_box", locals: {title: "Overføre", id: "overfoere"} do %>
+      <table>
+        <tr>
+          <td>Din plendit payout saldo</td>
+          <td><%= format_monetary_full @financial_transaction_payout[:amount] %></td>
+        </tr>
+        <% if current_user.user_payment_account.present? %>
+          <tr>
+            <td>Bankgebyr</td>
+            <td><%= format_monetary_full @financial_transaction_payout[:fees] %></td>
+          </tr>
+          <tr>
+            <td>
+                Blir overført til kontornr <%= current_user.user_payment_account.pretty_bank_account_number %>
+            </td>
+            <%# FIXME: can be negative if transaction_payout is zero: %>
+            <td><%= format_monetary_full( @financial_transaction_payout[:amount] - @financial_transaction_payout[:fees] ) %></td>
+          </tr>
+        <% else %>
+          TRANSLATEME: You need to configure a bank account before you can transfer any funds.
+        <% end %>
+      </table>
+
+      <% if current_user.user_payment_account.present? %>
+        <%= button_to "overfør", payment_payout_users_path, class: "button" %>
+      <% end %>
+      <%= link_to "avbryte", payment_users_path %>
+
+      <% if @financial_transaction_payout[:fees] > 0 %>
+        <hr>
+        TRANSLATEME: NB! Husk, at plendit spanderer bankutbetalinggebyr om du har samlet opp og overfør over
+        <%= format_monetary_full Rails.configuration.x.platform.payout_fee_waived_after_amount %> av gangen.
+      <% end %>
+
+    <% end %>
+    </div>
+  </div>
+</div>

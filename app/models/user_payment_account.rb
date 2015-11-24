@@ -18,10 +18,33 @@ class UserPaymentAccount < ActiveRecord::Base
   after_save :provision_with_mangopay,
     if: 'mangopay_provisionable?'
 
+  def pretty_bank_account_number
+    self.bank_account_number.scan(/(.{4})(.{2})(.{5})/).join(".")
+  end
+
 
   def mangopay_provisionable?
     self.user.mangopay_provisioned? && self.user.has_address?
   end
+
+  def build_financial_transaction_payout amount = nil
+    return nil if amount.blank?
+
+    payout_fee = ( amount < Plendit::Application.config.x.platform.payout_fee_waived_after_amount ) ? Plendit::Application.config.x.platform.payout_fee_amount : 0
+
+    {
+      transaction_type: 'payout',
+      amount: amount,
+      fees:   payout_fee,
+    }
+  end
+
+  def create_financial_transaction_payout amount = nil
+
+    t = self.financial_transactions.create( self.build_financial_transaction_payout(amount) )
+    t.process!
+  end
+
 
   private
   def user_is_provisioned

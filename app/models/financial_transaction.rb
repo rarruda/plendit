@@ -162,9 +162,9 @@ class FinancialTransaction < ActiveRecord::Base
   def process_refresh!
     case self.transaction_type.to_sym
     when :preauth
-      self.do_preauth_refresh
+      do_preauth_refresh
     when :payout
-      self.do_payout_refresh
+      do_payout_refresh
     else
       raise "Cannot refresh this type of transaction", { transaction_id: self.id, transaction_type: self.transaction_type }
     end
@@ -398,7 +398,7 @@ class FinancialTransaction < ActiveRecord::Base
   # called from process_on_mangopay
   def do_payout
     #sanity check
-    unless self.transaction_type.payout? &&
+    unless self.payout? &&
       self.src_payout_wallet_vid?        &&
       self.dst_bank_account_vid?         &&
       self.financial_transactionable_type == 'UserPaymentAccount' &&
@@ -409,7 +409,7 @@ class FinancialTransaction < ActiveRecord::Base
     begin
       # https://docs.mangopay.com/api-references/pay-out-bank-wire/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_out.rb
-      payout = MangoPay::PayOut.create(
+      payout = MangoPay::PayOut::BankWire.create(
         'Tag'            => "user_id=#{self.financial_transactionable.user_id}",
         'AuthorId'       => self.financial_transactionable.user.payment_provider_vid,
         'CreditedUserId' => self.financial_transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
@@ -419,7 +419,7 @@ class FinancialTransaction < ActiveRecord::Base
           },
         'Fees' => {
           'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => payout_fee
+          'Amount'   => self.fees
           },
         'DebitedWalletId'  => self.financial_transactionable.user.payout_wallet_vid,
         'BankAccountId'    => self.financial_transactionable.bank_account_vid,

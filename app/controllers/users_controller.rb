@@ -280,6 +280,22 @@ class UsersController < ApplicationController
     @user_payment_cards = current_user.user_payment_cards.sort
   end
 
+  # GET /me/payment/payout
+  def payout
+    payout_wallet_balance = current_user.fetch_payout_wallet_balance
+
+    if request.post? && current_user.user_payment_account.present?
+      current_user.user_payment_account.create_financial_transaction_payout( payout_wallet_balance )
+      redirect_to payment_users_path( anchor: 'transaction_history' ), payment_account_notice: 'TRANSLATEME: payout was created.'
+    end
+
+    if current_user.user_payment_account.present?
+      @financial_transaction_payout = current_user.user_payment_account.build_financial_transaction_payout( payout_wallet_balance )
+    else
+      @financial_transaction_payout = current_user.build_user_payment_account.build_financial_transaction_payout( payout_wallet_balance )
+    end
+  end
+
   # GET /me/rental_history
   def rental_history
   end

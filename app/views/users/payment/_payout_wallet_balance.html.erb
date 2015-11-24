@@ -1,10 +1,10 @@
 
 <%= render layout: "gray_box", locals: {title: "Din Plendit-saldo", id: "payout_wallet_balance"} do %>
 
-<!--   foo - payout_wallet_balance -->
-
-  Din Plendit-saldo: <b>xyz,-</b> NOK
-
-  <br>
-  <%= link_to 'Overfør penger til din konto', new_payout_users_path %>
+  <% if current_user.mangopay_provisioned? && current_user.user_payment_account.present? %>
+    TRANSLATEME: <%= link_to 'Se din Plendit payout-saldo og overfør penger til din bankkonto', payment_payout_users_path %>.
+  <% else %>
+    TRANSLATEME: Du må verifisere din e-postadresse,  ditt telefonnummer og ha en
+    gyldig bankkonto nummer konfigurert hos oss før du kan motta penger.
+  <% end %>
 <% end %>
