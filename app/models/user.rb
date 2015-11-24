@@ -51,6 +51,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "må være gyldig" }
 
   #validates :image_url
+  validates :about, length: { maximum: 4000, too_long: "%{count} characters is the maximum allowed" }
 
   #only if user has a the bank account number
   validates :nationality,          presence: true, :if => :has_bank_account?

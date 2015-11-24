@@ -140,6 +140,19 @@
             </div>
         </div>
 
+        <p>
+            <small>
+                TRANSLATEME: Her på "om meg" du kan fortelle litt mer om deg selv.
+                Denne blir vist på din offentlig profil side.
+            </small>
+        </p>
+        <div class="row">
+            <div class="two-thirds column">
+                <%= f.label :about, 'Om meg:' %>
+                <%= f.text_area :about, class: 'u-full-width' %>
+            </div>
+        </div>
+
         <div class="row">
             <div class="twelve columns">
                 <%= f.submit "Oppdater", class: "u-pull-right button" %>

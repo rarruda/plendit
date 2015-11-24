@@ -3,6 +3,13 @@
         <div class="eight columns">
             <h1><%= @user.display_name_posessive %> profil</h1>
 
+            <% if @user.about.present? %>
+                <section class="profile-self-ads-section u-push-down">
+                    <h2>Om meg</h2>
+                    <%=h @user.about %>
+                </section>
+            <% end %>
+
             <section class="profile-self-ads-section u-push-down">
                 <h2>Annonser</h2>
                 <% if @user.published_ads.empty? %>
