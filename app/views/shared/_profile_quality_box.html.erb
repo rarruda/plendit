@@ -33,6 +33,16 @@
     <div>
         <ol class="profile-quality-box__verifications-list">
             <li>
+                <% if user.id_card_status == :verified %>
+                    <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
+                    <span>ID-kort (verifisert)</span>
+                <% else %>
+                    <%= icon 'times-circle-o', class: 'fa-lg u-fill-brown profile-quality-box__icon' %>
+                    <span>ID-kort (ikke verifisert)</span>
+                <% end %>
+            </li>
+
+            <li>
                 <% if user.email_verified? %>
                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
                     <span>e-postadresse (verifisert)</span>
@@ -51,6 +61,25 @@
                     <span>telefonnummer (ikke verifisert)</span>
                 <% end %>
             </li>
+
+            <% if user.identities.find_by(provider:'facebook').present? %>
+                <li>
+                    <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
+                    <span>facebook-konto (verifisert)</span>
+                </li>
+            <% end %>
+            <% if user.identities.find_by(provider:'google').present? %>
+                <li>
+                    <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
+                    <span>google-konto (verifisert)</span>
+                </li>
+            <% end %>
+            <% if user.identities.find_by(provider:'spid').present? %>
+                <li>
+                    <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
+                    <span>SPiD-konto (verifisert)</span>
+                </li>
+            <% end %>
         </ol>
     </div>
 
