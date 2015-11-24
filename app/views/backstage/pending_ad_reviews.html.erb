@@ -5,9 +5,12 @@
 
             <div class="u-push-down">
                 <ul>
-                    <% @ads.each do |ad| %>
+                    <% @ads.order(updated_at: :asc).each do |ad| %>
                         <li>
                             <%= link_to ad.title, ad %> - <%= time_ago_in_words(ad.updated_at) %> siden.
+                            <% if ad.motor? %>
+                                slå opp på vegvesen <%= link_to "regnr #{ad.registration_number}","#{Plendit::Application.config.x.ads.motor_vegvesen_baseurl}#{ad.registration_number}", target: :_blank  %>.
+                            <% end %>
                         </li>
                     <% end %>
                 </ul>
