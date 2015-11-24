@@ -312,9 +312,9 @@ class User < ActiveRecord::Base
     card = self.id_card
     if card.nil?
       :missing
-    elsif card.status == 'approved'
+    elsif card.approved?
       :verified
-    elsif card.status == 'pending_approval'
+    elsif card.pending_approval?
       :pending
     else
       :rejected # probably not good enough
