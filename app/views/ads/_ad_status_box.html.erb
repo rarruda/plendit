@@ -1,21 +1,21 @@
 <div class="ad-status-box" id="ad-controls">
 
-    <% if ad.status == 'published' %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
-        <%= button_to 'Pause annonsen', pause_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
-        <%= button_to 'Stopp annonsen', stop_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
-    <% elsif ad.status == 'draft' %>
+    <% if ad.published? %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad),  form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
+        <%= button_to 'Pause annonsen',   pause_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
+        <%= button_to 'Stopp annonsen',   stop_ad_path(ad),  form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
+    <% elsif ad.draft? %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
         <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: "ad-status-box__form", class: "ad-status-box__button button button-primary" %>
-    <% elsif ad.status == 'paused' %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
+    <% elsif ad.paused? %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
         <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
-        <%= button_to 'Stopp annonsen', stop_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
-    <% elsif ad.status == 'stopped' %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
+        <%= button_to 'Stopp annonsen',   stop_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
+    <% elsif ad.stopped? %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
         <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
-    <% elsif ad.status == 'waiting_review' %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
+    <% elsif ad.waiting_review? %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
     <% end %>
 
 </div>
