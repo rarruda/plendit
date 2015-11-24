@@ -38,6 +38,8 @@ class FinancialTransaction < ActiveRecord::Base
   validates :amount,           presence: true, numericality: { only_integer: true }
   validates :amount,           presence: true, numericality: { greater_than_or_equal_to: Rails.configuration.x.platform.payout_fee_amount }, if: :payout?
 
+  # default cronological ordering:
+  default_scope      { order(id: :desc) }
 
   # by transaction type:
   scope :preauth,    -> { where( transaction_type: FinancialTransaction.transaction_types[:preauth]  ) }
