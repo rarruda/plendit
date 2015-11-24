@@ -95,8 +95,7 @@ class UserPaymentAccount < ActiveRecord::Base
             'Country'      => self.user.country_of_residence
           }
         } )
-        self.bank_account_vid = bank_account['Id']
-        self.save!
+        self.update_attributes( bank_account_vid: bank_account['Id'] )
       rescue => e
         LOG.error "Exception e:#{e} provisioning at mangopay the bank_account: #{bank_account}", {user_id: @user.id, user_payment_account_id: self.id, mangopay_result: bank_account }
         return nil
