@@ -1,6 +1,7 @@
 <section class="ad-copy-section">
   <h4>TRANSLATEME: Prising:</h4>
   <% @ad.payin_rules.effective_from_asc.each do |pr| %>
-    Fra og med <%= pr.effective_from %> dager: pris er <%= format_monetary_full_pretty pr.payin_amount %> per dag. <br>
+    Ved utleie over <%= pr.effective_from %> dager priser blir <%= format_monetary_full_pretty pr.payin_amount %> per dag. <br>
   <% end %>
 </section>
+<br>
