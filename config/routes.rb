@@ -75,10 +75,10 @@ Rails.application.routes.draw do
       match 'bank_account',            via: [:get, :post]
 
       match 'verify/drivers_license',  to: 'users#verify_drivers_license', via: [:get, :post]
-      match 'verify/id_card',          to: 'users#verify_id_card', via: [:get, :post]
-      match 'verify/boat_license',     to: 'users#verify_boat_license', via: [:get, :post]
-      match 'verify/mobile',           to: 'users#verify_mobile', via: [:get, :post]
-      match 'verify/email',            to: 'users#verify_email', via: [:get, :post]
+      match 'verify/id_card',          to: 'users#verify_id_card',         via: [:get, :post]
+      match 'verify/boat_license',     to: 'users#verify_boat_license',    via: [:get, :post]
+      match 'verify/mobile',           to: 'users#verify_mobile',          via: [:get, :post]
+      match 'verify/email',            to: 'users#verify_email',           via: [:get, :post]
 
       match 'finish_signup',           controller: 'users', via: [:get, :patch]
 
