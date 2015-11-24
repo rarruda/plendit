@@ -137,8 +137,7 @@ class FinancialTransaction < ActiveRecord::Base
       do_transfer
     when :payout
       do_payout
-      # not finished quite yet, requires some refreshes until we know that it went through.
-      # so left as processing. refresh_from_mangopay should move this forward.
+      # dont quite finish, as requires some refreshes until we know that it went through. (all the way to finished)
     else
       LOG.error "Could not handle transaction. Unprocessable transaction_type", { transaction_id: self.id }
       self.fail!
@@ -146,19 +145,18 @@ class FinancialTransaction < ActiveRecord::Base
   end
 
 
-  # def refresh_from_mangopay
-  # end
 
   # triggered externally
   def process_cancel_preauth!
     if self.transaction_type.to_sym == :preauth
       self.do_preauth_cancel
     else
-      raise "Cannot cancel this type of transaction", { transaction_id: self.id, transaction_type: self.transaction_type }
+      LOG.error "Cannot cancel this type of transaction", { transaction_id: self.id, transaction_type: self.transaction_type }
+      raise "Cannot cancel this type of transaction on this status"
     end
   end
 
-  # triggered externally
+  # triggered externally (job? refresh_financial_transactions?)
   def process_refresh!
     case self.transaction_type.to_sym
     when :preauth
@@ -166,7 +164,8 @@ class FinancialTransaction < ActiveRecord::Base
     when :payout
       do_payout_refresh
     else
-      raise "Cannot refresh this type of transaction", { transaction_id: self.id, transaction_type: self.transaction_type }
+      LOG.error "Cannot cancel this type of transaction", { transaction_id: self.id, transaction_type: self.transaction_type }
+      raise "Cannot refresh this type of transaction"
     end
   end
 
@@ -431,8 +430,10 @@ class FinancialTransaction < ActiveRecord::Base
         result_message:  payout['ResultMessage'],
         response_body:   payout
       )
-      # note: no state transition, as its still in Status CREATED until: (according to mangopay docs:)
-      # "In production environment BankWire PayOuts will have a CREATED status until they are treated by our compliance team"
+
+      # update transaction status:
+      aasm_change_on_status payout['Status']
+
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
       LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { transaction_id: self.id, mangopay_result: payout }
@@ -444,6 +445,12 @@ class FinancialTransaction < ActiveRecord::Base
 
   # called from process_refresh
   def do_payout_refresh
+    #sanity check
+    unless self.payout? &&
+      self.processing?
+
+      raise "can not process this transaction with this method"
+    end
 
     begin
       # https://docs.mangopay.com/api-references/pay-out-bank-wire/
