@@ -438,6 +438,7 @@ window.controllers.readOnlyCalendar = function(ele) {
 };
 
 window.controllers.listingCalendar = function(ele) {
+    var calenderEle = ele.querySelector("[data-calendar]");
     var selected = "";
 
     function onViewChanged(yearOrWeek) {
@@ -446,22 +447,27 @@ window.controllers.listingCalendar = function(ele) {
         if (then.diff(now, 'years') > 0) { return false }
     }
 
+    function onSelectionChanged() {
+        var current = this.getSelected();
+    }
+
     var bookedDatesEle = ele.querySelector('script[type="text/plain"]');
     if (bookedDatesEle) {
         selected = bookedDatesEle.textContent.trim();
     }
 
     var k = new Kalendae({
-        attachTo: ele,
+        attachTo: calenderEle,
         months: 1,
-        mode: 'multiple',
-        readOnly: true,
+        mode: 'range',
+        readOnly: false,
         weekStart: 1,
         direction: "today-future",
         blackout: selected,
         useYearNav: false,
         subscribe: {
-            "view-changed": onViewChanged
+            "view-changed": onViewChanged,
+            "change": onSelectionChanged
         }
     });
 };

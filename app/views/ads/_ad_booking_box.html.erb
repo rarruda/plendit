@@ -4,33 +4,40 @@
         <span class="ad-booking-box__period">per døgn</span>
     </h4>
 
-    <div class="ad-booking-box__calendar-holder" data-controller="listingCalendar">
-        <%= render partial: "unavailability", locals: {ad: @ad} %>
-    </div>
-
-    <div class="ad-booking-box__button-holder">
+    <div data-controller="listingCalendar">
         <% if ad.published? && !current_user_is_owner(ad) %>
             <%= form_tag new_booking_path, method: :get do %>
                 <%= hidden_field_tag :ad_id, @ad.id %>
-                <%= button_tag("Gå til booking", {class: "u-push-down button button-primary booking-request-form__book-button"}) %>
+                <%= hidden_field_tag :from_date, "2015-11-12" %>
+                <%= hidden_field_tag :to_date, "2015-10-12" %>
+
+                <div class="ad-booking-box__calendar-holder" data-calendar>
+                    <%= render partial: "unavailability", locals: {ad: @ad} %>
+                </div>
+
+                <div class="ad-booking-box__button-holder">
+                    <%= button_tag("Gå til booking", {class: "u-push-down button button-primary booking-request-form__book-button"}) %>
+                </div>
             <% end %>
         <% end %>
 
-        <%= form_for( FavoriteAd.new, url: users_favorite_ads_path ) do |f| %>
-            <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
-            <%= f.hidden_field :previous_url, value: request.fullpath %>
-            <% if ad.is_favorite_of( current_user ) %>
-                <%= f.button class: "button booking-request-form__book-button" do %>
-                    <%= icon 'heart', class: "fa-2x u-fill-gold booking-request-form__heart" %>
-                    Fjern fra favoritter
-                <% end %>
-            <% else %>
-                <%= f.button class: "button booking-request-form__book-button" do %>
-                    <%= icon 'heart-o', class: "fa-2x booking-request-form__heart" %>
-                    Legg til i favoritter
+        <div class="ad-booking-box__button-holder">
+            <%= form_for( FavoriteAd.new, url: users_favorite_ads_path ) do |f| %>
+                <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
+                <%= f.hidden_field :previous_url, value: request.fullpath %>
+                <% if ad.is_favorite_of( current_user ) %>
+                    <%= f.button class: "button booking-request-form__book-button" do %>
+                        <%= icon 'heart', class: "fa-2x u-fill-gold booking-request-form__heart" %>
+                        Fjern fra favoritter
+                    <% end %>
+                <% else %>
+                    <%= f.button class: "button booking-request-form__book-button" do %>
+                        <%= icon 'heart-o', class: "fa-2x booking-request-form__heart" %>
+                        Legg til i favoritter
+                    <% end %>
                 <% end %>
             <% end %>
-        <% end %>
+        </div>
     </div>
 </div>
 
