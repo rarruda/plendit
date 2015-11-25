@@ -671,7 +671,6 @@ window.controllers.adAutoSaver = {
 window.controllers.publishButton = {
     dependencies: ["$element", "utils", "eventbus"],
     callable: function(ele, utils, eventbus) {
-        ele.disabled = false;
         eventbus.on(eventbus.AD_FORM_SAVE_OK, handleSaveOk);
         eventbus.on(eventbus.AD_FORM_SAVE_ERROR, handleSaveError);
         eventbus.on(eventbus.AD_FORM_DIRTY, handleGotDirty);
