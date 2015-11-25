@@ -643,6 +643,7 @@ window.controllers.adAutoSaver = {
     dependencies: ["$element", "xhr", "utils", "eventbus"],
     callable: function(ele, xhr, utils, eventbus) {
         var dirty = false;
+        eventbus.on(eventbus.AD_FORM_SAVE_NOW, handleChange);
         ele.addEventListener("change", handleChange)
 
         function handleChange() {
@@ -724,11 +725,19 @@ window.controllers.imageSubformController = {
         ele.addEventListener("click", function(e) {
             window.setTimeout(updatePrimality, 10);
         });
+        ele.addEventListener("click", function() {
+            window.setTimeout(function() {
+                eventbus.emit(eventbus.AD_FORM_SAVE_NOW);
+            }, 400);
+        })
 
         updatePrimality();
 
         function reloadImages() {
-            xhr.get(url).then(onGotImageHtml);
+            xhr
+                .get(url)
+                .then(onGotImageHtml)
+                .then(updateUploadButton);
         }
 
         function onGotImageHtml(req) {
@@ -747,6 +756,14 @@ window.controllers.imageSubformController = {
             }
             updateWeights();
             updatePrimality();
+        }
+
+        function updateUploadButton() {
+            var hasNoImages = ele.querySelectorAll("[data-in-image]").length == 0;
+            var button = document.querySelector("[data-upload-images-button]");
+            if (button) {
+                button.classList.toggle("button-primary", hasNoImages);
+            }
         }
 
         function updateWeights() {

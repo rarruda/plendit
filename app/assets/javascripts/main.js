@@ -9,7 +9,8 @@ function main() {
         IMAGES_CHANGED: 'images_changed_event',
         AD_FORM_DIRTY: 'ad-form-dirty',
         AD_FORM_SAVE_OK: 'ad-form-save-ok',
-        AD_FORM_SAVE_ERROR: 'ad-form-save-error'
+        AD_FORM_SAVE_ERROR: 'ad-form-save-error',
+        AD_FORM_SAVE_NOW: 'ad-form-save-now'
     });
 
     var c = new Controllerator();
