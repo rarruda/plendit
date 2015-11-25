@@ -13,8 +13,10 @@
     }
 
     &__book-button {
-        padding-left: $standard-spacing * 2;
-        padding-right: $standard-spacing * 2;
+        padding-left: 0; // $standard-spacing * 2;
+        padding-right: 0; //$standard-spacing * 2;
+        max-width: 210px;
+        width: 88%;
     }
 
     &__heart {

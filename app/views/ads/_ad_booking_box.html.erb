@@ -12,7 +12,7 @@
         <% if ad.published? && !current_user_is_owner(ad) %>
             <%= form_tag new_booking_path, method: :get do %>
                 <%= hidden_field_tag :ad_id, @ad.id %>
-                <%= button_tag("Gå til booking", {class: "u-push-down button button-primary availability-section__book"}) %>
+                <%= button_tag("Gå til booking", {class: "u-push-down button button-primary booking-request-form__book-button"}) %>
             <% end %>
         <% end %>
 
