@@ -85,7 +85,7 @@ class Ad < ActiveRecord::Base
     state :deleted
 
     event :submit_for_review do
-      transitions :from => :draft, :to => :waiting_review
+      transitions :from => :draft, :to => :waiting_review, :guard => :valid?
       after do
         # FIXME: do not ad be submitted for review if location does not have a latlon.
         LOG.error "submiting for review..."
