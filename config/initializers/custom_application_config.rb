@@ -88,6 +88,8 @@ Plendit::Application.config.x.insurance.max_discount_after_duration = [
 # should be a hash: bap: 1_500, motor: 1_000_000, realestate: 500_000
 Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
 
+Plendit::Application.config.x.ads.motor_vegvesen_baseurl = "http://www.vegvesen.no/Kjoretoy/Kjop+og+salg/Kj%C3%B8ret%C3%B8yopplysninger?registreringsnummer="
+
 Plendit::Application.config.x.ads.categories = [
   {
     title:    'Stort og smått',
