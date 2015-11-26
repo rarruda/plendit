@@ -664,7 +664,7 @@ window.controllers.adAutoSaver = {
 
         function handleSaveOk(xhr) {
             // console.log(xhr);
-            eventbus.emit(eventbus.AD_FORM_SAVE_OK);
+            eventbus.emit(eventbus.AD_FORM_SAVE_OK, JSON.parse(xhr.responseText));
         }
 
         function handleSaveError(xhr) {
@@ -787,6 +787,26 @@ window.controllers.imageSubformController = {
                  .forEach(function(e, n) {
                     e.classList.toggle("in-image--primary", n == 0);
                  });
+        }
+    }
+};
+
+
+
+window.controllers.updateMainPriceDetails = {
+    dependencies: ["$element", "utils", "eventbus", "createElement"],
+    callable: function(ele, utils, eventbus, E) {
+        eventbus.on(eventbus.AD_FORM_SAVE_OK, onSaved);
+
+        function onSaved(newState) {
+            var payin = newState.main_payin_rule;
+            var info =
+                E('div', null,
+                    E('span', null, "Leiegebyr: "), E('span', null, payin.total_fee), E('br'),
+                    E('span', null, "Inkluderer forsikring opp til "), E('span', null, payin.max_insurance_coverage), E('br'),
+                    E('strong', null, "Utebetalt til deg: "), E('strong', null, payin.payout_amount)
+                );
+            ele.innerHTML = info.innerHTML;
         }
     }
 };
