@@ -127,7 +127,7 @@
 
         <div class="u-push-down">
             <div class="main-price">
-                <%= f.fields_for :payin_rules, :main_payin_rule do |mf| %>
+                <%= f.fields_for :payin_rules, @ad.main_payin_rule do |mf| %>
                     <%= mf.label :payin_amount_in_h, "Pris per dag:" %>
                     <%= mf.number_field :payin_amount_in_h %>
                 <% end %>
