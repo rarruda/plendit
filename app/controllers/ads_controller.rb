@@ -271,7 +271,7 @@ class AdsController < ApplicationController
     respond_to do |format|
       if @ad.update(ad_params_local)
         format.html { render :edit }
-        format.json { render json: @ad, include: [:payin_rules], status: :ok, location: @ad }
+        format.json
       else
         format.html { render :edit }
         format.json { render json: @ad.errors, status: :unprocessable_entity }
