@@ -217,6 +217,14 @@ class Ad < ActiveRecord::Base
     self.payin_rules.find_or_initialize_by(unit: PayinRule.units[:day], effective_from: 1).payin_amount
   end
 
+  def main_payin_rule
+    self.payin_rules.find &:required?
+  end
+
+  def secondary_payin_rules
+    self.payin_rules.reject &:requred?
+  end
+
   # used in as_indexed_json
   def geo_location
     if self.location
