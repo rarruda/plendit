@@ -128,12 +128,26 @@
         <div class="u-push-down">
             <div class="main-price">
                 <%= f.fields_for :payin_rules, @ad.main_payin_rule do |mf| %>
-                    <%= mf.label :payin_amount_in_h, "Pris per dag:" %>
-                    <%= mf.number_field :payin_amount_in_h %>
+                    <%= mf.label :payin_amount_in_h, "Pris per dag:", class: 'main-price__label' %>
+                    <%= mf.number_field :payin_amount_in_h, class: 'main-price__input-price' %>
                 <% end %>
             </div>
-            <div data-controller="updateMainPriceDetails">
 
+            <div data-controller="updateMainPriceDetails">
+                <div>
+                    <span class="main-price__label">Leiegebyr:</span>
+                    <span class="main-price__value"><%= @ad.booking_calculator.total_fee(@ad.main_payin_rule) %></span>
+                </div>
+
+                <div>
+                    <i>Inkluderer forsikring opp til</span>
+                    <i><%= format_monetary_full_pretty(@ad.booking_calculator.max_insurance_coverage(@ad.main_payin_rule)) %></i>
+                </div>
+
+                <div>
+                    <strong class="main-price__label">Utebetalt til deg:</strong>
+                    <strong class="main-price__value"><%= format_monetary_full_pretty(@ad.booking_calculator.payout_amount(@ad.main_payin_rule)) %></strong>
+                </div>
             </div>
         </div>
 

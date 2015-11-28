@@ -140,3 +140,23 @@
         margin-bottom: 0;
     }
 }
+
+.main-price {
+    &__input-price {
+        width: 80px;
+        text-align: right;
+    }
+
+    &__label {
+        display: inline-block;
+        width: 196px;
+    }
+
+    &__value {
+        width: 80px;
+        display: inline-block;
+        text-align: right;
+
+    }
+}
+

@@ -802,9 +802,18 @@ window.controllers.updateMainPriceDetails = {
             var payin = newState.main_payin_rule;
             var info =
                 E('div', null,
-                    E('span', null, "Leiegebyr: "), E('span', null, payin.total_fee), E('br'),
-                    E('span', null, "Inkluderer forsikring opp til "), E('span', null, payin.max_insurance_coverage), E('br'),
-                    E('strong', null, "Utebetalt til deg: "), E('strong', null, payin.payout_amount)
+                    E('div', null,
+                        E('span.main-price__label', null, "Leiegebyr: "),
+                        E('span.main-price__value', null, payin.total_fee)
+                    ),
+                    E('div', null,
+                        E('i', null, "Inkluderer forsikring opp til "),
+                        E('i', null, payin.max_insurance_coverage)
+                    ),
+                    E('div', null,
+                        E('strong.main-price__label', null, "Utebetalt til deg: "),
+                        E('strong.main-price__value', null, payin.payout_amount)
+                    )
                 );
             ele.innerHTML = info.innerHTML;
         }
