@@ -128,7 +128,7 @@
         <div class="u-push-down">
             <div class="main-price">
                 <%= f.fields_for :payin_rules, @ad.main_payin_rule do |mf| %>
-                    <%= mf.label :payin_amount_in_h, "Pris per dag:", class: 'main-price__label' %>
+                    <%= mf.label :payin_amount_in_h, "Pris per døgn:", class: 'main-price__label' %>
                     <%= mf.number_field :payin_amount_in_h, class: 'main-price__input-price' %>
                 <% end %>
             </div>
@@ -151,9 +151,35 @@
             </div>
         </div>
 
+        <!--
+        <hr class="u-push-down">
+
+        <div class="price-adder">
+
+            <div class="help-box u-push-down">
+                Pris per enkelt døgn må være minst 99 kr.
+                Vil du gi en lavere døgnpris for lengre
+                leieforhold kan du gjøre det her.
+            </div>
+            <div>
+                <span class="price-adder__label">Ved utleie over</span>
+                <input class="price-adder__days" type="number">
+                <span>dager</span>
+            </div>
+            <div>
+                <span class="price-adder__label">Reduseres pris per dag til</span>
+                <input class="price-adder__price" type="number">
+                <span>kr</span>
+            </div>
+            <button type="button" class="button">Lagre</button>
+            <button type="button" class="button">Avbryt</button>
+
+        </div>
+
         <div class="u-push-down">
             <%= render partial: 'price_editor', locals: {f: f} %>
         </div>
+    -->
 
     <%- end -%>
 
