@@ -129,6 +129,7 @@ Rails.application.routes.draw do
       post 'ad_image'
       get 'edit_availability'
       get 'payout_estimates'
+      get 'payout_estimate'
 
       post 'pause'
       post 'stop'

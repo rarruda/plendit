@@ -11,6 +11,7 @@ class AdsController < ApplicationController
     :image_manager,
     :nested_images,
     :pause,
+    :payout_estimate,
     :payout_estimates,
     :preview,
     :resume,
@@ -284,6 +285,16 @@ class AdsController < ApplicationController
       redirect_to edit_ad_path(@ad)
     else
       redirect_to @ad, alert: 'Ad was set to editing suspended.'
+    end
+  end
+
+  def payout_estimate
+    @ad = @ad.dup
+    @ad.readonly!
+    price = Integer(params[:price]) * 100;
+    @rule = PayinRule.new( unit: 'day', effective_from: 1, payin_amount: price, ad_id: @ad )
+    respond_to do |format|
+      format.json
     end
   end
 
