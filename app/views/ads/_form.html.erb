@@ -151,37 +151,45 @@
             </div>
         </div>
 
-        <!--
-        <hr class="u-push-down">
 
-        <div class="price-adder">
 
-            <div class="help-box u-push-down">
-                Pris per enkelt døgn må være minst 99 kr.
-                Vil du gi en lavere døgnpris for lengre
-                leieforhold kan du gjøre det her.
-            </div>
-            <div>
-                <span class="price-adder__label">Ved utleie over</span>
-                <input class="price-adder__days" type="number">
-                <span>dager</span>
-            </div>
-            <div>
-                <span class="price-adder__label">Reduseres pris per dag til</span>
-                <input class="price-adder__price" type="number">
-                <span>kr</span>
-            </div>
-            <button type="button" class="button">Lagre</button>
-            <button type="button" class="button">Avbryt</button>
-
-        </div>
 
         <div class="u-push-down">
-            <%= render partial: 'price_editor', locals: {f: f} %>
+            <%#= render partial: 'price_editor', locals: {f: f} %>
         </div>
-    -->
 
     <%- end -%>
+
+       <hr class="u-push-down">
+
+        <details data-controller="payinAdder" data-estimate-url="<%= payout_estimate_ad_path(@ad) %>">
+            <summary>
+                <span type="button" class="button">Legg til spesialpris</span>
+            </summary>
+
+            <div class="price-adder">
+
+                <div class="help-box u-push-down">
+                    Pris per enkelt døgn må være minst 99 kr.
+                    Vil du gi en lavere døgnpris for lengre
+                    leieforhold kan du gjøre det her.
+                </div>
+                <div>
+                    <span class="price-adder__label">Ved utleie over</span>
+                    <input class="price-adder__days" type="number" data-name="days">
+                    <span>dager</span>
+                </div>
+                <div>
+                    <span class="price-adder__label">Reduseres pris per dag til</span>
+                    <input class="price-adder__price" type="number" min="2" data-name="price">
+                    <span>kr</span>
+                </div>
+                <div data-estimate></div>
+                <button type="button" class="button" data-save disabled>Lagre</button>
+                <button type="button" class="button" data-cancel>Avbryt</button>
+
+            </div>
+        </details>
 
     <hr>
         <%= link_to 'Mer informasjon om forsikring.', Plendit::Application.config.x.customerservice.insurance_info, :target => '_blank' %>

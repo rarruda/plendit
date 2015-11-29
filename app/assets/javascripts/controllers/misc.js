@@ -792,7 +792,6 @@ window.controllers.imageSubformController = {
 };
 
 
-
 window.controllers.updateMainPriceDetails = {
     dependencies: ["$element", "utils", "eventbus", "createElement"],
     callable: function(ele, utils, eventbus, E) {
@@ -816,6 +815,68 @@ window.controllers.updateMainPriceDetails = {
                     )
                 );
             ele.innerHTML = info.innerHTML;
+        }
+    }
+};
+
+
+window.controllers.payinAdder = {
+    dependencies: ["$element", "utils", "eventbus", "createElement", "xhr"],
+    callable: function(ele, utils, eventbus, E, xhr) {
+        var estimatesUrl = ele.getAttribute("data-estimate-url");
+        init();
+
+        // eventbus.on(eventbus.AD_FORM_SAVE_OK, onSaved);
+        function init() {
+            ele.querySelector("[data-cancel]").addEventListener("click", onCancel);
+            ele.querySelector("[data-save]").addEventListener("click", onSave);
+            ele.querySelector("[data-name=days]").addEventListener("change", onChange);
+            ele.querySelector("[data-name=price]").addEventListener("change", onChange);
+        }
+
+        function getInputs() {
+            return {
+                days: ele.querySelector("[data-name=days]").value,
+                price: ele.querySelector("[data-name=price]").value
+            };
+        }
+
+        function onChange() {
+            var data = getInputs();
+            if (data.price && data.price != "" && data.days && data.days != "") {
+                xhr
+                    .getJson(estimatesUrl + "?price=" + data.price + "&days=" + data.days)
+                    .then(updateEstimate);
+            }
+        }
+
+        function updateEstimate(payin) {
+            if (!payin) { return; }
+
+            var info =
+                E('div', null,
+                    E('div', null,
+                        E('span.main-price__label', null, "Leiegebyr: "),
+                        E('span.main-price__value', null, payin.total_fee)
+                    ),
+                    E('div', null,
+                        E('i', null, "Inkluderer forsikring opp til "),
+                        E('i', null, payin.max_insurance_coverage)
+                    ),
+                    E('div', null,
+                        E('strong.main-price__label', null, "Utebetalt til deg: "),
+                        E('strong.main-price__value', null, payin.payout_amount)
+                    )
+                );
+            ele.querySelector("[data-estimate]").innerHTML = info.innerHTML;
+        }
+
+        function onSave() {
+            var data = getInputs();
+        }
+
+        function onCancel() {
+            ele.open = false;
         }
     }
 };
