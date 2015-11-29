@@ -138,6 +138,7 @@ Rails.application.routes.draw do
       post 'resume'
       post 'submit_for_review'
       post 'unpublish_and_edit'
+      post 'add_payin_rule'
     end
   end
 

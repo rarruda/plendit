@@ -3,6 +3,7 @@ class AdsController < ApplicationController
 
   before_action :set_ad, only: [
     :ad_image,
+    :add_payin_rule,
     :approve,
     :destroy,
     :edit,
@@ -311,6 +312,12 @@ class AdsController < ApplicationController
       }
     end
     render json: estimates
+  end
+
+  def add_payin_rule
+    @payin_rule = @ad.payin_rules.build(payin_amount_in_h: 199, effective_from: 44, unit: 2)
+    @payin_rule.save
+    render text: "Added rule";
   end
 
   private

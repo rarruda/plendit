@@ -824,6 +824,7 @@ window.controllers.payinAdder = {
     dependencies: ["$element", "utils", "eventbus", "createElement", "xhr"],
     callable: function(ele, utils, eventbus, E, xhr) {
         var estimatesUrl = ele.getAttribute("data-estimate-url");
+        var newRuleUrl = ele.getAttribute("data-new-rule-url");
         init();
 
         // eventbus.on(eventbus.AD_FORM_SAVE_OK, onSaved);
@@ -869,10 +870,14 @@ window.controllers.payinAdder = {
                     )
                 );
             ele.querySelector("[data-estimate]").innerHTML = info.innerHTML;
+            ele.querySelector("[data-save]").disabled = false;
         }
 
         function onSave() {
             var data = getInputs();
+            xhr.post(newRuleUrl).then(function(e) {
+                console.log(e);
+            });
         }
 
         function onCancel() {
@@ -880,5 +885,3 @@ window.controllers.payinAdder = {
         }
     }
 };
-
-

@@ -162,7 +162,9 @@
 
        <hr class="u-push-down">
 
-        <details data-controller="payinAdder" data-estimate-url="<%= payout_estimate_ad_path(@ad) %>">
+        <details data-controller="payinAdder"
+                 data-estimate-url="<%= payout_estimate_ad_path(@ad) %>"
+                 data-new-rule-url="<%= add_payin_rule_ad_path(@ad) %>">
             <summary>
                 <span type="button" class="button">Legg til spesialpris</span>
             </summary>
