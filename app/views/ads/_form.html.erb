@@ -158,9 +158,42 @@
             <%#= render partial: 'price_editor', locals: {f: f} %>
         </div>
 
+
     <%- end -%>
 
-       <!--
+        <div class="u-push-down">
+            <label>Rabattpriser</label>
+            <% @ad.secondary_payin_rules.each do |rule| %>
+                <div>
+                    <span class="main-price__label">Ved utleie over:</span>
+                    <span class="main-price__value"><%= rule.effective_from %> dager</span>
+                </div>
+
+                <div>
+                    <span class="main-price__label">Reduseres prisen til:</span>
+                    <span class="main-price__value"><%= format_monetary_full_pretty(rule.payin_amount) %></span>
+                </div>
+
+                <div>
+                    <span class="main-price__label">Leiegebyr:</span>
+                    <span class="main-price__value"><%= format_monetary_full_pretty(@ad.booking_calculator.total_fee(rule)) %></span>
+                </div>
+
+                <div>
+                    <i>Inkluderer forsikring opp til</i>
+                    <i><%= format_monetary_full_pretty(@ad.booking_calculator.max_insurance_coverage(@ad.main_payin_rule)) %></i>
+                </div>
+
+                <div>
+                    <strong class="main-price__label">Utebetalt til deg:</strong>
+                    <strong class="main-price__value"><%= format_monetary_full_pretty(@ad.booking_calculator.payout_amount(rule)) %></strong>
+                </div>
+
+                <hr>
+
+            <% end %>
+        </div>
+
 
         <hr class="u-push-down">
 
@@ -194,7 +227,7 @@
 
             </div>
         </details>
-        -->
+
     <hr>
         <%= link_to 'Mer informasjon om forsikring.', Plendit::Application.config.x.customerservice.insurance_info, :target => '_blank' %>
     <hr>

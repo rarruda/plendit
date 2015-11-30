@@ -875,7 +875,8 @@ window.controllers.payinAdder = {
 
         function onSave() {
             var data = getInputs();
-            xhr.post(newRuleUrl).then(function(e) {
+            xhr.postForm(newRuleUrl, data).then(function(e) {
+
                 console.log(e);
             });
         }

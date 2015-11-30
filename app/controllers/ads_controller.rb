@@ -315,7 +315,7 @@ class AdsController < ApplicationController
   end
 
   def add_payin_rule
-    @payin_rule = @ad.payin_rules.build(payin_amount_in_h: 199, effective_from: 44, unit: 2)
+    @payin_rule = @ad.payin_rules.build(payin_amount_in_h: params[:price], effective_from: params[:days], unit: 2)
     @payin_rule.save
     render text: "Added rule";
   end
