@@ -47,13 +47,30 @@
         return xhr("post", url);
     }
 
+    function postForm(url, data) {
+        var headers = {
+            "Content-type": "application/x-www-form-urlencoded"
+        }
+        var pairs = [];
+        for (var key in data) {
+            pairs.push([key, data[key]]);
+        }
+
+        var body = pairs
+                .map(function(e) { return encodeURIComponent(e[0]) + "=" + encodeURIComponent(e[1]) })
+                .join("&");
+
+        return xhr("post", url, body, headers);
+    }
+
     function xhrFormData(formEle) {
         return xhr(formEle.method, formEle.action, new FormData(formEle), {'Accept': 'application/json'});
     }
 
     global.xhr = { 
         get: get, getJson: getJson, del: del,
-        post: post, xhrFormData: xhrFormData
+        post: post, xhrFormData: xhrFormData,
+        postForm: postForm
     };
 
 })(this);
