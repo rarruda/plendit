@@ -222,7 +222,7 @@ class Ad < ActiveRecord::Base
   end
 
   def secondary_payin_rules
-    self.payin_rules.reject &:required?
+    self.payin_rules.sort_by(&:effective_from).reject(&:required?)
   end
 
   # used in as_indexed_json
