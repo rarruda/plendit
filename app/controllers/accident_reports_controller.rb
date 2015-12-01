@@ -1,12 +1,11 @@
 class AccidentReportsController < InheritedResources::Base
+  before_action :authenticate_user!
+
 
   # GET /me/accident_report
   def index
     @accident_report = AccidentReport.new( from_user_id: current_user.id )
     @bookings = Booking.accidents_reportable.has_user( current_user ).all
-  end
-
-  def show
   end
 
   # POST /me/accident_report
@@ -31,9 +30,8 @@ class AccidentReportsController < InheritedResources::Base
   end
 
   private
-
-    def accident_report_params
-      params.require(:accident_report).permit(:booking_guid, :from_user, :happened_at, :location_address_line, :location_post_code, :location_country, :body)
-    end
+  def accident_report_params
+    params.require(:accident_report).permit(:booking_guid, :from_user, :happened_at, :location_address_line, :location_post_code, :location_country, :body)
+  end
 end
 
