@@ -162,6 +162,15 @@ NOTE: It is recommended that a production deployment of resque-scheduler be host
  is O(N), but must transverse all keys in the keyspace.
  FROM: https://github.com/resque/resque-scheduler#deployment-notes
 
+* Resque scheduler
+
+Can be started with this command:
+```
+bundle exec rake <environment> resque:scheduler --trace
+```
+
+It will then generate jobs according to the configuration in cron settings.
+
 * ElasticSearch (re)initialization
 
 Install elasticsearch. Mac uses can use the version from homebrew:
