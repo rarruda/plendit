@@ -93,69 +93,75 @@ class BookingsController < ApplicationController
     redirect_to @booking
   end
 
-
   private
-    def notify_about_decline
-      Notification.create(
-        user_id: @booking.from_user.id,
-        message: "#{@booking.user.display_name} har avslått din forespørsel om å leie \"#{@booking.ad.display_title}\"",
-        notifiable: @booking
-      )
-    end
+  def notify_about_accept
+    Notification.create(
+      user_id: @booking.from_user.id,
+      message: "#{@booking.user.display_name} har godkjent din forespørsel om å leie \"#{@booking.ad.display_title}\"",
+      notifiable: @booking
+    )
+  end
 
-    def notify_about_accept
-      Notification.create(
-        user_id: @booking.from_user.id,
-        message: "#{@booking.user.display_name} har godkjent din forespørsel om å leie \"#{@booking.ad.display_title}\"",
-        notifiable: @booking
-      )
-    end
+  def notify_about_decline
+    Notification.create(
+      user_id: @booking.from_user.id,
+      message: "#{@booking.user.display_name} har avslått din forespørsel om å leie \"#{@booking.ad.display_title}\"",
+      notifiable: @booking
+    )
+  end
 
-    def notify_about_cancel
-      Notification.create(
-        user_id: @booking.user.id,
-        message: "#{@booking.from_user.display_name} har kansellert bookingen på \"#{@booking.ad.display_title}\"",
-        notifiable: @booking )
-    end
+  def notify_about_abort
+    Notification.create(
+      user_id: @booking.user.id,
+      message: "#{@booking.from_user.display_name} har kansellert booking forespørsel om å leie \"#{@booking.ad.display_title}\"",
+      notifiable: @booking )
+  end
 
-    def notify_about_new_booking
-      Notification.create(
-        user_id: @booking.user.id,
-        message: "#{@booking.from_user.display_name} ønsker å leie \"#{@booking.ad.display_title}\"",
-        notifiable: @booking
-      )
-    end
+  def notify_about_cancel
+    Notification.create(
+      user_id: @booking.user.id,
+      message: "#{@booking.from_user.display_name} har kansellert bookingen på \"#{@booking.ad.display_title}\"",
+      notifiable: @booking )
+  end
 
-    def notify_about_updated_booking
-      Notification.create(
-        user_id: @booking.user.id,
-        message: "#{@booking.from_user.display_name} har oppdatert bookingen på \"#{@booking.ad.display_title}\"",
-        notifiable: @booking
-      )
-    end
+  def notify_about_new_booking
+    Notification.create(
+      user_id: @booking.user.id,
+      message: "#{@booking.from_user.display_name} ønsker å leie \"#{@booking.ad.display_title}\"",
+      notifiable: @booking
+    )
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_booking
-      # FIXME: retrict to user/from_user? (so its not public for EVERYONE)
-      @booking = Booking.find_by( guid: params[:guid] ).decorate
-    end
+  def notify_about_updated_booking
+    Notification.create(
+      user_id: @booking.user.id,
+      message: "#{@booking.from_user.display_name} har oppdatert bookingen på \"#{@booking.ad.display_title}\"",
+      notifiable: @booking
+    )
+  end
 
-    def set_booking_from_params
-      new_booking = booking_params.merge( {
-        'from_user_id' => current_user.id,
-        'status'       => 'created',
-        'user_payment_card_id' => current_user.user_payment_cards.find_by(guid: booking_params[:user_payment_card_id]).id
-      } )
+  # Use callbacks to share common setup or constraints between actions.
+  def set_booking
+    # FIXME: retrict to user/from_user? (so its not public for EVERYONE)
+    @booking = Booking.find_by( guid: params[:guid] ).decorate
+  end
 
-      @booking = Booking.new( new_booking ).decorate
-    end
+  def set_booking_from_params
+    new_booking = booking_params.merge( {
+      'from_user_id' => current_user.id,
+      'status'       => 'created',
+      'user_payment_card_id' => current_user.user_payment_cards.find_by(guid: booking_params[:user_payment_card_id]).id
+    } )
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def booking_params
-      params.require(:booking).permit(
-        :ad_item_id, :starts_at, :ends_at, :ends_at_date,
-        :ends_at_time, :starts_at_date, :starts_at_time, :status,
-        :user_payment_card_id
-      )
-    end
+    @booking = Booking.new( new_booking ).decorate
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def booking_params
+    params.require(:booking).permit(
+      :ad_item_id, :starts_at, :ends_at, :ends_at_date,
+      :ends_at_time, :starts_at_date, :starts_at_time, :status,
+      :user_payment_card_id
+    )
+  end
 end
