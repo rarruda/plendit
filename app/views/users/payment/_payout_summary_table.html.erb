@@ -1,0 +1,34 @@
+<table>
+  <tr>
+    <td>Din plendit payout saldo</td>
+    <td><%= format_monetary_full @financial_transaction_payout[:amount] %></td>
+  </tr>
+
+  <%
+  if current_user.user_payment_account.present? &&
+    ( @financial_transaction_payout[:amount] > 0 ) &&
+    ( @financial_transaction_payout[:amount] > @financial_transaction_payout[:fees] )
+  -%>
+    <tr>
+      <td>Bankgebyr</td>
+      <td><%= format_monetary_full @financial_transaction_payout[:fees] %></td>
+    </tr>
+    <tr>
+      <td>
+          Blir overført til kontornr <%= current_user.user_payment_account.pretty_bank_account_number %>
+      </td>
+      <%# FIXME: can be negative if transaction_payout is zero: %>
+      <td><%= format_monetary_full( @financial_transaction_payout[:amount] - @financial_transaction_payout[:fees] ) %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+
+<% if current_user.user_payment_account.nil? %>
+  TRANSLATEME: You need to configure a bank account before you can transfer any funds.
+<% elsif @financial_transaction_payout[:amount] == 0 %>
+  TRANSLATEME: You need to have funds before you can transfer it.
+<% else %>
+  TRANSLATEME: you need to have at least <%= %> in your wallet before you can transfer them.
+<% end %>

@@ -24,7 +24,7 @@ class UserPaymentAccount < ActiveRecord::Base
 
 
   def mangopay_provisionable?
-    self.user.mangopay_provisioned? && self.user.has_address?
+    self.user_id.present? && self.user.mangopay_provisioned? && self.user.has_address?
   end
 
   def build_financial_transaction_payout amount = nil
