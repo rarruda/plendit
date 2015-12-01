@@ -136,7 +136,7 @@
             <div data-controller="updateMainPriceDetails">
                 <div>
                     <span class="main-price__label">Leiegebyr:</span>
-                    <span class="main-price__value"><%= @ad.booking_calculator.total_fee(@ad.main_payin_rule) %></span>
+                    <span class="main-price__value"><%= format_monetary_full_pretty @ad.booking_calculator.total_fee(@ad.main_payin_rule) %></span>
                 </div>
 
                 <div>
