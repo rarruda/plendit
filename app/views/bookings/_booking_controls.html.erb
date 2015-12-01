@@ -16,7 +16,7 @@
         <% end %>
     <% else %>
         <% if booking.created? %>
-            <%= button_to "Avbryt forespørsel", cancel_booking_path(booking), class: "button" %>
+            <%= button_to "Avbryt forespørsel", abort_booking_path(booking), class: "button" %>
             <%= link_to "Rediger forespørsel", edit_booking_path(booking), class: "button" %>
         <% elsif booking.confirmed? || booking.started? %>
             <%# should be a red button! should have a warning to not be used lightly, as it will trigger admin intervention? %>

@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get 'show_price'
       post 'decline'
       post 'accept'
+      post 'abort'
       post 'cancel'
     end
   end

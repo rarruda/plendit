@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :edit, :update, :destroy, :decline, :cancel, :accept]
+  before_action :set_booking, only: [:show, :edit, :update, :destroy, :accept, :decline, :abort, :cancel ]
   before_action :set_booking_from_params, only: [:create, :show_price]
   before_filter :authenticate_user!
 
@@ -65,6 +65,12 @@ class BookingsController < ApplicationController
     end
   end
 
+  # POST /me/bookings/1/accept
+  def accept
+    @booking.confirm!
+    notify_about_accept
+    redirect_to @booking
+  end
 
   # POST /me/bookings/1/decline
   def decline
@@ -73,10 +79,10 @@ class BookingsController < ApplicationController
     redirect_to @booking
   end
 
-  # POST /me/bookings/1/accept
-  def accept
-    @booking.confirm!
-    notify_about_accept
+  # POST /me/bookings/1/abort
+  def abort
+    @booking.abort!
+    notify_about_abort
     redirect_to @booking
   end
 
