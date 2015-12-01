@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Booking:</strong>
+  <%= @accident_report.booking %>
+</p>
+
+<p>
+  <strong>From user:</strong>
+  <%= @accident_report.from_user %>
+</p>
+
+<p>
+  <strong>Happened at:</strong>
+  <%= @accident_report.happened_at %>
+</p>
+
+<p>
+  <strong>Location address line:</strong>
+  <%= @accident_report.location_address_line %>
+</p>
+
+<p>
+  <strong>Location post code:</strong>
+  <%= @accident_report.location_post_code %>
+</p>
+
+<p>
+  <strong>Location city:</strong>
+  <%= @accident_report.location_city %>
+</p>
+
+<p>
+  <strong>Location state:</strong>
+  <%= @accident_report.location_state %>
+</p>
+
+<p>
+  <strong>Location country:</strong>
+  <%= @accident_report.location_country %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @accident_report.body %>
+</p>
+
+<%= link_to 'Edit', edit_accident_report_path(@accident_report) %> |
+<%= link_to 'Back', accident_reports_path %>

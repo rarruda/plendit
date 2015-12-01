@@ -1,0 +1,48 @@
+<%= form_for @accident_report, url: { action: "create" } do |f| %>
+  <% if @accident_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@accident_report.errors.count, "error") %> prohibited this accident_report from being saved:</h2>
+
+      <ul>
+      <% @accident_report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <%= f.label :booking, "Hvilken booking gjelder det?" %><br>
+    <%= f.collection_select :booking_guid, @bookings, :guid, lambda { |b| "#{b.ad.title} : #{b.starts_at_date} - #{b.ends_at_date}" } %>
+  </div>
+  <div class="row">
+    <%= f.label :happened_at, "Når skjedd skaden?" %><br>
+    <%= f.datetime_select :happened_at %>
+  </div>
+  <div class="row">
+    <label>Hvor skjedd skaden?</label>
+    <div class="row">
+      <%= f.text_field :location_address_line, placeholder: 'Gateadresse', class: "u-full-width" %>
+    </div>
+    <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="/resources/postal_place">
+      <div class="four columns">
+        <%= f.text_field :location_post_code, placeholder: 'Postnr.', data: {postal_code: ''} %>
+      </div>
+      <div class="eight columns">
+        <%= f.text_field :location_city, disabled: true, placeholder: 'Poststed', data: {'postal-place' => ''} %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <%= f.label :body, "Hva skjedd?" %><br>
+    <%= f.text_area :body, class: "u-full-width" %>
+  </div>
+<!--
+  <div class="u-pull-right button">
+-->
+    <%= f.submit 'Send', form_class: 'u-inline', class: 'button button-primary' %>
+    <%#= button_to 'Send', users_accident_reports_path, form_class: 'u-inline', class: 'button button-primary' %>
+<!--
+  </div>
+-->
+<% end %>

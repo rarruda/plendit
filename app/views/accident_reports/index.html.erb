@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <div class="eight columns">
+    <% if @bookings.present? %>
+      <%= render layout: "gray_box", locals: {title: "Skademeldingskjema", id: "accident-report"} do %>
+        <%= render partial: "form" %>
+      <% end %>
+    <% else %>
+      TRANSLATEME: there are no open valid bookings. Please contact <%= Plendit::Application.config.x.customerservice.email %> if you have any questions or issues.
+
+    <% end %>
+  </div>
+</div>

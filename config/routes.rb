@@ -95,6 +95,7 @@ Rails.application.routes.draw do
       resources :ad_images, only: [:index, :create, :update, :destroy]
     end
     resources :feedbacks
+    resources :accident_reports, only: [:index, :create]
   end
 
   get 'user/:id', to: 'users#show', as: 'user'

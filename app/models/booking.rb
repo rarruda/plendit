@@ -22,9 +22,12 @@ class Booking < ActiveRecord::Base
 
   #default_scope { where( status: active ) }
 
+  scope :has_user,   ->(user) { joins(:ad).where( 'from_user_id = ? OR ads.user_id = ? ', user.id, user.id ) }
   scope :owner_user, ->(user) { joins(:ad).where( 'ads.user_id = ?', user.id ) }
   scope :from_user,  ->(user) { where( from_user_id: user.id ) }
 
+  scope :accidents_reportable,
+                     -> { where( 'status' => [ self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
   scope :current,    -> { where( 'status' => [ self.statuses[:created], self.statuses[:confirmed], self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
   scope :active,     -> { where( 'status' => [ self.statuses[:started], self.statuses[:in_progress] ] ) }
   scope :ad_item,    ->(ad_item_id) { where( ad_item_id: ad_item_id ) }

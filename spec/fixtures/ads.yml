@@ -1,0 +1,14 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  title: 'Nikon d810'
+  body: "Nikon D810 Kamerahus. \n\nDette er en FX (Full Frame kamera), og bør bruker kun med FX linser."
+  #price: 995
+
+two:
+  user_id: 1
+  title: 'Nikkor 70-200mm f/2.8'
+  body: 'Nikkor 70-200mm f/2.8 VR II linser'
+  price: 800
+  #tags: MyText
