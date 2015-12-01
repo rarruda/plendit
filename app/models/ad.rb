@@ -29,7 +29,7 @@ class Ad < ActiveRecord::Base
   validates :user,  presence: true
   validates :title, length: { in: 0..255 }, :unless => :new_record?
 
-  validates :registration_number, length: { in: 0..255 },
+  validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Må vare en gyldig reg.nr." },
     :unless => :new_record?,
     :if     => :motor?
 

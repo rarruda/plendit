@@ -15,6 +15,8 @@ FactoryGirl.define do
     end
     trait :motor do
       category {"motor"}
+      registration_number {"AA01234"}
+      registration_group  {"car"}
     end
 
     factory :ad_bap do
