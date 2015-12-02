@@ -37,6 +37,7 @@
 //= require 'libs/xhr.js'
 //= require 'libs/controllerator.js'
 
+//= require 'controllers/cardregistration.js'
 //= require 'controllers/imageuploader.js'
 //= require 'controllers/menuanchor.js'
 //= require 'controllers/misc.js'
