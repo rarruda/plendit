@@ -53,11 +53,11 @@ class UserPaymentCard < ActiveRecord::Base
     end
 
     event :invalidate do
-      transitions from: :processing, to: :card_invalid
+      transitions from: [:pending, :processing], to: :card_invalid
     end
 
     event :fail do
-      transitions from: :processing, to: :errored
+      transitions from: [:pending, :processing], to: :errored
     end
 
     event :revert do
