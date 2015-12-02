@@ -73,10 +73,12 @@ class Booking < ActiveRecord::Base
     if: :ends_at_changed?,
     if: :payout_amount_changed?
 
-
+  after_validation :create_financial_transaction_preauth, :on => :create
+  # or if :user_payment_card_id_changed?
+  # but then also cancel previous preauth.
 
   aasm :column => :status, :enum => true do
-    state :created, :initial => true, enter: :create_financial_transaction_preauth
+    state :created, :initial => true
     state :confirmed
     state :started
     state :in_progress
@@ -293,8 +295,10 @@ class Booking < ActiveRecord::Base
   def create_financial_transaction_preauth
     financial_transaction = {
       transaction_type: 'preauth',
-      amount: self.sum_paid_by_renter,
-      fees:   0,
+      amount:   self.sum_paid_by_renter,
+      fees:     0,
+      src_type: :src_card_vid,
+      src_vid:  self.from_user.user_payment_cards.find( user_payment_card_id ).card_vid
     }
     t = self.financial_transactions.create( financial_transaction )
     t.process!
