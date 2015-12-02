@@ -129,7 +129,7 @@
             <div class="main-price">
                 <%= f.fields_for :payin_rules, @ad.main_payin_rule do |mf| %>
                     <%= mf.label :payin_amount_in_h, "Pris per døgn:", class: 'main-price__label' %>
-                    <%= mf.number_field :payin_amount_in_h, class: 'main-price__input-price' %>
+                    <%= mf.telephone_field :payin_amount_in_h, class: 'main-price__input-price' %>
                 <% end %>
             </div>
 
@@ -182,12 +182,12 @@
                 </div>
                 <div>
                     <span class="price-adder__label">Ved utleie over</span>
-                    <input class="price-adder__days" type="number" data-name="days">
+                    <input class="price-adder__days" type="tel" data-name="days">
                     <span>dager</span>
                 </div>
                 <div>
                     <span class="price-adder__label">Reduseres pris per dag til</span>
-                    <input class="price-adder__price" type="number" min="2" data-name="price">
+                    <input class="price-adder__price" type="tel" min="2" data-name="price">
                     <span>kr</span>
                 </div>
                 <div data-estimate></div>
@@ -204,7 +204,7 @@
     <div data-controller="adErrors"></div>
 
     <div class="u-push-down">
-        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), disabled: !@ad.may_submit_for_review?, form_class: 'u-inline', class: 'button button-primary', data: {controller: 'publishButton'} %>
+        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), disabled: !@ad.may_submit_for_review?, form_class: 'u-inline', class: 'button button-f', data: {controller: 'publishButton'} %>
         <%= button_to 'Forhåndsvisning', (ad_path @ad), method: :get, form_class: 'u-inline', class: 'button' %>
     </div>
 </div>
