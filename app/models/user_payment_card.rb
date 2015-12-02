@@ -6,7 +6,7 @@ class UserPaymentCard < ActiveRecord::Base
 
   belongs_to :user
 
-  has_many :validation_transactions, as: 'financial_transactionable'
+  has_many :financial_transactions, as: 'financial_transactionable'
 
   # used when pre/post-registering a card:
   attr_accessor :card_registration_id, :access_key, :preregistration_data, :card_registration_url, :registration_status
