@@ -24,6 +24,11 @@
             <strong class="main-price__label">Utebetalt til deg:</strong>
             <strong class="main-price__value"><%= format_monetary_full_pretty(@ad.booking_calculator.payout_amount(rule)) %></strong>
         </div>
+
+        <div>
+            <button type="button" class="button" data-delete data-id="<%= rule.id %>">Slett pris</button>
+        </div>
+
     </div>
 
     <hr>

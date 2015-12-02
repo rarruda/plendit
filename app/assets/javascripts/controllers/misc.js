@@ -898,13 +898,21 @@ window.controllers.payinAdder = {
 window.controllers.secondaryPrices = {
     dependencies: ["$element", "utils", "eventbus", "createElement", "xhr"],
     callable: function(ele, utils, eventbus, E, xhr) {
-        var url = ele.getAttribute("data-url");
-
+        var getUrl = ele.getAttribute("data-fetch-url");
+        var delUrl = ele.getAttribute("data-delete-url");
+        ele.addEventListener("click", onClick);
         eventbus.on(eventbus.PRICE_MODEL_SAVED, onPriceModelsChanged);
 
         function onPriceModelsChanged() {
-            console.log("woop")
-            xhr.get(url).then(updateView);
+            xhr.get(getUrl).then(updateView);
+        }
+
+        function onClick(evt) {
+            var ele = evt.target;
+            if (ele.hasAttribute("data-delete")) {
+                var id = ele.getAttribute('data-id');
+                xhr.postForm(delUrl, {rule_id: ele.getAttribute("data-id")}).then(onPriceModelsChanged);
+            }
         }
 
         function updateView(e) {

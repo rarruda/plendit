@@ -5,6 +5,7 @@ class AdsController < ApplicationController
     :ad_image,
     :add_payin_rule,
     :approve,
+    :del_payin_rule,
     :destroy,
     :edit,
     :edit_availability,
@@ -319,11 +320,17 @@ class AdsController < ApplicationController
     render partial: 'secondary_prices'
   end
 
-
   def add_payin_rule
     @payin_rule = @ad.payin_rules.build(payin_amount_in_h: params[:price], effective_from: params[:days], unit: 2)
     @payin_rule.save
     render text: "Added rule";
+  end
+
+  def del_payin_rule
+    id = params[:rule_id]
+    rule = @ad.payin_rules.find(id)
+    rule.destroy! unless rule.nil?
+    render text: "deleted rule";
   end
 
   private

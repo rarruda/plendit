@@ -159,15 +159,12 @@
 
         <div class="u-push-down">
             <label>Rabattpriser</label>
-
-            <div data-controller="secondaryPrices" data-url="<%= payout_rules_ad_path(@ad) %>">
+            <div data-controller="secondaryPrices" 
+                 data-delete-url="<%= del_payin_rule_ad_path(@ad) %>"
+                 data-fetch-url="<%= payout_rules_ad_path(@ad) %>">
                 <%= render partial: 'secondary_prices' %>
             </div>
-
-
         </div>
-
-        <hr class="u-push-down">
 
         <details data-controller="payinAdder"
                  data-estimate-url="<%= payout_estimate_ad_path(@ad) %>"

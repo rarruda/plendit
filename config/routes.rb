@@ -142,6 +142,7 @@ Rails.application.routes.draw do
       post 'submit_for_review'
       post 'unpublish_and_edit'
       post 'add_payin_rule'
+      post 'del_payin_rule'
     end
   end
 
