@@ -133,8 +133,8 @@ class UserPaymentCard < ActiveRecord::Base
   def validate_on_mangopay
     t = create_financial_transaction_preauth_for_validation
     t.process!
-    t.process_refresh!
-    t.process_cancel_preauth!
+    t.process_refresh!        unless t.errored?
+    t.process_cancel_preauth! unless t.errored?
     refresh
   end
 
