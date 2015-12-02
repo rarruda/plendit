@@ -105,18 +105,13 @@ class Booking < ActiveRecord::Base
       transitions :from => :created, :to => :declined
     end
 
+    #after: :refund_payin
     event :cancel, after: :cancel_financial_transaction_payin do
       transitions :from => [:confirmed,:started], :to => :cancelled do
         guard do
           # if started, can still cancel within 24hours.
           self.started? && ( self.starts_at + 1.day < DateTime.now )
         end
-      end
-
-      after do
-        cancel_financial_transaction_payin
-        #refund_payin
-        #Resque.enque( foobar_JOB_mangopay_payment_transfer____refund_payin? )
       end
     end
 
@@ -324,7 +319,13 @@ class Booking < ActiveRecord::Base
   end
 
   def cancel_financial_transaction_preauth
-    self.financial_transactions.preauth.finished.take.process_cancel_preauth
+    self.financial_transactions.preauth.finished.map( &:process_cancel_preauth )
+  end
+
+  def cancel_financial_transaction_payin
+    # NOT IN PLACE! PAYINS ARE NOT (YET) REFUNDABLE
+    # OR WILL IT BE CREATING A REFUND??
+    ##self.financial_transactions.payin.pending_or_processing.map( &:process_cancel_payin! )
   end
 
 
