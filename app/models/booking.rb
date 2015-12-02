@@ -252,7 +252,7 @@ class Booking < ActiveRecord::Base
   end
 
   def validate_user_payment_card_belongs_to_from_user
-    if self.from_user.user_payment_cards.find( self.user_payment_card_id ).blank?
+    if self.from_user.user_payment_cards.find_by( id: self.user_payment_card_id ).blank?
       errors.add(:user_payment_card, "card must belong to from_user")
     end
   end
