@@ -251,7 +251,7 @@ class FinancialTransaction < ActiveRecord::Base
     begin
       # https://docs.mangopay.com/api-references/card/pre-authorization/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pre_authorization.rb#L5
-      preauth = MangoPay::PayIn::PreAuthorization.fetch( self.transaction_vid )
+      preauth = MangoPay::PreAuthorization.fetch( self.transaction_vid )
 
       self.update(
         result_code:     preauth['ResultCode'],
