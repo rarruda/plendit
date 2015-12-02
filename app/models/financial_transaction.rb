@@ -518,9 +518,19 @@ class FinancialTransaction < ActiveRecord::Base
     self.attributes = case self.transaction_type.to_sym
     when :preauth
       # info comes from booking
+
+      src_vid = case self.financial_transactionable_type
+      when 'Booking'
+        self.financial_transactionable.user_payment_card.card_vid
+      when 'UserPaymentCard'
+        self.financial_transactionable.card_vid
+      else
+        nil
+      end
+
       {
         src_type: :src_card_vid,
-        src_vid:  self.financial_transactionable.user_payment_card.card_vid,
+        src_vid:  src_vid,
         dst_type: nil, #:dst_payin_transaction_vid,
         dst_vid:  nil
       }
