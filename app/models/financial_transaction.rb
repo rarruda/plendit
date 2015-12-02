@@ -171,6 +171,17 @@ class FinancialTransaction < ActiveRecord::Base
     end
   end
 
+  def from_user
+    case self.financial_transactionable_type
+    when 'Booking'
+      self.financial_transactionable.from_user
+    when 'UserPaymentCard'
+      self.financial_transactionable.user
+    else
+      nil
+    end
+  end
+
   private
 
   # called from process_on_mangopay
@@ -186,7 +197,7 @@ class FinancialTransaction < ActiveRecord::Base
     end
 
     # sanity check: preauth card belongs to correct user:
-    card = self.financial_transactionable.from_user.user_payment_cards.find_by( card_vid: self.src_vid )
+    card = self.from_user.user_payment_cards.find_by( card_vid: self.src_vid )
     raise "card does not belong to requester" if card.nil?
 
     begin
@@ -194,7 +205,7 @@ class FinancialTransaction < ActiveRecord::Base
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pre_authorization.rb
       preauth = MangoPay::PreAuthorization.create(
         'Tag'          => "booking_id=#{financial_transactionable_id}", #from_user_id= to_user_id
-        'AuthorId'     => self.financial_transactionable.from_user.payment_provider_vid,
+        'AuthorId'     => self.from_user.payment_provider_vid,
         'CardId'       => self.src_vid,
         'DebitedFunds' => {
           'Currency' => PLENDIT_CURRENCY_CODE,
