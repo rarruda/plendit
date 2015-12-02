@@ -132,6 +132,7 @@ Rails.application.routes.draw do
       get 'edit_availability'
       get 'payout_estimates'
       get 'payout_estimate'
+      get 'payout_rules'
 
       post 'pause'
       post 'stop'

@@ -875,14 +875,40 @@ window.controllers.payinAdder = {
 
         function onSave() {
             var data = getInputs();
-            xhr.postForm(newRuleUrl, data).then(function(e) {
+            xhr.postForm(newRuleUrl, data).then(clearAndClose).catch(reportSaveError);
+        }
 
-                console.log(e);
-            });
+        function clearAndClose() {
+            ele.querySelector("[data-name=days]").value = "";
+            ele.querySelector("[data-name=price]").value = "";
+            onCancel();
+            eventbus.emit(eventbus.PRICE_MODEL_SAVED);
+        }
+
+        function reportSaveError(err) {
+            console.log(err);
         }
 
         function onCancel() {
             ele.open = false;
+        }
+    }
+};
+
+window.controllers.secondaryPrices = {
+    dependencies: ["$element", "utils", "eventbus", "createElement", "xhr"],
+    callable: function(ele, utils, eventbus, E, xhr) {
+        var url = ele.getAttribute("data-url");
+
+        eventbus.on(eventbus.PRICE_MODEL_SAVED, onPriceModelsChanged);
+
+        function onPriceModelsChanged() {
+            console.log("woop")
+            xhr.get(url).then(updateView);
+        }
+
+        function updateView(e) {
+            ele.innerHTML = e.responseText;
         }
     }
 };

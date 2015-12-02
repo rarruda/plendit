@@ -13,7 +13,8 @@ class AdsController < ApplicationController
     :nested_images,
     :pause,
     :payout_estimate,
-    :payout_estimates,
+    :payout_estimate,
+    :payout_rules,
     :preview,
     :resume,
     :show,
@@ -313,6 +314,11 @@ class AdsController < ApplicationController
     end
     render json: estimates
   end
+
+  def payout_rules
+    render partial: 'secondary_prices'
+  end
+
 
   def add_payin_rule
     @payin_rule = @ad.payin_rules.build(payin_amount_in_h: params[:price], effective_from: params[:days], unit: 2)
