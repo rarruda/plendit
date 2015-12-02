@@ -42,6 +42,8 @@ class UserPaymentCard < ActiveRecord::Base
     state :card_invalid
     #state :errored
 
+    after_all_transitions :log_status_change
+
     event :process, after: :validate_on_mangopay do
       transitions from: :pending, to: :processing
     end
@@ -63,6 +65,9 @@ class UserPaymentCard < ActiveRecord::Base
     end
   end
 
+  def log_status_change
+    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for user_payment_card_id: #{self.id}"
+  end
 
   def set_favorite
     UserPaymentCard.transaction do
