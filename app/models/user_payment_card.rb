@@ -125,12 +125,13 @@ class UserPaymentCard < ActiveRecord::Base
     end
   end
 
-  private
 
+  # NOTE: for now we are doing everything in a syncronous fashion, but:
   # FIXME: this should be in a background job (or not, if it already called from a background job)
   # to validate we need to create a Charge, and then cancel it.
   # charges live in financial_transactions.
   def validate_on_mangopay
+    LOG.info "Validating on mangoypay card: #{self.id}", { user_id: self.user_id, user_payment_card_id: self.id }
     t = create_financial_transaction_preauth_for_validation
     t.process!
     t.process_refresh!        unless t.errored?
@@ -138,11 +139,14 @@ class UserPaymentCard < ActiveRecord::Base
     refresh
   end
 
+  private
   def create_financial_transaction_preauth_for_validation
     financial_transaction = {
       transaction_type: 'preauth',
       amount: MANGOPAY_CARD_VALIDATION_AMOUNT,
       fees:   0,
+      src_type: :src_card_vid,
+      src_vid:  self.card_vid,
     }
     self.financial_transactions.create( financial_transaction )
   end
