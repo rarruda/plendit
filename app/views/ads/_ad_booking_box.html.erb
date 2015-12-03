@@ -5,7 +5,7 @@
     </h4>
 
     <div data-controller="listingCalendar">
-        <% if ad.published? && !current_user_is_owner(ad) %>
+        <% if ad.published?  %>
             <%= form_tag new_booking_path, method: :get do %>
                 <%= hidden_field_tag :ad_id, @ad.id %>
                 <%= hidden_field_tag :from_date, "2015-11-12" %>
