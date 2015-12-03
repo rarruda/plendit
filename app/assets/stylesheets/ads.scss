@@ -142,6 +142,11 @@
 }
 
 .main-price {
+
+    &__row {
+        margin-bottom: $standard-spacing / 2;
+    }
+
     &__input-price {
         width: 80px;
         text-align: right;
@@ -156,7 +161,12 @@
         width: 80px;
         display: inline-block;
         text-align: right;
+    }
 
+    @media (min-width: 374px) {
+        &__label {
+            width: 258px;
+        }
     }
 }
 

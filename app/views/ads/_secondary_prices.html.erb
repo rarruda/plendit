@@ -1,26 +1,26 @@
 <% @ad.secondary_payin_rules.each do |rule| %>
     <div class="u-push-down">
-        <div>
+        <div class="main-price__row">
             <span class="main-price__label">Ved utleie over:</span>
             <span class="main-price__value"><%= rule.effective_from %> dager</span>
         </div>
 
-        <div>
+        <div class="main-price__row">
             <span class="main-price__label">Reduseres prisen til:</span>
             <span class="main-price__value"><%= format_monetary_full_pretty(rule.payin_amount) %></span>
         </div>
 
-        <div>
+        <div class="main-price__row">
             <span class="main-price__label">Leiegebyr:</span>
             <span class="main-price__value"><%= format_monetary_full_pretty(@ad.booking_calculator.total_fee(rule)) %></span>
         </div>
 
-        <div>
+        <div class="main-price__row">
             <i>Inkluderer forsikring opp til</i>
             <i><%= format_monetary_full_pretty(@ad.booking_calculator.max_insurance_coverage(@ad.main_payin_rule)) %></i>
         </div>
 
-        <div>
+        <div class="main-price__row">
             <strong class="main-price__label">Utebetalt til deg:</strong>
             <strong class="main-price__value"><%= format_monetary_full_pretty(@ad.booking_calculator.payout_amount(rule)) %></strong>
         </div>
