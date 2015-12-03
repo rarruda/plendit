@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="twelve columns">
                     <label for="number">Kortnummer:</label>
-                    <input class="u-full-width" name="number" id="number" type="text">
+                    <input class="u-full-width" name="number" id="number" type="tel">
                 </div>
             </div>
 
@@ -39,11 +39,11 @@
             <div class="row">
                 <div class="six columns">
                     <label for="expiry">Utløpsdato:</label>
-                    <input class="u-full-width" name="expiry" placeholder="<%= 1.year.from_now.strftime('%m/%y') %>" id="expiry" type="text">
+                    <input class="u-full-width" name="expiry" placeholder="<%= 1.year.from_now.strftime('%m/%y') %>" id="expiry" type="tel">
                 </div>
                 <div class="six columns">
                     <label for="cvc">Kontrollnummer:</label>
-                    <input class="u-full-width" name="cvc" placeholder="123" id="cvc" type="text">
+                    <input class="u-full-width" name="cvc" placeholder="123" id="cvc" type="tel">
                 </div>
             </div>
 
