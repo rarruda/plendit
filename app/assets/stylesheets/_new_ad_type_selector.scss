@@ -2,18 +2,32 @@
 
 .new-ad-category-selector {
     display: inline;
+    text-align: center;
 
     &__button {
         display: inline-block;
-        width: 160px;
-        height: 220px;
+        margin-right: 6px;
+        width: 47%;
+        height: 164px;
+
+        @media (max-width: $mobile) {
+            &__breaker {
+                display: none;
+            }
+        }
+        @media (max-width: 420px) {
+            width: 98%;
+        }
+        @media (min-width: $mobile) {
+            width: 240px;
+        }
     }
 
     &__icon {
         background-color: $color-plendit-blue;
         display: inline-block;
-        width: 100px;
-        height: 100px;
+        width: 70px;
+        height: 70px;
         border-radius: 50%;
         overflow: hidden;
         padding-top: 16px;

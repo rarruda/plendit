@@ -3,17 +3,20 @@
         <div class="twelve columns">
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
             <div class="new-ad-category-selector">
-                <% @ad_categories.each do |a| %>
+                <% @ad_categories.each_with_index do |a, index| %>
                     <%= button_to(ads_create_users_path,
-                            form_class: "u-inline",
-                                class: "button new-ad-category-selector__button",
-                                params: { category: a[:category] },
-                                disabled: ( ! current_user.can_rent_out?( a[:category] ) ),
+                            form_class: 'u-inline',
+                            class: 'button new-ad-category-selector__button',
+                            params: { category: a[:category] },
+                            disabled: ( ! current_user.can_rent_out?( a[:category] ) ),
                         ) do %>
                         <div class="new-ad-category-selector__icon">
-                            <%= image_tag a[:image], size: '76x63' %>
+                            <%= image_tag a[:image], width: '46' %>
                         </div>
                         <div class="new-ad-category-selector__title"><%= a[:title] %></div>
+                    <% end %>
+                    <% if index == 1 %>
+                        <br class="new-ad-category-selector__breaker">
                     <% end %>
                 <% end %>
             </div>
