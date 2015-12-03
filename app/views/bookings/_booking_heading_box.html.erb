@@ -1,0 +1,19 @@
+<div class="booking-heading">
+    <div class="booking-heading__image-holder">
+        <%= image_tag ad.safe_image_url(:searchresult) %>
+    </div>
+    <div class="booking-heading__info-holder">
+        <h2><%= ad.display_title %></h2>
+        <div class="booking-heading__user-box">
+
+            <div class="booking-heading__avatar-holder">
+                <%= avatar_image user, :medium %>
+            </div>
+            <div class="booking-heading__details-holder">
+                <strong><%= link_to ad.user.display_name, user_path(user) %></strong>
+                <br>
+                <%= render('shared/stars.html', size: :normal, rating: user.calculate_average_rating ) %>
+            </div>
+        </div>
+    </div>
+</div>

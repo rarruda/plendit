@@ -1,8 +1,4 @@
-// Place all the styles related to the Bookings controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-
+@import 'constants.scss';
 
 .booking-request-summary {
     list-style: none;
@@ -14,5 +10,43 @@
 
     li {
         overflow: auto;
+    }
+}
+
+.booking-heading {
+    height: 300px;
+
+    &__info-holder {
+        display: inline-block;
+    }
+
+    &__image-holder {
+        display: inline-block;
+        width: 97%;
+        border: solid thin red;
+        margin-right: 32px;
+
+        & > img {
+            width: 100%;
+        }
+    }
+
+    &__title {
+        margin-top: $standard-spacing;
+        margin-bottom: $standard-spacing;
+    }
+
+    &__user-box {
+        xxdisplay: flex;
+        align-items: center;
+    }
+
+    &__avatar-holder {
+        xxflex: 0 0 auto;
+    }
+
+    &__details-holder {
+        xxflex: 1 0 auto;
+        margin-left: $standard-spacing;
     }
 }
