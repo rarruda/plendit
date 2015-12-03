@@ -15,7 +15,9 @@ module ApplicationHelper
 
   def number_to_currency_pretty( num = nil, options = {unit: ''} )
     return '' if num.nil?
-    number_to_currency( num, options ).gsub(/\,00 $/, ",- ")
+    pretty = number_to_currency( num, options )
+    pretty.slice! ',00 '
+    pretty << ',- '
   end
 
   def integer_to_decimal(num)
