@@ -2,9 +2,13 @@
 
 .ad-input-copy {
     padding-top: $standard-spacing * 2;
+    @media (max-width: $mobile) {
+        margin: 0 $standard-spacing 0 $standard-spacing;
+    }
 
     &__badge {
         float: left;
         margin: 0 12px 12px 0;
+
     }
 }
