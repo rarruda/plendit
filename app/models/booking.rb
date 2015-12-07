@@ -93,8 +93,12 @@ class Booking < ActiveRecord::Base
 
     after_all_transitions :log_status_change
 
-    event :confirm, after: :create_financial_transaction_payin do
+    event :confirm do
       transitions :from => :created, :to => :confirmed
+      after do
+        create_financial_transaction_payin
+        send_confirmations
+      end
     end
 
     event :abort, after: :cancel_financial_transaction_preauth do
@@ -285,7 +289,18 @@ class Booking < ActiveRecord::Base
     BookingCalculator.new(ad: self.ad, starts_at: self.starts_at, ends_at: self.ends_at)
   end
 
+
   private
+
+  def send_confirmations
+    LOG.info "owner_accepted email:"
+    message = BookingMailer.notify_owner_accepted( self.id )
+    message.deliver_now
+
+    LOG.info "renter_accepted email:"
+    message = BookingMailer.notify_renter_accepted( self.id )
+    message.deliver_now
+  end
 
   def create_financial_transaction_preauth
     financial_transaction = {
