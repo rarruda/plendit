@@ -3,7 +3,7 @@
          data-card-registration-url="<%= @user_payment_card[:card_registration_url] %>"
          data-card-preregistration-data="<%= @user_payment_card[:preregistration_data] %>"
          data-card-access-key="<%= @user_payment_card[:access_key] %>"
-         data-card-vid="<%= @user_payment_card[:card_vid] %>"
+         data-card-registration-id="<%= @user_payment_card[:card_registration_id] %>"
          data-card-client-id="<%= MangoPay.configuration.client_id %>"
          class="card-input">
 
@@ -17,7 +17,7 @@
                 <strong>
                   TEST ENVIRONMENT. DO NOT USE REAL CARD NUMBERS!! <br>
                   Only use numbers listed in the <%= link_to 'mangopay documentation', 'https://docs.mangopay.com/api-references/test-payment/' %>.
-                    Mangopay test visa car num: <code>4970100000000154</code>. csc: <code>123</code>.
+                    Mangopay test visa card num: <code>4970100000000154</code>. csc: <code>123</code>.
                 </strong>
               </p>
             <%- end -%>
@@ -63,8 +63,8 @@
         </form>
 
         <%= form_for UserPaymentCard.new, data: { card_form: "" } do |f| %>
-            <%= f.hidden_field :card_vid, value: @user_payment_card[:card_vid] %>
-            <input type="hidden" name="user_payment_card[registration_data]" data-reg-data>
+            <%= f.hidden_field :card_vid, data: {reg_id: ''} %>
+            <%= f.hidden_field :registration_data, data: {reg_data: ''} %>
         <% end %>
 
     </div>

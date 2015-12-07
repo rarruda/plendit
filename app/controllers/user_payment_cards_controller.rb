@@ -29,10 +29,9 @@ class UserPaymentCardsController < ApplicationController
     LOG.info "user_payment_card_params: #{user_payment_card_params}", {user_id: current_user.id}
 
     @user_payment_card = current_user.user_payment_cards.new(
-      card_reg_vid:      user_payment_card_params['card_vid'],
-      registration_data: user_payment_card_params['registration_data']
+      card_vid: user_payment_card_params['card_vid']
     )
-    @user_payment_card.register
+
 
     # as a background job:
     #@user_payment_card.process!

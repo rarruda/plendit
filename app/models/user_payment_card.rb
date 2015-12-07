@@ -13,7 +13,8 @@ class UserPaymentCard < ActiveRecord::Base
   attr_accessor :card_reg_vid, :registration_data
 
   # Never show "deleted" cards. (inactive)
-  default_scope { where( active: true ) }
+  #  nor card_invalid?
+  #default_scope { where( active: true ) }
 
 
   # mangopay status:  UNKNOWN                    VALID         INVALID
@@ -26,7 +27,8 @@ class UserPaymentCard < ActiveRecord::Base
   validate :user_is_provisioned
 
   before_validation :set_guid, :on => :create
-  before_create :refresh
+  # process! should happen via a resque delayed job:
+  after_create :process!
 
 
   # We should never delete cards from our system, but if we do, it is imperative to disable them first:
@@ -72,7 +74,7 @@ class UserPaymentCard < ActiveRecord::Base
   def set_favorite
     UserPaymentCard.transaction do
       self.update(favorite: true)
-      self.user.user_payment_cards.where('id != ? AND user_id = ?', self.id, self.user_id).each { |l| l.update(favorite: false) }
+      self.user.user_payment_cards.unscoped.where('id != ? AND user_id = ?', self.id, self.user_id).each { |l| l.update(favorite: false) }
     end
   end
 
@@ -113,23 +115,11 @@ class UserPaymentCard < ActiveRecord::Base
     end
   end
 
-  def register
-    begin
-      card = MangoPay::CardRegistration.update(
-        self.card_reg_vid,
-        { 'RegistrationData' => self.registration_data }
-      )
-      self.card_vid = card['CardId']
-    rescue => e
-      LOG.error "Error: #{e} registering card: #{card}", { user_id: self.user_id }
-    end
-  end
-
-
   # NOTE: for now we are doing everything in a syncronous fashion, but:
   # FIXME: this should be in a background job (or not, if it already called from a background job)
   # to validate we need to create a Charge, and then cancel it.
   # charges live in financial_transactions.
+  # it takes around 28 seconds to go through this:
   def validate_on_mangopay
     LOG.info "Validating on mangoypay card: #{self.id}", { user_id: self.user_id, user_payment_card_id: self.id }
     t = create_financial_transaction_preauth_for_validation

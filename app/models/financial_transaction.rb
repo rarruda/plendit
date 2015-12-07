@@ -151,7 +151,7 @@ class FinancialTransaction < ActiveRecord::Base
   # triggered externally
   def process_cancel_preauth!
     if self.transaction_type.to_sym == :preauth
-      self.do_preauth_cancel
+      do_preauth_cancel
     else
       LOG.error "Cannot cancel this type of transaction", { transaction_id: self.id, transaction_type: self.transaction_type }
       raise "Cannot cancel this type of transaction on this status"
@@ -285,7 +285,7 @@ class FinancialTransaction < ActiveRecord::Base
     begin
       # https://docs.mangopay.com/api-references/card/pre-authorization/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pre_authorization.rb#L5
-      cancelation = MangoPay::PayIn::PreAuthorization.update(
+      cancelation = MangoPay::PreAuthorization.update(
         self.transaction_vid,
         { 'PaymentStatus' => 'CANCELED' }
       )

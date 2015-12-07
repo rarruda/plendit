@@ -10,7 +10,7 @@ window.controllers.cardInputter = {
         function init() {
             registrationRequirements = gatherDataAttributes(ele, [
                 "card-registration-url", "card-preregistration-data",
-                 "card-access-key", "card-vid", "card-client-id"]);
+                "card-access-key", "card-registration-id", "card-client-id"]);
 
             form = ele.querySelector('form');
             var c = ele.querySelector("[data-card-holder]");
@@ -57,8 +57,10 @@ window.controllers.cardInputter = {
             console.log("card reg OK");
             console.log(card);
             var regForm = ele.querySelector("[data-card-form]");
-            var input = regForm.querySelector("[data-reg-data]");
-            input.value = card.RegistrationData;
+            var dataInput = regForm.querySelector("[data-reg-data]");
+            var idInput = regForm.querySelector("[data-reg-id]");
+            idInput.value = card.CardId;
+            dataInput.value = card.RegistrationData;
             regForm.submit();
         }
 
@@ -78,7 +80,7 @@ window.controllers.cardInputter = {
                 cardRegistrationURL: registrationRequirements.cardRegistrationUrl,
                 preregistrationData: registrationRequirements.cardPreregistrationData,
                 accessKey: registrationRequirements.cardAccessKey,
-                Id: registrationRequirements.cardVid
+                Id: registrationRequirements.cardRegistrationId
             });
 
             return new Promise(function(resolve, reject) {
