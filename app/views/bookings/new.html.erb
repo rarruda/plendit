@@ -1,9 +1,12 @@
 <div class="container">
     <div class="row">
-        <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
+        <h2>Leieforespørsel til <%= @ad.user.display_name %></h2>
+        <div>Status: Ikke sendt</div>
+
         <div class="twelve columns">
-            <%= render partial: "shared/ad_title_box", locals: { ad: @ad } %>
-            <h2>Leieforespørsel til <%= @ad.user.display_name %></h2>
+            <div class="u-push-down">
+                <%= render partial: "booking_heading_box", locals: { ad: @ad, user: @ad.user } %>
+            </div>
             <%= render 'form' %>
         </div>
     </div>

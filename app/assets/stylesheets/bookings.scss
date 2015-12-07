@@ -14,17 +14,22 @@
 }
 
 .booking-heading {
-    height: 300px;
+    min-height: 180px;
 
     &__info-holder {
         display: inline-block;
+        vertical-align: top;
     }
 
     &__image-holder {
         display: inline-block;
-        width: 97%;
-        border: solid thin red;
-        margin-right: 32px;
+        width: 100%;
+        margin-right: $standard-spacing;
+        vertical-align: top;
+
+        @media (min-width: 500px) {
+            width: 160px;
+        }
 
         & > img {
             width: 100%;
@@ -32,21 +37,22 @@
     }
 
     &__title {
-        margin-top: $standard-spacing;
-        margin-bottom: $standard-spacing;
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
     &__user-box {
-        xxdisplay: flex;
+        display: flex;
         align-items: center;
     }
 
     &__avatar-holder {
-        xxflex: 0 0 auto;
+        flex: 0 0 auto;
     }
 
     &__details-holder {
-        xxflex: 1 0 auto;
+        flex: 1 0 auto;
         margin-left: $standard-spacing;
     }
 }
