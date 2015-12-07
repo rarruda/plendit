@@ -73,9 +73,9 @@ class Booking < ActiveRecord::Base
     if: :ends_at_changed?,
     if: :payout_amount_changed?
 
-  after_validation :create_financial_transaction_preauth, :on => :create
-  # or if :user_payment_card_id_changed?
-  # but then also cancel previous preauth.
+  # NOTE: we do not allow editing bookings.
+  #  If we did, the following callback would not be enough.
+  after_create :create_financial_transaction_preauth
 
   aasm :column => :status, :enum => true do
     state :created, :initial => true
@@ -334,7 +334,7 @@ class Booking < ActiveRecord::Base
   end
 
   def cancel_financial_transaction_preauth
-    self.financial_transactions.preauth.finished.map( &:process_cancel_preauth )
+    self.financial_transactions.preauth.finished.map( &:process_cancel_preauth! )
   end
 
   def cancel_financial_transaction_payin
