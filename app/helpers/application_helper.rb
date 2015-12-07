@@ -16,8 +16,8 @@ module ApplicationHelper
   def number_to_currency_pretty( num = nil, options = {unit: ''} )
     return '' if num.nil?
     pretty = number_to_currency( num, options )
-    pretty.slice! ',00 '
-    pretty << ',- '
+    pretty.gsub! ',00 ', ',- '
+    pretty
   end
 
   def integer_to_decimal(num)
@@ -32,7 +32,7 @@ module ApplicationHelper
   def ad_to_param_pretty ad
     #LOG.error "to_params >>> #{ad.id}    #{ad.title}"
     if not ad.title.blank?
-      [ad.id, ad.title.parameterize].join('----')[0,64]
+      [ad.id, ad.title.parameterize].join('--')[0,64]
     else
       ad.id.to_s
     end
