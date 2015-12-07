@@ -382,8 +382,7 @@ window.controllers.imageDescriptionAutoSaver = {
 window.controllers.kalendaeBookingSelector = {
     dependencies: ["$element"],
     callable: function(ele) {
-        var calCount = 2;
-        //if (window.innerWidth < 972) { calCount = 1; }
+        var calCount = 1;
 
         var from_date = ele.querySelector('[name="booking[starts_at_date]"]');
         var to_date = ele.querySelector('[name="booking[ends_at_date]"]');
@@ -422,7 +421,7 @@ window.controllers.kalendaeBookingSelector = {
 };
 
 window.controllers.readOnlyCalendar = function(ele) {
-    var calCount = 2;
+    var calCount = 1;
     if (window.innerWidth < 660) { calCount = 1; }
     else if (window.innerWidth < 972) { calCount = 2; }
 
