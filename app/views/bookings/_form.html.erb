@@ -68,6 +68,7 @@
                         <span class="booking-price-summary__value"> TOTAL </span>
                     </div> 
                  </div>
+
             </div>
         </div>
 
@@ -82,9 +83,9 @@
         <%= f.collection_select( :user_payment_card_id, @booking.from_user.user_payment_cards.card_valid.decorate, :guid, :pretty_view ) %>
     <% elsif current_user.user_payment_cards.card_valid.length == 1 %>
     Reservasjonen skal belastes på følgende kredittkort:
-        <%= f.label 'booking[user_payment_card_id]', @booking.from_user.user_payment_cards.card_valid.decorate.first.pretty_view %>
-        <%= f.hidden_field 'booking[user_payment_card_id]', value: @booking.from_user.user_payment_cards.card_valid.decorate.first.guid %>
-    <% else %>
+        <%= f.label 'user_payment_card_id', @booking.from_user.user_payment_cards.card_valid.decorate.first.pretty_view %>
+        <%= f.hidden_field 'user_payment_card_id', value: @booking.from_user.user_payment_cards.card_valid.decorate.first.guid %>
+    <% elsif current_user.user_payment_cards.card_valid.length < 1 %>
 
 Noe gikk galt: Du må registrere kredittkortet ditt før du kan sende en forespørsel.
     <% end %>
