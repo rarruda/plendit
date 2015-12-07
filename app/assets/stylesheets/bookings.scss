@@ -1,20 +1,12 @@
 @import 'constants.scss';
 
 .booking-request-summary {
-    list-style: none;
-
-    &__input {
-        font-size: 12px;
-        max-width: 100px;
-    }
-
-    li {
-        overflow: auto;
-    }
+    display: inline-block;
+    margin-left: 24px;
 }
 
 .booking-heading {
-    min-height: 180px;
+    min-height: 116px;
 
     &__info-holder {
         display: inline-block;

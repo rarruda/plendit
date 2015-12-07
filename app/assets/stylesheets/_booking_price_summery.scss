@@ -1,14 +1,31 @@
 @import 'constants.scss';
 
 .booking-price-summary {
-
-    &__summary-row {
-        border-top: 1px solid $color-box-border;
+    &__row {
+        margin-bottom: 6px;
     }
 
-    &__price {
+    &__label {
+        display: inline-block;
+        width: 96px;
+    }
+
+    @media (max-width: 540px) {
+
+        &__label {
+            width: 134px;
+        }
+    }
+
+    &__value {
+        width: 112px;
+        display: inline-block;
         text-align: right;
-        color: green;
+    }
+
+    &__input {
+        width: 112px;
+        text-align: right;
     }
 }
 

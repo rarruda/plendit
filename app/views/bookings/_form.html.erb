@@ -21,44 +21,60 @@
         <%# This will fail miserably. Should never happen. %>
     <% end %>
 
-    <div data-controller="kalendaeBookingSelector">
-        <div class="row">
-            <div class="seven columns">
+    <div class="row">
+        <div data-controller="kalendaeBookingSelector">
+            <div class="twelve columns">
                 <div class="booking-period-selector"><div data-kalendae-container class="u-center"></div></div>
                 <%= f.hidden_field :starts_at_time, value: '12.12' %>
                 <%= f.hidden_field :ends_at_time, value: '12.12' %>
-           </div>
-            <div class="five columns">
-                <ol class="booking-request-summary">
-                    <li>
-                        Fra:
-                         <%= f.text_field :ends_at_date, data: { format: "yyyy.MM.dd" }, class: 'u-pull-right booking-request-summary__input' %>
-                    </li>
-                    <li>
-                        Til:
-                        <%= f.text_field :starts_at_date, data: { format: "yyyy.MM.dd" }, class: 'u-pull-right booking-request-summary__input' %>
-                    </li>
-                    <li>
-                        Antall dager:
-                        <span class="u-pull-right" data-day-count>0</span>
-                    </li>
-                    <li>
-                        Pris per dag:
-                        <span class="u-pull-right"><%= @booking.ad.decorate.pretty_price %></span>
-                    </li>
-<!--
-                    <li>
-                        <strong>Totalt å betale:</strong>
-                        <span class="u-pull-right" data-total-price>Fetch from server</span>
-                    </li>
- -->
-                 </ol>
+
+                <div class="booking-request-summary">
+
+                    <div class="booking-price-summary__row">
+                        <span class="booking-price-summary__label">
+                            Fra:
+                        </span>
+                        <span class="booking-price-summary__value">
+                            <%= f.text_field :ends_at_date, data: { format: "yyyy.MM.dd" }, class: 'booking-price-summary__input' %>
+                        </span>
+                    </div>
+
+                    <div class="booking-price-summary__row">
+                        <span class="booking-price-summary__label">
+                            Til:
+                        </span>
+
+                        <span class="booking-price-summary__value">
+                            <%= f.text_field :starts_at_date, data: { format: "yyyy.MM.dd" }, class: 'booking-price-summary__input' %>
+                        </span>
+                    </div>
+
+                    <div class="booking-price-summary__row">
+                        <span class="booking-price-summary__label">
+                            Antall dager:
+                        </span>
+                        <span class="booking-price-summary__value" data-day-count>0</span>
+                    </div>
+                    <div class="booking-price-summary__row">
+                        <span class="booking-price-summary__label">
+                            Pris per dag:
+                        </span>
+                        <span class="booking-price-summary__value"><%= @booking.ad.decorate.pretty_price %></span>
+                    </div> 
+                    <div class="booking-price-summary__row">
+                        <span class="booking-price-summary__label">
+                            Totalt:
+                        </span>
+                        <span class="booking-price-summary__value"> TOTAL </span>
+                    </div> 
+                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="seven columns">
 
+<div class="u-push-down">
     <% if current_user.user_payment_cards.card_valid.length > 1 %>
         Velg det kredittkortet du ønsker å betale med:
         <%# would have been nice to call the field below for user_payment_card_guid %>
@@ -72,6 +88,7 @@
 
 Noe gikk galt: Du må registrere kredittkortet ditt før du kan sende en forespørsel.
     <% end %>
+</div>
 
     <% if current_user.user_payment_cards.length >= 1 %>
       <p>
