@@ -10,7 +10,7 @@
     <td>Verdi</td>
   </thead>
   <tbody>
-    <%= render FinancialTransaction.finished.from_user( current_user )  %>
+    <%= render FinancialTransaction.finished.from_user( current_user.id )  %>
   </tbody>
 
 </table>
