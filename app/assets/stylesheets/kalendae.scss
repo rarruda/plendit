@@ -11,9 +11,7 @@
     background:#eee;
     padding:10px;
     margin:5px;
-    border-radius:5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    // border-radius:5px;
     font-size:14px;
     cursor:default;
     position:relative;
@@ -44,7 +42,7 @@
     line-height:17px;
     text-align:center;
     font-size:13px;
-    border-radius:10px;
+    // border-radius:10px;
     box-shadow:0 1px 3px rgba(0,0,0,0.75);
     cursor:pointer;
     text-decoration:none;
@@ -172,9 +170,7 @@
     line-height:26px;
     padding:2px 2px 2px 2px;
     border:1px solid transparent;
-    border-radius:3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
+    // border-radius:3px;
     color:#999;
 
     @media (min-width: $tablet) and (max-width: $desktop) {
@@ -207,20 +203,20 @@
 
 /** Selected day, when inside the selectable area **/
 .kalendae .k-days span.k-selected.k-active {
-    background:#7EBCD3;
+    background:#2a96ff;
     color:white;
 }
 
 /** Days between the start and end points on a range, outside of the selectable area **/
 .kalendae .k-days span.k-range {
     background:none;
-    border-color:#6DD4FE;
+    border-color:#2a96ff;
 }
 
 /** Days between the start and end points on a range, inside of the selectable area **/
 .kalendae .k-days span.k-range.k-in-month {
-    background:#7EBCD3;
-    color:#333;
+    background:#2a96ff;
+    color:white;
 }
 
 /** Selectable day, hovered **/
