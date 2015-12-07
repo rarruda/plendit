@@ -12,9 +12,6 @@
     <% end %>
 
     <div class="row">
-        <div class="seven columns">
-            <div data-controller="readOnlyCalendar" class="u-push-down" data-date-range="<%= "#{@booking.starts_at_date} - #{@booking.ends_at_date}" %>"></div>
-        </div>
         <div class="five columns">
             <%= render partial: "booking_price_summary", locals: {booking: @booking} %>
             <%= render partial: "booking_controls", locals: {booking: @booking} %>
