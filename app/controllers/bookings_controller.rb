@@ -23,9 +23,10 @@ class BookingsController < ApplicationController
   end
 
   # GET /me/bookings/1/edit
-  def edit
-    @ad = @booking.ad
-  end
+  # Do not allow editing bookings in version 1.0:
+  #def edit
+  #  @ad = @booking.ad
+  #end
 
   # POST /me/bookings
   def create

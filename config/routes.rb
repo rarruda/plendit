@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, path: '/me/bookings', param: :guid do
+  resources :bookings, path: '/me/bookings', param: :guid, except: [:edit] do
     resources :messages
     member do
       get 'show_price'
