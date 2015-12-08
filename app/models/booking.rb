@@ -18,7 +18,7 @@ class Booking < ActiveRecord::Base
   has_many :messages
   has_many :financial_transactions, as: 'financial_transactionable'
 
-  enum status: { created: 0, confirmed: 1, started: 2, in_progress: 3, ended: 4, archived: 5, aborted: 10, cancelled: 11, declined: 12, admin_paused: 99 }
+  enum status: { created: 0, confirmed: 1, started: 2, in_progress: 3, ended: 4, archived: 5, aborted: 10, cancelled: 11, declined: 12, disputed: 15, admin_paused: 99 }
 
   #default_scope { where( status: active ) }
 
@@ -88,6 +88,7 @@ class Booking < ActiveRecord::Base
     state :aborted
     state :cancelled
     state :declined
+    state :disputed
 
     state :admin_paused
 
@@ -107,6 +108,10 @@ class Booking < ActiveRecord::Base
 
     event :decline, after: :cancel_financial_transaction_preauth do
       transitions :from => :created, :to => :declined
+    end
+
+    event :dispute do
+      transitions :from => :started, :to => :disputed
     end
 
     #after: :refund_payin
