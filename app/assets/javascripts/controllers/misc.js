@@ -585,12 +585,10 @@ window.controllers.adAutoSaver = {
         }
 
         function handleSaveOk(xhr) {
-            // console.log(xhr);
             eventbus.emit(eventbus.AD_FORM_SAVE_OK, JSON.parse(xhr.responseText));
         }
 
         function handleSaveError(xhr) {
-            // console.log(xhr);
             var errors = JSON.parse(xhr.responseText);
             eventbus.emit(eventbus.AD_FORM_SAVE_ERROR, errors);
         }
@@ -617,7 +615,6 @@ window.controllers.publishButton = {
         }
     }
 };
-
 
 window.controllers.adErrors = {
     dependencies: ["$element", "utils", "eventbus"],

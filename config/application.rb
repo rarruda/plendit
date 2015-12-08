@@ -16,6 +16,8 @@ module Plendit
       end
     end
 
+    config.to_prepare { Devise::Mailer.layout "mailer" }
+
     # Set queuing backend:
     config.active_job.queue_adapter = :resque
 
