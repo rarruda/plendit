@@ -95,7 +95,6 @@ class User < ActiveRecord::Base
     if: :email_verified?,
     if: :phone_verified?,
     if: Proc.new { |u| u.payment_provider_vid.blank? ||
-        u.user_payment_account.nil? ||
         u.payin_wallet_vid.blank? ||
         u.payout_wallet_vid.blank? }
         # same as: unless: :mangopay_provisioned?
