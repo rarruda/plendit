@@ -14,7 +14,7 @@ class FinancialTransaction < ActiveRecord::Base
 
 
   enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4 }
-  enum nature:           { normal: 0, refund: 10, repudiation:11, settlement: 12 }
+  enum nature:           { normal: 0, refund: 10, repudiation: 11, settlement: 12 }
 
   enum state:    { pending: 1, processing: 2, finished: 5, errored: 10, unknown_state: 20 }
   #mangopay status:CREATED                    SUCCEEDED    FAILED
@@ -72,6 +72,7 @@ class FinancialTransaction < ActiveRecord::Base
     state :finished
     state :errored
     state :unknown_state
+
 
     after_all_transitions :log_status_change
 
@@ -201,6 +202,7 @@ class FinancialTransaction < ActiveRecord::Base
       nil
     end
   end
+
 
   private
 
