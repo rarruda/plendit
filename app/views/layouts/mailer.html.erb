@@ -754,7 +754,11 @@ font-style: normal;font-weight: 400;Margin-bottom: 24px;Margin-top: 0px;font-siz
           <table style="border-collapse: collapse;border-spacing: 0;" align="left">
             <tbody>
               <tr>
-                <td class="logo emb-logo-padding-box" style="padding: 0;vertical-align: top;mso-line-height-rule: at-least;width: 280px;padding-top: 24px;padding-bottom: 24px;"><div class="logo-left" style="font-weight: 700;font-family: Avenir,sans-serif;color: #555;font-size: 0px !important;line-height: 0 !important;" align="left" id="emb-email-header"><img style="border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 200px;" src="plendit.png" alt="" width="200" height="50"></div></td>
+                <td class="logo emb-logo-padding-box" style="padding: 0;vertical-align: top;mso-line-height-rule: at-least;width: 280px;padding-top: 24px;padding-bottom: 24px;">
+                  <div class="logo-left" style="font-weight: 700;font-family: Avenir,sans-serif;color: #555;font-size: 0px !important;line-height: 0 !important;" align="left" id="emb-email-header">
+                    <%= image_tag attachments['logo.png'].url, size: '200x50', alt: '', style:'border: 0;-ms-interpolation-mode: bicubic;display: block;max-width: 200px;" src="plendit.png' -%>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table></td>
