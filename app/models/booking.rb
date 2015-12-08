@@ -133,7 +133,7 @@ class Booking < ActiveRecord::Base
       end
     end
 
-    event :set_in_progress do #, after: :create_financial_transaction_preauth do
+    event :set_in_progress, after: :create_financial_transaction_transfer do
       transitions :from => :started, :to => :in_progress
 
       after do
@@ -148,6 +148,7 @@ class Booking < ActiveRecord::Base
       transitions :from => :in_progress, :to => :ended
       after do
         LOG.info "schedule auto-archival in 7 days.", booking_id: self.id
+        #BookingTransitionToArchiveJob.set(wait_until: self.ends_at + 7.days).perform_later( Booking?, self.id )
         #Resque.enqueue_in( (self.ends_at + 7.days), foobar_JOB_transition_to_archive )
       end
     end
