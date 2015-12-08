@@ -1,18 +1,16 @@
+<!-- FIXME: should display the first name of the user, with a link to the public profile -->
+<!-- FIXME: should be fixed to work well on both payin and payout wallet lists -->
 <tr>
   <td><%= l financial_transaction.created_at, format: :shorter_datetime %></td>
   <td><%= financial_transaction.transaction_type %></td>
   <td><%= financial_transaction.from_user_id || financial_transaction.to_user_id %></td>
   <td>
     <% if financial_transaction.financial_transactionable_type == 'Booking' %>
-    <%= Booking.find( financial_transaction.financial_transactionable_id ).ad.title %>
+      <%= Booking.find( financial_transaction.financial_transactionable_id ).ad.title %>
     <% end %>
   </td>
   <td>
-    <%# this needs more logic: %>
-    <% if financial_transaction.src_type == 'preauth' ||
-          financial_transaction.transaction_type == 'payin' ||
-          ( financial_transaction.transaction_type == 'transfer' && financial_transaction.transaction_type == 'dst_payin_wallet_vid' )
-      %>
+    <% if financial_transaction.payin_wallet_direction_for_user == :in %>
       <%= icon 'sign-in', class: "fa-lg" %>
     <% else %>
         <%= icon 'sign-out', class: "fa-lg" %>

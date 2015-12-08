@@ -127,6 +127,26 @@ class FinancialTransaction < ActiveRecord::Base
     end
   end
 
+  def payin_wallet_direction_for_user
+    if self.preauth? ||
+      self.payin? ||
+      ( self.transfer? && self.dst_payin_wallet_vid? )
+      :in
+    else
+      :out
+    end
+  end
+
+  def payout_wallet_direction_for_user
+    if ( self.transfer? && self.dst_payout_wallet_vid? )
+      :in
+    elsif self.payout?
+      :out
+    else
+      :out
+    end
+  end
+
   # triggered on process! (state: pending => processing)
   def process_on_mangopay
     case self.transaction_type.to_sym

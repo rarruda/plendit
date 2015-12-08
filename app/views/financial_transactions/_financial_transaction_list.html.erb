@@ -1,4 +1,4 @@
-<%= render layout: "gray_box", locals: {title: "Transaksjonshistorikk", id: "transaction_history"} do %>
+<%= render layout: "gray_box", locals: {title: "Transaksjonshistorikk Payin", id: "transaction_history_payin"} do %>
 
 <table>
   <thead>
@@ -10,7 +10,26 @@
     <td>Verdi</td>
   </thead>
   <tbody>
-    <%= render FinancialTransaction.finished.from_user( current_user.id )  %>
+    <%= render FinancialTransaction.from_user( current_user.id )  %>
+  </tbody>
+
+</table>
+
+<% end %>
+
+<%= render layout: "gray_box", locals: {title: "Transaksjonshistorikk Payout", id: "transaction_history_payout"} do %>
+
+<table>
+  <thead>
+    <td>Dato</td>
+    <td>Type</td>
+    <td>Hvem</td>
+    <td>Hva</td>
+    <td>Inn/Ut</td>
+    <td>Verdi</td>
+  </thead>
+  <tbody>
+    <%= render FinancialTransaction.to_user( current_user.id )  %>
   </tbody>
 
 </table>
