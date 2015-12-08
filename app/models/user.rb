@@ -483,13 +483,14 @@ class User < ActiveRecord::Base
           raise 'Invalid personhood'
         end
         LOG.info "Response from mangopay: #{mangopay_user}", { user_id: self.id }
-        self.update_attributes( payment_provider_vid: mangopay_user['Id'] )
+        self.update_columns( payment_provider_vid: mangopay_user['Id'] )
       rescue => e
         LOG.error "something has gone wrong with provisioning the user at mangopay. exception: #{e}", { user_id: self.id }
       end
     end
 
     if self.payment_provider_vid.present? && ( self.payin_wallet_vid.blank? || self.payout_wallet_vid.blank? )
+      # FIXME: should be an active job:
       provision_wallets
     end
   end
