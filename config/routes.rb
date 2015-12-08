@@ -130,7 +130,6 @@ Rails.application.routes.draw do
       get 'nested_images'
       post 'ad_image'
       get 'edit_availability'
-      get 'payout_estimates'
       get 'payout_estimate'
       get 'payout_rules'
 

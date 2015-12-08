@@ -301,21 +301,6 @@ class AdsController < ApplicationController
     end
   end
 
-  def payout_estimates
-    # we need to receive the full params[:payin_rules_attributes] incl effective_from
-    @ad = @ad.dup
-    @ad.readonly!
-    prices = (params[:price] || []).map(&:to_f).reject(&:zero?).map {|e| (e * 100).to_i }
-    rules = prices.map { |e| PayinRule.new( unit: 'day', effective_from: 1, payin_amount: e, ad_id: @ad ) }
-    estimates = rules.map do |rule|
-      {
-        price: rule.payin_amount_in_h,
-        html: (render_to_string partial: 'price_input_estimate', locals: { rule: rule }),
-      }
-    end
-    render json: estimates
-  end
-
   def payout_rules
     render partial: 'secondary_prices'
   end
