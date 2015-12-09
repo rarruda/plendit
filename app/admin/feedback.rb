@@ -18,12 +18,12 @@ ActiveAdmin.register Feedback do
   #actions :index, :show
 
 
-  permit_params :ad_id, :from_user_id, :score, :body
+  permit_params :booking_id, :from_user_id, :score, :body
 
   index do
     selectable_column
     id_column
-    column :ad
+    column :booking
     column :from_user
     column :user
     column :score

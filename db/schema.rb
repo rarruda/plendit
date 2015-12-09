@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130184737) do
+ActiveRecord::Schema.define(version: 20151209141537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,15 +128,15 @@ ActiveRecord::Schema.define(version: 20151130184737) do
   add_index "favorite_lists", ["user_id"], name: "index_favorite_lists_on_user_id", using: :btree
 
   create_table "feedbacks", force: :cascade do |t|
-    t.integer  "ad_id"
     t.integer  "from_user_id"
     t.integer  "score"
     t.text     "body"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "booking_id"
   end
 
-  add_index "feedbacks", ["ad_id"], name: "index_feedbacks_on_ad_id", using: :btree
+  add_index "feedbacks", ["booking_id"], name: "index_feedbacks_on_booking_id", using: :btree
   add_index "feedbacks", ["from_user_id"], name: "index_feedbacks_on_from_user_id", using: :btree
 
   create_table "financial_transactions", force: :cascade do |t|
@@ -424,7 +424,7 @@ ActiveRecord::Schema.define(version: 20151130184737) do
   add_foreign_key "favorite_ads", "ads"
   add_foreign_key "favorite_ads", "favorite_lists"
   add_foreign_key "favorite_lists", "users"
-  add_foreign_key "feedbacks", "ads"
+  add_foreign_key "feedbacks", "bookings"
   add_foreign_key "feedbacks", "users", column: "from_user_id"
   add_foreign_key "identities", "users"
   add_foreign_key "locations", "users"
