@@ -431,15 +431,28 @@ window.controllers.kalendaeBookingSelector = {
 };
 
 window.controllers.bookingPriceLoader = {
-    dependencies: ["$element", "eventbus", "xhr"],
-    callable: function(ele, eventBus, xhr) {
+    dependencies: ["$element", "eventbus", "xhr", "utils"],
+    callable: function(ele, eventBus, xhr, utils) {
+        var url = ele.getAttribute("data-url");
         eventBus.on(eventBus.BOOKING_DATES_CHANGED, onChanged);
 
         function onChanged(from, to) {
-            console.log("woo", from, to);
+            var adId = utils.queryParamsMap().ad_id;
+            if (from && to && adId) {
+                fetchEstimate(from, to, adId);
+            }
         }
 
-        function fetchEstimate() {}
+        function fetchEstimate(from, to, adId) {
+            if (from && to && adId) {
+                xhr.get(url + "?ad_id=" + adId + "&from_date=" + from + "&to_date=" + to)
+                    .then(updateEle);
+            }
+        }
+
+        function updateEle(xhr) {
+            ele.innerHTML = xhr.responseText;
+        }
     }
 }
 

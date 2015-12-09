@@ -50,7 +50,7 @@
                     </div>
 
                     <%#= render partial: 'price_summary' %>
-                    <div data-controller="bookingPriceLoader">
+                    <div data-controller="bookingPriceLoader" data-url="<%= booking_calc_users_path %>">
                         <div class="booking-price-summary__row">
                             <span class="booking-price-summary__label">
                                 Antall dager:
