@@ -49,24 +49,27 @@
                         </span>
                     </div>
 
-                    <div class="booking-price-summary__row">
-                        <span class="booking-price-summary__label">
-                            Antall dager:
-                        </span>
-                        <span class="booking-price-summary__value" data-day-count>0</span>
-                    </div>
-                    <div class="booking-price-summary__row">
-                        <span class="booking-price-summary__label">
-                            Pris per dag:
-                        </span>
-                        <span class="booking-price-summary__value"><%= @booking.ad.decorate.pretty_price %></span>
-                    </div> 
-                    <div class="booking-price-summary__row">
-                        <span class="booking-price-summary__label">
-                            Totalt:
-                        </span>
-                        <span class="booking-price-summary__value"> TOTAL </span>
-                    </div> 
+                    <%#= render partial: 'price_summary' %>
+                    <div data-controller="bookingPriceLoader">
+                        <div class="booking-price-summary__row">
+                            <span class="booking-price-summary__label">
+                                Antall dager:
+                            </span>
+                            <span class="booking-price-summary__value"></span>
+                        </div>
+                        <div class="booking-price-summary__row">
+                            <span class="booking-price-summary__label">
+                                Pris per dag:
+                            </span>
+                            <span class="booking-price-summary__value"></span>
+                        </div> 
+                        <div class="booking-price-summary__row">
+                            <span class="booking-price-summary__label">
+                                Totalt:
+                            </span>
+                            <span class="booking-price-summary__value"></span>
+                        </div> 
+                     </div>
                  </div>
 
             </div>

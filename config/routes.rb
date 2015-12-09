@@ -71,6 +71,8 @@ Rails.application.routes.draw do
       get   'private_profile',         controller: 'users'
       get   'rental_history'
 
+      get   'booking_calc',            controller: 'bookings'
+
       get   'payment'
       match 'payment/payout',          to: 'users#payout',                 via: [:get, :post]
       match 'bank_account',            via: [:get, :post]

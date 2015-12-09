@@ -57,6 +57,19 @@ class BookingsController < ApplicationController
     end
   end
 
+  # ad_id=912&from_date=2015-12-16&to_date=2015-12-17
+  def booking_calc
+    ad = Ad.find(912)
+    @booking = Booking.new(ad: ad, starts_at_date: "2015-12-16", ends_at_date: "2015-12-17")
+    @booking.readonly!
+    @booking.calculate_amount
+
+    respond_to do |format|
+      format.html { render partial: 'price_summary' } 
+      format.json { render json: show_price, status: :ok }
+    end
+  end
+
   # GET /me/bookings/show_price
   def show_price
     @booking.calculate_amount
