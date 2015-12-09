@@ -24,12 +24,13 @@ class UserPaymentCard < ActiveRecord::Base
   validates :user_id,  presence: true
   validates :card_vid, presence: true
 
-  validate :user_is_provisioned
+  validate  :user_is_provisioned
 
   before_validation :set_guid, :on => :create
-  # process! should happen via a resque delayed job:
-  after_create :process!
 
+  # process! first refreshes the created card,
+  #  and then triggers a delayed job to validated it.
+  after_create :process!
 
   # We should never delete cards from our system, but if we do, it is imperative to disable them first:
   before_destroy :disable,
@@ -46,8 +47,15 @@ class UserPaymentCard < ActiveRecord::Base
 
     after_all_transitions :log_status_change
 
-    event :process, after: :validate_on_mangopay do
+    event :process do
       transitions from: :pending, to: :processing
+      before do
+        refresh
+      end
+      after do
+        # self.validate_on_mangopay
+        UserPaymentCardValidateJob.perform_later( self )
+      end
     end
 
     event :finish do
