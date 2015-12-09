@@ -3,6 +3,7 @@
 
 DeleteOldEmptyAdsJob:
   cron: "*/15 * * * *"
+  queue: low
   description: "This job deletes all ads which are empty (and older then 6 hours)"
 
 UserFeedbackScoreRefreshAllJob:
