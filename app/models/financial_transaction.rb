@@ -15,7 +15,6 @@ class FinancialTransaction < ActiveRecord::Base
 
   enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4 }
   enum nature:           { normal: 0, refund: 10, repudiation: 11, settlement: 12 }
-
   enum state:    { pending: 1, processing: 2, finished: 5, errored: 10, unknown_state: 20 }
   #mangopay status:CREATED                    SUCCEEDED    FAILED
   enum src_type: { src_preauth_vid:      1, src_card_vid:          2, src_payin_wallet_vid: 3, src_payout_wallet_vid: 6 }
@@ -68,6 +67,7 @@ class FinancialTransaction < ActiveRecord::Base
 
   aasm column: 'state' do
     state :pending, initial: true
+    #state :waiting_review
     state :processing
     state :finished
     state :errored
@@ -121,8 +121,7 @@ class FinancialTransaction < ActiveRecord::Base
     when 'dst_payout_wallet_vid'
       User.find_by(payout_wallet_vid: self.dst_vid).id
     when 'dst_bank_account_vid'
-      #User.find_by(payout_wallet_vid: self.dst_vid).id
-      UserPaymentAccount.find(payout_wallet_vid: dst_vid).user_id
+      UserPaymentAccount.find_by(bank_account_vid: self.dst_vid).user_id
     when 'dst_payin_transaction_vid'
       User.find_by(payin_wallet_vid: self.dst_vid).id
     end
