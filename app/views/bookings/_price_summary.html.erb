@@ -1,0 +1,18 @@
+<div class="booking-price-summary__row">
+    <span class="booking-price-summary__label">
+        Antall dager:
+    </span>
+    <span class="booking-price-summary__value"><%= @booking.days %></span>
+</div>
+<div class="booking-price-summary__row">
+    <span class="booking-price-summary__label">
+        Pris per dag:
+    </span>
+    <span class="booking-price-summary__value"><%= format_monetary_full_pretty @booking.sum_paid_by_renter_per_day %></span>
+</div> 
+<div class="booking-price-summary__row">
+    <span class="booking-price-summary__label">
+        Totalt:
+    </span>
+    <span class="booking-price-summary__value"><%= format_monetary_full_pretty @booking.sum_paid_by_renter %> </span>
+</div>
