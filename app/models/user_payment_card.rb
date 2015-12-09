@@ -42,7 +42,7 @@ class UserPaymentCard < ActiveRecord::Base
     state :processing
     state :card_valid
     state :card_invalid
-    #state :errored
+    state :errored
 
     after_all_transitions :log_status_change
 
