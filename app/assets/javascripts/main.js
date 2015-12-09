@@ -10,7 +10,8 @@ function main() {
         AD_FORM_DIRTY: 'ad-form-dirty',
         AD_FORM_SAVE_OK: 'ad-form-save-ok',
         AD_FORM_SAVE_ERROR: 'ad-form-save-error',
-        AD_FORM_SAVE_NOW: 'ad-form-save-now'
+        AD_FORM_SAVE_NOW: 'ad-form-save-now',
+        BOOKING_DATES_CHANGED: 'booking-dates-changed'
     });
 
     var c = new Controllerator();
