@@ -23,7 +23,7 @@ class Feedback < ActiveRecord::Base
 
   # returns true if parent booking has status archived
   # false otherwise
-  def visible
+  def visible?
     self.booking.archived?
   end
 
