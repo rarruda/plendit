@@ -414,6 +414,25 @@ window.controllers.kalendaeBookingSelector = {
                 eventBus.emit(eventBus.BOOKING_DATES_CHANGED, dates[0], dates[0]);
             }
         });
+
+        getQueryDates();
+
+        function getQueryDates() {
+            var parts = window.location.search
+                .slice(1)
+                .split("&")
+                .map(function(e) { return e.split("="); })
+                .filter(function(e) { return e[0] == "from_date" || e[0] == "to_date" })
+                .map(function(e) { return e[1] })
+                .sort();
+
+            if (parts.length == 1) { parts.push(parts[0]) }
+            if (parts.length) {
+                k.setSelected(parts.join(" - "));
+            }
+
+       }
+
     }
 };
 
