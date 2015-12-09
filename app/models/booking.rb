@@ -199,7 +199,9 @@ class Booking < ActiveRecord::Base
   end
 
   def days
-    ((self.ends_at - self.starts_at) / 1.day).to_i
+    # fixme: runeh: use ceil here now becuase the calculations is
+    # a full day minus one second when start and end is same date
+    ((self.ends_at - self.starts_at) / 1.day).ceil.to_i
   end
 
   # FIXME: temporarely in place just during a transition period.
@@ -306,6 +308,7 @@ class Booking < ActiveRecord::Base
   end
 
   def booking_calculator
+    align_times # fixme: runeh: is this OK ? Need a way to ensure usable object without risking it being saved.
     BookingCalculator.new(ad: self.ad, starts_at: self.starts_at, ends_at: self.ends_at)
   end
 

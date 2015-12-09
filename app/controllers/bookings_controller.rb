@@ -57,7 +57,6 @@ class BookingsController < ApplicationController
     end
   end
 
-  # ad_id=912&from_date=2015-12-16&to_date=2015-12-17
   def booking_calc
     ad_id = params[:ad_id]
     from = params[:from_date]
@@ -65,8 +64,8 @@ class BookingsController < ApplicationController
 
     ad = Ad.find(ad_id)
     @booking = Booking.new(ad: ad, starts_at_date: from, ends_at_date: to)
-    @booking.readonly!
     @booking.calculate_amount
+    @booking.readonly!
 
     respond_to do |format|
       format.html { render partial: 'price_summary' } 
