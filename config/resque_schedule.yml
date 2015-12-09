@@ -1,10 +1,6 @@
 
 # For config examples see: https://github.com/resque/resque-scheduler#static-schedules
 
-# Keep alive example:
-TestJob:
-  cron: "*/5 * * * *"
-
 DeleteOldEmptyAdsJob:
   cron: "*/15 * * * *"
   description: "This job deletes all ads which are empty (and older then 6 hours)"
