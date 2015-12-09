@@ -26,5 +26,16 @@ window.plenditUtils = {
             token: (document.querySelector('meta[name="csrf-token"]') || {}).content,
             headerName: 'X-CSRF-Token'
         };
+    },
+
+    queryParamsMap: function() {
+        return window.location.search
+                .slice(1)
+                .split("&")
+                .map(function(e) { return e.split("="); })
+                .reduce(function(acc, cur) { 
+                    acc[cur[0]] = cur[1];
+                    return acc;
+                }, {});
     }
 }

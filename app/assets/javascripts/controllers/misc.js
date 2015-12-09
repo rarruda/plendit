@@ -380,8 +380,8 @@ window.controllers.imageDescriptionAutoSaver = {
 };
 
 window.controllers.kalendaeBookingSelector = {
-    dependencies: ["$element", "eventbus"],
-    callable: function(ele, eventBus) {
+    dependencies: ["$element", "eventbus", "utils"],
+    callable: function(ele, eventBus, utils) {
         var calCount = 1;
         var from_date = ele.querySelector('[name="booking[starts_at_date]"]');
         var to_date = ele.querySelector('[name="booking[ends_at_date]"]');
@@ -418,32 +418,28 @@ window.controllers.kalendaeBookingSelector = {
         getQueryDates();
 
         function getQueryDates() {
-            var parts = window.location.search
-                .slice(1)
-                .split("&")
-                .map(function(e) { return e.split("="); })
-                .filter(function(e) { return e[0] == "from_date" || e[0] == "to_date" })
-                .map(function(e) { return e[1] })
-                .sort();
+            var params = utils.queryParamsMap();
+            var parts = [params.from_date, params.to_date].filter(function(e) { return e});
 
             if (parts.length == 1) { parts.push(parts[0]) }
             if (parts.length) {
                 k.setSelected(parts.join(" - "));
             }
-
        }
 
     }
 };
 
 window.controllers.bookingPriceLoader = {
-    dependencies: ["$element", "eventbus"],
-    callable: function(ele, eventBus) {
+    dependencies: ["$element", "eventbus", "xhr"],
+    callable: function(ele, eventBus, xhr) {
         eventBus.on(eventBus.BOOKING_DATES_CHANGED, onChanged);
 
         function onChanged(from, to) {
             console.log("woo", from, to);
-        } 
+        }
+
+        function fetchEstimate() {}
     }
 }
 
