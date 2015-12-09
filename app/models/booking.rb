@@ -198,6 +198,9 @@ class Booking < ActiveRecord::Base
     self.ended && ( ( self.ends_at + 7.days ) > DateTime.now )
   end
 
+  def days
+    ((self.ends_at - self.starts_at) / 1.day).to_i
+  end
 
   # FIXME: temporarely in place just during a transition period.
   #  to be removed.
@@ -223,6 +226,10 @@ class Booking < ActiveRecord::Base
 
   def sum_paid_by_renter
     self.payout_amount + self.platform_fee_amount + self.insurance_amount
+  end
+
+  def sum_paid_by_renter_per_day
+    (self.payout_amount + self.platform_fee_amount + self.insurance_amount) / self.days
   end
 
   def sum_plaform_fee_and_insurance
