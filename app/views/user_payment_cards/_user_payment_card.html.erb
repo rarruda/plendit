@@ -22,6 +22,9 @@
     <% end %>
   </td>
   <td>
+    <%= user_payment_card.validity %>
+  </td>
+  <td>
     <%# params: { 'user[user_payment_card][guid]' => user_payment_card.guid } %>
     <%# FIXME: evil to style directly in the html tags %>
     <%= button_to user_payment_card, method: :delete, class: "button u-pull-right", style:"background-color:red ; color:white", form_class: "u-inline", data: { confirm: 'Are you sure?' } do %>
