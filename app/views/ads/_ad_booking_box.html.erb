@@ -6,10 +6,11 @@
 
     <div data-controller="listingCalendar">
         <% if ad.published?  %>
+            <%# very synthetic form: %>
             <%= form_tag new_booking_path, method: :get do %>
                 <%= hidden_field_tag :ad_id, @ad.id %>
-                <%= hidden_field_tag :from_date, "2015-11-12" %>
-                <%= hidden_field_tag :to_date, "2015-10-12" %>
+                <%= hidden_field_tag :from_date, (Date.today + 7.days).iso8601 %>
+                <%= hidden_field_tag :to_date,   (Date.today + 8.days).iso8601 %>
 
                 <div class="ad-booking-box__calendar-holder" data-calendar>
                     <%= render partial: "unavailability", locals: {ad: @ad} %>
