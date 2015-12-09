@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209141537) do
+ActiveRecord::Schema.define(version: 20151209162619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,10 +134,12 @@ ActiveRecord::Schema.define(version: 20151209141537) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "booking_id"
+    t.integer  "to_user_id"
   end
 
   add_index "feedbacks", ["booking_id"], name: "index_feedbacks_on_booking_id", using: :btree
   add_index "feedbacks", ["from_user_id"], name: "index_feedbacks_on_from_user_id", using: :btree
+  add_index "feedbacks", ["to_user_id"], name: "index_feedbacks_on_to_user_id", using: :btree
 
   create_table "financial_transactions", force: :cascade do |t|
     t.string   "guid",                           limit: 36
@@ -426,6 +428,7 @@ ActiveRecord::Schema.define(version: 20151209141537) do
   add_foreign_key "favorite_lists", "users"
   add_foreign_key "feedbacks", "bookings"
   add_foreign_key "feedbacks", "users", column: "from_user_id"
+  add_foreign_key "feedbacks", "users", column: "to_user_id"
   add_foreign_key "identities", "users"
   add_foreign_key "locations", "users"
   add_foreign_key "messages", "bookings"

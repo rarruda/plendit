@@ -9,7 +9,6 @@ class Ad < ActiveRecord::Base
   acts_as_taggable
 
   belongs_to :user
-  has_many :received_feedbacks, :class_name => "Feedback"
   has_many :ad_items, autosave: true, dependent: :destroy #will leave dangling links in old bookings/favorites.
   has_many :ad_images, autosave: true, dependent: :destroy
   has_many :bookings, through: :ad_items

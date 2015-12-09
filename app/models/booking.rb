@@ -15,6 +15,7 @@ class Booking < ActiveRecord::Base
 
   has_one :ad, through: :ad_item
   has_one :user, through: :ad
+  has_many :feedbacks
   has_many :messages
   has_many :financial_transactions, as: 'financial_transactionable'
 
