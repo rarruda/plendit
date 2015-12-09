@@ -58,6 +58,7 @@ class Booking < ActiveRecord::Base
   validate :validate_user_payment_card_belongs_to_from_user
 
 
+  before_validation :align_times, on: :create
   before_validation :set_guid, :on => :create
   before_validation :calculate_amount,
     if: :starts_at_changed?,
@@ -362,6 +363,15 @@ class Booking < ActiveRecord::Base
     t.process!
   end
 
+  # When a booking is created, the starts_at and ends_at
+  #  have a pre-determined timepoint. We enforce it in this callback
+  #  method that is called only on create.
+  def align_times
+    self.attributes = {
+      starts_at: self.starts_at.beginning_of_day,
+      ends_at:   self.ends_at.end_of_day
+    }
+  end
 
   def set_guid
     self.guid = loop do
