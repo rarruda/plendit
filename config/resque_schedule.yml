@@ -9,6 +9,12 @@ DeleteOldEmptyAdsJob:
   cron: "*/15 * * * *"
   description: "This job deletes all ads which are empty (and older then 6 hours)"
 
+UserFeedbackScoreRefreshAllJob:
+  cron:  "0 1 * * *"
+  queue: low
+  description: "Refresh feedback_score for all users"
+
+
 # Needed jobs:
 # recalculate_users_response_time
 # recalculate_users_rating

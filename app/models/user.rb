@@ -118,18 +118,12 @@ class User < ActiveRecord::Base
     #( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
   end
 
-  def calculate_average_rating
-    if self.received_feedbacks.size == 0
-      return 0
-    end
-
-    i   = 0
-    sum = 0
-    self.received_feedbacks.each do |fb|
-      i   += 1
-      sum += fb.score
-    end
-    ( sum / i )
+  def feedback_score_refresh
+    self.update_columns(
+      feedback_score:       self.received_feedbacks.size == 0 ? 0 : ( self.received_feedbacks.map(&:score).reduce(0,:+) / self.received_feedbacks.size ),
+      feedback_score_count: self.received_feedbacks.size,
+      feedback_score_updated_at: DateTime.now,
+    )
   end
 
   def recent_feedback

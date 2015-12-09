@@ -201,7 +201,8 @@ class Ad < ActiveRecord::Base
       json.main_image_url self.safe_image_url(:searchresult)
       json.user do |user|
         json.id self.user.id
-        json.rating self.user.calculate_average_rating
+        # FIXME: its very very ugly to index the feedback_score with the ad.
+        json.rating self.user.feedback_score
         json.avatar_url self.user.safe_avatar_url
       end
     end

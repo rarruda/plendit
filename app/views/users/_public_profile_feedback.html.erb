@@ -6,7 +6,7 @@
     </div>
     <div class="public-profile-feedback__text-box">
         <h4>
-            <%= render 'shared/stars.html', rating: feedback.user.calculate_average_rating %>
+            <%= render 'shared/stars.html', rating: feedback.user.feedback_score %>
             <%= feedback.ad.display_title %>
         </h4>
         <p class="public-profile-feedback__description">

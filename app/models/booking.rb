@@ -157,6 +157,11 @@ class Booking < ActiveRecord::Base
 
     event :archive do
       transitions :from => :ended, :to => :archived
+      # UserFeedbackScoreRefreshAllJob should run daily for all users,
+      #  so no need to trigger it again here.
+      #after do
+      #  UserFeedbackScoreRefreshJob.set(wait: 1.hour).perform_later self.to_user_id
+      #end
     end
 
     # dont do anything. when manual intervention is required/exception handling:
