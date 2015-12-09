@@ -60,7 +60,7 @@ class Booking < ActiveRecord::Base
 
 
   before_validation :align_times, on: :create
-  before_validation :set_guid, :on => :create
+  before_validation :set_guid,    on: :create
   before_validation :calculate_amount,
     if: :starts_at_changed?,
     if: :ends_at_changed?
