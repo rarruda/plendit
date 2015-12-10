@@ -25,9 +25,9 @@
 
 
 <% if current_user.user_payment_account.nil? %>
-  TRANSLATEME: You need to configure a bank account before you can transfer any funds.
+ Du må legge inn bankkonto før du kan overføre penger.
 <% elsif @financial_transaction_payout[:amount] == 0 %>
-  TRANSLATEME: You need to have funds before you can transfer it.
+ Du trenger penger i din konto før du kan overføre.
 <% elsif @financial_transaction_payout[:amount] < @financial_transaction_payout[:fees] %>
-  TRANSLATEME: you need to have at least <%= format_monetary_full @financial_transaction_payout[:fees] %> in your wallet before you can transfer funds to your bank account.
+  Du må ha minst <%= format_monetary_full @financial_transaction_payout[:fees] %> i din lommebok før du kan overføre penger til din bankkonto.
 <% end %>
