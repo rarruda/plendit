@@ -141,10 +141,10 @@ class Booking < ActiveRecord::Base
       transitions :from => :started, :to => :in_progress
 
       after do
-        LOG.info "make transfer of funds... (dummy only)", booking_id: self.id
+        LOG.info "make transfer of funds...", booking_id: self.id
         create_financial_transaction_transfer
-        LOG.info "schedule auto-end at ends_at(#{self.ends_at})... (dummy only)", booking_id: self.id
-        #Resque.enqueue_in( (self.ends_at), foobar_JOB_transition_to_end )
+        LOG.info "schedule auto-end at ends_at(#{self.ends_at})...", booking_id: self.id
+        BookingAutoEndJob.set(wait_until: self.ends_at ).perform_later self
       end
     end
 
