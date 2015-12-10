@@ -1,5 +1,5 @@
 <section class="ad-copy-section">
-  <h4>TRANSLATEME: Prising:</h4>
+  <h4>Priser:</h4>
   <% @ad.payin_rules.effective_from_asc.each do |pr| %>
     Ved utleie over <%= pr.effective_from %> dager priser blir <%= format_monetary_full_pretty pr.payin_amount %> per dag. <br>
   <% end %>
