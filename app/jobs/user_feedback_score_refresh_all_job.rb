@@ -1,10 +1,13 @@
-class UserFeedbackScoreRefreshJob < ActiveJob::Base
+class UserFeedbackScoreRefreshAllJob < ActiveJob::Base
   queue_as :low
 
   def perform
+    puts "#{DateTime.now.iso8601} Starting UserFeedbackScoreRefreshAllJob"
     # NOTE: should add a filter for only users
     #  which had bookings that ended in the last day or so.
-    User.all.map(&:feedback_score_refresh)
-    # NOTE: should write to log how long it took to run the job.
+    #  filter only for mangopay_provisioned users:
+    User.all.select(&:mangopay_provisioned?).map(&:feedback_score_refresh)
+
+    puts "#{DateTime.now.iso8601} Ending UserFeedbackScoreRefreshAllJob"
   end
 end
