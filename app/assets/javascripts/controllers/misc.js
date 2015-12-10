@@ -478,7 +478,8 @@ window.controllers.listingCalendar = function(ele) {
 
     function onViewChanged(yearOrWeek) {
         var now = moment();
-        var then = this.viewStartDate.clone().add(1, "month");
+        var delta = yearOrWeek == "previous-month" ? -1 : 1;
+        var then = this.viewStartDate.clone().add(delta, "month");
         if (then.diff(now, 'years') > 0) { return false }
     }
 
