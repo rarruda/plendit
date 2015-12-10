@@ -1,21 +1,25 @@
 <div class="help-box">
-    Venter på godkjenning
-</div>
-<div class="help-box">
-    Forespørsel godkjent
-</div>
-<div class="help-box">
-    Forespørsel avslått
-</div>
-<div class="help-box">
-    Booking ble avbrutt
-</div>
-<div class="help-box">
-    Leieforholdet pågår
-</div>
-<div class="help-box">
-    Leieforholdet ble avlyst. Er dette riktig?
-</div>
-<div class="help-box">
-    Arkivert
+    <% if @booking.created? %>
+        Venter på godkjenning
+    <% elsif @booking.confirmed? %>
+        Forespørsel godkjent
+    <% elsif @booking.declined? %>
+        Forespørsel avslått
+    <% elsif @booking.aborted? %>
+        Booking ble avbrutt
+    <% elsif @booking.started? || @booking.in_progress %>
+        Leieforholdet pågår
+    <% elsif @booking.cancelled? %>
+        Leieforholdet ble avbrutt
+    <% elsif @booking.disputed? %>
+        Leieforholdet ble avlyst. Er dette riktig?
+    <% elsif @booking.ended? %>
+        Leieforholdet er over        
+    <% elsif @booking.archived? %>
+        Arkivert
+    <% elsif @booking.admin_paused? %>
+        Under behandling
+    <% else %>
+        <!-- blernk! -->
+    <% end %>
 </div>
