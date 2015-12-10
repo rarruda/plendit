@@ -19,7 +19,7 @@
 
       <% if @financial_transaction_payout[:fees] > 0 %>
         <hr>
-        TRANSLATEME: NB! Husk, at plendit spanderer bankutbetalinggebyr om du har samlet opp og overfør over
+        NB! Det blir gratis å overføre til din bankkonto hvis du overfører mer enn
         <%= format_monetary_full Rails.configuration.x.platform.payout_fee_waived_after_amount %> av gangen.
       <% end %>
 
