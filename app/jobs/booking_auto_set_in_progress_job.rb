@@ -1,5 +1,5 @@
 class BookingAutoSetInProgressJob < ActiveJob::Base
-  queue_as :default
+  queue_as :high
 
   def perform booking
     puts "#{DateTime.now.iso8601} Starting BookingAutoSetInProgressJob"
