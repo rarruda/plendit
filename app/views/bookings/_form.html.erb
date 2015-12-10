@@ -90,7 +90,7 @@
         <%= f.hidden_field 'user_payment_card_id', value: @booking.from_user.user_payment_cards.card_valid.decorate.first.guid %>
     <% elsif current_user.user_payment_cards.card_valid.length < 1 %>
 
-Noe gikk galt: Du må registrere kredittkortet ditt før du kan sende en forespørsel.
+Du må registrere kredittkortet ditt før du kan sende en forespørsel.
     <% end %>
 </div>
 
