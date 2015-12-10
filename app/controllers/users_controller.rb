@@ -286,7 +286,7 @@ class UsersController < ApplicationController
 
     if request.post? && current_user.user_payment_account.present?
       current_user.user_payment_account.create_financial_transaction_payout( payout_wallet_balance )
-      redirect_to payment_users_path( anchor: 'transaction_history' ), payment_account_notice: 'TRANSLATEME: payout was created.'
+      redirect_to payment_users_path( anchor: 'transaction_history' ), payment_account_notice: 'Utbetaling ble opprettet.'
     end
 
     if current_user.user_payment_account.present?
