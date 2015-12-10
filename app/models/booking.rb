@@ -123,8 +123,8 @@ class Booking < ActiveRecord::Base
     event :cancel, after: :cancel_financial_transaction_payin do
       transitions :from => [:confirmed,:started], :to => :cancelled do
         guard do
-          # if started, can still cancel within 24hours.
-          self.started? && ( self.starts_at + 1.day < DateTime.now )
+          # confirmed or if started, can still cancel within 24hours.
+          self.confirmed? || ( self.started? && ( self.starts_at + 1.day < DateTime.now ) )
         end
       end
     end
