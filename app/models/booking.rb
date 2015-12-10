@@ -17,6 +17,7 @@ class Booking < ActiveRecord::Base
   has_one :user,              through: :ad
   has_many :feedbacks,        dependent: :destroy
   has_many :messages,         dependent: :destroy
+  has_many :accident_reports, dependent: :destroy
   has_many :financial_transactions, as: 'financial_transactionable', dependent: :nullify #:restrict_with_exception
 
   enum status: { created: 0, confirmed: 1, started: 2, in_progress: 3, ended: 4, archived: 5, aborted: 10, cancelled: 11, declined: 12, disputed: 15, admin_paused: 99 }
