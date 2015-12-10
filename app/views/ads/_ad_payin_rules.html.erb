@@ -4,8 +4,9 @@
     <% if pr.effective_from == 1 %>
       Pris per dag <%= format_monetary_full_pretty pr.payin_amount %>
     <% else %>
-      Ved utleie over <%= pr.effective_from %> dager reduseres prisen til <%= format_monetary_full_pretty pr.payin_amount %> per dag. <br>
+      Ved utleie over <%= pr.effective_from %> dager reduseres prisen til <%= format_monetary_full_pretty pr.payin_amount %> per dag.
     <% end %>
+    <br>
   <% end %>
 </section>
 <br>
