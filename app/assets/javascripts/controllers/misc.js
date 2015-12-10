@@ -483,7 +483,9 @@ window.controllers.listingCalendar = function(ele) {
     }
 
     function onSelectionChanged() {
-        var current = this.getSelected();
+        var dates = this.getSelectedAsText() || [];
+        ele.querySelector("[data-from]").value = dates[0];
+        ele.querySelector("[data-to]").value = dates[1] || dates[0];
     }
 
     var bookedDatesEle = ele.querySelector('script[type="text/plain"]');
