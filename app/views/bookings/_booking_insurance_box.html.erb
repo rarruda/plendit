@@ -1,14 +1,12 @@
-<div>
-    <strong>Har det skjedd noe?</strong>
-    <ul>
+<div class="booking-insurance-box">
+    <h3 class="booking-insurance-box__title">Har det skjedd noe?</h3>
+    <ul class="booking-insurance-box__list">
         <li>
-            <a href="#">Meld skade</a>
+            <%= link_to "Meld skade", users_accident_reports_path %>
         </li>
         <li>
-            <a href="#">Rapporter regelbrudd</a>
+            <a href="#">(FIXME: link finns ikke) Rapporter regelbrudd</a>
         </li>
     </ul>
-
-    <%= image_tag "logos/if_150x148.png", alt: "", class: "", size: "70x70" %>
-
+    <%= image_tag "logos/if_150x148.png", alt: "", class: "booking-insurance-box__logo", size: "70x70" %>
 </div>

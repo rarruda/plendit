@@ -48,3 +48,21 @@
         margin-left: $standard-spacing;
     }
 }
+
+
+.booking-insurance-box {
+    &__title {
+
+    }
+
+    &__list {
+        padding-top: $standard-spacing;
+        display: inline-block;
+        list-style: none;
+    }
+
+    &__logo {
+        vertical-align: top;
+        margin-left: 80px;
+    }
+}
