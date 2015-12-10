@@ -97,7 +97,9 @@ Noe gikk galt: Du må registrere kredittkortet ditt før du kan sende en foresp�
     <% if current_user.user_payment_cards.length >= 1 %>
       <p>
         <small>
-        Om du har dekning på kredittkortet ditt, sendes forespørselen til utleieren. Du blir kunn belastet om din forespørsel blir godkjent av utleier. Dersom ikke, blir pengene tilbakeført til din konto.
+            Om du har dekning på kredittkortet ditt, sendes forespørselen til
+            utleieren. Du blir kun belastet om din forespørsel blir godkjent av
+            utleier. Dersom ikke, blir pengene tilbakeført til din konto.
         </small>
       </p>
     <% end %>
