@@ -5,9 +5,9 @@ class PayinRule < ActiveRecord::Base
   validates :effective_from, numericality: { only_integer: true }
   validates :effective_from, numericality: { greater_than_or_equal_to: 1 }
   validates :effective_from, numericality: { less_than_or_equal_to: 24 }, if: "self.hour?"
-  validates :effective_from, uniqueness:   { scope: [:ad, :unit], message: "can only have one price per effective_unit" }
+  validates :effective_from, uniqueness:   { scope: [:ad, :unit], message: "Kan kun ha en pris per enhet." }
   validates :payin_amount, numericality: { only_integer: true }, unless: :new_record?
-  validates :payin_amount, numericality: { less_than: 150_000_00, message: "must be at less then 150.000 kr" }, unless: :new_record?
+  validates :payin_amount, numericality: { less_than: 150_000_00, message: "Må være under 150.000 kr" }, unless: :new_record?
   validate  :validate_min_payin_amount,
     unless: "self.effective_from == 1",
     unless: :day?,
