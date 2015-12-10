@@ -9,11 +9,11 @@ class Ad < ActiveRecord::Base
   acts_as_taggable
 
   belongs_to :user
-  has_many :ad_items, autosave: true, dependent: :destroy #will leave dangling links in old bookings/favorites.
-  has_many :ad_images, autosave: true, dependent: :destroy
-  has_many :bookings, through: :ad_items
-  has_many :payin_rules, autosave: true, dependent: :destroy
   belongs_to :location
+  has_many :ad_items,    autosave: true, dependent: :destroy #will leave dangling links in old bookings.
+  has_many :ad_images,   autosave: true, dependent: :destroy
+  has_many :bookings,    through: :ad_items
+  has_many :payin_rules, autosave: true, dependent: :destroy
 
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5, deleted: 6 }
@@ -21,9 +21,9 @@ class Ad < ActiveRecord::Base
 
   enum registration_group: { not_motor: 0, car: 1, caravan: 2, scooter: 3, tractor: 4 }
 
-  accepts_nested_attributes_for :location, reject_if: :all_blank
+  accepts_nested_attributes_for :location,    reject_if: :all_blank
   accepts_nested_attributes_for :payin_rules, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :ad_images, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :ad_images,   reject_if: :all_blank, allow_destroy: true
 
   validates :user,  presence: true
   validates :title, length: { in: 0..255 }, :unless => :new_record?

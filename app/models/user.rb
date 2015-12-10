@@ -16,26 +16,26 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :omniauthable, omniauth_providers: [:facebook, :google, :spid]
-  has_many :ads, dependent: :destroy
-  has_many :ad_items, :through => :ads
+  has_many :ads,            dependent: :destroy
+  has_many :ad_items,       through: :ads
   has_many :identities
   has_many :locations
   has_many :favorite_lists
-  has_many :favorite_ads, :through => :favorite_lists
-  has_many :user_images, dependent: :destroy, autosave: true
+  has_many :favorite_ads,   through: :favorite_lists
+  has_many :user_images,    dependent: :destroy, autosave: true
   has_many :user_documents
 
   # received_bookings == bookings:
-  has_many :bookings, :through => :ad_items
-  has_many :sent_bookings, foreign_key: 'from_user_id', :class_name => "Booking"
+  has_many :bookings,       through: :ad_items
+  has_many :sent_bookings,      foreign_key: 'from_user_id', class_name: "Booking"
 
-  has_many :received_feedbacks, foreign_key: 'to_user_id',   :class_name => "Feedback"
-  has_many :sent_feedbacks,     foreign_key: 'from_user_id', :class_name => "Feedback"
+  has_many :received_feedbacks, foreign_key: 'to_user_id',   class_name: "Feedback"
+  has_many :sent_feedbacks,     foreign_key: 'from_user_id', class_name: "Feedback"
 
-  has_many :received_messages, foreign_key: 'to_user_id', :class_name => "Message"
-  has_many :sent_messages, foreign_key: 'from_user_id', :class_name => "Message"
+  has_many :received_messages,  foreign_key: 'to_user_id',   class_name: "Message"
+  has_many :sent_messages,      foreign_key: 'from_user_id', class_name: "Message"
 
-  has_many :notifications, foreign_key: 'user_id', :class_name => "Notification"
+  has_many :notifications,      foreign_key: 'user_id',      class_name: "Notification"
 
   has_one  :user_payment_account, dependent: :destroy, autosave: true
   has_many :user_payment_cards
