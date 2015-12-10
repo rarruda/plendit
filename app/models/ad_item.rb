@@ -1,6 +1,6 @@
 class AdItem < ActiveRecord::Base
   belongs_to :ad
-  has_many :bookings
+  has_many :bookings #, dependent: :nullify
 
 
  def availability_for_month( year = Date.today.year , month = Date.today.month )

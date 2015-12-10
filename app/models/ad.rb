@@ -14,6 +14,7 @@ class Ad < ActiveRecord::Base
   has_many :ad_images,   autosave: true, dependent: :destroy
   has_many :bookings,    through: :ad_items
   has_many :payin_rules, autosave: true, dependent: :destroy
+  has_many :favorite_ad, dependent: :destroy
 
 
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5, deleted: 6 }

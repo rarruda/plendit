@@ -18,12 +18,12 @@ class User < ActiveRecord::Base
          :confirmable, :omniauthable, omniauth_providers: [:facebook, :google, :spid]
   has_many :ads,            dependent: :destroy
   has_many :ad_items,       through: :ads
-  has_many :identities
-  has_many :locations
-  has_many :favorite_lists
+  has_many :identities,     dependent: :destroy
+  has_many :locations,      dependent: :destroy
+  has_many :favorite_lists, dependent: :destroy
   has_many :favorite_ads,   through: :favorite_lists
   has_many :user_images,    dependent: :destroy, autosave: true
-  has_many :user_documents
+  has_many :user_documents, dependent: :destroy
 
   # received_bookings == bookings:
   has_many :bookings,       through: :ad_items
@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   has_many :notifications,      foreign_key: 'user_id',      class_name: "Notification"
 
   has_one  :user_payment_account, dependent: :destroy, autosave: true
-  has_many :user_payment_cards
+  has_many :user_payment_cards,   dependent: :destroy
 
 
   accepts_nested_attributes_for :user_payment_account, :reject_if => proc { |attributes| attributes['bank_account_number'].blank? }
