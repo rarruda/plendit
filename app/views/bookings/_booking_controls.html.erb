@@ -12,7 +12,7 @@
             Denne bookingen er over og stengt for endringer. 
         <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
         <% else %>
-            TRANSLATEME: Unknown booking state
+            ukjent status, opplever du problemer kan du ta kontakt med [kundesenteret] 
         <% end %>
     <% else %>
         <% if booking.created? %>
@@ -24,7 +24,7 @@
             Denne bookingen er aktiv.
         <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
         <% else %>
-            TRANSLATEME: Unknown booking state
+           Ukjent status, opplever du problemer kan du ta kontakt med [kundesenteret] 
         <% end %>
     <% end %>
 </div>
