@@ -440,22 +440,6 @@ window.controllers.bookingPriceLoader = {
     }
 }
 
-window.controllers.readOnlyCalendar = function(ele) {
-    var calCount = 1;
-    if (window.innerWidth < 660) { calCount = 1; }
-    else if (window.innerWidth < 972) { calCount = 2; }
-
-    var k = new Kalendae({
-        attachTo: ele,
-        months: calCount,
-        mode: 'range',
-        readOnly: true,
-        weekStart: 1,
-        direction: "today-future",
-        selected: ele.getAttribute('data-date-range')
-    });
-};
-
 window.controllers.listingCalendar = function(ele) {
     var calenderEle = ele.querySelector("[data-calendar]");
     var selected = "";
