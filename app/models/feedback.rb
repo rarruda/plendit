@@ -41,7 +41,7 @@ class Feedback < ActiveRecord::Base
 
   def to_user_is_valid
     unless [ self.booking.from_user_id, self.booking.ad.user_id ].include? self.to_user_id
-      errors.add(:to_user, "to_user must belong to booking")
+      errors.add(:to_user, "Mottaker må være en del av leieforholdet.")
     end
   end
 
