@@ -358,18 +358,17 @@ window.controllers.imageDescriptionAutoSaver = {
 window.controllers.kalendaeBookingSelector = {
     dependencies: ["$element", "eventbus", "utils"],
     callable: function(ele, eventBus, utils) {
-        var calCount = 1;
         var from_date = ele.querySelector('[name="booking[starts_at_date]"]');
         var to_date = ele.querySelector('[name="booking[ends_at_date]"]');
         var rangeString = from_date.value + " - " + to_date.value;
 
         var k = new Kalendae({
             attachTo: ele.querySelector("[data-kalendae-container]"),
-            months: calCount,
             mode: 'range',
             weekStart: 1,
             direction: "today-future",
-            selected: rangeString
+            selected: rangeString,
+            useYearNav: false,
         });
 
         k.subscribe('change', function(date) {
@@ -391,6 +390,8 @@ window.controllers.kalendaeBookingSelector = {
             }
         });
 
+        k.subscribe('view-changed', onViewChanged);
+
         getQueryDates();
 
         function getQueryDates() {
@@ -401,7 +402,14 @@ window.controllers.kalendaeBookingSelector = {
             if (parts.length) {
                 k.setSelected(parts.join(" - "));
             }
-       }
+        }
+
+        function onViewChanged(yearOrWeek) {
+            var now = moment();
+            var delta = yearOrWeek == "previous-month" ? -1 : 1;
+            var then = this.viewStartDate.clone().add(delta, "month");
+            if (then.diff(now, 'years') > 0) { return false }
+        }
 
     }
 };
@@ -472,7 +480,6 @@ window.controllers.listingCalendar = function(ele) {
 
     var k = new Kalendae({
         attachTo: calenderEle,
-        months: 1,
         mode: 'range',
         readOnly: false,
         weekStart: 1,
