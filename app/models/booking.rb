@@ -320,11 +320,11 @@ class Booking < ActiveRecord::Base
   def send_confirmations
     LOG.info "owner_accepted email:"
     message = BookingMailer.notify_owner_accepted( self.id )
-    message.deliver_now
+    message.deliver_later
 
     LOG.info "renter_accepted email:"
     message = BookingMailer.notify_renter_accepted( self.id )
-    message.deliver_now
+    message.deliver_later
   end
 
   def create_financial_transaction_preauth
