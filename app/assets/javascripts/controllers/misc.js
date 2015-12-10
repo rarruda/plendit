@@ -877,3 +877,9 @@ window.controllers.secondaryPrices = {
         }
     }
 };
+
+window.controllers.disableOnSubmit = function(ele) {
+    ele.closest("form").addEventListener("submit", function(evt) {
+        ele.disabled = true;
+    });
+}
