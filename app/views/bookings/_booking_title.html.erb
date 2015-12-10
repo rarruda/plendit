@@ -1,0 +1,7 @@
+<h1 class="u-push-down">
+    <% if current_user.owns_booking_item? @booking %>
+        Leieforespørsel fra <%= @booking.from_user.display_name %>
+    <% else %>
+        Leieforespørsel til <%= @booking.user.display_name %>
+    <% end %>
+</h1>
