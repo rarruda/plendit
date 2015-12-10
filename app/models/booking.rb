@@ -13,8 +13,8 @@ class Booking < ActiveRecord::Base
   belongs_to :from_user, :class_name => "User"
   belongs_to :user_payment_card
 
-  has_one :ad, through: :ad_item
-  has_one :user, through: :ad
+  has_one :ad,         through: :ad_item
+  has_one :user,       through: :ad
   has_many :feedbacks, dependent: :destroy
   has_many :messages,  dependent: :destroy
   has_many :financial_transactions, as: 'financial_transactionable', dependent: :nullify #:restrict_with_exception

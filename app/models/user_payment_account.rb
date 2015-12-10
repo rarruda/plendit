@@ -2,12 +2,12 @@ class UserPaymentAccount < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :user
-  has_many :financial_transactions, as: 'financial_transactionable'
+  has_many   :financial_transactions, as: 'financial_transactionable'
 
   before_validation :normalize_bank_account_number, unless: 'bank_account_number.nil?'
   before_validation :set_bank_account_iban,         unless: 'bank_account_number.nil?'
 
-  validates :user_id, presence: true
+  validates :user_id,             presence: true
   validates :bank_account_number, uniqueness: {message: "(account number) is in use by another user in plendit."}, unless: 'bank_account_number.nil?'
   validate  :is_bank_account_number_valid?, unless: 'bank_account_number.nil?'
   validate  :is_bank_account_iban_valid?,   unless: 'bank_account_number.nil?'
