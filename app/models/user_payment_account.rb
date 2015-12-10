@@ -49,7 +49,7 @@ class UserPaymentAccount < ActiveRecord::Base
   private
   def user_is_provisioned
     unless self.user_id.present? && self.user.mangopay_provisioned?
-      errors.add(:base, "You are not yet provisioned with mangopay")
+      errors.add(:base, "Før du legger til betalingskort må din profil være verifisert.")
     end
   end
 
