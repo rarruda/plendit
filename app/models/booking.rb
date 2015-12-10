@@ -52,8 +52,8 @@ class Booking < ActiveRecord::Base
   validates :ad_item_id,           presence: true
   validates :from_user_id,         presence: true
   validates :user_payment_card_id, presence: true
-  validates :amount,               numericality: { greater_than_or_equals: 99_00, message: "TRANSLATEME: must be at least 99 kr"}
-  validates :amount,               numericality: { less_than:         150_000_00, message: "TRANSLATEME: must be at less then 150.000 kr"}
+  validates :amount,               numericality: { greater_than_or_equals: 99_00, message: "Må være minst 99kr"}
+  validates :amount,               numericality: { less_than:         150_000_00, message: "Kan ikke være mer enn 150 tusen kroner"}
   #validates :amount, numericality: { less_than:  25_000_00, message: "must be at less then  25.000 kr"}, if: "false" #KYC not provisioned
 
   validate :validate_user_payment_card_belongs_to_from_user
