@@ -149,9 +149,8 @@ class Booking < ActiveRecord::Base
     event :end do
       transitions :from => :in_progress, :to => :ended
       after do
-        LOG.info "schedule auto-archival in 7 days.", booking_id: self.id
-        #BookingTransitionToArchiveJob.set(wait_until: self.ends_at + 7.days).perform_later( Booking?, self.id )
-        #Resque.enqueue_in( (self.ends_at + 7.days), foobar_JOB_transition_to_archive )
+        LOG.info "schedule auto-archival 7 days after ends_at.", booking_id: self.id
+        BookingAutoArchiveJob.set(wait_until: (self.ends_at + 7.days + 1.second) ).perform_later self
       end
     end
 
