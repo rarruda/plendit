@@ -99,8 +99,10 @@ class Booking < ActiveRecord::Base
     event :confirm do
       transitions :from => :created, :to => :confirmed
       after do
+        # FIXME?: check if no transactions exist already?
         create_financial_transaction_payin
         send_confirmations
+        BookingAutoStartJob.set(wait_until: self.starts_at ).perform_later self
       end
     end
 
