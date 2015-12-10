@@ -7,7 +7,7 @@
         <%= render partial: "form" %>
       <% end %>
     <% else %>
-      Det finnes ingen eksisterende leieforhold. Ta kontakt med <%= Plendit::Application.config.x.customerservice.email %> hvis du har noen spørsmål eller opplever problemer.
+      Det finnes ingen eksisterende leieforhold. Ta kontakt med <%= mail_to Plendit::Application.config.x.customerservice.email %> hvis du har spørsmål eller opplever problemer.
 
     <% end %>
   </div>
