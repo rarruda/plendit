@@ -125,13 +125,9 @@
 .kalendae .k-title,
 .kalendae .k-header,
 .kalendae .k-days {
-    width:246px;
+    width: 105%;
     display:block;
     overflow:hidden;
-
-    @media (min-width: $tablet) and (max-width: $desktop) {
-        width: 200px;
-    }
 }
 
 
