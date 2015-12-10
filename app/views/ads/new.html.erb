@@ -27,7 +27,7 @@
         <div class="six columns">
             <% @ad_categories.each do |a|
                 unless current_user.can_rent_out?( a[:category] ) %>
-                    FIXME/TRANSLATEME: explain why you can not rent out in the <%= a[:title] %> category. <br>
+                    FIXME: Du er ikke verifisert til å leie ut <%= a[:title] %>. Dette kan du fikse på [[mine verifiseringer][ plendit.com/me# mineverifiseringer]] <br>
             <%  end %>
             <% end %>
             <%= render partial: "ad_input_copy" %>
