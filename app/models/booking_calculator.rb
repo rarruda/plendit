@@ -65,6 +65,6 @@ class BookingCalculator
   end
 
   def validate_starts_at_before_ends_at
-      errors.add(:ends_at, "ends_at cannot be before starts_at") if self.ends_at < self.starts_at
+      errors.add(:ends_at, "Til dato kan ikke være før fra dato.") if self.ends_at < self.starts_at
   end
 end
