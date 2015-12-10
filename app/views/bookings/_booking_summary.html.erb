@@ -1,0 +1,19 @@
+<div>
+    <div>
+        Fra dato: <%= @booking.display_from_date %>
+    </div>
+    <div>
+        Til dato: <%= @booking.display_end_date %>
+    </div>
+    <div>
+        Antall dager: <%= @booking.days %>
+    </div>
+
+    <div>
+        <% if current_user.owns_booking_item? @booking %>
+            Totalt utbetalt: <%= @booking.sum_paid_to_owner %>
+        <% else %>
+            Totalt å betale: <%= @booking.sum_paid_by_renter %>
+        <% end %>
+    </div>
+</div>
