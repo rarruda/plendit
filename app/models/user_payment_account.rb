@@ -66,7 +66,7 @@ class UserPaymentAccount < ActiveRecord::Base
   end
 
   def is_bank_account_iban_valid?
-    errors.add(:bank_account_iban, "generated iban account number is invalid") if not Ibanizator.iban_from_string(self.bank_account_iban).valid?
+    errors.add(:bank_account_iban, "Ugyldig IBAN nummer.") if not Ibanizator.iban_from_string(self.bank_account_iban).valid?
   end
 
   def normalize_bank_account_number
