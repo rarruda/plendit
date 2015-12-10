@@ -1,7 +1,11 @@
 <section class="ad-copy-section">
   <h4>Priser:</h4>
   <% @ad.payin_rules.effective_from_asc.each do |pr| %>
-    Ved utleie over <%= pr.effective_from %> dager priser blir <%= format_monetary_full_pretty pr.payin_amount %> per dag. <br>
+    <% if pr.effective_from == 1 %>
+      Pris per dag <%= format_monetary_full_pretty pr.payin_amount %>
+    <% else %>
+      Ved utleie over <%= pr.effective_from %> dager reduseres prisen til <%= format_monetary_full_pretty pr.payin_amount %> per dag. <br>
+    <% end %>
   <% end %>
 </section>
 <br>
