@@ -276,21 +276,21 @@ class Booking < ActiveRecord::Base
 
   def validate_user_payment_card_belongs_to_from_user
     if self.from_user.user_payment_cards.find_by( id: self.user_payment_card_id ).blank?
-      errors.add(:user_payment_card, "card must belong to from_user")
+      errors.add(:user_payment_card, "Kortet må tilhøre bruker.")
     end
   end
 
   def validate_starts_at_before_ends_at
-      errors.add(:ends_at, "ends_at cannot be before starts_at") if self.ends_at < self.starts_at
+      errors.add(:ends_at, "Til dato kan ikke være før fra dato.") if self.ends_at < self.starts_at
   end
 
   def validate_starts_at
-      errors.add(:starts_at, "starts_at cannot be in the past") if self.starts_at < DateTime.now
-      errors.add(:starts_at, "starts_at cannot be over 9 months in the future") if self.starts_at > 9.months.from_now
+      errors.add(:starts_at, "Fra dato kan ikke være i fortiden.") if self.starts_at < DateTime.now
+      errors.add(:starts_at, "Fra dato kan ikke være mer enn 9 måneder frem i tid.") if self.starts_at > 9.months.from_now
   end
 
   def validate_ends_at
-      errors.add(:ends_at, "ends_at cannot be over one year in the future") if self.ends_at > 12.months.from_now
+      errors.add(:ends_at, "Til dato kan ikke være mer enn 1 år frem i tid.") if self.ends_at > 12.months.from_now
   end
 
   # Comparable
