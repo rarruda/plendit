@@ -36,4 +36,12 @@ class BookingDecorator < Draper::Decorator
     status_names[status.to_sym]
   end
 
+  def display_from_date
+    l self.starts_at, format: :plendit_short_date
+  end
+
+  def display_end_date
+    l self.ends_at, format: :plendit_short_date
+  end
+
 end
