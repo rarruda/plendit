@@ -36,7 +36,7 @@ class Location < ActiveRecord::Base
 
   def post_code_must_exist
     if not POSTAL_CODES.keys.include? self.post_code
-      errors.add(:post_code, "needs to be valid.")
+      errors.add(:Postnummer må være gyldig.")
     end
   end
 
