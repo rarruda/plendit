@@ -132,8 +132,8 @@ class Booking < ActiveRecord::Base
       transitions :from => :confirmed, :to => :started
 
       after do
-        LOG.info "schedule auto-set_in_progress as new status in 1.day... (dummy only)", booking_id: self.id
-        #Resque.enqueue_in( (self.starts_at + 1.day), foobar_JOB_transition_to_in_progress )
+        LOG.info "schedule auto-set_in_progress as new status in 1.day...", booking_id: self.id
+        BookingAutoSetInProgressJob.set(wait_until: (self.starts_at + 1.day) ).perform_later self
       end
     end
 
