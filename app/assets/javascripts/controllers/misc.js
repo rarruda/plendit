@@ -460,6 +460,7 @@ window.controllers.listingCalendar = function(ele) {
     var bookedDatesEle = ele.querySelector('script[type="text/plain"]');
     if (bookedDatesEle) {
         selected = bookedDatesEle.textContent.trim();
+        selected = (selected && selected.split(",")) || [];
     }
 
     var k = new Kalendae({
