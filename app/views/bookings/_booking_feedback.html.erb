@@ -1,14 +1,7 @@
 <div class="booking-feedback">
 
     <%= form_for Feedback.new(), url: users_feedbacks_path do |f| %>
-        <%= f.hidden_field :booking, value: @booking.id %>
-        <%= f.hidden_field :from_user, value: current_user.id %>
-        <% if current_user.owns_booking_item? @booking %>
-            <%= f.hidden_field :to_user, value: @booking.from_user.id %>
-        <% else %>
-            <%= f.hidden_field :to_user, value: @booking.user.id %>
-        <% end %>
-
+        <%= f.hidden_field :booking_id, value: @booking.id %>
         <div class="u-push-down">
             Rating:
         </div>

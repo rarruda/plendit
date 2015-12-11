@@ -1,6 +1,5 @@
 class FeedbacksController < ApplicationController
   before_action :set_feedback, only: [:show, :edit, :update, :destroy]
-  after_action  :notify_user, only: [:create, :update]
 
   # GET /feedbacks
   # GET /feedbacks.json
@@ -31,10 +30,11 @@ class FeedbacksController < ApplicationController
   # POST /feedbacks.json
   def create
     @feedback = Feedback.new(feedback_params)
+    @feedback.from_user = current_user
 
     respond_to do |format|
       if @feedback.save
-        format.html { redirect_to users_feedback_path(@feedback), notice: 'Feedback was successfully created.' }
+        format.html { redirect_to booking_path(@feedback.booking), notice: 'Feedback was successfully created.' }
         format.json { render :show, status: :created, location: @feedback }
       else
         format.html { render :new }
@@ -46,15 +46,11 @@ class FeedbacksController < ApplicationController
   # PATCH/PUT /feedbacks/1
   # PATCH/PUT /feedbacks/1.json
   def update
-    respond_to do |format|
       if @feedback.update(feedback_params)
-        format.html { redirect_to @feedback, notice: 'Feedback was successfully updated.' }
-        format.json { render :show, status: :ok, location: @feedback }
+        redirect_to @feedback, notice: 'Takk for tilbakemeldingen!'
       else
-        format.html { render :edit }
-        format.json { render json: @feedback.errors, status: :unprocessable_entity }
+        redirect_to @feedback, notice: 'Klarte ikke å lagre tilbakemeldingen. Prøv igjen senere.'
       end
-    end
   end
 
   # DELETE /feedbacks/1
@@ -73,16 +69,7 @@ class FeedbacksController < ApplicationController
       @feedback = Feedback.find(params[:id]).decorate
     end
 
-    # Callback to create a user notification when a feedback was left.
-    def notify_user
-      Notification.new(
-        user_id: @feedback.user.id,
-        message: "Du har mottat en tilbakemelding",
-        notifiable: @feedback).save
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def feedback_params
-      params.require(:feedback).permit(:booking_id, :from_user_id, :score, :body)
+      params.require(:feedback).permit(:booking_id, :score, :body)
     end
 end
