@@ -305,15 +305,21 @@ class AdsController < ApplicationController
     render partial: 'secondary_prices'
   end
 
+  # FIXME: (RA) add_payin_rule / del_payin_rule deserver their own
+  #  controller, which should be inherited by ads. should also
+  #  be driven by a GUID.
   def add_payin_rule
-    @payin_rule = @ad.payin_rules.build(payin_amount_in_h: params[:price], effective_from: params[:days], unit: 2)
+    @payin_rule = @ad.payin_rules.build(
+      payin_amount_in_h: params[:price],
+      effective_from:    params[:days],
+      unit:              PayinRule.units[:day]
+    )
     @payin_rule.save
     render text: "Added rule";
   end
 
   def del_payin_rule
-    id = params[:rule_id]
-    rule = @ad.payin_rules.find(id)
+    rule = @ad.payin_rules.find( params[:rule_id] )
     rule.destroy! unless rule.nil?
     render text: "deleted rule";
   end
