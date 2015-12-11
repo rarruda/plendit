@@ -349,7 +349,7 @@ window.controllers.imageDescriptionAutoSaver = {
             xhr
                 .xhrFormData(form)
                 .catch(function(err) {
-                    console.log("ARRAR!", err);
+                    console.log("Error", err);
                 });
         }
     }
@@ -582,7 +582,6 @@ window.controllers.adAutoSaver = {
         ele.addEventListener("change", handleChange)
 
         function handleChange() {
-            console.log("form is dirty");
             eventbus.emit(eventbus.AD_FORM_DIRTY);
             saveForm();
         }
@@ -852,3 +851,20 @@ window.controllers.disableOnSubmit = function(ele) {
         ele.disabled = true;
     });
 }
+
+window.controllers.starRatingSelector = function(ele) {
+    var stars = Array.from(ele.querySelectorAll("[data-rating]"));
+    stars.forEach(function(e) {
+        e.addEventListener('click', setRatingValue);
+    });
+
+    function setRatingValue(evt) {
+        var clicked  = evt.target;
+        var rating = parseInt(clicked.getAttribute("data-rating"));
+        ele.querySelector("input").value = rating;
+        stars.forEach(function(e, n) {
+            e.classList.toggle("rating-selector__star--full", (n+1) <= rating);
+        });
+    }
+}
+

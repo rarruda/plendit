@@ -1,0 +1,38 @@
+<div class="booking-feedback">
+
+    <%= form_for Feedback.new(), url: users_feedbacks_path do |f| %>
+        <%= f.hidden_field :booking, value: @booking.id %>
+        <%= f.hidden_field :from_user, value: current_user.id %>
+        <% if current_user.owns_booking_item? @booking %>
+            <%= f.hidden_field :to_user, value: @booking.from_user.id %>
+        <% else %>
+            <%= f.hidden_field :to_user, value: @booking.user.id %>
+        <% end %>
+
+    <div class="u-push-down">
+        Rating:
+    </div>
+
+<div>
+        Hvor god var din opplevelse?
+    </div>
+
+    <div data-controller="starRatingSelector" class="rating-selector">
+        <span data-rating="1" class="rating-selector__star rating-selector__star--full"></span>
+        <span data-rating="2" class="rating-selector__star"></span>
+        <span data-rating="3" class="rating-selector__star"></span>
+        <span data-rating="4" class="rating-selector__star"></span>
+        <span data-rating="5" class="rating-selector__star"></span>
+        <%= f.hidden_field :score, value: '1', data: { score: '' } %>
+    </div>
+
+    <div>
+        <%= f.text_area :body, placeholder: 'Din tilbakemelding. (Frivillig)' %>
+    </div>
+
+    <div>
+        <button class="button button-primary">Gi tilbakemelding</button>
+    </div>
+    <% end %>
+
+</div>
