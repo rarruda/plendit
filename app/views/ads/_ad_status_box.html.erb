@@ -2,7 +2,7 @@
 
     <% if ad.published? %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad),  form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du redigerer annonsen vil den bli sendt til kontroll på nytt, sikker på at du vil redigere annonsen?' } %>
-        <%= button_to 'Pause annonsen',   pause_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du gjør annonsen usynlig blir den ikke lenger søkbar men folk du deler den med kan fortsatt se den, sikker på at du vil gjøre annonsen usynlig?' } %>
+        <%= button_to 'Gjør annonsen usynlig',   pause_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du gjør annonsen usynlig blir den ikke lenger søkbar men folk du deler den med kan fortsatt se den, sikker på at du vil gjøre annonsen usynlig?' } %>
         <%= button_to 'Stopp annonsen',   stop_ad_path(ad),  form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du stopper annonsen så kan bare du se den, sikker på at du vil stoppe annonsen?'} %>
     <% elsif ad.draft? %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
