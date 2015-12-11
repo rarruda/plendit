@@ -15,13 +15,18 @@
         <%= render partial: "booking_summary" %>
     </div>
 
-    <div class="u-push-down">
-        <%= render partial: "booking_feedback" %>
-    </div>
+    <% if @booking.may_give_feedback? %>
+        <div class="u-push-down">
+            <%# todo runeh cond around has_provided_feedback %>
+            <%= render partial: "booking_feedback" %>
+        </div>
+    <% end %>
 
-    <div class="u-push-down">
-        <%= render partial: "booking_insurance_box" %>
-    </div>
+    <% if @booking.may_send_damage_report? %>
+        <div class="u-push-down">
+            <%= render partial: "booking_insurance_box" %>
+        </div>
+    <% end %>
 
     <%= render partial: "booking_controls", locals: {booking: @booking} %>
 
