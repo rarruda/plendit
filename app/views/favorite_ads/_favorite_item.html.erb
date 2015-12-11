@@ -11,6 +11,6 @@
         <div class="my-favorite-ad__description">
             <%= ad.summary %>
         </div>
-        <%= button_to 'Fjern', users_favorite_ad_path(ad.id), method: :delete, data: { confirm: 'Virkelig fjern?' }, form_class: 'u-inline', class: 'button u-pull-right u-push-down-only' %>
+        <%= button_to 'Fjern', users_favorite_ad_path(ad.id), method: :delete, data: { confirm: 'Sikker på at du vil fjerne?' }, form_class: 'u-inline', class: 'button u-pull-right u-push-down-only' %>
     </div>
 </div>
