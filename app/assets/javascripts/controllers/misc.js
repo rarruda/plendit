@@ -392,7 +392,7 @@ window.controllers.kalendaeBookingSelector = {
 
         k.subscribe('view-changed', onViewChanged);
 
-        getQueryDates();
+        window.setTimeout(getQueryDates, 100);
 
         function getQueryDates() {
             var params = utils.queryParamsMap();
