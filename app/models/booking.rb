@@ -286,7 +286,7 @@ class Booking < ActiveRecord::Base
   end
 
   def validate_starts_at
-      errors.add( "Fra dato kan ikke være i fortiden.") if self.starts_at < DateTime.now
+      errors.add( "Fra dato kan ikke være i fortiden.") if self.starts_at < DateTime.now.beginning_of_day
       errors.add( "Fra dato kan ikke være mer enn 9 måneder frem i tid.") if self.starts_at > 9.months.from_now
   end
 
