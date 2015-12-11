@@ -32,6 +32,7 @@ class Booking < ActiveRecord::Base
                      -> { where( 'status' => [ self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
   scope :current,    -> { where( 'status' => [ self.statuses[:created], self.statuses[:confirmed], self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
   scope :active,     -> { where( 'status' => [ self.statuses[:started], self.statuses[:in_progress] ] ) }
+  scope :reserved,   -> { where( 'status' => [ self.statuses[:confirmed], self.statuses[:started], self.statuses[:in_progress] ] ) }
   scope :ad_item,    ->(ad_item_id) { where( ad_item_id: ad_item_id ) }
   scope :in_month,   ->(year,month) { where( 'ends_at >= ? and starts_at <= ?',
     DateTime.new(year, month).beginning_of_month, DateTime.new(year, month).end_of_month ) }
