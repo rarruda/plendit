@@ -9,7 +9,7 @@ namespace :mangopay do
     unless ARGV.include? '--iknowwhatiamdoing'
       puts "If you know what you are doing, run:"
       puts
-      puts "  rake run mangopay:resetdb -- --iknowwhatiamdoing"
+      puts "  bundle exec rake mangopay:dbreset -- --iknowwhatiamdoing"
       puts
       puts "It will then flush the database of all mangopay related information, and a lot more."
       puts "This is a very destructive action, so use it with care."
