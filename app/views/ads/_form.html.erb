@@ -19,13 +19,13 @@
             <h1 class="u-push-down-only">Legg ut båt</h1>
 
             <small>
-                Inntil videre kan man kun leie ut båter opp til 24 fot,
-                vi jobber for å finne en god løsning på større båter!
+                Inntil videre kan man kun leie ut båter opp til 24 fot.
+                Vi jobber for å finne en god løsning på større båter!
             </small>
         <% when 'motor' %>
             <h1 class="u-push-down-only">Legg ut kjøretøy</h1>
             <small>
-                Her kan du legge ut kun registrert kjøretøy.
+                Her kan du kun legge ut registrerte kjøretøy.
             </small>
         <% when 'realestate' %>
             <h1 class="u-push-down-only">Legg ut eiendom</h1>
@@ -145,7 +145,7 @@
                 </div>
 
                 <div class="main-price__row">
-                    <strong class="main-price__label">Utebetalt til deg:</strong>
+                    <strong class="main-price__label">Utbetalt til deg:</strong>
                     <strong class="main-price__value"><%= format_monetary_full_pretty(@ad.booking_calculator.payout_amount(@ad.main_payin_rule)) %></strong>
                 </div>
             </div>
@@ -173,8 +173,8 @@
 
                 <div class="help-box u-push-down">
                     Pris per enkelt dag må være minst 99 kr.
-                    Vil du gi en lavere dagnpris for lengre
-                    leieforhold kan du gjøre det her.
+                    Vil du gi en lavere døgnpris for et lengre
+                    leieforhold, kan du gjøre det her.
                 </div>
                 <div>
                     <span class="price-adder__label">Ved utleie over</span>
