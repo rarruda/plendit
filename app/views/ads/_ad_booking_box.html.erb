@@ -15,7 +15,7 @@
                 <%= render partial: "unavailability", locals: {ad: @ad} %>
             </div>
 
-            <% unless ad.user.id == current_user.id %>
+            <% unless user_signed_in? && !ad.user.id == current_user.id %>
                 <div class="ad-booking-box__button-holder">
                     <%= button_tag("Gå til booking", {class: "u-push-down button button-primary booking-request-form__book-button"}) %>
                 </div>
