@@ -32,6 +32,7 @@
 //= require 'libs/createelement.js'
 //= require 'libs/form-to-obj.js'
 //= require 'libs/kalendae.js'
+//= require 'libs/moment-range.js'
 //= require 'libs/mangopay-kit.js'
 //= require 'libs/util.js'
 //= require 'libs/xhr.js'

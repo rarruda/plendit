@@ -442,7 +442,7 @@ window.controllers.bookingPriceLoader = {
 
 window.controllers.listingCalendar = function(ele) {
     var calenderEle = ele.querySelector("[data-calendar]");
-    var selected = "";
+    var blackout = [];
 
     function onViewChanged(yearOrWeek) {
         var now = moment();
@@ -451,16 +451,43 @@ window.controllers.listingCalendar = function(ele) {
         if (then.diff(now, 'years') > 0) { return false }
     }
 
+    function validateSelection(selected) {
+        return true;
+        // fixme: hook this up by tracking click order
+        var current = this.getSelectedAsDates();
+        if (current.length == 0) {
+            current = [selected, selected]
+        }
+        else if (current.length == 1) {
+            current.push(selected);
+        }
+        else {
+            current = [current[1], selected];
+        }
+        current = current.map(function(e) { return moment(e) }).sort(function(a, b) { return a.toDate() - b.toDate() });
+        window.current = current;
+        var x = unselectable(current);
+        // console.log(x);
+        // console.log(this.getSelectedAs.length)
+        // console.log(selected, this.getSelectedAsText());
+    }
+
     function onSelectionChanged() {
         var dates = this.getSelectedAsText() || [];
         ele.querySelector("[data-from]").value = dates[0];
         ele.querySelector("[data-to]").value = dates[1] || dates[0];
     }
 
+    function unselectable(selection) {
+        var range = moment.range(selection[0], selection[1] || selection[0]);
+        var overlaps = blackout.map(function(e) { return range.contains(moment(e)); });
+        return overlaps.reduce(function(acc, cur) { return acc || cur });
+    }
+
     var bookedDatesEle = ele.querySelector('script[type="text/plain"]');
     if (bookedDatesEle) {
-        selected = bookedDatesEle.textContent.trim();
-        selected = (selected && selected.split(",")) || [];
+        blackout = bookedDatesEle.textContent.trim();
+        blackout = (blackout && blackout.split(",")) || [];
     }
 
     var k = new Kalendae({
@@ -469,11 +496,12 @@ window.controllers.listingCalendar = function(ele) {
         readOnly: false,
         weekStart: 1,
         direction: "today-future",
-        blackout: selected,
+        blackout: blackout,
         useYearNav: false,
         subscribe: {
             "view-changed": onViewChanged,
-            "change": onSelectionChanged
+            "change": onSelectionChanged,
+            "date-clicked": validateSelection
         }
     });
 };
