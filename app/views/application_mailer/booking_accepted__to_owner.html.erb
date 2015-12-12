@@ -1,0 +1,13 @@
+<p>
+  Hei, <%= @booking.user.first_name %>
+</p>
+<p>
+  <%= link_to @booking.from_user.first_name, user_url( @booking.from_user ) %> ønsker å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>. Du kan akseptere forespørselen direkte i denne e-posten ved å bruke knappen under, eller du kan gå til bookingen og akseptere derfra.
+</p>
+<table>
+  <tr> <td>Fra dato:</td> <td><%= @booking.starts_at %></td> </tr>
+  <tr> <td>Til dato:</td> <td><%= @booking.ends_at %></td> </tr>
+  <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
+  <tr> <td></td> <td></td> </tr>
+  <tr> <td>Utbetalt til deg:</td> <td>%= @booking.sum_paid_to_owner %></td> </tr>
+</table>

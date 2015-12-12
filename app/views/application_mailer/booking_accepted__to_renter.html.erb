@@ -1,0 +1,28 @@
+<p>
+  Hei, <%= @booking.from_user.first_name %>
+</p>
+<p>
+  <%= link_to @booking.user.first_name, user_url( @booking.from_user ) %> har akseptert din forespørsel om å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>.
+</p>
+<table>
+  <tr> <td>Fra dato:</td> <td><%= @booking.starts_at %></td> </tr>
+  <tr> <td>Til dato:</td> <td><%= @booking.ends_at %></td> </tr>
+  <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
+  <tr> <td></td> <td></td> </tr>
+  <tr> <td>Kostnad:</td> <td><%= @booking.sum_paid_by_renter %></td> </tr>
+</table>
+
+<p>
+  Henteadresse: <%= @booking.ad.location.to_s_pretty %>
+</p>
+
+<p>
+  Om du har spørsmål til Trygve kan du kontakte han på telefonnummer <%= @booking.user.phone_number %>.
+</p>
+<p>
+  Om uthellet skulle være ute må dere huske  å fylle ut <%= link_to 'skadeskjema', users_accident_reports_url %> innen 48 timer etter skaden har skjedd.
+</p>
+
+<p>
+  Tips: Husk å sjekke tilstanden på tingen du leier når du møter opp og at denne samsvarer med opplysningene i annonsen.
+</p>

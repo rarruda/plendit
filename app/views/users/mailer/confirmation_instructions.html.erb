@@ -1,12 +1,11 @@
-<div class="container u-push-down">
-    <div class="row">
-        <div class="twelve columns">
-            <h2>Velkommen til Plendit <%= @email %>!</h2>
-            <p>
-                Bekreft e-postadressen din her:
+<h2>
+  Hei, <%= @resource.first_name %>
+</h2>
 
-                <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %>
-            </p>
-        </div>
-    </div>
-</div>
+<p>
+  Velkommen som bruker på <%= link_to 'Plendit.no', root_url %>.
+</p>
+
+<p>
+  For å kunne ta i bruk tjenesten, trenger vi at du <%= link_to 'verifiserer e-postadressen din', confirmation_url(@resource, confirmation_token: @token)%>.
+</p>
