@@ -1,7 +1,8 @@
 <%= render layout: "gray_box", locals: {title: "Din Plendit-saldo", id: "payout_wallet_balance"} do %>
 
   <% if current_user.mangopay_provisioned? && current_user.user_payment_account.present? %>
-    <%= link_to 'Se din Plendit utbetalingskonto saldo og overfør penger til din bankkonto', payment_payout_users_path %>.
+    <%= link_to 'Se saldo på din utbetalingskonto', payment_payout_users_path %>.
+    <%= link_to 'Overfør penger til din bankkonto', payment_payout_users_path %>.
   <% else %>
     For å motta penger må du verifisere din e-postadresse,  ditt telefonnummer og ha en
     gyldig bankkonto registrert hos oss.
