@@ -8,8 +8,8 @@ class PayinRule < ActiveRecord::Base
   validates :effective_from, numericality: { greater_than_or_equal_to: 1 }
   validates :effective_from, numericality: { less_than_or_equal_to: 24 }, if: "self.hour?"
   validates :effective_from, uniqueness:   { scope: [:ad, :unit], message: "Kan kun ha en pris per enhet." }
-  validates :payin_amount, numericality: { only_integer: true }, unless: :new_record?
-  validates :payin_amount, numericality: { less_than: 150_000_00, message: "Må være under 150.000 kr" }, unless: :new_record?
+  validates :payin_amount,   numericality: { only_integer: true }, unless: :new_record?
+  validates :payin_amount,   numericality: { less_than: 150_000_00, message: "Må være under 150.000 kr" }, unless: :new_record?
   validate  :validate_min_payin_amount,
     unless: "self.effective_from == 1",
     unless: :day?,
@@ -59,8 +59,12 @@ class PayinRule < ActiveRecord::Base
   end
 
 
+  # given an price_for_a_day, return that's the minimum price that
+  #  can be offered. (to deny very large discounts, which could make
+  #  insurance inviable).
   def apply_max_discount amount
     if self.day? && self.effective_from >= 2
+      # map through the max_discount array of <min_value_for_discount_to_be_applicable,max_discount_pct>
       Plendit::Application.config.x.insurance.max_discount_after_duration
         .map{ |d| ( amount >= d.first ) ? ( ( 1 - d.second ) * amount ).to_i : nil }
         .compact
