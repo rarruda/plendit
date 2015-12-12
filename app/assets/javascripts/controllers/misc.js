@@ -442,6 +442,7 @@ window.controllers.bookingPriceLoader = {
 
 window.controllers.listingCalendar = function(ele) {
     var calenderEle = ele.querySelector("[data-calendar]");
+    var prevClickedDate;
     var blackout = [];
 
     function onViewChanged(yearOrWeek) {
@@ -451,28 +452,23 @@ window.controllers.listingCalendar = function(ele) {
         if (then.diff(now, 'years') > 0) { return false }
     }
 
-    function validateSelection(selected) {
-        return true;
-        // fixme: hook this up by tracking click order
+    function validateSelection(clicked) {
         var current = this.getSelectedAsDates();
         if (current.length == 0) {
-            current = [selected, selected]
+            current = [clicked, clicked]
         }
         else if (current.length == 1) {
-            current.push(selected);
+            current = [current[0], clicked]
         }
         else {
-            current = [current[1], selected];
+            current = [clicked, clicked];
         }
         current = current.map(function(e) { return moment(e) }).sort(function(a, b) { return a.toDate() - b.toDate() });
-        window.current = current;
-        var x = unselectable(current);
-        // console.log(x);
-        // console.log(this.getSelectedAs.length)
-        // console.log(selected, this.getSelectedAsText());
+        return !unselectable(current);
     }
 
-    function onSelectionChanged() {
+    function onSelectionChanged(newDate) {
+        prevClickedDate = newDate;
         var dates = this.getSelectedAsText() || [];
         ele.querySelector("[data-from]").value = dates[0];
         ele.querySelector("[data-to]").value = dates[1] || dates[0];
