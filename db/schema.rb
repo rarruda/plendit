@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209200750) do
+ActiveRecord::Schema.define(version: 20151212175226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,12 +247,14 @@ ActiveRecord::Schema.define(version: 20151209200750) do
     t.integer  "unit"
     t.integer  "payin_amount"
     t.integer  "effective_from"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "ad_id"
+    t.string   "guid",           limit: 36
   end
 
   add_index "payin_rules", ["ad_id"], name: "index_payin_rules_on_ad_id", using: :btree
+  add_index "payin_rules", ["guid"], name: "index_payin_rules_on_guid", unique: true, using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"

@@ -132,8 +132,6 @@ Rails.application.routes.draw do
       get 'nested_images'
       post 'ad_image'
       get 'edit_availability'
-      get 'payout_estimate'
-      get 'payout_rules'
 
       post 'pause'
       post 'stop'
@@ -142,8 +140,12 @@ Rails.application.routes.draw do
       post 'resume'
       post 'submit_for_review'
       post 'unpublish_and_edit'
-      post 'add_payin_rule'
-      post 'del_payin_rule'
+    end
+
+    resources :payin_rules, param: :guid, only: [:create, :destroy] do
+      collection do
+        post 'payout_estimate'
+      end
     end
   end
 

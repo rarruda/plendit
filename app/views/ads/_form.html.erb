@@ -44,7 +44,9 @@
             <small>Tips: Du kan bruke #hashtags i annonsen din. Det gjør det enklere for andre å finne den i søket.</small>
         </div>
 
-        <% if @ad.category == 'motor' %>
+        <%
+        case @ad.category
+        when 'bap' %>
             <div class="u-push-down-only">
                 <%= f.label :registration_group, 'Gruppe:' %>
                 <%= f.select( :registration_group ) do %>
@@ -155,41 +157,45 @@
 <hr>
         <div class="u-push-down">
             <label>Rabattpriser:</label>
-            <div data-controller="secondaryPrices" 
-                 data-delete-url="<%= del_payin_rule_ad_path(@ad) %>"
-                 data-fetch-url="<%= payout_rules_ad_path(@ad) %>">
+            <div data-controller="secondaryPrices">
                 <%= render partial: 'secondary_prices' %>
             </div>
         </div>
 
         <details data-controller="payinAdder"
-                 data-estimate-url="<%= payout_estimate_ad_path(@ad) %>"
-                 data-new-rule-url="<%= add_payin_rule_ad_path(@ad) %>">
+                 data-estimate-url="<%= payout_estimate_ad_payin_rules_path @ad %>">
+            <%= form_for( PayinRule.new, url: (payout_estimate_ad_payin_rules_path @ad), data: { estimate_form: '' } ) do |f| %>
+                <%= f.hidden_field :effective_from ,   data: { effective_from: ''} %>
+                <%= f.hidden_field :payin_amount_in_h, data: { payin_amount:   ''} %>
+            <% end %>
+
             <summary>
                 <span type="button" class="button">Legg til spesialpris</span>
             </summary>
 
             <div class="price-adder">
+                <%= form_for( PayinRule.new, url: (ad_payin_rules_path @ad), data: { new_rule_form: '' } ) do |f| %>
 
-                <div class="help-box u-push-down">
-                    Pris per enkelt dag må være minst 99 kr.
-                    Vil du gi en lavere døgnpris for et lengre
-                    leieforhold, kan du gjøre det her.
-                </div>
-                <div>
-                    <span class="price-adder__label">Ved utleie over</span>
-                    <input class="price-adder__days" type="tel" data-name="days">
-                    <span>dager</span>
-                </div>
-                <div>
-                    <span class="price-adder__label">Reduseres pris per dag til</span>
-                    <input class="price-adder__price" type="tel" min="2" data-name="price">
-                    <span>kr</span>
-                </div>
-                <div data-estimate></div>
-                <button type="button" class="button" data-save disabled>Lagre</button>
-                <button type="button" class="button" data-cancel>Avbryt</button>
+                    <div class="help-box u-push-down">
+                        Pris per enkelt dag må være minst 99 kr.
+                        Vil du gi en lavere dagnpris for lengre
+                        leieforhold kan du gjøre det her.
+                    </div>
+                    <div>
+                        <span class="price-adder__label">Ved utleie over</span>
+                        <%= f.telephone_field :effective_from, class: 'price-adder__effective_from' %> <!-- min="2" class="price-adder__effective_from" -->
+                        <span>dager</span>
+                    </div>
+                    <div>
+                        <span class="price-adder__label">Reduseres pris per dag til</span>
+                        <%= f.telephone_field :payin_amount_in_h, class: 'price-adder__price' %>
+                        <span>kr</span>
+                    </div>
+                    <div data-estimate></div>
+                    <button type="button" class="button" data-save disabled>Lagre</button>
+                    <button type="button" class="button" data-cancel>Avbryt</button>
 
+                <% end %>
             </div>
         </details>
 

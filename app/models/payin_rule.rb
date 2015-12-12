@@ -1,7 +1,9 @@
 class PayinRule < ActiveRecord::Base
   belongs_to :ad
 
-  validates :unit, presence: true
+  validates :guid,           uniqueness: true
+  validates :ad,             presence: true, unless: :new_record?
+  validates :unit,           presence: true
   validates :effective_from, numericality: { only_integer: true }
   validates :effective_from, numericality: { greater_than_or_equal_to: 1 }
   validates :effective_from, numericality: { less_than_or_equal_to: 24 }, if: "self.hour?"
@@ -14,6 +16,7 @@ class PayinRule < ActiveRecord::Base
     unless: :new_record?
 
   before_validation :set_defaults, if: :new_record?
+  before_validation :set_guid,     on: :create
 
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
@@ -67,7 +70,19 @@ class PayinRule < ActiveRecord::Base
     end
   end
 
+  def to_param
+    self.guid
+  end
+
   private
+  def set_guid
+    self.guid = loop do
+      generated_guid = SecureRandom.uuid
+      break generated_guid unless self.class.exists?(guid: generated_guid)
+    end
+  end
+
+  # default rule when nothing is specified:
   def set_defaults
     self.unit ||= 'day'
     self.effective_from ||= 1

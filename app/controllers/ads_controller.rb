@@ -291,38 +291,6 @@ class AdsController < ApplicationController
     end
   end
 
-  def payout_estimate
-    @ad = @ad.dup
-    @ad.readonly!
-    price = Integer(params[:price]) * 100;
-    @rule = PayinRule.new( unit: 'day', effective_from: 1, payin_amount: price, ad_id: @ad )
-    respond_to do |format|
-      format.json
-    end
-  end
-
-  def payout_rules
-    render partial: 'secondary_prices'
-  end
-
-  # FIXME: (RA) add_payin_rule / del_payin_rule deserver their own
-  #  controller, which should be inherited by ads. should also
-  #  be driven by a GUID.
-  def add_payin_rule
-    @payin_rule = @ad.payin_rules.build(
-      payin_amount_in_h: params[:price],
-      effective_from:    params[:days],
-      unit:              PayinRule.units[:day]
-    )
-    @payin_rule.save
-    render text: "Added rule";
-  end
-
-  def del_payin_rule
-    rule = @ad.payin_rules.find( params[:rule_id] )
-    rule.destroy! unless rule.nil?
-    render text: "deleted rule";
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

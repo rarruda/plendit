@@ -337,7 +337,7 @@ window.controllers.imageDescriptionAutoSaver = {
     dependencies: ["$element", "utils", "xhr"],
     callable: function(ele, utils, xhr) {
         var ta = ele.querySelector("textarea");
-        var submitFun = utils.debounce(function(evt) { 
+        var submitFun = utils.debounce(function(evt) {
             evt.preventDefault();
             ajaxSubmitForm(ele);
 
@@ -773,34 +773,44 @@ window.controllers.payinAdder = {
     dependencies: ["$element", "utils", "eventbus", "createElement", "xhr"],
     callable: function(ele, utils, eventbus, E, xhr) {
         var estimatesUrl = ele.getAttribute("data-estimate-url");
-        var newRuleUrl = ele.getAttribute("data-new-rule-url");
         init();
 
         // eventbus.on(eventbus.AD_FORM_SAVE_OK, onSaved);
         function init() {
             ele.querySelector("[data-cancel]").addEventListener("click", onCancel);
             ele.querySelector("[data-save]").addEventListener("click", onSave);
-            ele.querySelector("[data-name=days]").addEventListener("change", onChange);
-            ele.querySelector("[data-name=price]").addEventListener("change", onChange);
+            ele.querySelector("[data-new-rule-form]").addEventListener("change", onChange);
         }
 
         function getInputs() {
             return {
-                days: ele.querySelector("[data-name=days]").value,
-                price: ele.querySelector("[data-name=price]").value
+                effective_from: ele.querySelector("[data-name=effective_from]").value,
+                payin_amount: ele.querySelector("[data-name=payin_amount]").value
             };
         }
 
+        function syncEstimateForm() {
+            var source = ele.querySelector("[data-new-rule-form]");
+            var target = ele.querySelector("[data-estimate-form]");
+            Array.from(source.querySelectorAll("input"))
+                .forEach(function(e) {
+                    var targetInput = target.querySelector('[name="' + e.name + '"]');
+                    if (targetInput) {
+                        targetInput.value = e.value;
+                    }
+                });
+        }
+
         function onChange() {
-            var data = getInputs();
-            if (data.price && data.price != "" && data.days && data.days != "") {
-                xhr
-                    .getJson(estimatesUrl + "?price=" + data.price + "&days=" + data.days)
-                    .then(updateEstimate);
-            }
+            syncEstimateForm();
+            xhr
+                .xhrFormData(ele.querySelector("[data-estimate-form]"))
+                .then(function(req) { return JSON.parse(req.responseText); })
+                .then(updateEstimate);
         }
 
         function updateEstimate(payin) {
+            console.log(payin);
             if (!payin) { return; }
 
             var info =
@@ -823,13 +833,12 @@ window.controllers.payinAdder = {
         }
 
         function onSave() {
-            var data = getInputs();
-            xhr.postForm(newRuleUrl, data).then(clearAndClose).catch(reportSaveError);
+            var form = ele.querySelector("[data-new-rule-form]");
+            xhr.xhrFormData(form).then(clearAndClose).catch(reportSaveError);
         }
 
         function clearAndClose() {
-            ele.querySelector("[data-name=days]").value = "";
-            ele.querySelector("[data-name=price]").value = "";
+            var form = ele.querySelector("[data-new-rule-form]").reset();
             onCancel();
             eventbus.emit(eventbus.PRICE_MODEL_SAVED);
         }
@@ -853,14 +862,14 @@ window.controllers.secondaryPrices = {
         eventbus.on(eventbus.PRICE_MODEL_SAVED, onPriceModelsChanged);
 
         function onPriceModelsChanged() {
+            console.log(234)
             xhr.get(getUrl).then(updateView);
         }
 
         function onClick(evt) {
             var ele = evt.target;
             if (ele.hasAttribute("data-delete")) {
-                var id = ele.getAttribute('data-id');
-                xhr.postForm(delUrl, {rule_id: ele.getAttribute("data-id")}).then(onPriceModelsChanged);
+                xhr.xhrFormData(ele.closest("form")).then(onPriceModelsChanged);
             }
         }
 
