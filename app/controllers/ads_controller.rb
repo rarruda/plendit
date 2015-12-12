@@ -230,11 +230,11 @@ class AdsController < ApplicationController
       category: params[:category],
       location: current_user.favorite_location
     )
-    @ad.payin_rules.push PayinRule.default_rule
 
     if @ad.save
       redirect_to edit_users_ad_path(@ad)
     else
+      LOG.error "Error saving ad: #{@ad.errors.inspect}", { user_id: current_user.id }
       redirect_to new_ad_path, alert: "Annonsen kunne ikke opprettes!"
     end
   end

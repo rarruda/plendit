@@ -43,6 +43,8 @@ class Ad < ActiveRecord::Base
   # todo: how to validate location present before publish?
   #validates :location, presence: true
 
+  validates :payin_rules, presence: true, unless: :new_record?
+
   default_scope { where("ads.status NOT IN (?)", [ Ad.statuses[:suspended], Ad.statuses[:deleted] ]) }
   scope :for_user, ->(user) { where( user_id: user.id ) }
   scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
@@ -50,8 +52,12 @@ class Ad < ActiveRecord::Base
   scope :published,      -> { where( status: Ad.statuses[:published] ) }
   scope :never_edited,   -> { where( "status = 0 AND title IS NULL AND body IS NULL AND location_id IS NULL AND created_at = updated_at" ) }
 
+
+
   # If there were any changes, except in status, set status to draft:
   before_save :edit, unless: "self.draft? || self.changes.except('status').empty?"
+
+  before_validation :build_payin_rule, if: :new_record?
 
   after_create :create_ad_item
 
@@ -248,10 +254,6 @@ class Ad < ActiveRecord::Base
     tag_list
   end
 
-  def create_ad_item
-    self.ad_items.build.save
-  end
-
   # NOTE: this method is repeated as ad_to_param_pretty as an application helper due to
   # Elasticsearch::Model::Response::Result craziness.
   # look, its in the AdDecorator decorator too!
@@ -265,6 +267,15 @@ class Ad < ActiveRecord::Base
 
   def booking_calculator
     BookingCalculator.new(ad: self)
+  end
+
+  private
+  def create_ad_item
+    self.ad_items.build.save
+  end
+
+  def build_payin_rule
+    self.payin_rules.build
   end
 
 end

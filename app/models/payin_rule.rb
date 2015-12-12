@@ -13,6 +13,8 @@ class PayinRule < ActiveRecord::Base
     unless: :day?,
     unless: :new_record?
 
+  before_validation :set_defaults, if: :new_record?
+
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
@@ -22,12 +24,6 @@ class PayinRule < ActiveRecord::Base
     .order(effective_from: :desc)
     .limit(1)
   end
-
-  def self.default_rule
-    PayinRule.new(unit: 'day', effective_from: 1)
-  end
-
-
 
   def required?
     self.day? && self.effective_from == 1
@@ -71,7 +67,12 @@ class PayinRule < ActiveRecord::Base
     end
   end
 
-  #private
+  private
+  def set_defaults
+    self.unit ||= 'day'
+    self.effective_from ||= 1
+  end
+
   def validate_min_payin_amount
     if self.day? && self.effective_from == 1
       min_payin_amount = Plendit::Application.config.x.insurance.max_discount_after_duration.map{|d| d.first}.min
