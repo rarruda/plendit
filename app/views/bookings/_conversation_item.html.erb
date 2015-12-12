@@ -1,15 +1,14 @@
-<div class="row conversation-item-box">
-    <div class="two columns conversation-item-box__avatar-box">
-        <%= render('shared/avatar.html', user: message.from_user, size: "medium" ) %>
+<div class="conversation-item-box">
+    <div class="conversation-item-box__avatar-box">
+        <%= avatar_image message.from_user, :medium %>
     </div>
-    <div class="ten columns conversation-item-box__body">
-        <h5><%= message.from_user.display_name %></h5>
-        <p class="conversation-item-box__body">
+    <div class="conversation-item-box__body">
+        <time class="conversation-item-box__time" datetime="<%= message.updated_at.iso8601 %>">
+            <%= time_ago_in_words message.updated_at %>
+        </time>
+        <h5 class="conversation-item-box__title"><%= message.from_user.display_name %></h5>
+        <p class="">
             <%= message.content %>
-        </p>
-        <p>
-            <%= l message.updated_at  %>
         </p>
     </div>
 </div>
-

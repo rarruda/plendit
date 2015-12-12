@@ -1,14 +1,34 @@
 @import 'constants.scss';
 
-.conversation-item-box {
+.conversation-section {
+    &__editor {
+        padding-top: $standard-spacing;
 
-    padding-top: $standard-spacing;
+    }
+}
+
+.conversation-item-box {
+    display: flex;
+    border-bottom: solid thin $color-box-border;
 
     &__avatar-box {
-        text-align: center;
+        padding: $standard-spacing;
+        padding-left: $standard-spacing / 2;
+        flex: 0 0 auto;
+        width: 84px;
     }
 
-    &:nth-of-type(n+2) {
-        background-color: $color-subtle-gray-background;
+    &__body {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    &__title {
+        font-weight: bold;
+    }
+
+    &__time {
+        float: right;
+        padding: ($standard-spacing / 2) ($standard-spacing / 2) 0 0;
     }
 }

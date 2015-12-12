@@ -5,20 +5,18 @@
         <%= render partial: "conversation_item", collection: @booking.messages, as: "message" %>
     <% end %>
 
-    <hr>
-
-    <div>
-    <% if ['cancelled','declined'].include? @booking.status %>
-        Det er ikke lenger mulig å sende meldinger på denne forespørselen.
-    <% else %>
-        <%= form_for :message, url: booking_messages_path( @booking ) do |f| %>
-            <%= f.hidden_field :booking_id, value: @booking.id %>
-            <%= f.text_area :content, class: 'u-full-width', data: { controller: 'autoSizeTextArea' }, placeholder: 'Meldingstekst...' %>
-            <p>
-                <%= f.submit 'Send melding', class: 'u-pull-right button button-primary' %>
-            </p>
+    <div class="conversation-section__editor">
+        <% if ['cancelled','declined'].include? @booking.status %>
+            Det er ikke lenger mulig å sende meldinger på denne forespørselen.
+        <% else %>
+            <p>Din melding:</p>
+            <%= form_for :message, url: booking_messages_path( @booking ) do |f| %>
+                <%= f.hidden_field :booking_id, value: @booking.id %>
+                <%= f.text_area :content, class: 'u-full-width', data: { controller: 'autoSizeTextArea' }, placeholder: 'Meldingstekst...' %>
+                <p>
+                    <%= f.submit 'Send melding', class: 'u-pull-right button button-primary' %>
+                </p>
+            <% end %>
         <% end %>
-    <% end %>
-
     </div>
 </section>
