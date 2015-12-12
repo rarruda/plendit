@@ -49,7 +49,7 @@ class UserPaymentAccount < ActiveRecord::Base
   private
   def user_is_provisioned
     unless self.user_id.present? && self.user.mangopay_provisioned?
-      errors.add(:base, "Før du legger til betalingskort må din profil være verifisert.")
+      errors.add(:base, "Før du legger til et betalingskort, må din profil være verifisert.")
     end
   end
 
@@ -60,7 +60,7 @@ class UserPaymentAccount < ActiveRecord::Base
   # only valid for norway:
   def is_bank_account_number_valid?
     # check a regex to see if its a 11 digit number
-    errors.add(:bank_account_number, "Ugyldig kontonummer, må kun ha 11 siffer.") if self.bank_account_number !~ /\A[0-9]{11}\z/
+    errors.add(:bank_account_number, "Ugyldig kontonummer. Kan kun ha 11 siffer.") if self.bank_account_number !~ /\A[0-9]{11}\z/
     # remove check_digit, calculate Mod11, and see if it still matches:
     errors.add(:bank_account_number, "Ugyldig kontonummer.") if ( Mod11.new( self.bank_account_number[0..-2] ).full_value != self.bank_account_number )
   end
