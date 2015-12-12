@@ -1,7 +1,15 @@
 <h1 class="u-push-down">
-    <% if current_user.owns_booking_item? @booking %>
-        Leieforespørsel fra <%= @booking.from_user.display_name %>
+    <% if @booking.was_ever_confirmed? %>
+        <% if current_user.owns_booking_item? @booking %>
+            Leieforhold med <%= @booking.from_user.display_name %>
+        <% else %>
+            Leieforhold med <%= @booking.user.display_name %>
+        <% end %>
     <% else %>
-        Leieforespørsel til <%= @booking.user.display_name %>
+        <% if current_user.owns_booking_item? @booking %>
+            Leieforespørsel fra <%= @booking.from_user.display_name %>
+        <% else %>
+            Leieforespørsel til <%= @booking.user.display_name %>
+        <% end %>
     <% end %>
 </h1>

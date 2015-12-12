@@ -201,6 +201,13 @@ class Booking < ActiveRecord::Base
     self.ended && ( ( self.ends_at + 7.days ) > DateTime.now )
   end
 
+  def was_ever_confirmed?
+    [
+      self.confirmed?, self.disputed?, self.started?, self.in_progress?,
+      self.ended?, self.archived?, self.aborted?
+    ].any?
+  end
+
   def days
     # fixme: runeh: use ceil here now becuase the calculations is
     # a full day minus one second when start and end is same date
