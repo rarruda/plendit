@@ -157,7 +157,8 @@
 <hr>
         <div class="u-push-down">
             <label>Rabattpriser:</label>
-            <div data-controller="secondaryPrices">
+            <div data-controller="secondaryPrices"
+                 data-fetch-url="<%= ad_payin_rules_path(@ad) %>">
                 <%= render partial: 'secondary_prices' %>
             </div>
         </div>

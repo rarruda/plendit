@@ -142,7 +142,7 @@ Rails.application.routes.draw do
       post 'unpublish_and_edit'
     end
 
-    resources :payin_rules, param: :guid, only: [:create, :destroy] do
+    resources :payin_rules, param: :guid, only: [:index, :create, :destroy] do
       collection do
         post 'payout_estimate'
       end
