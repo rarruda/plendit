@@ -5,6 +5,12 @@
     margin-left: 24px;
 }
 
+.booking-summary {
+    &__row {
+        margin-top: 8px;
+    }
+}
+
 .booking-heading {
     display: flex;
     align-items: flex-start;
