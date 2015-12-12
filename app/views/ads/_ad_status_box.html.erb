@@ -1,19 +1,19 @@
 <div class="ad-status-box" id="ad-controls">
 
     <% if ad.published? %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad),  form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du redigerer annonsen vil den bli sendt til kontroll på nytt, sikker på at du vil redigere annonsen?' } %>
-        <%= button_to 'Gjør usynlig',   pause_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du gjør annonsen usynlig blir den ikke lenger søkbar, folk du deler den med kan fortsatt se den. Sikker på at du vil gjøre annonsen usynlig?' } %>
-        <%= button_to 'Stopp annonsen',   stop_ad_path(ad),  form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du stopper annonsen så kan bare du se den, sikker på at du vil stoppe annonsen?'} %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad),  form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du redigerer annonsen, vil den bli sendt til kontroll på nytt. Er du sikker på at du vil redigere annonsen din?' } %>
+        <%= button_to 'Gjør usynlig',   pause_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du gjør annonsen usynlig, blir den ikke lenger søkbar. Folk du deler den med, kan fortsatt se og leie den. Er du sikker på at du vil gjøre annonsen din usynlig?' } %>
+        <%= button_to 'Stopp annonsen',   stop_ad_path(ad),  form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du stopper annonsen, kan bare du se den. Er du sikker på at du vil stoppe annonsen din?'} %>
     <% elsif ad.draft? %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
         <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), form_class: "ad-status-box__form", class: "ad-status-box__button button button-primary" %>
     <% elsif ad.paused? %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get, data: { confirm: 'Hvis du redigerer annonsen vil den bli sendt til kontroll på nytt, sikker på at du vil redigere annonsen?' } %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get, data: { confirm: 'Hvis du redigerer annonsen, vil den bli sendt til kontroll på nytt. Er du sikker på at du vil redigere annonsen din?' } %>
         <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
-        <%= button_to 'Stopp annonsen',   stop_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du stopper annonsen så kan bare du se den, sikker på at du vil stoppe annonsen?'} %>
+        <%= button_to 'Stopp annonsen',   stop_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get,  data: { confirm: 'Hvis du stopper annonsen, kan bare du se den. Er du sikker på at du vil stoppe annonsen din?'} %>
     <% elsif ad.draft? %> %>
     <% elsif ad.stopped? %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get, data: { confirm: 'Hvis du redigerer annonsen vil den bli sendt til kontroll på nytt, sikker på at du vil redigere annonsen?' } %>
+        <%= button_to 'Rediger annonsen', edit_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get, data: { confirm: 'Hvis du redigerer annonsen, vil den bli sendt til kontroll på nytt. Er du sikker på at du vil redigere annonsen din?' } %>
         <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
     <% elsif ad.waiting_review? %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad),   form_class: "ad-status-box__form", class: "ad-status-box__button button ", method: :get %>
