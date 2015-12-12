@@ -414,6 +414,11 @@ summary::-webkit-details-marker {
   display: inline-block;
 }
 
+.u-slim-hr {
+  margin-top: $standard-spacing;
+  margin-bottom: $standard-spacing;
+}
+
 details.u-implode-summary {
   outline: none;
 }
