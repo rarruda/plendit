@@ -10,9 +10,9 @@
 
         <%- if @user_payment_account.errors.any? -%>
           <div>
-              Følgende feil forhindret deg i å oppdatere kontonummeret ditt: <%= pluralize(@user_payment_account.errors.count, "error") %>
+              Følgende feil forhindret deg i å oppdatere kontonummeret ditt:
               <ul>
-                <% @user_payment_account.errors.full_messages.each do |message| %>
+                <% @user_payment_account.errors.each do |attribute,message| %>
                   <li><%= message %></li>
                 <% end %>
               </ul>
