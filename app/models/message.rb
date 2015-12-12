@@ -3,4 +3,6 @@ class Message < ActiveRecord::Base
   belongs_to :from_user,   class_name: "User"
   belongs_to :to_user,     class_name: "User"
   has_many :notifications, as: :notifiable, dependent: :destroy
+
+  validates  :content, length: { in: 2..8192 }
 end

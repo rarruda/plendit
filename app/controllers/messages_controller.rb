@@ -15,6 +15,7 @@ class MessagesController < ApplicationController
         format.html { redirect_to @message.booking }
         format.json { render :show, status: :created, location: @message }
       else
+        LOG.error "Failed saving message: #{@message.errors}", { user_id: current_user.id }
         format.html { render :new }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
