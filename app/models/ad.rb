@@ -27,15 +27,18 @@ class Ad < ActiveRecord::Base
   accepts_nested_attributes_for :ad_images,   reject_if: :all_blank, allow_destroy: true
 
   validates :user,  presence: true
-  validates :title, length: { in: 0..255 }, :unless => :new_record?
+  validates :title, length: { in: 0..255 },
+    unless: :new_record?
 
-  validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Må vare en gyldig reg.nr." },
-    :unless => :new_record?,
-    :if     => :motor?
+  validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Må være et gyldig reg.nr." },
+    unless: :new_record?,
+    if:     :motor?
+    #if:     "self.motor? || self.boat?"
 
   validates :registration_group, presence: true,
-    :unless => :new_record?,
-    :if     => :motor?
+    unless: :new_record?,
+    if:     :motor?
+    #if:     "self.motor? || self.boat?"
 
   # todo: how to validate location present before publish?
   #validates :location, presence: true
