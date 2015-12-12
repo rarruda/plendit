@@ -3,7 +3,18 @@ window.controllers = window.controllers || {};
 
 window.controllers.adMap = {
     callable: function(ele) {
-        var locString = ele.getAttribute('data-geolocation');
+        // map of [zoom level, radius] pairs
+        var radiuses = {
+            high: [14, 240],
+            mid: [14, 440],
+            low: [13, 1200],
+            unk: [12, 2650],
+            post_code: [12, 2650]
+        }
+        var locString = ele.getAttribute("data-geolocation");
+        var precision = ele.getAttribute("data-geoprecision");
+
+        var zoomAndRadius = radiuses[precision] || radiuses.unk;
 
         if (locString) {
             var latLon = locString.split(',').map(function(e) { return parseFloat(e)});
@@ -48,7 +59,7 @@ window.controllers.adMap = {
                 streetViewControl: false,
                 mapTypeControl: false,
                 center: center,
-                zoom: 14,
+                zoom: zoomAndRadius[0],
                 maxZoom: 18,
                 minZoom: 4,
                 scrollwheel: false,
@@ -65,7 +76,7 @@ window.controllers.adMap = {
                 fillOpacity: 0.2,
                 map: map,
                 center: center,
-                radius: 240
+                radius: zoomAndRadius[1]
             });
         }
     }
