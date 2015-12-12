@@ -40,6 +40,9 @@ class Ad < ActiveRecord::Base
     if:     :motor?
     #if:     "self.motor? || self.boat?"
 
+  validates :ad_images, presence: true, unless: :new_record?
+
+
   # todo: how to validate location present before publish?
   #validates :location, presence: true
 
