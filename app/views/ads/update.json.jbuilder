@@ -1,4 +1,6 @@
 json.extract! @ad, :id, :user_id, :title, :body, :location_id, :status, :category
+json.valid @ad.valid?
+json.errors @ad.errors
 json.main_payin_rule do
   json.total_fee format_monetary_full_pretty(@ad.booking_calculator.total_fee(@ad.main_payin_rule))
   json.max_insurance_coverage format_monetary_full_pretty(@ad.booking_calculator.max_insurance_coverage(@ad.main_payin_rule))

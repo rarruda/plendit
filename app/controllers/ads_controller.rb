@@ -271,9 +271,11 @@ class AdsController < ApplicationController
       end
     end
 
+    @ad.assign_attributes(ad_params_local)
+
     #LOG.debug "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
-      if @ad.update(ad_params_local)
+      if @ad.save(validate: false)
         format.html { render :edit }
         format.json
       else

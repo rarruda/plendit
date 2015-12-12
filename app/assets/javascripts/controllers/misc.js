@@ -615,7 +615,13 @@ window.controllers.adAutoSaver = {
         }
 
         function handleSaveOk(xhr) {
-            eventbus.emit(eventbus.AD_FORM_SAVE_OK, JSON.parse(xhr.responseText));
+            try {
+                eventbus.emit(eventbus.AD_FORM_SAVE_OK, JSON.parse(xhr.responseText));
+            }
+            catch (e) {
+                console.log(e);
+                console.log(e.stack);
+            }
         }
 
         function handleSaveError(xhr) {
@@ -636,8 +642,8 @@ window.controllers.publishButton = {
             ele.disabled = true;
         }
 
-        function handleSaveOk() {
-            ele.disabled = false;
+        function handleSaveOk(data) {
+            ele.disabled = !data.valid;
         }
 
         function handleSaveError() {
@@ -654,18 +660,25 @@ window.controllers.adErrors = {
         eventbus.on(eventbus.AD_FORM_SAVE_ERROR, handleSaveError);
         eventbus.on(eventbus.AD_FORM_DIRTY, handleGotDirty);
 
-
         function handleGotDirty() {
-            ele.disabled = true;
             ele.textContent = "Lagrer annonsen."
         }
 
-        function handleSaveOk() {
-            ele.disabled = false;
-            ele.textContent = "Annonsen er lagret."
+        function handleSaveOk(report) {
+            var errorMessages = [];
+            for (var key in report.errors) {
+                errorMessages.push(report.errors[key]);
+            }
+
+            if (errorMessages.length) {
+                ele.textContent = "Annonsen er lagret. Før den kan publiseres må du legge til følgende: " + errorMessages.join(", "); 
+            }
+            else {
+                ele.textContent = "Annonsen er lagret og klar for publisering!"; 
+            }
         }
 
-        function handleSaveError(errors) {
+        function handleSaveError(report) {
             ele.textContent = "Annonsen er ikke lagret ennå. " + JSON.stringify(errors);
         }
     }
@@ -810,7 +823,6 @@ window.controllers.payinAdder = {
         }
 
         function updateEstimate(payin) {
-            console.log(payin);
             if (!payin) { return; }
 
             var info =
@@ -862,7 +874,6 @@ window.controllers.secondaryPrices = {
         eventbus.on(eventbus.PRICE_MODEL_SAVED, onPriceModelsChanged);
 
         function onPriceModelsChanged() {
-            console.log(234)
             xhr.get(getUrl).then(updateView);
         }
 
