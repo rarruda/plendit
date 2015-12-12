@@ -5,23 +5,22 @@
     </h4>
 
     <div data-controller="listingCalendar">
-        <% if ad.published?  %>
-            <%# very synthetic form: %>
-            <%= form_tag new_booking_path, method: :get do %>
-                <%= hidden_field_tag :ad_id, @ad.id %>
-                <%= hidden_field_tag :from_date, nil, data: {from: ''} %>
-                <%= hidden_field_tag :to_date, nil, data: {to: ''} %>
+        <%# very synthetic form: %>
+        <%= form_tag new_booking_path, method: :get do %>
+            <%= hidden_field_tag :ad_id, @ad.id %>
+            <%= hidden_field_tag :from_date, nil, data: {from: ''} %>
+            <%= hidden_field_tag :to_date, nil, data: {to: ''} %>
 
-                <div class="ad-booking-box__calendar-holder" data-calendar>
-                    <%= render partial: "unavailability", locals: {ad: @ad} %>
+            <div class="ad-booking-box__calendar-holder" data-calendar>
+                <%= render partial: "unavailability", locals: {ad: @ad} %>
+            </div>
+
+            <% unless ad.user.id == current_user.id %>
+                <div class="ad-booking-box__button-holder">
+                    <%= button_tag("Gå til booking", {class: "u-push-down button button-primary booking-request-form__book-button"}) %>
                 </div>
-
-                <% unless ad.user.id == current_user.id %>
-                    <div class="ad-booking-box__button-holder">
-                        <%= button_tag("Gå til booking", {class: "u-push-down button button-primary booking-request-form__book-button"}) %>
-                    </div>
-                <% end %>
             <% end %>
+
         <% end %>
 
         <div class="ad-booking-box__button-holder">
