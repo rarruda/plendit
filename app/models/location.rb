@@ -20,6 +20,9 @@ class Location < ActiveRecord::Base
   before_save :set_city_from_postal_code
 
 
+  def to_s_pretty
+    "#{self.address_line}, #{self.post_code} #{self.city}"
+  end
 
   def self.city_from_postal_code(postal_code)
     POSTAL_CODES[postal_code]
