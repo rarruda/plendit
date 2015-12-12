@@ -41,6 +41,7 @@ class Ad < ActiveRecord::Base
     #if:     "self.motor? || self.boat?"
 
   validates :ad_images, presence: true, unless: :new_record?
+  # todo: runeh: use nested validations for this? As in validates_associated :payin_rules
 
 
   # todo: how to validate location present before publish?
