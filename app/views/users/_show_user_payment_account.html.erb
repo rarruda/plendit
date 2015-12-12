@@ -15,7 +15,7 @@
           bank_account_number:
           <%= @user.user_payment_account.bank_account_number %>
           <p>
-              <small>Vi trenger kontonummer for å utbetale penger til deg som utleier</small>
+              <small>Vi trenger ditt kontonummer for å utbetale penger til deg.</small>
           </p>
         </div>
     </div>
@@ -26,13 +26,13 @@
     </div>
 <%- else -%>
     <p>
-        <small>Når profilen din er komplett, og vi har bekreftet epost og mobiltelefon, kan du legge inn kontonummer.</small>
+        <small>Når profilen din er komplett og vi har bekreftet din e-postadresse og ditt mobilnummer, kan du legge inn kontonummer.</small>
     </p>
-    Før du kan legge inn ditt kontonummer, trenger vi:
+    Før du kan legge inn ditt kontonummer, må du:
     <ul>
-      <li>bekreftet epost</li>
-      <li>bekreftet mobiltelefon</li>
-      <li>addresse</li>
+      <li>Bekrefte din e-postadresse.</li>
+      <li>Bekrefte ditt mobilnummer.</li>
+      <li>Legge inn din adresse.</li>
     </ul>
 <%- end -%>
 
