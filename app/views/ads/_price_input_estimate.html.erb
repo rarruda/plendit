@@ -8,7 +8,7 @@
         <% if rule.day? && rule.effective_from == 1 %>
             <div class="price-estimate__left">
                 <label>Forsikringssum:</label>
-                <span><%= format_monetary_full( calc.max_insurance_coverage(rule) ) %></span>
+                <span><%= format_monetary_full_pretty( calc.max_insurance_coverage(rule) ) %></span>
             </div>
         <% end %>
 
