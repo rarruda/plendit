@@ -2,10 +2,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="twelve columns u-push-down">
-            <h1>Leiehistorikk</h1>
-
-             <%= render layout: "gray_box" do %>
+        <div class="twelve columns">
+             <%= render layout: "gray_box", locals: { title: 'Leiehistorikk' } do %>
                 Under finner du oversikt over leieforhold hvor du enten
                 har leid ut selv, eller leid av andre.
              <% end %>
