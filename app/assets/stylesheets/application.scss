@@ -99,3 +99,32 @@ summary {
         color: $color-state-red;
     }
 }
+
+.img-and-content {
+    display: flex;
+    padding: $standard-spacing * 2;
+    color: black;
+    background-color: white;
+    border-top: 1px solid $color-gray-background;
+    border-left: 1px solid $color-gray-background;
+    border-right: 1px solid $color-gray-background;
+    box-shadow: $subtle-shadow;
+    align-items: center;
+    text-decoration: none;
+
+    &__title {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+    }
+
+    &__left {
+        flex: 0 0 auto;
+        width: 120px;
+    }
+
+    &__right {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+}

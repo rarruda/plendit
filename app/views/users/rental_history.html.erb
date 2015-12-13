@@ -1,17 +1,24 @@
-<%= render partial: "shared/personal_bar", locals: {selected: 'Betaling'} %>
+<%= render partial: "shared/personal_bar", locals: {selected: 'Leiehistorikk'} %>
 
 <div class="container">
     <div class="row">
-
-        <div class="eight columns u-push-down">
+        <div class="twelve columns u-push-down">
             <h1>Leiehistorikk</h1>
-    
-            <p>
-                Rental history here
-            </p>
+
+             <%= render layout: "gray_box" do %>
+                Under finner du oversikt over leieforhold hvor du enten
+                har leid ut selv, eller leid av andre.
+             <% end %>
+
+             <% if @bookings.empty? %>
+                 <p>
+                     Du har ingen gjennoførte utleieforhold ennå.
+                 </p>
+            <% else %>
+                <div>
+                    <%= render partial: "rental_history_item", collection: @bookings, as: :booking %>
+                </div>
+            <% end %>
         </div>
-
-        <%= link_to "Skademeldingskjema", users_accident_reports_path %>
-
     </div>
 </div>

@@ -1,0 +1,12 @@
+<div class="img-and-content">
+    <div class="img-and-content__left">
+        <%= image_tag ad.safe_image_url(:thumb), size: '90x60', alt: '' %>
+    </div>
+
+    <div class="img-and-content__right">
+        <h5 class="img-and-content__title"><%= ad.display_title %></h5>
+        <div>
+            <%= yield %>
+        </div>
+    </div>
+</div>

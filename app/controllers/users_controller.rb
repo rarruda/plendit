@@ -315,6 +315,8 @@ class UsersController < ApplicationController
 
   # GET /me/rental_history
   def rental_history
+    # comment out the where clause to test, if you donæt have archived ads
+    @bookings = Booking.has_user(current_user).decorate.where(status: Booking.statuses[:archived])
   end
 
   # POST /mark_all_notifications_noticed
