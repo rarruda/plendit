@@ -1,0 +1,28 @@
+<%
+   # FIXME: Need to know who the other party is...
+   sender_user  = @booking.user
+   rcpt_user    = @booking.from_user
+%>
+<p>
+  Hei, <%= rcpt_user.first_name %>
+</p>
+<p>
+  <%= link_to sender_user.first_name, user_url( sender_user ) %> avlyste leieforholdet <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>.
+</p>
+<table>
+  <tr> <td>Fra:</td> <td><%= @booking.starts_at %></td> </tr>
+  <tr> <td>Til:</td> <td><%= @booking.ends_at %></td> </tr>
+  <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
+</table>
+
+<p>
+  Er dette avtalt mellom dere?
+</p>
+
+<p>
+FIXME:  Ja    Nei
+</p>
+
+<p>
+  Om dette ikke stemmer, vil Plendit ta kontakt med dere begge og prøve å løse problemet.
+</p>
