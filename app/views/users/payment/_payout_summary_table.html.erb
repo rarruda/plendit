@@ -29,5 +29,5 @@
 <% elsif @financial_transaction_payout[:amount] == 0 %>
  Du trenger penger på din utbetalingskonto før du kan overføre.
 <% elsif @financial_transaction_payout[:amount] < @financial_transaction_payout[:fees] %>
-  Du må ha minst <%= format_monetary_full @financial_transaction_payout[:fees] %> på din utbetalingskonto før du kan overføre penger til din bankkonto.
+  Du må ha minst <%= format_monetary_full @financial_transaction_payout[:fees] %>,- på din utbetalingskonto før du kan overføre penger til din bankkonto.
 <% end %>
