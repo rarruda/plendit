@@ -8,7 +8,7 @@
 
                     <div class="twelve columns">
                         <div class="search-filter-section__fields">
-                            <%= text_field_tag :q, @term, class: 'u-full-width' %>
+                            <%= text_field_tag :q, @term, class: 'u-full-width', placeholder: 'Søkeord' %>
                             <div class="row">
                                 <div class="six columns">
                                     <%= number_field_tag :price_min, nil, min: 0, class: 'search-filter-section__halfwidth', placeholder: 'Minimumspris' %>
