@@ -1,5 +1,5 @@
-class CustomDeviseMailer < Devise::Mailer   
-  default template_path: 'devise/mailer' 
+class CustomDeviseMailer < Devise::Mailer
+  default template_path: 'devise/mailer'
   layout 'mailer'
 
   before_action :add_logo_attachment
