@@ -824,24 +824,8 @@ window.controllers.payinAdder = {
 
         function updateEstimate(payin) {
             if (!payin) { return; }
-
-            var info =
-                E('div', null,
-                    E('div.main-price__row', null,
-                        E('span.main-price__label', null, "Leiegebyr: "),
-                        E('span.main-price__value', null, payin.total_fee)
-                    ),
-                    E('div.main-price__row', null,
-                        E('i', null, "Inkluderer forsikring opp til "),
-                        E('i', null, payin.max_insurance_coverage)
-                    ),
-                    E('div.main-price__row', null,
-                        E('strong.main-price__label', null, "Utebetalt til deg: "),
-                        E('strong.main-price__value', null, payin.payout_amount)
-                    )
-                );
-            ele.querySelector("[data-estimate]").innerHTML = info.innerHTML;
-            ele.querySelector("[data-save]").disabled = false;
+            ele.querySelector("[data-estimate]").innerHTML = payin.markup;
+            ele.querySelector("[data-save]").disabled = !payin.valid;
         }
 
         function onSave() {

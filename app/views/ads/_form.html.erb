@@ -165,7 +165,7 @@
 
         <details data-controller="payinAdder"
                  data-estimate-url="<%= payout_estimate_ad_payin_rules_path @ad %>">
-            <%= form_for( PayinRule.new, url: (payout_estimate_ad_payin_rules_path @ad), data: { estimate_form: '' } ) do |f| %>
+            <%= form_for( PayinRule.new, url: (payout_estimate_ad_payin_rules_path @ad), data: { estimate_form: '' }, :html => {:'data-type' => 'html'} ) do |f| %>
                 <%= f.hidden_field :effective_from ,   data: { effective_from: ''} %>
                 <%= f.hidden_field :payin_amount_in_h, data: { payin_amount:   ''} %>
             <% end %>
@@ -192,7 +192,9 @@
                         <%= f.telephone_field :payin_amount_in_h, class: 'price-adder__price' %>
                         <span>kr</span>
                     </div>
-                    <div data-estimate></div>
+                    <div data-estimate>
+                        <%# estimates are ajaxed in here %>
+                    </div>
                     <button type="button" class="button" data-save disabled>Lagre</button>
                     <button type="button" class="button" data-cancel>Avbryt</button>
 

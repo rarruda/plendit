@@ -22,7 +22,6 @@ class PayinRulesController < ApplicationController
 
   def payout_estimate
     @ad.readonly!
-
     @payin_rule = @ad.payin_rules.build( payin_rule_params )
 
     if @payin_rule.invalid?
@@ -32,10 +31,16 @@ class PayinRulesController < ApplicationController
       #head :bad_request
     end
 
-    respond_to do |format|
-      format.json
-    end
+    reply = {
+      valid:  @payin_rule.valid?,
+      markup: render_to_string(partial: 'ad_price_estimate.html'), format: :html
+    }.to_json
 
+    respond_to do |format|
+      format.json {
+        render json: reply
+      }
+    end
   end
 
   # DELETE /payin_rules/1
