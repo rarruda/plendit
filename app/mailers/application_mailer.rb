@@ -20,13 +20,13 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  def booking_accepted booking
+  def booking_confirmed booking
     @booking = booking
 
     mail(
       to: @booking.from_user.email,
       subject: "Plendit: FIXME: foobar",
-      template_name: 'booking_accepted__to_renter'
+      template_name: 'booking_confirmed__to_renter'
     )
 
 
@@ -52,7 +52,7 @@ class ApplicationMailer < ActionMailer::Base
     mail(
       to: @booking.user.email,
       subject: "Plendit: FIXME: foobar",
-      template_name: 'booking_accepted__to_owner'
+      template_name: 'booking_confirmed__to_owner'
     )
   end
 

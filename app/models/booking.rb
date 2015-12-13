@@ -103,8 +103,13 @@ class Booking < ActiveRecord::Base
       after do
         # FIXME?: check if no transactions exist already?
         create_financial_transaction_payin
-        send_confirmations
         BookingAutoStartJob.set(wait_until: self.starts_at ).perform_later self
+
+        # old booking mailer:
+        send_confirmations
+        # new mailer:
+        message = ApplicationMailer.booking_confirmed( self )
+        message.deliver_later
       end
     end
 
