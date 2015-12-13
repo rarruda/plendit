@@ -103,7 +103,7 @@ class PayinRule < ActiveRecord::Base
     end
 
     if self.payin_amount < min_payin_amount
-      errors.add(:payin_amount, "Må være minst #{ApplicationController.helpers.format_monetary_full min_payin_amount}")
+      errors.add(:payin_amount, "Må være minst #{ApplicationController.helpers.format_monetary_full_pretty min_payin_amount}")
     end
   end
 
