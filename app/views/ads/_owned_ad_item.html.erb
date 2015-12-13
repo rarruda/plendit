@@ -1,19 +1,5 @@
-<%
-   # fixme: this is a bit eew. We need to figure out better how to work with ES results
-   ad = ad.decorate
-%>
-
 <%= link_to ad, class: 'my-ads' do %>
-    <div class="my-ads__img-box">
-        <%= image_tag ad.safe_image_url(:thumb), size: '90x60', alt: '' %>
-    </div>
-    <div class="my-ads__text-box">
-        <h4><%= ad.display_title %></h4>
-        <div class="my-ads__description">
-            <%= ad.summary %>
-        </div>
-        <div class="my-ads__status">
-            <%= status_label ad %>
-        </div>
-    </div>
+    <%= render layout: 'image_and_content_box', locals: {ad: ad} do %>
+        <%= status_label ad %>
+    <% end %>
 <% end %>
