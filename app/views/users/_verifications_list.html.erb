@@ -7,7 +7,7 @@
                 </p>
                 <% if v.rejected %>
                     <p class="verification-item__rejection">
-                        <span>Årsak:</span> <%= v.rejection_reason || 'Ingen årsak gitt' %>
+                        <small><span>Årsak:</span> <%= v.rejection_reason || 'Ingen årsak gitt' %></small>
                     </p>
                 <% end %>
 
