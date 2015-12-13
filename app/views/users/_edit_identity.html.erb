@@ -36,7 +36,7 @@
                     <%= image_tag provider[:image], size: provider[:image_size], alt: '', class: 'provider-box__logo' %>
                 </div>
                 <% if current_user.connected_to_provider provider[:id] %>
-                    <%= icon 'check-circle', '', class: "fa-lg u-fill-green provider-box__status" %>
+                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
                     <%= button_to identity_users_path,
                           method: :delete, params: { 'user[identity][provider]' => provider[:id] }, class: "button u-pull-right", form_class: "u-inline" do %>
                         Koble fra
