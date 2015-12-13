@@ -477,7 +477,7 @@ window.controllers.listingCalendar = function(ele) {
     function unselectable(selection) {
         var range = moment.range(selection[0], selection[1] || selection[0]);
         var overlaps = blackout.map(function(e) { return range.contains(moment(e)); });
-        return overlaps.reduce(function(acc, cur) { return acc || cur });
+        return overlaps.reduce(function(acc, cur) { return acc || cur }, false);
     }
 
     var bookedDatesEle = ele.querySelector('script[type="text/plain"]');
