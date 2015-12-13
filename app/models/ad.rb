@@ -98,7 +98,7 @@ class Ad < ActiveRecord::Base
     state :deleted
 
     event :submit_for_review do
-      transitions :from => :draft, :to => :waiting_review, :guard => :valid?
+      transitions from: :draft, to: :waiting_review, guard: :valid?
       after do
         # FIXME: do not ad be submitted for review if location does not have a latlon.
         LOG.error "submiting for review..."
@@ -106,32 +106,32 @@ class Ad < ActiveRecord::Base
     end
     event :approve do
       # only approve ads which have geocoded locations.
-      transitions :from => :waiting_review, :to => :published, :guard => :is_location_geocoded?
+      transitions from: :waiting_review, to: :published, guard: :is_location_geocoded?
     end
     event :pause do
-      transitions :from => [:published, :stopped], :to => :paused
+      transitions from: [:published, :stopped], to: :paused
     end
     event :stop do
-      transitions :from => [:published, :paused], :to => :stopped
+      transitions from: [:published, :paused], to: :stopped
     end
     event :resume do
-      transitions :from => [:paused, :stopped], :to => :published
+      transitions from: [:paused, :stopped], to: :published
     end
     event :edit do
-      transitions :from => [:waiting_review, :published, :paused, :stopped], :to => :draft
+      transitions from: [:waiting_review, :published, :paused, :stopped], to: :draft
       before do
         LOG.info 'Preparing to edit'
       end
     end
     event :suspend do #reject?
-      transitions :to => :suspended
+      transitions to: :suspended
       after do
         LOG.info 'ad is suspended. this is a black hole. there is no way out.'
       end
     end
 
     event :delete do
-      transitions :to => :deleted
+      transitions to: :deleted
 
       after do
         # if ad doesn't have any references, delete it, otherwise, just
@@ -146,7 +146,7 @@ class Ad < ActiveRecord::Base
       end
     end
     #event :unsuspend do
-    #  transitions :from => :suspended, :to => :waiting_review
+    #  transitions from: :suspended, to: :waiting_review
     #end
   end
 

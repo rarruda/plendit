@@ -99,7 +99,7 @@ class Booking < ActiveRecord::Base
     after_all_transitions :log_status_change
 
     event :confirm do
-      transitions :from => :created, :to => :confirmed
+      transitions from: :created, to: :confirmed
       after do
         # FIXME?: check if no transactions exist already?
         create_financial_transaction_payin
@@ -114,29 +114,35 @@ class Booking < ActiveRecord::Base
     end
 
     event :abort, after: :cancel_financial_transaction_preauth do
-      transitions :from => :created, :to => :aborted
+      transitions from: :created, to: :aborted
     end
 
     event :decline, after: :cancel_financial_transaction_preauth do
-      transitions :from => :created, :to => :declined
+      transitions from: :created, to: :declined
     end
 
     event :dispute do
-      transitions :from => :started, :to => :disputed
+      transitions from: :started, to: :disputed
     end
 
     #after: :refund_payin
-    event :cancel, after: :cancel_financial_transaction_payin do
-      transitions :from => [:confirmed,:started], :to => :cancelled do
+    event :cancel do
+      transitions from: [:confirmed,:started], to: :cancelled do
         guard do
           # confirmed or if started, can still cancel within 24hours.
           self.confirmed? || ( self.started? && ( self.starts_at + 1.day < DateTime.now ) )
         end
       end
+      after do
+        cancel_financial_transaction_payin
+
+        message = ApplicationMailer.booking_cancelled( self )
+        message.deliver_later
+      end
     end
 
     event :start do
-      transitions :from => :confirmed, :to => :started
+      transitions from: :confirmed, to: :started
 
       after do
         LOG.info "schedule auto-set_in_progress as new status in 1.day...", booking_id: self.id
@@ -145,7 +151,7 @@ class Booking < ActiveRecord::Base
     end
 
     event :set_in_progress, after: :create_financial_transaction_transfer do
-      transitions :from => :started, :to => :in_progress
+      transitions from: :started, to: :in_progress
 
       after do
         LOG.info "make transfer of funds...", booking_id: self.id
@@ -156,7 +162,7 @@ class Booking < ActiveRecord::Base
     end
 
     event :end do
-      transitions :from => :in_progress, :to => :ended
+      transitions from: :in_progress, to: :ended
       after do
         LOG.info "schedule auto-archival 7 days after ends_at.", booking_id: self.id
         BookingAutoArchiveJob.set(wait_until: (self.ends_at + 7.days + 1.second) ).perform_later self
@@ -164,7 +170,7 @@ class Booking < ActiveRecord::Base
     end
 
     event :archive do
-      transitions :from => :ended, :to => :archived
+      transitions from: :ended, to: :archived
       # UserFeedbackScoreRefreshAllJob should run daily for all users,
       #  so no need to trigger it again here.
       #after do
@@ -175,7 +181,7 @@ class Booking < ActiveRecord::Base
     # dont do anything. when manual intervention is required/exception handling:
     # tar-pit state.
     event :admin_pause do
-      transitions :from => [:created,:confirmed, :started, :in_progress, :ended], :to => :admin_paused
+      transitions from: [:created,:confirmed, :started, :in_progress, :ended], to: :admin_paused
     end
   end
 
