@@ -23,10 +23,10 @@
           <div class="row">
               <div class="eight columns">
                 <%# FIXME: only show bank account form, if you have confirmed your phone with us. %>
-                <%= f.label :bank_account_number, "Kontonummer" %>
+               <!-- <%= f.label :bank_account_number, "Kontonummer" %>-->
                 <%= f.text_field :bank_account_number, { maxlength: 13, class: 'u-full-width' }  %>
                 <p>
-                    <small>Vi trenger ditt kontonummer for å utbetale penger til deg som utleier</small>
+                    Vi trenger ditt kontonummer for å utbetale penger til deg som utleier
                 </p>
               </div>
           </div>
