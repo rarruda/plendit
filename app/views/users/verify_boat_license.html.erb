@@ -26,7 +26,7 @@
             <% else %>
 
                 <p>
-                    For at du skal kunne leie en båt, trenger vi en egenærklæring
+                    For at du skal kunne leie en båt, trenger vi en egenerklæring
                     på at du kan føre båt. Hvis du er født etter 1. januar 1980
                     må du også ha et gyldig båtførerbevis, og laste opp et bilde
                     av dette.
@@ -41,13 +41,13 @@
                 <% end %>
 
                 <%= form_for '', html: { multipart: true } do |f| %>
-                    <%= f.label :seaworthy, 'FIXME: selværklæringstekst' %>
+                    <%= f.label :seaworthy, 'Egenerklæring' %>
                     <%= f.check_box :seaworthy %>
 
                     <br>
 
                     <% if current_user.boat_license_required? %>
-                        <%= f.label :image, 'Last opp bilde av båtførerbevis her:' %>
+                        <%= f.label :image, 'Last opp bilde av båtførerbeviset ditt her:' %>
                         
                         <%= f.file_field :image %>
                     <% end %>
@@ -63,5 +63,3 @@
         </div>
     </div>
 </div>
-
-
