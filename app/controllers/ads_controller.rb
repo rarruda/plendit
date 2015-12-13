@@ -3,9 +3,7 @@ class AdsController < ApplicationController
 
   before_action :set_ad, only: [
     :ad_image,
-    :add_payin_rule,
     :approve,
-    :del_payin_rule,
     :destroy,
     :edit,
     :edit_availability,
@@ -13,9 +11,6 @@ class AdsController < ApplicationController
     :image_manager,
     :nested_images,
     :pause,
-    :payout_estimate,
-    :payout_estimate,
-    :payout_rules,
     :preview,
     :resume,
     :show,

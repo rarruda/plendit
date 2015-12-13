@@ -15,6 +15,7 @@ class PayinRulesController < ApplicationController
     if @payin_rule.save
       render text: "Added rule";
     else
+      LOG.error "payout rule was not saved:... #{@payin_rule.inspect}"
       render text: "failed", status: :bad_request
     end
   end
@@ -22,10 +23,19 @@ class PayinRulesController < ApplicationController
   def payout_estimate
     @ad.readonly!
 
-    @rule = @ad.payin_rules.build( payin_rule_params )
+    @payin_rule = @ad.payin_rules.build( payin_rule_params )
+
+    if @payin_rule.invalid?
+      @payin_rule.payin_amount = 0
+      LOG.error "payout rule is invalid... #{@payin_rule.inspect}"
+      LOG.error "payout rule validation error: #{@payin_rule.errors.inspect}"
+      #head :bad_request
+    end
+
     respond_to do |format|
       format.json
     end
+
   end
 
   # DELETE /payin_rules/1
@@ -48,7 +58,7 @@ class PayinRulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payin_rule_params
-      params.require(:payin_rule).permit(:id, :guid, :effective_from, :payin_amount, :payin_amount_in_h)
+      params.require(:payin_rule).permit(:id, :guid, :effective_from, :payin_amount, :payin_amount_in_h, :_destroy)
     end
 end
 
