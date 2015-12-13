@@ -262,7 +262,7 @@ class User < ActiveRecord::Base
     when :motor
       self.drivers_license_status == :verified
     when :boat
-      self.boat_license_status == :verified
+      self.boat_rental_allowed?
     end
 
     false
@@ -403,6 +403,18 @@ class User < ActiveRecord::Base
 
     payout_wallet = MangoPay::Wallet.fetch( self.payout_wallet_vid )
     return payout_wallet['Balance']['Amount']
+  end
+
+  def boat_license_required?
+    !self.birthday.nil? && self.birthday > Date.new(1980, 1, 1)
+  end
+
+  def boat_rental_allowed?
+    if self.boat_license_required?
+      self.seamanship_claimed && self.boat_license_status == :verified
+    else
+      self.seamanship_claimed
+    end
   end
 
   private

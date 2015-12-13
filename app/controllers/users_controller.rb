@@ -49,11 +49,28 @@ class UsersController < ApplicationController
   end
 
   def verify_boat_license
+    @errors = []
     if request.post?
-      current_user.delete_current_boat_license
-      @card = UserDocument.new(user: current_user, category: :boat_license, status: :pending_approval)
-      @card.document = params[:image]
-      @card.save!
+
+      if current_user.boat_license_required? && (!params.key? :image)
+        @errors.push "Bilde mangler."
+      end
+
+      if params[:seaworthy] != "1"
+        @errors.push "Du må akseptere selværklæringen."
+      end
+
+      if @errors.empty?
+        current_user.delete_current_boat_license
+        current_user.seamanship_claimed = true
+        current_user.save
+        if current_user.boat_license_required?
+          @card = UserDocument.new(user: current_user, category: :boat_license, status: :pending_approval)
+          @card.document = params[:image]
+          @card.save!
+        end
+      end
+
     end
     @card = current_user.boat_license
   end
@@ -141,7 +158,7 @@ class UsersController < ApplicationController
       }),
       OpenStruct.new({
         title: 'Båtførerbevis',
-        state: user.boat_license_status,
+        state: user.boat_rental_allowed? ? :verified : user.boat_license_status,
         rejected: user.boat_license_status == :rejected,
         rejection_reason: user.boat_license_rejection_reason,
         path: verify_boat_license_users_path

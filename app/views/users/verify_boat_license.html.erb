@@ -5,20 +5,15 @@
         <div class="eight columns">
             <h1>Båtførerbevis</h1>
 
-            <% if current_user.boat_license_status == :missing %>
+            <%= render partial: 'privacy_box' %>
+
+
+            <% if current_user.boat_rental_allowed? %>
                 <p>
-                    For at du skal kunne leie en båt, må du laste opp et bilde av båtførerbeviset ditt.
+                    <%= plendbot_avatar :huge, class: 'u-pull-left' %>
+                    Du kan leie båt.
                 </p>
 
-                <%= render partial: 'privacy_box' %>
-                
-                <%= form_for '', html: { multipart: true } do |f| %>
-                    <%= f.label :image, 'Last opp bilde av båtførerbevis her:' %>
-                    
-                    <%= f.file_field :image %>
-                    <br>
-                    <%= f.submit 'Last opp', class: 'button button-primary' %>
-                <% end %>
             <% elsif current_user.boat_license_status == :pending %>
                 <p>
                     <%= plendbot_avatar :huge, class: 'u-pull-left' %>
@@ -28,16 +23,42 @@
                 <p>
                     <%= link_to 'Tilbake til min profil', users_path %>
                 </p>
-            <% elsif current_user.boat_license_status == :verified %>
-                <p>
-                    <%= plendbot_avatar :huge, class: 'u-pull-left' %>
-                    Båtførerbevis ditt er allerede godkjent!
-                </p>
-                <p>
-                    <%= link_to 'Tilbake til min profil', users_path %>
-                </p>
             <% else %>
-                Unknown state
+
+                <p>
+                    For at du skal kunne leie en båt, trenger vi en egenærklæring
+                    på at du kan føre båt. Hvis du er født etter 1. januar 1980
+                    må du også ha et gyldig båtførerbevis, og laste opp et bilde
+                    av dette.
+                </p>
+                <p>
+                    <%= link_to 'Les mer om reglene på lovdata', 'https://lovdata.no/artikkel/skal_du_kjore_bat_i_sommer/73' %>,
+                </p>
+
+
+                <% @errors.each do |e| %>
+                    <p><%= e %></p>
+                <% end %>
+
+                <%= form_for '', html: { multipart: true } do |f| %>
+                    <%= f.label :seaworthy, 'FIXME: selværklæringstekst' %>
+                    <%= f.check_box :seaworthy %>
+
+                    <br>
+
+                    <% if current_user.boat_license_required? %>
+                        <%= f.label :image, 'Last opp bilde av båtførerbevis her:' %>
+                        
+                        <%= f.file_field :image %>
+                    <% end %>
+                    
+                    <% if current_user.boat_license_required? %>
+                        <%= f.submit 'Last opp', class: 'button button-primary' %>
+                    <% else %>
+                        <%= f.submit 'Bekreft', class: 'button button-primary' %>
+                    <% end %>
+                <% end %>
+
             <% end %>
         </div>
     </div>
