@@ -24,7 +24,7 @@
               <div class="eight columns">
                 <%# FIXME: only show bank account form, if you have confirmed your phone with us. %>
                <!-- <%= f.label :bank_account_number, "Kontonummer" %>-->
-                <%= f.text_field :bank_account_number, { maxlength: 13, class: 'u-full-width' }  %>
+                <%= f.text_field :bank_account_number, { maxlength: 13, class: 'u-full-width', placeholder: '1234 5678 9001 2345' }  %>
                 <p>
                     Vi trenger ditt kontonummer for å utbetale penger til deg som utleier
                 </p>
