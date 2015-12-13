@@ -81,6 +81,8 @@ class Booking < ActiveRecord::Base
   #  If we did, the following callback would not be enough.
   after_create :create_financial_transaction_preauth
 
+  after_create :send_mail_booking_created
+
   aasm :column => :status, :enum => true do
     state :created, :initial => true
     state :confirmed
@@ -119,6 +121,10 @@ class Booking < ActiveRecord::Base
 
     event :decline, after: :cancel_financial_transaction_preauth do
       transitions from: :created, to: :declined
+      after do
+        message = ApplicationMailer.booking_declined( self )
+        message.deliver_later
+      end
     end
 
     event :dispute do
@@ -335,6 +341,11 @@ class Booking < ActiveRecord::Base
 
 
   private
+
+  def send_mail_booking_created
+    message = ApplicationMailer.booking_created( self )
+    message.deliver_later
+  end
 
   def send_confirmations
     LOG.info "owner_accepted email:"

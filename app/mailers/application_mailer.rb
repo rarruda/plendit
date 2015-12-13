@@ -92,6 +92,7 @@ class ApplicationMailer < ActionMailer::Base
      )
   end
 
+  # not hooked. needs a scheduled job to trigger it.
   def booking_ends_at_soon booking
     @booking = booking
 
@@ -108,6 +109,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
+  # not hooked. needs a scheduled job to trigger it.
   def booking_starts_at_soon booking
     @booking = booking
 
@@ -134,6 +136,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
+  # not hooked.
   def user_id_license_expires_soon user, user_document_category
     @user = user
 
