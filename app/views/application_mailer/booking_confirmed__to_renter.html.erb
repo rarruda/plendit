@@ -2,7 +2,7 @@
   Hei, <%= @booking.from_user.first_name %>
 </p>
 <p>
-  <%= link_to @booking.user.first_name, user_url( @booking.from_user ) %> har akseptert din forespørsel om å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>.
+  <%= link_to @booking.user.first_name, user_url( @booking.user ) %> har akseptert din forespørsel om å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>.
 </p>
 <table>
   <tr> <td>Fra dato:</td> <td><%= @booking.starts_at %></td> </tr>
