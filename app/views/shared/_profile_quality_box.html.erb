@@ -37,49 +37,69 @@
             <li>
                 <% if user.id_card_status == :verified %>
                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
-                    <span>ID-kort (verifisert)</span>
+                    <span>ID-kort</span>
                 <% else %>
                     <%= icon 'times-circle-o', class: 'fa-lg u-fill-brown profile-quality-box__icon' %>
-                    <span>ID-kort (ikke verifisert)</span>
+                    <span>ID-kort (Mangler)</span>
+                <% end %>
+            </li>
+            
+              <li>
+                <% if user.boat_license_status == :verified %>
+                    <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
+                    <span>Båtførerbevis</span>
+                <% else %>
+                    <%= icon 'times-circle-o', class: 'fa-lg u-fill-brown profile-quality-box__icon' %>
+                    <span>Båtførerbevis (Mangler)</span>
+                <% end %>
+            </li>
+            
+                          <li>
+                <% if user.drivers_license_status == :verified %>
+                    <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
+                    <span>Førerkort</span>
+                <% else %>
+                    <%= icon 'times-circle-o', class: 'fa-lg u-fill-brown profile-quality-box__icon' %>
+                    <span>Førerkort (Mangler)</span>
                 <% end %>
             </li>
 
             <li>
                 <% if user.email_verified? %>
                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
-                    <span>e-postadresse (verifisert)</span>
+                    <span>E-postadresse</span>
                 <% else %>
                     <%= icon 'times-circle-o', class: 'fa-lg u-fill-brown profile-quality-box__icon' %>
-                    <span>e-postadresse (ikke verifisert)</span>
+                    <span>E-postadresse (Ikke verifisert)</span>
                 <% end %>
             </li>
 
             <li>
                 <% if user.phone_verified? %>
                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
-                    <span>telefonnummer (verifisert)</span>
+                    <span>Mobilnummer</span>
                 <% else %>
                     <%= icon 'times-circle-o', class: 'fa-lg u-fill-brown profile-quality-box__icon' %>
-                    <span>telefonnummer (ikke verifisert)</span>
+                    <span>Mobilnummer (Ikke verifisert)</span>
                 <% end %>
             </li>
 
             <% if user.identities.find_by(provider:'facebook').present? %>
                 <li>
                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
-                    <span>facebook-konto (verifisert)</span>
+                    <span>Facebook</span>
                 </li>
             <% end %>
             <% if user.identities.find_by(provider:'google').present? %>
                 <li>
                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
-                    <span>google-konto (verifisert)</span>
+                    <span>Google</span>
                 </li>
             <% end %>
             <% if user.identities.find_by(provider:'spid').present? %>
                 <li>
                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
-                    <span>SPiD-konto (verifisert)</span>
+                    <span>SPiD</span>
                 </li>
             <% end %>
         </ol>
