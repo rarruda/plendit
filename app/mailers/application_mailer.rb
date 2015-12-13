@@ -64,7 +64,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Du har godkjent leieforespørselen av (#{@ad.title}),
+      subject: "Plendit: Du har godkjent leieforespørselen av (#{@ad.title})",
       template_name: 'booking_accepted__to_owner'
     )
 
