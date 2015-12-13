@@ -7,7 +7,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @ad.user.email,
-      subject: "Plendit: TRANSLATEME: Your listing has been published"
+      subject: "Plendit: (#{@ad.title}) er nå godkjent og publisert"
     )
   end
 
@@ -16,7 +16,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @ad.user.email,
-      subject: "Plendit: TRANSLATEME: Your listing (#{@ad.title}) has been published"
+      subject: "Plendit: (#{@ad.title}) ble ikke godkjent"
     )
   end
 
@@ -25,7 +25,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.from_user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Din forespørsel ble akseptert",
       template_name: 'booking_confirmed__to_renter'
     )
 
@@ -51,7 +51,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Forsikringsdokumenter for (#{@ad.title})",
       template_name: 'booking_confirmed__to_owner'
     )
   end
@@ -61,13 +61,13 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Leieforholdet med (#{@ad.title}) ble godkjent",
       template_name: 'booking_accepted__to_owner'
     )
 
     mail(
       to: @booking.from_user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Leieforespørselen av (#{@ad.title}) ble godkjent",
       template_name: 'booking_accepted__to_renter'
     )
   end
@@ -77,7 +77,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Noen øsnker å leie (#{@ad.title})",
       template_name: 'booking_created__to_owner'
      )
   end
@@ -87,7 +87,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Din forespørsel ble avslått",
       template_name: 'booking_declined__to_renter'
      )
   end
@@ -97,13 +97,13 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Leieforeholdet med (#{@ad.title}) starter snart",
       template_name: 'booking_ends_at_soon__to_owner'
     )
 
     mail(
       to: @booking.from_user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Leieforeholdet med (#{@ad.title}) slutter snart",
       template_name: 'booking_ends_at_soon__to_renter'
     )
   end
@@ -113,13 +113,13 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Leieforholdet med (#{@ad.title}) slutter snart",
       template_name: 'booking_starts_at_soon__to_owner'
     )
 
     mail(
       to: @booking.from_user.email,
-      subject: "Plendit: FIXME: foobar",
+      subject: "Plendit: Leieforholdet med (#{@ad.title}) starter snart",
       template_name: 'booking_starts_at_soon__to_renter'
     )
   end
@@ -130,7 +130,7 @@ class ApplicationMailer < ActionMailer::Base
     # template is missing polish
     mail(
       to: @user.email,
-      subject: "Plendit: FIXME: foobar"
+      subject: "Plendit: Ditt førerkort ble godkjent"
     )
   end
 
@@ -140,7 +140,7 @@ class ApplicationMailer < ActionMailer::Base
     # template is missing polish
     mail(
       to: @user.email,
-      subject: "Plendit: FIXME: foobar"
+      subject: "Plendit: Ditt førerkort er snart ugyldig"
     )
   end
 
@@ -150,7 +150,7 @@ class ApplicationMailer < ActionMailer::Base
     # template is missing polish
     mail(
       to: @user.email,
-      subject: "Plendit: FIXME: foobar"
+      subject: "Plendit: Dit Id-kort ble ikke godkjent"
     )
   end
 end
