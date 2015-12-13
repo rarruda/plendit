@@ -51,7 +51,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Forsikringsdokumenter for (#{@ad.title})",
+      subject: "Plendit: Du har godkjent leieforespørselen av (#{@ad.title})",
       template_name: 'booking_confirmed__to_owner'
     )
   end
@@ -61,7 +61,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Leieforholdet med (#{@ad.title}) ble godkjent",
+      subject: "Plendit: Du har godkjent leieforespørselen av (#{@ad.title}),
       template_name: 'booking_accepted__to_owner'
     )
 
@@ -77,7 +77,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Noen øsnker å leie (#{@ad.title})",
+      subject: "Plendit: Noen ønsker å leie (#{@ad.title})",
       template_name: 'booking_created__to_owner'
      )
   end
