@@ -14,8 +14,7 @@ class PayinRule < ActiveRecord::Base
     unless: :required_rule?
   validate  :validate_min_payin_amount,
     unless: :required_rule?,
-    unless: :new_record?,
-    unless: "self.ad.new_record?"
+    unless: :new_record?
 
 
   before_validation :set_defaults, if: :new_record?
@@ -24,6 +23,7 @@ class PayinRule < ActiveRecord::Base
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
+  scope :required_rule,      -> { where( "unit = ? AND effective_from = 1", PayinRule.units[:day])}
   scope :effective_from_asc, -> { order( :effective_from ) }
   scope :effective_from,     ->(unit, duration) do
     where( "unit = ? AND effective_from <= ?", PayinRule.units[unit.to_sym], duration )
@@ -68,7 +68,9 @@ class PayinRule < ActiveRecord::Base
   #  insurance inviable).
   def apply_max_discount amount
     if self.day? && self.effective_from >= 2
-      # map through the max_discount array of <min_value_for_discount_to_be_applicable,max_discount_pct>
+      # map through the max_discount array of [<min_value_for_discount_to_be_applicable,max_discount_pct>]
+      # and result in [<discounted_value_if_possible_or_nil>]
+      # if no discount works, it will return nil.
       Plendit::Application.config.x.insurance.max_discount_after_duration
         .map{ |d| ( amount >= d.first ) ? ( ( 1 - d.second ) * amount ).to_i : nil }
         .compact
@@ -107,13 +109,17 @@ class PayinRule < ActiveRecord::Base
     if self.day? && self.effective_from == 1
       min_payin_amount = max_discount_after_duration.map{|d| d.first}.min
     elsif self.day?
-      first_day_payin_amount = self.ad.payin_rules.where( unit: PayinRule.units[:day], effective_from: 1 ).take.payin_amount
+      first_day_payin_amount = self.ad.payin_rules.required_rule.take.payin_amount
       min_payin_amount = self.apply_max_discount( first_day_payin_amount )
     else #self.hour?
       min_payin_amount = 35_00
     end
 
-    if self.payin_amount.nil? || self.payin_amount < min_payin_amount
+    # only reason to have min_payin_amount nil, is if "self.effective_from >=2 && self.day?" and
+    #  no required_rule? exists yet.
+    if min_payin_amount.nil? && ! self.required_rule?
+      errors.add(:payin_amount, "TRANSLATEME: Må ha en døgnspris før du kan oppretter complex pricing")
+    elsif self.payin_amount.nil? || self.payin_amount < min_payin_amount
       errors.add(:payin_amount, "Må være minst #{ApplicationController.helpers.format_monetary_full_pretty min_payin_amount}")
     end
   end
