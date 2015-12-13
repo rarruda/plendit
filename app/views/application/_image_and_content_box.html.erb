@@ -4,7 +4,13 @@
     </div>
 
     <div class="img-and-content__right">
-        <h5 class="img-and-content__title"><%= ad.display_title %></h5>
+        <h5 class="img-and-content__title">
+            <% if defined? link %>
+                <%= link_to ad.display_title, link %>
+            <% else %>
+                <%= ad.display_title %>
+            <% end %>
+        </h5>
         <div>
             <%= yield %>
         </div>
