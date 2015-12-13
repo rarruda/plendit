@@ -2,18 +2,21 @@
 
 <div class="container">
     <div class="row">
-        <div class="ten columns">
-            <h1>Favoritter</h1>
+        <div class="twelve columns">
+            <%= render layout: "gray_box", locals: { title: 'Favoritter' } do %>
+                Under finner du alle annonsene du har lagt til som favoritt.
+             <% end %>
 
-            <div class="u-push-down">
-                <% if @favorite_ads.empty? %>
+            <div>
+                <% if @favorites.empty? %>
                     <p>
-                        Du har ikke lagret noen favoritter
+                        Du har ikke lagret noen favoritter ennå.
                     </p>
                 <% else %>
-                    <%= render partial: "favorite_item", collection: @favorite_ads, as: :favorite_ad %>
+                    <%= render partial: "favorite_item", collection: @favorites, as: :favorite %>
                 <% end %>
             </div>
         </div>
+
     </div>
 </div>

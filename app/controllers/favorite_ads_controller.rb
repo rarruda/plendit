@@ -4,7 +4,7 @@ class FavoriteAdsController < ApplicationController
 
 
   def index
-    @favorite_ads = current_user.favorite_ads.decorate
+    @favorites = current_user.favorite_ads.decorate
   end
 
   # POST /favorite_ads
