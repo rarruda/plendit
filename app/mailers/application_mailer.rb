@@ -2,6 +2,9 @@ class ApplicationMailer < ActionMailer::Base
   default from: "noreply@plendit.com"
   layout 'mailer'
 
+  before_action :add_logo_attachment
+
+
   def ad_is_published ad
     @ad = ad
 
@@ -155,5 +158,10 @@ class ApplicationMailer < ActionMailer::Base
       to: @user.email,
       subject: "Plendit: Dit Id-kort ble ikke godkjent"
     )
+  end
+
+  private
+  def add_logo_attachment
+    attachments.inline['logo.png'] = File.read('public/images/plendit_mail_logo.png')
   end
 end
