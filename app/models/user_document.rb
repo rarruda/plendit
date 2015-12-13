@@ -22,7 +22,8 @@ class UserDocument < ActiveRecord::Base
   }
 
   enum category: { unknown: 0, drivers_license_front: 1, drivers_license_back: 2, boat_license: 3, passport: 4, id_card: 5, other: 10 }
-  enum status: { not_approved: 1, pending_approval: 2, approved: 3 }
+  enum status:   { not_approved: 1, pending_approval: 2, approved: 3 }
+  # status: pending_approval 2=>1(pending_approval=>waiting_approval), approved: 3=>5, not_approved: 1=>10
 
   validates_attachment_content_type :document, :content_type => ["application/pdf", "image/jpeg", "image/jpg", "image/png"]
   validates_attachment_file_name    :document, :matches => [/png\Z/i, /jpe?g\Z/i, /pdf\Z/i]
@@ -30,10 +31,15 @@ class UserDocument < ActiveRecord::Base
 
   validates_uniqueness_of :guid
 
-  validates_uniqueness_of :user_id, :scope => :category
+  validates_uniqueness_of :user_id, scope: :category
 
 
-  before_validation :set_guid, :on => :create
+  scope :pending_approval,  -> { where( status: UserDocument.statuses[:pending_approval] ) }
+  scope :not_approved,      -> { where( status: UserDocument.statuses[:not_approved] ) }
+  scope :approved,          -> { where( status: UserDocument.statuses[:approved] ) }
+
+
+  before_validation :set_guid, on: :create
 
 
 
