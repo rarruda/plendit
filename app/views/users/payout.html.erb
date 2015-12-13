@@ -19,7 +19,7 @@
 
       <% if @financial_transaction_payout[:fees] > 0 %>
         <hr>
-        NB! Om du overfører mer enn<%= format_monetary_full Rails.configuration.x.platform.payout_fee_waived_after_amount %> av gangen så slipper du bankgebyr.
+        NB! Om du overfører mer enn<%= format_monetary_full_pretty Rails.configuration.x.platform.payout_fee_waived_after_amount %> av gangen så slipper du bankgebyr.
       <% end %>
 
     <% end %>
