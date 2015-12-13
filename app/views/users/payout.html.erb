@@ -12,14 +12,14 @@
           ( @financial_transaction_payout[:amount] > @financial_transaction_payout[:fees] )
       -%>
 
-        <%= button_to "overfør", payment_payout_users_path, class: "button" %>
+        <%= button_to "Overfør", payment_payout_users_path, class: "button" %>
       <%- end -%>
 
-      <%= link_to "avbryte", payment_users_path %>
+      <%= link_to "Avbryt", payment_users_path %>
 
       <% if @financial_transaction_payout[:fees] > 0 %>
         <hr>
-        NB! Om du overfører mer enn<%= format_monetary_full_pretty Rails.configuration.x.platform.payout_fee_waived_after_amount %> av gangen så slipper du bankgebyr.
+        NB! Om du overfører mer enn<%= format_monetary_full_pretty Rails.configuration.x.platform.payout_fee_waived_after_amount %> av gangen, så slipper du bankgebyr.
       <% end %>
 
     <% end %>
