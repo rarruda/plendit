@@ -20,16 +20,10 @@ class PayinRulesController < ApplicationController
     end
   end
 
+  # POST /payin_rules/payout_estimate
   def payout_estimate
     @ad.readonly!
     @payin_rule = @ad.payin_rules.build( payin_rule_params )
-
-    if @payin_rule.invalid?
-      @payin_rule.payin_amount = 0
-      LOG.error "payout rule is invalid... #{@payin_rule.inspect}"
-      LOG.error "payout rule validation error: #{@payin_rule.errors.inspect}"
-      #head :bad_request
-    end
 
     reply = {
       valid:  @payin_rule.valid?,
@@ -52,7 +46,6 @@ class PayinRulesController < ApplicationController
       head :ok
     else
       head :bad_request
-      #redirect_to edit_users_path(:anchor => 'payin_rules')
     end
   end
 

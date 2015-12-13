@@ -2,18 +2,21 @@ class PayinRule < ActiveRecord::Base
   belongs_to :ad
 
   validates :guid,           uniqueness: true
-  validates :ad,             presence: true, unless: :new_record?
+  validates :ad,             presence: true, unless: :required_rule?
   validates :unit,           presence: true
   validates :effective_from, numericality: { only_integer: true }
   validates :effective_from, numericality: { greater_than_or_equal_to: 1 }
-  validates :effective_from, numericality: { less_than_or_equal_to: 24 }, if: "self.hour?"
+  validates :effective_from, numericality: { less_than_or_equal_to: 24 }, if: :hour?
   validates :effective_from, uniqueness:   { scope: [:ad, :unit], message: "Kan kun ha en pris per enhet." }
-  validates :payin_amount,   numericality: { only_integer: true }, unless: :new_record?
-  validates :payin_amount,   numericality: { less_than: 150_000_00, message: "Må være under 150.000 kr" }, unless: :new_record?
+  validates :payin_amount,   numericality: { only_integer: true },
+    unless: :required_rule?
+  validates :payin_amount,   numericality: { less_than: 150_000_00, message: "Må være under 150.000 kr" },
+    unless: :required_rule?
   validate  :validate_min_payin_amount,
-    unless: "self.effective_from == 1",
-    unless: :day?,
-    unless: :new_record?
+    unless: :required_rule?,
+    unless: :new_record?,
+    unless: "self.ad.new_record?"
+
 
   before_validation :set_defaults, if: :new_record?
   before_validation :set_guid,     on: :create
@@ -28,7 +31,8 @@ class PayinRule < ActiveRecord::Base
     .limit(1)
   end
 
-  def required?
+  # is this the mandatory/required payin_rule?
+  def required_rule?
     self.day? && self.effective_from == 1
   end
 
@@ -93,8 +97,15 @@ class PayinRule < ActiveRecord::Base
   end
 
   def validate_min_payin_amount
+    max_discount_after_duration = case self.ad.category
+    when 'boat'
+      Plendit::Application.config.x.insurance.max_discount_after_duration_boat
+    else
+      Plendit::Application.config.x.insurance.max_discount_after_duration
+    end
+
     if self.day? && self.effective_from == 1
-      min_payin_amount = Plendit::Application.config.x.insurance.max_discount_after_duration.map{|d| d.first}.min
+      min_payin_amount = max_discount_after_duration.map{|d| d.first}.min
     elsif self.day?
       first_day_payin_amount = self.ad.payin_rules.where( unit: PayinRule.units[:day], effective_from: 1 ).take.payin_amount
       min_payin_amount = self.apply_max_discount( first_day_payin_amount )
@@ -102,7 +113,7 @@ class PayinRule < ActiveRecord::Base
       min_payin_amount = 35_00
     end
 
-    if self.payin_amount < min_payin_amount
+    if self.payin_amount.nil? || self.payin_amount < min_payin_amount
       errors.add(:payin_amount, "Må være minst #{ApplicationController.helpers.format_monetary_full_pretty min_payin_amount}")
     end
   end

@@ -228,15 +228,15 @@ class Ad < ActiveRecord::Base
   # method to give the same result as what we had before in the Ad Model.
   # used in as_indexed_json
   def price
-    self.payin_rules.find_or_initialize_by(unit: PayinRule.units[:day], effective_from: 1).payin_amount
+    self.payin_rules.find(&:required_rule?).payin_amount
   end
 
   def main_payin_rule
-    self.payin_rules.find &:required?
+    self.payin_rules.find &:required_rule?
   end
 
   def secondary_payin_rules
-    self.payin_rules.sort_by(&:effective_from).reject(&:required?)
+    self.payin_rules.sort_by(&:effective_from).reject(&:required_rule?)
   end
 
   # used in as_indexed_json

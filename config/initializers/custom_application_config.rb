@@ -85,6 +85,13 @@ Plendit::Application.config.x.insurance.max_discount_after_duration = [
   [ 1000_00, 0.3 ],
  ]
 
+Plendit::Application.config.x.insurance.max_discount_after_duration_boat = [
+  [  149_00, 0.6 ],
+  [  250_00, 0.4 ],
+  [ 1000_00, 0.3 ],
+ ]
+
+
 # should be a hash: bap: 1_500, motor: 1_000_000, realestate: 500_000
 Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
 
