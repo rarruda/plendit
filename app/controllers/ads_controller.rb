@@ -229,7 +229,7 @@ class AdsController < ApplicationController
     if @ad.save
       redirect_to edit_users_ad_path(@ad)
     else
-      LOG.error "Error saving ad: #{@ad.errors.inspect}", { user_id: current_user.id }
+      LOG.error "Error saving ad upon creation: #{@ad.errors.inspect}", { user_id: current_user.id }
       redirect_to new_ad_path, alert: "Annonsen kunne ikke opprettes!"
     end
   end

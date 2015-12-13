@@ -26,6 +26,8 @@ class Ad < ActiveRecord::Base
   accepts_nested_attributes_for :payin_rules, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :ad_images,   reject_if: :all_blank, allow_destroy: true
 
+  validates_associated :payin_rules
+
   validates :user,  presence: true
   validates :title, length: { in: 0..255 },
     unless: :new_record?

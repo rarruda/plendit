@@ -8,18 +8,15 @@ class PayinRule < ActiveRecord::Base
   validates :effective_from, numericality: { greater_than_or_equal_to: 1 }
   validates :effective_from, numericality: { less_than_or_equal_to: 24 }, if: :hour?
   validates :effective_from, uniqueness:   { scope: [:ad, :unit], message: "Kan kun ha en pris per enhet." }
-  validates :payin_amount,   numericality: { only_integer: true },
+  validates :payin_amount,   numericality: { only_integer: true }, allow_blank: true,
     unless: :required_rule?
-  validates :payin_amount,   numericality: { less_than: 150_000_00, message: "Må være under 150.000 kr" },
+  validates :payin_amount,   numericality: { less_than: 150_000_00, message: "Må være under 150.000 kr" }, allow_blank: true,
     unless: :required_rule?
-  validate  :validate_min_payin_amount,
-    unless: :required_rule?,
-    unless: :new_record?
+  validate  :validate_min_payin_amount
 
 
   before_validation :set_defaults, if: :new_record?
   before_validation :set_guid,     on: :create
-
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
