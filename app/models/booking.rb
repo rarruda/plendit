@@ -110,7 +110,10 @@ class Booking < ActiveRecord::Base
         # old booking mailer:
         send_confirmations
         # new mailer:
-        message = ApplicationMailer.booking_confirmed( self )
+        message = ApplicationMailer.booking_confirmed__to_owner( self )
+        message.deliver_later
+
+        message = ApplicationMailer.booking_confirmed__to_renter( self )
         message.deliver_later
       end
     end
@@ -122,7 +125,7 @@ class Booking < ActiveRecord::Base
     event :decline, after: :cancel_financial_transaction_preauth do
       transitions from: :created, to: :declined
       after do
-        message = ApplicationMailer.booking_declined( self )
+        message = ApplicationMailer.booking_declined__to_renter( self )
         message.deliver_later
       end
     end
@@ -343,7 +346,7 @@ class Booking < ActiveRecord::Base
   private
 
   def send_mail_booking_created
-    message = ApplicationMailer.booking_created( self )
+    message = ApplicationMailer.booking_created__to_owner( self )
     message.deliver_later
   end
 

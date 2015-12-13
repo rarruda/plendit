@@ -23,7 +23,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  def booking_confirmed booking
+  def booking_confirmed__to_renter booking
     @booking = booking
 
     mail(
@@ -31,7 +31,10 @@ class ApplicationMailer < ActionMailer::Base
       subject: "Plendit: Din forespørsel ble akseptert",
       template_name: 'booking_confirmed__to_renter'
     )
+  end
 
+  def booking_confirmed__to_owner booking
+    @booking = booking
 
     # Attachments:
     attach_files = []
@@ -55,11 +58,10 @@ class ApplicationMailer < ActionMailer::Base
     mail(
       to: @booking.user.email,
       subject: "Plendit: Du har godkjent leieforespørselen av (#{@ad.title})",
-      template_name: 'booking_confirmed__to_owner'
     )
   end
 
-  def booking_cancelled booking
+  def booking_accepted__to_owner booking
     @booking = booking
 
     mail(
@@ -67,6 +69,10 @@ class ApplicationMailer < ActionMailer::Base
       subject: "Plendit: Du har godkjent leieforespørselen av (#{@ad.title})",
       template_name: 'booking_accepted__to_owner'
     )
+  end
+
+  def booking_accepted__to_renter booking
+    @booking = booking
 
     mail(
       to: @booking.from_user.email,
@@ -75,45 +81,46 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  def booking_created booking
+  def booking_created__to_owner booking
     @booking = booking
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Noen ønsker å leie (#{@ad.title})",
-      template_name: 'booking_created__to_owner'
-     )
+      subject: "Plendit: Noen ønsker å leie (#{@ad.title})"
+    )
   end
 
-  def booking_declined booking
+  def booking_declined__to_renter booking
     @booking = booking
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Din forespørsel ble avslått",
-      template_name: 'booking_declined__to_renter'
-     )
+      subject: "Plendit: Din forespørsel ble avslått"
+    )
   end
 
   # not hooked. needs a scheduled job to trigger it.
-  def booking_ends_at_soon booking
+  def booking_ends_at_soon__to_owner booking
     @booking = booking
-
-    mail(
-      to: @booking.user.email,
-      subject: "Plendit: Leieforeholdet med (#{@ad.title}) starter snart",
-      template_name: 'booking_ends_at_soon__to_owner'
-    )
 
     mail(
       to: @booking.from_user.email,
-      subject: "Plendit: Leieforeholdet med (#{@ad.title}) slutter snart",
-      template_name: 'booking_ends_at_soon__to_renter'
+      subject: "Plendit: Leieforeholdet med (#{@ad.title}) slutter snart"
     )
   end
 
   # not hooked. needs a scheduled job to trigger it.
-  def booking_starts_at_soon booking
+  def booking_ends_at_soon__to_renter booking
+    @booking = booking
+
+    mail(
+      to: @booking.from_user.email,
+      subject: "Plendit: Leieforeholdet med (#{@ad.title}) slutter snart"
+    )
+  end
+
+  # not hooked. needs a scheduled job to trigger it.
+  def booking_starts_at_soon__to_owner booking
     @booking = booking
 
     mail(
@@ -121,6 +128,11 @@ class ApplicationMailer < ActionMailer::Base
       subject: "Plendit: Leieforholdet med (#{@ad.title}) slutter snart",
       template_name: 'booking_starts_at_soon__to_owner'
     )
+  end
+
+  # not hooked. needs a scheduled job to trigger it.
+  def booking_starts_at_soon__to_renter booking
+    @booking = booking
 
     mail(
       to: @booking.from_user.email,
