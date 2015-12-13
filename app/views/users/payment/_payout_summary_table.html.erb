@@ -1,7 +1,7 @@
 <table>
   <tr>
     <td>Din plendit utbetalingskonto saldo</td>
-    <td><%= format_monetary_full @financial_transaction_payout[:amount] %></td>
+    <td><%= format_monetary_full_pretty @financial_transaction_payout[:amount] %></td>
   </tr>
 
   <%- if current_user.user_payment_account.present? &&
@@ -10,14 +10,14 @@
   -%>
     <tr>
       <td>Bankgebyr</td>
-      <td><%= format_monetary_full @financial_transaction_payout[:fees] %></td>
+      <td><%= format_monetary_full_pretty @financial_transaction_payout[:fees] %></td>
     </tr>
     <tr>
       <td>
           Blir overført til kontornr <%= current_user.user_payment_account.pretty_bank_account_number %>
       </td>
       <%# FIXME: can be negative if transaction_payout is zero: %>
-      <td><%= format_monetary_full( @financial_transaction_payout[:amount] - @financial_transaction_payout[:fees] ) %></td>
+      <td><%= format_monetary_full_pretty( @financial_transaction_payout[:amount] - @financial_transaction_payout[:fees] ) %></td>
     </tr>
   <%- end -%>
 
@@ -29,5 +29,5 @@
 <% elsif @financial_transaction_payout[:amount] == 0 %>
  Du trenger penger på din utbetalingskonto før du kan overføre.
 <% elsif @financial_transaction_payout[:amount] < @financial_transaction_payout[:fees] %>
-  Du må ha minst <%= format_monetary_full @financial_transaction_payout[:fees] %>,- på din utbetalingskonto før du kan overføre penger til din bankkonto.
+  Du må ha minst <%= format_monetary_full_pretty @financial_transaction_payout[:fees] %> på din utbetalingskonto før du kan overføre penger til din bankkonto.
 <% end %>
