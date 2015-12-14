@@ -8,8 +8,7 @@ class BookingsController < ApplicationController
 
   # GET /me/bookings
   def index
-    # fixme: use merged list of sent and received for current user
-    @bookings = Booking.owner_user(current_user).decorate
+    @bookings = current_user.current_bookings
   end
 
   # GET /me/bookings/1

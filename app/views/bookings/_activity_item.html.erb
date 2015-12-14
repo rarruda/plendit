@@ -1,11 +1,13 @@
 <%= link_to booking, class: 'activity-item' do %>
     <%= render layout: 'image_and_content_box', locals: {ad: booking.ad} do %>
         <% if current_user == booking.from_user %>
-            Du leide av <%= booking.user.display_name %>
+            Forespørsel til <%= booking.user.display_name %>
         <% else %>
-            Du leide ut til <%= booking.from_user.display_name %>
+            Forespørsel fra <%= booking.from_user.display_name %>
         <% end %>
-        &bull; <%= time_ago_in_words booking.created_at %> siden
+        &bull;
+        <%= booking_status_label(booking) %>
+        <%#= booking.id %>
     <% end %>
 <% end %>
 
