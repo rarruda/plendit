@@ -603,6 +603,7 @@ window.controllers.adAutoSaver = {
     callable: function(ele, xhr, utils, eventbus) {
         var dirty = false;
         eventbus.on(eventbus.AD_FORM_SAVE_NOW, handleChange);
+        eventbus.on(eventbus.IMAGES_CHANGED, handleChange);
         ele.addEventListener("change", handleChange)
 
         function handleChange() {
