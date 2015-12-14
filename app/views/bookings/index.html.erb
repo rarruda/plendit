@@ -4,8 +4,9 @@
     <div class="row">
         <div class="nine columns">
             <%= render layout: "gray_box", locals: {title: "Aktiviteter"} do %>
-                Her finner du dine siste aktiviteter. Om du ser etter gamle leieforhold
-                finner du det under <a href="#">leiehistorikk.</a>
+                Her finner du dine siste aktiviteter. Om du ser etter
+                gamle leieforhold finner du det under
+                <%= link_to "leiehistorikk.", rental_history_users_path %>
             <% end %>
 
             <section class="u-push-down">
