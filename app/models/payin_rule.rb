@@ -12,7 +12,11 @@ class PayinRule < ActiveRecord::Base
     unless: :required_rule?
   validates :payin_amount,   numericality: { less_than: 150_000_00, message: "Må være under 150.000 kr" }, allow_blank: true,
     unless: :required_rule?
-  validate  :validate_min_payin_amount
+
+  # validate min_payin_amount if not ( required_rule? and new_record? ), AKA if optional_rule? and record_exists?
+  validate  :validate_min_payin_amount,
+    unless: :required_rule?,
+    unless: :new_record?
 
 
   before_validation :set_defaults, if: :new_record?
