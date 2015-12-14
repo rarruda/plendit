@@ -29,8 +29,11 @@ class Ad < ActiveRecord::Base
   validates_associated :payin_rules, message: "En av prisene du har oppgitt er ugyldige."
 
   validates :user,  presence: true
-  validates :title, length: { in: 0..255, message: "Må ha en tittel." },
-    unless: :new_record?
+  validates :title, length: { in: 5..255 , message: "Må ha en tittel.",
+    unless: :new_record? }
+
+  validates :body, length: { in: 5..255 , message: "Må ha en beskrivelse.",
+    unless: :new_record? }
 
   validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Må være et gyldig reg.nr." },
     unless: :new_record?,
