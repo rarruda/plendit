@@ -268,6 +268,9 @@ class AdsController < ApplicationController
 
     @ad.assign_attributes(ad_params_local)
 
+    @ad.valid? # we do this for side effects, so next line does something.
+    @error_markup = render_to_string partial: 'ad_input_errors', formats: [:html]
+
     #LOG.debug "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
       if @ad.save(validate: false)

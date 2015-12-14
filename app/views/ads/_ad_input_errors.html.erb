@@ -1,0 +1,10 @@
+<%
+    errors = @ad.errors.values.flatten
+%>
+<% if errors.any? %>
+    <ul>
+        <% errors.each do |e| %>
+            <li><%= e %></li>
+        <% end %>
+    </ul>
+<% end %>

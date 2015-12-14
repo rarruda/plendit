@@ -665,13 +665,8 @@ window.controllers.adErrors = {
         }
 
         function handleSaveOk(report) {
-            var errorMessages = [];
-            for (var key in report.errors) {
-                errorMessages.push(report.errors[key]);
-            }
-
-            if (errorMessages.length) {
-                ele.textContent = "Annonsen er lagret. Før den kan publiseres må du legge til følgende: " + errorMessages.join(", "); 
+            if (report.errorMarkup.length) {
+                ele.innerHTML = report.errorMarkup;
             }
             else {
                 ele.textContent = "Annonsen er lagret og klar for publisering!"; 
