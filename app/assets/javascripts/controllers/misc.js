@@ -662,7 +662,7 @@ window.controllers.adErrors = {
         eventbus.on(eventbus.AD_FORM_DIRTY, handleGotDirty);
 
         function handleGotDirty() {
-            ele.textContent = "Lagrer annonsen."
+            ele.textContent = "Lagrer annonsen..."
         }
 
         function handleSaveOk(report) {
