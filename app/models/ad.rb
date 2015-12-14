@@ -26,10 +26,10 @@ class Ad < ActiveRecord::Base
   accepts_nested_attributes_for :payin_rules, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :ad_images,   reject_if: :all_blank, allow_destroy: true
 
-  validates_associated :payin_rules
+  validates_associated :payin_rules, message: "En av prisene du har oppgitt er ugyldige."
 
   validates :user,  presence: true
-  validates :title, length: { in: 0..255 },
+  validates :title, length: { in: 0..255, message: "Må ha en tittel." },
     unless: :new_record?
 
   validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Må være et gyldig reg.nr." },
@@ -37,12 +37,13 @@ class Ad < ActiveRecord::Base
     if:     :motor?
     #if:     "self.motor? || self.boat?"
 
-  validates :registration_group, presence: true,
+  validates :registration_group, presence: { message: "Må velge en underkategori."},
     unless: :new_record?,
     if:     :motor?
     #if:     "self.motor? || self.boat?"
 
-  validates :ad_images, presence: true, unless: :new_record?
+  validates :ad_images, presence: { message: "Minst en bilde må lastes opp." },
+    unless: :new_record?
   # todo: runeh: use nested validations for this? As in validates_associated :payin_rules
 
 
