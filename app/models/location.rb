@@ -46,7 +46,13 @@ class Location < ActiveRecord::Base
   def geocode_with_region
     #https://developers.google.com/maps/documentation/geocoding/intro#GeocodingResponses
     #https://developers.google.com/maps/documentation/geocoding/intro#ComponentFiltering
-    results = Geocoder.search( self.address_line, :params => { :components => "postal_code:#{self.post_code}|country:#{PLENDIT_COUNTRY_CODE}", :region => PLENDIT_COUNTRY_CODE, :language => PLENDIT_COUNTRY_CODE})
+    results = Geocoder.search( self.address_line, params: {
+      components: "postal_code:#{self.post_code}|country:#{PLENDIT_COUNTRY_CODE}",
+      region:     PLENDIT_COUNTRY_CODE,
+      language:   PLENDIT_COUNTRY_CODE
+      }
+    )
+
     if geo = results.first
 
       self.lat = geo.latitude
