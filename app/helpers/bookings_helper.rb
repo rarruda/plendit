@@ -15,4 +15,24 @@ module BookingsHelper
     end
   end
 
+  def booking_status_label(booking)
+    colors = {
+        created:       'yellow',
+        confirmed:     'green',
+        started:       'green',
+        in_progress:   'green',
+        ended:         'green',
+        archived:      'green',
+        aborted:       'red',
+        cancelled:     'black',
+        declined:      'black',
+        disputed:      'red',
+        admin_paused:  'red'
+    }
+    colors.default = 'black'
+  
+    color = colors[booking.status.to_sym]
+    content_tag :span, booking.decorate.display_status.titlecase, class: "status-label status-label--#{color}"
+  end
+
 end

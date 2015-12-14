@@ -28,10 +28,17 @@ class BookingDecorator < Draper::Decorator
 
   def display_status
     status_names = {
-        created: "sendt",
-        accepted: "akseptert",
-        cancelled: "kanselert",
-        declined: "avvist"
+        created:       'sendt',
+        confirmed:     'godtatt',
+        started:       'started',
+        in_progress:   'pågår',
+        ended:         'ferdig',
+        archived:      'arkivert',
+        aborted:       'avbrutt',
+        cancelled:     'avlyst',
+        declined:      'avslått',
+        disputed:      'problem',
+        admin_paused:  'stoppet av administrator'
     }
     status_names[status.to_sym]
   end
