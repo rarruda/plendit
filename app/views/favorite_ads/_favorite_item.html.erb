@@ -1,7 +1,7 @@
 <div>
     <%= render layout: 'image_and_content_box', locals: {ad: favorite.ad, link: favorite.ad } do %>
         <div>
-            <%= favorite.ad.summary %>
+            Leies ut av <%= favorite.ad.user.display_name %>
             <%= button_to 'Fjern', users_favorite_ad_path(favorite.ad), method: :delete, data: { confirm: 'Sikker på at du vil fjerne?' }, form_class: 'u-inline', class: 'button u-pull-right' %>
         </div>
     <% end %>
