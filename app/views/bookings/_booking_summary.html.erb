@@ -17,16 +17,18 @@
             <%= @booking.sum_paid_by_renter %>
         <% end %>
     </div>
-    <div class="booking-summary__row">
-        <strong>Mobilnummer:</strong>
-        <% if current_user.owns_booking_item? @booking %>
-            <%= @booking.from_user.phone_number %>
-        <% else %>
-            <%= @booking.user.phone_number %>
-        <% end %>
-    </div>
+    <% if @booking.confirmed? || @booking.started? || @booking.in_progress? %>
+        <div class="booking-summary__row">
+            <strong>Mobilnummer:</strong>
+            <% if current_user.owns_booking_item? @booking %>
+                <%= @booking.from_user.phone_number %>
+            <% else %>
+                <%= @booking.user.phone_number %>
+            <% end %>
+        </div>
 
-    <div class="booking-summary__row">
-        <strong>Hente/leverings-addresse:</strong> <%= @booking.ad.location.to_s_pretty %>
-    </div>
+        <div class="booking-summary__row">
+            <strong>Hente/leverings-addresse:</strong> <%= @booking.ad.location.to_s_pretty %>
+        </div>
+    <% end %>
 </div>
