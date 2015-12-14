@@ -22,17 +22,21 @@
         </div>
     <% end %>
 
+    <%= render partial: "booking_controls", locals: {booking: @booking} %>
+
+    <!-- <hr> -->
+    <%# FIXME: this belongs only in the first step of setting up a booking. so it now renders in the wrong place %>
+    <%#= render partial: "payment", locals: {booking: @booking} %>
+
+    <hr>
+
+    <%= render partial: "conversation_section", locals: {booking: @booking} %>
+
+
     <% if @booking.may_send_damage_report? %>
         <div class="u-push-down">
             <%= render partial: "booking_insurance_box" %>
         </div>
     <% end %>
 
-    <%= render partial: "booking_controls", locals: {booking: @booking} %>
-
-    <!-- <hr> -->
-    <%# FIXME: this belongs only in the first step of setting up a booking. so it now renders in the wrong place %>
-    <%#= render partial: "payment", locals: {booking: @booking} %>
-    <hr>
-    <%= render partial: "conversation_section", locals: {booking: @booking} %>
 </div>
