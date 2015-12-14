@@ -1,5 +1,5 @@
 <%= link_to ad, class: 'my-ads' do %>
     <%= render layout: 'image_and_content_box', locals: {ad: ad} do %>
-        <%= status_label ad %>
+        <%= ad_status_label ad %>
     <% end %>
 <% end %>

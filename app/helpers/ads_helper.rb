@@ -8,7 +8,7 @@ module AdsHelper
     user_signed_in? && (current_user.owns_ad? ad)
   end
 
-  def status_label(ad)
+  def ad_status_label(ad)
     colors = {
         published:       'green',
         draft:           'yellow',
