@@ -29,12 +29,12 @@
                 <%= f.hidden_field :previous_url, value: request.fullpath %>
                 <% if ad.is_favorite_of( current_user ) %>
                     <%= f.button class: "button booking-request-form__book-button" do %>
-                        <%= icon 'heart', class: "fa-2x u-fill-gold booking-request-form__heart" %>
+                        <%= icon 'heart', class: "fa-2x u-fill-blue booking-request-form__heart" %>
                         Fjern fra favoritter
                     <% end %>
                 <% else %>
                     <%= f.button class: "button booking-request-form__book-button" do %>
-                        <%= icon 'heart-o', class: "fa-2x booking-request-form__heart" %>
+                        <%= icon 'heart-o', class: "fa-2x u-fill-blue booking-request-form__heart" %>
                         Legg til i favoritter
                     <% end %>
                 <% end %>
