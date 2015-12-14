@@ -119,9 +119,9 @@ class PayinRule < ActiveRecord::Base
     # only reason to have min_payin_amount nil, is if "self.effective_from >=2 && self.day?" and
     #  no required_rule? exists yet.
     if min_payin_amount.nil? && ! self.required_rule?
-      errors.add(:payin_amount, "TRANSLATEME: Må ha en døgnspris før du kan oppretter complex pricing")
+      errors.add(:payin_amount, "TRANSLATEME: Må setter en døgnspris før du kan oppretter rabattert prising")
     elsif self.payin_amount.nil? || self.payin_amount < min_payin_amount
-      errors.add(:payin_amount, "Må være minst #{ApplicationController.helpers.format_monetary_full_pretty min_payin_amount}")
+      errors.add(:payin_amount, "Pris må være minst #{ApplicationController.helpers.format_monetary_full_pretty min_payin_amount}")
     end
   end
 
