@@ -317,13 +317,14 @@ class AdsController < ApplicationController
     def ad_params
       params.require(:ad).permit( :title, :body, :price_in_h, :tag_list,
         :registration_number, :registration_group, :location_id,
-        :location_attributes => [:address_line, :post_code],
-        :payin_rules_attributes => [:payin_amount_in_h, :unit, :effective_from, :id, :_destroy],
-        :ad_images_attributes => [:image, :weight, :description, :id, :_destroy ])
+        location_attributes:    [ :address_line, :post_code, :id ],
+        payin_rules_attributes: [ :payin_amount_in_h, :unit, :effective_from, :id, :_destroy ],
+        ad_images_attributes:   [ :image, :weight, :description, :id, :_destroy ]
+      )
     end
 
     def ad_image_params
-      params.require(:ad_image).permit(:image);
+      params.require(:ad_image).permit(:image)
     end
 
     def ad_can_be_shown?
