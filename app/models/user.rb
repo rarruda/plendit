@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   has_many :user_documents, dependent: :destroy
 
   # received_bookings == bookings:
-  has_many :bookings,       through: :ad_items
+  has_many :bookings,           through: :ad_items
   has_many :sent_bookings,      foreign_key: 'from_user_id', class_name: "Booking"
 
   has_many :received_feedbacks, foreign_key: 'to_user_id',   class_name: "Feedback"
