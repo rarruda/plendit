@@ -210,6 +210,6 @@
 
     <div class="u-push-down">
         <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad), disabled: !@ad.may_submit_for_review?, form_class: 'u-inline', class: 'button button-f', data: {controller: 'publishButton'} %>
-        <%= button_to 'Forhåndsvisning', (ad_path @ad), method: :get, form_class: 'u-inline', class: 'button' %>
+        <%= button_to 'Forhåndsvisning', ad_path(@ad), method: :get, form_class: 'u-inline', class: 'button' %>
     </div>
 </div>
