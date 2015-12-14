@@ -29,23 +29,23 @@ class Ad < ActiveRecord::Base
   validates_associated :payin_rules, message: "En av prisene du har oppgitt er ugyldige."
 
   validates :user,  presence: true
-  validates :title, length: { in: 5..255 , message: "Må ha en tittel.",
+  validates :title, length: { in: 5..255 , message: "Annonsen må ha en tittel.",
     unless: :new_record? }
 
-  validates :body, length: { in: 5..255 , message: "Må ha en beskrivelse.",
+  validates :body, length: { in: 5..255 , message: "Annonsen må ha en beskrivelse.",
     unless: :new_record? }
 
-  validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Må være et gyldig reg.nr." },
+  validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Annonsen må ha et gyldig reg.nr." },
     unless: :new_record?,
     if:     :motor?
     #if:     "self.motor? || self.boat?"
 
-  validates :registration_group, presence: { message: "Må velge en underkategori."},
+  validates :registration_group, presence: { message: "Kjøretøyet må ha en underkategori."},
     unless: :new_record?,
     if:     :motor?
     #if:     "self.motor? || self.boat?"
 
-  validates :ad_images, presence: { message: "Minst en bilde må lastes opp." },
+  validates :ad_images, presence: { message: "Annonsen må ha minst ett bilde." },
     unless: :new_record?
   # todo: runeh: use nested validations for this? As in validates_associated :payin_rules
 
