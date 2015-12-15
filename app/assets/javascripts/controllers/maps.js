@@ -230,7 +230,7 @@ window.controllers.resultMap = {
             var marker = new google.maps.Marker({
                 position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
                 icon: {
-                    url: '/images/single_stroke.png',
+                    url: '/images/single_poi.png',
                     scaledSize: new google.maps.Size(45, 38),
                     // anchor: new google.maps.Point(32, 53)
                 },
@@ -245,7 +245,7 @@ window.controllers.resultMap = {
             var marker = new google.maps.Marker({
                 position: {lat: parseFloat(location.lat), lng: parseFloat(location.lon)},
                 icon: {
-                    url: '/images/multiple_stroke.png',
+                    url: '/images/multiple_poi.png',
                     scaledSize: new google.maps.Size(45, 40),
                     anchor: new google.maps.Point(10, 40)
                 },
