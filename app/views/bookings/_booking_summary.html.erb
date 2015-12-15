@@ -1,34 +1,36 @@
-<div class="booking-summary">
-    <div class="booking-summary__row">
-        <strong>Fra dato:</strong> <%= @booking.display_from_date %>
-    </div>
-    <div class="booking-summary__row">
-        <strong>Til dato:</strong> <%= @booking.display_end_date %>
-    </div>
-    <div class="booking-summary__row">
-        <strong>Antall dager:</strong> <%= @booking.days %>
-    </div>
-    <div class="booking-summary__row">
-        <% if current_user.owns_booking_item? @booking %>
-            <strong>Totalt utbetalt:</strong>
-            <%= number_to_currency_pretty @booking.sum_paid_to_owner, unit: 'kr' %>
-        <% else %>
-            <strong>Totalt å betale:</strong>
-            <%= number_to_currency_pretty @booking.sum_paid_by_renter, unit: 'kr' %>
-        <% end %>
-    </div>
-    <% if @booking.confirmed? || @booking.started? || @booking.in_progress? %>
+<%= render layout: "gray_box", locals: {title: "Bookingdetaljer"} do %>
+    <div class="booking-summary">
         <div class="booking-summary__row">
-            <strong>Mobilnummer:</strong>
+            <strong>Fra dato:</strong> <%= @booking.display_from_date %>
+        </div>
+        <div class="booking-summary__row">
+            <strong>Til dato:</strong> <%= @booking.display_end_date %>
+        </div>
+        <div class="booking-summary__row">
+            <strong>Antall dager:</strong> <%= @booking.days %>
+        </div>
+        <div class="booking-summary__row">
             <% if current_user.owns_booking_item? @booking %>
-                <%= @booking.from_user.phone_number %>
+                <strong>Totalt utbetalt:</strong>
+                <%= number_to_currency_pretty @booking.sum_paid_to_owner, unit: 'kr' %>
             <% else %>
-                <%= @booking.user.phone_number %>
+                <strong>Totalt å betale:</strong>
+                <%= number_to_currency_pretty @booking.sum_paid_by_renter, unit: 'kr' %>
             <% end %>
         </div>
+        <% if @booking.confirmed? || @booking.started? || @booking.in_progress? %>
+            <div class="booking-summary__row">
+                <strong>Mobilnummer:</strong>
+                <% if current_user.owns_booking_item? @booking %>
+                    <%= @booking.from_user.phone_number %>
+                <% else %>
+                    <%= @booking.user.phone_number %>
+                <% end %>
+            </div>
 
-        <div class="booking-summary__row">
-            <strong>Hente/leverings-addresse:</strong> <%= @booking.ad.location.to_s_pretty %>
-        </div>
-    <% end %>
-</div>
+            <div class="booking-summary__row">
+                <strong>Hente/leverings-addresse:</strong> <%= @booking.ad.location.to_s_pretty %>
+            </div>
+        <% end %>
+    </div>
+<% end %>
