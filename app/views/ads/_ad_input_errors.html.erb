@@ -1,12 +1,16 @@
 <%
     errors = @ad.errors.values.flatten
 %>
-<div class="ad-input-errors">
-    <% if errors.any? %>
+<% if errors.any? %>
+    <div class="ad-input-errors">
+        <p>
+            Annonsen er lagret.
+            Før du kan legge den ut må du endre følgende:
+        </p>
         <ul  class="ad-input-errors__list">
             <% errors.each do |e| %>
                 <li><%= icon 'exclamation-triangle' %> <%= e %></li>
             <% end %>
         </ul>
-    <% end %>
-</div>
+    </div>
+<% end %>
