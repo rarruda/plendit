@@ -9,7 +9,7 @@
   <tr> <td>Til dato:</td> <td><%= @booking.ends_at %></td> </tr>
   <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
   <tr> <td></td> <td></td> </tr>
-  <tr> <td>Utbetalt til deg:</td> <td><%= @booking.sum_paid_to_owner %></td> </tr>
+  <tr> <td>Utbetalt til deg:</td> <td><%= number_to_currency_pretty @booking.sum_paid_to_owner %></td> </tr>
 </table>
 
 <p>
