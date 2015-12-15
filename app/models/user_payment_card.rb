@@ -123,11 +123,7 @@ class UserPaymentCard < ActiveRecord::Base
     end
   end
 
-  # NOTE: for now we are doing everything in a syncronous fashion, but:
-  # FIXME: this should be in a background job (or not, if it already called from a background job)
-  # to validate we need to create a Charge, and then cancel it.
-  # charges live in financial_transactions.
-  # it takes around 28 seconds to go through this:
+  # NOTE: called from UserPaymentCardValidateJob
   def validate_on_mangopay
     LOG.info "Validating on mangoypay card: #{self.id}", { user_id: self.user_id, user_payment_card_id: self.id }
     t = create_financial_transaction_preauth_for_validation
