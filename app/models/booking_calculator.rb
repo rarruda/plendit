@@ -23,7 +23,14 @@ class BookingCalculator
   end
 
   def max_insurance_coverage payin_rule = nil
-    ( self.payin_amount(payin_rule) * Plendit::Application.config.x.insurance.max_coverage_factor[self.ad.category.to_sym] ).round
+    case self.ad.category.to_sym
+    when :boat
+      nil
+    when :motor
+      nil
+    else
+      ( self.payin_amount(payin_rule) * Plendit::Application.config.x.insurance.max_coverage_factor[self.ad.category.to_sym] ).round
+    end
   end
 
   def reservation_amount
