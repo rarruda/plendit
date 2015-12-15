@@ -154,7 +154,9 @@
         </div>
 
     <%- end -%>
-<hr>
+    
+        <hr>
+
         <div class="u-push-down">
             <label>Rabattpriser:</label>
             <div data-controller="secondaryPrices"
@@ -203,12 +205,17 @@
         </details>
 
     <hr>
-        <%= link_to 'Mer informasjon om forsikring.', Plendit::Application.config.x.customerservice.insurance_info, :target => '_blank' %>
-    <hr>
 
     <div data-controller="adErrors"></div>
 
     <div class="u-push-down">
         <%= button_to 'Legg ut', submit_for_review_ad_path(@ad), disabled: !@ad.may_submit_for_review?, form_class: 'u-inline', class: 'button button-f', data: {controller: 'publishButton'} %>
     </div>
+
+    <hr>
+
+    <p>
+        <%= link_to 'Mer informasjon om forsikring.', Plendit::Application.config.x.customerservice.insurance_info, :target => '_blank' %>
+    </p>
+
 </div>
