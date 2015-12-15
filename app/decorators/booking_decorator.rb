@@ -30,14 +30,14 @@ class BookingDecorator < Draper::Decorator
     status_names = {
         created:       'sendt',
         confirmed:     'godtatt',
-        started:       'started',
+        started:       'startet',
         in_progress:   'pågår',
-        ended:         'ferdig',
+        ended:         'fullført',
         archived:      'arkivert',
         aborted:       'avbrutt',
         cancelled:     'avlyst',
         declined:      'avslått',
-        disputed:      'problem',
+        disputed:      'innklaget',
         admin_paused:  'stoppet av administrator'
     }
     status_names[status.to_sym]
@@ -49,6 +49,64 @@ class BookingDecorator < Draper::Decorator
 
   def display_end_date
     l self.ends_at, format: :plendit_short_date
+  end
+
+  def activity_message current_user
+    if self.most_recent_activity == :message
+      self.messages.last.activity_message current_user
+    else
+
+      is_owner = current_user == self.user
+      from_name = self.from_user.display_name
+      to_name = self.user.display_name
+
+      puts "lsosoosos #{self.status == 'started'}"
+
+    case self.status
+      when 'created'
+        if is_owner
+          "Du har motatt en forespørsel fra #{from_name}."
+        else
+          "Du har sendt en forespørsel til #{to_name}."
+        end
+      when 'confirmed'
+        if is_owner
+          "Du har godtatt forespørselen fra #{from_name}."
+        else
+          "#{name} har godtatt forespørselen din."
+        end
+      when 'started'
+        "Utleieperioden starter snart."
+      when 'in_progress'
+        "Utleietiden har startet."
+      when 'ended'
+        "Utleietiden er over."
+      when 'archived'
+        "Leieforholdet er arkivert."
+      when 'cancelled'
+        if is_owner
+          "Du har avlyst leieforholdet."
+        else
+          "#{from_name} har avlyst leieforholdet."
+        end
+      when 'aborted'
+        if is_owner
+          "#{from_name} har trukket tilbake forespørselen."
+        else
+          "Du trakk tilbake forespørselen."
+        end
+      when 'declined'
+        if is_owner
+          "Du takket nei til forespørselen fra #{from_name}."
+        else
+          "#{to_name} takket nei til din forespørsel."
+        end
+      when 'disputed'
+        "Det er registrert en klage på leieforholdet."
+      when 'admin_paused'
+        "Annonse ble sperret av en administrator."
+      end
+    end
   end
 
 end

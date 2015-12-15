@@ -194,6 +194,16 @@ class Booking < ActiveRecord::Base
     end
   end
 
+  def most_recent_activity
+    message = self.messages.last
+    message_time = message.created_at if message.present?
+
+    if message_time.present? && message_time > self.updated_at
+      :message
+    else
+      :status
+    end
+  end
 
   def may_send_damage_report?
     # after started, until 48hours after booking ended.
