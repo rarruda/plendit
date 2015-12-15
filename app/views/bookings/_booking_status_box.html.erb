@@ -7,14 +7,14 @@
         Forespørsel avslått
     <% elsif @booking.aborted? %>
         Booking ble avbrutt
-    <% elsif @booking.started? || @booking.in_progress %>
+    <% elsif @booking.started? || @booking.in_progress? %>
         Leieforholdet pågår
     <% elsif @booking.cancelled? %>
         Leieforholdet ble avbrutt
     <% elsif @booking.disputed? %>
         Leieforholdet ble avlyst. Er dette riktig?
     <% elsif @booking.ended? %>
-        Leieforholdet er over        
+        Leieforholdet er over
     <% elsif @booking.archived? %>
         Arkivert
     <% elsif @booking.admin_paused? %>
