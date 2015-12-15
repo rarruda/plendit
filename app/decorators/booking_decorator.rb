@@ -35,9 +35,9 @@ class BookingDecorator < Draper::Decorator
         ended:         'fullført',
         archived:      'arkivert',
         aborted:       'avbrutt',
-        cancelled:     'avlyst',
+        cancelled:     'avbrutt',
         declined:      'avslått',
-        disputed:      'innklaget',
+        disputed:      'avlyst',
         admin_paused:  'stoppet av administrator'
     }
     status_names[status.to_sym]
@@ -73,7 +73,7 @@ class BookingDecorator < Draper::Decorator
         if is_owner
           "Du har godtatt forespørselen fra #{from_name}."
         else
-          "#{name} har godtatt forespørselen din."
+          "#{to_name} har godtatt forespørselen din."
         end
       when 'started'
         "Utleieperioden starter snart."
