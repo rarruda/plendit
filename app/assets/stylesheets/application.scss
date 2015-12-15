@@ -128,4 +128,20 @@ summary {
         flex: 1 1 auto;
         width: 100%;
     }
+
+    @media (max-width: 376px) {
+        padding: $standard-spacing;
+
+        &__left {
+            flex: 0 0 auto;
+            width: 100px;
+        }
+    }
+
+    @media (max-width: 321px) {
+
+        &__left {
+            display: none;
+        }
+    }
 }
