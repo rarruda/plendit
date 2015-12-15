@@ -768,7 +768,7 @@ window.controllers.updateMainPriceDetails = {
                         E('i', null, payin.max_insurance_coverage)
                     ),
                     E('div.main-price__row', null,
-                        E('strong.main-price__label', null, "Utebetalt til deg: "),
+                        E('strong.main-price__label', null, "Utbetalt til deg per dag: "),
                         E('strong.main-price__value', null, payin.payout_amount)
                     )
                 );
@@ -891,4 +891,3 @@ window.controllers.starRatingSelector = function(ele) {
         });
     }
 }
-
