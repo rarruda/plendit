@@ -59,6 +59,16 @@
                 <label>Registreringsnummer:</label>
                 <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
             </div>
+        <% when 'boat' %>
+            <div class="u-push-down-only">
+                <%= f.label :estimated_value, 'Antatt verdi:' %>
+                <%= f.telephone_field( :estimated_value ) do %>
+                <% end %>
+            </div>
+            <div class="u-push-down">
+                <%= f.check_box :boat_license_required %>
+                <%= f.label :boat_license_required, 'Båtførebevis er krevet.' %> (TRANSLATEME)
+            </div>
         <% end %>
 
         <div class="u-push-down-only">

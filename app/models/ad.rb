@@ -29,11 +29,11 @@ class Ad < ActiveRecord::Base
   validates_associated :payin_rules, message: "En av prisene du har oppgitt er ugyldige."
 
   validates :user,  presence: true
-  validates :title, length: { in: 5..255 , message: "Annonsen må ha en tittel.",
-    unless: :new_record? }
+  validates :title, length: { in: 5..255 , message: "Annonsen må ha en tittel." },
+    unless: :new_record?
 
-  validates :body, length: { in: 5..255 , message: "Annonsen må ha en beskrivelse.",
-    unless: :new_record? }
+  validates :body, length: { in: 5..255 , message: "Annonsen må ha en beskrivelse." },
+    unless: :new_record?
 
   validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Annonsen må ha et gyldig reg.nr." },
     unless: :new_record?,
@@ -44,6 +44,10 @@ class Ad < ActiveRecord::Base
     unless: :new_record?,
     if:     :motor?
     #if:     "self.motor? || self.boat?"
+
+  validates :estimated_value, numericality: { less_than: 250_000_00, allow_nil: true, message: "Båt kan ha en maks antatt verdi på 250.000 kroner."},
+    unless: :new_record?,
+    if:     :boat?
 
   validates :ad_images, presence: { message: "Annonsen må ha minst ett bilde." },
     unless: :new_record?
