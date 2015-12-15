@@ -5,11 +5,11 @@
   Du har akseptert fra <%= link_to @booking.from_user.first_name, user_url( @booking.from_user ) %> om å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>.
 </p>
 <table>
-  <tr> <td>Fra dato:</td> <td><%= @booking.starts_at %></td> </tr>
-  <tr> <td>Til dato:</td> <td><%= @booking.ends_at %></td> </tr>
+  <tr> <td>Fra dato:</td> <td><%= l @booking.starts_at, format: :shorter_datetime %></td> </tr>
+  <tr> <td>Til dato:</td> <td><%= l @booking.ends_at, format: :shorter_datetime %></td> </tr>
   <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
   <tr> <td></td> <td></td> </tr>
-  <tr> <td>Utbetalt til deg:</td> <td><%= number_to_currency_pretty @booking.sum_paid_to_owner %></td> </tr>
+  <tr> <td>Utbetalt til deg:</td> <td><%= number_to_currency_pretty @booking.sum_paid_to_owner, unit: 'kr' %></td> </tr>
 </table>
 
 <p>

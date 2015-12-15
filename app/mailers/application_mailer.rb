@@ -59,17 +59,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Du har godkjent leieforespørselen av (#{@booking.ad.title})",
-    )
-  end
-
-  def booking_accepted__to_owner booking
-    @booking = booking
-
-    mail(
-      to: @booking.user.email,
-      subject: "Plendit: Du har godkjent leieforespørselen av (#{@booking.ad.title})",
-      template_name: 'booking_accepted__to_owner'
+      subject: "Plendit: Du har godkjent leieforespørselen av (#{@booking.ad.title})"
     )
   end
 
@@ -78,8 +68,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.from_user.email,
-      subject: "Plendit: Leieforespørselen av (#{@booking.ad.title}) ble godkjent",
-      template_name: 'booking_accepted__to_renter'
+      subject: "Plendit: Leieforespørselen av (#{@booking.ad.title}) ble godkjent"
     )
   end
 
@@ -128,8 +117,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Leieforholdet med (#{@booking.ad.title}) slutter snart",
-      template_name: 'booking_starts_at_soon__to_owner'
+      subject: "Plendit: Leieforholdet med (#{@booking.ad.title}) slutter snart"
     )
   end
 
@@ -139,8 +127,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.from_user.email,
-      subject: "Plendit: Leieforholdet med (#{@booking.ad.title}) starter snart",
-      template_name: 'booking_starts_at_soon__to_renter'
+      subject: "Plendit: Leieforholdet med (#{@booking.ad.title}) starter snart"
     )
   end
 

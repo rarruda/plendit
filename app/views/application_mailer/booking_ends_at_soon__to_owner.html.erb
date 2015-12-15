@@ -9,8 +9,8 @@
   Minner om at ditt leieforhold med <%= link_to sender_user.first_name, user_url( sender_user ) %> og <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>  slutter om 12 timer.
 </p>
 <table>
-  <tr> <td>Fra:</td> <td><%= @booking.starts_at %></td> </tr>
-  <tr> <td>Til:</td> <td><%= @booking.ends_at %></td> </tr>
+  <tr> <td>Fra:</td> <td><%= l @booking.starts_at, format: :shorter_datetime %></td> </tr>
+  <tr> <td>Til:</td> <td><%= l @booking.ends_at, format: :shorter_datetime %></td> </tr>
   <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
 </table>
 <p>
@@ -23,5 +23,5 @@
   Om uthellet skulle være ute må dere huske  å fylle ut <%= link_to 'skadeskjema', users_accident_reports_url %> innen 48 timer etter skaden har skjedd.
 </p>
 <p>
-  <b>Viktig:</b> Du må gå over <%= link_to @booking.ad.title, ad_url( @booking.ad ) %> sammen med leietaker og se om eventuelle skader som er registret samsvarer med tilstanden på objektet. Dersom ikke, må eventuelle nye skader registreres i skadefeltet i bookingen. Leier du et kjøretøy, er det også viktig at dere registrerer antall kjørte kilometer ved leiestart og leieslutt og eventuelle bompasseringer, bøter og drivstoffkostander ved leieslutt. 
+  <b>Viktig:</b> Du må gå over <%= link_to @booking.ad.title, ad_url( @booking.ad ) %> sammen med leietaker og se om eventuelle skader som er registret samsvarer med tilstanden på objektet. Dersom ikke, må eventuelle nye skader registreres i skadefeltet i bookingen. Leier du et kjøretøy, er det også viktig at dere registrerer antall kjørte kilometer ved leiestart og leieslutt og eventuelle bompasseringer, bøter og drivstoffkostander ved leieslutt.
 </p>

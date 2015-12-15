@@ -1,0 +1,37 @@
+<%
+   sender_user  = @booking.from_user
+   rcpt_user    = @booking.user
+%>
+<p>
+  Hei, <%= rcpt_user.first_name %>
+</p>
+<p>
+  <%= link_to sender_user.first_name, user_url( sender_user ) %> har akseptert din forespørsel om å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>.
+</p>
+<table>
+  <tr> <td>Fra:</td> <td><%= l @booking.starts_at, format: :shorter_datetime %></td> </tr>
+  <tr> <td>Til:</td> <td><%= l @booking.ends_at, format: :shorter_datetime %></td> </tr>
+  <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
+  <tr> <td></td> <td></td> </tr>
+  <tr> <td>Utbetalt til deg:</td> <td><%= number_to_currency_pretty @booking.sum_paid_by_renter, unit: 'kr' %></td> </tr>
+</table>
+
+<p>
+  Henteadresse: <%= @booking.ad.location.to_s_pretty %>
+</p>
+
+<p>
+  Husk å avtale et hente- og leveringstidspunkt.
+</p>
+
+<p>
+  Om du har spørsmål til <%= link_to @booking.from_user.first_name, user_url( @booking.from_user ) %> kan du kontakte han på telefonnummer <%= @booking.from_user.phone_number %>.
+</p>
+
+<p>
+  Om uthellet skulle være ute må dere huske  å fylle ut <%= link_to 'skadeskjema', users_accident_reports_url %> innen 48 timer etter skaden har skjedd.
+</p>
+
+<p>
+  Viktig: Du må gå over utleieobjektet sammen med utleier og se om eventuelle skader som er registret samsvarer med tilstanden på objektet. Dersom ikke, må eventuelle nye skader registreres i skadefeltet i bookingen. Leier du et kjøretøy, er det også viktig at dere registrer antall kjørte kilometer ved leiestart og leieslutt og eventuelle bompasseringer, bøter og drivstoffkostander ved leieslutt.
+</p>

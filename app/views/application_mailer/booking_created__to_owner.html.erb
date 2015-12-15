@@ -9,16 +9,12 @@
   <%= link_to sender_user.first_name, user_url( sender_user ) %> ønsker å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>. Du kan akseptere forespørselen direkte i denne e-posten ved å bruke knappen under, eller du kan gå til bookingen og eventuelt akseptere derfra.
 </p>
 <table>
-  <tr> <td>Fra:</td> <td><%= @booking.starts_at %></td> </tr>
-  <tr> <td>Til:</td> <td><%= @booking.ends_at %></td> </tr>
+  <tr> <td>Fra:</td> <td><%= l @booking.starts_at, format: :shorter_datetime %></td> </tr>
+  <tr> <td>Til:</td> <td><%= l @booking.ends_at, format: :shorter_datetime %></td> </tr>
   <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
   <tr> <td></td> <td></td> </tr>
-  <tr> <td>Utbetalt til deg:</td> <td><%= number_to_currency_pretty @booking.sum_paid_to_owner %></td> </tr>
+  <tr> <td>Utbetalt til deg:</td> <td><%= number_to_currency_pretty @booking.sum_paid_to_owner, unit: 'kr' %></td> </tr>
 </table>
-
-<p>
-  Utbetalt til deg:   Kr <%= @booking.sum_paid_to_owner %>
-</p>
 
 <p>
   Aksepter (blå knapp)      <%= link_to 'Gå til booking', booking_url( @booking )%>
