@@ -183,11 +183,11 @@ window.controllers.resultMap = {
         function onGeolocation(pos) {
             var location = {lat: pos.coords.latitude, lng: pos.coords.longitude};
             map.setCenter(location);
-            map.setZoom(14);
+            map.setZoom(13);
         }
 
-        function onGeoFail() {
-            console.log("geolocation failed or not allowed");
+        function onGeoFail(err) {
+            console.log("geolocation failed or not allowed", err);
         }
 
         function notifyWillChange() {
