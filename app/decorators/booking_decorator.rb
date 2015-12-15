@@ -34,10 +34,10 @@ class BookingDecorator < Draper::Decorator
         in_progress:   'pågår',
         ended:         'fullført',
         archived:      'arkivert',
-        aborted:       'avbrutt',
-        cancelled:     'avbrutt',
+        aborted:       'avlyst',
+        cancelled:     'avlyst',
         declined:      'avslått',
-        disputed:      'avlyst',
+        disputed:      'avbrutt',
         admin_paused:  'stoppet av administrator'
     }
     status_names[status.to_sym]
@@ -85,15 +85,15 @@ class BookingDecorator < Draper::Decorator
         "Leieforholdet er arkivert."
       when 'cancelled'
         if is_owner
-          "Du har avbrutt leieforholdet."
+          "Du har avlyst leieforholdet."
         else
-          "#{from_name} har avbrutt leieforholdet."
+          "#{from_name} har avlyst leieforholdet."
         end
       when 'aborted'
         if is_owner
-          "#{from_name} har avbrutt forespørselen."
+          "#{from_name} har avlyst forespørselen."
         else
-          "Du har avbrutt forespørselen."
+          "Du har avlyst forespørselen."
         end
       when 'declined'
         if is_owner
@@ -102,7 +102,7 @@ class BookingDecorator < Draper::Decorator
           "#{to_name} takket nei til din forespørsel."
         end
       when 'disputed'
-        "Leieforholdet ble avlyst."
+        "Leieforholdet ble avbrutt."
       when 'admin_paused'
         "Annonse ble sperret av en administrator."
       end
