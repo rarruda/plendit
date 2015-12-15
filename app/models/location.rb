@@ -1,6 +1,7 @@
 class Location < ActiveRecord::Base
   belongs_to :user
 
+  has_many :ads
 
   validates :user, presence: true
   validates :address_line, presence: { mesage: "Addresse kan ikke være blank." }
@@ -30,6 +31,14 @@ class Location < ActiveRecord::Base
 
   def is_geocoded?
     ( self.lat.is_a? Numeric ) && ( self.lon.is_a? Numeric ) && ( ['high', 'mid', 'low', 'post_code'].include? self.geo_precision )
+  end
+
+  def delete!
+    self.status = 'deleted'
+  end
+
+  def in_use?
+    self.ads.any?
   end
 
   private

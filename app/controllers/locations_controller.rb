@@ -53,7 +53,7 @@ class LocationsController < ApplicationController
   # DELETE /locations/1
   # DELETE /locations/1.json
   def destroy
-    @location.deleted!
+    @location.delete! unless @location.in_use?
 
     redirect_to edit_users_path(:anchor => 'locations')
   end
