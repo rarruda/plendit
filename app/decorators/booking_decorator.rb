@@ -85,15 +85,15 @@ class BookingDecorator < Draper::Decorator
         "Leieforholdet er arkivert."
       when 'cancelled'
         if is_owner
-          "Du har avlyst leieforholdet."
+          "Du har avbrutt leieforholdet."
         else
-          "#{from_name} har avlyst leieforholdet."
+          "#{from_name} har avbrutt leieforholdet."
         end
       when 'aborted'
         if is_owner
-          "#{from_name} har trukket tilbake forespørselen."
+          "#{from_name} har avbrutt forespørselen."
         else
-          "Du trakk tilbake forespørselen."
+          "Du har avbrutt forespørselen."
         end
       when 'declined'
         if is_owner
@@ -102,7 +102,7 @@ class BookingDecorator < Draper::Decorator
           "#{to_name} takket nei til din forespørsel."
         end
       when 'disputed'
-        "Det er registrert en klage på leieforholdet."
+        "Leieforholdet ble avlyst."
       when 'admin_paused'
         "Annonse ble sperret av en administrator."
       end
