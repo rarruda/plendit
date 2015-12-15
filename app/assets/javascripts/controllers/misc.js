@@ -292,7 +292,6 @@ window.controllers.hitCount = {
         eventBus.on('new-search-result', onSearchResult);
         eventBus.on('old-search-result', onSearchResult);
         eventBus.on('search-started', onSearchStarted);
-        eventBus.on('map-will-change', onSearchStarted);
 
         function onSearchResult(result) {
             if (result.paging.total_count == 0) {

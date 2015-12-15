@@ -150,8 +150,6 @@ window.controllers.resultMap = {
 
             var map = new google.maps.Map(ele, mapOptions);
             google.maps.event.addListener(map, 'idle', onAreaChanged);
-            google.maps.event.addListener(map, 'center_changed', notifyWillChange);
-            google.maps.event.addListener(map, 'zoom_changed', notifyWillChange);
             google.maps.event.addListener(map, 'click', onMapClick);
 
             var showHereButton = createShowHereButton();
@@ -190,19 +188,26 @@ window.controllers.resultMap = {
             console.log("geolocation failed or not allowed", err);
         }
 
-        function notifyWillChange() {
-            eventBus.emit('map-will-change');
-        }
-
         function onLayoutChanged() {
             google.maps.event.trigger(map, 'resize');
         }
 
         function onAreaChanged() {
             var bounds = map.getBounds();
+
             var ne = bounds.getNorthEast();
             var sw = bounds.getSouthWest();
             var zl = map.getZoom();
+
+            if (ne.lat() === sw.lat()) {
+                // guard against weird resize bug where the map listens
+                // for resizes on its own, which triggers idle, which
+                // would trigger search, thus getting 0 hits, as the
+                // map area is 0 pixels when map is hidden.
+                // Hopefully this test is good enough.
+                return;
+            }
+
 
             searchService.setZoom({
                 zl: zl
