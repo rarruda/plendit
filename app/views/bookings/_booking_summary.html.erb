@@ -11,10 +11,10 @@
     <div class="booking-summary__row">
         <% if current_user.owns_booking_item? @booking %>
             <strong>Totalt utbetalt:</strong>
-            <%= @booking.sum_paid_to_owner %>
+            <%= number_to_currency_pretty @booking.sum_paid_to_owner, unit: 'kr' %>
         <% else %>
             <strong>Totalt å betale:</strong>
-            <%= @booking.sum_paid_by_renter %>
+            <%= number_to_currency_pretty @booking.sum_paid_by_renter, unit: 'kr' %>
         <% end %>
     </div>
     <% if @booking.confirmed? || @booking.started? || @booking.in_progress? %>
