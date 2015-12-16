@@ -87,16 +87,28 @@ summary {
 }
 
 .status-label {
+    padding: 4px;
+    font-weight: lighter;
+    font-style: italic;
+
+    &--black {
+        background-color: #d4d4d4;
+        color: white;
+    }
+
     &--green {
-        color: $color-state-green;
+        background-color: $color-state-green;
+        color: white;
     }
 
     &--yellow {
-        color: $color-state-yellow;
+        background-color: $color-state-yellow;
+        color: black;
     }
 
     &--red {
-        color: $color-state-red;
+        background-color: $color-state-red;
+        color: white;
     }
 }
 
