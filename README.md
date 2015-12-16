@@ -359,3 +359,19 @@ rake paperclip:refresh CLASS=AdImage
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+
+* Encoding videos and frames for frontpage
+
+Videos should be in mp4 and webp format. There also needs to be
+an initial fram image to be used on mobile and while the video
+loads. The followign encodes an m2v to the right formats ands
+extracts the first frame as a jpg. Note, the "750K" value can
+be tweaked to get higher quality at the expense of larger files.
+
+```
+ffmpeg -i baatliv_04.m2v -movflags +faststart -c:v libx264 -preset slow -an -b:v 750K  baatliv_4.mp4
+ffmpeg -i baatliv_04.m2v -c:v libvpx -preset slow -s 1024x576 -qmin 0 -qmax 50 -an -b:v 750K baatliv_4.webm
+ffmpeg -i baatliv_04.m2v -vframes 1 -f image2 baatliv_4.jpg
+```
+
