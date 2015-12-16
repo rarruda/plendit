@@ -1,27 +1,5 @@
 @import "constants";
 
-.provider-box {
-    height: 48px;
-
-    &:last-of-type {
-        border-bottom: 0;
-    }
-
-    &__logo-box {
-        display: inline-block;
-        width: 90px;
-    }
-
-    &__logo {
-        height: 35px;
-        width: auto;
-        vertical-align: middle;
-    }
-
-    &__status {
-        vertical-align: middle;
-    }
-}
 
 .bubble-box {
     margin-bottom: $standard-spacing * 2;
@@ -277,4 +255,33 @@
 .rental-history-item {
     color: black;
     text-decoration: none;
+}
+
+.docs-box {
+    @extend .standard-box;
+
+    display: flex;
+
+    &__left {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    &__right {
+        flex: 0 0 auto;
+        width: 144px;
+        align-self: center;
+    }
+
+    @media (max-width: $flex-collapse) {
+        flex-direction: column;
+
+        &__left {
+            padding-bottom: $standard-spacing;
+        }
+
+        &__right {
+            align-self: flex-end;
+        }
+    }
 }

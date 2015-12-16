@@ -1,54 +1,51 @@
-<%= render layout: "gray_box", locals: {title: "Rediger tilkoblede kontoer", id: "identities"} do %>
+<%= render layout: 'gray_box', locals: {title: 'Rediger tilkoblede kontoer', id: 'identities', nopad: true} do %>
 
 <%
   providers = [
     {
       id: "facebook",
       name: 'Facebook',
-      image: 'facebook/FB-f-Logo__blue_50.png',
-      image_size: '50x50'
     },
     {
       id: "google",
       name: 'Google',
-      image: 'logos/google_50x50.png',
-      image_size: '50x50'
     },
     {
       id: "spid",
       name: 'SPID',
-      image: 'logos/spid_117x50.png',
-      image_size: '117x50'
     }
   ]
+
 
   # FIXME:
   # ** use array of identity providers or similar from config or models
 %>
-    <p>
-        Du kan koble din Plendit-konto til andre tjenester du bruker. Det gjør
-        det lettere for deg å logge inn.
-    </p>
-    <div>
-        <% providers.each do |provider| %>
-            <div class="provider-box">
-                <div class="provider-box__logo-box">
-                    <%= image_tag provider[:image], size: provider[:image_size], alt: '', class: 'provider-box__logo' %>
+    <% providers.each do |provider| %>
+        <div class="docs-box">
+            <div class="docs-box__left">
+                <h5><%= provider[:name] %></h5>
+                <div>
+                    Du kan opprette en kobling fra Plendit til din
+                    <%= provider[:name] %>-konto. Det bygger tillit
+                    hos andre brukere, samt gjør det enklere å logge
+                    inn.
                 </div>
+            </div>
+            <div class="docs-box__right">
                 <% if current_user.connected_to_provider provider[:id] %>
-                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
-                    <%= button_to identity_users_path,
-                          method: :delete, params: { 'user[identity][provider]' => provider[:id] }, class: "button u-pull-right", form_class: "u-inline" do %>
-                        Koble fra
-                    <% end %>
+                    <%= button_to 'Koble fra', identity_users_path,
+                          method: :delete,
+                          params: { 'user[identity][provider]' => provider[:id] },
+                          class: "button",
+                          form_class: "u-inline" %>                       
                 <% else %>
-                    <%= icon 'times-circle', '', class: "fa-lg u-fill-red provider-box__status" %>
-                    <%= button_to user_omniauth_authorize_path(provider[:id]), class: "button u-pull-right", form_class: "u-inline" do %>
-                        Koble til
-                    <% end %>
+                    <%= button_to 'Koble til', user_omniauth_authorize_path(provider[:id]),
+                        class: "button",
+                        form_class: "u-inline" %>                            
                 <% end %>
             </div>
-        <% end %>
-    </div>
+
+        </div>
+    <% end %>
 
 <% end %>
