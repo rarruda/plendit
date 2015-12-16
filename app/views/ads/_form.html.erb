@@ -66,8 +66,12 @@
                 <% end %>
             </div>
             <div class="u-push-down">
-                <%= f.check_box :boat_license_required %>
-                <%= f.label :boat_license_required, 'Båt over 14 fot, eller med mer enn 9,9 hestekrefter.' %> 
+                <%= f.label :boat_license_required do %>
+                    <%= f.check_box :boat_license_required %>
+                    <span class="label-body">
+                        Båt over 14 fot, eller med mer enn 9,9 hestekrefter.
+                    </span>
+                <% end %>
             </div>
         <% end %>
 
