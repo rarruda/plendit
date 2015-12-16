@@ -2,7 +2,7 @@
     <% if defined? title %>
         <h5 class="gray-box__title"><%= title %></h5>
     <% end %>
-    <div class="gray-box__body">
+    <div class="gray-box__body <%= defined?(nopad) && nopad ? "gray-box__body--nopad" : '' %>">
         <%= yield %>
     </div>
 </div>

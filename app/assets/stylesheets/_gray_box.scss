@@ -14,5 +14,9 @@
     &__body {
         padding: $standard-spacing * 2;
         padding-top: $standard-spacing;
+
+        &--nopad {
+            padding: 0;
+        }
     }
 }
