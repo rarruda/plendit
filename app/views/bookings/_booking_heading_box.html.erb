@@ -1,19 +1,21 @@
-<div class="booking-heading">
-    <div class="booking-heading__image-holder">
-        <%= image_tag ad.safe_image_url(:searchresult), class: 'booking-heading__image' %>
-    </div>
-    <div class="booking-heading__info-holder">
-        <h2 class="booking-heading__title"><%= ad.display_title %></h2>
-        <div class="booking-heading__user-box">
+<%= render layout: "gray_box", locals: {title: @booking.booking_title_for(current_user) } do %>
+    <div class="booking-heading">
+        <div class="booking-heading__image-holder">
+            <%= image_tag ad.safe_image_url(:searchresult), class: 'booking-heading__image' %>
+        </div>
+        <div class="booking-heading__info-holder">
+            <h2 class="booking-heading__title"><%= ad.display_title %></h2>
+            <div class="booking-heading__user-box">
 
-            <div class="booking-heading__avatar-holder">
-                <%= avatar_image user, :medium %>
-            </div>
-            <div class="booking-heading__details-holder">
-                <strong><%= link_to ad.user.display_name, user_path(user) %></strong>
-                <br>
-                <%= render('shared/stars.html', size: :normal, rating: user.feedback_score ) %>
+                <div class="booking-heading__avatar-holder">
+                    <%= avatar_image user, :medium %>
+                </div>
+                <div class="booking-heading__details-holder">
+                    <strong><%= link_to ad.user.display_name, user_path(user) %></strong>
+                    <br>
+                    <%= render('shared/stars.html', size: :normal, rating: user.feedback_score ) %>
+                </div>
             </div>
         </div>
     </div>
-</div>
+<% end %>
