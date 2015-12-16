@@ -11,7 +11,7 @@
                             disabled: ( ! current_user.can_rent_out?( a[:category] ) ),
                         ) do %>
                         <div class="new-ad-category-selector__icon">
-                            <%= image_tag a[:image], width: '46' %>
+                            <%= image_tag a[:image], width: a[:image_width] %>
                         </div>
                         <div class="new-ad-category-selector__title"><%= a[:title] %></div>
                     <% end %>

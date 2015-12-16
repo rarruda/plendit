@@ -99,24 +99,28 @@ Plendit::Application.config.x.ads.motor_vegvesen_baseurl = "http://www.vegvesen.
 
 Plendit::Application.config.x.ads.categories = [
   {
-    title:    'Stort og smått',
-    category: 'bap',
-    image:    'category_bap.svg'
+    title:       'Stort og smått',
+    category:    'bap',
+    image:       'category_bap.svg',
+    image_width: '36'
   },
   {
-    title:    'Kjøretøy',
-    category: 'motor',
-    image:    'category_vehicle.svg'
+    title:       'Kjøretøy',
+    category:    'motor',
+    image:       'category_vehicle.svg',
+    image_width: '42'
   },
   {
-    title:    'Eiendom',
-    category: 'realestate',
-    image:    'category_realestate.svg'
+    title:       'Eiendom',
+    category:    'realestate',
+    image:       'category_realestate.svg',
+    image_width: '36'
   },
   {
-    title:    'Båt',
-    category: 'boat',
-    image:    'category_boat.png'
+    title:       'Båt',
+    category:    'boat',
+    image:       'category_boat.png',
+    image_width: '46'
   }
 ]
 
