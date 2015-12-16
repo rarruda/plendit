@@ -185,6 +185,7 @@ class AdsController < ApplicationController
   # GET /ads/new
   def new
     @ad_categories = Rails.configuration.x.ads.categories
+    @ad_categories.map! { |e| OpenStruct.new(e) }
   end
 
   def ad_image
