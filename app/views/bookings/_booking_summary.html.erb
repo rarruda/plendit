@@ -18,7 +18,7 @@
                 <%= number_to_currency_pretty @booking.sum_paid_by_renter, unit: 'kr' %>
             <% end %>
         </div>
-        <% if @booking.confirmed? || @booking.started? || @booking.in_progress? %>
+        <% if @booking.was_ever_confirmed? %>
             <div class="booking-summary__row">
                 <strong>Mobilnummer:</strong>
                 <% if current_user.owns_booking_item? @booking %>
