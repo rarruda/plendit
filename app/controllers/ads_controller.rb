@@ -285,7 +285,8 @@ class AdsController < ApplicationController
   end
 
   def unpublish_and_edit
-    if @ad.edit!
+    # no need to force to draft status, if the ad is already it.
+    if @ad.draft? || @ad.edit!
       redirect_to edit_ad_path(@ad)
     else
       redirect_to @ad, alert: 'Ad was set to editing suspended.'
