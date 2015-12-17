@@ -3,7 +3,6 @@ include ActionView::Helpers::TextHelper
 class Ad < ActiveRecord::Base
   include AASM
   include Searchable
-  include Priceable
 
   #acts_as_ordered_taggable
   acts_as_taggable
@@ -34,6 +33,11 @@ class Ad < ActiveRecord::Base
 
   validates :body, length: { in: 5..255 , message: "Annonsen må ha en beskrivelse." },
     unless: :new_record?
+
+  validates :registration_number, presence: { message: "Annonsen må ha et gyldig båt reg.nr." },
+    unless: :new_record?,
+    if:     :boat?,
+    if:     :boat_license_required?
 
   validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Annonsen må ha et gyldig reg.nr." },
     unless: :new_record?,
