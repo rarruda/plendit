@@ -52,7 +52,7 @@ class Ad < ActiveRecord::Base
 
 
   # todo: how to validate location present before publish?
-  #validates :location, presence: true
+  #validates :location, presence: true, unless: :new_record?
 
   validates :payin_rules, presence: true, unless: :new_record?
 
