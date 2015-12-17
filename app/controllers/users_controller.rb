@@ -118,38 +118,46 @@ class UsersController < ApplicationController
 
   def private_profile
     @user = current_user
-    @documentation = self.user_verifications @user
+    @documentation = self.user_documentation @user
+    @verification = self.user_verification @user
+  end
+
+  def user_verification user
+    [
+      OpenStruct.new({
+        title: 'Telefonnummer',
+        preverify_prose: %q(
+          For at du skal kunne legge ut annonser eller leie
+          noe på Plendit så må telefonnummeret ditt godkjennes.
+          Vi har sendt deg en SMS. Hvis du ikke har mottatt den
+          kan du trykke på "verifiser" lenken for å få tilsendt
+          en ny.
+        ),
+        preverify_action: 'Verifiser',
+        postverify_prose: 'Yay. tlf verified',
+        state: user.phone_verified? ? :verified : :missing,
+        path: verify_mobile_users_path,
+      }),
+      OpenStruct.new({
+        title: 'E-post',
+        preverify_prose: %q(
+          For at du skal kunne legge ut annonser eller leie
+          noe på Plendit så må e-post adressen din godkjennes.
+          Vi har sendt deg en epost. Hvis du ikke har mottatt den
+          kan du trykke på "verifiser" lenken for å få tilsendt
+          en ny.
+        ),
+        preverify_action: 'Verifiser',
+        postverify_prose: 'Yay. Email verified',
+        state: user.email_verified? ? :verified : :missing,
+        rejection_reason: nil,
+        path: verify_email_users_path,
+      })
+    ]
   end
 
   def user_documentation user
     [
-      # OpenStruct.new({
-      #   title: 'Telefonnummer',
-      #   preverify_prose: %q(
-      #     For at du skal kunne legge ut annonser eller leie
-      #     noe på Plendit så må telefonnummeret ditt godkjennes.
-      #   ),
-      #   preverify_action: 'Verifiser',
-      #   postverify_prose: 'Yay. tlf verified',
-      #   pending_prose: 'Til kontroll',
-      #   rejected_prose: 'Ikke godkjent!',
-      #   state: user.phone_verified? ? :verified : :missing,
-      #   path: verify_mobile_users_path,
-      # }),
-      # OpenStruct.new({
-      #   title: 'E-post',
-      #   preverify_prose: %q(
-      #     For at du skal kunne legge ut annonser eller leie
-      #     noe på Plendit så må e-post adressen din godkjennes.
-      #   ),
-      #   preverify_action: 'Verifiser',
-      #   postverify_prose: 'Yay. Email verified',
-      #   pending_prose: 'Til kontroll',
-      #   rejected_prose: 'Ikke godkjent!',
-      #   state: user.email_verified? ? :verified : :missing,
-      #   rejection_reason: nil,
-      #   path: verify_email_users_path,
-      # }),
       OpenStruct.new({
         title: 'Førerkort',
         preverify_prose: %q(

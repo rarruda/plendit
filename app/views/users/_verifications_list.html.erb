@@ -1,9 +1,29 @@
 <%= render layout: "gray_box", locals: {title: 'Min dokumentasjon', nopad: true} do %>
 
+    <% @verification.each do |doc| %>
+        <div class="docs-box">
+            <div class="docs-box__left">
+                <h5><%= doc.title %></h5>
+                <div>
+                    <% if doc.state == :verified %>
+                        <%= doc.postverify_prose %>
+                    <% else %>
+                        <%= doc.preverify_prose %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="docs-box__right">
+                <% unless doc.state == :verified %>
+                    <%= link_to doc.preverify_action, doc.path %>
+                <% end %>
+            </div>
+        </div>
+    <% end %>
+
     <% @documentation.each do |doc| %>
         <div class="docs-box">
             <div class="docs-box__left">
-                <h5><%= doc.title %> <%= doc.state %> </h5>
+                <h5><%= doc.title %></h5>
                 <div>
                     <% if doc.state == :verified %>
                         <%= doc.postverify_prose %>
