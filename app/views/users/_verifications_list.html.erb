@@ -1,26 +1,29 @@
-<%= render layout: "gray_box", locals: {title: 'Min dokumentasjon'} do %>
-    <div class="user-verifications">
-        <% @verifications.each do |v| %>
-            <div class="verification-item u-push-down-only">
-                <p class="verification-item__status">
-                    <%= v.title %> <%= verification_state_label v.state %>
-                </p>
-                <% if v.rejected %>
-                    <p class="verification-item__rejection">
-                        <small><span><b>Årsak:</b></span> <%= v.rejection_reason || 'Ingen årsak gitt' %></small>
-                    </p>
-                <% end %>
+<%= render layout: "gray_box", locals: {title: 'Min dokumentasjon', nopad: true} do %>
 
-                <% if v.rejected || v.state == :missing || v.state == :required %>
-                    <p class="verification-item__link">
-                        <%= link_to v.path do %>
-                            <%= v.question? ? icon_question : icon_verification_missing %>
-                            <%= v.link_text || 'Last opp' %>
-                        <% end %>
-                    </p>
+    <% @documentation.each do |doc| %>
+        <div class="docs-box">
+            <div class="docs-box__left">
+                <h5><%= doc.title %> <%= doc.state %> </h5>
+                <div>
+                    <% if doc.state == :verified %>
+                        <%= doc.postverify_prose %>
+                    <% elsif  doc.state == :pending %>
+                        <%= doc.pending_prose %>
+                    <% elsif  doc.state == :rejected %>
+                        <%= doc.rejected_prose %>
+                        <i>
+                            <%= doc.rejection_reason %>
+                        </i>
+                    <% else %>
+                        <%= doc.preverify_prose %>
+                    <% end %>
+                </div>
+            </div>
+            <div class="docs-box__right">
+                <% unless doc.state == :verified || doc.state == :pending %>
+                    <%= link_to doc.preverify_action, doc.path %>
                 <% end %>
             </div>
-        <% end %>
-        <%= render partial: 'privacy_box' %>
-    </div>
+        </div>
+    <% end %>
 <% end %>

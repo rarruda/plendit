@@ -118,51 +118,83 @@ class UsersController < ApplicationController
 
   def private_profile
     @user = current_user
-    @verifications = self.user_verifications @user
+    @documentation = self.user_verifications @user
   end
 
-  def user_verifications user
+  def user_documentation user
     [
-      OpenStruct.new({
-        title: 'Telefonnummer',
-        state: user.phone_verified? ? :verified : :required,
-        rejected: false,
-        rejection_reason: nil,
-        path: verify_mobile_users_path,
-        link_text: 'Bekreft telefonnummer nå',
-        question?: true
-
-      }),
-      OpenStruct.new({
-        title: 'E-post',
-        state: user.email_verified? ? :verified : :required,
-        rejected: false,
-        rejection_reason: nil,
-        path: verify_email_users_path,
-        link_text: 'Ikke mottatt verifiseringslink?',
-        question?: true
-      }),
+      # OpenStruct.new({
+      #   title: 'Telefonnummer',
+      #   preverify_prose: %q(
+      #     For at du skal kunne legge ut annonser eller leie
+      #     noe på Plendit så må telefonnummeret ditt godkjennes.
+      #   ),
+      #   preverify_action: 'Verifiser',
+      #   postverify_prose: 'Yay. tlf verified',
+      #   pending_prose: 'Til kontroll',
+      #   rejected_prose: 'Ikke godkjent!',
+      #   state: user.phone_verified? ? :verified : :missing,
+      #   path: verify_mobile_users_path,
+      # }),
+      # OpenStruct.new({
+      #   title: 'E-post',
+      #   preverify_prose: %q(
+      #     For at du skal kunne legge ut annonser eller leie
+      #     noe på Plendit så må e-post adressen din godkjennes.
+      #   ),
+      #   preverify_action: 'Verifiser',
+      #   postverify_prose: 'Yay. Email verified',
+      #   pending_prose: 'Til kontroll',
+      #   rejected_prose: 'Ikke godkjent!',
+      #   state: user.email_verified? ? :verified : :missing,
+      #   rejection_reason: nil,
+      #   path: verify_email_users_path,
+      # }),
       OpenStruct.new({
         title: 'Førerkort',
+        preverify_prose: %q(
+          For at du skal kunne leie kjøretøy på Plendit må
+          førerkort godkjennes.
+        ),
+        preverify_action: 'Last opp',
+        postverify_prose: 'Woo. Førerkort verified',
+        pending_prose: 'Til kontroll',
+        rejected_prose: 'Ikke godkjent!',
         state: user.drivers_license_status,
-        rejected: user.drivers_license_status == :rejected,
         rejection_reason: user.drivers_license_rejection_reason,
         path: verify_drivers_license_users_path
       }),
       OpenStruct.new({
         title: 'Identitetsbevis',
+        preverify_prose: %q(
+          For at du skal kunne leie eiendom på Plendit må en
+          gylidg form for identitetsbevis godkjennes.
+          Førerkort vil automatisk gjelde som identitetsbevis.
+        ),
+        preverify_action: 'Last opp',
+        postverify_prose: 'Woo. ID-kort verified',
+        pending_prose: 'Til kontroll',
+        rejected_prose: 'Ikke godkjent!',
         state: user.drivers_license_status == :verified || user.id_card_status == :verified ? :verified : user.id_card_status,
-        rejected: user.id_card_status == :rejected,
         rejection_reason: user.drivers_license_rejection_reason,
         path: verify_id_card_users_path
       }),
       OpenStruct.new({
         title: 'Båtførerbevis',
+        preverify_prose: %q(
+          For at du skal kunne leie en båt på Plendit trenger
+          vi båtførerbevis, samt en egenerklæring på at du kan
+          føre båt.
+        ),
+        preverify_action: 'Last opp',
+        postverify_prose: 'Woo. Verified boat licese',
+        pending_prose: 'Til kontroll',
+        rejected_prose: 'Ikke godkjent!',
         state: user.boat_rental_allowed? ? :verified : user.boat_license_status,
-        rejected: user.boat_license_status == :rejected,
         rejection_reason: user.boat_license_rejection_reason,
         path: verify_boat_license_users_path
       })
+      # todo: Add payment card.
     ]
   end
 
