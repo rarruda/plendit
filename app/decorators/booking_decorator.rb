@@ -109,19 +109,17 @@ class BookingDecorator < Draper::Decorator
     end
   end
 
-  def booking_title_for current_user
+  def booking_title_for user
     if self.was_ever_confirmed?
-      case current_user.owns_booking_item? self
-      when true
+      if user.owns_booking_item? self
         "Leieforhold med #{self.from_user.display_name}"
-      when false
+      else
         "Leieforhold med #{self.user.display_name}"
       end
     else
-      case current_user.owns_booking_item? self
-      when true
+      if user.owns_booking_item? self
         "Leieforespørsel fra #{self.from_user.display_name}"
-      when false
+      else
         "Leieforespørsel til #{self.user.display_name}"
       end
     end
