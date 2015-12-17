@@ -60,6 +60,10 @@ class Booking < ActiveRecord::Base
 
   validate :validate_user_payment_card_belongs_to_from_user
 
+  # write validation to check that the from_user has enough id
+  # to be able to create a valid booking:
+  validate :validate_from_user_can_create_booking
+
 
   before_validation :align_times, on: :create
   before_validation :set_guid,    on: :create
@@ -329,6 +333,10 @@ class Booking < ActiveRecord::Base
 
   def validate_ends_at
       errors.add(:ends_at, "Til dato kan ikke være mer enn 1 år frem i tid.") if self.ends_at > 12.months.from_now
+  end
+
+  def validate_from_user_can_create_booking
+    errors.add(:ends_at, "TRANSLATEME: you are missing some form of validation to create this booking.") unless self.from_user.can_rent? self.ad.category
   end
 
   # Comparable
