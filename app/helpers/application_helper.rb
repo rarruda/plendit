@@ -22,10 +22,10 @@ module ApplicationHelper
 
   # takes the internal integer monetary representation: 1043 and converts
   #  and converts it to the a decimal (humanly formatted number, eg: 10.43)
-  def integer_to_decimal(num)
-    return nil if num.nil?
-    #raise if not num.is_a? Integer
-    ( ( num / 100).to_i + ( num / 100.0 ).modulo(1) )
+  def integer_to_decimal(i_num)
+    return nil if i_num.nil?
+    #raise if not i_num.is_a? Integer
+    ( ( i_num / 100).to_i + ( i_num / 100.0 ).modulo(1) )
   end
 
   # takes a decimal (humanly formatted number, eg: 10.43) and converts to
