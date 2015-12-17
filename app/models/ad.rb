@@ -37,12 +37,10 @@ class Ad < ActiveRecord::Base
   validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Annonsen må ha et gyldig reg.nr." },
     unless: :new_record?,
     if:     :motor?
-    #if:     "self.motor? || self.boat?"
 
   validates :registration_group, presence: { message: "Kjøretøyet må ha en underkategori."},
     unless: :new_record?,
     if:     :motor?
-    #if:     "self.motor? || self.boat?"
 
   validates :estimated_value, numericality: { less_than: 250_000_00, allow_nil: true, message: "Båt kan ha en maks antatt verdi på 250.000 kroner."},
     unless: :new_record?,
