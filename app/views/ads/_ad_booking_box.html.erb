@@ -19,7 +19,7 @@
                 <div class="ad-booking-box__button-holder">
                     <%= button_tag("Gå til booking", disabled: ( current_user.present? && !(current_user.can_rent? @ad.category) ), class: "u-push-down button button-primary booking-request-form__book-button",  ) %>
                     <% if current_user.present? && ! (current_user.can_rent? @ad.category) %>
-                        <small> TRANSLATEME: beklager, men du kan ikke leie den. Det er sikker pga noe validering.. </small>
+                        <small> Du mangler dokumentasjon for å utføre denne handlingen.</small>
                     <% end %>
                 </div>
             <% end %>
