@@ -114,13 +114,13 @@ class BookingDecorator < Draper::Decorator
       if user.owns_booking_item? self
         "Leieforhold med #{self.from_user.display_name}"
       else
-        "Leieforhold med #{self.user.display_name}"
+        "Leieforhold med #{self.ad.user.display_name}"
       end
     else
       if user.owns_booking_item? self
         "Leieforespørsel fra #{self.from_user.display_name}"
       else
-        "Leieforespørsel til #{self.user.display_name}"
+        "Leieforespørsel til #{self.ad.user.display_name}"
       end
     end
   end
