@@ -12,13 +12,13 @@
             </h5>
             <div>
                 <%
-                    u = current_user == @booking.from_user ? @booking.user : booking.from_user
+                    other_user = ( current_user.id == @booking.from_user.id ) ? @booking.ad.user : @booking.from_user
                 %>
-                    <%= avatar_image(u, :medium) %>
+                    <%= avatar_image(other_user, :medium) %>
                     <div class="booking-heading__name">
-                        <%= u.display_name %>
+                        <%= other_user.display_name %>
                         <br>
-                        <%= render('shared/stars.html', rating: u.feedback_score ) %>
+                        <%= render('shared/stars.html', rating: other_user.feedback_score ) %>
                     </div>
             </div>
         </div>
