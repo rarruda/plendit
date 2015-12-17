@@ -28,7 +28,7 @@ class Ad < ActiveRecord::Base
   validates_associated :payin_rules, message: "En av prisene du har oppgitt er ugyldige."
 
   validates :user,  presence: true
-  validates :title, length: { in: 5..255 , message: "Annonsen må ha en tittel." },
+  validates :title, length: { in: 3..255 , message: "Annonsen må ha en tittel." },
     unless: :new_record?
 
   validates :body, length: { in: 5..255 , message: "Annonsen må ha en beskrivelse." },
