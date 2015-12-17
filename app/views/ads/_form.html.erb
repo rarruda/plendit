@@ -73,6 +73,11 @@
                     </span>
                 <% end %>
             </div>
+            <div class="u-push-down">
+                <label>Registreringsnummer:</label>
+                <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
+                (shows only if the checkbox above is checked)
+            </div>
         <% end %>
 
         <div class="u-push-down-only">
