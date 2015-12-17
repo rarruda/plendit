@@ -20,10 +20,18 @@ module ApplicationHelper
     pretty
   end
 
+  # takes the internal integer monetary representation: 1043 and converts
+  #  and converts it to the a decimal (humanly formatted number, eg: 10.43)
   def integer_to_decimal(num)
     return nil if num.nil?
     #raise if not num.is_a? Integer
     ( ( num / 100).to_i + ( num / 100.0 ).modulo(1) )
+  end
+
+  # takes a decimal (humanly formatted number, eg: 10.43) and converts to
+  #  the internal integer monetary representation: 1043.
+  def decimal_to_integer(d_num)
+    ( d_num.to_f * 100 ).to_i
   end
 
   # a copy of ad.to_param, needs to exist to work around ES clients
