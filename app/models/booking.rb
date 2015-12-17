@@ -336,7 +336,7 @@ class Booking < ActiveRecord::Base
   end
 
   def validate_from_user_can_create_booking
-    errors.add(:ends_at, "TRANSLATEME: you are missing some form of validation to create this booking.") unless self.from_user.can_rent? self.ad.category
+    errors.add(:ends_at, "Du mangler en form for dokumentasjon for å gjennomføre denne handlingen.") unless self.from_user.can_rent? self.ad.category
   end
 
   # Comparable
