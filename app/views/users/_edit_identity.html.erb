@@ -21,8 +21,8 @@
   # ** use array of identity providers or similar from config or models
 %>
     <% providers.each do |provider| %>
-        <div class="docs-box">
-            <div class="docs-box__left">
+        <div class="conns-box">
+            <div class="conns-box__left">
                 <h5><%= provider[:name] %></h5>
                 <div>
                     Du kan opprette en kobling fra Plendit til din
@@ -31,7 +31,7 @@
                     inn.
                 </div>
             </div>
-            <div class="docs-box__right">
+            <div class="conns-box__right">
                 <% if current_user.connected_to_provider provider[:id] %>
                     <%= button_to 'Koble fra', identity_users_path,
                           method: :delete,

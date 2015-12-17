@@ -231,7 +231,7 @@
     text-decoration: none;
 }
 
-.docs-box {
+.conns-box {
     @extend .standard-box;
 
     display: flex;
@@ -245,6 +245,37 @@
         flex: 0 0 auto;
         width: 144px;
         align-self: center;
+        text-align: right;
+    }
+
+    @media (max-width: $flex-collapse) {
+        flex-direction: column;
+
+        &__left {
+            padding-bottom: $standard-spacing;
+        }
+
+        &__right {
+            align-self: flex-end;
+        }
+    }
+}
+
+.docs-box {
+    @extend .standard-box;
+
+    display: flex;
+
+    &__left {
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    &__right {
+        flex: 0 0 auto;
+        width: 74px;
+        align-self: center;
+        text-align: center;
     }
 
     @media (max-width: $flex-collapse) {
