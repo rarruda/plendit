@@ -4,7 +4,7 @@
     </div>
     <div class="conversation-item-box__body">
         <time class="conversation-item-box__time" datetime="<%= message.updated_at.iso8601 %>">
-            <%= time_ago_in_words message.updated_at %>
+            <%= time_ago_in_words message.updated_at %> siden
         </time>
         <h5 class="conversation-item-box__title"><%= message.from_user.display_name %></h5>
         <p class="">
