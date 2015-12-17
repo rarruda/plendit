@@ -240,6 +240,14 @@ class Ad < ActiveRecord::Base
     self.payin_rules.find(&:required_rule?).payin_amount
   end
 
+  def estimated_value_in_h
+    ApplicationController.helpers.integer_to_decimal self.estimated_value
+  end
+
+  def estimated_value_in_h=(ev)
+    self.estimated_value = ApplicationController.helpers.decimal_to_integer(ev)
+  end
+
   def main_payin_rule
     self.payin_rules.find &:required_rule?
   end

@@ -61,8 +61,8 @@
             </div>
         <% when 'boat' %>
             <div class="u-push-down-only">
-                <%= f.label :estimated_value, 'Antatt verdi:' %>
-                <%= f.telephone_field( :estimated_value ) do %>
+                <%= f.label :estimated_value_in_h, 'Antatt verdi:' %>
+                <%= f.telephone_field( :estimated_value_in_h ) do %>
                 <% end %>
             </div>
             <div class="u-push-down">
@@ -75,8 +75,8 @@
             </div>
             <div class="u-push-down">
                 <label>Registreringsnummer:</label>
+                <small>(valgfritt, kun om det er aktuelt)</small>
                 <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
-                (shows only if the checkbox above is checked)
             </div>
         <% end %>
 
