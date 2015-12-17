@@ -28,7 +28,7 @@
         white-space: nowrap;
         display: inline-block;
         margin-bottom: 12px;
-    
+
         &::after {
             content: "x";
             border: solid thin #D1D1D1;
@@ -47,5 +47,5 @@
             font-weight: bold;
         }
     }
-    
+
 }

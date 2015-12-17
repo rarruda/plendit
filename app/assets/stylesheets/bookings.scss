@@ -84,7 +84,7 @@
         width: 22px;
         height: 22px;
         background-image: url(star_empty.svg);
-     
+
         &--full, &:hover {
             background-image: url(star_full.svg);
         }

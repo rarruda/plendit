@@ -43,8 +43,8 @@
                     <span>ID-kort (Mangler)</span>
                 <% end %>
             </li>
-            
-              <li>
+
+            <li>
                 <% if user.boat_license_status == :verified %>
                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
                     <span>Båtførerbevis</span>
@@ -53,8 +53,8 @@
                     <span>Båtførerbevis (Mangler)</span>
                 <% end %>
             </li>
-            
-                          <li>
+
+            <li>
                 <% if user.drivers_license_status == :verified %>
                     <%= icon 'check-circle-o', class: 'fa-lg u-fill-green profile-quality-box__icon' %>
                     <span>Førerkort</span>

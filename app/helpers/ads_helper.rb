@@ -18,7 +18,7 @@ module AdsHelper
         deleted:         'red'
     }
     colors.default = 'black'
-  
+
     color = colors[ad.status.to_sym]
     content_tag :span, ad.decorate.display_status.titlecase, class: "status-label status-label--#{color}"
   end

@@ -30,7 +30,7 @@ module BookingsHelper
         admin_paused:  'red'
     }
     colors.default = 'black'
-  
+
     color = colors[booking.status.to_sym]
     content_tag :span, booking.decorate.display_status.titlecase, class: "status-label status-label--#{color}"
   end

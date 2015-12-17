@@ -37,11 +37,11 @@
                           method: :delete,
                           params: { 'user[identity][provider]' => provider[:id] },
                           class: "button",
-                          form_class: "u-inline" %>                       
+                          form_class: "u-inline" %>
                 <% else %>
                     <%= button_to 'Koble til', user_omniauth_authorize_path(provider[:id]),
                         class: "button",
-                        form_class: "u-inline" %>                            
+                        form_class: "u-inline" %>
                 <% end %>
             </div>
 

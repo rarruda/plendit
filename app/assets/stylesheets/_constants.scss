@@ -44,7 +44,7 @@ $subtle-shadow: 0 1px 5px rgba(black, 0.1);
     padding: $standard-spacing * 2;
     border-bottom: 1px solid $color-gray-background;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    
+
     @media (max-width: $flex-collapse) {
         padding: $standard-spacing;
     }

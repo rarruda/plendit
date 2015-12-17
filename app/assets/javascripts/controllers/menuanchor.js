@@ -42,7 +42,7 @@ window.controllers.menuAnchor = {
             if (hideIt) {
                 targetBox.classList.add("u-hidden");
                 window.removeEventListener("click", hide, 'true');
-                attachorize();                
+                attachorize();
             }
         }
 

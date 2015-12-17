@@ -21,7 +21,6 @@
 
                 <%= form_for '', html: { multipart: true } do |f| %>
                     <%= f.label :image, 'Last opp bilde av identitetsbevis her:' %>
-                    
                     <%= f.file_field :image %>
                     <br>
                     <%= f.submit 'Last opp', class: 'button button-primary' %>

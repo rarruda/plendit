@@ -48,10 +48,10 @@
 
                     <% if current_user.boat_license_required? %>
                         <%= f.label :image, 'Last opp bilde av båtførerbeviset ditt her:' %>
-                        
+
                         <%= f.file_field :image %>
                     <% end %>
-                    
+
                     <% if current_user.boat_license_required? %>
                         <%= f.submit 'Last opp', class: 'button button-primary' %>
                     <% else %>
