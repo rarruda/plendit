@@ -118,7 +118,7 @@ class AdsController < ApplicationController
   def preview
   end
 
-  # GET /ads/1/pause
+  # POST /ads/1/pause
   def pause
     if @ad.pause!
       redirect_to @ad
@@ -145,7 +145,7 @@ class AdsController < ApplicationController
     end
   end
 
-  # GET /ads/1/submit_for_review
+  # POST /ads/1/submit_for_review
   def submit_for_review
     if @ad.submit_for_review!
       redirect_to @ad
@@ -154,7 +154,7 @@ class AdsController < ApplicationController
     end
   end
 
-  # GET /ads/1/approve
+  # POST /ads/1/approve
   def approve
     if @ad.approve!
       redirect_to @ad
@@ -163,7 +163,7 @@ class AdsController < ApplicationController
     end
   end
 
-  # GET /ads/1/suspend
+  # POST /ads/1/suspend
   def suspend
     if @ad.suspend!
       redirect_to '/'
