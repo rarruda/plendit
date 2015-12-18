@@ -32,7 +32,7 @@ module BookingsHelper
     colors.default = 'black'
 
     color = colors[booking.status.to_sym]
-    content_tag :span, booking.decorate.display_status.titlecase, class: "status-label status-label--#{color}"
+    content_tag :span, booking.decorate.display_status.capitalize, class: "status-label status-label--#{color}"
   end
 
 end
