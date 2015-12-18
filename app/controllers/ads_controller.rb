@@ -31,6 +31,14 @@ class AdsController < ApplicationController
     :unavailability
   ]
 
+  # these actions require the user to be site_admin:
+  before_action :require_admin_authorization, only: [
+    :approve,
+    :refuse,
+    :suspend,
+  ]
+
+  # all actions require the user to own the ad, except these:
   before_action :require_authorization, :except => [
     :create,
     :gallery,
@@ -311,6 +319,14 @@ class AdsController < ApplicationController
   def set_ad
     @ad = Ad.find(params[:id]).decorate
   end
+
+  def require_admin_authorization
+    unless current_user.is_site_admin?
+      LOG.error "User not authorized to see this page.", { ad_id: @ad.id, user_id: current_user.id }
+      raise "User not authorized to see this page."
+    end
+  end
+
 
   def require_authorization
     if not ( ( @ad and @ad.user == current_user ) or current_user.is_site_admin? )
