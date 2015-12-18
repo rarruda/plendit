@@ -167,7 +167,7 @@ class UsersController < ApplicationController
         preverify_action: 'Last opp',
         postverify_prose: 'Førerkort er godkjent',
         pending_prose: 'Til kontroll',
-        rejected_prose: 'Ikke godkjent',
+        rejected_prose: 'Ikke godkjent.',
         state: user.drivers_license_status,
         rejection_reason: user.drivers_license_rejection_reason,
         path: verify_drivers_license_users_path
@@ -182,7 +182,7 @@ class UsersController < ApplicationController
         preverify_action: 'Last opp',
         postverify_prose: 'ID-kort er godkjent',
         pending_prose: 'Til kontroll',
-        rejected_prose: 'Ikke godkjent',
+        rejected_prose: 'Ikke godkjent.',
         state: user.drivers_license_status == :verified || user.id_card_status == :verified ? :verified : user.id_card_status,
         rejection_reason: user.drivers_license_rejection_reason,
         path: verify_id_card_users_path
@@ -195,7 +195,7 @@ class UsersController < ApplicationController
         preverify_action: 'Last opp',
         postverify_prose: 'Båtførerbevis godkjent',
         pending_prose: 'Til kontroll',
-        rejected_prose: 'Ikke godkjent',
+        rejected_prose: 'Ikke godkjent.',
         state: user.boat_rental_allowed? ? :verified : user.boat_license_status,
         rejection_reason: user.boat_license_rejection_reason,
         path: verify_boat_license_users_path
