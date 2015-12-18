@@ -134,7 +134,7 @@ class UsersController < ApplicationController
           en ny.
         ),
         preverify_action: 'Verifiser',
-        postverify_prose: 'Yay. tlf verified',
+        postverify_prose: 'Telefonnummer er verifisert',
         state: user.phone_verified? ? :verified : :missing,
         path: verify_mobile_users_path,
       }),
@@ -148,7 +148,7 @@ class UsersController < ApplicationController
           en ny.
         ),
         preverify_action: 'Verifiser',
-        postverify_prose: 'Yay. Email verified',
+        postverify_prose: 'E-post er verifisert',
         state: user.email_verified? ? :verified : :missing,
         rejection_reason: nil,
         path: verify_email_users_path,
@@ -165,9 +165,9 @@ class UsersController < ApplicationController
           førerkort godkjennes.
         ),
         preverify_action: 'Last opp',
-        postverify_prose: 'Woo. Førerkort verified',
+        postverify_prose: 'Førerkort er godkjent',
         pending_prose: 'Til kontroll',
-        rejected_prose: 'Ikke godkjent!',
+        rejected_prose: 'Ikke godkjent',
         state: user.drivers_license_status,
         rejection_reason: user.drivers_license_rejection_reason,
         path: verify_drivers_license_users_path
@@ -180,9 +180,9 @@ class UsersController < ApplicationController
           Førerkort vil automatisk gjelde som identitetsbevis.
         ),
         preverify_action: 'Last opp',
-        postverify_prose: 'Woo. ID-kort verified',
+        postverify_prose: 'ID-kort er godkjent',
         pending_prose: 'Til kontroll',
-        rejected_prose: 'Ikke godkjent!',
+        rejected_prose: 'Ikke godkjent',
         state: user.drivers_license_status == :verified || user.id_card_status == :verified ? :verified : user.id_card_status,
         rejection_reason: user.drivers_license_rejection_reason,
         path: verify_id_card_users_path
@@ -190,14 +190,12 @@ class UsersController < ApplicationController
       OpenStruct.new({
         title: 'Båtførerbevis',
         preverify_prose: %q(
-          For at du skal kunne leie en båt på Plendit trenger
-          vi båtførerbevis, samt en egenerklæring på at du kan
-          føre båt.
+          For at du skal kunne leie en båt på Plendit må du være født før 1980 eller laste opp båtførerbevis.
         ),
         preverify_action: 'Last opp',
-        postverify_prose: 'Woo. Verified boat licese',
+        postverify_prose: 'Båtførerbevis godkjent',
         pending_prose: 'Til kontroll',
-        rejected_prose: 'Ikke godkjent!',
+        rejected_prose: 'Ikke godkjent',
         state: user.boat_rental_allowed? ? :verified : user.boat_license_status,
         rejection_reason: user.boat_license_rejection_reason,
         path: verify_boat_license_users_path
