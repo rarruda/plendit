@@ -1,0 +1,10 @@
+<%= link_to booking, class: 'rental-history-item' do %>
+    <%= render layout: 'image_and_content_box', locals: {ad: booking.ad} do %>
+        <% if current_user == booking.from_user %>
+            Du leide av <%= booking.user.display_name %>
+        <% else %>
+            Du leide ut til <%= booking.from_user.display_name %>
+        <% end %>
+        &bull; <%= time_ago_in_words booking.starts_at %> siden
+    <% end %>
+<% end %>
