@@ -1,41 +1,14 @@
 @import 'constants.scss';
 
 .profile-quality-box {
-    background-color: white;
-    border: 1px solid $color-gray-background;
-    box-shadow: $subtle-shadow;
-
-    &__table {
-        width: 100%;
-        margin-bottom: 0;
-    }
-
-    & &__row {
-        border-bottom: solid thin $color-gray-background;
-        padding: $standard-spacing;
-    }
-
-    & &__th {
-        border: none;
-        font-weight: normal;
-        padding: $standard-spacing;
-    }
-
-    & &__td {
-        border: none;
-        font-weight: bold;
-        padding: $standard-spacing;
-        text-align: right;
-    }
+    @extend .standard-box;
 
     &__icon {
         vertical-align: bottom;
     }
 
     &__verifications-list {
-        padding: $standard-spacing;
         list-style: none;
         margin: 0;
     }
-
 }

@@ -1,13 +1,6 @@
 @import 'constants.scss';
 
 .profile-sidebar-summary {
-    margin-top: $standard-spacing * 11;
-    padding: $standard-spacing;
-    padding-top: $standard-spacing * 2;
-    padding-bottom: $standard-spacing * 2;
-    box-shadow: $subtle-shadow;
-    border: 1px solid $color-gray-background;
-    background-color: white;
+    @extend .standard-box;
     text-align: center;
-    background-color: white;
 }
