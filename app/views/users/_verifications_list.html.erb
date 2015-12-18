@@ -3,7 +3,7 @@
     <% @verification.each do |doc| %>
         <div class="docs-box">
             <div class="docs-box__left">
-                <h5><%= doc.title %></h5>
+                <h5 class="docs-box__title"><%= doc.title %></h5>
                 <div>
                     <% if doc.state == :verified %>
                         <%= doc.postverify_prose %>
@@ -23,7 +23,7 @@
     <% @documentation.each do |doc| %>
         <div class="docs-box">
             <div class="docs-box__left">
-                <h5><%= doc.title %></h5>
+                <h5 class="docs-box__title"><%= doc.title %></h5>
                 <div>
                     <% if doc.state == :verified %>
                         <%= doc.postverify_prose %>

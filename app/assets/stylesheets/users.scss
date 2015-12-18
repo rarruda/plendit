@@ -248,6 +248,10 @@
         text-align: right;
     }
 
+    &__title {
+        padding-top: 0;
+    }
+
     @media (max-width: $flex-collapse) {
         flex-direction: column;
 
@@ -276,6 +280,10 @@
         width: 74px;
         align-self: center;
         text-align: center;
+    }
+
+    &__title {
+        padding-top: 0;
     }
 
     @media (max-width: $flex-collapse) {
