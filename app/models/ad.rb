@@ -15,6 +15,7 @@ class Ad < ActiveRecord::Base
   has_many :payin_rules, autosave: true, dependent: :destroy
   has_many :favorite_ad, dependent: :destroy
 
+  # suspended => refused
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, refused: 5, suspended: 6, deleted: 11 }
   enum category: { bap: 0, motor: 1, realestate: 2, boat: 3 }
 
@@ -104,15 +105,13 @@ class Ad < ActiveRecord::Base
     state :refuse
     state :deleted
 
+    after_all_transitions :log_status_change
+
     event :submit_for_review do
       transitions from: :draft, to: :waiting_review, guard: :valid?
-      after do
-        # FIXME: do not ad be submitted for review if location does not have a latlon.
-        LOG.error "submiting for review..."
-      end
     end
     event :approve do
-      # only approve ads which have geocoded locations.
+      # It is imperative to only approve ads which have geocoded locations.
       transitions from: :waiting_review, to: :published, guard: :is_location_geocoded?
     end
     event :refuse do
@@ -302,4 +301,7 @@ class Ad < ActiveRecord::Base
     self.payin_rules.build
   end
 
+  def log_status_change
+    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for ad_id: #{self.id}"
+  end
 end
