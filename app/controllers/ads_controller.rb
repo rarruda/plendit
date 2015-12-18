@@ -307,48 +307,48 @@ class AdsController < ApplicationController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ad
-      @ad = Ad.find(params[:id]).decorate
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ad
+    @ad = Ad.find(params[:id]).decorate
+  end
 
-    def require_authorization
-      if not ( ( @ad and @ad.user == current_user ) or current_user.is_site_admin? )
-        # throw exception. User not allowed here.
-        LOG.error "User not authorized to see this page.", { ad_id: @ad.id, user_id: current_user.id }
-        raise "User not authorized to see this page."
-      end
+  def require_authorization
+    if not ( ( @ad and @ad.user == current_user ) or current_user.is_site_admin? )
+      # throw exception. User not allowed here.
+      LOG.error "User not authorized to see this page.", { ad_id: @ad.id, user_id: current_user.id }
+      raise "User not authorized to see this page."
     end
+  end
 
-    def notify_about_approval
-      Notification.new(
-        user_id: @ad.user.id,
-        message: "Annonsen din \"#{@ad.display_title}\" er nå godkjent og publisert",
-        notifiable: @ad).save
-    end
+  def notify_about_approval
+    Notification.new(
+      user_id: @ad.user.id,
+      message: "Annonsen din \"#{@ad.display_title}\" er nå godkjent og publisert",
+      notifiable: @ad).save
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ad_params
-      params.require(:ad).permit( :title, :body, :price_in_h, :tag_list,
-        :registration_number, :registration_group, :location_id,
-        :estimated_value_in_h, :boat_license_required,
-        location_attributes:    [ :address_line, :post_code, :id ],
-        payin_rules_attributes: [ :payin_amount_in_h, :unit, :effective_from, :id, :_destroy ],
-        ad_images_attributes:   [ :image, :weight, :description, :id, :_destroy ]
-      )
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def ad_params
+    params.require(:ad).permit( :title, :body, :price_in_h, :tag_list,
+      :registration_number, :registration_group, :location_id,
+      :estimated_value_in_h, :boat_license_required,
+      location_attributes:    [ :address_line, :post_code, :id ],
+      payin_rules_attributes: [ :payin_amount_in_h, :unit, :effective_from, :id, :_destroy ],
+      ad_images_attributes:   [ :image, :weight, :description, :id, :_destroy ]
+    )
+  end
 
   def ad_admin_params
       params.require(:ad).permit( :refusal_reason )
   end
 
-    def ad_image_params
-      params.require(:ad_image).permit(:image)
-    end
+  def ad_image_params
+    params.require(:ad_image).permit(:image)
+  end
 
-    def ad_can_be_shown?
-      @ad.status == 'published' ||
-      user_signed_in? && (current_user.is_site_admin? || current_user == @ad.user)
-    end
+  def ad_can_be_shown?
+    @ad.status == 'published' ||
+    user_signed_in? && (current_user.is_site_admin? || current_user == @ad.user)
+  end
 
 end
