@@ -24,12 +24,19 @@
 
     &__button-holder {
         text-align: center;
-        padding-bottom: $standard-spacing;
     }
 
     &__period {
         font-size: 70%;
         float: right;
         margin-top: 0.5rem;
+    }
+
+    &__cant-book-prose {
+        text-align: center;
+        padding-left: $standard-spacing;
+        padding-right: $standard-spacing;
+        font-size: small;
+        margin-bottom: $standard-spacing;
     }
 }
