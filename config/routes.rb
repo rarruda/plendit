@@ -137,6 +137,7 @@ Rails.application.routes.draw do
       post 'stop'
       post 'approve'
       post 'suspend'
+      post 'refuse'
       post 'resume'
       post 'submit_for_review'
       post 'unpublish_and_edit'

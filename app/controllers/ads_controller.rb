@@ -13,6 +13,7 @@ class AdsController < ApplicationController
     :pause,
     :preview,
     :resume,
+    :refuse,
     :show,
     :stop,
     :submit_for_review,
@@ -160,6 +161,17 @@ class AdsController < ApplicationController
       redirect_to @ad
     else
       redirect_to @ad, alert: 'Ad was NOT approved.'
+    end
+  end
+
+  # POST /ads/1/refuse
+  def refuse
+    @ad.refusal_reason = ad_admin_params[:refusal_reason]
+
+    if @ad.refuse! && @ad.save
+      redirect_to pending_ad_reviews_path
+    else
+      redirect_to @ad, alert: 'Ad was NOT refused.'
     end
   end
 
@@ -325,6 +337,10 @@ class AdsController < ApplicationController
         ad_images_attributes:   [ :image, :weight, :description, :id, :_destroy ]
       )
     end
+
+  def ad_admin_params
+      params.require(:ad).permit( :refusal_reason )
+  end
 
     def ad_image_params
       params.require(:ad_image).permit(:image)
