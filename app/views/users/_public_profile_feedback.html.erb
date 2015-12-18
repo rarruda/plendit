@@ -6,8 +6,8 @@
     </div>
     <div class="public-profile-feedback__text-box">
         <h4>
-            <%= render 'shared/stars.html', rating: feedback.score %>
             <%= feedback.booking.ad.decorate.display_title %>
+            <%= render 'shared/stars.html', rating: feedback.score %>
         </h4>
         <p class="public-profile-feedback__description">
             <%= feedback.body %>
