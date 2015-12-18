@@ -39,22 +39,27 @@ $color-privacy-yellow: rgb(252, 248, 227);
 
 $subtle-shadow: 0 1px 5px rgba(black, 0.1);
 
-
-.standard-box {
+.standard-box--nested {
     padding: $standard-spacing * 2;
     border-top: 1px solid $color-gray-background;
-    border-left: 1px solid $color-gray-background;
-    border-right: 1px solid $color-gray-background;
-    box-shadow: $subtle-shadow;
     background-color: white;
     color: black;
 
-    &:last-of-type {
-        border-bottom: 1px solid $color-gray-background;
-    }
-
     @media (max-width: $flex-collapse) {
         padding: $standard-spacing;
+    }
+
+
+}
+
+.standard-box {
+    @extend .standard-box--nested;
+    border-left: 1px solid $color-gray-background;
+    border-right: 1px solid $color-gray-background;
+    box-shadow: $subtle-shadow;
+
+    &:last-of-type {
+        border-bottom: 1px solid $color-gray-background;
     }
 }
 

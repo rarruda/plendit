@@ -209,7 +209,7 @@
 }
 
 .conns-box {
-    @extend .standard-box;
+    @extend .standard-box--nested;
 
     display: flex;
 
@@ -243,7 +243,7 @@
 }
 
 .docs-box {
-    @extend .standard-box;
+    @extend .standard-box--nested;
 
     display: flex;
 
