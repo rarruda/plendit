@@ -5,7 +5,10 @@
     color: black;
     margin-top: 100px;
     padding-top: $standard-spacing * 3;
-    padding-bottom: $standard-spacing * 3;
+    xxpadding-bottom: $standard-spacing * 3;
+    text-align: center;
+
+
 
     &--nopad {
         margin-top: 0;
@@ -16,16 +19,33 @@
         padding-left: 0;
     }
 
-    &__list-item {
-        margin-bottom: 0;
-    }
+    // &__list-item {
+    //     margin-bottom: 0;
+    // }
 
-    &__list-link {
+    &__link {
         color: black;
     }
 
+    &__copyright {
+        display: inline-block;
+    }
+
+    &__left, &__right {
+        text-align: left;
+        vertical-align: top;
+        display: inline-block;
+        width: 306px;
+        // border: solid thin red;
+    }
+
     &__legaleese {
+        padding: $standard-spacing;
+        margin-top: 6px;
         color: gray;
         font-size: 90%;
+        max-width: 840px;
+        text-align: left;
+        display: inline-block;
     }
 }
