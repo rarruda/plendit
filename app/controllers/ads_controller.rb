@@ -23,7 +23,7 @@ class AdsController < ApplicationController
     :update
   ]
 
-  before_action :authenticate_user!, :except => [
+  before_action :authenticate_user!, except: [
     :gallery,
     :index,
     :search,
@@ -39,7 +39,7 @@ class AdsController < ApplicationController
   ]
 
   # all actions require the user to own the ad, except these:
-  before_action :require_authorization, :except => [
+  before_action :require_authorization, except: [
     :create,
     :gallery,
     :index,
