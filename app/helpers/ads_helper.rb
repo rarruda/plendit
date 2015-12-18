@@ -14,6 +14,7 @@ module AdsHelper
         draft:           'yellow',
         waiting_review:  'yellow',
         paused:          'yellow',
+        refused:         'red',
         stopped:         'red',
         deleted:         'red'
     }

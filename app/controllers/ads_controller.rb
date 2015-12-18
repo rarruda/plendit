@@ -175,8 +175,10 @@ class AdsController < ApplicationController
   # POST /ads/1/refuse
   def refuse
     @ad.refusal_reason = ad_admin_params[:refusal_reason]
+    @ad.refuse
 
-    if @ad.refuse! && @ad.save
+    # It's ok to save invalid models when refusing.
+    if @ad.save(validate: false)
       redirect_to pending_ad_reviews_path
     else
       redirect_to @ad, alert: 'Ad was NOT refused.'

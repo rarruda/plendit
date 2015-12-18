@@ -56,7 +56,7 @@ class Ad < ActiveRecord::Base
 
   validates :payin_rules, presence: true, unless: :new_record?
 
-  default_scope { where("ads.status NOT IN (?)", [ Ad.statuses[:refused], Ad.statuses[:suspended], Ad.statuses[:deleted] ]) }
+  default_scope { where("ads.status NOT IN (?)", [ Ad.statuses[:suspended], Ad.statuses[:deleted] ]) }
   scope :for_user, ->(user) { where( user_id: user.id ) }
   scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
   scope :waiting_review, -> { where( status: Ad.statuses[:waiting_review] ) }
@@ -65,8 +65,8 @@ class Ad < ActiveRecord::Base
 
 
 
-  # If there were any changes, except in status, set status to draft:
-  before_save :edit, unless: "self.draft? || self.changes.except('status').empty?"
+  # If there were any changes, except in status or refusal_reason, set status to draft:
+  before_save :edit, unless: "self.draft? || self.changes.except('status','refusal_reason').empty?"
 
   before_validation :build_payin_rule, if: :new_record?
 
@@ -102,7 +102,7 @@ class Ad < ActiveRecord::Base
     state :paused
     state :stopped
     state :suspended
-    state :refuse
+    state :refused
     state :deleted
 
     after_all_transitions :log_status_change
@@ -115,7 +115,7 @@ class Ad < ActiveRecord::Base
       transitions from: :waiting_review, to: :published, guard: :is_location_geocoded?
     end
     event :refuse do
-      transitions from: :waiting_review, to: :refused
+      transitions from: [:published, :waiting_review], to: :refused
       after do
         LOG.info 'ad is refused. Hopefully there is a reason so that the user can do something about it.'
       end
@@ -302,6 +302,6 @@ class Ad < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for ad_id: #{self.id}"
+    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for ad_id: #{self.id}", ad_id: self.id
   end
 end

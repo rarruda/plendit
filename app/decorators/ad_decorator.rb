@@ -39,7 +39,8 @@ class AdDecorator < Draper::Decorator
         published: "publisert",
         paused: "pauset",
         stopped: "stoppet",
-        suspended: "avslått"
+        refused: "ikke godkjent",
+        suspended: "avslått",
     }
     status_names[status.to_sym]
   end
