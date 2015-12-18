@@ -15,8 +15,7 @@ class Ad < ActiveRecord::Base
   has_many :payin_rules, autosave: true, dependent: :destroy
   has_many :favorite_ad, dependent: :destroy
 
-
-  enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, suspended: 5, deleted: 6 }
+  enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, refused: 5, suspended: 6, deleted: 11 }
   enum category: { bap: 0, motor: 1, realestate: 2, boat: 3 }
 
   enum registration_group: { not_motor: 0, car: 1, caravan: 2, scooter: 3, tractor: 4 }
@@ -56,7 +55,7 @@ class Ad < ActiveRecord::Base
 
   validates :payin_rules, presence: true, unless: :new_record?
 
-  default_scope { where("ads.status NOT IN (?)", [ Ad.statuses[:suspended], Ad.statuses[:deleted] ]) }
+  default_scope { where("ads.status NOT IN (?)", [ Ad.statuses[:refused], Ad.statuses[:suspended], Ad.statuses[:deleted] ]) }
   scope :for_user, ->(user) { where( user_id: user.id ) }
   scope :world_viewable, -> { where( status: Ad.statuses[:paused, :published] ) }
   scope :waiting_review, -> { where( status: Ad.statuses[:waiting_review] ) }
@@ -102,6 +101,7 @@ class Ad < ActiveRecord::Base
     state :paused
     state :stopped
     state :suspended
+    state :refuse
     state :deleted
 
     event :submit_for_review do
@@ -115,6 +115,13 @@ class Ad < ActiveRecord::Base
       # only approve ads which have geocoded locations.
       transitions from: :waiting_review, to: :published, guard: :is_location_geocoded?
     end
+    event :refuse do
+      transitions from: :waiting_review, to: :refused
+      after do
+        LOG.info 'ad is refused. Hopefully there is a reason so that the user can do something about it.'
+      end
+    end
+
     event :pause do
       transitions from: [:published, :stopped], to: :paused
     end
@@ -125,15 +132,13 @@ class Ad < ActiveRecord::Base
       transitions from: [:paused, :stopped], to: :published
     end
     event :edit do
-      transitions from: [:waiting_review, :published, :paused, :stopped], to: :draft
-      before do
-        LOG.info 'Preparing to edit'
-      end
+      transitions from: [:waiting_review, :published, :paused, :stopped, :refused], to: :draft
     end
-    event :suspend do #reject?
+
+    event :suspend do
       transitions to: :suspended
       after do
-        LOG.info 'ad is suspended. this is a black hole. there is no way out.'
+        LOG.info 'ad is suspended. this is a black hole. there is no way out. the use gets no feedback either.'
       end
     end
 
@@ -170,7 +175,7 @@ class Ad < ActiveRecord::Base
   end
 
   def world_viewable?
-    not ( self.stopped? or self.suspended? )
+    not ( self.stopped? or self.suspended? or self.refused? )
   end
 
   def related_ads_from_user
