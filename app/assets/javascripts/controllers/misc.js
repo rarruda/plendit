@@ -890,3 +890,11 @@ window.controllers.starRatingSelector = function(ele) {
         });
     }
 }
+
+window.controllers.regnumRevealer = function(ele) {
+    var checkbox = ele.querySelector("[data-revealer]");
+    var section = ele.querySelector("[data-hidden-section]");
+    checkbox.addEventListener("change", function(e) {
+        section.classList.toggle("u-hidden", !e.target.checked);
+    });
+}

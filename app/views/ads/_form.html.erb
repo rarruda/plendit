@@ -65,19 +65,23 @@
                 <%= f.telephone_field( :estimated_value_in_h ) do %>
                 <% end %>
             </div>
-            <div class="u-push-down">
-                <%= f.label :boat_license_required do %>
-                    <%= f.check_box :boat_license_required %>
-                    <span class="label-body">
-                        Båt over 14 fot, eller med mer enn 9,9 hestekrefter.
-                    </span>
-                <% end %>
+            <div data-controller="regnumRevealer">
+                <div class="u-push-down">
+                    <%= f.label :boat_license_required do %>
+                        <%= f.check_box :boat_license_required, data: {revealer: ''} %>
+                        <span class="label-body">
+                            Båt over 14 fot, eller med mer enn 9,9 hestekrefter.
+                        </span>
+                    <% end %>
+                </div>
+                <div class="<%= @ad.boat_license_required ? '' : 'u-hidden' %>"
+                     data-hidden-section>
+                    <label>Registreringsnummer:</label>
+                    <small>(valgfritt, kun om det er aktuelt)</small>
+                    <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
+                </div>
             </div>
-            <div class="u-push-down">
-                <label>Registreringsnummer:</label>
-                <small>(valgfritt, kun om det er aktuelt)</small>
-                <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
-            </div>
+
         <% end %>
 
         <div class="u-push-down-only">
