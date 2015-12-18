@@ -246,6 +246,12 @@ class User < ActiveRecord::Base
     bookings.sort do |a,b| b.updated_at <=> a.updated_at end
   end
 
+  def current_and_recent_bookings days = nil
+    days = 2 if days.nil?
+    bookings = self.current_bookings + self.bookings.where("bookings.updated_at > ?", days.days.ago)
+    bookings = bookings.sort do |a,b| b.updated_at <=> a.updated_at end
+  end
+
   def can_rent? category = nil
     return false unless self.mangopay_provisioned?
     return false unless ( self.email_verified? || ( self.identities.length >= 0 ) )

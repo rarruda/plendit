@@ -8,9 +8,7 @@ class BookingsController < ApplicationController
 
   # GET /me/bookings
   def index
-    # fixme: this should get current, and non-current that were updated
-    # within last 48 hours or something
-    @bookings = current_user.current_bookings
+    @bookings = current_user.current_and_recent_bookings.map &:decorate
   end
 
   # GET /me/bookings/1
