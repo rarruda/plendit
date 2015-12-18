@@ -145,7 +145,6 @@
 
 .biz-card {
     background-color: white;
-    padding: $standard-spacing;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -157,7 +156,7 @@
     }
 
     &__details {
-        padding-left: $standard-spacing;
+        padding-left: $standard-spacing * 2;
         flex-grow: 1;
    }
 }
