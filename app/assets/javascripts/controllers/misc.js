@@ -755,23 +755,7 @@ window.controllers.updateMainPriceDetails = {
         eventbus.on(eventbus.AD_FORM_SAVE_OK, onSaved);
 
         function onSaved(newState) {
-            var payin = newState.main_payin_rule;
-            var info =
-                E('div', null,
-                    E('div.main-price__row', null,
-                        E('span.main-price__label', null, "Leiegebyr: "),
-                        E('span.main-price__value', null, payin.total_fee)
-                    ),
-                    E('div.main-price__row', null,
-                        E('i', null, "Inkluderer forsikring opp til "),
-                        E('i', null, payin.max_insurance_coverage)
-                    ),
-                    E('div.main-price__row', null,
-                        E('strong.main-price__label', null, "Utbetalt til deg per dag: "),
-                        E('strong.main-price__value', null, payin.payout_amount)
-                    )
-                );
-            ele.innerHTML = info.innerHTML;
+            ele.innerHTML = newState.main_payin_rule_markup;
         }
     }
 };

@@ -293,6 +293,7 @@ class AdsController < ApplicationController
 
     @ad.valid? # we do this for side effects, so next line does something.
     @error_markup = render_to_string partial: 'ad_input_errors', formats: [:html]
+    @main_payin_rule_markup = render_to_string partial: 'payin_rules/ad_price_estimate_main.html', formats: [:html]
 
     #LOG.debug "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
