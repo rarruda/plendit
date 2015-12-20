@@ -439,6 +439,18 @@ details.u-implode-summary[open] > summary {
   }
 }
 
+.u-only-on-bigscreen {
+  display: none;
+  @media (min-width: $bigscreen) {
+    display: block;
+  }
+}
+
+@media (min-width: $bigscreen) {
+  .u-not-on-bigscreen {
+    display: none;
+  }
+}
 
 /* Misc
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
