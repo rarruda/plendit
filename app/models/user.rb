@@ -257,13 +257,13 @@ class User < ActiveRecord::Base
     return false unless ( self.email_verified? || ( self.identities.length >= 0 ) )
 
     return true if self.phone_verified? && case category
-    when :bap
+    when 'bap'
       true
-    when :realestate
+    when 'realestate'
       self.id_card_status == :verified
-    when :motor
+    when 'motor'
       self.drivers_license_status == :verified
-    when :boat
+    when 'boat'
       self.boat_rental_allowed?
     else
       LOG.error "can not let anyone rent this item, category unknown: #{category}", user_id: self.id
