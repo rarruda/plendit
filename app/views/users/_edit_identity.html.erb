@@ -15,21 +15,25 @@
       name: 'SPID',
     }
   ]
-
-
   # FIXME:
   # ** use array of identity providers or similar from config or models
 %>
+    <div class="standard-box--nested">
+        Hvis du har en konto på Facebook, hos Google eller SPiD kan
+        du koble de til Plendit-kontoen din.
+        Det bygger tillit hos andre brukere, samt gjør det enklere å
+        logge inn.
+    </div>  
+
     <% providers.each do |provider| %>
         <div class="conns-box">
             <div class="conns-box__left">
                 <h5 class="conns-box__title"><%= provider[:name] %></h5 class="conns-box__title">
-                <div>
-                    Du kan opprette en kobling fra Plendit til din
-                    <%= provider[:name] %>-konto. Det bygger tillit
-                    hos andre brukere, samt gjør det enklere å logge
-                    inn.
-                </div>
+                <% if current_user.connected_to_provider provider[:id] %>
+                    Koble fra <%= provider[:name] %>
+                <% else %>
+                    Koble til <%= provider[:name] %>
+                <% end %>
             </div>
             <div class="conns-box__right">
                 <% if current_user.connected_to_provider provider[:id] %>
