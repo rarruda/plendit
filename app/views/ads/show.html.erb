@@ -13,6 +13,10 @@
 
 <div class="container">
     <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
+    <div class="u-only-on-bigscreen">
+        <%= render partial: "ad_booking_box", locals: { ad: @ad } %>
+    </div>
+
     <div class="row">
         <div class="eight columns">
             <%= render partial: "shared/ad_title_box", locals: { ad: @ad } %>
@@ -22,7 +26,9 @@
             <%= render partial: "ad_feedback_list_section", locals: { ad: @ad } %>
         </div>
         <div class="four columns">
-            <%= render partial: "ad_booking_box", locals: { ad: @ad } %>
+            <div class="u-not-on-bigscreen">
+                <%= render partial: "ad_booking_box", locals: { ad: @ad } %>
+            </div>
         </div>
     </div>
 </div>
