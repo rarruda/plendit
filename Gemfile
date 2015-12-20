@@ -157,6 +157,9 @@ group :development, :test do
 
   # Trace every http call to the outside world that rails makes.
   gem 'httplog'
+
+  # Ruby static code analyzer:
+  gem 'rubocop'
 end
 
 group :test do

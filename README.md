@@ -340,6 +340,11 @@ Here are code style guidelines which we call recommended reading:
 https://github.com/bbatsov/rails-style-guide
 https://github.com/bbatsov/ruby-style-guide
 
+For automatically checking the compliance to the standard, use rubocop:
+https://github.com/bbatsov/rubocop
+
+For integrating it with sublime text:
+https://github.com/pderichs/sublime_rubocop
 
 * Image regeneration and format changes
 
