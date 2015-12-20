@@ -265,6 +265,8 @@ class User < ActiveRecord::Base
       self.drivers_license_status == :verified
     when :boat
       self.boat_rental_allowed?
+    else
+      LOG.error "can not let anyone rent this item, category unknown: #{category}", user_id: self.id
     end
 
     false
