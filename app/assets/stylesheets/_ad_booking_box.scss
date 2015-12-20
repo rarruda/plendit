@@ -1,17 +1,11 @@
 @import 'constants.scss';
 
 .ad-booking-box {
-    position: relative;
+    margin-top: $standard-spacing * 1;
     box-shadow: 0 0 1px rgba(black, 0.2),
                 0 1px 2px rgba(black, 0.3);
-
-    @media (min-width: $tablet) {
-        top: -45px;
-        left: -22px;
-    }
-
     &__title {
-        background-color: rgba($color-plendit-blue, 0.9);
+        background-color: $color-plendit-blue;
         color: white;
         padding: $standard-spacing*0.74 $standard-spacing;
         margin-bottom: 0;
