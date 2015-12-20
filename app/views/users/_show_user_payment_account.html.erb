@@ -1,4 +1,4 @@
-<%= render layout: "gray_box", locals: {title: "Kontonummer", id: "kontonummer"} do %>
+<%= render layout: 'gray_box', locals: {title: 'Kontonummer', id: 'kontonummer'} do %>
 
 <%- if @user.mangopay_provisionable? -%>
 
@@ -20,7 +20,7 @@
     </div>
     <div class="row">
         <div class="twelve columns">
-            <%= link_to "Oppdater", bank_account_users_path %>
+            <%= link_to 'Oppdater', bank_account_users_path %>
         </div>
     </div>
 <%- else -%>

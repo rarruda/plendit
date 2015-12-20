@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <%= render layout: "gray_box", locals: {title: 'Min profil'} do %>
+            <%= render layout: 'gray_box', locals: {title: 'Min profil'} do %>
                 <div class="biz-card">
                     <div class="biz-card__avatar">
                         <%= avatar_image current_user, :huge %>
@@ -24,11 +24,10 @@
                 </div>
             <% end %>
 
-            <%= render partial: "verifications_list" %>
+            <%= render partial: 'verifications_list' %>
 
-            <%= render partial: "edit_identity" %>
+            <%= render partial: 'edit_identity' %>
 
         </div>
     </div>
 </div>
-

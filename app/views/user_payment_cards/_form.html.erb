@@ -1,4 +1,4 @@
-<%= render layout: "gray_box", locals: {title: "Legg til kredittkort", id: "credit-card"} do %>
+<%= render layout: 'gray_box', locals: {title: 'Legg til kredittkort', id: 'credit-card'} do %>
     <div data-controller="cardInputter"
          data-card-registration-url="<%= @user_payment_card[:card_registration_url] %>"
          data-card-preregistration-data="<%= @user_payment_card[:preregistration_data] %>"
@@ -59,10 +59,10 @@
                 </div>
             </div>
 
-            <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
+            <%= image_tag 'logos/mangopay_powered_590x53.png', alt: 'Powered by MangoPay', class: '', size: '270x26' %>
         </form>
 
-        <%= form_for UserPaymentCard.new, data: { card_form: "" } do |f| %>
+        <%= form_for UserPaymentCard.new, data: { card_form: '' } do |f| %>
             <%= f.hidden_field :card_vid, data: {reg_id: ''} %>
             <%= f.hidden_field :registration_data, data: {reg_data: ''} %>
         <% end %>
@@ -70,4 +70,3 @@
     </div>
 
 <% end %>
-

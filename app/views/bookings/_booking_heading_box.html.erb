@@ -1,5 +1,4 @@
-<%= render layout: "gray_box", locals: {title: @booking.booking_title_for(current_user), nopad: true } do %>
-
+<%= render layout: 'gray_box', locals: {title: @booking.booking_title_for(current_user), nopad: true } do %>
     <div class="booking-heading">
         <div class="booking-heading__left">
             <%= image_tag ad.safe_image_url(:thumb), size: '90x60', alt: '' %>
@@ -14,17 +13,13 @@
                 <%
                     other_user = ( current_user.id == @booking.from_user.id ) ? @booking.ad.user : @booking.from_user
                 %>
-                    <%= avatar_image(other_user, :medium) %>
-                    <div class="booking-heading__name">
-                        <%= other_user.display_name %>
-                        <br>
-                        <%= render('shared/stars.html', rating: other_user.feedback_score ) %>
-                    </div>
+                <%= avatar_image(other_user, :medium) %>
+                <div class="booking-heading__name">
+                    <%= other_user.display_name %>
+                    <br>
+                    <%= render('shared/stars.html', rating: other_user.feedback_score ) %>
+                </div>
             </div>
         </div>
     </div>
-
-
-
-
 <% end %>

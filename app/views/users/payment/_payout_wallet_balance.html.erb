@@ -1,4 +1,4 @@
-<%= render layout: "gray_box", locals: {title: "Din Plendit-saldo", id: "payout_wallet_balance"} do %>
+<%= render layout: 'gray_box', locals: {title: 'Din Plendit-saldo', id: 'payout_wallet_balance'} do %>
 
   <% if current_user.mangopay_provisioned? && current_user.user_payment_account.present? %>
     <%= link_to 'Se saldo på din utbetalingskonto', payment_payout_users_path %>.</br>

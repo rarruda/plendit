@@ -1,9 +1,9 @@
-<%= render partial: "shared/personal_bar", locals: { selected: "Favoritter" } %>
+<%= render partial: 'shared/personal_bar', locals: { selected: 'Favoritter' } %>
 
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <%= render layout: "gray_box", locals: { title: 'Favoritter' } do %>
+            <%= render layout: 'gray_box', locals: { title: 'Favoritter' } do %>
                 Her finner du alle annonsene du har lagt til som favoritt.
              <% end %>
 
@@ -13,7 +13,7 @@
                         Du har ikke lagret noen favoritter ennå.
                     </p>
                 <% else %>
-                    <%= render partial: "favorite_item", collection: @favorites, as: :favorite %>
+                    <%= render partial: 'favorite_item', collection: @favorites, as: :favorite %>
                 <% end %>
             </div>
         </div>

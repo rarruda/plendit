@@ -1,10 +1,10 @@
-<%= render partial: "shared/personal_bar", locals: {selected: 'Betaling'} %>
+<%= render partial: 'shared/personal_bar', locals: {selected: 'Betaling'} %>
 
 <div class="container">
   <div class="row">
     <div class="eight columns">
-    <%= render layout: "gray_box", locals: {title: "Overføre", id: "overfoere"} do %>
-      <%= render partial: "users/payment/payout_summary_table" %>
+    <%= render layout: 'gray_box', locals: {title: 'Overføre', id: 'overfoere'} do %>
+      <%= render partial: 'users/payment/payout_summary_table' %>
 
       <%-
         if current_user.user_payment_account.present? &&
@@ -12,10 +12,10 @@
           ( @financial_transaction_payout[:amount] > @financial_transaction_payout[:fees] )
       -%>
 
-        <%= button_to "Overfør", payment_payout_users_path, class: "button" %>
+        <%= button_to 'Overfør', payment_payout_users_path, class: 'button' %>
       <%- end -%>
 
-      <%= link_to "Avbryt", payment_users_path %>
+      <%= link_to 'Avbryt', payment_users_path %>
 
       <% if @financial_transaction_payout[:fees] > 0 %>
         <hr>

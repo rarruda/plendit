@@ -1,30 +1,30 @@
-<%= render partial: "shared/personal_bar", locals: { selected: "Profil" } %>
+<%= render partial: 'shared/personal_bar', locals: { selected: 'Profil' } %>
 
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <%= render layout: "gray_box", locals: {title: "Rediger profil"} do %>
+            <%= render layout: 'gray_box', locals: {title: 'Rediger profil'} do %>
                 I feltene under kan du redigere din profil. Husk at
                 det bare er ditt fornavn og "om deg" som vises til andre brukere.
             <% end %>
             <% if @user.phone_pending_confirmation? && ! @user.unconfirmed_phone_number.blank?  %>
-                <%= render partial: "verify_sms" if Plendit::Application.config.x.application_mode.beta %>
+                <%= render partial: 'verify_sms' if Plendit::Application.config.x.application_mode.beta %>
             <% end %>
-            <%= render partial: "edit_profile" %>
-            <%= render partial: "locations/list" %>
-            <%= render partial: "edit_registration" %>
-            <%= render partial: "edit_identity" if Plendit::Application.config.x.application_mode.beta %>
+            <%= render partial: 'edit_profile' %>
+            <%= render partial: 'locations/list' %>
+            <%= render partial: 'edit_registration' %>
+            <%= render partial: 'edit_identity' if Plendit::Application.config.x.application_mode.beta %>
 
         </div>
 
         <div class="four columns">
-            <%= render layout: "gray_box"  do %>
+            <%= render layout: 'gray_box'  do %>
                 <ul>
-                    <li><%= link_to "Rediger personalia", anchor: "personal-info" %></li>
-                    <li><%= link_to "Adresser", anchor: "locations" %></li>
-                    <li><%= link_to "Bytte passord", anchor: "password" %></li>
+                    <li><%= link_to 'Rediger personalia', anchor: 'personal-info' %></li>
+                    <li><%= link_to 'Adresser', anchor: 'locations' %></li>
+                    <li><%= link_to 'Bytte passord', anchor: 'password' %></li>
                     <% if Plendit::Application.config.x.application_mode.beta %>
-                    <li><%= link_to "Rediger tilkoblede kontoer", anchor: "identities" %></li>
+                    <li><%= link_to 'Rediger tilkoblede kontoer', anchor: 'identities' %></li>
                     <% end %>
                 </ul>
             <% end %>

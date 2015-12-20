@@ -1,14 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <div class="container">
-  <div class="eight columns">
-    <% if @bookings.present? %>
-      <%= render layout: "gray_box", locals: {title: "Skademeldingskjema", id: "accident-report"} do %>
-        <%= render partial: "form" %>
-      <% end %>
-    <% else %>
-      Det finnes ingen eksisterende leieforhold. Ta kontakt med <%= mail_to Plendit::Application.config.x.customerservice.email %> hvis du har spørsmål eller opplever problemer.
-
-    <% end %>
-  </div>
+    <div class="eight columns">
+        <% if @bookings.present? %>
+            <%= render layout: 'gray_box', locals: {title: 'Skademeldingskjema', id: 'accident-report'} do %>
+                <%= render partial: 'form' %>
+            <% end %>
+        <% else %>
+            Det finnes ingen eksisterende leieforhold. Ta kontakt med <%= mail_to Plendit::Application.config.x.customerservice.email %> hvis du har spørsmål eller opplever problemer.
+        <% end %>
+    </div>
 </div>

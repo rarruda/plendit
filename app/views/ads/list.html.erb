@@ -1,20 +1,20 @@
-<%= render partial: "shared/personal_bar", locals: { selected: "Annonser" } %>
+<%= render partial: 'shared/personal_bar', locals: { selected: 'Annonser' } %>
 
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <%= render layout: "gray_box", locals: {title: "Dine annonser"} do %>
+            <%= render layout: 'gray_box', locals: {title: 'Dine annonser'} do %>
                 <p>
                     Her finner du en oversikt over dine annonser. Her kan du
                     se hvilke annonser som er aktive eller inaktive.
                     Om du ønsker å endre selve annonsen, kan du gjøre
                     dette ved å klikke på annonsen det gjelder.
                 </p>
-                <%= button_to "Legg ut en ny annonse", new_ad_path, method: "get", class: "button button-primary" %>
+                <%= button_to 'Legg ut en ny annonse', new_ad_path, method: 'get', class: 'button button-primary' %>
             <% end %>
 
             <section class="u-push-down">
-                <%= render partial: "owned_ad_item", collection: @ads, as: 'ad' %>
+                <%= render partial: 'owned_ad_item', collection: @ads, as: 'ad' %>
             </section>
         </div>
     </div>

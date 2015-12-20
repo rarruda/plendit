@@ -1,8 +1,8 @@
-<%= render layout: "gray_box", locals: {title: "Rediger personalia", id: "personal-info"} do %>
+<%= render layout: 'gray_box', locals: {title: 'Rediger personalia', id: 'personal-info'} do %>
 
     <%- if @user.errors.any? -%>
         <div>
-            Følgende feil forhindret deg i å oppdatere profilen din: <%= pluralize(@user.errors.count, "error") %>
+            Følgende feil forhindret deg i å oppdatere profilen din: <%= pluralize(@user.errors.count, 'error') %>
             <ul>
                 <% @user.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
@@ -37,14 +37,14 @@
         <div class="row">
             <div class="two-thirds column">
                 <%= f.label :nationality, 'Statsborgerskap:' %>
-                <%= f.country_select( :nationality, priority_countries: ["NO", "SE", "DK", "FI", "PL", "DE"], format: :with_flag) %>
+                <%= f.country_select( :nationality, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
             </div>
         </div>
 
         <div class="row">
             <div class="two-thirds column">
                 <%= f.label :country_of_residence, 'Bosatt i:' %>
-                <%= f.country_select( :country_of_residence, priority_countries: ["NO", "SE", "DK", "FI", "PL", "DE"], format: :with_flag) %>
+                <%= f.country_select( :country_of_residence, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
             </div>
         </div>
 
@@ -81,7 +81,7 @@
             <div class="twelve columns">
                 <% if @user.phone_pending_confirmation? %>
                     <div>
-                        <%= icon 'times-circle-o', class: "fa-lg u-fill-red" %>
+                        <%= icon 'times-circle-o', class: 'fa-lg u-fill-red' %>
                         <small>
                             Telefonnummer <%= @user.unconfirmed_phone_number %> er ikke bekreftet!
                             <% if not @user.unconfirmed_phone_number.blank? %>
@@ -106,8 +106,8 @@
         </p>
         <div class="row">
             <div class="eight columns">
-                <%= f.label :home_address_line, "Gateadresse:" %>
-                <%= f.text_field :home_address_line, class: "u-full-width" %>
+                <%= f.label :home_address_line, 'Gateadresse:' %>
+                <%= f.text_field :home_address_line, class: 'u-full-width' %>
             </div>
         </div>
         <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
@@ -126,7 +126,7 @@
 
         <div class="row u-push-down">
             <div class="three columns">
-              <%= render('shared/avatar.html', user: @user, size: "huge") %>
+              <%= render('shared/avatar.html', user: @user, size: 'huge') %>
             </div>
             <div class="nine columns">
               <p>
@@ -155,7 +155,7 @@
 
         <div class="row">
             <div class="twelve columns">
-                <%= f.submit "Oppdater", class: "u-pull-right button" %>
+                <%= f.submit 'Oppdater', class: "u-pull-right button" %>
             </div>
         </div>
     <% end %>
