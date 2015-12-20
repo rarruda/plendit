@@ -1,6 +1,5 @@
 <section class="ad-copy-section">
-    <h4>Annonseinfo</h4>
-    <div class="ad-copy-section__body">
+    <%= render layout: 'gray_box', locals: {title: 'Annonseinfo'} do %>
         <%= simple_format h(ad.body) %>
-    </div>
+    <% end %>
 </section>
