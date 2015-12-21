@@ -12,8 +12,7 @@
     </div>
     <div class="feedback-box__feedback">
         <label class="feedback-box__star-label">Stjerner:</label>
-        <%= render('shared/stars.html', rating: 4, size: :small ) %>
-
+        <%= stars(4, :small) %>
         <label class="u-full-width">Tilbakemelding:</label>
         <textarea class="u-full-width"></textarea>
         <button class="button button-primary u-pull-right feedback-box__submit">Gi tilbakemelding</button>

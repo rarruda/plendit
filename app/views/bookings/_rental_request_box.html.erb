@@ -11,7 +11,7 @@
             <br>
             <%= booking.user.display_name %>
             <br>
-            <%= render('shared/stars.html', rating: booking.user.feedback_score, size: :small ) %>
+            <%= stars(booking.user.feedback_score, :small) %>
         </div>
     </div>
     <%= render partial: 'show_price', locals: { params: params } %>

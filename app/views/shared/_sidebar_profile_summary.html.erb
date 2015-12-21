@@ -1,5 +1,5 @@
 <div class="profile-sidebar-summary u-push-down">
     <%= avatar_image user, :huge %>
     <p><%= user.display_name %></p>
-    <%= render('shared/stars.html', rating: user.feedback_score, num_ratings: user.feedback_score_count) %>
+    <%= stars(user.feedback_score, :medium, user.feedback_score_count) %>
 </div>

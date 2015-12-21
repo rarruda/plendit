@@ -10,7 +10,7 @@
         <div>
             <%= avatar_image_from_url ad.user.avatar_url, :small %>
             <br>
-            <%= render('shared/stars.html', rating: ad.user.rating, size: :tiny ) %>
+            <%= stars(ad.user.rating, :tiny) %>
         </div>
     </div>
     <div class="search-result-link__price-floater"><%= format_monetary_full_pretty(ad.price) %><br>per&nbsp;dag</div>

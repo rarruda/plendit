@@ -4,7 +4,7 @@
         <p><%= link_to feedback.from_user.display_name, user_path( feedback.from_user.id ) %></p>
     </div>
     <div class="nine columns feedback-item-box__body">
-        <%= render('shared/stars.html', rating: feedback.score ) %>
+        <%= stars(feedback.score, :medium) %>
         <%= l feedback.updated_at, format: :plendit_short_date %>
         på <%= link_to feedback.booking.ad.decorate.display_title, ad_path( ad_to_param_pretty feedback.booking.ad ) %>
        <p class="feedback-item-box__body">

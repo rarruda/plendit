@@ -19,7 +19,7 @@
                 <div class="booking-heading__name">
                     <%= other_user.display_name %>
                     <br>
-                    <%= render('shared/stars.html', rating: other_user.feedback_score ) %>
+                    <%= stars(other_user.feedback_score, :medium) %>
                 </div>
             </div>
         </div>

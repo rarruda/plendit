@@ -7,7 +7,7 @@
     <div class="public-profile-feedback__text-box">
         <h4>
             <%= feedback.booking.ad.decorate.display_title %>
-            <%= render 'shared/stars.html', rating: feedback.score %>
+            <%= stars(feedback.score, :medium) %>
         </h4>
         <p class="public-profile-feedback__description">
             <%= feedback.body %>
