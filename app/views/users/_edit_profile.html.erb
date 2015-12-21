@@ -123,10 +123,9 @@
 
         <%= render partial: 'privacy_box' unless Plendit::Application.config.x.application_mode.beta %>
 
-
         <div class="row u-push-down">
             <div class="three columns">
-              <%= render('shared/avatar.html', user: @user, size: 'huge') %>
+                <%= avatar_image(@user, :huge) %>
             </div>
             <div class="nine columns">
               <p>

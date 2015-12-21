@@ -13,7 +13,7 @@
                             <% if n.is_system_message %>
                                 <%= plendbot_avatar(:small) %>
                             <% else %>
-                                <%= render('shared/avatar.html', user: n.source_user, size: "small") %>
+                                <%= avatar_image(n.source_user, :small) %>
                             <% end %>
                         </div>
                         <div class="notification-box__body">

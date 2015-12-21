@@ -7,7 +7,7 @@
             <h2><%= booking.ad.display_title  %></h2>
         </div>
         <div class="three columns rental-request-box__owner-box">
-            <%= render('shared/avatar.html', user: booking.user, size: "large" ) %>
+            <%= avatar_image(feedback.booking.user, :large) %>
             <br>
             <%= booking.user.display_name %>
             <br>
