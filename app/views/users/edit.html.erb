@@ -3,10 +3,6 @@
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <%= render layout: 'gray_box', locals: {title: 'Rediger profil'} do %>
-                I feltene under kan du redigere din profil. Husk at
-                det bare er ditt fornavn og "om deg" som vises til andre brukere.
-            <% end %>
             <% if @user.phone_pending_confirmation? && ! @user.unconfirmed_phone_number.blank?  %>
                 <%= render partial: 'verify_sms' if Plendit::Application.config.x.application_mode.beta %>
             <% end %>
