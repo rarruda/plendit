@@ -34,74 +34,62 @@
 
     <div>
         <ol class="profile-quality-box__verifications-list">
-            <li>
-                <% if user.id_card_status == :verified %>
-                    <%= icon 'check-square-o', class: 'fa-lg profile-quality-box__icon' %>
+            <% if user.id_card_status == :verified %>
+                <li>
+                    <%= icon 'check', class: 'fa-lg profile-quality-box__icon' %>
                     <span>ID-kort</span>
-                <% else %>
-                    <%= icon 'square-o', class: 'fa-lg profile-quality-box__icon' %>
-                    <span>ID-kort (Mangler)</span>
-                <% end %>
-            </li>
+                </li>
+            <% end %>
 
-            <li>
-                <% if user.boat_license_status == :verified %>
-                    <%= icon 'check-square-o', class: 'fa-lg profile-quality-box__icon' %>
+            <% if user.boat_license_status == :verified %>
+                <li>
+                    <%= icon 'check', class: 'fa-lg profile-quality-box__icon' %>
                     <span>Båtførerbevis</span>
-                <% else %>
-                    <%= icon 'square-o', class: 'fa-lg profile-quality-box__icon' %>
-                    <span>Båtførerbevis (Mangler)</span>
-                <% end %>
-            </li>
+                </li>
+            <% end %>
 
-            <li>
-                <% if user.drivers_license_status == :verified %>
-                    <%= icon 'check-square-o', class: 'fa-lg profile-quality-box__icon' %>
+            <% if user.drivers_license_status == :verified %>
+                <li>
+                    <%= icon 'check', class: 'fa-lg profile-quality-box__icon' %>
                     <span>Førerkort</span>
-                <% else %>
-                    <%= icon 'square-o', class: 'fa-lg profile-quality-box__icon' %>
-                    <span>Førerkort (Mangler)</span>
-                <% end %>
-            </li>
+                </li>
+            <% end %>
 
-            <li>
-                <% if user.email_verified? %>
-                    <%= icon 'check-square-o', class: 'fa-lg profile-quality-box__icon' %>
+            <% if user.email_verified? %>
+                <li>
+                    <%= icon 'check', class: 'fa-lg profile-quality-box__icon' %>
                     <span>E-postadresse</span>
-                <% else %>
-                    <%= icon 'square-o', class: 'fa-lg profile-quality-box__icon' %>
-                    <span>E-postadresse (Ikke verifisert)</span>
-                <% end %>
-            </li>
+                </li>
+            <% end %>
 
-            <li>
-                <% if user.phone_verified? %>
-                    <%= icon 'check-square-o', class: 'fa-lg profile-quality-box__icon' %>
+            <% if user.phone_verified? %>
+                <li>
+                    <%= icon 'check', class: 'fa-lg profile-quality-box__icon' %>
                     <span>Mobilnummer</span>
-                <% else %>
-                    <%= icon 'square-o', class: 'fa-lg profile-quality-box__icon' %>
-                    <span>Mobilnummer (Ikke verifisert)</span>
-                <% end %>
-            </li>
+                </li>
+            <% end %>
 
             <% if user.identities.find_by(provider:'facebook').present? %>
                 <li>
-                    <%= icon 'check-square-o', class: 'fa-lg profile-quality-box__icon' %>
+                    <%= icon 'check', class: 'fa-lg profile-quality-box__icon' %>
                     <span>Facebook</span>
                 </li>
             <% end %>
+
             <% if user.identities.find_by(provider:'google').present? %>
                 <li>
-                    <%= icon 'check-square-o', class: 'fa-lg profile-quality-box__icon' %>
+                    <%= icon 'check', class: 'fa-lg profile-quality-box__icon' %>
                     <span>Google</span>
                 </li>
             <% end %>
+
             <% if user.identities.find_by(provider:'spid').present? %>
                 <li>
-                    <%= icon 'check-square-o', class: 'fa-lg profile-quality-box__icon' %>
+                    <%= icon 'check', class: 'fa-lg profile-quality-box__icon' %>
                     <span>SPiD</span>
                 </li>
             <% end %>
+
         </ol>
     </div>
 
