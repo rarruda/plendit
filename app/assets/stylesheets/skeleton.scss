@@ -429,26 +429,25 @@ details.u-implode-summary[open] > summary {
 
 @media (min-width: $tablet) {
   .u-hidden-when-grid {
-    display: none;
+    display: none !important;
   }
 }
 
 @media (max-width: $mobile) {
   .u-only-when-grid {
-    display: none;
+    display: none !important;
   }
 }
 
 .u-only-on-bigscreen {
-  display: none;
-  @media (min-width: $bigscreen) {
-    display: block;
+  @media (max-width: $bigscreen) {
+    display: none !important;
   }
 }
 
-@media (min-width: $bigscreen) {
-  .u-not-on-bigscreen {
-    display: none;
+.u-not-on-bigscreen {
+  @media (min-width: $bigscreen) {
+    display: none !important;
   }
 }
 
