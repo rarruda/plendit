@@ -94,21 +94,19 @@ Du må registrere kredittkortet ditt før du kan sende en forespørsel.
     <% end %>
 </div>
 
-    <% if current_user.user_payment_cards.length >= 1 %>
-      <p>
-        <small>
-            Om du har dekning på kredittkortet ditt, sendes forespørselen til
-            utleieren. Du blir kun belastet om din forespørsel blir godkjent av
-            utleier. Dersom ikke, blir pengene tilbakeført til din konto.
-        </small>
-      </p>
-    <% end %>
 
             </div>
         </div>
 
+    <div class="help-box">
+        Om du har dekning på kredittkortet ditt, sendes forespørselen
+        til utleieren. Du blir kun belastet om din forespørsel blir
+        godkjent av utleier. Dersom ikke, blir pengene tilbakeført til
+        din konto.
+    </div>
 
-        <div class="actions">
+
+        <div class="actions u-push-down">
             <% unless current_user.user_payment_cards.length == 0 %>
                 <%= f.submit class: "button button-primary", data: {controller: 'disableOnSubmit'} %>
             <% else %>
@@ -116,7 +114,9 @@ Du må registrere kredittkortet ditt før du kan sende en forespørsel.
             <% end %>
         </div>
 
+    <p>
       <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
+    </p>
 
     </div>
 <% end %>
