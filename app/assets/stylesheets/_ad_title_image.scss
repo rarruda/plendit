@@ -12,6 +12,10 @@
         @media (min-width: $tablet) {
             height: 600px;
         }
+
+        @media (min-width: $bigscreen) {
+            height: 464px;
+        }
     }
 
     &__bg_img {

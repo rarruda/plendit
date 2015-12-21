@@ -115,7 +115,6 @@
 }
 
 .main-price {
-
     &__row {
         margin-bottom: $standard-spacing / 2;
     }
@@ -157,13 +156,26 @@
     &__price {
         width: 80px;
         text-align: right;
-
     }
 }
-
 
 .ad-input-errors {
     &__list {
         list-style: none;
+    }
+}
+
+.parallel-booking-box-holder {
+    display: inline-block;
+    width: 320px;
+}
+
+.hero-holder {
+    vertical-align: top;
+
+    @media (min-width: $bigscreen) {
+        display: inline-block;
+        width: 840px;
+        margin-right: $standard-spacing;
     }
 }

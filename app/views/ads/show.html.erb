@@ -12,8 +12,10 @@
 <%= render partial: "ad_status_bar", locals: { ad: @ad } %>
 
 <div class="container">
-    <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
-    <div class="u-only-on-bigscreen">
+    <div class="hero-holder">
+        <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
+    </div>
+    <div class="u-only-on-bigscreen parallel-booking-box-holder">
         <%= render partial: "ad_booking_box", locals: { ad: @ad } %>
     </div>
 
