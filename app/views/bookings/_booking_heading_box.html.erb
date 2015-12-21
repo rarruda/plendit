@@ -5,7 +5,9 @@
         </div>
 
         <div class="booking-heading__right">
-            <%= booking_status_label @booking %>
+            <% unless @booking.new_record? %>
+                <%= booking_status_label @booking %>
+            <% end %>
             <h5 class="booking-heading__title">
                 <%= @booking.ad.display_title %>
             </h5>
