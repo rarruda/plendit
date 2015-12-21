@@ -190,7 +190,7 @@ class UsersController < ApplicationController
       OpenStruct.new({
         title: 'Båtførerbevis',
         preverify_prose: %q(
-          For at du skal kunne leie en båt på Plendit må du være født før 1980 eller laste opp båtførerbevis.
+          For at du skal kunne leie en båt på Plendit, må du være født før 1980 eller laste opp ditt båtførerbevis.
         ),
         preverify_action: 'Last opp',
         postverify_prose: 'Båtførerbevis godkjent',
