@@ -342,6 +342,7 @@ class AdsController < ApplicationController
   def notify_about_approval
     Notification.new(
       user_id: @ad.user.id,
+      is_system_message: true,
       message: "Annonsen din \"#{@ad.display_title}\" er nå godkjent og publisert",
       notifiable: @ad).save
   end

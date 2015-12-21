@@ -10,7 +10,11 @@
                 <% cache n, expires_in: 10.minutes do %>
                     <%= link_to n.source_path, class: "notification-box__item #{'notification-box__item--unread' if n.status == 'fresh'}" do %>
                         <div class="notification-box__avatar">
-                            <%= render('shared/avatar.html', user: n.source_user, size: "small") %>
+                            <% if n.is_system_message %>
+                                <%= plendbot_avatar(:small) %>
+                            <% else %>
+                                <%= render('shared/avatar.html', user: n.source_user, size: "small") %>
+                            <% end %>
                         </div>
                         <div class="notification-box__body">
                             <div class="notification-box__message">
