@@ -162,6 +162,7 @@
 }
 
 .help-box {
+    max-width: $sane-box-max-width;
     margin-top: $standard-spacing * 2;
     padding: $standard-spacing;
     background-color: #ecf8ff;
