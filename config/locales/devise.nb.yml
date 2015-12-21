@@ -8,7 +8,7 @@ nb:
       send_instructions: "Du vil innen kort tid motta en e-post med instruksjoner for å aktivere din konto."
       send_paranoid_instructions: "Hvis e-postadressen din finnes i vår database vil du innen få minutter motta en e-post med instruksjoner for å aktivere din konto."
     failure:
-      already_authenticated: "Du er allerede logget inn."
+      already_authenticated: "Du er nå logget inn."
       inactive: "Din konto er ikke aktivert enda."
       invalid: "E-postadresse eller passord er ikke gyldig."
       invalid_token: "Ugyldig autentiserings-token."
