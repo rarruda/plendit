@@ -6,8 +6,7 @@
 
     &__avatar {
         width: 72px;
-        flex-shrink: 0;
-        flex-grow: 0;
+        flex: 0 0 auto;
     }
 
     &__main {
@@ -89,8 +88,7 @@
     text-decoration: none;
 
     &__img-box {
-        flex-grow: 0;
-        flex-shrink: 0;
+        flex: 0 0 auto;
         margin-right: $standard-spacing * 2;
     }
 
@@ -109,8 +107,7 @@
     text-decoration: none;
 
     &__avatar-box {
-        flex-grow: 0;
-        flex-shrink: 0;
+        flex: 0 0 auto;
         margin-right: $standard-spacing * 2;
         text-align: center;
     }
@@ -130,12 +127,12 @@
 
     &__avatar {
         width: 120px;
-        flex-shrink: 0;
+        flex: 0 0 auto;
     }
 
     &__details {
         padding-left: $standard-spacing * 2;
-        flex-grow: 1;
+        flex: 1 1 auto;
    }
 }
 

@@ -16,13 +16,13 @@
     }
 
     &__col1 {
-        flex-grow: 1;
+        flex: 1 1 auto;
         display: flex;
         flex-direction: column;
     }
 
     &__link {
-        flex-grow: 1;
+        flex: 1 1 auto;
         text-decoration: none;
         display: flex;
         user-select: none;

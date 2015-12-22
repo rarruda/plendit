@@ -72,8 +72,6 @@
     &__img-box {
         text-align: center;
         max-width: 160px;
-        flex-grow: 0;
-        flex-shrink: 1;
         margin-right: $standard-spacing * 2;
 
         img {
@@ -82,7 +80,7 @@
     }
 
     &__text-box {
-        flex-grow: 1;
+        flex: 1 1 auto;
     }
 
     &__description {
