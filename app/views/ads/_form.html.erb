@@ -95,8 +95,8 @@
                 <div data-controller="addressSelectionDimmer">
                     <%= hidden_field_tag "create_new_location", "0" %>
 
-                    <%= select( :ad, :location_id,
-                                @ad.user.locations.map{ |l| ["#{l.address_line}, #{l.post_code} #{l.city}", l.id] },
+                    <%= select( :ad, :location_guid,
+                                @ad.user.locations.map{ |l| [l.to_s_pretty, l.guid] },
                                 {},
                                 { class: 'u-full-width' } ) %>
 

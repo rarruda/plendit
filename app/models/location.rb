@@ -34,14 +34,25 @@ class Location < ActiveRecord::Base
   end
 
   def delete!
-    self.status = 'deleted'
+    self.update_columns(status: Location.statuses[:deleted])
   end
 
   def in_use?
     self.ads.any?
   end
 
+  def to_param
+    self.guid
+  end
+
   private
+  def set_guid
+    self.guid = loop do
+      generated_guid = SecureRandom.uuid
+      break generated_guid unless self.class.exists?(guid: generated_guid)
+    end
+  end
+
   def set_city_from_postal_code
     self.city = Location.city_from_postal_code( self.post_code )
   end

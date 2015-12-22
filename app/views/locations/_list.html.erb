@@ -13,7 +13,7 @@
                     <% end %>
                     </span>
                     <span>
-                        <%= "#{location.address_line}, #{location.post_code} #{location.city}" %>
+                        <%= location.to_s_pretty %>
                         <small><%= link_to 'Rediger', edit_location_path(location) %></small>
                     </span>
                     <span><%= button_to 'Slett', location, method: :delete, class: 'button', form_class: 'u-inline u-pull-right', data: {confirm: 'Er du sikker på at du vil slette?'}, disabled: location.in_use? %></span>

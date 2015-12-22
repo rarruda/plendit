@@ -258,6 +258,15 @@ class Ad < ActiveRecord::Base
     self.payin_rules.sort_by(&:effective_from).reject(&:required_rule?)
   end
 
+  def location_guid
+    self.location.guid if self.location.present?
+    nil
+  end
+
+  def location_guid=( guid )
+    self.location_id = Location.all.where( guid: guid ).take.id
+  end
+
   # used in as_indexed_json
   def geo_location
     if self.location

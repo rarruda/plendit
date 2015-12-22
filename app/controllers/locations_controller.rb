@@ -16,7 +16,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/edit
   def edit
-    @location = Location.find(params[:id])
+    @location = Location.find_by(guid: params[:guid])
   end
 
   # POST /locations
@@ -53,7 +53,13 @@ class LocationsController < ApplicationController
   # DELETE /locations/1
   # DELETE /locations/1.json
   def destroy
-    @location.delete! unless @location.in_use?
+    if @location.in_use?
+      LOG.error "Cannot delete a location which is in use.", location_id: @location.id
+    else
+      LOG.info "deleting a location.", location_id: @location.id
+
+      @location.delete!
+    end
 
     redirect_to edit_users_path(:anchor => 'locations')
   end
@@ -61,7 +67,7 @@ class LocationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location
-      @location = Location.where(user_id: view_context.get_current_user_id ).find(params[:id])
+      @location = Location.where(user_id: view_context.get_current_user_id ).find_by(guid: params[:guid])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

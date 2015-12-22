@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     get   'kyc_image/:guid',           to: 'backstage#kyc_image', as: 'kyc_image'
   end
 
-  resources :locations, path: '/me/locations', only: [:index, :new, :create, :edit, :update, :destroy] do
+  resources :locations, path: '/me/locations', param: :guid, only: [:index, :new, :create, :edit, :update, :destroy] do
     member do
       post 'make_favorite'
     end

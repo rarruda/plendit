@@ -350,9 +350,9 @@ class AdsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def ad_params
     params.require(:ad).permit( :title, :body, :price_in_h, :tag_list,
-      :registration_number, :registration_group, :location_id,
+      :registration_number, :registration_group, :location_id, :location_guid,
       :estimated_value_in_h, :boat_license_required,
-      location_attributes:    [ :address_line, :post_code, :id ],
+      location_attributes:    [ :address_line, :post_code, :id, :guid ],
       payin_rules_attributes: [ :payin_amount_in_h, :unit, :effective_from, :id, :_destroy ],
       ad_images_attributes:   [ :image, :weight, :description, :id, :_destroy ]
     )
