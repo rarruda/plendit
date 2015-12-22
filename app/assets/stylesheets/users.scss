@@ -100,7 +100,7 @@
 }
 
 .public-profile-feedback {
-    @extend .standard-box;
+    @extend .standard-box--nested;
     display: flex;
     align-items: center;
     color: black;

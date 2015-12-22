@@ -20,11 +20,12 @@
             </section>
 
             <section class="profile-self-ads-section u-push-down">
-                <h2>Tilbakemeldinger</h2>
-                <% if @user.recent_feedback.empty? %>
-                    <%= @user.display_name %> har ikke mottatt noen tilbakemeldinger ennå.
-                <% else %>
-                    <%= render partial: 'public_profile_feedback', collection: @user.recent_feedback, as: :feedback %>
+                <%= render layout: 'gray_box', locals: {title: 'Tilbakemeldinger', nopad: true} do %>
+                    <% if @user.recent_feedback.empty? %>
+                        <%= @user.display_name %> har ikke mottatt noen tilbakemeldinger ennå.
+                    <% else %>
+                        <%= render partial: 'public_profile_feedback', collection: @user.recent_feedback, as: :feedback %>
+                    <% end %>
                 <% end %>
             </section>
         </div>
