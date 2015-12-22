@@ -177,6 +177,7 @@ class UsersController < ApplicationController
         preverify_prose: %q(
           For at du skal kunne leie eiendom på Plendit må en
           gylidg form for identitetsbevis godkjennes.
+          TRANSLATEME: Det er et krav at personnummer vises på identitetsbevis.
           Førerkort vil automatisk gjelde som identitetsbevis.
         ),
         preverify_action: 'Last opp',
