@@ -112,8 +112,6 @@ class Booking < ActiveRecord::Base
         create_financial_transaction_payin
         BookingAutoStartJob.set(wait_until: self.starts_at ).perform_later self
 
-        # old booking mailer:
-        send_confirmations
         # new mailer:
         message = ApplicationMailer.booking_confirmed__to_owner( self )
         message.deliver_later
@@ -374,16 +372,6 @@ class Booking < ActiveRecord::Base
 
   def send_mail_booking_created
     message = ApplicationMailer.booking_created__to_owner( self )
-    message.deliver_later
-  end
-
-  def send_confirmations
-    LOG.info "owner_accepted email:"
-    message = BookingMailer.notify_owner_accepted( self.id )
-    message.deliver_later
-
-    LOG.info "renter_accepted email:"
-    message = BookingMailer.notify_renter_accepted( self.id )
     message.deliver_later
   end
 
