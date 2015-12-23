@@ -1,7 +1,6 @@
 <%= render layout: 'gray_box', locals: {title: 'Kontonummer', id: 'kontonummer'} do %>
 
 <%- if @user.mangopay_provisionable? -%>
-
     <%- if payment_account_notice -%>
     <div class="row">
         <div class="eight columns">
@@ -13,9 +12,6 @@
     <div class="row">
         <div class="eight columns">
           <%= @user.user_payment_account.bank_account_number %>
-          <p>
-              Vi trenger ditt kontonummer for å utbetale penger til deg.
-          </p>
         </div>
     </div>
     <div class="row">
