@@ -290,7 +290,7 @@ bundle exec cap production deploy
 
 To deploy to dev:
 ```
-git push heroku
+bundle exec cap development deploy
 ```
 
 * Checking application status
