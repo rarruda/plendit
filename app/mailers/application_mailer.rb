@@ -78,7 +78,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Noen ønsker å leie "
+      subject: "Plendit: Noen ønsker å leie (#{@booking.ad.title})"
     )
   end
 
@@ -97,7 +97,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.from_user.email,
-      subject: "Plendit: Leieforeholdet med (#{@booking.ad.title}) slutter snart"
+      subject: "Plendit: Leieforeholdet (#{@booking.ad.title}) slutter snart"
     )
   end
 
