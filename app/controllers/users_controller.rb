@@ -216,7 +216,7 @@ class UsersController < ApplicationController
     if request.post?
       #@user = current_user
       if @user_payment_account.update(user_payment_account_params)
-        redirect_to payment_users_path( anchor: 'kontonummer' ), payment_account_notice: 'bank account was successfully updated.'
+        redirect_to payment_users_path( anchor: 'kontonummer' ), payment_account_notice: 'Kontonummeret ble godkjent og lagt til.'
       else
         render 'edit_user_payment_account', payment_account_notice: 'bank account was NOT saved.'
       end
