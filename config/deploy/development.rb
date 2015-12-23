@@ -7,7 +7,7 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server 'sbox-plendit-dev01.plendit.com', user: 'deployer', roles: %w{app web db}
+server 'sbox-plendit-dev01.plendit.com', user: 'deployer', roles: %w{app web resque_worker resque_scheduler db}
 
 
 # role-based syntax
