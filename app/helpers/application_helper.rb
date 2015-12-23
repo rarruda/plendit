@@ -1,5 +1,7 @@
 module ApplicationHelper
 
+  #FIXME: this should be made much prettier. sorta hackish the way it is.
+
   # takes an internal monetary value, (that is one that is integer),
   # the actual value multiplied by 100, and prints it as a Norwegian
   # localized currency string
@@ -10,14 +12,14 @@ module ApplicationHelper
 
   def format_monetary_full_pretty val
     f = integer_to_decimal val
-    number_to_currency_pretty f
+    number_to_currency_pretty f, locale: :nb
   end
 
-  def number_to_currency_pretty( num = nil, options = {unit: ''} )
+  # this method just makes a decimal number pretty / formatted correctly:
+  # input is expected to be in Decimal format already! ( eg: 123.45 )
+  def number_to_currency_pretty( num = nil, options = {unit: '', locale: :nb} )
     return '' if num.nil?
-    pretty = number_to_currency( num, options )
-    pretty.gsub! ',00 ', ',- '
-    pretty
+    number_to_currency( num, options ).gsub(',00 ', ',- ')
   end
 
   # takes the internal integer monetary representation: 1043 and converts
