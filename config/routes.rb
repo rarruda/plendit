@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   resources :bookings, path: '/me/bookings', param: :guid, except: [:edit] do
     resources :messages
     member do
-      get 'show_price'
+      get  'show_price'
       post 'decline'
       post 'accept'
       post 'abort'
