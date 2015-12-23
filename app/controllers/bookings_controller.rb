@@ -55,9 +55,8 @@ class BookingsController < ApplicationController
     from = params[:from_date]
     to = params[:to_date]
 
-    ad = Ad.find(ad_id)
-    @booking = Booking.new(ad: ad, starts_at_date: from, ends_at_date: to)
-    @booking.calculate_amount
+    @booking = Booking.new(ad_item_id: Ad.find(ad_id).ad_items.take.id, starts_at_date: from, ends_at_date: to)
+    @booking.calculate!
     @booking.readonly!
 
     respond_to do |format|

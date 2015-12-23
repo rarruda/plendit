@@ -68,7 +68,7 @@ class Booking < ActiveRecord::Base
 
   before_validation :align_times, on: :create
   before_validation :set_guid,    on: :create
-  before_validation :calculate_amount,
+  before_validation :calculate!,
     if: :starts_at_changed?,
     if: :ends_at_changed?
 
@@ -253,6 +253,14 @@ class Booking < ActiveRecord::Base
   #  to be removed.
   def amount
     self.payout_amount
+  end
+
+  # FIXME: calling booking payin_amount just feels kinda wrong.
+  #  should probably find a better name for it.
+  def calculate!
+    calculate_amount
+    calculate_fee
+    calculate_insurance
   end
 
   def calculate_amount
