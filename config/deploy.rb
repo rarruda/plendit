@@ -47,7 +47,14 @@ set :passenger_restart_with_touch, true
 set :resque_environment_task, true
 #If you need to pass arbitrary data (like other non-standard environment variables) to the "start" command:
 #set :resque_extra_env, "SEARCH_SERVER=172.18.0.52"
+set :interval, "10"
 set :resque_log_file, 'log/resque.log'
+
+set :workers, {
+  "high" => 1,
+  #"mailers" => 1,
+  "*" => 1,
+}
 
 
 # slackistrano
