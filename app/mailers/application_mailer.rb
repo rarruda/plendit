@@ -78,7 +78,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: Noen ønsker å leie (FOOBAR)"
+      subject: "Plendit: Noen ønsker å leie "
     )
   end
 
