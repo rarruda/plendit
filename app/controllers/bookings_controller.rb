@@ -1,5 +1,5 @@
 class BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :edit, :update, :destroy, :accept, :decline, :abort, :cancel ]
+  before_action :set_booking, only: [:show, :update, :destroy, :accept, :decline, :abort, :cancel ]
   before_action :set_booking_from_params, only: [:create, :show_price]
   before_filter :authenticate_user!
 
@@ -20,12 +20,6 @@ class BookingsController < ApplicationController
     @ad = Ad.find( params['ad_id'] ).decorate
     @booking = Booking.new( ad: @ad, from_user: current_user ).decorate
   end
-
-  # GET /me/bookings/1/edit
-  # Do not allow editing bookings in version 1.0:
-  #def edit
-  #  @ad = @booking.ad
-  #end
 
   # POST /me/bookings
   def create
