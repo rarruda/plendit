@@ -13,7 +13,7 @@
   <tr> <td>Til:</td> <td><%= l @booking.ends_at, format: :shorter_datetime %></td> </tr>
   <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
   <tr> <td></td> <td></td> </tr>
-  <tr> <td>Utbetalt til deg:</td> <td><%= number_to_currency_pretty @booking.sum_paid_to_owner, unit: 'kr' %></td> </tr>
+  <tr> <td>Utbetalt til deg:</td> <td><%= format_monetary_full_pretty @booking.sum_paid_to_owner, unit: 'kr' %></td> </tr>
 </table>
 
 <p>
