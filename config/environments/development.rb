@@ -43,7 +43,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Devise setting:
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'dev.plendit.com' }
 
   config.action_mailer.raise_delivery_errors = true
   ## Maybe we should not be sending out emails in dev? For now we send emails...
