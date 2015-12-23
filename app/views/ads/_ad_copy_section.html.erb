@@ -1,5 +1,18 @@
 <section class="ad-copy-section">
     <%= render layout: 'gray_box', locals: {title: 'Annonseinfo'} do %>
         <%= simple_format h(ad.body) %>
+
+        <h5>Priser</h5>
+
+        <% @ad.payin_rules.effective_from_asc.each do |pr| %>
+            <div>
+                <% if pr.effective_from == 1 %>
+                    Pris per dag: <%= format_monetary_full_pretty pr.payin_amount %>
+                <% else %>
+                    Ved utleie over <%= pr.effective_from %> dager reduseres prisen til <%= format_monetary_full_pretty pr.payin_amount %> per dag.
+                <% end %>
+            </div>
+        <% end %>
+
     <% end %>
 </section>
