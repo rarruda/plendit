@@ -40,7 +40,11 @@
         <div class="u-push-down-only">
             <%= f.label :body, 'Beskrivelse:' %>
             <%= f.text_area :body, class: 'u-full-width in-form__description', data: { controller: 'autoSizeTextArea' } %>
-            <small>Tips: Du kan bruke #hashtags i annonsen din. Det gjør det enklere for andre å finne den i søket.</small>
+            <small>Tips: Ved å bruke #hashtags i beskrivelsen blir annonsen enklere å finne i søket.</small>
+            <% if @ad.category == 'boat' %>
+                <br>
+                <small>Dersom båten har motor skal båtens alder og antall hestekrefter skrives inn her. </small>
+            <% end %>
         </div>
 
         <%
