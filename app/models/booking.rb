@@ -256,7 +256,7 @@ class Booking < ActiveRecord::Base
   end
 
   def calculate_amount
-    self.payout_amount = self.booking_calculator.payin_amount
+    self.payout_amount = self.booking_calculator.payout_amount
   end
 
   def calculate_fee
