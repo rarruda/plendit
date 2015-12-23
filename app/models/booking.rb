@@ -88,8 +88,8 @@ class Booking < ActiveRecord::Base
 
   after_create :send_mail_booking_created
 
-  aasm :column => :status, :enum => true do
-    state :created, :initial => true
+  aasm column: :status, enum: true do
+    state :created, initial: true
     state :confirmed
     state :started
     state :in_progress

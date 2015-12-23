@@ -52,15 +52,15 @@ class BookingsController < ApplicationController
 
   def booking_calc
     ad_id = params[:ad_id]
-    from = params[:from_date]
-    to = params[:to_date]
+    from  = params[:from_date]
+    to    = params[:to_date]
 
     @booking = Booking.new(ad_item_id: Ad.find(ad_id).ad_items.take.id, starts_at_date: from, ends_at_date: to)
     @booking.calculate!
     @booking.readonly!
 
     respond_to do |format|
-      format.html { render partial: 'price_summary' } 
+      format.html { render partial: 'price_summary' }
       format.json { render json: show_price, status: :ok }
     end
   end
