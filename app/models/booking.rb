@@ -4,10 +4,11 @@ class Booking < ActiveRecord::Base
 
   extend TimeSplitter::Accessors
 
-  has_paper_trail
-
   split_accessor :starts_at
   split_accessor :ends_at
+
+  has_paper_trail
+
 
   belongs_to :ad_item
   belongs_to :from_user,      class_name: "User"
