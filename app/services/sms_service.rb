@@ -31,10 +31,11 @@ class SmsService
       if ENV['PCONF_TWILIO_ENABLED']
         # this should be done via a delayed job of some sort:
         begin
-          TWILIO_CLIENT.account.messages.create( from: from, to: @sms_to, sms_body: @sms_body )
+          TWILIO_CLIENT.account.messages.create( from: from, to: @sms_to, body: @sms_body )
         rescue => e
           LOG.error "Error from Twilio API sending SMS: From: #{from} To: #{@sms_to} Body: '#{@sms_body}' exception: #{e}", sms_to: @sms_to
-          # FIXME: Need to raise an warning to the user that we could not send an sms to the user. most likely an invalid number....
+          # Just send the exception down the stack. most likely an invalid number....
+          raise
         end
       else
         LOG.info "SMS: twilio not called to save money", sms_to: @sms_to
