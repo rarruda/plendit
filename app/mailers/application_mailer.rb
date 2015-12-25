@@ -1,7 +1,7 @@
 class ApplicationMailer < ActionMailer::Base
   helper :application
 
-  default from: "noreply@plendit.com"
+  default from: 'noreply@plendit.com'
   layout 'mailer'
 
   before_action :add_logo_attachment

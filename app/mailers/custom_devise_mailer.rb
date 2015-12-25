@@ -1,5 +1,6 @@
 class CustomDeviseMailer < Devise::Mailer
   default template_path: 'devise/mailer'
+  default from: 'noreply@plendit.com'
   layout 'mailer'
 
   before_action :add_logo_attachment
