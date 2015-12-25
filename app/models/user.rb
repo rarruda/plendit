@@ -45,13 +45,17 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :user_images, :reject_if => proc { |attributes| ( not attributes['user_images_attributes'].nil? ) and attributes['user_images_attributes'].any? { |uia| uia.image_file_name.blank? } }
 
 
-  #validates :phone_number, presence: true,
-  #  format: { with: /\A[0-9]{8}\z/, message: "valid 8 digit mobile number required" },
-  #  :unless => proc { |a| a['phone_number'].blank? }
-  validates :email, presence: true, uniqueness: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "må være gyldig" }
+  validates :unconfirmed_phone_number, presence: true,
+    format: { with: /\A[0-9]{8}\z/, message: "telefonnummeret må være gyldig" },
+    if: "unconfirmed_phone_number.present?",
+    unless: :new_record?
+
+  validates :email, presence: true,
+    uniqueness: true,
+    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "epost må være gyldig" }
 
   #validates :image_url
-  validates :about, length: { maximum: 4000, too_long: "%{count} characters is the maximum allowed" }
+  validates :about, length: { maximum: 2000, too_long: "Om meg kan inneholde maks %{count} tegn" }
 
   #only if user has a the bank account number
   validates :nationality,          presence: true, :if => :has_bank_account?
@@ -61,7 +65,7 @@ class User < ActiveRecord::Base
   validate :birthday, :birthday_should_be_reasonable, :if => :has_bank_account?
 
   validates :home_address_line, presence: true, :if => :has_bank_account?
-  validates :home_post_code,    presence: true, format: { with: /\A[0-9]{4,8}\z/, message: "må være kun tall. 4-8 siffer." }, :if => :has_bank_account?
+  validates :home_post_code,    presence: true, format: { with: /\A[0-9]{4}\z/, message: "postnummer må være kun tall. 4 siffer." }, :if => :has_bank_account?
 
 
 
@@ -565,8 +569,8 @@ class User < ActiveRecord::Base
   end
 
   def birthday_should_be_reasonable
-    if self.birthday.nil? || self.birthday < 120.years.ago || self.birthday > 14.years.ago
-      errors.add(:birthday, "Du kan ikke være eldre enn 120 eller yngre 14 år gammel.")
+    if self.birthday.nil? || self.birthday < 120.years.ago || self.birthday > 18.years.ago
+      errors.add(:birthday, "Du kan ikke være eldre enn 120 eller yngre 18 år gammel. Aldersgrensen for å bli bruker er 18 år.")
     end
   end
 
