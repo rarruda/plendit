@@ -46,13 +46,13 @@ class User < ActiveRecord::Base
 
 
   validates :unconfirmed_phone_number, presence: true,
-    format: { with: /\A[0-9]{8}\z/, message: "telefonnummeret må være gyldig" },
+    format: { with: /\A[0-9]{8}\z/, message: "Telefonnummeret må være gyldig" },
     if: "unconfirmed_phone_number.present?",
     unless: :new_record?
 
   validates :email, presence: true,
     uniqueness: true,
-    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "epost må være gyldig" }
+    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, message: "Epost må være gyldig" }
 
   #validates :image_url
   validates :about, length: { maximum: 2000, too_long: "Om meg kan inneholde maks %{count} tegn" }
@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   validate :birthday, :birthday_should_be_reasonable, :if => :has_bank_account?
 
   validates :home_address_line, presence: true, :if => :has_bank_account?
-  validates :home_post_code,    presence: true, format: { with: /\A[0-9]{4}\z/, message: "postnummer må være kun tall. 4 siffer." }, :if => :has_bank_account?
+  validates :home_post_code,    presence: true, format: { with: /\A[0-9]{4}\z/, message: "Postnummer må være kun tall. 4 siffer." }, :if => :has_bank_account?
 
 
 
