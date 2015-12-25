@@ -21,20 +21,20 @@ RSpec.describe BookingCalculator, type: :model do
     }
 
     it { expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq ( 20_00) }
-    it { expect(booking_calculator.insurance_fee payin_rule[:day]).to  eq (  0_00) }
-    it { expect(booking_calculator.payout_amount payin_rule[:day]).to  eq (180_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:day]).to  eq ( 16_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:day]).to  eq (164_00) }
 
     it { expect(booking_calculator.platform_fee  payin_rule[:day_four]).to  eq ( 15_00) }
-    it { expect(booking_calculator.insurance_fee payin_rule[:day_four]).to  eq (  0_00) }
-    it { expect(booking_calculator.payout_amount payin_rule[:day_four]).to  eq (135_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:day_four]).to  eq ( 12_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:day_four]).to  eq (123_00) }
 
     it { expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  5_00) }
-    it { expect(booking_calculator.insurance_fee payin_rule[:hour]).to  eq (  0_00) }
-    it { expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 45_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:hour]).to  eq (  4_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 41_00) }
 
     it { expect(booking_calculator.platform_fee  payin_rule[:hour_two]).to  eq (  4_00) }
-    it { expect(booking_calculator.insurance_fee payin_rule[:hour_two]).to  eq (  0_00) }
-    it { expect(booking_calculator.payout_amount payin_rule[:hour_two]).to  eq ( 36_00) }
+    it { expect(booking_calculator.insurance_fee payin_rule[:hour_two]).to  eq (  3_20) }
+    it { expect(booking_calculator.payout_amount payin_rule[:hour_two]).to  eq ( 32_80) }
 
     it { expect(booking_calculator.platform_fee  payin_rule[:no_payin]).to  eq (  0_00) }
     it { expect(booking_calculator.insurance_fee payin_rule[:no_payin]).to  eq (  0_00) }
@@ -45,7 +45,6 @@ RSpec.describe BookingCalculator, type: :model do
   context 'when ad has rule coming as a float' do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
         ad: FactoryGirl.build_stubbed( :ad_motor,
-          insurance_required: true,
           user: FactoryGirl.build(:user)
         )
       )
@@ -59,11 +58,10 @@ RSpec.describe BookingCalculator, type: :model do
     it { expect(booking_calculator.reservation_amount).to           eq (1000_00) }
   end
 
-  context 'when we override the payin_rule from the ad, which has insurance' do
+  context 'when we override the payin_rule from the ad' do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
         ad: FactoryGirl.build_stubbed( :ad_motor,
           user: FactoryGirl.build_stubbed(:user),
-          insurance_required: true,
           payin_rules: [ FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day', payin_amount: 100_00 ) ]
         )
       )
@@ -84,56 +82,9 @@ RSpec.describe BookingCalculator, type: :model do
     it { expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 56_70) }
   end
 
-  context 'when ad does not have insurance and has only day price' do
+  context 'when bap ad has only day price' do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
         ad: FactoryGirl.build_stubbed( :ad_bap,
-          user: FactoryGirl.build(:user),
-          payin_rules: [ FactoryGirl.build(:payin_rule, effective_from: 1, unit: 'day', payin_amount: 100_00 ) ]
-        )
-      )
-    }
-
-    it "should calculate price of 2 hours" do
-      booking_calculator.starts_at = DateTime.now
-      booking_calculator.ends_at   = 1.hour.from_now
-
-      expect(booking_calculator.platform_fee).to   eq (10_00)
-      expect(booking_calculator.insurance_fee).to  eq ( 0_00)
-      expect(booking_calculator.payout_amount).to  eq (90_00)
-    end
-
-    it "should calculate price of 2 hours" do
-      booking_calculator.starts_at = DateTime.now
-      booking_calculator.ends_at   = 2.hours.from_now
-
-      expect(booking_calculator.platform_fee).to   eq (10_00)
-      expect(booking_calculator.insurance_fee).to  eq ( 0_00)
-      expect(booking_calculator.payout_amount).to  eq (90_00)
-    end
-
-    it "should calculate price of 1 day" do
-      booking_calculator.starts_at = DateTime.now
-      booking_calculator.ends_at   = 1.day.from_now
-
-      expect(booking_calculator.platform_fee).to   eq (10_00)
-      expect(booking_calculator.insurance_fee).to  eq ( 0_00)
-      expect(booking_calculator.payout_amount).to  eq (90_00)
-    end
-
-    it "should calculate price of 2 days" do
-      booking_calculator.starts_at = DateTime.now
-      booking_calculator.ends_at   = 2.days.from_now
-
-      expect(booking_calculator.platform_fee).to   eq ( 20_00)
-      expect(booking_calculator.insurance_fee).to  eq (  0_00)
-      expect(booking_calculator.payout_amount).to  eq (180_00)
-    end
-  end
-
-  context 'when bap ad does have insurance and has only day price' do
-    let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
-        ad: FactoryGirl.build_stubbed( :ad_bap,
-          insurance_required: true,
           user: FactoryGirl.build_stubbed(:user),
           payin_rules: [ FactoryGirl.build_stubbed(:payin_rule, unit: 'day', effective_from: 1, payin_amount: 100_00 ) ]
         )
@@ -160,10 +111,9 @@ RSpec.describe BookingCalculator, type: :model do
     end
   end
 
-  context 'when bap ad does have insurance and has both hour and multiple day prices' do
+  context 'when bap ad has both hour and multiple day prices' do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
         ad: FactoryGirl.build_stubbed( :ad_bap,
-          insurance_required: true,
           user: FactoryGirl.build_stubbed(:user),
           payin_rules: [
             FactoryGirl.build(:payin_rule, unit: 'hour', effective_from: 1, payin_amount:  50_00 ),
@@ -269,10 +219,9 @@ RSpec.describe BookingCalculator, type: :model do
     end
   end
 
-  context 'when motor ad does have insurance and has both hour and multiple day prices' do
+  context 'when motor ad has both hour and multiple day prices' do
     let(:booking_calculator) { FactoryGirl.build( :booking_calculator,
         ad: FactoryGirl.build_stubbed( :ad_motor,
-          insurance_required: true,
           user: FactoryGirl.build(:user),
           payin_rules: [
             FactoryGirl.build(:payin_rule, unit: 'hour', effective_from: 1, payin_amount:  200_00 ),

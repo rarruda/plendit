@@ -17,11 +17,8 @@
             <span class="price-estimate__value"><%= format_monetary_full_pretty( calc.payin_amount(rule) ) %></span>
             <br>
 
-            <% if @ad.insurance_required %>
-                <label class="price-estimate__label">Leiegebyr med forsikring:</label>
-            <% else %>
-                <label class="price-estimate__label">Leiegebyr:</label>
-            <% end %>
+
+            <label class="price-estimate__label">Leiegebyr med forsikring:</label>
             <span class="price-estimate__value"><%= format_monetary_full_pretty( calc.total_fee(rule) ) %></span>
             <br>
 

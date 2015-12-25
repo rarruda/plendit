@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222202747) do
+ActiveRecord::Schema.define(version: 20151225151609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(version: 20151222202747) do
     t.integer  "location_id"
     t.integer  "status",                default: 0
     t.integer  "category",              default: 0
-    t.boolean  "insurance_required"
     t.string   "registration_number"
     t.integer  "registration_group"
     t.integer  "estimated_value"
