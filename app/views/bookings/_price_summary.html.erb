@@ -16,3 +16,10 @@
     </span>
     <span class="booking-price-summary__value"><%= format_monetary_full_pretty @booking.sum_paid_by_renter %> </span>
 </div>
+<div class="booking-price-summary__row">
+    <span class="booking-price-summary__label">
+        Depositum:
+    </span>
+    <%# FIXME: need to add deposit_amount to model %>
+    <span class="booking-price-summary__value"><%#= format_monetary_full_pretty @booking.deposit_amount %> foobar </span>
+</div>
