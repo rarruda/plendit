@@ -5,7 +5,12 @@
         <div class="eight columns">
             <h1>Mobilnummer</h1>
 
-            <% if current_user.phone_verified? %>
+
+            <% Array(@errors).each do |error| %>
+                <p><strong><%= error %></strong></p>
+            <% end %>
+
+            <% if current_user.phone_verified? && ( ! current_user.phone_pending_confirmation? ) %>
 
                 <p>
                     Du har bekreftet mobilnummeret ditt. Alt er
@@ -28,10 +33,6 @@
                     <%= button_to 'Send ny kode', verify_mobile_users_path, form_class: 'u-inline', class: 'button', params: {perform: 'request_token'} %>
                 </div>
 
-                <% Array(@errors).each do |error| %>
-                    <p><strong><%= error %></strong></p>
-                <% end %>
-
                 <%= form_tag do %>
                     <%= label_tag :token, 'Sikkerhetskode:' %>
                     <%= text_field_tag :token, '', pattern: '^\d{6}' %>
@@ -42,11 +43,6 @@
 
             <% else %>
 
-                <p>
-                    <% Array(@errors).each do |error| %>
-                        <p><strong><%= error %></strong></p>
-                    <% end %>
-                </p>
                 <p>
                     Vi har ikke registrert et mobilnummer.
                 </p>

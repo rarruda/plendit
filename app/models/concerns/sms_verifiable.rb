@@ -41,12 +41,20 @@ module SmsVerifiable
       LOG.info "Sending SMS for verification", {user_id: self.id, unconfirmed_phone_number: self.unconfirmed_phone_number}
       sms_body = "Plendit: '#{self.phone_number_confirmation_token}'. Bruk denne koden for å bekrefte mobilnummeret ditt. Hilsen Plendit. P.S. Ikke del denne koden med noen!"
 
-      SmsService.new( unconfirmed_phone_number, sms_body ).process
+      begin
+        SmsService.new( unconfirmed_phone_number, sms_body ).process
+      #rescue Twilio::REST::RequestError => e
+      rescue => e
+        @errors ||= []
+        @errors <<  'Klarte ikke å sende SMS'
+      end
     else
       LOG.info "NOT Sending SMS for verification, as a previous attempt was done at #{self.phone_number_confirmation_sent_at}, which is less then #{SMS_COOL_OFF_PERIOD} seconds ago.",
         user_id: self.id,
         phone_number_confirmation_sent_at: self.phone_number_confirmation_sent_at,
         unconfirmed_phone_number: self.unconfirmed_phone_number
+      @errors ||= []
+      @errors << 'Det ble nydelig sendt en SMS. Prøv igjen om litt.'
     end
   end
 

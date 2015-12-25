@@ -83,9 +83,9 @@ class UsersController < ApplicationController
         @errors = current_user.errors
       elsif params[:perform] == 'request_token'
         if current_user.sms_sending_cool_off_elapsed?
-          @errors = ['Det er for kort tid siden vi sendte deg en verifikasjonskode. Prøv igjen om litt.']
+          @errors = ['Det ble nydelig sendt en SMS. Prøv igjen om litt.']
         elsif current_user.unconfirmed_phone_number.blank? || current_user.phone_number_confirmation_token.blank?
-          @errors =['Ukjent telefonnumer. Kunne ikke sende verifikasjonskode. Oppdater nummeret ditt for å prøve igjen.']
+          @errors = ['Ukjent telefonnumer. Kunne ikke sende verifikasjonskode. Oppdater nummeret ditt for å prøve igjen.']
         else
           current_user.send_sms_for_phone_confirmation
           current_user.save!
@@ -319,7 +319,7 @@ class UsersController < ApplicationController
   # POST /me/resend_verification_sms
   def resend_verification_sms
     if ! @user.sms_sending_cool_off_elapsed?
-      redirect_to edit_users_path, sms_notice: 'Det er for kort tid siden vi sendte deg en verifikasjonskode. Prøv igjen om litt.'
+      redirect_to edit_users_path, sms_notice: 'Det ble nydelig sendt en SMS. Prøv igjen om litt.'
     elsif @user.unconfirmed_phone_number.blank? || @user.phone_number_confirmation_token.blank?
       redirect_to edit_users_path, notice: 'Ukjent telefonnumer. Kunne ikke sende verifikasjonskode. Oppdater nummeret ditt for å prøve igjen.'
     else
