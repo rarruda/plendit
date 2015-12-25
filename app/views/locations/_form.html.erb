@@ -1,7 +1,7 @@
 <%= form_for(@location) do |f| %>
     <% if @location.errors.any? %>
         <div id="error_explanation">
-            <h2><!-- TRANSLATEME: -->Kunne ikke lagre denne sted på grunn av:</h2>
+            <h2>Kunne ikke lagre denne adresse på grunn av:</h2>
             <ul>
                 <% @location.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
