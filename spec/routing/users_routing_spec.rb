@@ -13,7 +13,7 @@ RSpec.describe "routing to users", :type => :routing do
     it "routes /me to current users profile page" do
       expect(:get => "/me").to route_to(
         :controller => "users",
-        :action => "index",
+        :action => "private_profile",
       )
     end
 
