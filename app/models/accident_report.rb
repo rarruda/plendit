@@ -5,7 +5,7 @@ class AccidentReport < ActiveRecord::Base
   belongs_to :booking
   belongs_to :from_user, :class_name => "User"
 
-  validates :body,                  presence: true #, message: "TRANSLATE: må fylle ut beskrivelse av hva skjedd." }
+  validates :body,                  presence: true #, message: "Du må fylle ut en beskrivelse av hva skjedd." }
   validates :location_address_line, presence: true
   #validates :location_city,         presence: true
   validates :location_post_code,    presence: true, format: { with: /\A[0-9]{4,8}\z/, message: "må være kun tall. 4-8 siffer." }
