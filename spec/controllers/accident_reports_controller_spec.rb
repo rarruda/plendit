@@ -141,19 +141,5 @@ RSpec.describe AccidentReportsController, type: :controller do
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested accident_report" do
-      accident_report = AccidentReport.create! valid_attributes
-      expect {
-        delete :destroy, {:id => accident_report.to_param}, valid_session
-      }.to change(AccidentReport, :count).by(-1)
-    end
-
-    it "redirects to the accident_reports list" do
-      accident_report = AccidentReport.create! valid_attributes
-      delete :destroy, {:id => accident_report.to_param}, valid_session
-      expect(response).to redirect_to(accident_reports_url)
-    end
-  end
 
 end
