@@ -201,6 +201,9 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    guard-rubocop (1.2.0)
+      guard (~> 2.0)
+      rubocop (~> 0.20)
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
@@ -573,6 +576,7 @@ DEPENDENCIES
   font-awesome-sass
   geocoder
   guard-rspec
+  guard-rubocop
   httplog
   ibanizator (~> 0.3.1)
   intercom-rails

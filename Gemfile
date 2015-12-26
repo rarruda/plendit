@@ -160,6 +160,7 @@ group :development, :test do
 
   # Ruby static code analyzer:
   gem 'rubocop'
+  gem 'guard-rubocop', require: false
 end
 
 group :test do
