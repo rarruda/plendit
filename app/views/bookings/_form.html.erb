@@ -106,21 +106,25 @@
         <div class="help-box">
             Om du har dekning på kredittkortet ditt, sendes forespørselen
             til utleieren. Du blir kun belastet om din forespørsel blir
-            godkjent av utleier. Du vil få pengene tilbake dersom leifoholdet blir avslått, abrutt eller avlyst. 
+            godkjent av utleier. Du vil få pengene tilbake dersom leifoholdet blir avslått, abrutt eller avlyst.
         </div>
 
+        <div class="row">
+            <div class="seven columns">
 
-        <div class="actions u-push-down">
-            <% unless current_user.user_payment_cards.length == 0 %>
-                <%= f.submit class: "button button-primary", data: {controller: 'disableOnSubmit'} %>
-            <% else %>
-                Du må ha registrert ditt kredittkort før du kan gjennomføre en booking. Du kan registrere ditt kredittkort <%= link_to 'HERE', new_user_payment_card_path %>.
-            <% end %>
+                <div class="actions u-push-down u-pull-right">
+                    <% unless current_user.user_payment_cards.length == 0 %>
+                        <%= f.submit class: "button button-primary", data: {controller: 'disableOnSubmit'} %>
+                    <% else %>
+                        Du må ha registrert ditt kredittkort før du kan gjennomføre en booking. Du kan registrere ditt kredittkort [TRANSLATEME] på <%= link_to 'registrerings side', new_user_payment_card_path %>.
+                    <% end %>
+                </div>
+
+                <div class="actions u-push-down u-pull-left">
+                    <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
+                </div>
+            </div>
         </div>
-
-        <p>
-            <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
-        </p>
 
     </div>
 <% end %>
