@@ -43,7 +43,7 @@ class Booking < ActiveRecord::Base
 
   #default_scope { where( status: active ) }
 
-  scope :has_user,   ->(user) { joins(:ad).where( 'from_user_id = ? OR ads.user_id = ? ', user.id, user.id ) }
+  scope :has_user,   ->(user) { joins(:ad).where( 'from_user_id = ? OR ads.user_id = ?', user.id, user.id ) }
   scope :owner_user, ->(user) { joins(:ad).where( 'ads.user_id = ?', user.id ) }
   scope :from_user,  ->(user) { where( from_user_id: user.id ) }
 
@@ -62,7 +62,7 @@ class Booking < ActiveRecord::Base
 
 
   validates :starts_at, :ends_at, :overlap => {
-    :scope         => "ad_item_id",
+    :scope         => 'ad_item_id',
     :query_options => { :active => nil }
   }
   validate :validate_starts_at_before_ends_at
@@ -73,9 +73,9 @@ class Booking < ActiveRecord::Base
   validates :ad_item_id,           presence: true
   validates :from_user_id,         presence: true
   validates :user_payment_card_id, presence: true
-  validates :amount,               numericality: { greater_than_or_equals: 99_00, message: "Må være minst 99kr"}
-  validates :amount,               numericality: { less_than:         150_000_00, message: "Kan ikke være mer enn 150.000 kroner"}
-  #validates :amount, numericality: { less_than:  25_000_00, message: "must be at less then  25.000 kr"}, if: "false" #KYC not provisioned
+  validates :amount,               numericality: { greater_than_or_equals: 99_00, message: 'Må være minst 99kr' }
+  validates :amount,               numericality: { less_than:         150_000_00, message: 'Kan ikke være mer enn 150.000 kroner' }
+  #validates :amount, numericality: { less_than:  25_000_00, message: 'must be at less then  25.000 kr' }, if: 'false' # KYC not provisioned
 
   validate :validate_user_payment_card_belongs_to_from_user
 
@@ -464,7 +464,7 @@ class Booking < ActiveRecord::Base
   def set_guid
     self.guid = loop do
       # for a shorter string use:
-      #generated_guid = SecureRandom.random_number(2**122).to_s(36)
+      # generated_guid = SecureRandom.random_number(2**122).to_s(36)
       generated_guid = SecureRandom.uuid
       break generated_guid unless self.class.exists?(guid: generated_guid)
     end
