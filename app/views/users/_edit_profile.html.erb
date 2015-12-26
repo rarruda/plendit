@@ -2,7 +2,10 @@
 
     <%- if @user.errors.any? -%>
         <div>
-            Følgende forhindret deg i å oppdatere profilen din:
+            <%= I18n.t '.error_prevented_saving_profile',
+                default: 'Følgende forhindret deg i å oppdatere profilen din:',
+                count: @user.errors.count
+             %>
             <ul>
                 <% @user.errors.messages.each do |attribute,message| %>
                     <% message.each do |m| %>

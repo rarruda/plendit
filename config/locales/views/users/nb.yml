@@ -1,0 +1,5 @@
+
+nb:
+  error_prevented_saving_profile: #'Følgende feil forhindret deg i å oppdatere profilen din:'
+    one: 'Følgende feil forhindret deg i å oppdatere profilen din:'
+    other: 'Følgende %{count} feiler forhindret deg i å oppdatere profilen din:'
