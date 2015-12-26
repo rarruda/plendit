@@ -2,7 +2,11 @@ AllCops:
   RunRailsCops: true
   Exclude:
     - 'db/**/*'
+    - 'log/*'
 
 Metrics/LineLength:
   #Enabled: false
   Max: 120
+
+Style/RedundantSelf:
+  Enabled: false
