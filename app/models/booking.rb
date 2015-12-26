@@ -108,7 +108,9 @@ class Booking < ActiveRecord::Base
 
   aasm column: :status, enum: true do
     state :created, initial: true
+    state :payment_preauthorized
     state :confirmed
+    state :payment_confirmed
     state :started
     state :in_progress
     state :ended
@@ -117,16 +119,28 @@ class Booking < ActiveRecord::Base
     state :aborted
     state :cancelled
     state :declined
+    state :payment_preauthorization_failed
+    state :payment_failed
+
     state :disputed
+    state :dispute_agreed
+    state :dispute_disagreed
 
     state :admin_paused
 
     after_all_transitions :log_status_change
 
+    event :payment_preauthorize do
+      transitions from: :created, to: :payment_preauthorized
+      # after do
+      #   send emails to owner, asking for confirmation...
+      # end
+    end
+
     event :confirm do
-      transitions from: :created, to: :confirmed
+      transitions from: :payment_preauthorized, to: :confirmed
       after do
-        # FIXME?: check if no transactions exist already?
+        # FIXME!!: check if no transactions exist already?
         create_financial_transaction_payin
         BookingAutoStartJob.set(wait_until: self.starts_at ).perform_later self
 
@@ -137,6 +151,10 @@ class Booking < ActiveRecord::Base
         message = ApplicationMailer.booking_confirmed__to_renter( self )
         message.deliver_later
       end
+    end
+
+    event :payment_confirm do
+      transitions from: :confirmed, to: :payment_confirmed
     end
 
     event :abort, after: :cancel_financial_transaction_preauth do
@@ -157,10 +175,10 @@ class Booking < ActiveRecord::Base
 
     #after: :refund_payin
     event :cancel do
-      transitions from: [:confirmed,:started], to: :cancelled do
+      transitions from: [:confirmed,:payment_confirmed,:started], to: :cancelled do
         guard do
-          # confirmed or if started, can still cancel within 24hours.
-          self.confirmed? || ( self.started? && ( self.starts_at + 1.day < DateTime.now ) )
+          # confirmed, payment_confirmed or if started, can still cancel within 24hours.
+          self.confirmed? || self.payment_confirmed? || ( self.started? && ( self.starts_at + 1.day < DateTime.now ) )
         end
       end
       after do
@@ -172,7 +190,7 @@ class Booking < ActiveRecord::Base
     end
 
     event :start do
-      transitions from: :confirmed, to: :started
+      transitions from: :payment_confirmed, to: :started
 
       after do
         LOG.info "schedule auto-set_in_progress as new status in 1.day...", booking_id: self.id
@@ -232,8 +250,8 @@ class Booking < ActiveRecord::Base
   end
 
   def may_give_feedback?
-    # after ended, can give feedback
-    self.ended? #|| ( self.ends_at + 7.days ) < DateTime.now
+    # if status is ended, can give feedback
+    self.ended?
   end
 
   def log_status_change
