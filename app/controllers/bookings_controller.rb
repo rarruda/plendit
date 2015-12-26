@@ -2,6 +2,8 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :update, :destroy, :accept, :decline, :abort, :cancel ]
   before_action :set_booking_from_params, only: [:create, :show_price]
   before_filter :authenticate_user!
+  # Placeholder hook for when adding cancancan/pundit authorization layer:
+  #before_action :authorize_user, only: [:new,:create,:update,:accept,:decline,:abort,:cancel]
 
   helper SessionsHelper
 
