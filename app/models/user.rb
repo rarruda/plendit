@@ -259,6 +259,7 @@ class User < ActiveRecord::Base
   def can_rent? category = nil
     return false unless self.mangopay_provisioned?
     return false unless ( self.email_verified? || ( self.identities.length >= 0 ) )
+    return false unless self.age.present? && self.age >= 18
 
     return true if self.phone_verified? && case category
     when 'bap'
@@ -266,7 +267,9 @@ class User < ActiveRecord::Base
     when 'realestate'
       self.has_confirmed_id?
     when 'motor'
-      self.drivers_license_status == :verified
+      self.drivers_license_status == :verified &&
+      self.age.present? &&
+      self.age >= 23
     when 'boat'
       self.boat_rental_allowed?
     else
@@ -428,6 +431,25 @@ class User < ActiveRecord::Base
     else
       self.seamanship_claimed
     end
+  end
+
+  # in years.
+  # from http://stackoverflow.com/questions/10463400/age-calculation-in-ruby
+  def age
+    return nil unless self.birthday.present?
+    # We use Time.current because each user might be viewing from a
+    # different location hours before or after their birthday.
+    today = Time.current.to_date
+
+    # If we haven't gotten to their birthday yet this year.
+    # We use this method of calculation to catch leapyear issues as
+    # Ruby's Date class is aware of valid dates.
+    if today.month < self.birthday.month || (today.month == self.birthday.month && self.birthday.day > today.day)
+      today.year - self.birthday.year - 1
+    else
+      today.year - self.birthday.year
+    end
+
   end
 
   private
