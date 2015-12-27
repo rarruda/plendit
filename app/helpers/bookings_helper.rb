@@ -31,7 +31,7 @@ module BookingsHelper
         dispute_agreed:    'black',
         dispute_disagreed: 'red',
         disputed:          'red',
-        admin_paused:      'red'
+        admin_paused:      'red',
         payment_failed:    'red',
         payment_preauthorization_failed: 'red',
     }
