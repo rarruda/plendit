@@ -18,7 +18,9 @@ module BookingsHelper
   def booking_status_label(booking)
     colors = {
         created:       'yellow',
+        payment_preauthorized: 'green',
         confirmed:     'green',
+        payment_confirmed: 'green',
         started:       'green',
         in_progress:   'green',
         ended:         'green',
@@ -26,6 +28,11 @@ module BookingsHelper
         aborted:       'red',
         cancelled:     'black',
         declined:      'black',
+        disputed:      'red',
+        dispute_agreed:    'black',
+        dispute_disagreed: 'red',
+        payment_failed:    'red',
+        payment_preauthorization_failed: 'red',
         disputed:      'red',
         admin_paused:  'red'
     }
