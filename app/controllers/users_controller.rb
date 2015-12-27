@@ -183,7 +183,7 @@ class UsersController < ApplicationController
         postverify_prose: 'ID-kort er godkjent',
         pending_prose: 'Til kontroll',
         rejected_prose: 'Ikke godkjent.',
-        state: user.drivers_license_status == :verified || user.id_card_status == :verified ? :verified : user.id_card_status,
+        state: user.has_confirmed_id? ? :verified : user.id_card_status,
         rejection_reason: user.drivers_license_rejection_reason,
         path: verify_id_card_users_path
       }),
@@ -207,7 +207,7 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     # required to build one user_image virtually, so that we have something to render:
-    @user.user_images.build          if @user.user_images.blank?
+    @user.user_images.build if @user.user_images.blank?
   end
 
   # GET/POST /me/bank_account

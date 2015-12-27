@@ -264,7 +264,7 @@ class User < ActiveRecord::Base
     when 'bap'
       true
     when 'realestate'
-      self.id_card_status == :verified
+      self.has_confirmed_id?
     when 'motor'
       self.drivers_license_status == :verified
     when 'boat'
@@ -367,6 +367,11 @@ class User < ActiveRecord::Base
 
   def boat_license_rejection_reason
     document_rejection_reason(UserDocument.categories[:boat_license])
+  end
+
+  # either id card or drivers license
+  def has_confirmed_id?
+    self.id_card_status == :verified || self.drivers_license_status == :verified
   end
 
   def has_address?
