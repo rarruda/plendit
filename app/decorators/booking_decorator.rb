@@ -28,7 +28,7 @@ class BookingDecorator < Draper::Decorator
 
   def display_status
     status_names = {
-      created:           'venter betaling', #TRANSLATEME
+      created:           'vennligst vent', #TRANSLATEME
       payment_preauthorized: 'sendt',       #TRANSLATEME
       confirmed:         'betaling pågår',  #TRANSLATEME
       payment_confirmed: 'godtatt',         #TRANSLATEME
