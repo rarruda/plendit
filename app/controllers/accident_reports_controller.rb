@@ -1,21 +1,23 @@
 class AccidentReportsController < InheritedResources::Base
   before_action :authenticate_user!
 
-
-  # GET /me/accident_report
+  # GET /me/bookings/:booking_guid/accident_report
   def index
-    @accident_report = AccidentReport.new( from_user_id: current_user.id )
-    @bookings = Booking.accidents_reportable.has_user( current_user ).all
+    @booking = Booking.find_by(guid: params[:booking_guid]).decorate
+    @accident_report = AccidentReport.new(
+      from_user_id: current_user.id,
+      booking: @booking
+    )
   end
 
-  # POST /me/accident_report
+  # POST /me/bookings/:booking_guid/accident_report
   def create
+    @booking = Booking.find_by(guid: params[:booking_guid]).decorate
     @accident_report = AccidentReport.new(
       accident_report_params
-      .except( :booking_guid )
       .merge(
         from_user_id: current_user.id,
-        booking_id:   Booking.find_by(guid: accident_report_params[:booking_guid] ).id
+        booking: @booking
       )
     )
 
@@ -31,7 +33,10 @@ class AccidentReportsController < InheritedResources::Base
 
   private
   def accident_report_params
-    params.require(:accident_report).permit(:booking_guid, :from_user, :happened_at, :location_address_line, :location_post_code, :location_country, :body)
+    params
+      .require(:accident_report)
+      .permit(:happened_at, :location_address_line,
+              :location_post_code, :location_country, :body)
   end
 end
 

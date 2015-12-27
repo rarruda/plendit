@@ -10,10 +10,14 @@
         </div>
     <% end %>
 
-    <div class="row">
-        <%= f.label :booking, 'Hvilken booking gjelder det?' %><br>
-        <%= f.collection_select :booking_guid, @bookings, :guid, lambda { |b| "#{b.ad.title} : #{b.starts_at_date} - #{b.ends_at_date}" } %>
-    </div>
+    <p>
+        Du er i ferd med å sende inn en skaldemelding på
+        <%= link_to "\"#{@booking.ad.display_title}\"", @booking.ad %>.
+    </p>
+    <p>
+        <%= link_to 'Tilbake til bookingen.', @booking %>.
+    </p>
+
     <div class="row">
         <%= f.label :happened_at, 'Når skjedd skaden?' %><br>
         <%= f.datetime_select :happened_at %>

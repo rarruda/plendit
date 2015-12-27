@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   resources :bookings, path: '/me/bookings', param: :guid, except: [:edit] do
     resources :messages
+    resources :accident_reports, only: [:index, :create]
     member do
       get  'show_price'
       post 'decline'
@@ -98,7 +99,6 @@ Rails.application.routes.draw do
       resources :ad_images, only: [:index, :create, :update, :destroy]
     end
     resources :feedbacks
-    resources :accident_reports, only: [:index, :create]
   end
 
   get 'user/:id', to: 'users#show', as: 'user'
