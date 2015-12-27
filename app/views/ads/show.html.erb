@@ -30,6 +30,9 @@
             <div class="u-not-on-bigscreen u-push-down">
                 <%= render partial: "ad_booking_box", locals: { ad: @ad } %>
             </div>
+            <% if Plendit::Application.config.x.footer.show_facebook_buttons %>
+                <%= render partial: 'share_on_facebook' %>
+            <% end %>
         </div>
     </div>
 </div>

@@ -36,6 +36,9 @@
     <% end %>
 </head>
 <body data-controller="helpToggler">
+    <% if Plendit::Application.config.x.footer.show_facebook_buttons %>
+        <%= render partial: 'facebook_sdk' %>
+    <% end %>
     <header>
         <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field } %>
         <%= render partial: "flash_bar" %>

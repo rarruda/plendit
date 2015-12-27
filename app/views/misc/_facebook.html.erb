@@ -1,22 +1,3 @@
-<%-
-mylocales = {
-  nb: 'nb_NO',
-  se: 'sv_SE',
-  en: 'en_US',
-}
-
-fb_language = mylocales[I18n.locale] || 'nb_NO'
--%>
-
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/<%= fb_language %>/sdk.js#xfbml=1&version=v2.4&appId=<%= ENV['PCONF_FACEBOOK_APP_ID'] %>";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-</script>
-
 <div class="fb-like" 
      data-href="https://www.facebook.com/pages/Plendit/1559588560950178"
      data-colorscheme="light"
