@@ -12,7 +12,7 @@
   <td>
     <%# make_favorite %>
     <% if user_payment_card.favorite %>
-      <%= icon 'star', class: "fa-lg", style: "color:gold" %>
+      <%= icon 'star', class: "fa-lg u-fill-blue" %>
     <% else %>
       <%# FIXME: kidnapping style from locations. that is wrong in a lot of levels %>
       <%= button_to make_favorite_user_payment_card_path( user_payment_card ), class: "locations-list__star-button u-pull-right", form_class: "u-inline" do %>

@@ -5,7 +5,7 @@
                 <li class="locations-list__item">
                     <span class="locations-list__star-holder">
                     <% if location.favorite? %>
-                        <%= icon 'star', class: 'fa-lg u-fill-gold locations-list__star-button' %>
+                        <%= icon 'star', class: 'fa-lg u-fill-blue locations-list__star-button' %>
                     <% else %>
                         <%= button_to make_favorite_location_path(location), class: 'locations-list__star-button', form_class: 'u-inline' do %>
                             <%= icon 'star-o', class: 'fa-lg u-fill-gray' %>
