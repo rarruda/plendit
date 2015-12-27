@@ -1,26 +1,26 @@
-<%= render partial: "shared/personal_bar", locals: { selected: "Forespørsler" } %>
+<%= render partial: 'shared/personal_bar', locals: { selected: 'Forespørsler' } %>
 
 <div class="container">
     <div class="u-push-down">
-        <%= render partial: "booking_heading_box", locals: { ad: @booking.ad, user: @booking.ad.user } %>
+        <%= render partial: 'booking_heading_box', locals: { ad: @booking.ad, user: @booking.ad.user } %>
     </div>
 
     <div class="u-push-down">
-        <%= render partial: "booking_status_box" %>
+        <%= render partial: 'booking_status_box' %>
     </div>
 
     <div class="u-push-down">
-        <%= render partial: "booking_summary" %>
+        <%= render partial: 'booking_summary' %>
     </div>
 
     <% if @booking.may_give_feedback? %>
         <div class="u-push-down">
             <%# todo runeh cond around has_provided_feedback %>
-            <%= render partial: "booking_feedback" %>
+            <%= render partial: 'booking_feedback' %>
         </div>
     <% end %>
 
-    <%= render partial: "booking_controls", locals: {booking: @booking} %>
+    <%= render partial: 'booking_controls', locals: {booking: @booking} %>
 
     <!-- <hr> -->
     <%# FIXME: this belongs only in the first step of setting up a booking. so it now renders in the wrong place %>
@@ -28,12 +28,12 @@
 
     <hr>
 
-    <%= render partial: "conversation_section", locals: {booking: @booking} %>
+    <%= render partial: 'conversation_section', locals: {booking: @booking} %>
 
 
     <% if @booking.may_send_damage_report? %>
         <div class="u-push-down">
-            <%= render partial: "booking_insurance_box" %>
+            <%= render partial: 'booking_insurance_box' %>
         </div>
     <% end %>
 
