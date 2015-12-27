@@ -17,6 +17,7 @@ module ApplicationHelper
 
   # this method just makes a decimal number pretty / formatted correctly:
   # input is expected to be in Decimal format already! ( eg: 123.45 )
+  # FIXME: THIS METHOD SHOULD NOT TO BE USED DIRECTLY IN A VIEW.
   def number_to_currency_pretty( num = nil, options = {unit: '', locale: :nb} )
     return '' if num.nil?
     number_to_currency( num, options ).gsub(',00 ', ',- ')
