@@ -164,11 +164,13 @@
 }
 
 .parallel-booking-box-holder {
+    margin-top: $standard-spacing;
     display: inline-block;
     width: 320px;
 }
 
 .hero-holder {
+    margin-top: $standard-spacing;
     vertical-align: top;
 
     @media (min-width: $bigscreen) {
