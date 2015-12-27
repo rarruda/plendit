@@ -68,7 +68,7 @@
             link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>
                 <% else %>
                     <div>
-                        <%= icon 'check-circle-o', class: 'fa-lg u-fill-green' %>
+                        <%= icon 'check', class: 'fa-lg' %>
                         <small>E-postadressen er bekreftet!</small>
                     </div>
                 <% end %>
@@ -86,7 +86,7 @@
             <div class="twelve columns">
                 <% if @user.phone_pending_confirmation? %>
                     <div>
-                        <%= icon 'times-circle-o', class: 'fa-lg u-fill-red' %>
+                        <%= icon 'exclamation-triangle', class: 'fa-lg u-fill-red' %>
                         <small>
                             Telefonnummer <%= @user.unconfirmed_phone_number %> er ikke bekreftet!
                             <% if not @user.unconfirmed_phone_number.blank? %>
@@ -98,7 +98,7 @@
                     </div>
                 <% else %>
                     <div>
-                        <%= icon 'check-circle-o', class: 'fa-lg u-fill-green' %>
+                        <%= icon 'check', class: 'fa-lg' %>
                         <small>Telefonnummeret er bekreftet!</small>
                     </div>
                 <% end %>
