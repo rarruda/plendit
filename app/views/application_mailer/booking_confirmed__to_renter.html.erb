@@ -9,7 +9,7 @@
   <tr> <td>Til dato:</td> <td><%= l @booking.ends_at, format: :shorter_datetime %></td> </tr>
   <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
   <tr> <td></td> <td></td> </tr>
-  <tr> <td>Kostnad:</td> <td><%= format_monetary_full_pretty @booking.sum_paid_by_renter, unit: 'kr' %></td> </tr>
+  <tr> <td>Kostnad:</td> <td><%= format_monetary_full_pretty @booking.sum_paid_by_renter %></td> </tr>
 </table>
 
 <p>
