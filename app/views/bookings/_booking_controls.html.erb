@@ -1,11 +1,11 @@
 <div class="booking-controls">
     <% if current_user.owns_booking_item? @booking %>
         <% if booking.created? %>
-            <%= button_to "Avslå forespørsel", decline_booking_path(booking), class: "button", form_class: 'u-inline' %>
-            <%= button_to "Godkjenn forespørsel", accept_booking_path(booking), class: "button button-primary", form_class: 'u-inline' %>
+            <%= button_to 'Avslå forespørsel', decline_booking_path(booking), class: 'button', form_class: 'u-inline' %>
+            <%= button_to 'Godkjenn forespørsel', accept_booking_path(booking), class: 'button button-primary', form_class: 'u-inline' %>
         <% elsif booking.confirmed? || booking.started? %>
             <%# should be a red button! should have a warning to not be used lightly, as it will trigger admin intervention? %>
-            <%= button_to "Avslå forespørsel", decline_booking_path(booking), class: "button", form_class: 'u-inline' %>
+            <%= button_to 'Avslå forespørsel', decline_booking_path(booking), class: 'button', form_class: 'u-inline' %>
         <% elsif booking.in_progress? %>
             Denne bookingen er aktiv.
         <% elsif booking.ended? || booking.archived? %>
@@ -16,10 +16,10 @@
         <% end %>
     <% else %>
         <% if booking.created? %>
-            <%= button_to "Avbryt forespørsel", abort_booking_path(booking), class: "button", form_class: 'u-inline' %>
+            <%= button_to 'Avbryt forespørsel', abort_booking_path(booking), class: 'button', form_class: 'u-inline' %>
         <% elsif booking.confirmed? || booking.started? %>
             <%# should be a red button! should have a warning to not be used lightly, as it will trigger admin intervention? %>
-            <%= button_to "Avbryt forespørsel", cancel_booking_path(booking), class: "button", form_class: 'u-inline' %>
+            <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline' %>
         <% elsif booking.in_progress? %>
             Denne bookingen er aktiv.
         <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
