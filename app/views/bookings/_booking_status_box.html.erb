@@ -1,7 +1,11 @@
 <div class="help-box">
     <% if @booking.created? %>
+        TRANSLATE: Betaling pågår
+    <% elsif @booking.payment_preauthorized? %>
         Venter på godkjenning
     <% elsif @booking.confirmed? %>
+        TRANSLATE: Forespørsel godkjent, Betaling pågår
+    <% elsif @booking.payment_confirmed? %>
         Forespørsel godkjent
     <% elsif @booking.declined? %>
         Forespørsel avslått
@@ -13,10 +17,16 @@
         Leieforholdet ble avbrutt
     <% elsif @booking.disputed? %>
         Leieforholdet ble avlyst. Er dette riktig?
+    <% elsif @booking.dispute_agreed? %>
+        Leieforholdet ble avlyst. (TRANSLATEME: Av begge parter)
+    <% elsif @booking.dispute_disagreed? %>
+        Leieforholdet ble avlyst. (TRANSLATEME: uenighet. hva skjer?)
     <% elsif @booking.ended? %>
         Leieforholdet er over
     <% elsif @booking.archived? %>
         Arkivert
+    <% elsif @booking.payment_preauthorization_failed? || @booking.payment_failed? %>
+        Betaling mislyktes
     <% elsif @booking.admin_paused? %>
         Under behandling
     <% else %>

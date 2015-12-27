@@ -28,17 +28,23 @@ class BookingDecorator < Draper::Decorator
 
   def display_status
     status_names = {
-        created:       'sendt',
-        confirmed:     'godtatt',
-        started:       'startet',
-        in_progress:   'pågår',
-        ended:         'fullført',
-        archived:      'arkivert',
-        aborted:       'avlyst',
-        cancelled:     'avlyst',
-        declined:      'avslått',
-        disputed:      'avbrutt',
-        admin_paused:  'stoppet av administrator'
+      created:           'venter betaling', #TRANSLATEME
+      payment_preauthorized: 'sendt',       #TRANSLATEME
+      confirmed:         'betaling pågår',  #TRANSLATEME
+      payment_confirmed: 'godtatt',         #TRANSLATEME
+      started:           'startet',
+      in_progress:       'pågår',
+      ended:             'fullført',
+      archived:          'arkivert',
+      aborted:           'avlyst',
+      cancelled:         'avlyst',
+      declined:          'avslått',
+      payment_preauthorization_failed: 'betaling mislyktes', #TRANSLATEME
+      payment_failed:    'betaling mislyktes', #TRANSLATEME
+      disputed:          'avbrutt',
+      dispute_agree:     'avbrutt',         #TRANSLATEME
+      dispute_diaagree:  'avbrutt',         #TRANSLATEME
+      admin_paused:      'stoppet av administrator',
     }
     status_names[status.to_sym]
   end

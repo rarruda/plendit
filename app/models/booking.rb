@@ -169,10 +169,6 @@ class Booking < ActiveRecord::Base
       end
     end
 
-    event :dispute do
-      transitions from: :started, to: :disputed
-    end
-
     #after: :refund_payin
     event :cancel do
       transitions from: [:confirmed,:payment_confirmed,:started], to: :cancelled do
@@ -226,10 +222,30 @@ class Booking < ActiveRecord::Base
       #end
     end
 
+    event :dispute do
+      transitions from: :started, to: :disputed
+    end
+
+    event :dispute_agree do
+      transitions from: :disputed, to: :dispute_agreed
+    end
+
+    event :dispute_disagree do
+      transitions from: :disputed, to: :dispute_disagreed
+    end
+
+    event :payment_preauthorization_fail do
+      transitions from: [:created, :payment_preauthorized], to: :payment_preauthorization_failed
+    end
+
+    event :payment_fail do
+      transitions from: [:created, :payment_confirmed], to: :payment_failed
+    end
+
     # dont do anything. when manual intervention is required/exception handling:
     # tar-pit state.
     event :admin_pause do
-      transitions from: [:created,:confirmed, :started, :in_progress, :ended], to: :admin_paused
+      transitions from: [:created, :payment_preauthorized, :confirmed, :payment_confirmed, :started, :in_progress, :ended, :disputed], to: :admin_paused
     end
   end
 
@@ -272,8 +288,8 @@ class Booking < ActiveRecord::Base
 
   def was_ever_confirmed?
     [
-      self.confirmed?, self.disputed?, self.started?, self.in_progress?,
-      self.ended?, self.archived?, self.aborted?
+      self.confirmed?, self.payment_confirmed?, self.started?, self.in_progress?,
+      self.ended?, self.archived?, self.disputed?, self.dispute_agreed?
     ].any?
   end
 
@@ -425,7 +441,10 @@ class Booking < ActiveRecord::Base
       src_vid:  self.from_user.user_payment_cards.find( user_payment_card_id ).card_vid
     }
     t = self.financial_transactions.create( financial_transaction )
-    t.process!
+
+    # called from a BookingProcessPreauthJob:
+    # t.process!
+    BookingProcessPreauthJob.perform_later self
   end
 
   def create_financial_transaction_payin
@@ -445,17 +464,25 @@ class Booking < ActiveRecord::Base
       src_vid:  preauth_transaction_vid
     }
     t = self.financial_transactions.create( financial_transaction )
-    t.process!
+
+    # called from a BookingProcessPayinJob:
+    # t.process!
+    BookingProcessPayinJob.perform_later self
   end
 
+  # Cancel all preauths connected to this booking which have finished status.
   def cancel_financial_transaction_preauth
     self.financial_transactions.preauth.finished.map( &:process_cancel_preauth! )
   end
 
+  # NOTE: not tested!!
+  # Create payin_refunds for all payins connected to this booking which have finished status.
+  # this is only called from BookingProcessPayinJob
   def cancel_financial_transaction_payin
-    # NOT IN PLACE! PAYINS ARE NOT (YET) REFUNDABLE
-    # OR WILL IT BE CREATING A REFUND??
-    ##self.financial_transactions.payin.pending_or_processing.map( &:process_cancel_payin! )
+    self.financial_transactions.payin.finished.each do |ft|
+      ####### create_financial_transaction_payin_refund ft
+      # MAYBE: should refresh the ft, as possibly the nature changed to REFUND? I dunno.
+    end
   end
 
 
