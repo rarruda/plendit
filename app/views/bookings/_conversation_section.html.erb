@@ -1,22 +1,27 @@
-<section class="conversation-section">
-    <% if booking.messages.empty? %>
-        Ingen meldinger.
-    <% else %>
-        <%= render partial: "conversation_item", collection: @booking.messages, as: "message" %>
-    <% end %>
+<div data-controller="bookingMessaging">
+    <section class="conversation-section">
+        <div data-conversation>
+            <%= render partial: 'messages/message_list' %>
+        </div>
 
-    <div class="conversation-section__editor">
-        <% if ['cancelled','declined'].include? @booking.status %>
-            Det er ikke lenger mulig å sende meldinger på denne forespørselen.
-        <% else %>
-            <p>Din melding:</p>
-            <%= form_for :message, url: booking_messages_path( @booking ) do |f| %>
-                <%= f.hidden_field :booking_id, value: @booking.id %>
-                <%= f.text_area :content, class: 'u-full-width', data: { controller: 'autoSizeTextArea' }, placeholder: 'Meldingstekst...' %>
-                <p>
-                    <%= f.submit 'Send melding', class: 'u-pull-right button button-primary' %>
-                </p>
+        <div class="conversation-section__editor">
+            <% if ['cancelled','declined'].include? @booking.status %>
+                Det er ikke lenger mulig å sende meldinger på denne forespørselen.
+            <% else %>
+                <p>Din melding:</p>
+                <%= form_for :message, url: booking_messages_path( @booking ) do |f| %>
+                    <%= f.hidden_field :booking_id, value: @booking.id %>
+                    <%= f.text_area :content,
+                            class: 'u-full-width',
+                            data: { controller: 'autoSizeTextArea', message_body: '' },
+                            placeholder: 'Meldingstekst...' %>
+                    <div>
+                        <%= f.submit 'Send melding',
+                                class: 'u-pull-right button button-primary',
+                                data: {send_message: ''} %>
+                    </div>
+                <% end %>
             <% end %>
-        <% end %>
-    </div>
-</section>
+        </div>
+    </section>
+</div>

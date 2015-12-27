@@ -1,0 +1,5 @@
+<% if @booking.messages.empty? %>
+    Ingen meldinger.
+<% else %>
+    <%= render partial: "bookings/conversation_item", collection: @booking.messages, as: "message" %>
+<% end %>

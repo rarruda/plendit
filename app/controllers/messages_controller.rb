@@ -13,7 +13,10 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         format.html { redirect_to @message.booking }
-        format.json { render :show, status: :created, location: @message }
+        format.json {
+          @booking = @message.booking.decorate
+          render json: (render_to_string partial: 'message_list', formats: [:html]), status: :created
+        }
       else
         LOG.error "Failed saving message: #{@message.errors}", { user_id: current_user.id }
         format.html { render :new }

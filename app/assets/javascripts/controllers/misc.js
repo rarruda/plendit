@@ -882,3 +882,33 @@ window.controllers.regnumRevealer = function(ele) {
         section.classList.toggle("u-hidden", !e.target.checked);
     });
 }
+
+window.controllers.bookingMessaging = {
+    dependencies: ["$element", "utils", "eventbus", "xhr"],
+    callable: function(ele, utils, eventbus, xhr) {
+        var form = ele.querySelector("form");
+        var sendButton = ele.querySelector("[data-send-message");
+        var messageInput = ele.querySelector("[data-message-body");
+        var messagesHolder = ele.querySelector("[data-conversation]");
+        form.addEventListener("submit", onSubmit);
+
+        function onSubmit(evt) {
+            evt.preventDefault();
+            xhr.xhrFormData(form).then(onMessageOk, onMessageFailed);
+            sendButton.disabled = true;
+            messageInput.disabled = true;
+        }
+
+        function onMessageOk(req) {
+            sendButton.disabled = false;
+            messageInput.disabled = false;
+            messageInput.value = "";
+            messagesHolder.innerHTML = req.responseText;
+        }
+
+        function onMessageFailed(req) {
+            sendButton.disabled = false;
+            messageInput.disabled = false;
+        }
+    }
+};
