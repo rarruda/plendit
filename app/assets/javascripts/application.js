@@ -16,10 +16,6 @@
 //= require dropzone
 
 //= require 'polyfills/dom4.js'
-//= require 'polyfills/better-dom.js'
-//= require 'polyfills/better-i18n-plugin.js'
-//= require 'polyfills/better-dateinput-polyfill.js'
-//= require 'polyfills/better-dateinput-polyfill.no.js'
 //= require 'polyfills/array-from-polyfill.js'
 //= require 'polyfills/details-polyfill.js'
 //= require 'polyfills/string-polyfills.js'
