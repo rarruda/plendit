@@ -371,7 +371,7 @@ class User < ActiveRecord::Base
 
   # either id card or drivers license
   def has_confirmed_id?
-    self.id_card_status == :verified || self.drivers_license_status == :verified
+    [self.id_card_status, self.drivers_license_status].include? :verified
   end
 
   def has_address?
