@@ -36,7 +36,7 @@
     <% end %>
 </head>
 <body data-controller="helpToggler">
-    <% if Plendit::Application.config.x.footer.show_facebook_buttons %>
+    <% if Plendit::Application.config.x.facebook_integration %>
         <%= render partial: 'facebook_sdk' %>
     <% end %>
     <header>

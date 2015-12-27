@@ -184,6 +184,6 @@ Plendit::Application.config.x.frontpage.hero_videos = [
 
 Plendit::Application.config.x.frontpage.explainer_video_url = 'https://www.youtube.com/embed/mqB032_uek4?rel=0'
 
-Plendit::Application.config.x.footer.show_facebook_buttons = Plendit::Application.config.x.application_mode.beta ? false : true
+Plendit::Application.config.x.facebook_integration = Plendit::Application.config.x.application_mode.beta ? false : true
 
 Plendit::Application.config.x.signup.bedriftskunde_signup_link = 'http://goo.gl/forms/HkNI7f85XO'
