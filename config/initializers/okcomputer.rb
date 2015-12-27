@@ -7,6 +7,8 @@ OkComputer::Registry.register "elasticsearch_check",  OkComputer::ElasticsearchC
 OkComputer::Registry.register "check_elasticsearch",  HealthCheck::Elasticsearch.new
 OkComputer::Registry.register "check_redis",          HealthCheck::Redis.new
 OkComputer::Registry.register "check_mangopay",       HealthCheck::Mangopay.new
+OkComputer::Registry.register "resque_down",          OkComputer::ResqueDownCheck.new
+#OkComputer::Registry.register "resque_failure_threshold_check", OkComputer::ResqueFailureThresholdCheck.new("critical", 100)
 #OkComputer::Registry.register "check_for_odds",       HealthCheck::Random.new
 
 # Known missing checks:
