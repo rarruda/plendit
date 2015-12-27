@@ -11,7 +11,7 @@ class Booking < ActiveRecord::Base
 
 
   belongs_to :ad_item
-  belongs_to :from_user,      class_name: "User"
+  belongs_to :from_user,      class_name: 'User'
   belongs_to :user_payment_card
 
   has_one :ad,                through: :ad_item
