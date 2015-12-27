@@ -13,6 +13,8 @@ class FinancialTransaction < ActiveRecord::Base
   #has_one :to_user   #?
 
 
+  # Probably need a transfer_refund too.
+  enum purpose:          { rental: 1, deposit: 2, insurance_other: 6, payout_to_user: 7 }
   enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4 }
   enum nature:           { normal: 0, refund: 10, repudiation: 11, settlement: 12 }
   enum state:    { pending: 1, processing: 2, finished: 5, errored: 10, unknown_state: 20 }

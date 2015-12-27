@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225185208) do
+ActiveRecord::Schema.define(version: 20151227010018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 20151225185208) do
     t.integer  "financial_transactionable_id"
     t.string   "financial_transactionable_type"
     t.integer  "preauth_payment_status",                    default: 0
+    t.integer  "purpose"
   end
 
   add_index "financial_transactions", ["dst_vid"], name: "index_financial_transactions_on_dst_vid", using: :btree
