@@ -62,7 +62,7 @@
         <div class="row">
             <div class="twelve columns">
                 <% if @user.pending_reconfirmation? %>
-                    <div>Venter at du skal bekrefte: <%= @user.unconfirmed_email %>. Du skal ha mottatt en e-post med bekreftelseslenke. Om du ikke har mottatt denne e-posten, klikk <%= link_to "here", new_user_confirmation_path %>. Vi beholder din forrige e-postadresse til du har bekreftet din nye.
+                    <div>Venter at du skal bekrefte: <%= @user.unconfirmed_email %>. Du skal ha mottatt en e-post med bekreftelseslenke. Om du ikke har mottatt denne e-posten, <%= link_to 'klikk her', new_user_confirmation_path %>. Vi beholder din forrige e-postadresse til du har bekreftet din nye.
                     </div>
                     <%# FIXME(RA): make the link a post to the user's current email.
             link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>
@@ -79,7 +79,7 @@
         <div class="row u-push-down-only">
             <div class="six columns">
                 <%= f.label :current_phone_number, 'Telefonnummer:' %>
-                <%= f.text_field :current_phone_number, { class: "u-full-width", maxlength: 8 } %>
+                <%= f.text_field :current_phone_number, { class: 'u-full-width', maxlength: 8 } %>
             </div>
         </div>
         <div class="row">
