@@ -119,11 +119,11 @@ class User < ActiveRecord::Base
   end
 
   def feedback_score_refresh
-    self.update_columns(
+    self.attributes = {
       feedback_score:       self.received_feedbacks.size == 0 ? 0 : ( self.received_feedbacks.map(&:score).reduce(0,:+) / self.received_feedbacks.size ),
       feedback_score_count: self.received_feedbacks.size,
-      feedback_score_updated_at: DateTime.now,
-    )
+    }
+    self.feedback_score_updated_at = ( ( self.feedback_score_changed? || self.feedback_score_count_changed? ) ? DateTime.now : self.feedback_score_updated_at )
   end
 
   def recent_feedback
