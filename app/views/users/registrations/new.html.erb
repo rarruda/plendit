@@ -43,7 +43,7 @@
                     <div class="row">
                         <div class="one-third column">
                             <%= f.label :birthday, "Fødselsdato:" %>
-                            <%= f.date_field :birthday, class: 'u-full-width'  %>
+                            <%= f.date_select :birthday, start_year: 1900, class: 'u-full-width' %>
                         </div>
                     </div>
 
