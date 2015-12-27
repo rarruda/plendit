@@ -56,11 +56,10 @@ class BookingDecorator < Draper::Decorator
       self.messages.last.activity_message current_user
     else
 
-      is_owner = current_user == self.user
+      is_owner  = ( current_user == self.user )
       from_name = self.from_user.display_name
-      to_name = self.user.display_name
+      to_name   = self.user.display_name
 
-      puts "lsosoosos #{self.status == 'started'}"
 
     case self.status
       when 'created'
