@@ -226,7 +226,7 @@ class FinancialTransaction < ActiveRecord::Base
       # https://docs.mangopay.com/api-references/card/pre-authorization/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pre_authorization.rb
       preauth = MangoPay::PreAuthorization.create(
-        'Tag'          => "booking_id=#{financial_transactionable_id}", #from_user_id= to_user_id
+        'Tag'          => "booking_id=#{financial_transactionable_id} #{self.purpose}",
         'AuthorId'     => self.from_user.payment_provider_vid,
         'CardId'       => self.src_vid,
         'DebitedFunds' => {
@@ -347,7 +347,7 @@ class FinancialTransaction < ActiveRecord::Base
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_in.rb#L30
       # https://docs.mangopay.com/api-references/payins/preauthorized-payin/
       payin = MangoPay::PayIn::PreAuthorized::Direct.create(
-        'Tag'                => "booking_id=#{self.financial_transactionable_id}",
+        'Tag'                => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
         'AuthorId'           => self.financial_transactionable.from_user.payment_provider_vid,
         'PreauthorizationId' => self.src_vid,
         'CreditedWalletId'   => self.dst_vid,
@@ -397,7 +397,7 @@ class FinancialTransaction < ActiveRecord::Base
       # https://docs.mangopay.com/api-references/transfers/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/transfer.rb
       transfer = MangoPay::Transfer.create(
-        'Tag'              => "booking_id=#{financial_transactionable_id}",
+        'Tag'              => "booking_id=#{financial_transactionable_id} #{self.purpose}",
         'AuthorId'         => self.financial_transactionable.from_user.payment_provider_vid, #owner of the debitedWalletId
         'CreditedUserId'   => self.financial_transactionable.user.payment_provider_vid,
         'DebitedWalletId'  => self.src_vid,
@@ -446,7 +446,7 @@ class FinancialTransaction < ActiveRecord::Base
       # https://docs.mangopay.com/api-references/pay-out-bank-wire/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_out.rb
       payout = MangoPay::PayOut::BankWire.create(
-        'Tag'            => "user_id=#{self.financial_transactionable.user_id}",
+        'Tag'            => "user_id=#{self.financial_transactionable.user_id}", # No need for: #{self.purpose}
         'AuthorId'       => self.financial_transactionable.user.payment_provider_vid,
         'CreditedUserId' => self.financial_transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
         'DebitedFunds'   => {

@@ -418,6 +418,7 @@ class Booking < ActiveRecord::Base
   def create_financial_transaction_preauth
     financial_transaction = {
       transaction_type: 'preauth',
+      purpose:  'rental',
       amount:   self.sum_paid_by_renter,
       fees:     0,
       src_type: :src_card_vid,
@@ -437,6 +438,7 @@ class Booking < ActiveRecord::Base
 
     financial_transaction = {
       transaction_type: 'payin',
+      purpose:  'rental',
       amount:   self.sum_paid_by_renter,
       fees:     0,
       src_type: :src_preauth_vid,
@@ -462,8 +464,9 @@ class Booking < ActiveRecord::Base
     # NOTE: 'amount' will be automatically be deducted for the 'fees'
     financial_transaction = {
       transaction_type: 'transfer',
-      amount: self.sum_paid_by_renter,
-      fees:   self.sum_plaform_fee_and_insurance
+      purpose: 'rental',
+      amount:  self.sum_paid_by_renter,
+      fees:    self.sum_plaform_fee_and_insurance
     }
     t = self.financial_transactions.create( financial_transaction )
     t.process!
