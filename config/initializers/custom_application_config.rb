@@ -71,13 +71,15 @@ Plendit::Application.config.x.insurance.motor_deductible_value = {
   tractor: 12_000_00,
  }
 
+# Boat does not have a max_coverage_factor, but is insured up to the estimated_value:
 Plendit::Application.config.x.insurance.max_coverage_factor = {
   bap:        25,
   motor:      25,
   realestate: 25,
-  boat:       25,
+  boat:       0,
  }
 
+# Business rule from IF on how much discount is allowed:
 # array of arrays [min_value, max_discount_in_pct], whatever is highest.
 Plendit::Application.config.x.insurance.max_discount_after_duration = [
   [   99_00, 0.6 ],
