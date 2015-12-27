@@ -3,7 +3,7 @@ OkComputer.mount_at = false
 
 #OkComputer.require_authentication(ENV['PCONF_HTTP_AUTH_USERNAME'], ENV['PCONF_HTTP_AUTH_PASSWORD']) if Rails.env.production?
 
-OkComputer::Registry.register "elasticsearch_check",  OkComputer::ElasticsearchCheck.new( URI.parse( ENV['SEARCHBOX_URL'] || "http://localhost:9200/" ) )
+OkComputer::Registry.register "elasticsearch_check",  OkComputer::ElasticsearchCheck.new( URI.parse( ENV['PCONF_ES_URL'] || ENV['SEARCHBOX_URL'] || "http://localhost:9200/" ) )
 OkComputer::Registry.register "check_elasticsearch",  HealthCheck::Elasticsearch.new
 OkComputer::Registry.register "check_redis",          HealthCheck::Redis.new
 OkComputer::Registry.register "check_mangopay",       HealthCheck::Mangopay.new
