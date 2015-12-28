@@ -15,7 +15,7 @@
         <p class="front-search-block__copy">og spar penger! Massevis av ting til leie.</p>
 
         <div>
-            <%= form_tag("/search", method: "get", class: 'u-inline') do %>
+            <%= form_tag(search_path, method: :get, class: 'u-inline') do %>
               <%= text_field_tag 'q', '', class: 'front-search-block__input', autofocus: true, placeholder: 'Hva vil du leie?' %>
               <%= submit_tag 'Søk', class: 'front-search-block__search-button button button-primary' %>
             <% end %>
@@ -61,7 +61,7 @@
         <h2>Siste annonser</h2>
         <% @ads.each do |ad| %>
             <div class="latest-ads__holder">
-                <%= render partial: "shared/search_result_link", locals: { ad: ad } %>
+                <%= render partial: 'shared/search_result_link', locals: { ad: ad } %>
             </div>
         <% end %>
         <%= button_to 'Se alle annonsene', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
