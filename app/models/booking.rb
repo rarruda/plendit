@@ -501,8 +501,10 @@ class Booking < ActiveRecord::Base
   #  have a pre-determined timepoint. We enforce it in this callback
   #  method that is called only on create.
   def align_times
+    # if booking the same day, then starts_at is in one minute from now.
+    earliest_possible_starts_at = ( self.starts_at.to_date == Date.today ) ? ( DateTime.now + 1.minute ) : self.starts_at.beginning_of_day
     self.attributes = {
-      starts_at: self.starts_at.beginning_of_day,
+      starts_at: earliest_possible_starts_at,
       ends_at:   self.ends_at.end_of_day
     }
   end
