@@ -61,8 +61,8 @@ class User < ActiveRecord::Base
   validates :nationality,          presence: true, if: :has_bank_account?
   validates :country_of_residence, presence: true, if: :has_bank_account?
 
-  #between 10 and 120 years, only if user has a the bank account number
-  validate :birthday, :birthday_should_be_reasonable, if: :has_bank_account?
+  #between 18 and 120 years, only if user has a the bank account number
+  validate :birthday, :validate_birthday_is_reasonable, if: :has_bank_account?
 
   validates :home_address_line, presence: true, if: :has_bank_account?
   validates :home_post_code,    presence: true,
@@ -597,7 +597,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def birthday_should_be_reasonable
+  def validate_birthday_is_reasonable
     if self.birthday.nil? || self.birthday < 120.years.ago || self.birthday > 18.years.ago
       errors.add(:birthday, "Du kan ikke være eldre enn 120 eller yngre 18 år gammel. Aldersgrensen for å bli bruker er 18 år.")
     end
