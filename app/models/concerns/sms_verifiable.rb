@@ -22,11 +22,12 @@ module SmsVerifiable
   end
 
   def phone_verified?
-    not self.phone_number.blank?
+    self.phone_number.present?
   end
 
+  # do not let invalid unconfirmed_phone_number be pending confirmation:
   def phone_pending_confirmation?
-    self.unconfirmed_phone_number.present?
+    self.unconfirmed_phone_number.present? && self.errors[:unconfirmed_phone_number].empty?
   end
 
   def sms_sending_cool_off_elapsed?

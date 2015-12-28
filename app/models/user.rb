@@ -44,9 +44,12 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :user_payment_account, :reject_if => proc { |attributes| attributes['bank_account_number'].blank? }
   accepts_nested_attributes_for :user_images, :reject_if => proc { |attributes| ( not attributes['user_images_attributes'].nil? ) and attributes['user_images_attributes'].any? { |uia| uia.image_file_name.blank? } }
 
-
   validates :unconfirmed_phone_number, presence: true,
     format: { with: /\A[0-9]{8}\z/, message: "Telefonnummeret må være gyldig" },
+    if: "unconfirmed_phone_number.present?",
+    unless: :new_record?
+
+  validate :validate_unconfirmed_phone_number_is_unique,
     if: "unconfirmed_phone_number.present?",
     unless: :new_record?
 
@@ -600,6 +603,12 @@ class User < ActiveRecord::Base
   def validate_birthday_is_reasonable
     if self.birthday.nil? || self.birthday < 120.years.ago || self.birthday > 18.years.ago
       errors.add(:birthday, "Du kan ikke være eldre enn 120 eller yngre 18 år gammel. Aldersgrensen for å bli bruker er 18 år.")
+    end
+  end
+
+  def validate_unconfirmed_phone_number_is_unique
+    if User.find_by(phone_number: self.unconfirmed_phone_number).present?
+      errors.add(:unconfirmed_phone_number, "Dette telefonnummeret er koblet til en annen bruker")
     end
   end
 

@@ -99,7 +99,11 @@
                 <% else %>
                     <div>
                         <%= icon 'check', class: 'fa-lg' %>
-                        <small>Telefonnummeret er bekreftet!</small>
+                        <% if @user.unconfirmed_phone_number.present? %>
+                            <small>Telefonnummeret (<%= @user.phone_number %>) er bekreftet!</small>
+                        <% else %>
+                            <small>Telefonnummeret er bekreftet!</small>
+                        <% end %>
                     </div>
                 <% end %>
             </div>
