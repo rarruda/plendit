@@ -8,7 +8,7 @@
         <% elsif booking.confirmed? %>
             TRANSLATEME: Betaling pågår for denne booking.
         <% elsif booking.payment_confirmed? || booking.started? %>
-            <%= button_to 'Avslå forespørsel', decline_booking_path(booking), class: 'button', form_class: 'u-inline' %>
+            <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "TRANSLATEME: Er du sikker at du vil avbryt?" } %>
         <% elsif booking.in_progress? %>
             Denne bookingen er aktiv.
         <% elsif booking.ended? || booking.archived? %>
@@ -29,5 +29,9 @@
         <% else %>
            Ukjent status, opplever du problemer kan du ta kontakt med <%= link_to 'kundesenteret', Plendit::Application.config.x.customerservice.contact_form %>.
         <% end %>
+    <% end %>
+
+    <% if booking.started? || booking.in_progress? || booking.ended? %>
+        <%= link_to 'skademeldingskjema', booking_accident_reports_path(booking) %>
     <% end %>
 </div>
