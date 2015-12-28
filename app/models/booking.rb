@@ -495,6 +495,11 @@ class Booking < ActiveRecord::Base
     BookingProcessPayinRefundJob.perform_later self
   end
 
+  # FIXME(RA):
+  # keeping for now this call syncronous. But should also call a job eventually...
+  #  but as we dont have enough "states" to cover the post-transfer, let it be...
+  # At some point we should consider making IF a special customer, and making a
+  #  split payment here.
   def create_financial_transaction_transfer
     # later we should make this a split payment!
     # NOTE: 'amount' will be automatically be deducted for the 'fees'
@@ -505,6 +510,8 @@ class Booking < ActiveRecord::Base
       fees:    self.sum_plaform_fee_and_insurance
     }
     t = self.financial_transactions.create( financial_transaction )
+
+    # FIXME(RA): should be triggered from a job:
     t.process!
   end
 

@@ -12,9 +12,7 @@ UserFeedbackScoreRefreshAllJob:
   description: "Refresh feedback_score for all users"
 
 
-# Needed jobs:
-# recalculate_users_response_time
-# recalculate_users_rating
+
 
 #queue_documents_for_indexing:
 #  cron: "0 0 * * *"

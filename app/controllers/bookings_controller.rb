@@ -88,6 +88,7 @@ class BookingsController < ApplicationController
   end
 
   private
+  # FIXME/TODO(RA): these notify_* methods belong in the model. (self.user/from_user.notification.create({}) )
   def notify_about_accept
     Notification.create(
       user_id: @booking.from_user.id,

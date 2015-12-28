@@ -15,7 +15,7 @@
 
     <% if @booking.may_give_feedback? %>
         <div class="u-push-down">
-            <%# todo runeh cond around has_provided_feedback %>
+            <%# FIXME: TODO runeh cond around has_provided_feedback %>
             <%= render partial: 'booking_feedback' %>
         </div>
     <% end %>
