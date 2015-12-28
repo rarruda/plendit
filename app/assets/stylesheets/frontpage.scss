@@ -20,6 +20,10 @@
             padding-top: 28px;
         }
 
+        @media (max-width: $mobile) {
+            padding-top: 0;
+        }
+
         @media (min-width: $bigscreen) {
             padding-top: 80px;
         }
@@ -83,6 +87,10 @@
 
         @media (max-width: $tablet) {
             height: 340px;
+        }
+
+        @media (max-width: 360px) {
+            height: 400px;
         }
 
     }

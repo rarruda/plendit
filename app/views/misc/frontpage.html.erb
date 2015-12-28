@@ -15,10 +15,11 @@
         <p class="front-search-block__copy">og spar penger! Massevis av ting til leie.</p>
 
         <div>
-            <%= form_tag("/search", method: "get") do %>
+            <%= form_tag("/search", method: "get", class: 'u-inline') do %>
               <%= text_field_tag 'q', '', class: 'front-search-block__input', autofocus: true, placeholder: 'Hva vil du leie?' %>
               <%= submit_tag 'Søk', class: 'front-search-block__search-button button button-primary' %>
             <% end %>
+            <%= button_to 'Se alt', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
         </div>
     </div>
 
