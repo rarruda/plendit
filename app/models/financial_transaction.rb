@@ -564,7 +564,7 @@ class FinancialTransaction < ActiveRecord::Base
     unless self.payout? &&
       self.processing?
 
-      raise "can not process this transaction with this method"
+      raise "can not process this transaction with this method from this state"
     end
 
     begin
@@ -611,7 +611,7 @@ class FinancialTransaction < ActiveRecord::Base
     when 'VALIDATED'
       :preauth_validated
     else
-      LOG.error "unknown payment_status result from PayIn::PreAuthorization::Update.fetch", { financial_transaction_id: self.id, mangopay_result: cancelation }
+      LOG.error "unknown payment_status result from PayIn::PreAuthorization::Update.fetch: #{payment_status}", { financial_transaction_id: self.id }
     end
   end
 
