@@ -172,7 +172,7 @@ class Booking < ActiveRecord::Base
       transitions from: [:confirmed,:payment_confirmed,:started], to: :cancelled do
         guard do
           # confirmed, payment_confirmed or if started, can still cancel within 24hours.
-          self.confirmed? || self.payment_confirmed? || ( self.started? && ( self.starts_at + 1.day < DateTime.now ) )
+          self.confirmed? || self.payment_confirmed? || ( self.started? && ( DateTime.now < self.starts_at + 1.day ) )
         end
       end
       after do
