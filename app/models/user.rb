@@ -58,14 +58,16 @@ class User < ActiveRecord::Base
   validates :about, length: { maximum: 2000, too_long: "Om meg kan inneholde maks %{count} tegn" }
 
   #only if user has a the bank account number
-  validates :nationality,          presence: true, :if => :has_bank_account?
-  validates :country_of_residence, presence: true, :if => :has_bank_account?
+  validates :nationality,          presence: true, if: :has_bank_account?
+  validates :country_of_residence, presence: true, if: :has_bank_account?
 
   #between 10 and 120 years, only if user has a the bank account number
-  validate :birthday, :birthday_should_be_reasonable, :if => :has_bank_account?
+  validate :birthday, :birthday_should_be_reasonable, if: :has_bank_account?
 
-  validates :home_address_line, presence: true, :if => :has_bank_account?
-  validates :home_post_code,    presence: true, format: { with: /\A[0-9]{4}\z/, message: "Postnummer må være kun tall. 4 siffer." }, :if => :has_bank_account?
+  validates :home_address_line, presence: true, if: :has_bank_account?
+  validates :home_post_code,    presence: true,
+    format: { with: /\A[0-9]{4}\z/, message: "Postnummer må være kun tall. 4 siffer." },
+    if: :has_bank_account?
 
 
 
