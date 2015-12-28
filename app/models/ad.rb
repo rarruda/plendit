@@ -25,28 +25,28 @@ class Ad < ActiveRecord::Base
   accepts_nested_attributes_for :payin_rules, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :ad_images,   reject_if: :all_blank, allow_destroy: true
 
-  validates_associated :payin_rules, message: "En av prisene du har oppgitt er ugyldige."
+  validates_associated :payin_rules, message: 'En av prisene du har oppgitt er ugyldige.'
 
   validates :user,  presence: true
-  validates :title, length: { in: 3..255 , message: "Annonsen må ha en tittel." },
+  validates :title, length: { in: 3..255 , message: 'Annonsen må ha en tittel.' },
     unless: :new_record?
 
-  validates :body, length: { in: 5..255 , message: "Annonsen må ha en beskrivelse." },
+  validates :body, length: { in: 5..255 , message: 'Annonsen må ha en beskrivelse.' },
     unless: :new_record?
 
-  validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: "Annonsen må ha et gyldig reg.nr." },
+  validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: 'Annonsen må ha et gyldig reg.nr.' },
     unless: :new_record?,
     if:     :motor?
 
-  validates :registration_group, presence: { message: "Kjøretøyet må ha en underkategori."},
+  validates :registration_group, presence: { message: 'Kjøretøyet må ha en underkategori.'},
     unless: :new_record?,
     if:     :motor?
 
-  validates :estimated_value, numericality: { less_than: 250_000_00, allow_nil: true, message: "Båt kan ha en maks antatt verdi på 250.000 kroner."},
+  validates :estimated_value, numericality: { less_than: 250_000_00, allow_nil: true, message: 'Båt kan ha en maks antatt verdi på 250.000 kroner.'},
     unless: :new_record?,
     if:     :boat?
 
-  validates :ad_images, presence: { message: "Annonsen må ha minst ett bilde." },
+  validates :ad_images, presence: { message: 'Annonsen må ha minst ett bilde.' },
     unless: :new_record?
   # todo: runeh: use nested validations for this? As in validates_associated :payin_rules
 
@@ -151,7 +151,7 @@ class Ad < ActiveRecord::Base
           self.destroy
           LOG.info 'ad deleted from database.'
         else
-          LOG.info 'ad not deleted, only delted flag set'
+          LOG.info 'ad not deleted, only deleted flag set'
         end
 
       end
@@ -163,14 +163,14 @@ class Ad < ActiveRecord::Base
 
 
   def enter_published
-    LOG.error ("ad published... it is now searchable after the toggle is switched.")
+    LOG.error ('ad published... it is now searchable after the toggle is switched.')
     __elasticsearch__.index_document
     ## TODO: notify user that his ad is now live.
   end
 
   def exit_published
     self.__elasticsearch__.delete_document ignore: 404
-    LOG.info ">> no longer searchable."
+    LOG.info '>> no longer searchable.'
   end
 
   def world_viewable?
@@ -209,7 +209,7 @@ class Ad < ActiveRecord::Base
     }
 
     unless stock_images.keys.include? size
-      LOG.error "ERROR: wrong image size parameter, falling back to :searchresult"
+      LOG.error 'ERROR: wrong image size parameter, falling back to :searchresult'
       size = :searchresult
     end
 
