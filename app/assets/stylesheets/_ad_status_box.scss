@@ -1,11 +1,5 @@
 @import 'constants.scss';
 
-.ad-status-box {
-    &__form {
-        display: inline;
-    }
-}
-
 /* hacky bits due to higher specificity of some default selectors in
    skeleton than the bem classes */
 .button {
