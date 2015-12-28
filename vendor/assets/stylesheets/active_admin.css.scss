@@ -15,3 +15,14 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+
+.status_tag {
+  &.finished   { background: #8daa92; }
+  &.processing { background: #e29b20; }
+
+  &.preauth    { background: #63b8ff; }
+  &.payin      { background: #008aff; }
+  &.transfer   { background: #00cc99; }
+  &.payin_refund { background: #cc99ff; }
+  &.payout     { background: #ff9999; }
+}
