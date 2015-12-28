@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   scope '/internal-backstage' do
-    mount OkComputer::Engine, at: "health-check", as: 'ok_computer'
-    mount ResqueWeb::Engine,  at: "resque-web"
+    mount OkComputer::Engine, at: 'health-check', as: 'ok_computer'
+    mount ResqueWeb::Engine,  at: 'resque-web'
 
     #https://github.com/resque/resque-web/pull/79
     #https://github.com/resque/resque-web/issues/76
@@ -50,12 +50,12 @@ Rails.application.routes.draw do
 
   # see: https://github.com/plataformatec/devise/blob/master/lib/devise/rails/routes.rb
   devise_for :users, :controllers => {
-    :omniauth_callbacks => "users/omniauth_callbacks",
-    :registrations      => "users/registrations",
-    :sessions           => "users/sessions"
-  }, :path => '/me', path_names: {
-    sign_in:  'login',
-    sign_out: 'logout',
+    omniauth_callbacks: 'users/omniauth_callbacks',
+    registrations:      'users/registrations',
+    sessions:           'users/sessions'
+  }, path: '/me', path_names: {
+    sign_in:      'login',
+    sign_out:     'logout',
     registration: 'register'
     #password: 'secret',
     #confirmation: 'verification',
