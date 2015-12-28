@@ -35,23 +35,6 @@ class BookingsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /bookings/1
-  def update
-    #if current_user == @booking.from_user
-    #  raise 'permission denied' if not ['cancelled','accepted'].include? booking_params.status
-    #elsif current_user == @booking.user
-    #  raise 'permission denied' if booking_params.status != 'declined'
-    #end
-
-    if @booking.update(booking_params)
-      redirect_to @booking
-      notify_about_updated_booking
-    else
-      @ad = @booking.ad
-      render :edit
-    end
-  end
-
   def booking_calc
     ad_id = params[:ad_id]
     from  = params[:from_date]

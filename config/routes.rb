@@ -28,13 +28,14 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, path: '/me/bookings', param: :guid, except: [:edit] do
+  resources :bookings, path: '/me/bookings', param: :guid, only: [:index, :show, :new, :create] do
     resources :messages
     resources :accident_reports, only: [:index, :create]
     member do
+      get  'booking_calc'
       get  'show_price'
-      post 'decline'
       post 'accept'
+      post 'decline'
       post 'abort'
       post 'cancel'
     end
