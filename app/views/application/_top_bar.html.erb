@@ -27,8 +27,10 @@
                 <%= avatar_image current_user, :tiny, class: 'top-bar__avatar' -%>
             <%- end -%>
         <%- else -%>
-            <%= link_to t(:sign_up), new_user_registration_path, class: 'top-bar__navbar-link' %> |
-            <%= link_to t(:log_in), new_user_session_path, class: 'top-bar__navbar-link' %>
+            <span class="top-bar__anon">
+                <%= link_to t(:sign_up), new_user_registration_path, class: 'top-bar__navbar-link' %> |
+                <%= link_to t(:log_in), new_user_session_path, class: 'top-bar__navbar-link' %>
+            </span>
         <% end %>
     </div>
 </div>

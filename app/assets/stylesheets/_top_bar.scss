@@ -145,4 +145,12 @@ $top-bar-height: 52px;
         color: white;
         position: relative;
     }
+
+    &__anon {
+        vertical-align: sub;
+    
+        @media (max-width: 400px) {
+            font-size: smaller;
+        }
+    }
 }

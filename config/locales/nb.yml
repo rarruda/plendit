@@ -1,7 +1,7 @@
 nb:
   hello: "Hei verden"
   log_in: "Logg inn"
-  sign_up: "Opprett konto"
+  sign_up: "Ny bruker"
 
   time:
     formats:
