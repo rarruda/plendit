@@ -50,6 +50,8 @@ class FinancialTransaction < ActiveRecord::Base
   scope :payin_refund,->{ where( transaction_type: FinancialTransaction.transaction_types[:payin_refund] ) }
 
   # by state/status:
+  scope :errored_or_unknown_state,
+                     -> { where( state: [ FinancialTransaction.states[:errored], FinancialTransaction.states[:unknown_state] ] ) }
   scope :pending_or_processing,
                      -> { where( state: [ FinancialTransaction.states[:pending], FinancialTransaction.states[:processing] ] ) }
   scope :finished,   -> { where( state: FinancialTransaction.states[:finished] ) }
