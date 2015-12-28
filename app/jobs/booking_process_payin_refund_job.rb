@@ -10,8 +10,10 @@ class BookingProcessPayinRefundJob < ActiveJob::Base
       if ft.pending?
         ft.process!
       elsif ft.processing?
-        # there is no refreshing for payin_refund... (at least for now)
-        # ft.process_refresh!
+        puts "A refund should never get stuck in processing: financial_transactions_id:#{ft.id}"
+
+        # but lets refresh, just in case...
+        ft.process_refresh!
       end
     end
 
