@@ -473,16 +473,27 @@ class Booking < ActiveRecord::Base
     self.financial_transactions.preauth.finished.map( &:process_cancel_preauth! )
   end
 
-  # NOTE: not tested!!
   # Create payin_refunds for all payins connected to this booking which have finished status.
-  # this is only called from BookingProcessPayinJob
   def cancel_financial_transaction_payin
     self.financial_transactions.payin.finished.each do |ft|
-      ####### create_financial_transaction_payin_refund ft
-      # MAYBE: should refresh the ft, as possibly the nature changed to REFUND? I dunno.
+      LOG.debug "found payin financial_transaction_id: #{ft.id} to refund", booking_id: self.id
+      create_financial_transaction_payin_refund ft
     end
   end
 
+  def create_financial_transaction_payin_refund ft_to_refund
+    financial_transaction = {
+      transaction_type: 'payin_refund',
+      purpose:  ft_to_refund.purpose,
+      src_type: :src_payin_vid,
+      src_vid:  ft_to_refund.transaction_vid
+    }
+    t = self.financial_transactions.create( financial_transaction )
+
+    # called from a BookingProcessPayinRefundJob:
+    # t.process!
+    BookingProcessPayinRefundJob.perform_later self
+  end
 
   def create_financial_transaction_transfer
     # later we should make this a split payment!

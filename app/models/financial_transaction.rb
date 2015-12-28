@@ -15,11 +15,11 @@ class FinancialTransaction < ActiveRecord::Base
 
   # Probably need a transfer_refund too.
   enum purpose:          { rental: 1, deposit: 2, insurance_other: 6, payout_to_user: 7 }
-  enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4 }
+  enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4, payin_refund: 12 }
   enum nature:           { normal: 0, refund: 10, repudiation: 11, settlement: 12 }
   enum state:    { pending: 1, processing: 2, finished: 5, errored: 10, unknown_state: 20 }
   #mangopay status:CREATED                    SUCCEEDED    FAILED
-  enum src_type: { src_preauth_vid:      1, src_card_vid:          2, src_payin_wallet_vid: 3, src_payout_wallet_vid: 6 }
+  enum src_type: { src_preauth_vid:      1, src_card_vid:          2, src_payin_wallet_vid: 3, src_payout_wallet_vid: 6, src_payin_vid: 8 }
   enum dst_type: { dst_payin_wallet_vid: 3, dst_payout_wallet_vid: 6, dst_bank_account_vid: 7, dst_payin_transaction_vid: 9 } #if refund: {dst_card_vid: 2}
 
   enum preauth_payment_status: { not_preauth: 0, preauth_waiting: 1, preauth_validated: 2, preauth_cancelled: 3, preauth_expired: 4 }
@@ -33,10 +33,10 @@ class FinancialTransaction < ActiveRecord::Base
   validates :transaction_type, presence: true, inclusion: { in: FinancialTransaction.transaction_types.keys }
   validates :src_type,         presence: true, inclusion: { in: FinancialTransaction.src_types.keys }
   validates :src_vid,          presence: true
-  validates :dst_type,         presence: true, inclusion: { in: FinancialTransaction.dst_types.keys }, unless: :preauth?
-  validates :dst_vid,          presence: true, unless: :preauth?
-  validates :fees,             presence: true, numericality: { only_integer: true }
-  validates :amount,           presence: true, numericality: { only_integer: true }
+  validates :dst_type,         presence: true, inclusion: { in: FinancialTransaction.dst_types.keys }, if: "! ( self.preauth? || self.payin_refund? )"
+  validates :dst_vid,          presence: true, if: "! ( self.preauth? || self.payin_refund? )"
+  validates :fees,             presence: true, numericality: { only_integer: true }, unless: :payin_refund?
+  validates :amount,           presence: true, numericality: { only_integer: true }, unless: :payin_refund?
   validates :amount,           presence: true, numericality: { greater_than_or_equal_to: Rails.configuration.x.platform.payout_fee_amount }, if: :payout?
 
   # default cronological ordering:
@@ -47,6 +47,7 @@ class FinancialTransaction < ActiveRecord::Base
   scope :payin,      -> { where( transaction_type: FinancialTransaction.transaction_types[:payin]    ) }
   scope :transfer,   -> { where( transaction_type: FinancialTransaction.transaction_types[:transfer] ) }
   scope :payout,     -> { where( transaction_type: FinancialTransaction.transaction_types[:payout]   ) }
+  scope :payin_refund,->{ where( transaction_type: FinancialTransaction.transaction_types[:payin_refund] ) }
 
   # by state/status:
   scope :pending_or_processing,
@@ -161,6 +162,9 @@ class FinancialTransaction < ActiveRecord::Base
     when :payout
       do_payout
       # dont quite finish, as requires some refreshes until we know that it went through. (all the way to finished)
+    when :payin_refund
+      # this should create a refund for a specific financial_transaction of transaction_type payin
+      do_payin_refund
     else
       LOG.error "Could not handle transaction. Unprocessable transaction_type", { financial_transaction_id: self.id }
       self.fail!
@@ -383,6 +387,51 @@ class FinancialTransaction < ActiveRecord::Base
   end
 
   # called from process_on_mangopay
+  def do_payin_refund
+    #sanity check
+    unless self.payin_refund?   &&
+      self.src_payin_vid?       &&
+      #self.dst_payin_wallet_vid?  &&
+      self.financial_transactionable_type == 'Booking'  &&
+      self.financial_transactionable_id.present?
+
+      raise "can not process this transaction with this method"
+    end
+
+    begin
+      # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/http_calls.rb#L70
+      # https://docs.mangopay.com/api-references/refund/%E2%80%A2-refund-a-pay-in/
+      payin_refund = MangoPay::PayIn.refund( self.src_vid,
+        'Tag'     => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
+        'AuthorId' => self.financial_transactionable.from_user.payment_provider_vid,
+      )
+
+      self.update(
+        transaction_vid: payin_refund['Id'],
+        result_code:     payin_refund['ResultCode'],
+        result_message:  payin_refund['ResultMessage'],
+        amount:          payin_refund['CreditedFunds']['Amount'],
+        fees:            payin_refund['Fees']['Amount'],
+        response_body:   payin_refund
+      )
+
+      #set_nature payin_refund
+
+      # update transaction status from mangopay result: (one of: CREATED, SUCCEEDED, FAILED)
+      aasm_change_on_status payin_refund['Status']
+
+    rescue MangoPay::ResponseError => e
+      self.update_attributes(response_body: e.message)
+      self.fail!
+      LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: payin_refund }
+    rescue => e
+      self.fail!
+      LOG.error "Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: payin_refund }
+    end
+
+  end
+
+  # called from process_on_mangopay
   def do_transfer
     #sanity check
     unless self.transfer?         &&
@@ -568,6 +617,14 @@ class FinancialTransaction < ActiveRecord::Base
         #src_vid: #... needs to be specified... cannot be set here.
         dst_type: :dst_payin_wallet_vid,
         dst_vid:  self.financial_transactionable.from_user.payin_wallet_vid
+      }
+    when :payin_refund
+      # no need to set dst_type/dst_vid
+      {
+        src_type: :src_payin_vid,
+        #src_vid: #... needs to be specified... cannot be set here.
+        dst_type: nil,
+        dst_vid:  nil
       }
     when :transfer
       # info comes from booking
