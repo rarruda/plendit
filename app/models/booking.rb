@@ -144,17 +144,16 @@ class Booking < ActiveRecord::Base
         create_financial_transaction_payin
         BookingAutoStartJob.set(wait_until: self.starts_at ).perform_later self
 
-        # new mailer:
-        message = ApplicationMailer.booking_confirmed__to_owner( self )
-        message.deliver_later
-
-        message = ApplicationMailer.booking_confirmed__to_renter( self )
-        message.deliver_later
+        ApplicationMailer.booking_confirmed__to_owner( self ).deliver_later
+        ApplicationMailer.booking_confirmed__to_renter( self ).deliver_later
       end
     end
 
     event :payment_confirm do
       transitions from: :confirmed, to: :payment_confirmed
+      after do
+        BookingAutoStartJob.set(wait_until: self.starts_at).perform_later self
+      end
     end
 
     event :abort, after: :cancel_financial_transaction_preauth do
@@ -164,8 +163,7 @@ class Booking < ActiveRecord::Base
     event :decline, after: :cancel_financial_transaction_preauth do
       transitions from: :created, to: :declined
       after do
-        message = ApplicationMailer.booking_declined__to_renter( self )
-        message.deliver_later
+        ApplicationMailer.booking_declined__to_renter( self ).deliver_later
       end
     end
 
@@ -180,8 +178,8 @@ class Booking < ActiveRecord::Base
       after do
         cancel_financial_transaction_payin
 
-        message = ApplicationMailer.booking_cancelled( self )
-        message.deliver_later
+        ApplicationMailer.booking_cancelled__to_owner( self ).deliver_later
+        ApplicationMailer.booking_cancelled__to_renter( self ).deliver_later
       end
     end
 

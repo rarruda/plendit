@@ -72,9 +72,26 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
+  def booking_cancelled__to_owner booking
+    @booking = booking
+
+    mail(
+      to: @booking.user.email,
+      subject: "Plendit: TRANSLATEME: Din forespørsel ble kansellert"
+    )
+  end
+
+  def booking_cancelled__to_renter booking
+    @booking = booking
+
+    mail(
+      to: @booking.user.email,
+      subject: "Plendit: TRANSLATEME: Din forespørsel ble kansellert"
+    )
+  end
+
   def booking_created__to_owner booking
     @booking = booking
-    #@booking.reload
 
     mail(
       to: @booking.user.email,
