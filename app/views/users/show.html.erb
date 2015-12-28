@@ -1,11 +1,9 @@
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <h1><%= @user.display_name_posessive %> profil</h1>
-
             <% if @user.about.present? %>
-                <%= render layout: 'gray_box', locals: {title: 'Om meg'} do %>
-                    <p class="profile-about"><%= h @user.about %></p>
+                <%= render layout: 'gray_box', locals: {title: "#{@user.display_name_posessive} profil"} do %>
+                    <p class="profile-about"><%= h @user.display_about %></p>
                 <% end %>
             <% end %>
 

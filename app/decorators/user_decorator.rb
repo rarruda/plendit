@@ -26,6 +26,11 @@ class UserDecorator < Draper::Decorator
     name[-1] == 's' ? "#{name}'" + '\'' : "#{name}s"
   end
 
+  def display_about
+    joined_year = self.created_at.year
+    self.about || "#{self.display_name} har vært bruker på Plendit siden #{joined_year}."
+  end
+
   def published_ads
     object.ads.published.decorate
   end
