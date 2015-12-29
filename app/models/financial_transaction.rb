@@ -211,6 +211,11 @@ class FinancialTransaction < ActiveRecord::Base
     end
   end
 
+  def for_booking
+    if self.financial_transactionable_type == 'Booking'
+      Booking.find( self.financial_transactionable_id )
+    end
+  end
 
   private
 

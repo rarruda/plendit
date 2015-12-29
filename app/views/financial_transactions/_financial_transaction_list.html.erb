@@ -1,31 +1,12 @@
-<%= render layout: 'gray_box', locals: {title: 'Transaksjonshistorikk innbetalingskonto', id: 'transaction_history_payin'} do %>
-  <table>
-    <thead>
-      <td>Dato</td>
-      <td>Type</td>
-      <td>Hvem</td>
-      <td>Hva</td>
-      <td>Inn/ut</td>
-      <td>Verdi</td>
-    </thead>
-    <tbody>
-      <%= render FinancialTransaction.from_user( current_user.id )  %>
-    </tbody>
-  </table>
-<% end %>
-
-<%= render layout: 'gray_box', locals: {title: 'Transaksjonshistorikk utbetalingskonto', id: 'transaction_history_payout'} do %>
-  <table>
-    <thead>
-      <td>Dato</td>
-      <td>Type</td>
-      <td>Hvem</td>
-      <td>Hva</td>
-      <td>Inn/ut</td>
-      <td>Verdi</td>
-    </thead>
-    <tbody>
-      <%= render FinancialTransaction.to_user( current_user.id )  %>
-    </tbody>
-  </table>
+<%= render layout: 'gray_box', locals: { title: 'Penger du har tjent på utleie' } do %>
+    <table>
+        <thead>
+            <td>Booking</td>
+            <td>Betalt av</td>
+            <td>Sum</td>
+        </thead>
+        <tbody>
+            <%= render FinancialTransaction.from_user( current_user.id )  %>
+        </tbody>
+    </table>
 <% end %>

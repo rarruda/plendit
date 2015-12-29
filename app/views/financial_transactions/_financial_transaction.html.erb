@@ -1,21 +1,11 @@
-<!-- FIXME: should display the first name of the user, with a link to the public profile -->
-<!-- FIXME: should be fixed to work well on both payin and payout wallet lists -->
+<%# fixme: the stuff endinge up in the list is wrong, need to fix the underlying scope %> 
 <tr>
-    <td><%= l financial_transaction.created_at, format: :shorter_datetime %></td>
-    <td><%= financial_transaction.transaction_type %></td>
-    <td><%= financial_transaction.from_user_id || financial_transaction.to_user_id %></td>
     <td>
-        <% if financial_transaction.financial_transactionable_type == 'Booking' %>
-            <%= Booking.find( financial_transaction.financial_transactionable_id ).ad.title %>
+        <%= link_to financial_transaction.for_booking do %>
+            <%= l financial_transaction.created_at, format: :plendit_short_date %>
         <% end %>
-    </td>
     <td>
-        <% if financial_transaction.payin_wallet_direction_for_user == :in %>
-            <%= icon 'sign-in', class: 'fa-lg' %>
-        <% else %>
-            <%= icon 'sign-out', class: 'fa-lg' %>
-        <% end %>
-        <small><%= financial_transaction.id %></small>
+        <%= link_to financial_transaction.from_user.decorate.display_name, financial_transaction.from_user %>
     </td>
     <td>
         <%= format_monetary_full_pretty financial_transaction.amount %>
