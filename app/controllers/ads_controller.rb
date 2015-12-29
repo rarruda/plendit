@@ -278,7 +278,7 @@ class AdsController < ApplicationController
     end
 
     # remove registration_number from all not motor categories.
-    ad_params_local.except! 'registration_number' unless @ad.category == 'motor'
+    ad_params_local.except! 'registration_number' unless @ad.motor?
 
     # remove changes to ad images that no longer exists.
     # fixes that we try deleiting non-extant stuff if you hit
