@@ -2,7 +2,14 @@
 
 <div class="container">
     <div class="eight columns">
-        <%= render layout: 'gray_box', locals: {title: 'Skademeldingskjema', id: 'accident-report'} do %>
+        <% if @booking.ad.boat? %>
+            <%= render layout: 'gray_box', locals: {title: 'Havarihjelp for båt'} do %>
+                 Er båten under vann så ring umiddelbart IF forsikring
+                 på telefon <%= link_to '273819.', 'tel:273819' %>
+            <% end %>
+        <% end %>
+
+        <%= render layout: 'gray_box', locals: {title: 'Skademeldingskjema'} do %>
             <%= render partial: 'form' %>
         <% end %>
     </div>
