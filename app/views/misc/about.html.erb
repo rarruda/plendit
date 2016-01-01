@@ -13,6 +13,26 @@
     </p>
 <% end %>
 
+<%= render layout: 'gray_box', locals: {title: 'Hvem er vi?'} do %>
+    <div class="about-bios">
+
+        <div class="about-bios__box">
+            <div class="about-bio">
+                <div class="about-bio__image">
+                    <%= plendbot_avatar(:huge) %>
+                </div>
+                <div class="about-bio__prose">
+                    <h3 class="about-bio__name">Plendosarus Rex</h3>
+                    <p>
+                        Rawr!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<% end %>
+
 <%= render layout: 'gray_box', locals: {title: 'Bakgrunn'} do %>
     <p>
         Vi som har startet Plendit er til daglig ansatte i FINN.no. Med hjelp

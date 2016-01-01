@@ -1,0 +1,29 @@
+@import "constants";
+
+.about-bios {
+    &__box {
+        width: 100%;
+
+        @media (min-width: $bigscreen) {
+            width: 48%;
+        }
+        display: inline-block;
+    }
+}
+
+.about-bio {
+    display: flex;
+
+    &__image {
+        flex: 0 0 auto;
+        width: 124px;
+    }
+
+    &__prose {
+        flex: 1 1 auto;
+        margin-left: 20px;
+    }
+
+    &__name {
+    }
+}
