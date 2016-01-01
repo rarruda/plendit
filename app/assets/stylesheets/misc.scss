@@ -13,15 +13,30 @@
 
 .about-bio {
     display: flex;
+    margin-bottom: $standard-spacing;
 
-    &__image {
+    &__left {
         flex: 0 0 auto;
-        width: 124px;
+        width: 104px;
     }
 
-    &__prose {
+    &__right {
         flex: 1 1 auto;
         margin-left: 20px;
+    }
+
+    &__frame {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+        border: solid 3px white;
+        background-color: $color-background;
+        overflow: hidden;
+    }
+
+    &__image {
+        width: 100%;
+        height: 100%;
     }
 
     &__name {

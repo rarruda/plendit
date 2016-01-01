@@ -1,0 +1,14 @@
+- name: Plendosaurus Rex
+  image: plendbot/robot_profile_01.png
+  bio: |
+    Rawr!
+    Multiline bio!
+
+- name: Plendbot
+  image: plendbot/robot_profile_02.png
+  bio: Woo! Single line bio!
+
+- name: Plendzilla
+  image: plendbot/robot_profile_03.png
+  bio: |
+    Grar!
