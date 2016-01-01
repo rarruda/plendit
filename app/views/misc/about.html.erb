@@ -1,38 +1,38 @@
-<h1>Om plendit</h1>
+<%= render layout: 'gray_box', locals: {title: 'Om Plendit'} do %>
+    <p>
+        Plendit, en forkortelse for «people lend it» er et nettsted der du enkelt
+        skal kunne leie til og fra privatpersoner og bedrifter.
+    </p>
 
-<p class="u-push-down-only">
-    Plendit, en forkortelse for «people lend it» er et nettsted der du enkelt
-    skal kunne leie til og fra privatpersoner og bedrifter.
-</p>
+    <p>
+        Det er gratis å legge ut annonser, alle brukere blir verifisert og
+        betaling utføres trygt gjennom tjenesten. Plendit gir utleier en ekstra
+        sikkerhet ved å tilby skadeforsikring fra If. For å sikre en
+        god brukeropplevelse gir både utleier og leietaker hverandre en rating
+        av leieforholdet.
+    </p>
+<% end %>
 
-<p>
-    Det er gratis å legge ut annonser, alle brukere blir verifisert og
-    betaling utføres trygt gjennom tjenesten. Plendit gir utleier en ekstra
-    sikkerhet ved å tilby skadeforsikring fra If. For å sikre en
-    god brukeropplevelse gir både utleier og leietaker hverandre en rating
-    av leieforholdet.
-</p>
+<%= render layout: 'gray_box', locals: {title: 'Bakgrunn'} do %>
+    <p>
+        Vi som har startet Plendit er til daglig ansatte i FINN.no. Med hjelp
+        av FINNs innovasjonsprogram «Sandbox» har vi fått muligheten til å
+        utvikle plendit. FINN og Sandbox har støttet oss med infrastruktur,
+        utviklingsverktøy, markedsføring samt god støtte og sparring fra
+        kolleger.
+    </p>
 
-<h2>Bakgrunn</h2>
+    <p>
+        Plendit er ikke en del av FINNs merkevare og FINN har således ikke
+        ansvar for tjenestens kvalitet eller innhold.
+    </p>
+<% end %>
 
-<p>
-    Vi som har startet Plendit er til daglig ansatte i FINN.no. Med hjelp
-    av FINNs innovasjonsprogram «Sandbox» har vi fått muligheten til å
-    utvikle plendit. FINN og Sandbox har støttet oss med infrastruktur,
-    utviklingsverktøy, markedsføring samt god støtte og sparring fra
-    kolleger.
-</p>
-
-<p>
-    Plendit er ikke en del av FINNs merkevare og FINN har således ikke
-    ansvar for tjenestens kvalitet eller innhold.
-</p>
-
-<h2>Partnere</h2>
-
-<div class="partner-box">
-    <%= link_to (image_tag "logos/if_150x148.png", class: 'partner-box__logo'), 'https://www.if.no/' %>
-    <%= link_to (image_tag "logos/innovasjon-norge.png", class: 'partner-box__logo'), 'http://www.innovasjonnorge.no/' %>
-    <%= link_to (image_tag "logos/finn_logo.png", class: 'partner-box__logo'), 'https://m.finn.no' %>
-    <%= link_to (image_tag "logos/mangopay_611x121.png", class: 'partner-box__logo'), 'https://www.mangopay.com/' %>
-</div>
+<%= render layout: 'gray_box', locals: {title: 'Partnere'} do %>
+    <div class="partner-box">
+        <%= link_to (image_tag "logos/if_150x148.png", class: 'partner-box__logo'), 'https://www.if.no/' %>
+        <%= link_to (image_tag "logos/innovasjon-norge.png", class: 'partner-box__logo'), 'http://www.innovasjonnorge.no/' %>
+        <%= link_to (image_tag "logos/finn_logo.png", class: 'partner-box__logo'), 'https://m.finn.no' %>
+        <%= link_to (image_tag "logos/mangopay_611x121.png", class: 'partner-box__logo'), 'https://www.mangopay.com/' %>
+    </div>
+<% end %>
