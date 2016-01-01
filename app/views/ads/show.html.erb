@@ -9,7 +9,7 @@
     }
 %>
 
-<%= render partial: "ad_status_bar", locals: { ad: @ad } %>
+<%= render partial: 'ad_status_bar', locals: { ad: @ad } %>
 
 <div class="container">
     <div class="hero-holder">
@@ -18,23 +18,23 @@
                 <%= raw @ad.to_gallery_json %>
             </script>
             <%= render partial: 'photoswipe' %>
-            <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
+            <%= render partial: 'shared/hero_image', locals: { ad: @ad } %>
         </div>
     </div>
     <div class="u-only-on-bigscreen parallel-booking-box-holder">
-        <%= render partial: "ad_booking_box", locals: { ad: @ad } %>
+        <%= render partial: 'ad_booking_box', locals: { ad: @ad } %>
     </div>
 
     <div class="row">
         <div class="eight columns">
-            <%= render partial: "shared/ad_title_box", locals: { ad: @ad } %>
-            <%= render partial: "ad_copy_section",     locals: { ad: @ad } %>
-            <%= render partial: "ad_gallery_mosaic",   locals: { ad: @ad } %>
-            <%= render partial: "ad_feedback_list_section", locals: { ad: @ad } %>
+            <%= render partial: 'shared/ad_title_box', locals: { ad: @ad } %>
+            <%= render partial: 'ad_copy_section',     locals: { ad: @ad } %>
+            <%= render partial: 'ad_gallery_mosaic',   locals: { ad: @ad } %>
+            <%= render partial: 'ad_feedback_list_section', locals: { ad: @ad } %>
         </div>
         <div class="four columns">
             <div class="u-not-on-bigscreen u-push-down">
-                <%= render partial: "ad_booking_box", locals: { ad: @ad } %>
+                <%= render partial: 'ad_booking_box', locals: { ad: @ad } %>
             </div>
             <% if Plendit::Application.config.x.facebook_integration %>
                 <%= render partial: 'share_on_facebook' %>
@@ -43,4 +43,4 @@
     </div>
 </div>
 
-<%= render partial: "ad_location_map", locals: { ad: @ad } %>
+<%= render partial: 'ad_location_map', locals: { ad: @ad } %>
