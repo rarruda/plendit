@@ -34,6 +34,20 @@
     </p>
 <% end %>
 
+<%= render layout: 'gray_box', locals: {title: 'Kontakt Plendit'} do %>
+    <table>
+        <tr>
+            <th>E-post</th>
+            <td><%= Plendit::Application.config.x.customerservice.email %></td>
+        </tr>
+        <tr>
+            <th>Postadresse:</th>
+            <td><%= Plendit::Application.config.x.organization.address %></td>
+        </tr>
+    </table>
+<% end %>
+
+
 <%= render layout: 'gray_box', locals: {title: 'Partnere'} do %>
     <div class="partner-box">
         <%= link_to (image_tag "logos/if_150x148.png", class: 'partner-box__logo'), 'https://www.if.no/' %>
