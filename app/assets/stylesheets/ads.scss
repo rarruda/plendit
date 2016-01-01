@@ -185,3 +185,33 @@
     font-weight: bold;
     text-align: center;
 }
+
+.gallery-thumb-bar {
+    margin-top: $standard-spacing;
+    display: flex;
+    flex-wrap: wrap;
+
+    &--full {
+        justify-content: space-between;
+    }
+}
+
+.gallery-thumb {
+    width: 90px;
+    height: 60px;
+    margin-right: $standard-spacing;
+    //display: inline-block;
+
+     // @media (min-width: $bigscreen) {
+     //    &--no-7 {
+     //        display: none;
+     //    }
+     // }
+
+     // @media (min-width: $tablet) {
+     //    &--no-5, &--no-6, &--no-7 {
+     //        display: none;
+     //    }
+     // }
+
+}

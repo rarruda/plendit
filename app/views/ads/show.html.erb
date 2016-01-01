@@ -19,6 +19,13 @@
             </script>
             <%= render partial: 'photoswipe' %>
             <%= render partial: 'shared/hero_image', locals: { ad: @ad } %>
+            <div class="gallery-thumb-bar">
+                <% @ad.ad_images.limit(9).each_with_index do |image, n| %>
+                    <div class="gallery-thumb <%= "gallery-thumb--no-#{n}" %>">
+                        <%= image_tag image.image.url(:thumb), size: '90x60' %>
+                    </div>
+                <% end %>
+            </div>
         </div>
     </div>
     <div class="u-only-on-bigscreen parallel-booking-box-holder">
