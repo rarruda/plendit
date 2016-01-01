@@ -13,7 +13,13 @@
 
 <div class="container">
     <div class="hero-holder">
-        <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
+        <div data-controller="gallery" data-show-gallery>
+            <script type="text/json" data-images>
+                <%= raw @ad.to_gallery_json %>
+            </script>
+            <%= render partial: 'photoswipe' %>
+            <%= render partial: "shared/hero_image", locals: { ad: @ad } %>
+        </div>
     </div>
     <div class="u-only-on-bigscreen parallel-booking-box-holder">
         <%= render partial: "ad_booking_box", locals: { ad: @ad } %>

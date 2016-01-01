@@ -912,3 +912,39 @@ window.controllers.bookingMessaging = {
         }
     }
 };
+
+window.controllers.gallery = {
+    dependencies: ["$element", "utils", "eventbus", "xhr"],
+    callable: function(ele, utils, eventbus, xhr) {
+        var images = getImages();
+        attachClickListener();
+
+        function showGallery() {
+            detachClickListener();
+            gallery = new PhotoSwipe(document.querySelector(".pswp"),
+                    PhotoSwipeUI_Default, images, {showHideOpacity: true});
+            gallery.listen('close', attachClickListener);
+            gallery.init();                
+        }
+
+        function attachClickListener() {
+            window.setTimeout(function() {
+                ele.addEventListener('click', showGallery);
+            }, 20);
+        }
+
+        function detachClickListener() {
+            ele.removeEventListener('click', showGallery);
+        }
+
+        function getImages() {
+            try {
+                return JSON.parse(ele.querySelector("[data-images]").textContent) || [];
+            }
+            catch (e) {
+                return [];
+            }
+        }
+
+    }
+};

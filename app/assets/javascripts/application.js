@@ -21,6 +21,8 @@
 //= require 'polyfills/string-polyfills.js'
 //= require 'polyfills/es6-promise.js'
 
+//= require 'libs/photoswipe.js'
+//= require 'libs/photoswipe-ui-default.js'
 //= require 'libs/moment.min.js'
 //= require 'libs/moment.locale.nb.js'
 //= require 'libs/smokesignals.js'
