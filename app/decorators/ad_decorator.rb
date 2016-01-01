@@ -53,6 +53,18 @@ class AdDecorator < Draper::Decorator
     [self.id, (object.title || '').parameterize].join('----')[0,64]
   end
 
+  def to_gallery_json
+    (self.ad_images.map { |image|
+      {
+        src: image.image.url(:hero),
+        w: 900,
+        h: 600,
+        msrc: image.image.url(:thumb),
+        title: image.description
+      }
+    }).to_json
+  end
+
 
   # Define presentation-specific methods here. Helpers are accessed through
   # `helpers` (aka `h`). You can override attributes, for example:
