@@ -941,9 +941,14 @@ window.controllers.gallery = {
 
         function getThumbBounds(index) {
             var e = bar.querySelectorAll("img")[index];
-            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
-            rect = e.getBoundingClientRect(); 
-            return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+            if (e) {
+                pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                rect = e.getBoundingClientRect(); 
+                return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};                
+            }
+            else {
+                return null;
+            }
         }
 
         function attachClickListener() {
