@@ -2,7 +2,7 @@ ActiveAdmin.register Ad do
 
   menu :priority => 4
 
-  permit_params :user_id, :title, :body, :price, :location_id,:tags,  :status, :category
+  permit_params :user_id, :title, :body, :price, :location_id, :status, :category
 
 
   filter :status, as: :select, collection: ->{ Ad.statuses.keys }
@@ -16,7 +16,6 @@ ActiveAdmin.register Ad do
 
     column :title
     column :price
-    column :tags
 
     # fixme: can this use a decorated ad and display name?
     column("Owner") { |ad| link_to "#{ad.user.first_name} #{ad.user.last_name}", admin_user_path( ad.user.id ) }
@@ -33,7 +32,6 @@ ActiveAdmin.register Ad do
       f.input :body
       f.input :price
       f.input :location, as: :select, collection: Hash[Location.all.map{|l| ["#{l.id} - #{l.address_line} - #{l.post_code}",l.id]}] #show address/etc
-      f.input :tags
       f.input :status,   as: :select, collection: Ad.statuses.keys
       f.input :category, as: :select, collection: Ad.categories.keys
     end

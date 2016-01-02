@@ -17,7 +17,6 @@ gem 'intercom-rails'
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '< 2.0'
 gem 'dropzonejs-rails'
-gem 'acts-as-taggable-on', '~> 3.4'
 
 gem 'activeadmin', '~> 1.0.0.pre1'
 

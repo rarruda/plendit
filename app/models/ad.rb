@@ -4,9 +4,6 @@ class Ad < ActiveRecord::Base
   include AASM
   include Searchable
 
-  #acts_as_ordered_taggable
-  acts_as_taggable
-
   belongs_to :user
   belongs_to :location
   has_many :ad_items,    autosave: true, dependent: :destroy #will leave dangling links in old bookings.
@@ -82,7 +79,6 @@ class Ad < ActiveRecord::Base
       indexes :geo_location,  type: :geo_point, lat_lon: true, geohash: true
       indexes :geo_precision, type: :string, index: :not_analyzed
       indexes :price,         type: :integer
-      indexes :tags,          type: :string, analyzer: 'keyword'
       indexes :category,      type: :string
       indexes :ad_images do
         indexes :id,          type: :integer
@@ -221,7 +217,7 @@ class Ad < ActiveRecord::Base
   # TODO: find out if we want more information on the Ad, and/or AdImages
   def as_indexed_json(options={})
     entry = Jbuilder.encode do |json|
-      json.(self, :id, :title, :body, :category, :price, :tags, :geo_precision, :geo_location)
+      json.(self, :id, :title, :body, :category, :price, :geo_precision, :geo_location)
       json.images self.ad_images, :id, :description, :weight
       json.main_image_url self.safe_image_url(:searchresult)
       json.user do |user|
@@ -279,11 +275,6 @@ class Ad < ActiveRecord::Base
   # used in as_indexed_json
   def geo_precision
     self.location.geo_precision
-  end
-
-  # used in as_indexed_json
-  def tags
-    tag_list
   end
 
   # NOTE: this method is repeated as ad_to_param_pretty as an application helper due to
