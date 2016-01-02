@@ -927,7 +927,9 @@ window.controllers.gallery = {
             var opts = {
                 index: parseInt(e.getAttribute("data-image-index")) || 0,
                 showHideOpacity: true,
-                shareEl: false
+                shareEl: false,
+                getThumbBoundsFn: getThumbBounds,
+                history: false
             }
 
             detachClickListener();
@@ -935,6 +937,13 @@ window.controllers.gallery = {
                     PhotoSwipeUI_Default, images, opts);
             gallery.listen('close', attachClickListener);
             gallery.init();                
+        }
+
+        function getThumbBounds(index) {
+            var e = bar.querySelectorAll("img")[index];
+            pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+            rect = e.getBoundingClientRect(); 
+            return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
         }
 
         function attachClickListener() {
