@@ -91,7 +91,11 @@
         <% end %>
 
         <div class="u-push-down-only">
-            <label>Henteadresse:</label>
+            <% if @ad.realestate? %>
+                <label>Adresse:</label>
+            <% else %>
+                <label>Henteadresse:</label>
+            <% end %>
 
             <%- if @ad.user.locations.length > 0 -%>
 
