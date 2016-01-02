@@ -51,6 +51,10 @@ class BackstageController < ApplicationController
     redirect_to user_document.document.expiring_url(10)
   end
 
+  def boat_admin
+    @bookings = Booking.current.joins(:ad).where(ads: {category: Ad.categories[:boat]})
+  end
+
   private
 
   def kyc_params

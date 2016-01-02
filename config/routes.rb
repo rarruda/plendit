@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     get   '/',                         to: 'backstage#index', as: 'backstage'
     get   'broadcast',                 to: 'backstage#broadcast'
     post  'broadcast',                 to: 'backstage#broadcast'
+    get   'boat_admin',                to: 'backstage#boat_admin'
     get   'pending_ad_reviews',        to: 'backstage#pending_ad_reviews'
     get   'pending_kyc_reviews',       to: 'backstage#pending_kyc_reviews'
     get   'kyc_document/:guid',        to: 'backstage#kyc_document', as: 'kyc_document'

@@ -1,0 +1,40 @@
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h1>Boat admin</h1>
+
+            <div class="u-push-down">
+                <% if @bookings.empty? %>
+                    <p>Ingen aktive bookinger</p>
+                <% else %>
+                    <% @bookings.each do |booking| %>
+                        <div>
+                            <dl>
+                                <dt>Booking</dt>
+                                <dd>
+                                    <%= booking.ad.title %>
+                                    -
+                                    <%= link_to 'gå til booking', booking %>
+
+                                </dd>
+
+                                <dt>Periode</dt>
+                                <dd><%= booking.display_from_date %> - <%= booking.display_end_date %></dd>
+
+                                <dt>Utleier</dt>
+                                <dd><%= booking.user.display_full_name %></dd>
+
+                                <dt>Leietaker</dt>
+                                <dd><%= booking.from_user.display_full_name %></dd>
+                            </dl>
+                        </div>
+                        <hr>
+                    <% end %>
+                <% end %>
+            </div>
+
+            <%= link_to 'Back to backstage', backstage_path %>
+
+        </div>
+    </div>
+</div>
