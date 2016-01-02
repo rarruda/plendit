@@ -202,6 +202,10 @@
     margin-right: $standard-spacing;
     position: relative;
 
+    @media (max-width: $mobile) {
+        margin-right: $standard-spacing / 2;
+    }
+
     &__count {
         position: absolute;
         top: 0;
@@ -212,6 +216,50 @@
         color: white;
         background-color: rgba(0,0,0,0.2);
     }
+
+ 
+    @media (max-width: 412px) {
+        &:nth-child(n+4) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 510px) {
+        &:nth-child(n+5) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 602px) {
+        &:nth-child(n+6) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 700px) {
+        &:nth-child(n+7) {
+            display: none;
+        }
+    }
+
+    @media (max-width: 966px) {
+        &:nth-child(n+8) {
+            display: none;
+        }
+    }
+
+    @media (min-width: 967px) {
+        &:nth-child(n+10) {
+            display: none;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        &:nth-child(n+9) {
+            display: none;
+        }
+    }
+
 
 
     //display: inline-block;
