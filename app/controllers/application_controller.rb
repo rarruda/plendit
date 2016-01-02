@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   # Force basic http authentication for the entire app, except in some callback urls:
   #PCONF_HTTP_AUTH_CRED_LIST="user:secret,user2:password2"
   def force_http_authentication
-    authenticate_or_request_with_http_basic 'Test ENV'  do |name, password|
+    authenticate_or_request_with_http_basic 'Authentication required'  do |name, password|
       ( ENV.has_key? 'PCONF_HTTP_AUTH_CRED_LIST' ) && ( ENV['PCONF_HTTP_AUTH_CRED_LIST'].split(',').include? "#{name}:#{password}" )
     end if require_http_authentication?
   end
