@@ -161,7 +161,7 @@ class UsersController < ApplicationController
       OpenStruct.new({
         title: 'Førerkort',
         preverify_prose: %q(
-          For at du skal kunne leie kjøretøy på Plendit må
+          For at du skal kunne leie kjøretøy på Plendit må ditt
           førerkort godkjennes.
         ),
         preverify_action: 'Last opp',
