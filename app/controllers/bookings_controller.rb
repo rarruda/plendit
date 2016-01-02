@@ -34,6 +34,7 @@ class BookingsController < ApplicationController
     end
   end
 
+  # GET /me/bookings/1/booking_calc
   def booking_calc
     ad_id = params[:ad_id]
     from  = params[:from_date]
