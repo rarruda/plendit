@@ -128,8 +128,6 @@ Rails.application.routes.draw do
       get 'preview'
       get 'gallery'
       get 'unavailability'
-      get 'double_calendar'
-      get 'single_calendar'
       get 'nested_images'
       post 'ad_image'
       get 'edit_availability'
