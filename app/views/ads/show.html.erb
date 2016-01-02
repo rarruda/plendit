@@ -19,9 +19,14 @@
             </script>
             <%= render partial: 'photoswipe' %>
             <%= render partial: 'shared/hero_image', locals: { ad: @ad } %>
-            <div class="gallery-thumb-bar">
-                <% @ad.ad_images.limit(9).each_with_index do |image, n| %>
-                    <div class="gallery-thumb <%= "gallery-thumb--no-#{n}" %>">
+            <div class="gallery-thumb-bar" data-thumb-bar>
+                <div class="gallery-thumb" data-image-index="0">
+                    <%= image_tag @ad.ad_images.first.image.url(:thumb), size: '90x60' %>
+                    <%= @ad.ad_images.size %> bilder.
+                </div>
+                <% @ad.ad_images.limit(9).offset(1).each_with_index do |image, n| %>
+                    <div class="gallery-thumb <%= "gallery-thumb--no-#{n + 1}" %>"
+                        data-image-index="<%= n + 1 %>">
                         <%= image_tag image.image.url(:thumb), size: '90x60' %>
                     </div>
                 <% end %>
