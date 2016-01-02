@@ -156,11 +156,11 @@ class Booking < ActiveRecord::Base
       end
     end
 
-    event :abort, after: :cancel_financial_transaction_preauth do
+    event :abort, after: :cancel_financial_transaction_preauth! do
       transitions from: :created, to: :aborted
     end
 
-    event :decline, after: :cancel_financial_transaction_preauth do
+    event :decline, after: :cancel_financial_transaction_preauth! do
       transitions from: :created, to: :declined
       after do
         ApplicationMailer.booking_declined__to_renter( self ).deliver_later
@@ -422,6 +422,11 @@ class Booking < ActiveRecord::Base
   end
 
 
+  # Cancel all preauths connected to this booking which have finished status.
+  def cancel_financial_transaction_preauth!
+    self.financial_transactions.preauth.finished.map( &:process_cancel_preauth! )
+  end
+
   private
 
   def send_mail_booking_created
@@ -466,11 +471,6 @@ class Booking < ActiveRecord::Base
     # called from a BookingProcessPayinJob:
     # t.process!
     BookingProcessPayinJob.perform_later self
-  end
-
-  # Cancel all preauths connected to this booking which have finished status.
-  def cancel_financial_transaction_preauth
-    self.financial_transactions.preauth.finished.map( &:process_cancel_preauth! )
   end
 
   # Create payin_refunds for all payins connected to this booking which have finished status.
