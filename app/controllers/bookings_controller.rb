@@ -29,7 +29,6 @@ class BookingsController < ApplicationController
 
     if @booking.save
       redirect_to @booking
-      notify_about_new_booking
     else
       render :new
     end
@@ -62,78 +61,28 @@ class BookingsController < ApplicationController
   # POST /me/bookings/1/accept
   def accept
     @booking.confirm!
-    notify_about_accept
     redirect_to @booking
   end
 
   # POST /me/bookings/1/decline
   def decline
     @booking.decline!
-    notify_about_decline
     redirect_to @booking
   end
 
   # POST /me/bookings/1/abort
   def abort
     @booking.abort!
-    notify_about_abort
     redirect_to @booking
   end
 
   # POST /me/bookings/1/cancel
   def cancel
     @booking.cancel!
-    notify_about_cancel
     redirect_to @booking
   end
 
   private
-  # FIXME/TODO(RA): these notify_* methods belong in the model. (self.user/from_user.notification.create({}) )
-  def notify_about_accept
-    Notification.create(
-      user_id: @booking.from_user.id,
-      message: "#{@booking.user.display_name} har godkjent din forespørsel om å leie \"#{@booking.ad.display_title}\"",
-      notifiable: @booking
-    )
-  end
-
-  def notify_about_decline
-    Notification.create(
-      user_id: @booking.from_user.id,
-      message: "#{@booking.user.display_name} har avslått din forespørsel om å leie \"#{@booking.ad.display_title}\"",
-      notifiable: @booking
-    )
-  end
-
-  def notify_about_abort
-    Notification.create(
-      user_id: @booking.user.id,
-      message: "#{@booking.from_user.display_name} har kansellert booking forespørsel om å leie \"#{@booking.ad.display_title}\"",
-      notifiable: @booking )
-  end
-
-  def notify_about_cancel
-    Notification.create(
-      user_id: @booking.user.id,
-      message: "#{@booking.from_user.display_name} har kansellert bookingen på \"#{@booking.ad.display_title}\"",
-      notifiable: @booking )
-  end
-
-  def notify_about_new_booking
-    Notification.create(
-      user_id: @booking.user.id,
-      message: "#{@booking.from_user.display_name} ønsker å leie \"#{@booking.ad.display_title}\"",
-      notifiable: @booking
-    )
-  end
-
-  def notify_about_updated_booking
-    Notification.create(
-      user_id: @booking.user.id,
-      message: "#{@booking.from_user.display_name} har oppdatert bookingen på \"#{@booking.ad.display_title}\"",
-      notifiable: @booking
-    )
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_booking

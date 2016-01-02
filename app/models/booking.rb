@@ -106,6 +106,8 @@ class Booking < ActiveRecord::Base
 
   after_create :send_mail_booking_created
 
+  after_create :notify_booking_created
+
   aasm column: :status, enum: true do
     state :created, initial: true
     state :payment_preauthorized
@@ -153,17 +155,37 @@ class Booking < ActiveRecord::Base
       transitions from: :confirmed, to: :payment_confirmed
       after do
         BookingAutoStartJob.set(wait_until: self.starts_at).perform_later self
+
+        Notification.create(
+          user_id: self.from_user.id,
+          message: "#{self.user.decorate.display_name} har godkjent din forespørsel om å leie \"#{self.ad.decorate.display_title}\"",
+          notifiable: self
+        )
       end
     end
 
-    event :abort, after: :cancel_financial_transaction_preauth! do
+    event :abort do
       transitions from: :created, to: :aborted
+      after do
+        self.cancel_financial_transaction_preauth!
+
+        Notification.create(
+          user_id: self.user.id,
+          message: "#{self.from_user.decorate.display_name} har kansellert booking forespørsel om å leie \"#{self.ad.decorate.display_title}\"",
+          notifiable: self
+        )
+      end
     end
 
     event :decline, after: :cancel_financial_transaction_preauth! do
       transitions from: :created, to: :declined
       after do
         ApplicationMailer.booking_declined__to_renter( self ).deliver_later
+        Notification.create(
+          user_id: self.from_user.id,
+          message: "#{self.user.decorate.display_name} har avslått din forespørsel om å leie \"#{self.ad.decorate.display_title}\"",
+          notifiable: self
+        )
       end
     end
 
@@ -180,6 +202,12 @@ class Booking < ActiveRecord::Base
 
         ApplicationMailer.booking_cancelled__to_owner( self ).deliver_later
         ApplicationMailer.booking_cancelled__to_renter( self ).deliver_later
+
+        Notification.create(
+          user_id: self.user.id,
+          message: "#{self.from_user.decorate.display_name} har kansellert bookingen på \"#{self.ad.decorate.display_title}\"",
+          notifiable: self
+        )
       end
     end
 
@@ -430,8 +458,15 @@ class Booking < ActiveRecord::Base
   private
 
   def send_mail_booking_created
-    message = ApplicationMailer.booking_created__to_owner( self )
-    message.deliver_later
+    ApplicationMailer.booking_created__to_owner( self ).deliver_later
+  end
+
+  def notify_booking_created
+    Notification.create(
+      user_id: self.user.id,
+      message: "#{self.from_user.decorate.display_name} ønsker å leie \"#{self.ad.decorate.display_title}\"",
+      notifiable: self
+    )
   end
 
   def create_financial_transaction_preauth
