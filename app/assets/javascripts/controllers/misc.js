@@ -926,7 +926,8 @@ window.controllers.gallery = {
 
             var opts = {
                 index: parseInt(e.getAttribute("data-image-index")) || 0,
-                showHideOpacity: true
+                showHideOpacity: true,
+                shareEl: false
             }
 
             detachClickListener();
