@@ -11,8 +11,8 @@
     <meta name="theme-color" content="#2a96ff">
     <%
         meta og: {
-            site_name: "Plendit",
-            type:      "website"
+            site_name: 'Plendit',
+            type:      'website'
         }
     %>
 
@@ -40,16 +40,16 @@
         <%= render partial: 'facebook_sdk' %>
     <% end %>
     <header>
-        <%= render partial: "top_bar", locals: { hide_search_field: @hide_search_field } %>
-        <%= render partial: "flash_bar" %>
-        <%= render partial: "broadcast" %>
+        <%= render partial: 'top_bar', locals: { hide_search_field: @hide_search_field } %>
+        <%= render partial: 'flash_bar' %>
+        <%= render partial: 'broadcast' %>
     </header>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
 
     <% if not @supress_footer %>
         <% cache 'footer' do %>
-            <%= render partial: "main_footer" %>
+            <%= render partial: 'main_footer' %>
         <% end %>
     <% end %>
 </body>
