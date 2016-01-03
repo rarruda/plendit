@@ -210,7 +210,7 @@ class Ad < ActiveRecord::Base
     end
 
     # fixme: Check that .first here users weight!
-    self.ad_images.count > 0 ? self.ad_images.first.image.url(size) : stock_images[size]
+    self.ad_images.size > 0 ? self.ad_images.first.image.url(size) : stock_images[size]
   end
 
   # JSON of how ElasticSearch should index this model
