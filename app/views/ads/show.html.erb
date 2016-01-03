@@ -21,7 +21,7 @@
             <%= render partial: 'shared/hero_image', locals: { ad: @ad } %>
             <div class="gallery-thumb-bar" data-thumb-bar>
                 <div class="gallery-thumb" data-image-index="0">
-                    <%= image_tag @ad.ad_images.first.image.url(:thumb), size: '90x60' %>
+                    <%= image_tag @ad.safe_image_url(:thumb), size: '90x60' %>
                     <span class="gallery-thumb__count">
                         <%= @ad.ad_images.size %> bilder
                     </span>
