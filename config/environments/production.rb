@@ -75,7 +75,7 @@ Rails.application.configure do
   # ^^^^ -- its ok if we are not able to send emails.
 
   # Devise needs this to be set. For now we say that heroku (dev.plendit.com) is the url for prod.
-  config.action_mailer.default_url_options = { :host => 'beta.plendit.com' }
+  config.action_mailer.default_url_options = { :host => 'www.plendit.no' }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
