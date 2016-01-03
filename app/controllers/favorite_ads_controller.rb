@@ -4,7 +4,7 @@ class FavoriteAdsController < ApplicationController
 
 
   def index
-    @favorites = current_user.favorite_ads.decorate
+    @favorites = current_user.favorite_ads.includes({ad: [:ad_images,:user]}).decorate
   end
 
   # POST /favorite_ads
