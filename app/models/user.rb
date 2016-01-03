@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
   end
 
   def recent_notifications
-    self.notifications.order("created_at desc").limit(10)
+    self.notifications.includes(:notifiable).order("created_at desc").limit(10)
   end
 
   def unseen_notifications_count
