@@ -110,7 +110,7 @@ class AdsController < ApplicationController
 
   # GET /me/ads
   def list
-    @ads = Ad.for_user( current_user ).all.decorate
+    @ads = Ad.for_user( current_user ).includes(:ad_images).all.decorate
   end
 
   # GET /ads/1
