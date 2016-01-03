@@ -3,10 +3,6 @@
         <div class="row">
             <div class="twelve columns">
                 <%
-                    if not defined? selected
-                        selected = 'Siste nytt'
-                    end
-
                     links = [
                         #{ text: 'Siste nytt',    icon: 'question-circle', path: users_path, },
                         { text: 'Profil',        icon: 'user',            path: private_profile_users_path },
