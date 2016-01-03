@@ -63,7 +63,7 @@ Rails.application.routes.draw do
     #edit: 'edit/profile'
   }
 
-  resource :users, path: '/me', only: [:index, :edit, :update] do
+  resource :users, path: '/me', only: [:edit, :update] do
     #resources :favorite_lists do
     #  resources :favorite_ads
     #end
@@ -88,7 +88,6 @@ Rails.application.routes.draw do
 
       match 'finish_signup',           controller: 'users', via: [:get, :patch]
 
-      #get  'verify_email'
       post 'verify_sms'
       post 'resend_verification_sms'
       post 'mark_all_notifications_noticed', controller: 'users'

@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [
     :bank_account,
     :confirmation,
-    :destroy,
     :edit,
     :finish_signup,
     :mark_all_notifications_noticed,
@@ -22,7 +21,7 @@ class UsersController < ApplicationController
 
   add_flash_types :sms_notice, :payment_card_notice, :payment_account_notice
 
-
+  # GET/POST verify/drivers_license
   def verify_drivers_license
     if request.post?
       current_user.delete_current_drivers_license
@@ -38,6 +37,7 @@ class UsersController < ApplicationController
     @license = current_user.drivers_license
   end
 
+  # GET/POST verify/id_card
   def verify_id_card
     if request.post?
       current_user.delete_current_id_card
@@ -48,6 +48,7 @@ class UsersController < ApplicationController
     @card = current_user.id_card
   end
 
+  # GET/POST verify/boat_license
   def verify_boat_license
     @errors = []
     if request.post?
@@ -75,6 +76,7 @@ class UsersController < ApplicationController
     @card = current_user.boat_license
   end
 
+  # GET/POST verify/mobile
   def verify_mobile
     if request.post?
       if params[:perform] == 'set_number'
@@ -100,22 +102,21 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET/POST verify/email
   def verify_email
     if request.post?
       current_user.send_confirmation_instructions
     end
   end
 
-  # no longer used, index now routes to private_profile
-  def index
-  end
-
-  # GET /users/1
-  # GET /users/1.json
+  # public profile
+  # GET /user/1
   def show
     @user = User.find( params[:id] ).decorate
   end
 
+  # index now routes to private_profile
+  # GET /me
   def private_profile
     @user = current_user
     @documentation = self.user_documentation @user
@@ -204,7 +205,7 @@ class UsersController < ApplicationController
     ]
   end
 
-  # GET /users/1/edit
+  # GET /me/edit
   def edit
     # required to build one user_image virtually, so that we have something to render:
     @user.user_images.build if @user.user_images.blank?
@@ -224,26 +225,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # Never gets called, as users are created in users/registrations_controller
-  # FIXME: remove the create method.
-  # POST /users
-  # POST /users.json
-  def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'Bruker opprettet.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PATCH/PUT /users/1
-  # PATCH/PUT /users/1.json
   def update
 
     # TODO: move this code to its own method.
@@ -266,16 +248,6 @@ class UsersController < ApplicationController
       redirect_to ( request.env['HTTP_REFERER'] || users_edit_path )
     else
       render :edit
-    end
-  end
-
-  # DELETE /users/1
-  # DELETE /users/1.json
-  def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url }
-      format.json { head :no_content }
     end
   end
 
