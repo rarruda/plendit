@@ -917,6 +917,7 @@ window.controllers.gallery = {
     dependencies: ["$element", "utils", "eventbus", "xhr"],
     callable: function(ele, utils, eventbus, xhr) {
         var images = getImages();
+        var hero = ele.querySelector("[data-hero-click]");
         var bar = ele.querySelector("[data-thumb-bar]");
         attachClickListener();
 
@@ -953,11 +954,13 @@ window.controllers.gallery = {
 
         function attachClickListener() {
             window.setTimeout(function() {
+                hero.addEventListener('click', showGallery);
                 bar.addEventListener('click', showGallery);
             }, 20);
         }
 
         function detachClickListener() {
+            hero.removeEventListener('click', showGallery);
             bar.removeEventListener('click', showGallery);
         }
 

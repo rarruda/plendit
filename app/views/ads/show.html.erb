@@ -18,7 +18,9 @@
                 <%= raw @ad.to_gallery_json %>
             </script>
             <%= render partial: 'photoswipe' %>
-            <%= render partial: 'shared/hero_image', locals: { ad: @ad } %>
+            <div data-hero-click data-image-index="9999">
+                <%= render partial: 'shared/hero_image', locals: { ad: @ad } %>
+            </div>
             <div class="gallery-thumb-bar" data-thumb-bar>
                 <div class="gallery-thumb" data-image-index="0">
                     <%= image_tag @ad.safe_image_url(:thumb), size: '90x60' %>
