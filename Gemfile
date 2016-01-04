@@ -109,6 +109,9 @@ gem 'nested_form_fields'
 
 gem 'recursive-open-struct'
 
+# for markdown views
+gem 'rdiscount'
+
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano',           require: false
