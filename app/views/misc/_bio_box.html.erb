@@ -1,0 +1,15 @@
+<div class="about-bios__box">
+    <div class="about-bio">
+        <div class="about-bio__left">
+            <div class="about-bio__frame">
+                <%= image_tag employee.image, size: '100x100', class: 'about-bio__image' %>
+            </div>
+        </div>
+        <div class="about-bio__right">
+            <h3 class="about-bio__name"><%= employee.name %></h3>
+            <p>
+                <%= employee.bio %>
+            </p>
+        </div>
+    </div>
+</div>
