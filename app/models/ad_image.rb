@@ -19,8 +19,7 @@ class AdImage < ActiveRecord::Base
     },
     :default_url => "/images/:style/missing.png",
     # FIXME: Fix image url, so it wont get blocked by ad-blockers:
-    #:path        => "/images/listings/:ad_id/:style/:hash.:extension",
-    :path        => "/images/ads/:ad_id/:style/:hash.:extension",
+    :path        => "/images/listings/:ad_id/:style/:hash.:extension",
     :hash_data   => ":class/:attachment/:id",
     :hash_secret => ENV['PCONF_PAPERCLIP_HASH_SALT'],
   }
