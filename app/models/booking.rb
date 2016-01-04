@@ -51,6 +51,9 @@ class Booking < ActiveRecord::Base
                      -> { where( 'status' => [ self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
   scope :current,    -> { where( 'status' => [ self.statuses[:created], self.statuses[:confirmed], self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
   scope :active,     -> { where( 'status' => [ self.statuses[:started], self.statuses[:in_progress] ] ) }
+
+  # there might be more states here that should count as reserved.
+  # Probably we will make some more helpers for check states.
   scope :reserved,   -> { where( 'status' => [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started], self.statuses[:disputed], self.statuses[:in_progress] ] ) }
   scope :ad_item,    ->(ad_item_id) { where( ad_item_id: ad_item_id ) }
   scope :in_month,   ->(year,month) { where( 'ends_at >= ? and starts_at <= ?',
