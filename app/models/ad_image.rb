@@ -11,17 +11,16 @@ class AdImage < ActiveRecord::Base
   }
 
   has_attached_file :image, {
-    :styles      => {
-      :thumb        => "#{DIMENSIONS[:thumb][:width]}x#{DIMENSIONS[:thumb][:height]}#",
-      :searchresult => "#{DIMENSIONS[:searchresult][:width]}x#{DIMENSIONS[:searchresult][:height]}#",
-      :hero         => "#{DIMENSIONS[:hero][:width]}x#{DIMENSIONS[:hero][:height]}#",
-      :gallery      => "#{DIMENSIONS[:gallery][:width]}"
+    styles: {
+      thumb:        "#{DIMENSIONS[:thumb][:width]}x#{DIMENSIONS[:thumb][:height]}#",
+      searchresult: "#{DIMENSIONS[:searchresult][:width]}x#{DIMENSIONS[:searchresult][:height]}#",
+      hero:         "#{DIMENSIONS[:hero][:width]}x#{DIMENSIONS[:hero][:height]}#",
+      gallery:      "#{DIMENSIONS[:gallery][:width]}"
     },
-    :default_url => "/images/:style/missing.png",
-    # FIXME: Fix image url, so it wont get blocked by ad-blockers:
-    :path        => "/images/listings/:ad_id/:style/:hash.:extension",
-    :hash_data   => ":class/:attachment/:id",
-    :hash_secret => ENV['PCONF_PAPERCLIP_HASH_SALT'],
+    default_url: '/images/:style/missing.png',
+    path:        '/images/listings/:ad_id/:style/:hash.:extension',
+    hash_data:   ':class/:attachment/:id',
+    hash_secret: ENV['PCONF_PAPERCLIP_HASH_SALT'],
   }
 
   scope :for_ad_id, ->(ad_id) { where( ad_id: ad_id ) }
