@@ -9,6 +9,7 @@ class MiscController < ApplicationController
   def frontpage
     @hide_search_field = true
     @ads = Ad.published
+             .includes(:location,:payin_rules,:ad_images,:user)
              .order(:updated_at)
              .limit(6)
              .map { |ad| RecursiveOpenStruct.new(ad.as_indexed_json) }
