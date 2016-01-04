@@ -136,7 +136,7 @@
                         <%= fl.text_field :address_line, class: 'u-full-width', placeholder: 'Gateadresse' %>
                         <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
                             <div class="four columns">
-                                <%= fl.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
+                                <%= fl.telephone_field :post_code, pattern: '\d*', class: 'u-full-width', placeholder: 'Postnr.', data: {postal_code: ''} %>
                             </div>
                             <div class="eight columns">
                                 <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
@@ -163,8 +163,8 @@
         <div class="u-push-down">
             <div class="main-price">
                 <%= f.fields_for :payin_rules, @ad.main_payin_rule do |mf| %>
-                    <%= mf.label :payin_amount_in_h, "Pris per dag:", class: 'main-price__label' %>
-                    <%= mf.telephone_field :payin_amount_in_h, class: 'main-price__input-price' %>
+                    <%= mf.label :payin_amount_in_h, 'Pris per dag:', class: 'main-price__label' %>
+                    <%= mf.telephone_field :payin_amount_in_h, pattern: '\d*', class: 'main-price__input-price' %>
                 <% end %>
             </div>
 
@@ -206,12 +206,12 @@
                 </div>
                 <div>
                     <span class="main-price__label">Ved utleie over</span>
-                    <%= f.telephone_field :effective_from, class: 'price-adder__days', min: 2 %>
+                    <%= f.telephone_field :effective_from, pattern: '\d*', class: 'price-adder__days', min: 2 %>
                     <span>dager</span>
                 </div>
                 <div>
                     <span class="main-price__label">Reduseres pris per dag til</span>
-                    <%= f.telephone_field :payin_amount_in_h, class: 'price-adder__price' %>
+                    <%= f.telephone_field :payin_amount_in_h, pattern: '\d*', class: 'price-adder__price' %>
                     <span>kr</span>
                 </div>
                 <div data-estimate>
