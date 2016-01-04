@@ -3,8 +3,10 @@
         <%= link_to 'Informasjon om Plendit', about_us_path, class: "about-footer__list-link", class: 'about-footer__link' %>
         &mdash;
         <%= link_to 'Ofte stilte spørsmål',  Rails.configuration.x.customerservice.website, target: '_blank', class: 'about-footer__link' %>
-        &mdash;
-        <%= render partial: 'misc/facebook' %>
+        <% if Plendit::Application.config.x.facebook_integration %>
+            &mdash;
+            <%= render partial: 'misc/facebook' %>
+        <% end %>
     </div>
 
     <br>
