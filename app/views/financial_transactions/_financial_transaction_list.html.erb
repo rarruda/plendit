@@ -1,12 +1,14 @@
-<%= render layout: 'gray_box', locals: { title: 'Penger du har tjent på utleie' } do %>
-    <table>
-        <thead>
-            <td>Booking</td>
-            <td>Betalt av</td>
-            <td>Sum</td>
-        </thead>
-        <tbody>
-            <%= render FinancialTransaction.from_user( current_user.id ).includes(:financial_transactionable)  %>
-        </tbody>
-    </table>
+<%= render layout: 'gray_box', locals: { title: 'Penger du har tjent på utleie i det siste året' } do %>
+    <% if @financial_transactions.present? %>
+        <table>
+            <thead>
+                <td>Booking</td>
+                <td>Betalt av</td>
+                <td>Sum</td>
+            </thead>
+            <tbody>
+                <%= render @financial_transactions %>
+            </tbody>
+        </table>
+    <% end %>
 <% end %>
