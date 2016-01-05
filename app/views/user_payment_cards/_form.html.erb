@@ -12,7 +12,7 @@
         </div>
 
         <form>
-            <%- if not Rails.env.production? -%>
+            <%- unless Rails.env.production? -%>
               <p>
                 <strong>
                   TEST ENVIRONMENT. DO NOT USE REAL CARD NUMBERS!! <br>
@@ -29,6 +29,7 @@
                 </div>
             </div>
 
+            <%# FIXME/Note/Reminder: Should we have this at all? %>
             <div class="row">
                 <div class="twelve columns">
                     <label for="name">Fullt navn:</label>
