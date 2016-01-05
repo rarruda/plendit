@@ -176,7 +176,7 @@ class UsersController < ApplicationController
       OpenStruct.new({
         title: 'Identitetsbevis',
         preverify_prose: %q(
-          For å leie eiendom eller båt på Plendit må et gylidg
+          For å leie noe på Plendit må et gylidg
           identitetsbevis med personnummer godkjennes.
           Førerkort vil automatisk gjelde som identitetsbevis.
         ),
@@ -191,7 +191,7 @@ class UsersController < ApplicationController
       OpenStruct.new({
         title: 'Båtførerbevis',
         preverify_prose: %q(
-          For at du skal kunne leie en båt over 14 fot eller med mer enn 9,9 hestekrefter på Plendit, må du være født før 1980 eller laste opp ditt båtførerbevis.
+          For at du skal kunne leie en båt med seil eller motor på Plendit, må du være født før 1980 eller laste opp ditt båtførerbevis.
         ),
         preverify_action: 'Last opp',
         postverify_prose: 'Båtførerbevis godkjent',
