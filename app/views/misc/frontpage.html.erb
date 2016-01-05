@@ -56,15 +56,14 @@
 </div>
 
 <div class="container">
-                <div class="latest-ads">
+    <div class="latest-ads">
         <h2>Utvalgte annonser</h2>
         <% @ads.each do |ad| %>
             <div class="latest-ads__holder">
                 <%= render partial: 'shared/search_result_link', locals: { ad: ad } %>
             </div>
-            <%= button_to 'Se alle annonsene', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
         <% end %>
-       
+        <%= button_to 'Se alle annonsene', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
     </div>
 </div>
 
