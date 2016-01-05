@@ -7,13 +7,10 @@
 <% if current_user.mangopay_provisioned? %>
     <div class="container">
         <div class="row">
-            <div class="eight columns">
+            <div class="twelve columns">
                 <%= render partial: 'user_payment_cards/list' %>
                 <%= render partial: 'users/show_user_payment_account' %>
                 <%= render partial: 'financial_transactions/financial_transaction_list' %>
-            </div>
-
-            <div class="four columns">
                 <%= render partial: 'users/payment/payout_wallet_balance' %>
             </div>
         </div>

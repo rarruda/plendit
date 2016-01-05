@@ -22,4 +22,20 @@ class UserPaymentCardDecorator < Draper::Decorator
     object.expiration_date.scan(/.{2}/).join("/")
   end
 
+  def validity_icon_name
+    if object.pending?
+      'hourglass-start'
+    elsif object.processing?
+      'hourglass-half'
+    elsif object.card_valid?
+      'check'
+    elsif object.card_invalid?
+      'times'
+    elsif object.errored?
+      'times'
+    else
+      'question'
+    end
+  end
+
 end

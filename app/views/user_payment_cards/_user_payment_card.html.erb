@@ -8,7 +8,7 @@
       <%= icon 'credit-card', class: 'fa-lg' %>
     <% end %>
   <td><%= user_payment_card.decorate.pretty_number_alias %></td>
-  <td><%= user_payment_card.decorate.expiration_date %></td>
+  <td><%= user_payment_card.decorate.pretty_expiration_date %></td>
   <td>
     <%# make_favorite %>
     <% if user_payment_card.favorite %>
@@ -21,13 +21,13 @@
     <% end %>
   </td>
   <td>
-    <%= user_payment_card.validity %>
+    <%= icon user_payment_card.decorate.validity_icon_name, class: 'fa-lg' unless user_payment_card.card_valid? %>
   </td>
   <td>
     <%# params: { 'user[user_payment_card][guid]' => user_payment_card.guid } %>
     <%# FIXME: evil to style directly in the html tags %>
     <%= button_to user_payment_card, method: :delete, class: 'button u-pull-right', form_class: 'u-inline', data: { confirm: 'Are you sure?' } do %>
-      <%= icon 'trash', 'Slett' %>
+      Slett
     <% end %>
   </td>
 </tr>
