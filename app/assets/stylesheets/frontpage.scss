@@ -47,6 +47,10 @@
         text-shadow: 1px 2px 2px #333;
     }
 
+    &__input-holder {
+        margin-top: $standard-spacing * 4;
+    }
+
     &__input {
         /* WORKAROUND: Aligns in Webkit/Blink.
                        Pick your poisons / frameworks. */
@@ -101,7 +105,6 @@
         height: auto;
         width: 100%;
         bottom: 0;
-
 
         @media (max-width: $mobile) {
             display: none;
