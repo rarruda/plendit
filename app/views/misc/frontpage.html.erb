@@ -12,7 +12,7 @@
 
     <div class="front-search-block__splash">
         <h1 class="front-search-block__title">LEI DET DU TRENGER</h1>
-        <p class="front-search-block__copy">og spar penger! Massevis av ting til leie.</p>
+        <p class="front-search-block__copy"></p>
 
         <div>
             <%= form_tag(search_path, method: :get, class: 'u-inline') do %>
@@ -33,7 +33,7 @@
 
 <div class="explainer-video-section">
     <details>
-        <summary><span class="explainer-video-section__title button">Se hvordan plendit fungerer</span></summary>
+        <summary><span class="explainer-video-section__title button">Se hvordan Plendit fungerer</span></summary>
         <iframe class="explainer-video-section__video" width="560" height="315"
                 src="<%= Rails.configuration.x.frontpage.explainer_video_url %>" allowfullscreen></iframe>
     </details>
@@ -57,14 +57,15 @@
 </div>
 
 <div class="container">
+            <%= button_to 'Se alle annonsene', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
     <div class="latest-ads">
-        <h2>Siste annonser</h2>
+        <h2>Utvalgte annonser</h2>
         <% @ads.each do |ad| %>
             <div class="latest-ads__holder">
                 <%= render partial: 'shared/search_result_link', locals: { ad: ad } %>
             </div>
         <% end %>
-        <%= button_to 'Se alle annonsene', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
+       
     </div>
 </div>
 
