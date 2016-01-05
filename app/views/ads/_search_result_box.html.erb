@@ -3,6 +3,7 @@
         <p class="search-result-box__no-hits-box u-push-down">
              Ingen treff. Tips: Prøv å zoome ut på kartet eller
              gjør endringer i søkefilteret.
+             <%= button_to 'Se alle annonsene', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
         </p>
     <% else %>
         <% cache ['html_ad_list', @ads.map{|e| e._id}], expires_in: 10.minutes do %>
