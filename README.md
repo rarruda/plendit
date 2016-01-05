@@ -224,9 +224,8 @@ Note: the server is smart enough so that you never need to restart it for any
 
 * ENV variables that should be set on start up the rails server
 
-  * PCONF_HTTP_AUTH_USERNAME -- username for HTTP authentication. To protect site
-     from casual passer bys.
-  * PCONF_HTTP_AUTH_PASSWORD -- "" ""
+  * PCONF_HTTP_AUTH_CRED_LIST -- username:password,u2:pass2 list of usernames and
+       passwords for HTTP authentication. To protect site from casual passer bys.
   * PCONF_FACEBOOK_APP_ID -- for enabling federated authentication
   * PCONF_FACEBOOK_SECRET -- "" ""
   * PCONF_SMTP_ADDRESS  -- hostname of SMTP provider/server
@@ -235,7 +234,6 @@ Note: the server is smart enough so that you never need to restart it for any
 
   * PCONF_* -- any variable that starts with PCONF is a plendit configuration.
 
-  NOTE: HTTP AUTH is only enabled when running rails in production environment.
 
 * How to run the test suite
 
