@@ -14,12 +14,12 @@
         <h1 class="front-search-block__title">LEI DET DU TRENGER</h1>
         <p class="front-search-block__copy"></p>
 
-        <div>
+        <div class="front-search-block__input-holder">
             <%= form_tag(search_path, method: :get, class: 'u-inline') do %>
               <%= text_field_tag 'q', '', class: 'front-search-block__input', autofocus: true, placeholder: 'Hva vil du leie?' %>
               <%= submit_tag 'Søk', class: 'front-search-block__search-button button button-primary' %>
             <% end %>
-            </div>
+        </div>
     </div>
 
     <div class="front-search-block__create-box" >
