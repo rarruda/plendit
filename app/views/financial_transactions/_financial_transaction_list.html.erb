@@ -6,7 +6,7 @@
             <td>Sum</td>
         </thead>
         <tbody>
-            <%= render FinancialTransaction.from_user( current_user.id )  %>
+            <%= render FinancialTransaction.from_user( current_user.id ).includes(:financial_transactionable)  %>
         </tbody>
     </table>
 <% end %>
