@@ -40,7 +40,7 @@
         <div class="u-push-down-only">
             <%= f.label :body, 'Beskrivelse:' %>
             <% if @ad.category == 'boat' %>
-                <small>Dersom båten har motor skal båtens lengde, alder og antall hestekrefter skrives inn her. </small>
+                <small>Dersom båten har seil eller motor skal båtens lengde, alder og eventuelt antall hestekrefter skrives inn her. </small>
             <% end %>
             <%= f.text_area :body, class: 'u-full-width in-form__description', data: { controller: 'autoSizeTextArea' } %>
             <small>Tips: Ved å bruke #hashtags i beskrivelsen blir annonsen enklere å finne i søket.</small>
@@ -72,18 +72,16 @@
                     <%= f.label :boat_license_required do %>
                         <%= f.check_box :boat_license_required, data: {revealer: ''} %>
                         <span class="label-body">
-                            Båt over 14 fot, eller med mer enn 9,9 hestekrefter.
+                            Båt med seil eller motor.
                         </span>
                     <% end %>
                 </div>
                 <div class="<%= @ad.boat_license_required ? '' : 'u-hidden' %>"
                      data-hidden-section>
                     <label>Registreringsnummer:</label>
-                    <small>(valgfritt, kun om det er aktuelt)</small>
                     <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
                     <div class="help-box u-push-down">
-                    Dersom båten din ikke er registrert eller du ikke har registreringsnummeret tilgjengelig, vil du ved skader/tap bli nødt til å dokumentere at du eier båten.
-                    .
+                    Jeg aksepterer at dersom jeg ikke kan fremvise eksisterende forsikringsforhold, kjøpekontrakt eller registering har jeg ikke forsikring for skader hvor båten ikke kan lokaliseres (herunder underslag, tyveri og synking). 
                 </div>
                 </div>
             </div>
