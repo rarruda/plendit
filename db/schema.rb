@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160102031823) do
+ActiveRecord::Schema.define(version: 20160105183817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,16 +73,17 @@ ActiveRecord::Schema.define(version: 20160102031823) do
     t.string   "title"
     t.text     "body"
     t.text     "tags"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.integer  "location_id"
-    t.integer  "status",                default: 0
-    t.integer  "category",              default: 0
+    t.integer  "status",                        default: 0
+    t.integer  "category",                      default: 0
     t.string   "registration_number"
     t.integer  "registration_group"
     t.integer  "estimated_value"
     t.boolean  "boat_license_required"
     t.string   "refusal_reason"
+    t.boolean  "accepted_boat_insurance_terms", default: false
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
