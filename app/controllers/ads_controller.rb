@@ -278,8 +278,8 @@ class AdsController < ApplicationController
       ad_params_local.except! 'location_attributes'
     end
 
-    # remove registration_number from all not motor categories.
-    ad_params_local.except! 'registration_number' unless @ad.motor?
+    # remove registration_number from all not motor or boat categories.
+    ad_params_local.except! 'registration_number' unless @ad.motor? || @ad.boat?
 
     # remove changes to ad images that no longer exists.
     # fixes that we try deleiting non-extant stuff if you hit
@@ -350,9 +350,10 @@ class AdsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ad_params
-    params.require(:ad).permit( :title, :body, :price_in_h,
-      :registration_number, :registration_group, :location_id, :location_guid,
-      :estimated_value_in_h, :boat_license_required,
+    params.require(:ad).permit(
+      :title, :body, :price_in_h, :registration_number, :registration_group,
+      :location_id, :location_guid, :estimated_value_in_h,
+      :boat_license_required, :accepted_boat_insurance_terms,
       location_attributes:    [ :address_line, :post_code, :id, :guid ],
       payin_rules_attributes: [ :payin_amount_in_h, :unit, :effective_from, :id, :_destroy ],
       ad_images_attributes:   [ :image, :weight, :description, :id, :_destroy ]

@@ -79,11 +79,16 @@
                 <div class="<%= @ad.boat_license_required ? '' : 'u-hidden' %>"
                      data-hidden-section>
                     <label>Registreringsnummer:</label>
-                    <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
+                    <%= f.text_field :registration_number, class: 'u-full-width', placeholder: 'Regnr' %>
                     <div class="help-box u-push-down">
-                    Jeg aksepterer at dersom jeg ikke kan fremvise eksisterende forsikringsforhold, kjøpekontrakt eller registering har jeg ikke forsikring for skader hvor båten ikke kan lokaliseres (herunder underslag, tyveri og synking). 
+                    Jeg aksepterer at dersom jeg ikke kan fremvise eksisterende forsikringsforhold, kjøpekontrakt eller registering har jeg ikke forsikring for skader hvor båten ikke kan lokaliseres (herunder underslag, tyveri og synking).
                 </div>
-                </div>
+                <%= f.label :accepted_boat_insurance_terms do %>
+                    <%= f.check_box :accepted_boat_insurance_terms %>
+                    <span class="label-body">
+                        Jeg aksepterer forsikringsvilkårene.
+                    </span>
+                <% end %>
             </div>
 
         <% end %>

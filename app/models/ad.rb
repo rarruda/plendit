@@ -47,6 +47,7 @@ class Ad < ActiveRecord::Base
     unless: :new_record?
   # todo: runeh: use nested validations for this? As in validates_associated :payin_rules
 
+  validate :boats_with_license_must_have_terms_acceptance_or_reg_num
 
   # todo: how to validate location present before publish?
   #validates :location, presence: true, unless: :new_record?
@@ -295,6 +296,13 @@ class Ad < ActiveRecord::Base
   end
 
   private
+
+  def boats_with_license_must_have_terms_acceptance_or_reg_num
+    if self.boat? && self.boat_license_required && self.registration_number.empty? && !self.accepted_boat_insurance_terms
+      self.errors.add(:boat_license_required, 'Du må enten fylle inn registreringsnummer, eller akseptere forsikringsvilkårene')
+    end
+  end
+
   def create_ad_item
     self.ad_items.build.save
   end
