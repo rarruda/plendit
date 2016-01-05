@@ -4,12 +4,12 @@
     <div class="row">
         <div class="eight columns">
             <% if @user.phone_pending_confirmation? && ! @user.unconfirmed_phone_number.blank?  %>
-                <%= render partial: 'verify_sms' if Plendit::Application.config.x.application_mode.beta %>
+                <%= render partial: 'verify_sms' %>
             <% end %>
             <%= render partial: 'edit_profile' %>
             <%= render partial: 'locations/list' %>
             <%= render partial: 'edit_registration' %>
-            <%= render partial: 'edit_identity' if Plendit::Application.config.x.application_mode.beta %>
+            <%= render partial: 'edit_identity' %>
 
         </div>
 
@@ -19,9 +19,7 @@
                     <li><%= link_to 'Rediger personalia', anchor: 'personal-info' %></li>
                     <li><%= link_to 'Adresser', anchor: 'locations' %></li>
                     <li><%= link_to 'Bytte passord', anchor: 'password' %></li>
-                    <% if Plendit::Application.config.x.application_mode.beta %>
                     <li><%= link_to 'Rediger tilkoblede kontoer', anchor: 'identities' %></li>
-                    <% end %>
                 </ul>
             <% end %>
         </div>

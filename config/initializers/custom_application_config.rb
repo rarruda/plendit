@@ -18,8 +18,6 @@ POSTAL_CODES = YAML.load_file("#{Rails.root}/config/data/postal_codes.yml")
 #Used in google maps API:
 COUNTRY_GEO_BOUNDS = [ [57.5,4], [72,32] ]
 
-# beta if hostname has this pattern:
-Plendit::Application.config.x.application_mode.beta = ( `hostname` =~ /^sbox-plendit-web/ )
 
 # "kr 50.000,-"
 Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5_000, delimiter: "." )
@@ -184,6 +182,6 @@ Plendit::Application.config.x.frontpage.hero_videos = [
 
 Plendit::Application.config.x.frontpage.explainer_video_url = 'https://www.youtube.com/embed/mqB032_uek4?rel=0'
 
-Plendit::Application.config.x.facebook_integration = Plendit::Application.config.x.application_mode.beta ? false : true
+Plendit::Application.config.x.facebook_integration = true
 
 Plendit::Application.config.x.signup.bedriftskunde_signup_link = 'http://goo.gl/forms/HkNI7f85XO'
