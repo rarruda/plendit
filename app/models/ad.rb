@@ -80,6 +80,7 @@ class Ad < ActiveRecord::Base
       indexes :geo_precision, type: :string, index: :not_analyzed
       indexes :price,         type: :integer
       indexes :category,      type: :string
+      indexes :main_image_url,type: :string, index: :not_analyzed
       indexes :ad_images do
         indexes :id,          type: :integer
         indexes :description, type: :string, analyzer: 'norwegian'
@@ -87,6 +88,7 @@ class Ad < ActiveRecord::Base
       end
       indexes :user do
         indexes :id,          type: :integer
+        indexes :avatar_url,  type: :string, index: :not_analyzed
       end
     end
   end
