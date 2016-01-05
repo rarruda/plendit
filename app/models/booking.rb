@@ -16,10 +16,10 @@ class Booking < ActiveRecord::Base
 
   has_one :ad,                through: :ad_item
   has_one :user,              through: :ad
-  has_many :feedbacks,        dependent: :destroy
-  has_many :messages,         dependent: :destroy
-  has_many :accident_reports, dependent: :destroy
-  has_many :financial_transactions, as: 'financial_transactionable', dependent: :nullify #:restrict_with_exception
+  has_many :feedbacks         #,dependent: :destroy
+  has_many :messages          #,dependent: :destroy
+  has_many :accident_reports  #,dependent: :destroy
+  has_many :financial_transactions, as: 'financial_transactionable', dependent: :restrict_with_exception
 
   enum status: {
     created:               0,
