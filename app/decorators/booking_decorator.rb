@@ -29,7 +29,7 @@ class BookingDecorator < Draper::Decorator
   def display_status
     status_names = {
       created:           'venter på svar', 
-      payment_preauthorized: 'sendt',      
+      payment_preauthorized: 'venter på svar',      
       confirmed:         'godtatt',  
       payment_confirmed: 'godtatt',        
       started:           'startet',
