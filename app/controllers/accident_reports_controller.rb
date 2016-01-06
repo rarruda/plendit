@@ -35,8 +35,7 @@ class AccidentReportsController < InheritedResources::Base
   def accident_report_params
     params
       .require(:accident_report)
-      .permit(:happened_at, :location_address_line,
-              :location_post_code, :location_country, :body,
+      .permit(:happened_at, :location_line, :body,
               attachments: [] )
   end
 end

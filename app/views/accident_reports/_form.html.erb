@@ -19,36 +19,24 @@
     </p>
 
     <div class="row">
-        <%= f.label :happened_at, 'Når skjedd skaden?' %><br>
+        <%= f.label :happened_at, 'Når skjedde skaden?' %>
         <%= f.datetime_select :happened_at %>
     </div>
+    <br>
     <div class="row">
-        <label>Hvor skjedd skaden?</label>
-        <div class="row">
-            <%= f.text_field :location_address_line, placeholder: 'Gateadresse', class: 'u-full-width' %>
-        </div>
-        <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="/resources/postal_place">
-            <div class="four columns">
-                <%= f.text_field :location_post_code, placeholder: 'Postnr.', data: {postal_code: ''} %>
-            </div>
-            <div class="eight columns">
-                <%= f.text_field :location_city, disabled: true, placeholder: 'Poststed', data: {postal_place: ''} %>
-            </div>
-        </div>
+        <%= f.label :location_address_line, 'Hvor skjedds skaden?' %>
+        <%= f.text_field :location_address_line, class: 'u-full-width' %>
     </div>
+    <br>
     <div class="row">
-        <%= f.label :body, 'Hva skjedd?' %><br>
+        <%= f.label :body, 'Hva skjedde?' %>
         <%= f.text_area :body, class: 'u-full-width' %>
     </div>
-
+    <br>
+    <%= f.label :attachments, 'Last opp bilder eller pdf:' %>
     <%= f.file_field :attachments, multiple: true %>
 
-<!--
-  <div class="u-pull-right button">
--->
-    <%= f.submit 'Send', form_class: 'u-inline', class: 'button button-primary' %>
-    <%#= button_to 'Send', users_accident_reports_path, form_class: 'u-inline', class: 'button button-primary' %>
-<!--
-  </div>
--->
+    <div class="u-pull-right">
+        <%= f.submit 'Send', form_class: 'u-inline', class: 'button button-primary' %>
+    </div>
 <% end %>
