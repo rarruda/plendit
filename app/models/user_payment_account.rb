@@ -20,7 +20,7 @@ class UserPaymentAccount < ActiveRecord::Base
 
   def pretty_bank_account_number
     # only show pretty bank account number if it is valid:
-    if self.bank_account_number !~ /\A[0-9]{11}\z/
+    if self.bank_account_number =~ /\A[0-9]{11}\z/
       self.bank_account_number.scan(/(.{4})(.{2})(.{5})/).join(".")
     else
       self.bank_account_number
