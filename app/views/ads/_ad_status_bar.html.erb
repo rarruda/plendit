@@ -4,21 +4,21 @@
             <div class="ad-status-bar ad-status-bar--<%= ad.status %> u-push-down">
                 <div class="ad-status-bar__div">
                     <h5 class="ad-status-bar__title">
-                        <% if ad.status == 'published' %>
+                        <% if ad.published? %>
                             Annonsen er aktiv.
-                        <% elsif ad.status == 'draft' %>
+                        <% elsif ad.draft? %>
                             Annonsen er under utarbeidelse.
-                        <% elsif ad.status == 'waiting_review' %>
+                        <% elsif ad.waiting_review? %>
                             Annonsen er sendt til kontroll.
-                        <% elsif ad.status == 'paused' %>
+                        <% elsif ad.paused? %>
                             Annonsen er satt på pause.
-                        <% elsif ad.status == 'refused' %>
+                        <% elsif ad.refused? %>
                             Annonsen var ikke godkjent av kontroll.
-                        <% elsif ad.status == 'stopped' %>
+                        <% elsif ad.stopped? %>
                             Annonsen er stoppet.
                         <% end %>
                     </h5>
-                    <% if ad.status == 'refused' %>
+                    <% if ad.refused? %>
                         <small>Grunnen: <%= ad.refusal_reason %></small>
                     <% end %>
                 </div>
@@ -35,22 +35,33 @@
     <div class="container">
         <div class="row">
             <div class="ad-status-bar ad-status-bar--<%= ad.status %> u-push-down">
-                <div>
-                    Admin kontroll:
+                <div class="row">
+                    <div class="ad-status-bar__title">
+                        Admin kontroll:
+                    </div>
                 </div>
-                <div>
-                    <% if ad.status == 'waiting_review' %>
-                        <%= button_to 'Godkjenn', approve_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
+                <div class="row">
+
+                <div class="twelve columns">
+                    <% if ad.waiting_review? %>
+                        <div class="three columns">
+                            <%= button_to 'Godkjenn', approve_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button", enabled: ad.valid? %>
+                        </div>
                     <% end %>
-                    <% if ad.status != 'refused' %>
-                        <%= form_for @ad, url: refuse_ad_path(ad), method: :post, html: { class: "ad-status-box__form" } do |f| %>
-                            <%= f.text_field :refusal_reason, placeholder: "refusal reason" %>
-                            <%= f.submit 'Refuse', class: "ad-status-box__button button" %>
-                        <% end %>
+                    <% if ad.published? || ad.waiting_review? %>
+                        <div class="six columns">
+                            <%= form_for @ad, url: refuse_ad_path(ad), method: :post, html: { class: "ad-status-box__form" } do |f| %>
+                                <%= f.text_field :refusal_reason, placeholder: "refusal reason" %>
+                                <%= f.submit 'Refuse', class: "ad-status-box__button button" %>
+                            <% end %>
+                        </div>
                     <% end %>
-                    <% if ad.status != 'suspended' %>
-                        <%= button_to 'Suspend (blackhole)', suspend_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button " %>
+                    <% unless ad.suspended? %>
+                        <div class="three columns">
+                            <%= button_to 'Suspend (blackhole)', suspend_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button" %>
+                        </div>
                     <% end %>
+                </div>
                 </div>
             </div>
         </div>
