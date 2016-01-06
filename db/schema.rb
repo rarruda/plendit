@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160105183817) do
+ActiveRecord::Schema.define(version: 20160105233149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accident_report_attachments", force: :cascade do |t|
+    t.integer  "accident_report_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
+  add_index "accident_report_attachments", ["accident_report_id"], name: "index_accident_report_attachments_on_accident_report_id", using: :btree
 
   create_table "accident_reports", force: :cascade do |t|
     t.integer  "booking_id"
@@ -409,6 +421,7 @@ ActiveRecord::Schema.define(version: 20160105183817) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "accident_report_attachments", "accident_reports"
   add_foreign_key "ad_images", "ads"
   add_foreign_key "ad_items", "ads"
   add_foreign_key "ads", "locations"
