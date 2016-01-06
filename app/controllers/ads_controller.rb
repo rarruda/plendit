@@ -19,7 +19,6 @@ class AdsController < ApplicationController
     :submit_for_review,
     :suspend,
     :unavailability,
-    :unpublish_and_edit,
     :update
   ]
 
@@ -307,16 +306,6 @@ class AdsController < ApplicationController
       end
     end
   end
-
-  def unpublish_and_edit
-    # no need to force to draft status, if the ad is already it.
-    if @ad.draft? || @ad.edit!
-      redirect_to edit_ad_path(@ad)
-    else
-      redirect_to @ad, alert: 'Ad was set to editing suspended.'
-    end
-  end
-
 
   private
   # Use callbacks to share common setup or constraints between actions.

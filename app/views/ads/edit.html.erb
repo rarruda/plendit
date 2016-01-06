@@ -1,29 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <% if @ad.published? || @ad.waiting_review? %>
-
-                <h1 class="u-push-down-only">Rediger annonse</h1>
-
-                <% if @ad.published? %>
-                    <p>
-                        Denne annonsen er allerde publisert. Hvis du
-                        redigerer den må den sendes til ny godkjenning
-                        når den er endret.
-                    </p>
-                <% else %>
-                    <p>
-                        Denne annonsen er sendt til godkjenning. Hvis du
-                        redigerer den må du sende den til godkjenning på nytt.
-                    </p>
-                <% end %>
-                <p>
-                    <%= button_to 'Rediger', unpublish_and_edit_ad_path(@ad), form_class: 'u-inline', class: 'button' %>
-                    <%= link_to 'Gå til annonsen', @ad  %>
-                </p>
-            <% else %>
                 <%= render 'form' %>
-            <% end %>
         </div>
 
         <div class="four columns offset-by-one column">
