@@ -28,10 +28,10 @@ class BookingDecorator < Draper::Decorator
 
   def display_status
     status_names = {
-      created:           'vennligst vent', #TRANSLATEME
-      payment_preauthorized: 'sendt',       #TRANSLATEME
-      confirmed:         'betaling pågår',  #TRANSLATEME
-      payment_confirmed: 'godtatt',         #TRANSLATEME
+      created:           'venter på svar', 
+      payment_preauthorized: 'sendt',      
+      confirmed:         'godtatt',  
+      payment_confirmed: 'godtatt',        
       started:           'startet',
       in_progress:       'pågår',
       ended:             'fullført',
@@ -39,11 +39,11 @@ class BookingDecorator < Draper::Decorator
       aborted:           'avlyst',
       cancelled:         'avlyst',
       declined:          'avslått',
-      payment_preauthorization_failed: 'betaling mislyktes', #TRANSLATEME
-      payment_failed:    'betaling mislyktes', #TRANSLATEME
+      payment_preauthorization_failed: 'betaling mislyktes',
+      payment_failed:    'betaling mislyktes', 
       disputed:          'avbrutt',
-      dispute_agree:     'avbrutt',         #TRANSLATEME
-      dispute_diaagree:  'avbrutt',         #TRANSLATEME
+      dispute_agree:     'avbrutt',         
+      dispute_diaagree:  'avbrutt',         
       admin_paused:      'stoppet av administrator',
     }
     status_names[status.to_sym]
@@ -85,7 +85,7 @@ class BookingDecorator < Draper::Decorator
       when 'in_progress'
         "Utleietiden har startet."
       when 'ended'
-        "Utleietiden er over."
+        "Utleieperioden er over."
       when 'archived'
         "Leieforholdet er arkivert."
       when 'cancelled'
