@@ -1,28 +1,28 @@
 <div class="booking-controls">
     <% if current_user.owns_booking_item? @booking %>
         <% if booking.created? %>
-            TRANSLATEME: Betaling pågår for denne booking.
+            Venter på svar.
         <% elsif booking.payment_preauthorized? %>
             <%= button_to "Avslå forespørsel", decline_booking_path(booking), class: "button", form_class: 'u-inline' %>
             <%= button_to "Godkjenn forespørsel", accept_booking_path(booking), class: "button button-primary", form_class: 'u-inline' %>
         <% elsif booking.confirmed? %>
-            TRANSLATEME: Betaling pågår for denne booking.
+            Leieforhold avtalt.
         <% elsif booking.payment_confirmed? || booking.started? %>
             <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "TRANSLATEME: Er du sikker at du vil avbryt?" } %>
         <% elsif booking.in_progress? %>
-            Denne bookingen er aktiv.
+            Leieforhold pågår.
         <% elsif booking.ended? || booking.archived? %>
-            Denne bookingen er over og stengt for endringer.
+            Leieforholdet er over og stengt for endringer.
         <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
         <% else %>
             Ukjent status, opplever du problemer kan du ta kontakt med <%= link_to 'kundesenteret', Plendit::Application.config.x.customerservice.contact_form %>.
         <% end %>
     <% else %>
         <% if booking.created? || booking.payment_preauthorized? %>
-            <%= button_to 'Avbryt forespørsel', abort_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "TRANSLATEME: Er du sikker at du vil avbryt?" } %>
+            <%= button_to 'Avbryt forespørsel', abort_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "Er du sikker at du vil avbryte?" } %>
         <% elsif booking.confirmed? || booking.payment_confirmed? || booking.started? %>
             <%# should be a red button! should have a warning to not be used lightly, as it will trigger admin intervention? %>
-            <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "TRANSLATEME: Er du sikker at du vil avbryt?" } %>
+            <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "Er du sikker at du vil avbryte?" } %>
         <% elsif booking.in_progress? %>
             Denne bookingen er aktiv.
         <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
