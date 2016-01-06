@@ -27,7 +27,7 @@ class UserDocument < ActiveRecord::Base
 
   validates_attachment_content_type :document, :content_type => ["application/pdf", "image/jpeg", "image/jpg", "image/png"]
   validates_attachment_file_name    :document, :matches => [/png\Z/i, /jpe?g\Z/i, /pdf\Z/i]
-  validates_attachment_size         :document, :in => 0..10.megabytes
+  validates_attachment_size         :document, :in => 0..7.megabytes
 
   validates_uniqueness_of :guid
 
