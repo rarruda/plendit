@@ -4,10 +4,15 @@
             <h1>User document verification</h1>
 
             <div class="u-push-down">
-                <% 
+                <%
                     d = @user_document
                     u = @user_document.user
                 %>
+
+                <div>
+                    <%= image_tag kyc_image_path(@user_document), class: 'u-full-width' %>
+                    <%= link_to 'Show full image', kyc_image_path(@user_document), target: '_blank' %>
+                </div>
 
                 <div>
                     <%= avatar_image u, :huge %>
@@ -24,17 +29,48 @@
                 <div>
                     Fødselsdato: <%= u.birthday.to_s %>
                 </div>
+
+                <div>
+                    Document status: <%= d.status %>
+                </div>
+
+                <%- if @user_document.errors.any? -%>
+                  <hr>
+                  <div>
+                      Følgende feil forhindret deg i å oppdatere KYC info:
+                      <ul>
+                        <% @user_document.errors.each do |attribute,message| %>
+                          <li><%= message %></li>
+                        <% end %>
+                      </ul>
+                  </div>
+                <%- end -%>
+
                 <hr>
                 <%= form_for @user_document, url: {controller: 'backstage', action: 'kyc_document'} do |f| %>
                     <div>Category: <%= d.display_category %></div>
                     <br>
-                    <%= image_tag kyc_image_path(@user_document), class: 'u-full-width' %>
-                    <%= link_to 'Show full image', kyc_image_path(@user_document), target: '_blank' %>
+                    <%= f.label :expires_at, 'Expires at:' %>
+                    <%= f.date_select :expires_at, end_year: 100.years.from_now.year, include_blank: true %>
                     <br>
-                    <%= f.label :expires_at, 'Expires at:' %> <%= f.date_select :expires_at, end_year: 100.years.from_now.year, include_blank: true %>
+                    <%= f.label :rejection_reason, 'Rejection reason:' %>
+                    <%= f.text_field :rejection_reason %>
                     <br>
-                    <%= f.label :rejection_reason, 'Rejection reason:' %> <%= f.text_field :rejection_reason %>
-                    <br>
+                    <strong>Mandatory fields! Need to be checked externally that they match with the name.</strong>
+                    <%= f.fields_for :user do |u| %>
+                        <%= u.label :first_name, 'First Name:' %>
+                        <%= u.text_field :first_name %>
+                        <br>
+                        <%= u.label :last_name, 'Last Name:' %>
+                        <%= u.text_field :last_name %>
+                        <br>
+                        <%= u.label :personal_id_number, 'Personal ID number (personnummer):' %>
+                        <%= u.text_field :personal_id_number, size: 20, maxlength: 11 %>
+                        <br>
+                        <%= u.label :birthday, 'Birthday:' %>
+                        <%= u.date_select :birthday, start_year: 110.years.ago.year, include_blank: true %>
+                        <br>
+                    <% end %>
                     <%= f.submit 'Approve', value: 'approve', class: 'button' %>
                     <%= f.submit 'Reject', value: 'reject', class: 'button' %>
                 <% end %>

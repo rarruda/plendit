@@ -72,6 +72,14 @@ class User < ActiveRecord::Base
     format: { with: /\A[0-9]{4}\z/, message: "Postnummer må være kun tall. 4 siffer." },
     if: :has_bank_account?
 
+  # NOTE: if the number is invalid for some reason, then the user will not be able to rescue
+  #  himself from this bad state:
+  validates :personal_id_number,
+    uniqueness: { message: "personal_id_number må være unik" },
+    if: "personal_id_number.present?"
+  validates :personal_id_number,
+    format: { with: /\A[0-6][0-9][01][0-9][0-9]{2}[0-9]{5}\z/, message: "Personnummer må være gyldig" },
+    if: "personal_id_number.present?"
 
 
   # From: http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html

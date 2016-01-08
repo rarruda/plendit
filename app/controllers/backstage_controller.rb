@@ -37,11 +37,14 @@ class BackstageController < ApplicationController
     #fixme: redirect to kyc index when approved?
     @user_document = UserDocument.find_by(guid: params[:guid]).decorate
     if request.patch?
-      @user_document.update(kyc_params)
-      if params[:commit] == 'reject'
-        @user_document.not_approved!
-      elsif params[:commit] == 'approve'
-        @user_document.approved!
+      if @user_document.update(kyc_params)
+        if params[:commit] == 'reject'
+          @user_document.not_approved!
+        elsif params[:commit] == 'approve'
+          @user_document.approved!
+        end
+      else
+        # was not able to update, likely a validation error.
       end
     end
   end
@@ -58,6 +61,6 @@ class BackstageController < ApplicationController
   private
 
   def kyc_params
-    params[:user_document].permit(:rejection_reason, :expires_at)
+    params.require(:user_document).permit(:rejection_reason, :expires_at, user_attributes: [:birthday, :personal_id_number, :id] )
   end
 end

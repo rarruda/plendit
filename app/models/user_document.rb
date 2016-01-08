@@ -33,6 +33,7 @@ class UserDocument < ActiveRecord::Base
 
   validates_uniqueness_of :user_id, scope: :category
 
+  accepts_nested_attributes_for :user, update_only: true #, reject_if: lambda { |a| a[:birthday].blank? || a[:personal_id_number].blank? }
 
   scope :pending_approval,  -> { where( status: UserDocument.statuses[:pending_approval] ) }
   scope :not_approved,      -> { where( status: UserDocument.statuses[:not_approved] ) }
@@ -40,7 +41,6 @@ class UserDocument < ActiveRecord::Base
 
 
   before_validation :set_guid, on: :create
-
 
 
   def to_param
