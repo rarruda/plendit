@@ -171,7 +171,4 @@ group :test do
 end
 
 group :production do
-  # this gem is important to run in heroku. Enables static assets, and routes logs to stdout.
-  # https://github.com/heroku/rails_12factor
-  gem 'rails_12factor'
 end
