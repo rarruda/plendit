@@ -1,6 +1,7 @@
 <%= form_for(@ad_image, :html => { :multipart => true }) do |f| %>
   <% if @ad_image.errors.any? %>
     <div id="error_explanation">
+      <%# TRANSLATEME ? %>
       <h2><%= pluralize(@ad_image.errors.count, "error") %> prohibited this ad_image from being saved:</h2>
 
       <ul>

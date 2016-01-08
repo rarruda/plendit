@@ -2,10 +2,10 @@
     <%= form_for(@ad, url: (users_ad_path @ad), data: {main_form: '', category: @ad.category, controller: 'adAutoSaver'}) do |f| %>
         <% if @ad.errors.any? %>
             <div id="error_explanation">
-                <h2><%= pluralize(@ad.errors.count, "error") %> prohibited this ad from being saved:</h2>
+                <h2><%= @ad.errors.count %> feil forhindret at annonsen kunne lagres:</h2>
 
                 <ul>
-                    <% @ad.errors.full_messages.each do |message| %>
+                    <% @ad.errors.each do |attribute,message| %>
                         <li><%= message %></li>
                     <% end %>
                 </ul>

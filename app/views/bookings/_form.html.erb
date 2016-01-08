@@ -2,11 +2,11 @@
     <% if @booking.errors.any? %>
         <div id="error_explanation">
             <h2>
-                <%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:
+                <%= @booking.errors.count %> feil forhindret at du fikk gjennomført booking:
             </h2>
 
             <ul>
-                <% @booking.errors.full_messages.each do |message| %>
+                <% @booking.errors.each do |attribute,message| %>
                     <li><%= message %></li>
                 <% end %>
             </ul>
