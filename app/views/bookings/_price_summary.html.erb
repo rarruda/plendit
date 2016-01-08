@@ -20,6 +20,5 @@
     <span class="booking-price-summary__label">
         Depositum:
     </span>
-    <%# FIXME: need to add deposit_amount to model %>
-    <span class="booking-price-summary__value"><%#= format_monetary_full_pretty @booking.deposit_amount %> foobar </span>
+    <span class="booking-price-summary__value"><%= format_monetary_full_pretty @booking.deposit_amount %> </span>
 </div>
