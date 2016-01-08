@@ -61,6 +61,9 @@ class BackstageController < ApplicationController
   private
 
   def kyc_params
-    params.require(:user_document).permit(:rejection_reason, :expires_at, user_attributes: [:birthday, :personal_id_number, :id] )
+    params.require(:user_document).permit(:rejection_reason, :expires_at,
+      user_attributes: [:birthday, :personal_id_number, :verification_level,
+        :first_name, :last_name, :id]
+    )
   end
 end

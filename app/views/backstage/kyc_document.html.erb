@@ -34,6 +34,10 @@
                     Document status: <%= d.status %>
                 </div>
 
+                <div>
+                    User verification level: <%= u.verification_level %> (<%= User.verification_levels[u.verification_level] %>)
+                </div>
+
                 <%- if @user_document.errors.any? -%>
                   <hr>
                   <div>
@@ -69,6 +73,9 @@
                         <br>
                         <%= u.label :birthday, 'Birthday:' %>
                         <%= u.date_select :birthday, start_year: 110.years.ago.year, include_blank: true %>
+                        <br>
+                        <%= u.label :verification_level, 'Verification Level:' %>
+                        <%= u.select :verification_level, User.verification_levels.keys.to_a %>
                         <br>
                     <% end %>
                     <%= f.submit 'Approve', value: 'approve', class: 'button' %>

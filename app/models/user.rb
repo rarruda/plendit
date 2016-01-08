@@ -76,10 +76,12 @@ class User < ActiveRecord::Base
   #  himself from this bad state:
   validates :personal_id_number,
     uniqueness: { message: "personal_id_number må være unik" },
-    if: "personal_id_number.present?"
+    if: "personal_id_number.present?",
+    unless: :not_verified?
   validates :personal_id_number,
     format: { with: /\A[0-6][0-9][01][0-9][0-9]{2}[0-9]{5}\z/, message: "Personnummer må være gyldig" },
-    if: "personal_id_number.present?"
+    if: "personal_id_number.present?",
+    unless: :not_verified?
 
 
   # From: http://edgeapi.rubyonrails.org/classes/ActiveRecord/Enum.html
@@ -91,6 +93,11 @@ class User < ActiveRecord::Base
   #natural person, legal_person, legal_organization
   enum personhood: { natural: 0, legal_business: 1, legal_organization: 2 }
 
+  # not_verified: no verification is done.
+  # internally_verified: looked at the document internally
+  # externally_verified: internally_verified and verified the personal number + name matches against the person registry
+  # bankid_verified: active verification against bank_id
+  enum verification_level: { not_verified: 0, internally_verified: 2, externally_verified: 3, bankid_verified: 5}
 
   after_validation :set_city_from_postal_code
 
