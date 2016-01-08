@@ -107,10 +107,6 @@ class Booking < ActiveRecord::Base
   #  If we did, the following callback would not be enough.
   after_create :create_financial_transaction_preauth
 
-  after_create :send_mail_booking_created
-
-  after_create :notify_booking_created
-
   aasm column: :status, enum: true do
     state :created, initial: true
     state :payment_preauthorized
@@ -137,9 +133,15 @@ class Booking < ActiveRecord::Base
 
     event :payment_preauthorize do
       transitions from: :created, to: :payment_preauthorized
-      # after do
-      #   send emails to owner, asking for confirmation...
-      # end
+      after do
+        # send emails to owner, asking for confirmation...
+        ApplicationMailer.booking_created__to_owner( self ).deliver_later
+        Notification.create(
+          user_id: self.user.id,
+          message: "#{self.from_user.decorate.display_name} ønsker å leie \"#{self.ad.decorate.display_title}\"",
+          notifiable: self
+        )
+      end
     end
 
     event :confirm do
@@ -460,18 +462,6 @@ class Booking < ActiveRecord::Base
   end
 
   private
-
-  def send_mail_booking_created
-    ApplicationMailer.booking_created__to_owner( self ).deliver_later
-  end
-
-  def notify_booking_created
-    Notification.create(
-      user_id: self.user.id,
-      message: "#{self.from_user.decorate.display_name} ønsker å leie \"#{self.ad.decorate.display_title}\"",
-      notifiable: self
-    )
-  end
 
   def create_financial_transaction_preauth
     financial_transaction = {
