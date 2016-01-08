@@ -141,24 +141,26 @@
                   <%#= uimg_builder.hidden_field :id %>
                   <%= uimg_builder.hidden_field :category, :value => 'avatar' %>
                   <%= uimg_builder.label :image, 'Last opp profilbilde' %>
-            <small>
-                Kvadratiske bilder ser best ut
-            </small>
+                <p>
+                    <small>
+                        Kvadratiske bilder ser best ut
+                    </small>
+                </p>
                   <%= uimg_builder.file_field :image %>
                 <% end %>
               </p>
             </div>
         </div>
 
-        <p>
-            <small>
-                Her kan du skrive litt om deg selv.
-                Denne blir vist på din offentlig profil.
-            </small>
-        </p>
+        
         <div class="row">
             <div class="two-thirds column">
                 <%= f.label :about, 'Om meg:' %>
+                <p>
+            <small>
+                Her kan du skrive litt om deg selv som vil vises på din offentlig profil.
+            </small>
+        </p>
                 <%= f.text_area :about, maxlength: 2000, class: 'u-full-width' %>
             </div>
         </div>
