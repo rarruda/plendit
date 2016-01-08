@@ -172,7 +172,7 @@ class Booking < ActiveRecord::Base
     end
 
     event :abort do
-      transitions from: :created, to: :aborted
+      transitions from: :payment_preauthorized, to: :aborted
       after do
         self.cancel_financial_transaction_preauth!
 
@@ -185,7 +185,7 @@ class Booking < ActiveRecord::Base
     end
 
     event :decline, after: :cancel_financial_transaction_preauth! do
-      transitions from: :created, to: :declined
+      transitions from: :payment_preauthorized, to: :declined
       after do
         ApplicationMailer.booking_declined__to_renter( self ).deliver_later
         Notification.create(
