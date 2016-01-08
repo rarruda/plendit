@@ -33,8 +33,8 @@ class BookingCalculator
     end
   end
 
-  def reservation_amount
-    Plendit::Application.config.x.insurance.reservation_value[self.ad.category.to_sym]
+  def deposit_amount
+    Plendit::Application.config.x.platform.deposit_amount[self.ad.category.to_sym]
   end
 
   def payout_amount payin_rule = nil

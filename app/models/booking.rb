@@ -340,6 +340,7 @@ class Booking < ActiveRecord::Base
     calculate_amount
     calculate_fee
     calculate_insurance
+    calculate_deposit
   end
 
   def calculate_amount
@@ -354,9 +355,9 @@ class Booking < ActiveRecord::Base
     self.insurance_amount = self.booking_calculator.insurance_fee
   end
 
-  #def calculate_deposit
-  #  self.deposit_amount = self.booking_calculator.deposit_amount
-  #end
+  def calculate_deposit
+    self.deposit_amount = self.booking_calculator.deposit_amount
+  end
 
   def sum_paid_to_owner
     self.payout_amount
