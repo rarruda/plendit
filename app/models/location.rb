@@ -3,7 +3,7 @@ class Location < ActiveRecord::Base
 
   has_many :ads
 
-  validates :guid,         uniqueness: true
+  validates :guid,         presence: true, uniqueness: true
   validates :user,         presence: true
   validates :address_line, presence: { mesage: "Addresse kan ikke være blank." }
   validates :post_code,    presence: true, format: { with: /\A[0-9]{4}\z/, message: "Postnummer må være 4 siffer." }
