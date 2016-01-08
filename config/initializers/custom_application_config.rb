@@ -42,7 +42,7 @@ Plendit::Application.config.x.platform.payout_fee_amount     = 18_00
 Plendit::Application.config.x.platform.payout_fee_waived_after_amount = 500_00
 
 Plendit::Application.config.x.platform.deposit_amount        = {
-  bap:         1_000_00,
+  bap:           500_00,
   motor:       1_000_00,
   realestate:  1_000_00,
   boat:        1_000_00,
@@ -53,14 +53,6 @@ Plendit::Application.config.x.insurance.price_in_percent     = {
   motor:      0.09,
   realestate: 0.09,
   boat:       0.09,
- }
-
-# Is this needed anymore? I don't think so... (RA)
-Plendit::Application.config.x.insurance.reservation_value   = {
-  bap:         0,
-  motor:       1_500_00,
-  realestate:  0,
-  boat:        0,
  }
 
 Plendit::Application.config.x.insurance.deductible_value = {
