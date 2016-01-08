@@ -49,6 +49,13 @@ class FinancialTransaction < ActiveRecord::Base
   scope :payout,     -> { where( transaction_type: FinancialTransaction.transaction_types[:payout]   ) }
   scope :payin_refund,->{ where( transaction_type: FinancialTransaction.transaction_types[:payin_refund] ) }
 
+  # by purpose:
+  scope :rental,     -> { where( purpose: FinancialTransaction.purposes[:rental]  ) }
+  scope :deposit,    -> { where( purpose: FinancialTransaction.purposes[:deposit]  ) }
+  scope :payout_to_user,
+                     -> { where( purpose: FinancialTransaction.purposes[:payout_to_user]  ) }
+
+
   # by state/status:
   scope :errored_or_unknown_state,
                      -> { where( state: [ FinancialTransaction.states[:errored], FinancialTransaction.states[:unknown_state] ] ) }

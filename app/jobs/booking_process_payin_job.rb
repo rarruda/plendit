@@ -19,7 +19,7 @@ class BookingProcessPayinJob < ActiveJob::Base
     if booking.financial_transactions.payin.errored_or_unknown_state.any?
       # this will refund all exiting (with status finished), payins for this booking
 
-      booking.cancel_financial_transaction_payin
+      booking.cancel_all_financial_transactions_payin
       booking.payment_fail!
       puts "Booking changed status to: #{booking.status}"
 

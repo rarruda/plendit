@@ -174,7 +174,7 @@ class Booking < ActiveRecord::Base
     event :abort do
       transitions from: :payment_preauthorized, to: :aborted
       after do
-        self.cancel_financial_transaction_preauth!
+        BookingCancelPreauthJob.perform_later self
 
         Notification.create(
           user_id: self.user.id,
@@ -184,9 +184,11 @@ class Booking < ActiveRecord::Base
       end
     end
 
-    event :decline, after: :cancel_financial_transaction_preauth! do
+    event :decline do
       transitions from: :payment_preauthorized, to: :declined
       after do
+        BookingCancelPreauthJob.perform_later self
+
         ApplicationMailer.booking_declined__to_renter( self ).deliver_later
         Notification.create(
           user_id: self.from_user.id,
@@ -205,7 +207,7 @@ class Booking < ActiveRecord::Base
         end
       end
       after do
-        cancel_financial_transaction_payin
+        cancel_all_financial_transactions_payin
 
         ApplicationMailer.booking_cancelled__to_owner( self ).deliver_later
         ApplicationMailer.booking_cancelled__to_renter( self ).deliver_later
@@ -457,7 +459,7 @@ class Booking < ActiveRecord::Base
     BookingCalculator.new(ad: self.ad, starts_at: self.starts_at, ends_at: self.ends_at)
   end
 
-
+  # Called from BookingCancelPreauthJob
   # Cancel all preauths connected to this booking which have finished status.
   def cancel_financial_transaction_preauth!
     self.financial_transactions.preauth.finished.map( &:process_cancel_preauth! )
@@ -466,7 +468,7 @@ class Booking < ActiveRecord::Base
   private
 
   def create_financial_transaction_preauth
-    financial_transaction = {
+    rental_financial_transaction = {
       transaction_type: 'preauth',
       purpose:  'rental',
       amount:   self.sum_paid_by_renter,
@@ -474,7 +476,17 @@ class Booking < ActiveRecord::Base
       src_type: :src_card_vid,
       src_vid:  self.from_user.user_payment_cards.find( user_payment_card_id ).card_vid
     }
-    t = self.financial_transactions.create( financial_transaction )
+    t = self.financial_transactions.create( rental_financial_transaction )
+
+    deposit_financial_transaction = {
+      transaction_type: 'preauth',
+      purpose:  'deposit',
+      amount:   self.deposit_amount,
+      fees:     0,
+      src_type: :src_card_vid,
+      src_vid:  self.from_user.user_payment_cards.find( user_payment_card_id ).card_vid
+    }
+    t = self.financial_transactions.create( deposit_financial_transaction )
 
     # called from a BookingProcessPreauthJob:
     # t.process!
@@ -482,22 +494,35 @@ class Booking < ActiveRecord::Base
   end
 
   def create_financial_transaction_payin
-    if self.financial_transactions.preauth.finished.present?
-      preauth_transaction_vid = self.financial_transactions.preauth.finished.take.transaction_vid
-      raise "No valid preauth_transaction_vid in place" if preauth_transaction_vid.blank?
+    if self.financial_transactions.rental.preauth.finished.present? &&
+       self.financial_transactions.deposit.preauth.finished.present?
+
+      rental_preauth_transaction_vid  = self.financial_transactions.rental.preauth.finished.take.transaction_vid
+      deposit_preauth_transaction_vid = self.financial_transactions.deposit.preauth.finished.take.transaction_vid
+      raise "No valid rental||deposit_preauth_transaction_vid in place" if rental_preauth_transaction_vid.blank? || deposit_preauth_transaction_vid.blank?
     else
-      raise "No valid preauth_transaction in place" if preauth_transaction_vid.blank?
+      raise "No valid rental||deposit_preauth_transaction_vid in place" if rental_preauth_transaction_vid.blank? || deposit_preauth_transaction_vid.blank?
     end
 
-    financial_transaction = {
+    rental_financial_transaction = {
       transaction_type: 'payin',
       purpose:  'rental',
       amount:   self.sum_paid_by_renter,
       fees:     0,
       src_type: :src_preauth_vid,
-      src_vid:  preauth_transaction_vid
+      src_vid:  rental_preauth_transaction_vid
     }
-    t = self.financial_transactions.create( financial_transaction )
+    t = self.financial_transactions.create( rental_financial_transaction )
+
+    deposit_financial_transaction = {
+      transaction_type: 'payin',
+      purpose:  'deposit',
+      amount:   self.deposit_amount,
+      fees:     0,
+      src_type: :src_preauth_vid,
+      src_vid:  deposit_preauth_transaction_vid
+    }
+    t = self.financial_transactions.create( deposit_financial_transaction )
 
     # called from a BookingProcessPayinJob:
     # t.process!
@@ -505,14 +530,15 @@ class Booking < ActiveRecord::Base
   end
 
   # Create payin_refunds for all payins connected to this booking which have finished status.
-  def cancel_financial_transaction_payin
+  def cancel_all_financial_transactions_payin
     self.financial_transactions.payin.finished.each do |ft|
-      LOG.debug "found payin financial_transaction_id: #{ft.id} to refund", booking_id: self.id
-      create_financial_transaction_payin_refund ft
+      LOG.debug "found payin financial_transaction_id: #{ft.id} to refund (purpose: #{ft.purpose}", booking_id: self.id
+      create_financial_transaction_refund_payin ft
     end
   end
 
-  def create_financial_transaction_payin_refund ft_to_refund
+  # Called from cancel_all_financial_transactions_payin above:
+  def create_financial_transaction_refund_payin ft_to_refund
     financial_transaction = {
       transaction_type: 'payin_refund',
       purpose:  ft_to_refund.purpose,
@@ -534,13 +560,13 @@ class Booking < ActiveRecord::Base
   def create_financial_transaction_transfer
     # later we should make this a split payment!
     # NOTE: 'amount' will be automatically be deducted for the 'fees'
-    financial_transaction = {
+    rental_financial_transaction = {
       transaction_type: 'transfer',
       purpose: 'rental',
       amount:  self.sum_paid_by_renter,
       fees:    self.sum_plaform_fee_and_insurance
     }
-    t = self.financial_transactions.create( financial_transaction )
+    t = self.financial_transactions.create( rental_financial_transaction )
 
     # FIXME(RA): should be triggered from a job:
     t.process!
