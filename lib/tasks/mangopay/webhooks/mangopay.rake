@@ -38,7 +38,7 @@ namespace :mangopay do
           'EventType' => e
         )
 
-        pp result
+        puts result
       end
     end
 
@@ -46,18 +46,25 @@ namespace :mangopay do
     task update: :environment do
       raise 'PCONF_MANGOPAY_CALLBACK_BASE_URL needs to be set' if ENV['PCONF_MANGOPAY_CALLBACK_BASE_URL'].nil?
 
-      EVENT_TYPES.each do |e|
-        result = MangoPay::Hook.update(
-          'Url'       => "#{ENV['PCONF_MANGOPAY_CALLBACK_BASE_URL']}#{mangopay_callback_path}",
-          'EventType' => e
+      hooks = MangoPay::Hook.fetch()
+
+      pp hooks
+
+      hooks.each do |h|
+        result = MangoPay::Hook.update( h['Id'],
+          'Url'    => "#{ENV['PCONF_MANGOPAY_CALLBACK_BASE_URL']}#{mangopay_callback_path}",
+          'Status' => 'ENABLED',
+          #'Tag'    => 'foobar',
         )
+
         pp result
       end
+
     end
 
     desc "List mangopay webhooks to our app"
     task list: :environment do
-      pp MangoPay::Hook.fetch()
+      puts MangoPay::Hook.fetch()
     end
 
   end
