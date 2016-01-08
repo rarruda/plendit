@@ -49,12 +49,14 @@ class Booking < ActiveRecord::Base
 
   scope :accidents_reportable,
                      -> { where( 'status' => [ self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
-  scope :current,    -> { where( 'status' => [ self.statuses[:created], self.statuses[:confirmed], self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
+  scope :current,    -> { where( 'status' => [ self.statuses[:created], self.statuses[:confirmed], self.statuses[:started],
+                                               self.statuses[:in_progress], self.statuses[:ended] ] ) }
   scope :active,     -> { where( 'status' => [ self.statuses[:started], self.statuses[:in_progress] ] ) }
 
   # there might be more states here that should count as reserved.
   # Probably we will make some more helpers for check states.
-  scope :reserved,   -> { where( 'status' => [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started], self.statuses[:disputed], self.statuses[:in_progress] ] ) }
+  scope :reserved,   -> { where( 'status' => [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started],
+                                               self.statuses[:disputed], self.statuses[:in_progress] ] ) }
   scope :ad_item,    ->(ad_item_id) { where( ad_item_id: ad_item_id ) }
   scope :in_month,   ->(year,month) { where( 'ends_at >= ? and starts_at <= ?',
     DateTime.new(year, month).beginning_of_month, DateTime.new(year, month).end_of_month ) }
@@ -64,9 +66,9 @@ class Booking < ActiveRecord::Base
 
 
 
-  validates :starts_at, :ends_at, :overlap => {
-    :scope         => 'ad_item_id',
-    :query_options => { :active => nil }
+  validates :starts_at, :ends_at, overlap: {
+    scope:         'ad_item_id',
+    query_options: { active: nil }
   }
   validate :validate_starts_at_before_ends_at
   validate :validate_starts_at
