@@ -6,7 +6,7 @@
   Hei, <%= rcpt_user.first_name %>
 </p>
 <p>
-  <%= link_to sender_user.first_name, user_url( sender_user ) %> ønsker å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>. Du kan akseptere forespørselen direkte i denne e-posten ved å bruke knappen under, eller du kan gå til bookingen og eventuelt akseptere derfra.
+  <%= link_to sender_user.first_name, user_url( sender_user ) %> ønsker å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>. Du svarer på forespørselen på Plendit, lenken rett til bookingen finner du nederst i e-posten.
 </p>
 <table>
   <tr> <td>Fra:</td> <td><%= l @booking.starts_at, format: :shorter_datetime %></td> </tr>
@@ -17,5 +17,5 @@
 </table>
 
 <p>
-  Aksepter      <%= link_to 'Gå til booking', booking_url( @booking )%>
+    <%= link_to 'Gå til booking', booking_url( @booking )%>
 </p>
