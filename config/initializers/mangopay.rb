@@ -11,3 +11,5 @@ MANGOPAY_CARD_VALIDATION_AMOUNT  = 10_00 #how much to pre-authorize in a card to
 
 # Config for creating callback urls:
 #PCONF_MANGOPAY_CALLBACK_BASE_URL = ENV['PCONF_MANGOPAY_CALLBACK_BASE_URL']
+
+MANGOPAY_API_BASE_URL = Rails.env.production? ? 'https://api.mangopay.com' : 'https://api.sandbox.mangopay.com'
