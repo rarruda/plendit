@@ -20,4 +20,13 @@ class MiscController < ApplicationController
   def postal_place
     render text: ( params[:postal_code].length == 4 ? ( POSTAL_CODES[params[:postal_code]] || "ugyldig" ) : "Poststed..." )
   end
+
+  def terms
+    @language = "Markdown"
+  end
+
+  def privacy
+    @language = "Markdown"
+  end
+
 end
