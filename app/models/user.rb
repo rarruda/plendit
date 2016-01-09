@@ -299,10 +299,8 @@ class User < ActiveRecord::Base
     false
   end
 
-  # does not use category parameter for now.
-  def can_rent_out? category = nil
+  def can_rent_out?
     return false unless self.mangopay_provisioned? && ( self.email_verified? || ( self.identities.length >= 0 ) ) && self.phone_verified?
-
     true
   end
 

@@ -8,7 +8,7 @@
                             form_class: 'u-inline',
                             class: 'button new-ad-category-selector__button',
                             params: { category: a.category },
-                            disabled: ( ! current_user.can_rent_out?( a.category ) ),
+                            disabled: ( ! current_user.can_rent_out? ),
                         ) do %>
                         <div class="new-ad-category-selector__icon">
                             <%= image_tag a.image, width: a.image_width %>
@@ -20,16 +20,21 @@
                     <% end %>
                 <% end %>
             </div>
+            <% unless current_user.can_rent_out? %>
+                <div class="u-push-down-only">
+                    <strong>
+                        Du må verifisere din bruker med epost og telefonnummer for å
+                        legge ut annonser. Dette kan du fikse på
+                        <%= link_to 'Min dokumentasjon', private_profile_users_path %>
+                        
+                    </strong>
+                </div>
+            <% end %>
         </div>
     </div>
 
     <div class="row">
         <div class="six columns">
-            <% @ad_categories.each do |a|
-                unless current_user.can_rent_out?( a.category ) %>
-                    Du må verifisere din bruker med epost og telefonnummer for å legge ut annonser. Dette kan du fikse på <%= link_to 'Min dokumentasjon', private_profile_users_path %> <br>
-            <%  end %>
-            <% end %>
             <%= render partial: "ad_input_copy" %>
         </div>
     </div>
