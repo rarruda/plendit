@@ -567,24 +567,29 @@ class Booking < ActiveRecord::Base
     BookingProcessPayinRefundJob.perform_later self
   end
 
-  # FIXME(RA):
-  # keeping for now this call syncronous. But should also call a job eventually...
+  # FIXME/NOTES(RA):
+  # 1) keeping for now this call syncronous. But should also call a job eventually...
   #  but as we dont have enough "states" to cover the post-transfer, let it be...
-  # At some point we should consider making IF a special customer, and making a
+  # 2) At some point we should consider making IF a special customer, and making a
   #  split payment here.
   def create_financial_transaction_transfer
-    # later we should make this a split payment!
-    # NOTE: 'amount' will be automatically be deducted for the 'fees'
-    rental_financial_transaction = {
-      transaction_type: 'transfer',
-      purpose: 'rental',
-      amount:  self.sum_paid_by_renter,
-      fees:    self.sum_plaform_fee_and_insurance
-    }
-    t = self.financial_transactions.create( rental_financial_transaction )
+    if self.financial_transactions.transfer.rental.finished.where( amount: self.sum_paid_by_renter, fees: self.sum_plaform_fee_and_insurance ).any?
+      LOG.error "At least one identical sucessful financial_transaction exists. Will not create a duplicate one.", booking_id: self.id
+      return false
+    else
+      # later we should make this a split payment!
+      # NOTE: 'amount' will be automatically be deducted for the 'fees'
+      rental_financial_transaction = {
+        transaction_type: 'transfer',
+        purpose: 'rental',
+        amount:  self.sum_paid_by_renter,
+        fees:    self.sum_plaform_fee_and_insurance
+      }
+      t = self.financial_transactions.create( rental_financial_transaction )
 
-    # FIXME(RA): should be triggered from a job:
-    t.process!
+      # FIXME(RA): should be triggered from a job:
+      t.process!
+    end
   end
 
   # When a booking is created, the starts_at and ends_at
