@@ -18,9 +18,9 @@
     <% elsif @booking.disputed? %>
         Leieforholdet ble avbrutt. Er dette riktig?
     <% elsif @booking.dispute_agreed? %>
-        Leieforholdet ble avbrutt. (TRANSLATEME: Av begge parter)
+        Leieforholdet ble avbrutt og begge ble enige.
     <% elsif @booking.dispute_disagreed? %>
-        Leieforholdet ble avlyst. (TRANSLATEME: uenighet. hva skjer?)
+        Leieforholdet ble avbrutt, men en av partene har ikke godkjent dette.
     <% elsif @booking.ended? %>
         Leieforholdet er over
     <% elsif @booking.archived? %>

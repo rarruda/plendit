@@ -77,7 +77,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: TRANSLATEME: Din forespørsel ble kansellert"
+      subject: "Plendit: Forespørsel ble kansellert"
     )
   end
 
@@ -86,7 +86,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail(
       to: @booking.user.email,
-      subject: "Plendit: TRANSLATEME: Din forespørsel ble kansellert"
+      subject: "Plendit: Din forespørsel ble kansellert"
     )
   end
 

@@ -8,7 +8,7 @@
         <% elsif booking.confirmed? %>
             Leieforhold avtalt.
         <% elsif booking.payment_confirmed? || booking.started? %>
-            <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "TRANSLATEME: Er du sikker at du vil avbryt?" } %>
+            <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "Er du sikker at du vil avbryte?" } %>
         <% elsif booking.in_progress? %>
             Leieforhold pågår.
         <% elsif booking.ended? || booking.archived? %>
