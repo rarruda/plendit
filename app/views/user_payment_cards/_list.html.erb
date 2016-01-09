@@ -4,13 +4,14 @@
     <div><%= payment_card_notice %> </div>
     <hr>
   <%- end -%>
-
-  <table>
-    <tbody>
-      <%= render @user_payment_cards %>
-    </tbody>
-  </table>
-  <br>
-  <%= link_to 'Legg til', new_user_payment_card_path %>
+  <% if @user.user_payment_cards.present? %>
+    <table>
+      <tbody>
+        <%= render @user_payment_cards %>
+      </tbody>
+    </table>
+    <br>
+  <% end %>
+  <%= link_to 'Legg til nytt kort', new_user_payment_card_path %>
 
 <% end %>
