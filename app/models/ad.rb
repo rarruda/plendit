@@ -257,6 +257,10 @@ class Ad < ActiveRecord::Base
     self.payin_rules.sort_by(&:effective_from).reject(&:required_rule?)
   end
 
+  def has_new_location
+    self.location.present? && self.location.ads.size == 1
+  end
+
   def location_guid
     self.location.guid if self.location.present?
     nil

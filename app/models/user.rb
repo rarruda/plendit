@@ -123,6 +123,15 @@ class User < ActiveRecord::Base
         u.payout_wallet_vid.blank? }
         # same as: unless: :mangopay_provisioned?
 
+  # all locations that have been in at least one ad.
+  def used_locations
+    self.locations.select &:in_use?
+  end
+
+  # all locations that have been in at least one ad that isn't excepted_ad
+  def used_locations_except excepted_ad
+    self.used_locations.reject {|l| l.ads.size == 1 && l.ads.first == excepted_ad }
+  end
 
   def safe_avatar_url
     if self.image_url.blank?
