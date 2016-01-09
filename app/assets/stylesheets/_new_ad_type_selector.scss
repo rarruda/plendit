@@ -8,7 +8,7 @@
         display: inline-block;
         margin-right: 6px;
         width: 47%;
-        height: 164px;
+        height: 240px;
 
         @media (max-width: $mobile) {
             &__breaker {
@@ -19,7 +19,7 @@
             width: 98%;
         }
         @media (min-width: $mobile) {
-            width: 240px;
+            width: 360px;
         }
     }
 
