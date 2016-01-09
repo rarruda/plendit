@@ -151,7 +151,6 @@ class Booking < ActiveRecord::Base
       after do
         # FIXME!!: check if no transactions exist already?
         create_financial_transaction_payin
-        BookingAutoStartJob.set(wait_until: self.starts_at ).perform_later self
 
         ApplicationMailer.booking_confirmed__to_owner( self ).deliver_later
         ApplicationMailer.booking_confirmed__to_renter( self ).deliver_later
@@ -238,6 +237,7 @@ class Booking < ActiveRecord::Base
       after do
         LOG.info "make transfer of funds...", booking_id: self.id
         create_financial_transaction_transfer
+
         LOG.info "schedule auto-end at ends_at(#{self.ends_at})...", booking_id: self.id
         BookingAutoEndJob.set(wait_until: self.ends_at ).perform_later self
       end
