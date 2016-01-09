@@ -229,7 +229,7 @@ Behandling av alle personopplysninger skjer i overensstemmelse med bestemmelsene
 
 Personopplysninger som en av Partene innehar, kan komme til å bli utlevert for å bli behandlet av den annen Part på følgende måter;
  
-- For skadebehandling, eventuelt forsikringsoppgjør samt benyttet i analyseformål, og for administrasjon av forsikringen.
+- For skadebehandling, eventuelt forsikringsoppgjør, administrasjon av forsikringen samt verifisering av identitet hos betalingsleverandør.
  
 De personopplysninger som en Part får fra den andre Part eller får tilgang til gjennom oppfyllelse av denne avtalen, skal bare behandles av Parten i den utstrekning det er nødvendig for å oppfylle forpliktelsene i denne avtalen.
 
