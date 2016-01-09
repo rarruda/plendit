@@ -27,7 +27,7 @@
         <div class="six columns">
             <% @ad_categories.each do |a|
                 unless current_user.can_rent_out?( a.category ) %>
-                    FIXME: Du mangler verifisering for å leie ut <%= a.title %>. Dette kan du fikse på <%= link_to 'Min dokumentasjon', private_profile_users_path %> <br>
+                    Du må verifisere din bruker med epost og telefonnummer for å legge ut annonser. Dette kan du fikse på <%= link_to 'Min dokumentasjon', private_profile_users_path %> <br>
             <%  end %>
             <% end %>
             <%= render partial: "ad_input_copy" %>
