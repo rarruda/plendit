@@ -45,7 +45,11 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'test.plendit.com' }
 
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.perform_deliveries = false
+
+  # we should usually not send emails out in test env, but we do it anyhow,
+  #  as we are manually testing things.
+  #config.action_mailer.perform_deliveries = false
+  config.action_mailer.perform_deliveries = true
 
   # for ugh, generating routes within models:
   routes.default_url_options = config.action_mailer.default_url_options
