@@ -97,6 +97,9 @@ gem 'redis-rails'
 # health check for the app:
 gem 'okcomputer'
 
+# newrelic:
+gem 'newrelic_rpm'
+
 # icons for the UI
 gem 'font-awesome-sass'
 
