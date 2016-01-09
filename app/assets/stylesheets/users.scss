@@ -279,3 +279,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.profile-self-ads-section {
+    &__inner {
+        padding: $standard-spacing;
+    }
+}

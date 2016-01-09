@@ -10,7 +10,9 @@
             <section class="profile-self-ads-section u-push-down">
                 <%= render layout: 'gray_box', locals: {title: 'Annonser', nopad: true} do %>
                     <% if @user.published_ads.empty? %>
-                        <%= @user.display_name %> har ikke lagt ut noe til leie ennå.
+                        <div class="profile-self-ads-section__inner">
+                            <%= @user.display_name %> har ikke lagt ut noe til leie ennå.
+                        </div>
                     <% else %>
                         <%= render partial: 'public_profile_ad', collection: @user.published_ads, as: :ad %>
                     <% end %>
@@ -20,7 +22,9 @@
             <section class="profile-self-ads-section u-push-down">
                 <%= render layout: 'gray_box', locals: {title: 'Tilbakemeldinger', nopad: true} do %>
                     <% if @user.recent_feedback.empty? %>
-                        <%= @user.display_name %> har ikke mottatt noen tilbakemeldinger ennå.
+                        <div class="profile-self-ads-section__inner">
+                            <%= @user.display_name %> har ikke mottatt noen tilbakemeldinger ennå.
+                        </div>
                     <% else %>
                         <%= render partial: 'public_profile_feedback', collection: @user.recent_feedback, as: :feedback %>
                     <% end %>
