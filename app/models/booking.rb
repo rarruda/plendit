@@ -224,8 +224,11 @@ class Booking < ActiveRecord::Base
       transitions from: :payment_confirmed, to: :started
 
       after do
-        LOG.info "schedule auto-set_in_progress as new status in 1.day...", booking_id: self.id
-        BookingAutoSetInProgressJob.set(wait_until: (self.starts_at + 1.day) ).perform_later self
+        in_progress_at = ( starts_at.to_date == ends_at.to_date ) ? ( ends_at - 1.minute ) : ( starts_at + 1.day )
+
+        LOG.info "schedule auto-set_in_progress as new status in 1.day...(#{in_progress_at})", booking_id: self.id
+        # or right before ends_at if its a same day booking.
+        BookingAutoSetInProgressJob.set(wait_until: in_progress_at ).perform_later self
       end
     end
 
