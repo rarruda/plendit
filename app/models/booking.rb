@@ -57,6 +57,18 @@ class Booking < ActiveRecord::Base
   # Probably we will make some more helpers for check states.
   scope :reserved,   -> { where( 'status' => [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started],
                                                self.statuses[:disputed], self.statuses[:in_progress] ] ) }
+
+  scope :created,    -> { where( status: self.statuses[:created] ) }
+  scope :payment_preauthorized,
+                     -> { where( status: self.statuses[:payment_preauthorized] ) }
+  scope :confirmed,  -> { where( status: self.statuses[:confirmed] ) }
+  scope :in_progress,-> { where( status: self.statuses[:in_progress] ) }
+  scope :started,    -> { where( status: self.statuses[:started] ) }
+  scope :ended,      -> { where( status: self.statuses[:ended] ) }
+  scope :payment_confirmed,
+                     -> { where( status: self.statuses[:payment_confirmed] ) }
+
+
   scope :ad_item,    ->(ad_item_id) { where( ad_item_id: ad_item_id ) }
   scope :in_month,   ->(year,month) { where( 'ends_at >= ? and starts_at <= ?',
     DateTime.new(year, month).beginning_of_month, DateTime.new(year, month).end_of_month ) }

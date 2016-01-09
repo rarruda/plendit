@@ -11,8 +11,10 @@ UserFeedbackScoreRefreshAllJob:
   queue: low
   description: "Refresh feedback_score for all users"
 
-
-
+BookingAutoAdjustStatusJob:
+  cron:  "30 0 * * *"
+  queue: low
+  description: "Adjust status of bookings, for any bookings which could in in wrong status"
 
 #queue_documents_for_indexing:
 #  cron: "0 0 * * *"
