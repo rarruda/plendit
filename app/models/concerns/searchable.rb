@@ -9,6 +9,10 @@ module Searchable
     #  # ...
     #end
 
+    def self.h_to_number num
+      num.to_i * 100 unless num.nil?
+    end
+
     # for now tuned to act as Ad.search
     def self.search(query, filter = nil, options = {})
 

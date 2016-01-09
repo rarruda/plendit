@@ -1,4 +1,4 @@
-== README
+# README
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
@@ -25,7 +25,7 @@ Using `rails s` should still work, but not if you want to use passenger
 
 Things you may want to cover:
 
-* Ruby version
+## Ruby version
 
 We use ruby 2.1. To install the correct ruby version first install rvm and then ruby:
 
@@ -39,7 +39,7 @@ $ source ~/.rvm/scripts/rvm
 $ rvm install ruby-2.1.5 -v
 ```
 
-* System dependencies
+## System dependencies
 
 We need a few gems to run. To install these gems first go to the same path as
  this file is at (root of the project) and run:
@@ -58,17 +58,17 @@ To install it in OSX with homebrew you need to run:
 $ brew install imagemagick
 ```
 
-* Configuration
+## Configuration
 
 See the section called *Starting the server (development)*.
 
-* Database creation
+## Database creation
 
 ```
 $ rake db:create
 ```
 
-* Database initialization
+## Database initialization
 
 Initialize schema
 
@@ -88,7 +88,7 @@ $ rake db:seed:raw
 In Heroku to reset the database you need to run `heroku pg:reset DATABASE`.
  This command will drop and recreate your (now empty) database.
 
-* Further Database initialization
+### Further Database initialization
 
 If you need to start things from scratch, these commands can be useful:
 
@@ -118,19 +118,19 @@ $ heroku run rake db:migrate
 $ heroku run rake db:seed:raw
 ```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Services (job queues, cache servers, search engines, etc.)
 
 Only PostgreSQL >= 9.4, Redis >= 3.0 and ElasticSearch >= 1.6 for now.
 
 In the future we will also have an support for varnish caching.
 
-* Postgresql
+### Postgresql
 
 Any version will probably sufice. The simplest way to install this for mac
 users is probably to use http://postgresapp.com/ . The homebrew version is
 also a possiblity
 
-* Redis
+### Redis
 
 We have only tested with Redis >= 3.0. Other versions could work. For development
  you can just download the precompiled tarball from http://redis.io/.
@@ -140,7 +140,7 @@ We have only tested with Redis >= 3.0. Other versions could work. For developmen
 To start: (after unpacking the tarball)
 `./src/redis-server`
 
-* Resque worker
+### Resque worker
 
 To get the job from any queue and do the work, run the following command.
 
@@ -162,7 +162,7 @@ NOTE: It is recommended that a production deployment of resque-scheduler be host
  is O(N), but must transverse all keys in the keyspace.
  FROM: https://github.com/resque/resque-scheduler#deployment-notes
 
-* Resque scheduler
+### Resque scheduler
 
 Can be started with this command:
 ```
@@ -171,7 +171,7 @@ bundle exec rake <environment> resque:scheduler --trace
 
 It will then generate jobs according to the configuration in cron settings.
 
-* ElasticSearch (re)initialization
+### ElasticSearch (re)initialization
 
 Install elasticsearch. Mac uses can use the version from homebrew:
 
@@ -208,7 +208,7 @@ If you are running it for the very first time, you probably dont need to
 Note: for large datasets, this could take a while. So prefer to use the rake
  task, which perform bulk operations, which is much faster.
 
-* Starting the server (development)
+## Starting the server (development)
 
 ```
 $ rails server
@@ -222,7 +222,7 @@ Note: the server is smart enough so that you never need to restart it for any
  changes in the filesystem to take effect. So, no need for restarts when
  developing.
 
-* ENV variables that should be set on start up the rails server
+## ENV variables that should be set on start up the rails server
 
   * PCONF_HTTP_AUTH_CRED_LIST -- username:password,u2:pass2 list of usernames and
        passwords for HTTP authentication. To protect site from casual passer bys.
@@ -235,7 +235,7 @@ Note: the server is smart enough so that you never need to restart it for any
   * PCONF_* -- any variable that starts with PCONF is a plendit configuration.
 
 
-* How to run the test suite
+## How to run the test suite
 
 Run:
 
@@ -257,14 +257,14 @@ And rake tasks agains the test environment:
 rake ... RAILS_ENV=test
 ```
 
-** Guard
+### Guard
 
 To keep tests running constantly on the background, run guard:
 ```
 $ bundle exec guard
 ```
 
-** Testing payments
+### Testing payments
 
 https://docs.mangopay.com/api-references/test-payment/
 
@@ -279,7 +279,7 @@ List av test bankkonto nummer:
 15032080194
 ```
 
-* Deployment instructions
+## Deployment instructions
 
 To deploy to beta:
 ```
@@ -291,7 +291,7 @@ To deploy to dev:
 bundle exec cap development deploy
 ```
 
-* Checking application status
+## Checking application status
 
 Go to the following URL for a health-check overview of the application and
   its requirement statuses:
@@ -301,7 +301,7 @@ Go to the following URL for a health-check overview of the application and
 For checking that the application is up:
 `http://localhost:3000/internal-backstage/health-check/`
 
-* Generating Model and Controller UML diagrams
+## Generating Model and Controller UML diagrams
 
 Using railroady: ( https://github.com/preston/railroady )
 ```
@@ -317,7 +317,7 @@ bundle exec erd --filename=doc/erd
 
 The UML diagram will then be available as a pdf file at doc/erd.pdf
 
-* Admin UI
+## Admin UI
 
 To access the admin interface go to http://localhost:3000/internal-backstage/admin/
 
@@ -332,7 +332,7 @@ $ rails console
 
 Where :user_id is the user_id of the user you'd like to be a site_admin.
 
-* Code style
+## Code style
 
 Here are code style guidelines which we call recommended reading:
 https://github.com/bbatsov/rails-style-guide
@@ -344,7 +344,7 @@ https://github.com/bbatsov/rubocop
 For integrating it with sublime text:
 https://github.com/pderichs/sublime_rubocop
 
-* Image regeneration and format changes
+## Image regeneration and format changes
 
 If changing the different image styles that paperclip uses, run:
 
@@ -358,13 +358,13 @@ Or all images with
 
 rake paperclip:refresh CLASS=AdImage
 
-* ...
+## ...
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
 
 
-* Encoding videos and frames for frontpage
+## Encoding videos and frames for frontpage
 
 Videos should be in mp4 and webp format. There also needs to be
 an initial fram image to be used on mobile and while the video
