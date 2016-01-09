@@ -919,6 +919,8 @@ window.controllers.gallery = {
         var images = getImages();
         var hero = ele.querySelector("[data-hero-click]");
         var bar = ele.querySelector("[data-thumb-bar]");
+        if (!bar) { return; }
+
         attachClickListener();
 
         function showGallery(evt) {
