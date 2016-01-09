@@ -232,7 +232,7 @@ class Booking < ActiveRecord::Base
       end
     end
 
-    event :set_in_progress, after: :create_financial_transaction_transfer do
+    event :set_in_progress do
       transitions from: :started, to: :in_progress
 
       after do
