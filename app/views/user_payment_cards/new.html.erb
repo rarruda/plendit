@@ -2,7 +2,12 @@
 <div class="container">
     <div class="row">
         <div class="eight columns">
-          <%= render 'form' %>
+            <% if @user_payment_card[:preregistration_data].present? %>
+              <%= render 'form' %>
+            <% else %>
+                TRANSLATEME: ERROR, We are sorry but adding of creditcard is temporarely unavailable.
+                We are working with our payment provider to fix this as soon as possible!
+            <% end %>
         </div>
         <div class="four columns"> &nbsp;
         </div>
