@@ -10,7 +10,8 @@ window.controllers.cardInputter = {
         function init() {
             registrationRequirements = gatherDataAttributes(ele, [
                 "card-registration-url", "card-preregistration-data",
-                "card-access-key", "card-registration-id", "card-client-id"]);
+                "card-access-key", "card-registration-id", "card-client-id",
+                "mangopay-base-url"]);
 
             form = ele.querySelector('form');
             var c = ele.querySelector("[data-card-holder]");
@@ -73,8 +74,7 @@ window.controllers.cardInputter = {
         }
 
         function cardRegistrationPromise(cardData) {
-            // todo: pick up baseUrl from form as well, it's different in prod and dev
-            mangoPay.cardRegistration.baseURL = "https://api.sandbox.mangopay.com";
+            mangoPay.cardRegistration.baseURL = registrationRequirements.mangopayBaseUrl;
             mangoPay.cardRegistration.clientId = registrationRequirements.cardClientId
             mangoPay.cardRegistration.init({
                 cardRegistrationURL: registrationRequirements.cardRegistrationUrl,
