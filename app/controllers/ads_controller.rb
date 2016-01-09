@@ -7,9 +7,11 @@ class AdsController < ApplicationController
     :destroy,
     :edit,
     :edit_availability,
+    :existing_location,
     :gallery,
     :image_manager,
     :nested_images,
+    :new_location,
     :pause,
     :preview,
     :resume,
@@ -162,6 +164,27 @@ class AdsController < ApplicationController
     end
   end
 
+  # POST /ads/1/new_location
+  def new_location
+    if !@ad.has_new_location
+      @ad.build_location(user: @ad.user)
+      @ad.valid? # triggers hooks to set guid, I don't care if it's valid
+      @ad.save(validate: false)
+    end
+    redirect_to edit_users_ad_path @ad
+  end
+
+  # POST /ads/1/existing_location
+  def existing_location
+    if @ad.has_new_location
+      l = @ad.location
+      @ad.location = nil
+      @ad.save(validate: false)
+      l.destroy
+    end
+    redirect_to edit_users_ad_path @ad
+  end
+
   # POST /ads/1/approve
   def approve
     if @ad.approve!
@@ -234,13 +257,13 @@ class AdsController < ApplicationController
     end
     # FIXME: add support for: end_date
     #
-    render partial: "ads/unavailability", locals: { start_date: start_date, ad: @ad }
+    render partial: 'ads/unavailability', locals: { start_date: start_date, ad: @ad }
   end
 
   # POST /ads
   # POST /ads.json
   def create
-    LOG.error "Ad Category sent is not supported. This is not ok." if not Ad.categories.include? params[:category]
+    LOG.error 'Ad Category sent is not supported. This is not ok.' if not Ad.categories.include? params[:category]
     # FIXME: do something about it if there was an error with the category...
 
     @ad = Ad.new(user_id: current_user.id,
@@ -249,10 +272,10 @@ class AdsController < ApplicationController
     )
 
     if @ad.save
-      redirect_to edit_users_ad_path(@ad)
+      redirect_to edit_users_ad_path @ad
     else
       LOG.error "Error saving ad upon creation: #{@ad.errors.inspect}", { user_id: current_user.id }
-      redirect_to new_ad_path, alert: "Annonsen kunne ikke opprettes!"
+      redirect_to new_ad_path, alert: 'Annonsen kunne ikke opprettes!'
     end
   end
 
@@ -267,14 +290,6 @@ class AdsController < ApplicationController
   # PATCH/PUT /ads/1.json
   def update
     ad_params_local = ad_params
-
-    # Only Add a new address if the address_line and post_code have data:
-    if params['create_new_location'] == '1'
-      ad_params_local['location_attributes']['user_id'] = current_user.id
-      ad_params_local['location_attributes']['city'] = Location.city_from_postal_code ad_params_local['location_attributes']['post_code']
-    else
-      ad_params_local.except! 'location_attributes'
-    end
 
     # remove registration_number from all not motor or boat categories.
     ad_params_local.except! 'registration_number' unless @ad.motor? || @ad.boat?

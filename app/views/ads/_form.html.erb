@@ -100,56 +100,37 @@
                 <label>Henteadresse:</label>
             <% end %>
 
-            <%- if @ad.user.locations.length > 0 -%>
+            <div data-addresslol>
+                <% if @ad.has_new_location %>
 
-                <div data-controller="addressSelectionDimmer">
-                    <%= hidden_field_tag "create_new_location", "0" %>
-
-                    <%= select( :ad, :location_guid,
-                                @ad.user.locations.map{ |l| [l.to_s_pretty, l.guid] },
-                                {},
-                                { class: 'u-full-width' } ) %>
-
-                    <details>
-                        <summary class="u-default-summary">Skriv inn en annen adresse:</summary>
-                        <div>
-
-                            <%= f.fields_for :location, Location.new(user_id: current_user.id) do |fl| %>
-                                <%= fl.text_field :address_line, class: 'u-full-width', placeholder: 'Gateadresse' %>
-                                <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
-                                    <div class="four columns">
-                                        <%= fl.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
-                                    </div>
-                                    <div class="eight columns">
-                                        <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
-                                    </div>
-                                </div>
-                            <% end %>
-
-                        </div>
-                    </details>
-                </div>
-
-            <% else %>
-
-                <div>
-                    <%= hidden_field_tag "create_new_location", "1" %>
-
-                    <%= f.fields_for :location, Location.new(user_id: current_user.id) do |fl| %>
+                    <%= f.fields_for :location do |fl| %>
                         <%= fl.text_field :address_line, class: 'u-full-width', placeholder: 'Gateadresse' %>
                         <div class="row" data-controller="postalPlaceFetcher" data-postal-place-url="<%= postal_place_path %>">
                             <div class="four columns">
-                                <%= fl.telephone_field :post_code, pattern: '\d*', class: 'u-full-width', placeholder: 'Postnr.', data: {postal_code: ''} %>
+                                <%= fl.number_field :post_code, class: "u-full-width", placeholder: "Postnr.", data: {"postal-code" => ""} %>
                             </div>
                             <div class="eight columns">
                                 <input type="text" class="u-full-width" disabled placeholder="Poststed" data-postal-place>
                             </div>
                         </div>
                     <% end %>
+                    <a class="u-pull-right" href="#" data-controller="existingLocation" data-url="<%= existing_location_users_ad_path %>">Bruk tidligere adresse</a>
 
-                </div>
+                <% elsif current_user.used_locations_except(@ad).present? %>
 
-            <% end %>
+                    <%= select( :ad, :location_guid,
+                        @ad.user.locations.map{ |l| [l.to_s_pretty, l.guid] },
+                        {},
+                        { class: 'u-full-width' } ) %>
+                    <a class="u-pull-right" href="#" data-controller="newLocation" type="a" data-url="<%= new_location_users_ad_path %>">Skriv ny adresse</a>
+
+                <% else %>
+
+                    Fixme: Neither new nor selectable, probably possible when new ad for user without previous ones
+
+                <% end %>
+
+            </div>
         </div>
 
         <hr>

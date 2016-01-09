@@ -97,6 +97,11 @@ Rails.application.routes.draw do
     # maybe these should be in the "namespace" users ?
     resources :favorite_ads, only: [:index, :create, :destroy], path: 'favorites'
     resources :ads do
+      member do
+        post 'new_location'
+        post 'existing_location'
+      end
+
       resources :ad_images, only: [:index, :create, :update, :destroy]
     end
     resources :feedbacks

@@ -975,3 +975,33 @@ window.controllers.gallery = {
 
     }
 };
+
+window.controllers.newLocation = {
+    dependencies: ["$element", "xhr"],
+    callable: function(ele, xhr) {
+        var url = ele.getAttribute("data-url");
+        ele.addEventListener("click", handleClick);
+
+        function handleClick(evt) {
+            evt.preventDefault();
+            xhr.post(url).then(function() {
+                window.location.reload();
+            });
+        }
+    }
+};
+
+window.controllers.existingLocation = {
+    dependencies: ["$element", "xhr"],
+    callable: function(ele, xhr) {
+        var url = ele.getAttribute("data-url");
+        ele.addEventListener("click", handleClick);
+
+        function handleClick(evt) {
+            evt.preventDefault();
+            xhr.post(url).then(function() {
+                window.location.reload();
+            });
+        }
+    }
+};
