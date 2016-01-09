@@ -112,6 +112,10 @@ gem 'recursive-open-struct'
 # for markdown views
 gem 'rdiscount'
 
+# Need acts-as-taggable-on for when running migrations all the way from the start of history
+gem 'acts-as-taggable-on', '~> 3.4'
+
+
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano',           require: false

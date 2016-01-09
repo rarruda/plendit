@@ -50,6 +50,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (3.5.0)
+      activerecord (>= 3.2, < 5)
     adamantium (0.2.0)
       ice_nine (~> 0.11.0)
       memoizable (~> 0.4.0)
@@ -542,6 +544,7 @@ PLATFORMS
 DEPENDENCIES
   aasm (~> 4)
   activeadmin (~> 1.0.0.pre1)
+  acts-as-taggable-on (~> 3.4)
   autoprefixer-rails
   aws-sdk (< 2.0)
   bcrypt (~> 3.1.7)
