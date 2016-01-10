@@ -134,6 +134,8 @@ class User < ActiveRecord::Base
         u.payout_wallet_vid.blank? }
         # same as: unless: :mangopay_provisioned?
 
+
+
   # all locations that have been in at least one ad.
   def used_locations
     self.locations.select &:in_use?
@@ -212,7 +214,7 @@ class User < ActiveRecord::Base
       end
 
       email = auth.info.email if email_is_verified
-      user = User.where(:email => email).first if email
+      user = User.where(email: email).first if email
 
 
       #
