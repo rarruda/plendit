@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   # move to /me/payment/cards
 
   # see: https://github.com/plataformatec/devise/blob/master/lib/devise/rails/routes.rb
-  devise_for :users, :controllers => {
+  devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations:      'users/registrations',
     sessions:           'users/sessions'
