@@ -161,7 +161,7 @@ class User < ActiveRecord::Base
   end
 
   def verification_level_number
-    User.verification_levels[u.verification_level]
+    User.verification_levels[self.verification_level]
   end
 
   def feedback_score_refresh
