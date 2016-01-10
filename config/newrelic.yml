@@ -39,7 +39,8 @@ development:
 test:
   <<: *default_settings
   # It doesn't make sense to report to New Relic from automated test runs.
-  monitor_mode: false
+  #monitor_mode: false
+  # We monitor while we run only manual tests...
   app_name: Plendit (Test)
 
 staging:
