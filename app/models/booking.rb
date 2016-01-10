@@ -83,8 +83,8 @@ class Booking < ActiveRecord::Base
     query_options: { active: nil }
   }
   validate :validate_starts_at_before_ends_at
-  validate :validate_starts_at
-  validate :validate_ends_at
+  validate :validate_starts_at,    on: :create
+  validate :validate_ends_at,      on: :create
 
   validates :guid,                 uniqueness: true
   validates :ad_item_id,           presence: true
