@@ -15,7 +15,7 @@ class FinancialTransaction < ActiveRecord::Base
 
   # Probably need a transfer_refund too.
   enum purpose:          { rental: 1, deposit: 2, insurance_other: 6, payout_to_user: 7 }
-  enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4, payin_refund: 12 }
+  enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4, payin_refund: 12, transfer_refund: 13 }
   enum nature:           { normal: 0, refund: 10, repudiation: 11, settlement: 12 }
   enum state:    { pending: 1, processing: 2, finished: 5, errored: 10, unknown_state: 20 }
   #mangopay status:CREATED                    SUCCEEDED    FAILED
@@ -48,6 +48,8 @@ class FinancialTransaction < ActiveRecord::Base
   scope :transfer,   -> { where( transaction_type: FinancialTransaction.transaction_types[:transfer] ) }
   scope :payout,     -> { where( transaction_type: FinancialTransaction.transaction_types[:payout]   ) }
   scope :payin_refund,->{ where( transaction_type: FinancialTransaction.transaction_types[:payin_refund] ) }
+  scope :transfer_refund,
+                     -> { where( transaction_type: FinancialTransaction.transaction_types[:transfer_refund] ) }
 
   # by purpose:
   scope :rental,     -> { where( purpose: FinancialTransaction.purposes[:rental]  ) }
