@@ -134,6 +134,9 @@ class User < ActiveRecord::Base
         u.payout_wallet_vid.blank? }
         # same as: unless: :mangopay_provisioned?
 
+  after_save :refresh_with_mangopay,
+    if: :should_trigger_mangopay_refresh?
+
 
 
   # all locations that have been in at least one ad.
@@ -510,6 +513,8 @@ class User < ActiveRecord::Base
     document.rejection_reason if !document.nil?
   end
 
+  # FIXME: Should happen via a resque Job:
+  # UserMangopayCreateJob
   def provision_with_mangopay
     unless self.mangopay_provisionable?
       LOG.error "Refuse to provision user. The profile is NOT complete. bailing out.", { user_id: self.id }
@@ -644,6 +649,91 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Update user profile information on mangopay.
+  # FIXME: Should happen via a resque Job:
+  # UserMangopayRefreshJob // UserMangopayUpdateJob
+  def refresh_with_mangopay
+    unless self.mangopay_provisionable?
+      LOG.error "Refuse to provision user. The profile is NOT complete. bailing out.", { user_id: self.id }
+      return false
+    end
+
+
+    if self.payment_provider_vid.present?
+      begin
+        if self.natural?
+          # https://docs.mangopay.com/api-references/users/natural-users/
+          mangopay_user = MangoPay::NaturalUser.update( self.payment_provider_vid,
+            'Tag'         => "user_id=#{self.id} level=#{self.verification_level_number}",
+            #'PersonType'  => self.personhood,
+            'FirstName'   => self.first_name,
+            'LastName'    => self.last_name,
+            'Email'       => self.email,
+            'Birthday'    => self.birthday.strftime('%s').to_i,
+            'Nationality' => self.nationality,
+            'CountryOfResidence' => self.country_of_residence,
+          );
+            #Optional:
+            #'Address' => {
+            #  'AddressLine1' => self.home_address_line,
+            #  'City'         => self.home_city,
+            #  'PostalCode'   => self.home_post_code,
+            #  'Country'      => self.country_of_residence
+            # }
+        elsif self.legal_business? or self.legal_organization?
+          LOG.error "NOT A NATURAL PERSON... Bailing out!", { user_id: self.id, personhood: self.personhood }
+          return false
+
+          #code below is NOT TESTED!
+          mangopay_personhood_type = {
+            legal_business:     'BUSINESS',
+            legal_organization: 'ORGANIZATION',
+          }
+
+          #https://docs.mangopay.com/api-references/users/legal-users/
+          mangopay_user = MangoPay::LegalUser.update( self.payment_provider_vid,
+            'Tag'         => "user_id=#{self.id} level=#{self.verification_level_number}",
+            'Name'        => self.name,  #company name
+            'Email'       => self.email, #company email
+            'LegalPersonType'                => mangopay_personhood_type[self.personhood],
+            'LegalRepresentativeFirstName'   => self.first_name,
+            'LegalRepresentativeLastName'    => self.last_name,
+            'LegalRepresentativeBirthday'    => self.birthday.strftime('%s'),
+            'LegalRepresentativeNationality' => self.nationality,
+            'LegalRepresentativeCountryOfResidence' => self.country_of_residence
+          );
+            #Optional:
+            # 'LegalRepresentativeEmail' =>
+            # 'HeadquartersAddress' =>
+            # 'LegalRepresentativeAddress' => {
+            #    'AddressLine1' =>
+            #    'City'         =>
+            #    'PostalCode'   =>
+            #    'Country'      =>
+            # }
+        else
+          raise 'Invalid personhood'
+        end
+        LOG.info "Response from mangopay: #{mangopay_user}", { user_id: self.id }
+      rescue => e
+        LOG.error "something has gone wrong with provisioning the user at mangopay. exception: #{e}", { user_id: self.id }
+      end
+    end
+  end
+
+  def should_trigger_mangopay_refresh?
+    self.payment_provider_vid.present? &&
+    (
+      self.verification_level_changed? ||
+      self.first_name_changed? ||
+      self.last_name_changed?  ||
+      self.email_changed?      ||
+      self.birthday_changed?
+    )
+
+    #self.nationality.changed?
+    #self.country_of_residence.changed?
+  end
 
   # When creating a new user without OAUTH, we might need copy the first_name to public_name
   def set_public_name_from_first_name_on_create
