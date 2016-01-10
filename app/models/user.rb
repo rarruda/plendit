@@ -487,6 +487,7 @@ class User < ActiveRecord::Base
 
   # in years.
   # from http://stackoverflow.com/questions/10463400/age-calculation-in-ruby
+  # NOTE/FIXME: should consider using adroit-age gem.
   def age
     return nil unless self.birthday.present?
     # We use Time.current because each user might be viewing from a
