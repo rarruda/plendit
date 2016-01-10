@@ -1,6 +1,12 @@
 <%= render layout: 'gray_box', locals: {title: 'Bookingdetaljer'} do %>
     <div class="booking-summary">
         <div class="booking-summary__row">
+            <strong>Utleier:</strong> <%= @booking.user.display_full_name %>
+        </div>
+        <div class="booking-summary__row">
+            <strong>Leietaker:</strong> <%= @booking.from_user.display_full_name %>
+        </div>
+        <div class="booking-summary__row">
             <strong>Fra dato:</strong> <%= @booking.display_from_date %>
         </div>
         <div class="booking-summary__row">
