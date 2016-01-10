@@ -310,9 +310,11 @@ $ bundle exec rake diagram:all
 
 SVG images will be then available at doc/
 
-or using ERD ( https://github.com/voormedia/rails-erd ):
+or using ERD ( https://github.com/voormedia/rails-erd ) by running one of
+the following commands:
 ```
 bundle exec erd --filename=doc/erd
+bundle exec erd notation=crowsfoot --filename=doc/erd
 ```
 
 The UML diagram will then be available as a pdf file at doc/erd.pdf
