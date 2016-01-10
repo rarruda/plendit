@@ -266,12 +266,17 @@ class AdsController < ApplicationController
     LOG.error 'Ad Category sent is not supported. This is not ok.' if not Ad.categories.include? params[:category]
     # FIXME: do something about it if there was an error with the category...
 
-    @ad = Ad.new(user_id: current_user.id,
-      category: params[:category],
-      location: current_user.favorite_location
-    )
+    @ad = Ad.new(user_id: current_user.id, category: params[:category])
 
-    if @ad.save
+    if current_user.used_locations.present?
+      @ad.location = current_user.favorite_location
+    else
+      @ad.build_location(user: @ad.user)
+      @ad.build_location(user: @ad.user)
+      @ad.valid? # triggers hooks to set guid, I don't care if it's valid
+    end
+
+    if @ad.save(validate: false)
       redirect_to edit_users_ad_path @ad
     else
       LOG.error "Error saving ad upon creation: #{@ad.errors.inspect}", { user_id: current_user.id }
