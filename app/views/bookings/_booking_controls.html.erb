@@ -32,6 +32,6 @@
     <% end %>
 
     <% if booking.started? || booking.in_progress? || booking.ended? %>
-        <%= link_to 'skademeldingskjema', booking_accident_reports_path(booking) %>
+        <%= link_to 'Skademeldingskjema', booking_accident_reports_path(booking) %>
     <% end %>
 </div>
