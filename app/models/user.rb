@@ -153,6 +153,10 @@ class User < ActiveRecord::Base
     #( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
   end
 
+  def verification_level_number
+    User.verification_levels[u.verification_level]
+  end
+
   def feedback_score_refresh
     self.attributes = {
       feedback_score:       self.received_feedbacks.size == 0 ? 0 : ( self.received_feedbacks.map(&:score).reduce(0,:+) / self.received_feedbacks.size ),
@@ -510,7 +514,7 @@ class User < ActiveRecord::Base
         if self.natural?
           # https://docs.mangopay.com/api-references/users/natural-users/
           mangopay_user = MangoPay::NaturalUser.create(
-            'Tag'         => "user_id=#{self.id}",
+            'Tag'         => "user_id=#{self.id} level=#{self.verification_level_number}",
             'PersonType'  => self.personhood,
             'FirstName'   => self.first_name,
             'LastName'    => self.last_name,
@@ -538,7 +542,7 @@ class User < ActiveRecord::Base
 
           #https://docs.mangopay.com/api-references/users/legal-users/
           mangopay_user = MangoPay::LegalUser.create(
-            'Tag'         => "user_id=#{self.id}",
+            'Tag'         => "user_id=#{self.id} level=#{self.verification_level_number}",
             'Name'        => self.name,  #company name
             'Email'       => self.email, #company email
             'LegalPersonType'                => mangopay_personhood_type[self.personhood],
