@@ -5,7 +5,7 @@
       <h2><%= pluralize(@ad_image.errors.count, "error") %> prohibited this ad_image from being saved:</h2>
 
       <ul>
-      <% @ad_image.errors.full_messages.each do |message| %>
+      <% @ad_image.errors.each do |attribute,message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

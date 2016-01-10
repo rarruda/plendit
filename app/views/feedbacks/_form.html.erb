@@ -4,7 +4,7 @@
       <h2><%= pluralize(@feedback.errors.count, "error") %> prohibited this feedback from being saved:</h2>
 
       <ul>
-      <% @feedback.errors.full_messages.each do |message| %>
+      <% @feedback.errors.each do |attribute,message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

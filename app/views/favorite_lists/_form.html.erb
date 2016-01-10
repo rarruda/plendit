@@ -4,7 +4,7 @@
       <h2><%= pluralize(@favorite_list.errors.count, "error") %> prohibited this favorite_list from being saved:</h2>
 
       <ul>
-      <% @favorite_list.errors.full_messages.each do |message| %>
+      <% @favorite_list.errors.each do |attribute,message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

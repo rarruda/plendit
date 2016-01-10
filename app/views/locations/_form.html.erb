@@ -3,7 +3,7 @@
         <div id="error_explanation">
             <h2>Kunne ikke lagre denne adresse på grunn av:</h2>
             <ul>
-                <% @location.errors.full_messages.each do |message| %>
+                <% @location.errors.each do |attribute,message| %>
                     <li><%= message %></li>
                 <% end %>
             </ul>
