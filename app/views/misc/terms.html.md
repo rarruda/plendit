@@ -4,7 +4,6 @@ For å bli bruker på Plendit må du ha fylt 18 år samt kunne framstille gyldig
 
 
 
-
 ## Annonsering
 
 Annonsen skal gi en riktig beskrivelse av utleie-objektet.
@@ -46,8 +45,8 @@ Bruker du andres tekst eller bilder må du innhente samtykke hos dem som har opp
 
 ## Pris
 
-Sett den reelle prisen på varen i prisfeltet. Hvis du er usikker på hva du kan forvente, kan du sammenligne med andre, og forsøke deg frem. Det er enkelt å endre prisen underveis. Om prisen ikke er reell, stanser vi annonsen. 
- 
+Sett den reelle prisen på varen i prisfeltet. Hvis du er usikker på hva du kan forvente, kan du sammenligne med andre, og forsøke deg frem. Det er enkelt å endre prisen underveis. Om prisen ikke er reell, stanser vi annonsen.
+
 Prisen i annonsen skal gjenspeile hva varen faktisk koster å leie inklusiv mva. Ønsker annonsøren å synliggjøre pris eksklusiv mva kan dette gjøres i feltet «Beskrivelse», men prisen i annonsen skal gjenspeile gjenstandens kostnad inklusiv mva.
 
 
@@ -59,16 +58,16 @@ Legg aldri ut annonser for andre, eller noe du ikke selv eier. Og be ikke andre 
 ## Svar på forespørsler
 
 Gjenstanden markeres som utleid i tjenesten i den perioden den er booket og akseptert. Men hvis du ikke lenger ønsker å leie ut gjenstanden eller har tid til å følge opp, så deaktiver annonsene på siden slik at det ikke ligger gjenstander til leie som faktisk ikke er tilgjengelig.
- 
+
 Brukere som ikke svarer på forespørsler eller som stadig avviser (uten rimelig forklaring) kan få de aktuelle annonsene deaktivert og fjernet fra søkeresultatene.
 
 
 ## Varer eller tjenester vi ikke tillater
 
 Varer, tjenester eller dyr som det ikke er lov å leie, selge, markedsføre, eie eller bruke i Norge tillater vi ikke. Det samme gjelder for valuta og finansielle produkter.
- 
+
 Det tillates heller ikke annonser som kan oppfattes som støtende, som for eksempel våpen, pornografi og erotiske leketøy, og utstyr som ofte brukes i ulovlig virksomhet.
- 
+
 Piratkopier er ikke tillatt.
 
 Motorsykkel kan innebære høy risiko for både sjåfør og medtrafikanter og er derfor ikke mulig å leie på Plendit.
@@ -77,7 +76,7 @@ Motorsykkel kan innebære høy risiko for både sjåfør og medtrafikanter og er
 ## Er du privatperson eller en bedrift
 
 Plendit sin forsikring gjelder ikke hvis utleier er en bedrift.
- 
+
 Det er forskjellige regler for personer og bedrifter når det kommer til pris, forsikringsvilkår eller andre ting. Det er derfor du som bedrift må bruke egne skjemaer hvis du ønsker å registreres som bedriftskunde hos Plendit.
 
 Hvis du er en privatperson som tjener godt på å leie ut, så kan det være du faller under reglene for næring. Du er selv pliktig til å sette deg inn i hvor mye du kan tjene, og om virksomheten din faller inn under reglene for næringsvirksomhet.
@@ -91,7 +90,7 @@ For å kunne verifisere deg som bruker så må du dokumenterer identiteten din o
 ## Hvordan håndterer Plendit regelbrudd?
 
 Plendit forbeholder seg retten til å forhåndskontrollere alle annonser, og stoppe de som bryter annonsereglene. Dette inkluderer også annonser som allerede er publisert.
- 
+
 Plendit kan ekskludere annonsører som bryter annonsereglene gjentatte ganger. Dette gjelder også ved gjentatte klager og svært dårlig rating fra leietakere, ved politianmeldelser, misbruk av tjenesten eller andre former for uakseptabel atferd.
 
 
@@ -102,7 +101,7 @@ Er du interessert i å leie, så sender du forespørsel om det gjennom Plendit. 
 Når gjenstanden hentes så godkjenner leietaker at den er i samsvar med annonsen.
 
 Dersom partene blir enige om å forlenge en leieperiode, må det legges inn ny booking og betaling. Ved utløp av avtalt leieforhold utløper også skadeforsikringen. En skade som oppstår etter avtalens utløp, vil ikke lenger være dekket av utleieforsikringen.
- 
+
 Dersom gjenstanden returneres som avtalt så anses leieforholdet som avsluttet.
 
 Dersom gjenstanden ikke returneres til avtalt tid, kan det skape problemer for utleier. Da kan leietaker belastes for 150% av avtalt dagspris for hver dag det går over avtalen.
@@ -111,16 +110,12 @@ Dersom gjenstanden har fått en skade, så er leietaker ansvarlig for å varsle 
 
 Ved å akseptere disse vilkårene, aksepterer du også vilkårene til forsikringsselskapet og betalingsformidleren som Plendit benytter.
 
-Les <%= link_to 'Vilkår for MangoPay', 'docs/Mangopay_Terms-EN.pdf' %>, forsikringsvilkår for
-  <%= link_to 'bolig/eiendom', 'public/docs/if/Forsikringsvilkaar_Korttidsforsikring_Innbo.pdf'%>,
-  <%= link_to 'bil', 'public/docs/if/Forsikringsvilkaar_Korttidsforsikring_motorvogn.pdf'%>,
-  <%= link_to 'båt', 'public/docs/if/Forsikringsvilkaar_Korttidsforsikring_Baat.pdf'%>*<%## not in place yet %> og
-  <%= link_to 'ting', 'public/docs/if/Forsikringsvilkaar_Korttidsforsikring_Ting.pdf'%>.
+Les <%= link_to 'Vilkår for MangoPay', 'docs/Mangopay_Terms-EN.pdf' %>, forsikringsvilkår for <%= link_to 'bolig/eiendom', 'docs/if/Forsikringsvilkaar_Korttidsforsikring_Innbo.pdf'%>, <%= link_to 'bil', 'docs/if/Forsikringsvilkaar_Korttidsforsikring_motorvogn.pdf'%>, <%= link_to 'båt', 'docs/if/Forsikringsvilkaar_Korttidsforsikring_Baat.pdf'%> og <%= link_to 'ting', 'docs/if/Forsikringsvilkaar_Korttidsforsikring_Ting.pdf'%>.
 
 
 ## Skade / forsikring
 
-Plendit samarbeider med IF Skadeforsikring og forsikringsdekning for private utleiere inngår i leigebyren. Skadeforsikringen er dekker opp til NOK 700.000 på kjøretøy, NOK 500.000 på bolig, 25x dagspris på ting og antatt verdi på båt begrenset til NOK 250.000. 
+Plendit samarbeider med IF Skadeforsikring og forsikringsdekning for private utleiere inngår i leigebyren. Skadeforsikringen er dekker opp til NOK 700.000 på kjøretøy, NOK 500.000 på bolig, 25x dagspris på ting og antatt verdi på båt begrenset til NOK 250.000.
 
 Bilforsikringen (Superforsikring) inneholder ansvar, brann, tyveri, glass, redning, kasko, maskinskader og underslagsdekning*. I tillegg dekkes leiebil som koster inntil 500 kroner mens egen bil står på verkstedet for reparasjon. Ingen begrensing på antall dager.
 
@@ -128,20 +123,18 @@ Bilforsikringen (Superforsikring) inneholder ansvar, brann, tyveri, glass, redni
 
 
 Boligforsikringen dekker kun tyveri, uhell og hærverk utført av leietaker eller dens gjester, inntil 500 000,-' (innbo og bygningsskader)*.
- 
+
 *Øvrige skader dekkes av utleiers bolig/innbo-forsikring, som må oppgraderes til utleie!
- 
+
 
 Tingforsikringen dekker skade på Stort og Smått (løsøre)*
- 
 
 *Forsikringen dekker ikke normal slitasje eller vedlikehold.
 
 
 Leietaker er ansvarlig for å levere tilbake det han har leid i samme stand til avtalt tid.
- 
+
 Alt på Plendit er forsikret. Men leietaker vil holdes ansvarlig for egenandel ved skade. Ved grov uaktsomhet eller misbruk kan leietaker bli holdt ansvarlig utover egenandelen.
- 
 
 Ved aksept av disse vilkårene, aksepteres også IF sine forsikringsvilkår.
 
@@ -166,12 +159,12 @@ Leietaker er ansvarlig for egenandel ved skade. Dersom If Skadeforsikring fastse
 
 Egenandel ved skade:
 
-- Kjøretøy kr. 12.000
-  - Glasskader kr. 2.000
-  - Underslag kr. 4.000
-- Eiendom kr. 6.000
-- Båt opptil kr. 5.000
-- Ting kr. 1.500
+  * Kjøretøy kr. 12.000
+    * Glasskader kr. 2.000
+    * Underslag kr. 4.000
+  * Eiendom kr. 6.000
+  * Båt opptil kr. 5.000
+  * Ting kr. 1.500
 
 
 Skader skal meldes på skademeldingsskjemaet på Plendit sin nettside. Plendit videreformidler kundeinformasjon og omfang av skade til If Skadeforsikring som forestår skadeoppgjør.
@@ -183,7 +176,7 @@ Om ikke annet er angitt så gjelder forsikringen i Norden.
 
 ## Avbestilling og refusjon
 
-Dersom objektet ikke samsvarer med forventningene, kan leieforholdet avbrytes. Dette kan kun skje dersom utleier og leietaker er enige. Beløpet vil da i sin helhet tilbakeføres til leietakers konto. 
+Dersom objektet ikke samsvarer med forventningene, kan leieforholdet avbrytes. Dette kan kun skje dersom utleier og leietaker er enige. Beløpet vil da i sin helhet tilbakeføres til leietakers konto.
 
 Dersom leietaker og utleier ikke er enige vil Plendit komme inn som en megler. Pengene vil fryses på egen konto til tvisten er avgjort. Blir partene fremdeles ikke enige, så kan Plendit fatte vedtak om pengene skal tilfalle leietaker eller utleier.
 
@@ -198,14 +191,14 @@ Plendit leverer kun en teknisk plattform til å dele mot vederlag, og fraskriver
 ## Rating
 
 Rating kan gi et galt bilde av en utleier eller leietaker. Men jo flere ratinger som legges inn på en bruker, jo bedre kan man vurdere om man ønsker å ha et leieforhold med den aktuelle brukeren.
- 
+
 Plendit forbeholder seg retten til å fjerne beskrivelser som er uegnet på trykk, men vil som hovedregel ikke legge seg borti hvilke tilbakemeldinger brukerne gir til hverandre.
 
 
 ## Eksportbegrensning
 
-Med mindre annet er avtalt skriftlig mellom partene på Plendit, så gjelder utleie i det aktuelle landet der utleieobjektet leveres ut. 
- 
+Med mindre annet er avtalt skriftlig mellom partene på Plendit, så gjelder utleie i det aktuelle landet der utleieobjektet leveres ut.
+
 Plendit-forsikringen gjelder kun i Norden.
 
 Dersom partene likevel er enige om at leieobjektet kan tas med til andre land, så er leietaker pliktig til å innrette seg etter lover og forskrifter på det aktuelle stedet.
@@ -228,11 +221,9 @@ Plendit vil ikke selge eller dele data med parter som ikke har saklig grunn til 
 Behandling av alle personopplysninger skjer i overensstemmelse med bestemmelsene i den til enhver tid gjeldende personopplysningslov (lov av 14. april 2000 nr. 31) og tilhørende forskrifter.
 
 Personopplysninger som en av Partene innehar, kan komme til å bli utlevert for å bli behandlet av den annen Part på følgende måter;
- 
-- For skadebehandling, eventuelt forsikringsoppgjør, administrasjon av forsikringen samt verifisering av identitet hos betalingsleverandør.
- 
+
+  * For skadebehandling, eventuelt forsikringsoppgjør, administrasjon av forsikringen samt verifisering av identitet hos betalingsleverandør.
+
 De personopplysninger som en Part får fra den andre Part eller får tilgang til gjennom oppfyllelse av denne avtalen, skal bare behandles av Parten i den utstrekning det er nødvendig for å oppfylle forpliktelsene i denne avtalen.
 
 Partene skal ikke uten samtykke fra den andre Part, overlate til eller tilgjengeliggjøre for tredjemann, personopplysninger som en av Partene får fra den annen Part eller ellers får tilgang til i forbindelse med oppfyllelsen av denne avtalen. Personopplysninger kan imidlertid overlates eller tilgjengeliggjøres for leietaker og/eller utleier når det er nødvendig for å oppfylle denne avtalens formål.
-
-<%= link_to 'Vilkår for MangoPay', 'docs/Mangopay_Terms-EN.pdf' %>
