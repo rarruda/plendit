@@ -113,7 +113,7 @@ gem 'nested_form_fields'
 gem 'recursive-open-struct'
 
 # for markdown views
-gem 'rdiscount'
+gem 'redcarpet'
 
 # Need acts-as-taggable-on for when running migrations all the way from the start of history
 gem 'acts-as-taggable-on', '~> 3.4'

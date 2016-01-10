@@ -16,6 +16,10 @@ module Plendit
       end
     end
 
+    # to load the markdown handler. see
+    # http://www.lugolabs.com/articles/18-render-markdown-views-with-redcarpet-and-pygment-in-rails
+    config.autoload_paths += %W(#{config.root}/lib)
+
     # Set queuing backend:
     config.active_job.queue_adapter = :resque
 

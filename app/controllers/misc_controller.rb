@@ -22,11 +22,9 @@ class MiscController < ApplicationController
   end
 
   def terms
-    @language = "Markdown"
   end
 
   def privacy
-    @language = "Markdown"
   end
 
 end

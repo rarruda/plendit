@@ -382,10 +382,10 @@ GEM
     rb-fsevent (0.9.6)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
-    rdiscount (2.1.8)
     rdoc (4.2.0)
       json (~> 1.4)
     recursive-open-struct (0.6.5)
+    redcarpet (3.3.4)
     redis (3.2.1)
     redis-actionpack (4.0.1)
       actionpack (~> 4)
@@ -599,8 +599,8 @@ DEPENDENCIES
   rails (= 4.2.5)
   rails-erd
   rails-i18n (~> 4.0)
-  rdiscount
   recursive-open-struct
+  redcarpet
   redis (~> 3.2.1)
   redis-rails
   resque
