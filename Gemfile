@@ -115,6 +115,10 @@ gem 'recursive-open-struct'
 # for markdown views
 gem 'redcarpet'
 
+# for writing email in both text and html from markdown:
+#gem 'markerb'
+#gem 'redcarpet'
+
 # Need acts-as-taggable-on for when running migrations all the way from the start of history
 gem 'acts-as-taggable-on', '~> 3.4'
 
