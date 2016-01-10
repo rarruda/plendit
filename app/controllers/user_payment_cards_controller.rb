@@ -38,7 +38,7 @@ class UserPaymentCardsController < ApplicationController
 
 
     if @user_payment_card.save
-      redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard was successfully created.'
+      redirect_to payment_users_path, payment_card_notice: 'Ditt betalingskort ble lagt til. Vi venter på godkjenning fra banken.'
     else
       LOG.error "Failed the saving the credit card.", {user_id: current_user.id, card_reg_vid: user_payment_card_params['card_reg_vid'] }
       redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard was NOT successfully saved.'
