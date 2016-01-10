@@ -1,12 +1,12 @@
 class Feedback < ActiveRecord::Base
   belongs_to :booking
-  belongs_to :from_user, :class_name => "User"
-  belongs_to :to_user,   :class_name => "User"
+  belongs_to :from_user, :class_name => 'User'
+  belongs_to :to_user,   :class_name => 'User'
   #has_one :user, :through => :booking
 
   validates :booking, presence: true
   validates :booking, uniqueness: { scope: [ :booking_id, :from_user_id ],
-    message: "user can only write one feedback/rating" }
+    message: 'user can only write one feedback/rating' }
   validates :score,   presence: true
   validates :score,   numericality: { only_integer: true,
     greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
@@ -35,13 +35,13 @@ class Feedback < ActiveRecord::Base
   private
   def from_user_is_valid
     unless [ self.booking.from_user_id, self.booking.ad.user_id ].include? self.from_user_id
-      errors.add(:from_user, "Den som skriver rating må være enten leietaker eller utleier. ")
+      errors.add(:from_user, 'Den som skriver rating må være enten leietaker eller utleier. ')
     end
   end
 
   def to_user_is_valid
     unless [ self.booking.from_user_id, self.booking.ad.user_id ].include? self.to_user_id
-      errors.add(:to_user, "Mottaker må være en del av leieforholdet.")
+      errors.add(:to_user, 'Mottaker må være en del av leieforholdet.')
     end
   end
 
