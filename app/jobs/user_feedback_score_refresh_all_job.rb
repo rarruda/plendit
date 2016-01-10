@@ -8,6 +8,8 @@ class UserFeedbackScoreRefreshAllJob < ActiveJob::Base
     #  filter only for mangopay_provisioned users:
     User.all.select(&:mangopay_provisioned?).map{ |u|
       u.feedback_score_refresh
+      # should possibly re-index ads for this user, if his rating changed
+      #  across a threshold (eg. 3.24 -> 3.26, if 3.25 is a limit value ).
       u.save
     }
 
