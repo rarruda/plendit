@@ -114,7 +114,10 @@
                             </div>
                         </div>
                     <% end %>
-                    <a class="u-pull-right" href="#" data-controller="existingLocation" data-url="<%= existing_location_users_ad_path %>">Bruk tidligere adresse</a>
+
+                    <% if current_user.used_locations_except(@ad).present? %>
+                        <a class="u-pull-right" href="#" data-controller="existingLocation" data-url="<%= existing_location_users_ad_path %>">Bruk tidligere adresse</a>
+                    <% end %>
 
                 <% elsif current_user.used_locations_except(@ad).present? %>
 
@@ -122,12 +125,11 @@
                         @ad.user.locations.map{ |l| [l.to_s_pretty, l.guid] },
                         {},
                         { class: 'u-full-width' } ) %>
+
                     <a class="u-pull-right" href="#" data-controller="newLocation" type="a" data-url="<%= new_location_users_ad_path %>">Skriv ny adresse</a>
 
                 <% else %>
-
-                    Fixme: Neither new nor selectable, probably possible when new ad for user without previous ones
-
+                    <!-- this condition should never be true -->
                 <% end %>
 
             </div>
