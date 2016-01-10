@@ -116,7 +116,7 @@
                     <% unless current_user.user_payment_cards.length == 0 %>
                         <%= f.submit class: "button button-primary", data: {controller: 'disableOnSubmit'} %>
                     <% else %>
-                        Du må ha registrert ditt kredittkort før du kan gjennomføre en booking. Du kan registrere ditt kredittkort [TRANSLATEME] på <%= link_to 'registrerings side', new_user_payment_card_path %>.
+                        Du må legge inn et betalingskort før du kan gjøre en booking. <%= link_to 'Legg til betalingskort', new_user_payment_card_path %>.
                     <% end %>
                 </div>
 
