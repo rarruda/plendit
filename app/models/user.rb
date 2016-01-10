@@ -118,6 +118,11 @@ class User < ActiveRecord::Base
     if: "self.public_name.blank?",
     if: "self.first_name.present?"
 
+  before_save :set_first_last_name_from_possible_values,
+    if: "self.name.present? || self.public_name.present?",
+    if: "self.first_name.blank? || self.last_name.blank?",
+    if: "self.verification_level_number == 0"
+
 
   #  * an equivalent callback should be considered, for when updating information:
   after_save :provision_with_mangopay,
@@ -641,6 +646,22 @@ class User < ActiveRecord::Base
   # When creating a new user without OAUTH, we might need copy the first_name to public_name
   def set_public_name_from_first_name_on_create
     self.public_name = self.first_name
+  end
+
+  # I am so not proud of this. Clean up in the refresh_with_mangopay method later on,
+  #  if the data turns out to be very poluted.
+  def set_first_last_name_from_possible_values
+    if verification_level_number == 0
+      if self.name.present?
+        name_array = self.name.split(" ", 2)
+      else
+       # self.public_name must just about always be set.
+        name_array = self.public_name.split(" ", 2)
+      end
+
+      self.first_name = name_array.first
+      self.last_name  = name_array.last
+    end
   end
 
   def validate_birthday_is_reasonable
