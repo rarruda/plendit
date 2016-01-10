@@ -4,10 +4,10 @@
    rcpt_user    = @booking.from_user
 %>
 <p>
-  Hei, <%= rcpt_user.first_name %>
+  Hei, <%= rcpt_user.public_name %>
 </p>
 <p>
-  <%= link_to sender_user.first_name, user_url( sender_user ) %> avlyste leieforholdet <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>.
+  <%= link_to sender_user.public_name, user_url( sender_user ) %> avlyste leieforholdet <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>.
 </p>
 <table>
   <tr> <td>Fra:</td> <td><%= l @booking.starts_at, format: :shorter_datetime %></td> </tr>

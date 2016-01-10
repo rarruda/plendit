@@ -9,7 +9,7 @@ class UserDecorator < Draper::Decorator
   decorates_association :recent_feedback
 
   def display_name
-    self.first_name.blank? ? 'Navn mangler' : self.first_name
+    self.public_name.blank? ? 'Navn mangler' : self.public_name
     #( self.personhood == :natural ) ? ( self.first_name.blank? ? self.name : self.first_name ) : self.name
   end
 

@@ -348,8 +348,9 @@ class UsersController < ApplicationController
 
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # NOTE/FIXME: birthday should only be allowed if the user verification_level is 0/not_verified.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :birthday,
+      params.require(:user).permit(:public_name, :birthday,
         :email, :about,
         :personhood, :nationality, :country_of_residence,
         :home_address_line, :home_post_code,

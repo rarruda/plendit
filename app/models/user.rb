@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
-  has_paper_trail :only => [ :payment_provider_vid, :birthday, :country_of_residence, :nationality,
-    :first_name, :last_name, :name, :personhood, :email, :unconfirmed_email,
+  has_paper_trail only: [ :payment_provider_vid, :birthday, :country_of_residence, :nationality,
+    :public_name, :first_name, :last_name, :name, :personhood, :email, :unconfirmed_email,
     :phone_number, :unconfirmed_phone_number, :pays_vat, :status,
     :home_address_line, :home_post_code, :home_city, :home_state ],
-    :skip => [:encrypted_password, :current_sign_in_at, :remember_created_at, :created_at,
+    skip: [:encrypted_password, :current_sign_in_at, :remember_created_at, :created_at,
       :confirmation_sent_at, :last_sign_in_at, :phone_number_confirmation_sent_at, :reset_password_sent_at,
       :confirmation_token, :unlock_token, :reset_password_token, :phone_number_confirmation_token]
 
@@ -113,6 +113,12 @@ class User < ActiveRecord::Base
     unless: "unconfirmed_phone_number.blank?",
     if: :sms_sending_cool_off_elapsed?
 
+
+  before_save  :set_public_name_from_first_name_on_create, on: :create,
+    if: "self.public_name.blank?",
+    if: "self.first_name.present?"
+
+
   #  * an equivalent callback should be considered, for when updating information:
   after_save :provision_with_mangopay,
     if: :mangopay_provisionable?,
@@ -208,14 +214,15 @@ class User < ActiveRecord::Base
       # Create the user if it's a new registration (IE, email already not registered in our db)
       if user.nil?
         user = User.new(
-          name: auth.info.name,
-          first_name: auth.info.first_name,
-          last_name: auth.info.last_name,
-          #birthday: auth.info.birthday, #<-- not sure all oauth providers provide this field... possibly different formats too.
-          email: email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
-          image_url: auth.info.image,
-          password: Devise.friendly_token[0,20],
-          personhood: :natural
+          name:        auth.info.name,
+          public_name: auth.info.first_name,
+          first_name:  auth.info.first_name,
+          last_name:   auth.info.last_name,
+          #birthday:   auth.info.birthday, #<-- not sure all oauth providers provide this field... possibly different formats too.
+          email:       email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
+          image_url:   auth.info.image,
+          password:    Devise.friendly_token[0,20],
+          personhood:  :natural
         )
         user.skip_confirmation! ###### <== funny business of skipping confimation even if we have an invalid email.
         ############################## we probably to always have an email confirmed.
@@ -401,7 +408,11 @@ class User < ActiveRecord::Base
 
   # either id card or drivers license
   def has_confirmed_id?
-    [self.id_card_status, self.drivers_license_status].include? :verified
+    self.internally_verified? || self.externally_verified? || self.bankid_verified?
+    # ( User.verification_levels[u.verification_level] > 0 )
+    # We now have a verification leveo for the user account, in addition to / coming
+    #  from the document verification.
+    #[self.id_card_status, self.drivers_license_status].include? :verified
   end
 
   def has_address?
@@ -620,6 +631,12 @@ class User < ActiveRecord::Base
       LOG.error "something has gone wrong with fetching list of wallets at mangopay. exception: #{e}", { user_id: self.id }
       return nil
     end
+  end
+
+
+  # When creating a new user without OAUTH, we might need copy the first_name to public_name
+  def set_public_name_from_first_name_on_create
+    self.public_name = self.first_name
   end
 
   def validate_birthday_is_reasonable

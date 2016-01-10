@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :user do
+    #public_name   { Faker::Name.first_name }
     first_name    { Faker::Name.first_name }
     last_name     { Faker::Name.last_name }
     name          { Faker::Name.name }
@@ -13,6 +14,7 @@ FactoryGirl.define do
 
   factory :user_complete, class: User do
     id          { '100' }
+    public_name { 'Ola' }
     first_name  { 'Ola' }
     last_name   { 'Normann' }
     email       { 'ola.nordmann@norge.no' }

@@ -20,38 +20,67 @@
 
         <%#= devise_error_messages! %>
 
+        <div class="row u-push-down">
+            <div class="three columns">
+                <%= avatar_image(@user, :huge) %>
+            </div>
+            <div class="nine columns">
+              <p>
+                <%= f.fields_for :user_images do |uimg_builder| %>
+                  <%#= uimg_builder.hidden_field :id %>
+                  <%= uimg_builder.hidden_field :category, :value => 'avatar' %>
+                  <%= uimg_builder.label :image, 'Last opp profilbilde' %>
+                <p>
+                    <small>
+                        Kvadratiske bilder ser best ut
+                    </small>
+                </p>
+                  <%= uimg_builder.file_field :image %>
+                <% end %>
+              </p>
+            </div>
+        </div>
+
+
         <div class="row">
             <div class="six columns">
-                <%= f.label :first_name, 'Fornavn:' %>
-                <%= f.text_field :first_name, class: 'u-full-width', required: true %>
-            </div>
-            <div class="six columns">
-                <%= f.label :last_name, 'Etternavn:' %>
-                <%= f.text_field :last_name, class: 'u-full-width', required: true %>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="two-thirds column">
-                <%= f.label :birthday, 'Fødselsdato:' %>
-                <%= f.date_select :birthday, start_year: 1900 %>
+                <%= f.label :public_name, 'Navn i offentlig profil:' %>
+                <%= f.text_field :public_name, class: 'u-full-width', required: true %>
             </div>
         </div>
 
         <div class="row">
             <div class="two-thirds column">
-                <%= f.label :nationality, 'Statsborgerskap:' %>
-                <%= f.country_select( :nationality, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+                <%= f.label :about, 'Om meg:' %>
+                <p>
+            <small>
+                Her kan du skrive litt om deg selv som vil vises på din offentlig profil.
+            </small>
+        </p>
+                <%= f.text_area :about, maxlength: 2000, class: 'u-full-width' %>
             </div>
         </div>
 
-        <div class="row">
-            <div class="two-thirds column">
-                <%= f.label :country_of_residence, 'Bosatt i:' %>
-                <%= f.country_select( :country_of_residence, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+        <% if @user.has_confirmed_id? %>
+            <div class="row">
+                <div class="six columns">
+                    <strong>Fornavn:</strong>   <%= @user.first_name %> <br>
+                    <strong>Etternavn:</strong> <%= @user.last_name %>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="six columns">
+                    <strong>Fødselsdato:</strong> <%= l @user.birthday %>
+                </div>
+            </div>
+        <% else %>
+            <div class="row">
+                <div class="two-thirds column">
+                    <%= f.label :birthday, 'Fødselsdato:' %>
+                    <%= f.date_select :birthday, start_year: 110.years.ago.year, end_year: 18.years.ago.year, disabled: @user.has_confirmed_id? %>
+                </div>
+            </div>
+        <% end %>
 
         <div class="row">
             <div class="six columns">
@@ -62,8 +91,10 @@
         <div class="row">
             <div class="twelve columns">
                 <% if @user.pending_reconfirmation? %>
-                    <div>Venter at du skal bekrefte: <%= @user.unconfirmed_email %>. Du skal ha mottatt en e-post med bekreftelseslenke. Om du ikke har mottatt denne e-posten, <%= link_to 'klikk her', new_user_confirmation_path %>. Vi beholder din forrige e-postadresse til du har bekreftet din nye.
-                    </div>
+                    <%= icon 'exclamation-triangle', class: 'fa-lg' %>
+                    <small>
+                        Venter at du skal bekrefte: <%= @user.unconfirmed_email %>. Vi beholder din forrige e-postadresse til du har bekreftet din nye. Om du ikke har mottatt en e-post med bekreftelseslenke, <%= link_to 'klikk her', new_user_confirmation_path %>.
+                    </small>
                     <%# FIXME(RA): make the link a post to the user's current email.
             link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>
                 <% else %>
@@ -86,13 +117,14 @@
             <div class="twelve columns">
                 <% if @user.phone_pending_confirmation? %>
                     <div>
-                        <%= icon 'exclamation-triangle', class: 'fa-lg u-fill-red' %>
+                        <%= icon 'exclamation-triangle', class: 'fa-lg' %>
                         <small>
                             Telefonnummer <%= @user.unconfirmed_phone_number %> er ikke bekreftet!
-                            <% if not @user.unconfirmed_phone_number.blank? %>
-                                <%= link_to 'Bekreft telefonnummer nå', verify_mobile_users_path %>
-                                <%#= link_to 'send ny melding', foo_bar_path %>
-                                <%# FIXME(RA): Create a controller method to send a New SMS. Should refuse to send too often, otherwise we go bankrupt. %>
+                            <% if @user.unconfirmed_phone_number.present? %>
+                                <%= link_to 'Bekreft telefonnummer nå', verify_mobile_users_path %><br>
+                            <% end %>
+                            <% if @user.phone_number.present? %>
+                                Telefonnummeret <%= @user.phone_number %> er fortsatt bekreftet.
                             <% end %>
                         </small>
                     </div>
@@ -109,10 +141,8 @@
             </div>
         </div>
 
-
-        <p>
-            <small>Vi trenger addressen som tilhører bankkontoen din:</small>
-        </p>
+        <br>
+        <small>Addressen som tilhører din bankkonto:</small>
         <div class="row">
             <div class="eight columns">
                 <%= f.label :home_address_line, 'Gateadresse:' %>
@@ -130,38 +160,17 @@
             </div>
         </div>
 
-
-        <div class="row u-push-down">
-            <div class="three columns">
-                <%= avatar_image(@user, :huge) %>
-            </div>
-            <div class="nine columns">
-              <p>
-                <%= f.fields_for :user_images do |uimg_builder| %>
-                  <%#= uimg_builder.hidden_field :id %>
-                  <%= uimg_builder.hidden_field :category, :value => 'avatar' %>
-                  <%= uimg_builder.label :image, 'Last opp profilbilde' %>
-                <p>
-                    <small>
-                        Kvadratiske bilder ser best ut
-                    </small>
-                </p>
-                  <%= uimg_builder.file_field :image %>
-                <% end %>
-              </p>
+        <div class="row">
+            <div class="two-thirds column">
+                <%= f.label :nationality, 'Statsborgerskap:' %>
+                <%= f.country_select( :nationality, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
             </div>
         </div>
 
-        
         <div class="row">
             <div class="two-thirds column">
-                <%= f.label :about, 'Om meg:' %>
-                <p>
-            <small>
-                Her kan du skrive litt om deg selv som vil vises på din offentlig profil.
-            </small>
-        </p>
-                <%= f.text_area :about, maxlength: 2000, class: 'u-full-width' %>
+                <%= f.label :country_of_residence, 'Bosatt i:' %>
+                <%= f.country_select( :country_of_residence, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
             </div>
         </div>
 

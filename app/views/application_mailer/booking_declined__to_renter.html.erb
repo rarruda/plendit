@@ -1,9 +1,9 @@
 <p>
-  Hei, <%= @booking.from_user.first_name %>
+  Hei, <%= @booking.from_user.public_name %>
 </p>
 
 <p>
-  <%= @booking.user.first_name %> har avslått din forespørsel om å leie <%= @booking.ad.title %>.
+  <%= @booking.user.public_name %> har avslått din forespørsel om å leie <%= @booking.ad.title %>.
 </p>
 
 <p>
