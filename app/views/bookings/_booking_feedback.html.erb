@@ -1,32 +1,34 @@
-<div class="booking-feedback">
+<%= render layout: 'gray_box', locals: {title: 'Tilbakemelding'} do %>
+    <div class="booking-feedback">
 
-    <%= form_for Feedback.new(), url: users_feedbacks_path do |f| %>
-        <%= f.hidden_field :booking_id, value: @booking.id %>
-        <div class="u-push-down">
-            Rating:
-        </div>
+        <%= form_for Feedback.new(), url: users_feedbacks_path do |f| %>
+            <%= f.hidden_field :booking_id, value: @booking.id %>
 
-        <div>
-            Hvor god var din opplevelse?
-        </div>
+            <p>
+                Hvor god var din opplevelse? Din tilbakemelding blir synlig
+                for andre Plendit-brukere.
+            </p>
 
-        <div data-controller="starRatingSelector" class="rating-selector">
-            <span data-rating="1" class="rating-selector__star rating-selector__star--full"></span>
-            <span data-rating="2" class="rating-selector__star"></span>
-            <span data-rating="3" class="rating-selector__star"></span>
-            <span data-rating="4" class="rating-selector__star"></span>
-            <span data-rating="5" class="rating-selector__star"></span>
-            <%= f.hidden_field :score, value: '1', data: { score: '' } %>
-        </div>
+            <p>
+                Tilbakemeldingen låses etter en uke.
+            </p>
 
-        <div>
-            <%= f.text_area :body, placeholder: 'Din tilbakemelding. (Frivillig)' %>
-        </div>
+            <div data-controller="starRatingSelector" class="rating-selector booking-feedback__stars">
+                <span data-rating="1" class="rating-selector__star rating-selector__star--full"></span>
+                <span data-rating="2" class="rating-selector__star"></span>
+                <span data-rating="3" class="rating-selector__star"></span>
+                <span data-rating="4" class="rating-selector__star"></span>
+                <span data-rating="5" class="rating-selector__star"></span>
+                <%= f.hidden_field :score, value: '1', data: { score: '' } %>
+            </div>
 
-        <div>
-            <button class="button button-primary">Gi tilbakemelding</button>
-        </div>
+            <div>
+                <%= f.text_area :body, placeholder: 'Din tilbakemelding. (Frivillig)', class: 'u-full-width' %>
+            </div>
 
-    <% end %>
-
-</div>
+            <div>
+                <button class="button button-primary">Gi tilbakemelding</button>
+            </div>
+        <% end %>
+    </div>
+<% end %>

@@ -84,7 +84,6 @@
         width: 22px;
         height: 22px;
         background-image: url(star_empty.svg);
-
         &--full, &:hover {
             background-image: url(star_full.svg);
         }
@@ -96,4 +95,10 @@
 .activity-item {
     color: black;
     text-decoration: none;
+}
+
+.booking-feedback {
+    &__stars {
+        padding-bottom: $standard-spacing;
+    }
 }
