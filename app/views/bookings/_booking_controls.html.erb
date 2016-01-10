@@ -7,8 +7,10 @@
             <%= button_to "Godkjenn forespørsel", accept_booking_path(booking), class: "button button-primary", form_class: 'u-inline' %>
         <% elsif booking.confirmed? %>
             Leieforhold avtalt.
-        <% elsif booking.payment_confirmed? || booking.started? %>
+        <% elsif booking.payment_confirmed? %>
             <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "Er du sikker at du vil avbryte?" } %>
+        <% elsif booking.started? %>
+            Leieforhold pågår.
         <% elsif booking.in_progress? %>
             Leieforhold pågår.
         <% elsif booking.ended? || booking.archived? %>
@@ -20,9 +22,10 @@
     <% else %>
         <% if booking.created? || booking.payment_preauthorized? %>
             <%= button_to 'Avbryt forespørsel', abort_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "Er du sikker at du vil avbryte?" } %>
-        <% elsif booking.confirmed? || booking.payment_confirmed? || booking.started? %>
-            <%# should be a red button! should have a warning to not be used lightly, as it will trigger admin intervention? %>
+        <% elsif booking.confirmed? || booking.payment_confirmed? %>
             <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "Er du sikker at du vil avbryte?" } %>
+        <% elsif booking.started? %>
+            Leieforhold pågår.
         <% elsif booking.in_progress? %>
             Denne bookingen er aktiv.
         <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
