@@ -113,7 +113,7 @@ gem 'nested_form_fields'
 gem 'recursive-open-struct'
 
 # for markdown views
-gem 'redcarpet'
+gem 'html_pipeline_rails'
 
 # for writing email in both text and html from markdown:
 #gem 'markerb'
