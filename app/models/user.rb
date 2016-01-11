@@ -308,7 +308,7 @@ class User < ActiveRecord::Base
 
   def can_rent? category = nil
     return false unless self.mangopay_provisioned?
-    return false unless ( self.email_verified? || ( self.identities.length >= 0 ) )
+    return false unless self.email_verified?
     return false unless self.age.present? && self.age >= 18
 
     return true if self.phone_verified? && case category
@@ -330,7 +330,7 @@ class User < ActiveRecord::Base
   end
 
   def can_rent_out?
-    return false unless self.mangopay_provisioned? && ( self.email_verified? || ( self.identities.length >= 0 ) ) && self.phone_verified?
+    return false unless self.mangopay_provisioned? || self.email_verified? || self.phone_verified?
     true
   end
 
