@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
     if: :sms_sending_cool_off_elapsed?
 
 
-  before_save  :set_public_name_from_first_name_on_create, on: :create,
+  before_save :set_public_name_from_first_name_on_create, on: :create,
     if: "self.public_name.blank?",
     if: "self.first_name.present?"
 
