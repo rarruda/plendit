@@ -66,7 +66,7 @@ class Ad < ActiveRecord::Base
   # If there were any changes, except in status or refusal_reason, set status to draft:
   before_save :edit, unless: "self.draft? || self.changes.except('status','refusal_reason').empty?"
 
-  before_validation :build_payin_rule, if: :new_record?
+  after_create :create_payin_rule
 
   after_create :create_ad_item
 
@@ -311,8 +311,8 @@ class Ad < ActiveRecord::Base
     self.ad_items.build.save
   end
 
-  def build_payin_rule
-    self.payin_rules.build
+  def create_payin_rule
+    self.payin_rules.build(unit: 'day', effective_from: 1).save
   end
 
   def log_status_change
