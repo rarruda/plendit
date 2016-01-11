@@ -105,12 +105,12 @@ class User < ActiveRecord::Base
   # But only if the unconfirmed phone number was changed to something that isnt blank.
   after_validation :set_phone_attributes,
     if: :unconfirmed_phone_number_changed?,
-    unless: "unconfirmed_phone_number.blank?"
+    if: "unconfirmed_phone_number.present?"
 
   # Send an SMS if the unconfirmed phone number changed to something that isnt blank.
-  before_save  :send_sms_for_phone_confirmation,
+  before_save :send_sms_for_phone_confirmation,
     if: :unconfirmed_phone_number_changed?,
-    unless: "unconfirmed_phone_number.blank?",
+    if: "unconfirmed_phone_number.present?",
     if: :sms_sending_cool_off_elapsed?
 
 
