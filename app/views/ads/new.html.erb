@@ -21,13 +21,14 @@
                 <% end %>
             </div>
             <% unless current_user.can_rent_out? %>
-                <div class="u-push-down-only">
                     <strong>
                         Du må verifisere din bruker med epost og telefonnummer for å
                         legge ut annonser. Dette kan du fikse på
                         <%= link_to 'Min dokumentasjon', private_profile_users_path %>
                         
                     </strong>
+                    </div>
+                <div class="u-push-down-only">
                 </div>
             <% end %>
         </div>
