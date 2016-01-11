@@ -49,7 +49,7 @@ Plendit::Application.config.x.platform.deposit_amount        = {
  }
 
 Plendit::Application.config.x.insurance.price_in_percent     = {
-  bap:        0.08,
+  bap:        0.09,
   motor:      0.09,
   realestate: 0.09,
   boat:       0.09,
