@@ -162,15 +162,15 @@
 
         <div class="row">
             <div class="two-thirds column">
-                <%= f.label :nationality, 'Statsborgerskap:' %>
-                <%= f.country_select( :nationality, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+                <%= f.label :country_of_residence, 'Bosatt i:' %>
+                <%= f.country_select( :country_of_residence, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
             </div>
         </div>
 
         <div class="row">
             <div class="two-thirds column">
-                <%= f.label :country_of_residence, 'Bosatt i:' %>
-                <%= f.country_select( :country_of_residence, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+                <%= f.label :nationality, 'Statsborgerskap:' %>
+                <%= f.country_select( :nationality, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
             </div>
         </div>
 
