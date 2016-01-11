@@ -311,11 +311,11 @@ class User < ActiveRecord::Base
     return false unless self.email_verified?
     return false unless self.age.present? && self.age >= 18
 
-    return true if self.phone_verified? && case category
+    return true if self.phone_verified? && self.has_confirmed_id? && case category
     when 'bap'
       true
     when 'realestate'
-      self.has_confirmed_id?
+      true
     when 'motor'
       self.drivers_license_status == :verified &&
       self.age.present? &&
@@ -330,8 +330,7 @@ class User < ActiveRecord::Base
   end
 
   def can_rent_out?
-    return false unless self.mangopay_provisioned? || self.email_verified? || self.phone_verified?
-    true
+    self.mangopay_provisioned? && self.email_verified? && self.phone_verified?
   end
 
   def drivers_license_status
