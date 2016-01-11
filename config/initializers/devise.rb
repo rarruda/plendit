@@ -236,14 +236,14 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :facebook, ENV['PCONF_FACEBOOK_APP_ID'], ENV['PCONF_FACEBOOK_SECRET'],
-    :scope => 'email,user_birthday'
+    scope: 'email,user_birthday'
   config.omniauth :google_oauth2, ENV['PCONF_GOOGLE_CLIENT_ID'], ENV['PCONF_GOOGLE_CLIENT_SECRET'],
-    { :name => 'google' } #, :image_aspect_ratio => 'square', :image_size=> 120 }
+    { name: 'google', image_aspect_ratio: 'square' } #, :image_size=> 120 }
   # see https://github.com/zquestz/omniauth-google-oauth2 for list of parameters
   config.omniauth :spid, ENV['PCONF_SPID_CLIENT_ID'], ENV['PCONF_SPID_CLIENT_SECRET'],
     {
-      :client_options => {
-       :site => ENV['PCONF_SPID_CLIENT_URL'] || 'https://payment.schibsted.no/api/2'
+      client_options: {
+       site: ENV['PCONF_SPID_CLIENT_URL'] || 'https://payment.schibsted.no/api/2'
      }
     }
 

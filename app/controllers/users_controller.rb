@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :authenticate_user!, :except => [:show, :finish_signup]
+  before_action :authenticate_user!, except: [:show, :finish_signup]
 
   before_action :set_user, only: [
     :bank_account,
