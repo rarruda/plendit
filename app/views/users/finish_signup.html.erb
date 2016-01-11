@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="eight columns">
-            <h1>Mangler e-post</h1>
+            <h1>Vi trenger litt mer info fra deg...</h1>
             <p>
-                Vi trenger en e-post adresse for at du kan logge inn.
+                For å komme helt i gang!
             </p>
-            <%= form_for(current_user, :as => 'user', :url => finish_signup_users_path(current_user), :html => { role: 'form'}) do |f| %>
+            <%= form_for(current_user, as: 'user', url: finish_signup_users_path(current_user), html: { role: 'form'}) do |f| %>
                 <% if @show_errors && current_user.errors.any? %>
                     <div id="error_explanation">
                         <% current_user.errors.full_messages.each do |msg| %>
@@ -13,14 +13,58 @@
                         <% end %>
                     </div>
                 <% end %>
-                <div class="form-group">
+
+                <div class="row">
                     <%= f.label :email, 'E-post:' %>
                     <div class="controls">
-                        <%= f.text_field :email, :autofocus => true, :value => '', class: 'form-control input-lg', placeholder: 'bruker@example.org' %>
+                        <%= f.text_field :email, autofocus: true, required: true, class: 'form-control input-lg' %>
                     </div>
                 </div>
+
+                <% if current_user.first_name.blank? %>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :first_name, 'Fornavn:' %>
+                            <%= f.text_field :first_name %>
+                        </div>
+                    </div>
+                <% end %>
+
+                <% if current_user.last_name.blank? %>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :last_name, 'Etternavn:' %>
+                            <%= f.text_field :last_name %>
+                        </div>
+                    </div>
+                <% end %>
+
+                <% if current_user.birthday.blank? %><%# current_user.has_confirmed_id? %>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :birthday, 'Fødselsdato:' %>
+                            <%= f.date_select :birthday, start_year: 110.years.ago.year, end_year: 18.years.ago.year, disabled: @user.has_confirmed_id? %>
+                        </div>
+                    </div>
+                <% end %>
+
+                <div class="row">
+                    <div class="two-thirds column">
+                        <%= f.label :country_of_residence, 'Bosatt i:' %>
+                        <%= f.country_select( :country_of_residence, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="two-thirds column">
+                        <%= f.label :nationality, 'Statsborgerskap:' %>
+                        <%= f.country_select( :nationality, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+                    </div>
+                </div>
+
+
                 <div class="actions">
-                    <%= f.submit 'Lagre', :class => 'button button-primary' %>
+                    <%= f.submit 'Lagre', class:'button button-primary' %>
                 </div>
             <% end %>
         </div>
