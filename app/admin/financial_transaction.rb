@@ -14,9 +14,8 @@ ActiveAdmin.register FinancialTransaction do
     column :src_type
     column :dst_vid
     column :dst_type
-    column :transaction_vid
-    #column :transaction_type
     column(:transaction_type)   {|t| status_tag(t.transaction_type) }
+    column :transaction_vid
     column(:state)              {|t| status_tag(t.state) }
     column :amount
     column :fees
