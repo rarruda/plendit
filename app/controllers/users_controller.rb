@@ -304,7 +304,7 @@ class UsersController < ApplicationController
 
   # GET /me/payment
   def payment
-    @user_payment_cards = current_user.user_payment_cards.sort
+    @user_payment_cards = current_user.user_payment_cards.decorate.sort
     @financial_transactions = FinancialTransaction.to_user( current_user.id ).transfer.finished.where('updated_at > ?', 1.year.ago).includes(:financial_transactionable)
   end
 
