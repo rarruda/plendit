@@ -3,27 +3,27 @@ require 'rails_helper'
 RSpec.describe PayinRule, type: :model do
 
   it "should work on a valid model" do
-    payin_rule = FactoryGirl.build_stubbed(:payin_rule)
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad)
     expect(payin_rule).to be_valid
   end
 
   it "should not accept effective_from_unit gt 23 for hours" do
-    payin_rule = FactoryGirl.build_stubbed(:payin_rule, unit: 'hour', effective_from: 25)
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, unit: 'hour', effective_from: 25)
     expect(payin_rule).not_to be_valid
   end
 
   it "should not accept very low day prices" do
-    payin_rule = FactoryGirl.build_stubbed(:payin_rule, unit: 'day', payin_amount: 1_00)
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, unit: 'day', payin_amount: 1_00)
     expect(payin_rule).not_to be_valid
   end
 
   it "should not accept very high prices" do
-    payin_rule = FactoryGirl.build_stubbed(:payin_rule, payin_amount: 10_000_000_00)
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, payin_amount: 10_000_000_00)
     expect(payin_rule).not_to be_valid
   end
 
   it "should accept 99 NOK as minimum price" do
-    payin_rule = FactoryGirl.build_stubbed(:payin_rule, payin_amount: 99_00)
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, payin_amount: 99_00)
     expect(payin_rule).to be_valid
   end
 
@@ -48,7 +48,7 @@ RSpec.describe PayinRule, type: :model do
 
 
   context "when payin_rule has a simple hour price rule" do
-    let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule_hour, unit: 'hour', payin_amount: 100_00,
+    let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule_ad_hour, unit: 'hour', payin_amount: 100_00,
         ad: FactoryGirl.build_stubbed(:ad_motor) )
       }
     let(:duration) { 4.hours.to_i }
@@ -59,7 +59,7 @@ RSpec.describe PayinRule, type: :model do
 
 
   context "when payin_rule payin_amount comes as a float" do
-    let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule_hour, unit: 'hour', payin_amount_in_h: 250.0,
+    let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule_ad_hour, unit: 'hour', payin_amount_in_h: 250.0,
         ad: FactoryGirl.build_stubbed(:ad_motor) )
       }
 
