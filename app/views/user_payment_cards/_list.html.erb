@@ -4,12 +4,11 @@
         <hr>
     <%- end -%>
     <% if @user.user_payment_cards.present? %>
-        <table>
-            <tbody>
-                <%= render @user_payment_cards %>
-            </tbody>
-        </table>
-        <br>
+        <ol class="locations-list">
+            <%= render @user_payment_cards %>
+        </ol>
     <% end %>
-    <%= link_to 'Legg til nytt kort', new_user_payment_card_path %>
+    <p>
+      <%= link_to 'Legg til nytt kort', new_user_payment_card_path %>
+    </p>
 <% end %>

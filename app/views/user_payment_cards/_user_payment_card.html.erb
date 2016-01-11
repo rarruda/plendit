@@ -1,33 +1,25 @@
-<tr>
-  <td>
-    <% if user_payment_card.card_provider == 'VISA' %>
-      <%= icon 'cc-visa', class: 'fa-lg' %>
-    <% elsif user_payment_card.card_provider == 'MASTERCARD' %>
-      <%= icon 'cc-mastercard', class: 'fa-lg' %>
-    <% else %>
-      <%= icon 'credit-card', class: 'fa-lg' %>
-    <% end %>
-  <td><%= user_payment_card.decorate.pretty_number_alias %></td>
-  <td><%= user_payment_card.decorate.pretty_expiration_date %></td>
-  <td>
-    <%# make_favorite %>
-    <% if user_payment_card.favorite %>
-      <%= icon 'heart', class: 'fa-lg u-fill-blue' %>
-    <% else %>
-      <%# FIXME: kidnapping style from locations. that is wrong in a lot of levels %>
-      <%= button_to make_favorite_user_payment_card_path( user_payment_card ), class: 'locations-list__star-button u-pull-right', form_class: 'u-inline' do %>
-        <%= icon 'heart-o', class: 'fa-lg' %>
-      <% end %>
-    <% end %>
-  </td>
-  <td>
+<li class="locations-list__item">
+    <span class="locations-list__star-holder">
+        <% if user_payment_card.favorite %>
+            <%= icon 'heart', class: 'fa-lg u-fill-blue' %>
+        <% else %>
+            <%# FIXME: kidnapping style from locations. that is wrong in a lot of levels %>
+            <%= button_to make_favorite_user_payment_card_path( user_payment_card ), class: 'locations-list__star-button', form_class: 'u-inline' do %>
+                <%= icon 'heart-o', class: 'fa-lg' %>
+            <% end %>
+        <% end %>
+    </span>
+
+    <%= payment_card_icon user_payment_card.card_provider %>
+    <span class="payment-card-item__card-id">
+        <%= user_payment_card.pretty_number_alias %>.
+    </span>
+    Utløper&nbsp;<%= user_payment_card.pretty_expiration_date %>
     <%= icon user_payment_card.decorate.validity_icon_name, class: 'fa-lg' unless user_payment_card.card_valid? %>
-  </td>
-  <td>
     <%# params: { 'user[user_payment_card][guid]' => user_payment_card.guid } %>
     <%# FIXME: evil to style directly in the html tags %>
     <%= button_to user_payment_card, method: :delete, class: 'button u-pull-right', form_class: 'u-inline', data: { confirm: 'Are you sure?' } do %>
-      Slett
+        Slett
     <% end %>
-  </td>
-</tr>
+
+</li>
