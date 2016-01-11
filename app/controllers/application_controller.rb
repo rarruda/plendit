@@ -35,6 +35,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    UserDecorator.decorate(super) unless super.nil?
+    ::UserDecorator.decorate(super) unless super.nil?
   end
 end

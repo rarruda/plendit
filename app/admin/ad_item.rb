@@ -14,7 +14,7 @@ ActiveAdmin.register AdItem do
   #   permitted
   # end
 
-  menu :priority => 5
+  menu priority: 5
   #actions :index, :show
 
   permit_params :ad_id #, :ad_item_id

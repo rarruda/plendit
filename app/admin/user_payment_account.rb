@@ -1,6 +1,6 @@
 ActiveAdmin.register UserPaymentAccount do
 
-  menu :priority => 6
+  menu priority: 6
   #actions :index, :show
   actions :index
 

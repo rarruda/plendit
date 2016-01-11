@@ -14,7 +14,7 @@ ActiveAdmin.register FavoriteAd do
   #   permitted
   # end
 
-  menu :priority => 6
+  menu priority: 6
   #actions :index, :show
 
   permit_params :ad_id

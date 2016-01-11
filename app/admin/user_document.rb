@@ -1,10 +1,14 @@
 ActiveAdmin.register UserDocument do
 
-  menu :priority => 4
+  menu priority: 4
   #actions :index, :show
   actions :index, :show
 
   #permit_params :user_id, :foobar
+
+  controller do
+    defaults finder: :find_by_guid
+  end
 
   index do
     selectable_column

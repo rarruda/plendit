@@ -14,10 +14,14 @@ ActiveAdmin.register Location do
   #   permitted
   # end
 
-  menu :priority => 5
+  menu priority: 5
   #actions :index, :show
 
   permit_params :user_id, :address_line, :post_code
+
+  controller do
+    defaults finder: :find_by_guid
+  end
 
   index do
     selectable_column

@@ -1,6 +1,6 @@
 ActiveAdmin.register Ad do
 
-  menu :priority => 4
+  menu priority: 4
 
   permit_params :user_id, :title, :body, :price, :location_id, :status, :category
 

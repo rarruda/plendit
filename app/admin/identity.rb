@@ -13,8 +13,9 @@ ActiveAdmin.register Identity do
   #   permitted << :other if resource.something?
   #   permitted
   # end
+  menu priority: 6
+
   permit_params :image_url, :profile_url
-  menu :priority => 6
 
   index do
     selectable_column
@@ -22,6 +23,7 @@ ActiveAdmin.register Identity do
     column :user
     column :provider
     column :uid
+    column :email
     column :image_url
     column :profile_url
   end

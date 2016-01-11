@@ -14,7 +14,7 @@ ActiveAdmin.register Feedback do
   #   permitted
   # end
 
-  menu :priority => 5
+  menu priority: 5
   #actions :index, :show
 
 

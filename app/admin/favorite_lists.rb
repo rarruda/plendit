@@ -14,7 +14,7 @@ ActiveAdmin.register FavoriteList do
   #   permitted
   # end
 
-  menu :priority => 6
+  menu priority: 6
   #actions :index, :show
 
   permit_params :name

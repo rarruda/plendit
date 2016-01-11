@@ -1,6 +1,6 @@
 ActiveAdmin.register AccidentReport do
 
-  menu :priority => 6
+  menu priority: 6
   actions :index, :show
 
   #permit_params :user_id, :foobar

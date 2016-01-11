@@ -1,10 +1,14 @@
 ActiveAdmin.register UserPaymentCard do
 
-  menu :priority => 6
+  menu priority: 6
   #actions :index, :show
   actions :index
 
   #permit_params :user_id, :foobar
+
+  controller do
+    defaults finder: :find_by_guid
+  end
 
   index do
     selectable_column

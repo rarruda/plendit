@@ -14,11 +14,14 @@ ActiveAdmin.register Booking do
   #   permitted
   # end
 
-  menu :priority => 5
+  menu priority: 5
   #actions :index, :show
 
-
   permit_params :ad_item_id, :from_user_id, :amount, :status
+
+  controller do
+    defaults finder: :find_by_guid
+  end
 
   index do
     selectable_column
@@ -31,6 +34,16 @@ ActiveAdmin.register Booking do
     column :status
     column :created_at
     actions
+  end
+
+  member_action :history do
+    @booking = Booking.find_by_guid(params[:id])
+    @versions = @booking.versions
+    render "admin/history", layout: false
+    # https://github.com/activeadmin/activeadmin/wiki/Auditing-via-paper_trail-(change-history)
+    # https://github.com/activeadmin/activeadmin/issues/827
+    # looks like another gem has registered a method in the same namespace, so activeadmin can't
+    #  render the page.
   end
 
 end
