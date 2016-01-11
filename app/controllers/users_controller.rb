@@ -58,7 +58,7 @@ class UsersController < ApplicationController
       end
 
       if params[:seaworthy] != "1"
-        @errors.push "Du må akseptere selværklæringen."
+        @errors.push "Du må akseptere egenærklæringen."
       end
 
       if @errors.empty?
@@ -218,7 +218,7 @@ class UsersController < ApplicationController
       if @user_payment_account.update(user_payment_account_params)
         redirect_to payment_users_path( anchor: 'kontonummer' ), payment_account_notice: 'Kontonummeret ble godkjent og lagt til.'
       else
-        render 'edit_user_payment_account', payment_account_notice: 'bank account was NOT saved.'
+        render 'edit_user_payment_account', payment_account_notice: 'Kontonummeret bli ikke lagret.'
       end
     else
       render 'edit_user_payment_account'
