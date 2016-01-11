@@ -289,7 +289,7 @@ class Booking < ActiveRecord::Base
     end
 
     event :payment_fail do
-      transitions from: [:created, :payment_confirmed], to: :payment_failed
+      transitions from: [:confirmed, :payment_confirmed], to: :payment_failed
     end
 
     # dont do anything. when manual intervention is required/exception handling:
