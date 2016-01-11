@@ -57,5 +57,5 @@ nb:
       not_found: "ikke funnet"
       not_locked: "var ikke låst"
       not_saved:
-        one: "Én feil gjorde at %{resource} ikke kunne lagres:"
-        other: "%{count} feil gjorde at %{resource} ikke kunne lagres:"
+        one: "En feil gjorde at bruker ikke kunne opprettes:"
+        other: "%{count} feil gjorde at bruker ikke kunne opprettes:"
