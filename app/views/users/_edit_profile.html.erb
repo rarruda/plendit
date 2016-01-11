@@ -27,15 +27,15 @@
             <div class="nine columns">
               <p>
                 <%= f.fields_for :user_images do |uimg_builder| %>
-                  <%#= uimg_builder.hidden_field :id %>
-                  <%= uimg_builder.hidden_field :category, :value => 'avatar' %>
-                  <%= uimg_builder.label :image, 'Last opp profilbilde' %>
-                <p>
-                    <small>
-                        Kvadratiske bilder ser best ut
-                    </small>
-                </p>
-                  <%= uimg_builder.file_field :image %>
+                    <%#= uimg_builder.hidden_field :id %>
+                    <%= uimg_builder.hidden_field :category, :value => 'avatar' %>
+                    <%= uimg_builder.label :image, 'Last opp profilbilde' %>
+                    <p>
+                        <small>
+                            Kvadratiske bilder ser best ut
+                        </small>
+                    </p>
+                    <%= uimg_builder.file_field :image %>
                 <% end %>
               </p>
             </div>
