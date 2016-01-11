@@ -183,3 +183,11 @@ end
 
 group :production do
 end
+
+
+gem 'rails-console-tweaks', :git => 'git://github.com/redbar0n/rails-console-tweaks.git' # autoload gems in console group into your console
+group :console do # Gems to increase readability of rails console output, especially database tables.
+  gem 'hirb'
+  gem 'wirb' # important that this comes after hirb, not before it, in the Gemfile
+  gem 'awesome_print' # In the rails console, get full line-by-line output by writing i.e.: ap User.all
+end
