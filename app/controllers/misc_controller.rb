@@ -1,6 +1,8 @@
 class MiscController < ApplicationController
   layout "article", only: [ :about, :contact, :help, :privacy, :terms, :issues ]
 
+  skip_after_filter :intercom_rails_auto_include, only: [ :about ]
+
   def frontpage
     @hide_search_field = true
     @ads = Ad.published
