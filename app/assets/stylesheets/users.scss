@@ -29,6 +29,11 @@
     &__card-holder {
         padding-top: $standard-spacing * 2;
         padding-bottom: $standard-spacing * 3;
+
+        @media (max-width: 400px) {
+            transform: scale(0.75);
+            transform-origin: 60px;
+        }
     }
 }
 

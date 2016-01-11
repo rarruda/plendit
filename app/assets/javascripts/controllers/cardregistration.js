@@ -19,7 +19,7 @@ window.controllers.cardInputter = {
             var card = new Card({
                 form: form,
                 container: c,
-                width: 400,
+                width: 300,
                 placeholders: {
                     name: 'Fullt navn'
                 }
