@@ -185,7 +185,7 @@ group :production do
 end
 
 
-gem 'rails-console-tweaks', :git => 'git://github.com/redbar0n/rails-console-tweaks.git' # autoload gems in console group into your console
+gem 'rails-console-tweaks'
 group :console do # Gems to increase readability of rails console output, especially database tables.
   gem 'hirb'
   gem 'wirb' # important that this comes after hirb, not before it, in the Gemfile
