@@ -22,7 +22,7 @@ class BookingAutoAdjustStatusJob < ActiveJob::Base
     #puts "#{DateTime.now.iso8601} - confirmed, for longer then 1 days need to be SOMETHING!!. (payment not processed?)"
     # find all confirmed, with created_at < 1.day.ago
     # and Schedule job to run?(BookingProcessPayin) or abort! (cancel?) them
-    #Booking.confirmed.where('status = ? AND created_at < ?', 1.days.ago ).map(&:abort!)
+    #Booking.confirmed.where('created_at < ?', 1.days.ago ).map(&:abort!)
 
 
     # If not confirmed before starts_at + 24h, or has already passed ends_at, then abort!
