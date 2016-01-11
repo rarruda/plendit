@@ -30,4 +30,14 @@ ActiveAdmin.register FinancialTransaction do
     actions
   end
 
+  controller do
+    def show
+        @financial_transactions  = FinancialTransaction.includes(versions: :item).find_by_guid(params[:id])
+        @versions                = @financial_transactions.versions
+        @financial_transactions  = @financial_transactions.versions[params[:version].to_i].reify if params[:version]
+        show! #it seems to need this
+    end
+  end
+  sidebar :versionate, :partial => "admin/version", only: :show
+
 end

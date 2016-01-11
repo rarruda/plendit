@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <td>id</td>
+    <td>event</td>
+    <td>whodunnit</td>
+    <td>object</td>
+    <td>created_at</td>
+  </tr>
+<% @versions.each do |v| %>
+  <tr>
+    <td><%= v.id %></td>
+    <td><%= v.event %></td>
+    <td><%= v.whodunnit %></td>
+    <td><pre><%= v.object %><%#= v.object_changes %></pre></td>
+    <td><%= v.created_at %></td>
+  </tr>
+<% end %>
+</table>

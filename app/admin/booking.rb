@@ -36,6 +36,20 @@ ActiveAdmin.register Booking do
     actions
   end
 
+  controller do
+    def show
+        @booking  = Booking.includes(versions: :item).find_by_guid(params[:id])
+        @versions = @booking.versions
+        @booking  = @booking.versions[params[:version].to_i].reify if params[:version]
+        show! #it seems to need this
+
+#    @booking = Booking.find_by_guid(params[:id])
+#    @versions = @booking.versions
+    end
+  end
+  sidebar :versionate,  partial: "admin/version", only: :show
+  sidebar :history,     partial: "admin/history", only: :show #layout: false
+
   member_action :history do
     @booking = Booking.find_by_guid(params[:id])
     @versions = @booking.versions

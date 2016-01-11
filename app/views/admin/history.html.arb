@@ -1,3 +1,9 @@
 panel "Historia" do
-  table_for assigns[:versions]
+  table_for assigns[:versions] do
+    column :id
+    column :event
+    column :whodunnit
+    column :object
+    column "create_at",     :created_at
+  end
 end
