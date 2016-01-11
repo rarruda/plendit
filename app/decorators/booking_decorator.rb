@@ -28,10 +28,10 @@ class BookingDecorator < Draper::Decorator
 
   def display_status
     status_names = {
-      created:           'venter på svar', 
-      payment_preauthorized: 'venter på svar',      
-      confirmed:         'godtatt',  
-      payment_confirmed: 'godtatt',        
+      created:           'venter på svar',
+      payment_preauthorized: 'venter på svar',
+      confirmed:         'godtatt',
+      payment_confirmed: 'godtatt',
       started:           'startet',
       in_progress:       'pågår',
       ended:             'fullført',
@@ -40,10 +40,10 @@ class BookingDecorator < Draper::Decorator
       cancelled:         'avlyst',
       declined:          'avslått',
       payment_preauthorization_failed: 'betaling mislyktes',
-      payment_failed:    'betaling mislyktes', 
+      payment_failed:    'betaling mislyktes',
       disputed:          'avbrutt',
-      dispute_agree:     'avbrutt',         
-      dispute_diaagree:  'avbrutt',         
+      dispute_agree:     'avbrutt',
+      dispute_diaagree:  'avbrutt',
       admin_paused:      'stoppet av administrator',
     }
     status_names[status.to_sym]
