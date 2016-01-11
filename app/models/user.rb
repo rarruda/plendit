@@ -718,15 +718,15 @@ class User < ActiveRecord::Base
   def should_trigger_mangopay_refresh?
     self.payment_provider_vid.present? &&
     (
-      self.verification_level_changed? ||
       self.first_name_changed? ||
       self.last_name_changed?  ||
       self.email_changed?      ||
-      self.birthday_changed?
+      self.birthday_changed?   ||
+      self.verification_level_changed?   ||
+      self.country_of_residence_changed? ||
+      self.nationality_changed?
     )
 
-    #self.nationality.changed?
-    #self.country_of_residence.changed?
   end
 
   def set_public_name_from_first_name_on_create
