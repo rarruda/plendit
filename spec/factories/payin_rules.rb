@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :payin_rule do
-    ad nil
+    #ad nil
+    ad FactoryGirl.build(:ad)
     unit  'day'
     payin_amount 100_00
     effective_from 1
