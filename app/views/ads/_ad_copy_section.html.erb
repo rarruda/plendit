@@ -9,7 +9,7 @@
                 <% if pr.effective_from == 1 %>
                     <%= format_monetary_full_pretty pr.payin_amount %> per dag.  
                 <% else %>
-                    <%= format_monetary_full_pretty pr.payin_amount %> per dag om du leier mer enn <%= pr.effective_from %> dager. 
+                    <%= format_monetary_full_pretty pr.payin_amount %> per dag om du leier i mer enn <%= pr.effective_from %> dager. 
                 <% end %>
             </div>
         <% end %>
