@@ -3,6 +3,11 @@
 <div class="container">
     <div class="row">
         <div class="eight columns">
+
+            <% if @user.phone_pending_confirmation? && ! @user.unconfirmed_phone_number.blank?  %>
+                <%= render partial: 'verify_sms' %>
+            <% end %>
+
             <%= render layout: 'gray_box', locals: {title: 'Min profil'} do %>
                 <div class="biz-card">
                     <div class="biz-card__avatar">

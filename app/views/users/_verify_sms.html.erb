@@ -7,7 +7,7 @@
     <%= form_tag( verify_sms_users_path ) %>
         <div class="row">
             <div class="six columns">
-                <%= label_tag 'user[phone_number_confirmation_token]', "Kode fra SMS sendt til #{@user.unconfirmed_phone_number}" %>
+                <%= label_tag 'user[phone_number_confirmation_token]', "Kode sendt på SMS til #{@user.unconfirmed_phone_number}" %>
                 <%= text_field_tag 'user[phone_number_confirmation_token]', '', { class: 'u-full-width', maxlength: 8 }  %>
             </div>
             <div class="twelve columns">
