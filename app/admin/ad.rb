@@ -15,7 +15,7 @@ ActiveAdmin.register Ad do
     column(:status)   {|ad| status_tag(ad.status) }
 
     column :title
-    column :price
+    #column :price
 
     # fixme: can this use a decorated ad and display name?
     column("Owner") { |ad| link_to "#{ad.user.first_name} #{ad.user.last_name}", admin_user_path( ad.user.id ) }
@@ -30,7 +30,6 @@ ActiveAdmin.register Ad do
       f.input :user
       f.input :title
       f.input :body
-      f.input :price
       f.input :location, as: :select, collection: Hash[Location.all.map{|l| ["#{l.id} - #{l.address_line} - #{l.post_code}",l.id]}] #show address/etc
       f.input :status,   as: :select, collection: Ad.statuses.keys
       f.input :category, as: :select, collection: Ad.categories.keys
