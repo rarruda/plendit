@@ -7,6 +7,7 @@ class UserDecorator < Draper::Decorator
   decorates_association :received_messages
   decorates_association :received_feedbacks
   decorates_association :recent_feedback
+  decorates_association :user_documents
 
   def display_name
     self.public_name.blank? ? 'Navn mangler' : self.public_name
