@@ -266,7 +266,7 @@ class UsersController < ApplicationController
   def finish_signup
     # authorize! :update, @user
     if request.patch? && params[:user] #&& params[:user][:email]
-      if @user.update(user_params)
+      if @user.update(user_params) && @user.profile_complete? && @user.valid?
         @user.skip_reconfirmation!
         sign_in(@user, bypass: true)
         redirect_to private_profile_users_path

@@ -3,7 +3,7 @@
         <div class="eight columns">
             <h1>Vi trenger litt mer info fra deg...</h1>
             <p>
-                For å komme helt i gang!
+                For å komme helt i gang! Alle feltene er obligatoriske.
             </p>
             <%= form_for(current_user, as: 'user', url: finish_signup_users_path(current_user), html: { role: 'form'}) do |f| %>
                 <% if @show_errors && current_user.errors.any? %>
