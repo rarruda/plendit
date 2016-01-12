@@ -70,7 +70,7 @@ class BookingDecorator < Draper::Decorator
     case self.status
       when 'created'
         if is_owner
-          "Du har motatt en forespørsel fra #{from_name}."
+          "Du har mottatt en forespørsel fra #{from_name}."
         else
           "Du har sendt en forespørsel til #{to_name}."
         end
