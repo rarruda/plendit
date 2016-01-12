@@ -19,7 +19,7 @@ class BookingProcessPreauthJob < ActiveJob::Base
     if booking.financial_transactions.preauth.errored_or_unknown_state.any?
       # this will cancel all exiting (with status finished), preauths for this booking
 
-      booking.cancel_financial_transaction_preauth!
+      booking.cancel_all_financial_transaction_preauth!
       booking.payment_preauthorization_fail!
       puts "Booking changed status to: #{booking.status}"
 

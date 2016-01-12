@@ -476,7 +476,7 @@ class Booking < ActiveRecord::Base
 
   # Called from BookingCancelPreauthJob
   # Cancel all preauths connected to this booking which have finished status.
-  def cancel_financial_transaction_preauth!
+  def cancel_all_financial_transaction_preauth!
     self.financial_transactions.preauth.finished.map( &:process_cancel_preauth! )
   end
 
