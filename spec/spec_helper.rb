@@ -16,7 +16,7 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require 'webmock/rspec'
+#require 'webmock/rspec'
 require 'faker'
 
 Faker::Config.locale = 'nb-NO'

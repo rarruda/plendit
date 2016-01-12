@@ -33,7 +33,7 @@ gem 'rolify', '~> 4'
 gem 'time_splitter', '>= 1.1.0'
 gem 'validates_overlap'
 
-
+# payment gems:
 gem 'mangopay', '~> 3.0.18'
 gem 'ibanizator', '~> 0.3.1'
 gem 'mod11'
@@ -157,27 +157,42 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'guard-rspec', require: false
 
-  gem 'factory_girl_rails'
-
-  gem 'capybara'
-  gem 'capybara-screenshot'
-
-  # to generate fake data to rake db:seed the database:
-  gem 'faker'
-  # Consider using it later for future generation of seed data:
-  #gem 'seed_dump'
-
   # Trace every http call to the outside world that rails makes.
   gem 'httplog'
 
   # Ruby static code analyzer:
   gem 'rubocop'
   gem 'guard-rubocop', require: false
+
+
+  # static code analyzer, for security issues
+  # https://github.com/presidentbeef/brakeman
+  # gem 'brakeman', require: false
+
+end
+
+group :development do
+
+  #gem 'letter_opener'
 end
 
 group :test do
   # mock/prevent http calls from going out to the world
-  gem 'webmock'
+  #gem 'webmock'
+  gem 'capybara'
+  #gem 'capybara-webkit'
+  gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
+  gem 'factory_girl_rails'
+
+  # to read on, for keeping the database clean:
+  # https://github.com/DatabaseCleaner/database_cleaner
+  #gem 'database_cleaner'
+
+  # to generate fake data to rake db:seed the database:
+  gem 'faker'
+  # Consider using it later for future generation of seed data:
+  #gem 'seed_dump'
 end
 
 group :production do
