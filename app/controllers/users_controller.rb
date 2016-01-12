@@ -129,13 +129,11 @@ class UsersController < ApplicationController
         title: 'Telefonnummer',
         preverify_prose: %q(
           For at du skal kunne legge ut annonser eller leie
-          noe på Plendit så må telefonnummeret ditt godkjennes.
-          Vi har sendt deg en SMS. Hvis du ikke har mottatt den
-          kan du trykke på "verifiser" lenken for å få tilsendt
-          en ny.
+          noe på Plendit, må telefonnummeret ditt godkjennes.
+         Klikk på på verifiser-lenken for å verifisere telefonnummeret ditt.
         ),
         preverify_action: 'Verifiser',
-        postverify_prose: 'Telefonnummer er verifisert',
+        postverify_prose: 'Telefonnummer er verifisert.',
         state: user.phone_verified? ? :verified : :missing,
         path: verify_mobile_users_path,
       }),
@@ -149,7 +147,7 @@ class UsersController < ApplicationController
           en ny.
         ),
         preverify_action: 'Verifiser',
-        postverify_prose: 'E-post er verifisert',
+        postverify_prose: 'E-post er verifisert.',
         state: user.email_verified? ? :verified : :missing,
         rejection_reason: nil,
         path: verify_email_users_path,
@@ -166,8 +164,8 @@ class UsersController < ApplicationController
           førerkort godkjennes.
         ),
         preverify_action: 'Last opp',
-        postverify_prose: 'Førerkort er godkjent',
-        pending_prose: 'Til kontroll',
+        postverify_prose: 'Førerkort er godkjent.',
+        pending_prose: 'Til kontroll.',
         rejected_prose: 'Ikke godkjent.',
         state: user.drivers_license_status,
         rejection_reason: user.drivers_license_rejection_reason,
@@ -181,8 +179,8 @@ class UsersController < ApplicationController
           Førerkort vil automatisk gjelde som identitetsbevis.
         ),
         preverify_action: 'Last opp',
-        postverify_prose: 'ID-kort er godkjent',
-        pending_prose: 'Til kontroll',
+        postverify_prose: 'ID-kort er godkjent.',
+        pending_prose: 'Til kontroll.',
         rejected_prose: 'Ikke godkjent.',
         state: user.has_confirmed_id? ? :verified : user.id_card_status,
         rejection_reason: user.drivers_license_rejection_reason,
@@ -194,8 +192,8 @@ class UsersController < ApplicationController
           For at du skal kunne leie en båt med seil eller motor på Plendit, må du være født før 1980 eller laste opp ditt båtførerbevis.
         ),
         preverify_action: 'Last opp',
-        postverify_prose: 'Båtførerbevis godkjent',
-        pending_prose: 'Til kontroll',
+        postverify_prose: 'Båtførerbevis godkjent.',
+        pending_prose: 'Til kontroll.',
         rejected_prose: 'Ikke godkjent.',
         state: user.boat_rental_allowed? ? :verified : user.boat_license_status,
         rejection_reason: user.boat_license_rejection_reason,
