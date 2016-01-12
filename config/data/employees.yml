@@ -1,14 +1,17 @@
-- name: Plendosaurus Rex
+- name: Trygve Leite
   image: plendbot/robot_profile_01.png
-  bio: |
-    Rawr!
-    Multiline bio!
-
-- name: Plendbot
-  image: plendbot/robot_profile_02.png
-  bio: Woo! Single line bio!
-
-- name: Plendzilla
+  bio:
+- name: Jan Erik Berentsen
+  image: plendbot/robot_profile_01.png
+  bio:
+- name: Eirik Dysthe
   image: plendbot/robot_profile_03.png
-  bio: |
-    Grar!
+  bio:
+- name: Rune Halvorsen
+  image: plendbot/robot_profile_03.png
+- name: Renato Arruda
+  image: plendbot/robot_profile_02.png
+  bio:
+- name: Espen Bordvik
+  image: plendbot/robot_profile_02.png
+  bio:
