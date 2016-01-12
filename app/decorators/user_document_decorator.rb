@@ -4,13 +4,13 @@ class UserDocumentDecorator < Draper::Decorator
 
   def display_category
     names = {
-     unknown: 'dnknown',
-     drivers_license_front: 'driver\'s license (front)',
-     drivers_license_back: 'driver\'s license (back)',
-     boat_license: 'boat license',
-     passport: 'passport',
-     id_card: 'ID card',
-     other: 'other'
+     unknown: 'Ukjent',
+     drivers_license_front: 'Førerkort',
+     drivers_license_back: 'Førerkort (bakside)',
+     boat_license: 'Båtførerbevis',
+     passport: 'Pass',
+     id_card: 'ID-kort',
+     other: 'Annet'
    }
    names[category.to_sym]
   end
