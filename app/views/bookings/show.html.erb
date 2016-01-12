@@ -13,6 +13,10 @@
         <%= render partial: 'booking_summary' %>
     </div>
 
+    <% if current_user.owns_booking_item?(@booking) && @booking.ad.motor? && ( @booking.started? || @booking.in_progress? ) %>
+        <%= render partial: 'booking_deposit' %>
+    <% end %>
+
     <% if @booking.may_give_feedback? %>
         <div class="u-push-down">
             <%# FIXME: TODO runeh cond around has_provided_feedback %>
