@@ -7,9 +7,9 @@
         <% @ad.payin_rules.effective_from_asc.each do |pr| %>
             <div>
                 <% if pr.effective_from == 1 %>
-                    Pris per dag: <%= format_monetary_full_pretty pr.payin_amount %>
+                    <%= format_monetary_full_pretty pr.payin_amount %> per dag.  
                 <% else %>
-                    Ved utleie over <%= pr.effective_from %> dager reduseres prisen til <%= format_monetary_full_pretty pr.payin_amount %> per dag.
+                    <%= format_monetary_full_pretty pr.payin_amount %> per dag om du leier mer enn <%= pr.effective_from %> dager. 
                 <% end %>
             </div>
         <% end %>
