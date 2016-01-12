@@ -265,7 +265,7 @@ class UsersController < ApplicationController
   # GET/PATCH /users/:id/finish_signup
   def finish_signup
     # authorize! :update, @user
-    if request.patch? && params[:user] #&& params[:user][:email]
+    if request.patch? && params[:user]
       if @user.update(user_params) && @user.profile_complete? && @user.valid?
         @user.skip_reconfirmation!
         sign_in(@user, bypass: true)
@@ -354,8 +354,10 @@ class UsersController < ApplicationController
         :country_of_residence,
         :current_phone_number,
         :email,
+        :first_name,
         :home_address_line,
         :home_post_code,
+        :last_name,
         :nationality,
         :password,
         :password_confirmation,
