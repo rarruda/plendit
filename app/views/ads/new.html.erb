@@ -2,6 +2,17 @@
     <div class="row">
         <div class="twelve columns">
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
+
+            <% if current_user.can_rent_out? %>
+                <div class="u-push-down">
+                    <strong>
+                        Du må verifisere din bruker med epost og telefonnummer for å
+                        legge ut annonser. Dette kan du fikse på
+                        <%= link_to 'Min dokumentasjon', private_profile_users_path %>
+                    </strong>
+                </div>
+            <% end %>
+
             <div class="new-ad-category-selector">
                 <% @ad_categories.each_with_index do |a, index| %>
                     <%= button_to(ads_create_users_path,
@@ -20,17 +31,6 @@
                     <% end %>
                 <% end %>
             </div>
-            <% unless current_user.can_rent_out? %>
-                    <strong>
-                        Du må verifisere din bruker med epost og telefonnummer for å
-                        legge ut annonser. Dette kan du fikse på
-                        <%= link_to 'Min dokumentasjon', private_profile_users_path %>
-                        
-                    </strong>
-                    </div>
-                <div class="u-push-down-only">
-                </div>
-            <% end %>
         </div>
     </div>
 
