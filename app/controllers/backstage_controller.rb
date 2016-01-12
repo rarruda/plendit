@@ -43,6 +43,9 @@ class BackstageController < ApplicationController
         elsif params[:commit] == 'approve'
           @user_document.approved!
         end
+        unless @user_document.drivers_license_back?
+          notify_about_kyc @user_document
+        end
       else
         # was not able to update, likely a validation error.
       end
@@ -59,6 +62,15 @@ class BackstageController < ApplicationController
   end
 
   private
+
+  def notify_about_kyc doc
+    msg = "#{doc.display_category} ble #{doc.approved? ? 'godkjent' : 'avvist'}."
+    Notification.new(
+      user_id: doc.user.id,
+      is_system_message: true,
+      message: msg,
+      notifiable: doc).save
+  end
 
   def kyc_params
     params.require(:user_document).permit(:rejection_reason, :expires_at,
