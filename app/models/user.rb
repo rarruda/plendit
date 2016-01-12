@@ -443,7 +443,7 @@ class User < ActiveRecord::Base
       self.nationality,
       self.phone_number,
       self.email
-    ].all?
+    ].map(&:present?).all?
   end
   alias_method :mangopay_provisionable?, :profile_complete?
 
