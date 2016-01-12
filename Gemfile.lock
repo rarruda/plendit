@@ -232,8 +232,6 @@ GEM
       has_scope (~> 0.6.0.rc)
       railties (>= 3.2, < 5)
       responders
-    intercom-rails (0.2.29)
-      activesupport (> 3.0)
     jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -595,7 +593,6 @@ DEPENDENCIES
   html_pipeline_rails
   httplog
   ibanizator (~> 0.3.1)
-  intercom-rails
   jbuilder (~> 2.0)
   jquery-rails
   kaminari

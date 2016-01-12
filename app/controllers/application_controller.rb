@@ -3,11 +3,16 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-
   before_action :force_http_authentication
+
+  before_action :enable_chat
 
 
   private
+
+  def enable_chat
+    @purechat_enabled = Plendit::Application.config.x.purechat_integration
+  end
 
   # Force basic http authentication for the entire app, except in some callback urls:
   #PCONF_HTTP_AUTH_CRED_LIST="user:secret,user2:password2"

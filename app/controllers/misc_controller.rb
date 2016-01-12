@@ -1,7 +1,5 @@
 class MiscController < ApplicationController
-  layout "article", only: [ :about, :contact, :help, :privacy, :terms, :issues ]
-
-  skip_after_filter :intercom_rails_auto_include, only: [ :about ]
+  layout 'article', only: [ :about, :contact, :help, :privacy, :terms, :issues ]
 
   def frontpage
     @hide_search_field = true
@@ -20,7 +18,7 @@ class MiscController < ApplicationController
   end
 
   def postal_place
-    render text: ( params[:postal_code].length == 4 ? ( POSTAL_CODES[params[:postal_code]] || "ugyldig" ) : "Poststed..." )
+    render text: ( params[:postal_code].length == 4 ? ( POSTAL_CODES[params[:postal_code]] || 'ugyldig' ) : 'Poststed...' )
   end
 
   def terms
