@@ -362,6 +362,7 @@ class UsersController < ApplicationController
         :password,
         :password_confirmation,
         :personhood,
+        :phone_number,
         :phone_number_confirmation_token,
         :public_name,
          user_images_attributes: [:id, :image, :category],

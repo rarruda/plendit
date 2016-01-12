@@ -39,6 +39,15 @@
                     </div>
                 <% end %>
 
+                <% if current_user.phone_number.blank? %>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :phone_number, 'Mobilnummer:', class: 'u-full-width' %>
+                            <%= f.text_field :phone_number, class: 'u-full-width' %>
+                        </div>
+                    </div>
+                <% end %>
+
                 <% if current_user.birthday.blank? %><%# current_user.has_confirmed_id? %>
                     <div class="row">
                         <div class="two-thirds column">
