@@ -45,6 +45,8 @@ class ApplicationMailer < ActionMailer::Base
     attach_files << "Forsikringsbevis_Innbo.pdf"                      if @booking.ad.realestate?
     attach_files << "Forsikringsvilkaar_Korttidsforsikring_Innbo.pdf" if @booking.ad.realestate?
     attach_files << "Forsikringsvilkaar_Korttidsforsikring_motorvogn.pdf" if @booking.ad.motor?
+    attach_files << "Forsikringsvilkaar_Korttidsforsikring_Baat.pdf"  if @booking.ad.boat?
+    attach_files << "Sammendrag_av_Korttidsforsikring_Baat.pdf"       if @booking.ad.boat?
 
     if @booking.ad.motor?
       attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Bil.pdf"     if @booking.ad.car?
