@@ -19,6 +19,9 @@
 # ignore directory where paperclip leaves its files:
 /public/system/
 
+# ignore generated assets:
+/public/assets/
+
 # for now ignore auto-generated documentation:
 /doc
 
