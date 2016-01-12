@@ -15,7 +15,7 @@ class UserPaymentCardDecorator < Draper::Decorator
   end
 
   def pretty_number_alias
-    object.number_alias.scan(/.{4}/).join('&nbsp;').html_safe
+    object.number_alias.scan(/.{4}/).join(' ').html_safe
   end
 
   def pretty_expiration_date
