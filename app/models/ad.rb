@@ -28,7 +28,7 @@ class Ad < ActiveRecord::Base
   validates :title, length: { in: 3..255 , message: 'Annonsen må ha en tittel.' },
     unless: :new_record?
 
-  validates :body, length: { in: 5..255 , message: 'Annonsen må ha en beskrivelse.' },
+  validates :body, length: { in: 5..12000 , message: 'Annonsen må ha en beskrivelse.' },
     unless: :new_record?
 
   validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: 'Annonsen må ha et gyldig reg.nr.' },
