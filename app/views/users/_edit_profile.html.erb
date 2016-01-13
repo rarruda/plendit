@@ -128,7 +128,7 @@
                             <% end %>
                         </small>
                     </div>
-                <% else %>
+                <% elsif @user.phone_verified? %>
                     <div>
                         <%= icon 'check', class: 'fa-lg' %>
                         <% if @user.unconfirmed_phone_number.present? %>
@@ -136,6 +136,13 @@
                         <% else %>
                             <small>Telefonnummeret er bekreftet!</small>
                         <% end %>
+                    </div>
+                <% else %>
+                    <div>
+                        <%= icon 'exclamation-triangle', class: 'fa-lg' %>
+                        <small>
+                            Telefonnummer er ikke bekreftet!
+                        </small>
                     </div>
                 <% end %>
             </div>
