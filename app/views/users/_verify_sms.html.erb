@@ -8,7 +8,7 @@
         <div class="row">
             <div class="six columns">
                 <%= label_tag 'user[phone_number_confirmation_token]', "Kode sendt på SMS til #{@user.unconfirmed_phone_number}" %>
-                <%= text_field_tag 'user[phone_number_confirmation_token]', '', { class: 'u-full-width', maxlength: 8 }  %>
+                <%= text_field_tag 'user[phone_number_confirmation_token]', nil, class: 'u-full-width', maxlength: 8, placeholder: 'Ditt mobilnummer' %>
             </div>
             <div class="twelve columns">
                 <%= submit_tag 'Bekreft', class: 'u-pull-right button' %>
