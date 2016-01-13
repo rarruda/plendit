@@ -16,14 +16,12 @@
                     </div>
                 <% end %>
 
-                <% if current_user.email.blank? %>
                     <div class="row">
                         <div class="two-thirds column">
                             <%= f.label :email, 'E-post:', class: 'u-full-width' %>
                             <%= f.text_field :email, autofocus: true, required: true, class: 'u-full-width' %>
                         </div>
                     </div>
-                <% end %>
 
                 <% if current_user.first_name.blank? %>
                     <div class="row">
