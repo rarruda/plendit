@@ -52,7 +52,7 @@
                     <div class="row">
                         <div class="two-thirds column">
                             <%= f.label :birthday, 'Fødselsdato:', class: 'u-full-width' %>
-                            <%= f.date_select :birthday, start_year: 110.years.ago.year, end_year: 18.years.ago.year, disabled: @user.has_confirmed_id? %>
+                            <%= f.date_select :birthday, start_year:  18.years.ago.year, end_year: 110.years.ago.year, disabled: @user.has_confirmed_id? %>
                         </div>
                     </div>
                 <% end %>
