@@ -709,7 +709,7 @@ class User < ActiveRecord::Base
 
   def validate_unconfirmed_phone_number_is_unique
     if User.find_by(phone_number: self.unconfirmed_phone_number).present?
-      errors.add(:unconfirmed_phone_number, "Dette telefonnummeret er koblet til en annen bruker")
+      errors.add("Dette telefonnummeret er koblet til en annen bruker.")
     end
   end
 
