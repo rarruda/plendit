@@ -2,22 +2,51 @@
     sender_user  = @booking.from_user
     rcpt_user    = @booking.user
 %>
+
 <p>
     Hei, <%= rcpt_user.first_name %>
 </p>
+
 <p>
     <%= link_to sender_user.first_name, user_url( sender_user ) %> ønsker å leie
     <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>. Du svarer på
-    forespørselen på Plendit, lenken rett til bookingen finner du nederst i e-posten.
+    forespørselen på Plendit, lenken til bookingen finner du nederst i e-posten.
 </p>
+
 <table>
-    <tr> <td>Fra:</td> <td><%= l @booking.starts_at, format: :shorter_datetime %></td> </tr>
-    <tr> <td>Til:</td> <td><%= l @booking.ends_at, format: :shorter_datetime %></td> </tr>
-    <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
-    <tr> <td></td> <td></td> </tr>
-    <tr> <td>Utbetalt til deg:</td> <td><%= format_monetary_full_pretty @booking.sum_paid_to_owner %></td> </tr>
+    <tr>
+        <th style="font-style: normal;font-weight: 400;Margin-bottom: 5px;Margin-top: 25px;font-size: 15px;line-height: 24px;font-family: "Lato",sans-serif;color: #60666d;text-align: left;">Fra:</th>
+        <td>
+            <%= l @booking.starts_at, format: :shorter_datetime %>
+        </td>
+    </tr>
+    <tr>
+        <th style="font-style: normal;font-weight: 400;Margin-bottom: 5px;Margin-top: 25px;font-size: 15px;line-height: 24px;font-family: "Lato",sans-serif;color: #60666d;text-align: left;">Til:</th>
+        <td>
+            <%= l @booking.ends_at, format: :shorter_datetime %>
+        </td>
+    </tr>
+    <tr>
+        <th style="font-style: normal;font-weight: 400;Margin-bottom: 5px;Margin-top: 25px;font-size: 15px;line-height: 24px;font-family: "Lato",sans-serif;color: #60666d;text-align: left;">
+            Antall dager:
+        </th>
+        <td>
+            <%= @booking.days %>
+        </td>
+    </tr>
+    <tr>
+        <td></td><td></td>
+    </tr>
+    <tr>
+        <th style="font-style: normal;font-weight: 400;Margin-bottom: 5px;Margin-top: 25px;font-size: 15px;line-height: 24px;font-family: "Lato",sans-serif;color: #60666d;text-align: left;">
+            Utbetalt til deg:
+        </th>
+        <td style="font-style: normal;font-weight: 400;Margin-bottom: 5px;Margin-top: 25px;font-size: 15px;line-height: 24px;font-family: "Lato",sans-serif;color: #60666d;text-align: left;">
+            <%= format_monetary_full_pretty @booking.sum_paid_to_owner %>
+        </td>
+    </tr>
 </table>
 
 <p>
-    <%= link_to 'Gå til booking', booking_url( @booking )%>
+    <%= link_to 'Gå til booking', booking_url( @booking ) %>
 </p>
