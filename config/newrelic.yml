@@ -30,11 +30,13 @@ common: &default_settings
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
+  # It slows down to much running locally in development.
+  monitor_mode: false
   app_name: Plendit (Development)
 
   # NOTE: There is substantial overhead when running in developer mode.
   # Do not use for production or load testing.
-  developer_mode: true
+  #developer_mode: true
 
 test:
   <<: *default_settings
