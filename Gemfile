@@ -177,8 +177,6 @@ group :development do
 end
 
 group :test do
-  # mock/prevent http calls from going out to the world
-  #gem 'webmock'
   gem 'capybara'
   #gem 'capybara-webkit'
   gem 'capybara-screenshot'
@@ -193,6 +191,10 @@ group :test do
   gem 'faker'
   # Consider using it later for future generation of seed data:
   #gem 'seed_dump'
+
+  # mock/prevent http calls from going out to the world
+  gem 'webmock'
+  gem 'vcr'
 end
 
 group :production do
