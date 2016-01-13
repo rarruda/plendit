@@ -2,6 +2,8 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!, except: [:show, :finish_signup]
 
+  before_action :finish_signup!, except: [:show, :finish_signup]
+
   before_action :set_user, only: [
     :bank_account,
     :confirmation,
@@ -273,6 +275,12 @@ class UsersController < ApplicationController
       else
         @show_errors = true
       end
+    end
+  end
+
+  def finish_signup!
+    unless current_user.mangopay_provisionable?
+      redirect_to finish_signup_users_path
     end
   end
 
