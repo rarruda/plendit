@@ -262,7 +262,7 @@ class UsersController < ApplicationController
 
   # FIXME: eventually we should support deleting avatars.
 
-  # GET/PATCH /users/:id/finish_signup
+  # GET/PATCH /me/finish_signup
   def finish_signup
     # authorize! :update, @user
     if request.patch? && params[:user]
@@ -336,45 +336,47 @@ class UsersController < ApplicationController
     head :ok
   end
 
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      # Use preferably the user_id in the URL. Otherwise fall back to user_id of
-      # the logged in user. Note sure this is super wise.
-      @user = ( params[:id] ? User.find( params[:id] ) : current_user )
-    end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    # Use preferably the user_id in the URL. Otherwise fall back to user_id of
+    # the logged in user. Note sure this is super wise.
+    @user = ( params[:id] ? User.find( params[:id] ) : current_user )
+  end
 
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    # NOTE/FIXME: birthday should only be allowed if the user verification_level is 0/not_verified.
-    def user_params
-      params.require(:user).permit(
-        :about,
-        :birthday,
-        :country_of_residence,
-        :current_phone_number,
-        :email,
-        :first_name,
-        :home_address_line,
-        :home_post_code,
-        :last_name,
-        :nationality,
-        :password,
-        :password_confirmation,
-        :personhood,
-        :phone_number,
-        :phone_number_confirmation_token,
-        :public_name,
-         user_images_attributes: [:id, :image, :category],
-         identity_attributes: [:provider]
-      )
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  # NOTE/FIXME: birthday should only be allowed if the user verification_level is 0/not_verified.
+  def user_params
+    params.require(:user).permit(
+      :about,
+      :birthday,
+      :country_of_residence,
+      :current_phone_number,
+      :email,
+      :first_name,
+      :home_address_line,
+      :home_post_code,
+      :last_name,
+      :nationality,
+      :password,
+      :password_confirmation,
+      :personhood,
+      :phone_number,
+      :phone_number_confirmation_token,
+      :public_name,
+       user_images_attributes: [:id, :image, :category],
+       identity_attributes: [:provider]
+    )
+  end
 
-    def set_user_payment_account
-      @user_payment_account = current_user.user_payment_account || current_user.build_user_payment_account
-    end
+  def set_user_payment_account
+    @user_payment_account = current_user.user_payment_account || current_user.build_user_payment_account
+  end
 
-    def user_payment_account_params
-      params.require(:user_payment_account).permit(:bank_account_number) || nil
-    end
+  def user_payment_account_params
+    params.require(:user_payment_account).permit(:bank_account_number) || nil
+  end
 end
