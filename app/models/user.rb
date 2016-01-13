@@ -427,12 +427,10 @@ class User < ActiveRecord::Base
   end
 
   def has_bank_account?
-    self.user_payment_account.present? && self.user_payment_account.bank_account_number
+    self.user_payment_account.present? && self.user_payment_account.bank_account_number.present?
   end
 
-  # Same as in MangopayService:
-  # mangopay_provisionable?
-  def profile_complete?
+  def mangopay_provisionable?
     [
       self.first_name,
       self.last_name,
@@ -441,11 +439,12 @@ class User < ActiveRecord::Base
       self.personhood,
       self.country_of_residence,
       self.nationality,
-      self.phone_number,
-      self.email
     ].map(&:present?).all?
   end
-  alias_method :mangopay_provisionable?, :profile_complete?
+
+  def profile_complete?
+    self.mangopay_provisionable? && self.phone_number.present?
+  end
 
   def mangopay_provisioned?
     if self.payment_provider_vid.blank? ||
