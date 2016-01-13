@@ -8,9 +8,11 @@
             <%= form_for(current_user, as: 'user', url: finish_signup_users_path(current_user), html: { role: 'form'}) do |f| %>
                 <% if @show_errors && current_user.errors.any? %>
                     <div id="error_explanation">
-                        <% current_user.errors.full_messages.each do |msg| %>
-                            <%= msg %><br>
-                        <% end %>
+                        <ul>
+                            <% current_user.errors.full_messages.each do |message| %>
+                                <li><%= message %></li>
+                            <% end %>
+                        </ul>
                     </div>
                 <% end %>
 
