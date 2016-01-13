@@ -1,19 +1,21 @@
 <%
-   sender_user  = @booking.from_user
-   rcpt_user    = @booking.user
+    sender_user  = @booking.from_user
+    rcpt_user    = @booking.user
 %>
 <p>
-  Hei, <%= rcpt_user.first_name %>
+    Hei, <%= rcpt_user.first_name %>
 </p>
 <p>
-  <%= link_to sender_user.first_name, user_url( sender_user ) %> ønsker å leie <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>. Du svarer på forespørselen på Plendit, lenken rett til bookingen finner du nederst i e-posten.
+    <%= link_to sender_user.first_name, user_url( sender_user ) %> ønsker å leie
+    <%= link_to @booking.ad.title, ad_url( @booking.ad ) %>. Du svarer på
+    forespørselen på Plendit, lenken rett til bookingen finner du nederst i e-posten.
 </p>
 <table>
-  <tr> <td>Fra:</td> <td><%= l @booking.starts_at, format: :shorter_datetime %></td> </tr>
-  <tr> <td>Til:</td> <td><%= l @booking.ends_at, format: :shorter_datetime %></td> </tr>
-  <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
-  <tr> <td></td> <td></td> </tr>
-  <tr> <td>Utbetalt til deg:</td> <td><%= format_monetary_full_pretty @booking.sum_paid_to_owner %></td> </tr>
+    <tr> <td>Fra:</td> <td><%= l @booking.starts_at, format: :shorter_datetime %></td> </tr>
+    <tr> <td>Til:</td> <td><%= l @booking.ends_at, format: :shorter_datetime %></td> </tr>
+    <tr> <td>Antall dager:</td> <td><%= @booking.days %></td> </tr>
+    <tr> <td></td> <td></td> </tr>
+    <tr> <td>Utbetalt til deg:</td> <td><%= format_monetary_full_pretty @booking.sum_paid_to_owner %></td> </tr>
 </table>
 
 <p>
