@@ -3,7 +3,7 @@
         <div class="twelve columns">
             <h1 class="u-push-down">Hva vil du leie ut?</h1>
 
-            <% if current_user.can_rent_out? %>
+            <% unless current_user.can_rent_out? %>
                 <div class="u-push-down">
                     <strong>
                         Du må verifisere din bruker med epost og telefonnummer for å
