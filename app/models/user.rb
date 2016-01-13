@@ -189,52 +189,21 @@ class User < ActiveRecord::Base
     # Create the user if needed
     if user.nil?
 
-      # Get the existing user by email if the provider gives us a verified email.
-      # If no verified email was provided we assign a temporary email and ask the
-      # user to verify it on the next step via UsersController.finish_signup
-
-      email_is_verified = false
-
-      case auth.provider
-      when 'facebook'
-        email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email || auth.extra.raw_info.email_verified)
-      when 'spid'
-        #email_is_verified = auth.info.email && (auth.info.verified || auth.info.verified_email || auth.extra.raw_info.email_verified)
-        auth.extra.raw_info.emails.each{ |e|
-          email_is_verified = true if e.value == auth.info.email and e.verified
-        }
-        # or could be done by checking that emailVerified is not 0000 or after sometime in 2000.
-      when 'google'
-        email_is_verified = true if [true, "true"].include? auth.extra.raw_info.email_verified
-      else
-        email_is_verified = false
-      end
-
-      email = auth.info.email if email_is_verified
-      user = User.where(email: email).first if email
-
-
-      #
-      # We need serious refactoring.
-      #
-
+      # Get the existing user by email if the provider gives us an email.
+      user = User.where(email: auth.info.email).first if auth.info.email.present?
 
       # Create the user if it's a new registration (IE, email already not registered in our db)
       if user.nil?
-        user = User.new(
+        user = User.create(
           name:        auth.info.name,
           public_name: auth.info.first_name,
           first_name:  auth.info.first_name,
           last_name:   auth.info.last_name,
-          #birthday:   auth.info.birthday, #<-- not sure all oauth providers provide this field... possibly different formats too.
-          email:       email ? email : "temp-#{auth.uid}@#{auth.provider}.com",
+          email:       auth.info.email,
           image_url:   auth.info.image,
           password:    Devise.friendly_token[0,20],
           personhood:  :natural
         )
-        user.skip_confirmation! ###### <== funny business of skipping confimation even if we have an invalid email.
-        ############################## we probably to always have an email confirmed.
-        user.save!
       end
     end
 

@@ -5,6 +5,14 @@ module SmsVerifiable
     self.unconfirmed_phone_number.blank? ? self.phone_number : self.unconfirmed_phone_number
   end
 
+  def current_phone_number= number
+    if self.phone_number == number
+      self.unconfirmed_phone_number = nil
+    else
+      self.unconfirmed_phone_number = number
+    end
+  end
+
   # do all transformations for phone_number confirmation.
   def confirm_phone_number!
     if self.unconfirmed_phone_number.nil?

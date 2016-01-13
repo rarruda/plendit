@@ -78,6 +78,7 @@ class UsersController < ApplicationController
     @card = current_user.boat_license
   end
 
+  # FIXME: need to flush some logic down to the model.
   # GET/POST verify/mobile
   def verify_mobile
     if request.post?
@@ -228,18 +229,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   def update
 
-    # TODO: move this code to its own method.
-    # cleaner solution suggestion: http://stackoverflow.com/a/20533963/2455161
-    user_params_safe = user_params
-    if @user.phone_number != user_params['current_phone_number']
-      user_params_safe['unconfirmed_phone_number'] = user_params['current_phone_number']
-    else
-      user_params_safe['unconfirmed_phone_number'] = nil
-    end
-    user_params_safe.except!('current_phone_number')
-
-
-    if @user.update(user_params_safe)
+    if @user.update(user_params)
       # annoying that we have to save first up there and then save again below: #@user.user_images.avatar.empty?
       if not @user.user_images.avatar.first.image_file_name.blank?
         @user.image_url = @user.user_images.avatar.first.image.url(:avatar_huge)
@@ -268,7 +258,7 @@ class UsersController < ApplicationController
   def finish_signup
     # authorize! :update, @user
     if request.patch? && params[:user]
-      if @user.update(user_params) && @user.profile_complete? && @user.valid?
+      if @user.update(user_params) && @user.mangopay_provisionable? && @user.valid?
         @user.skip_reconfirmation!
         sign_in(@user, bypass: true)
         redirect_to private_profile_users_path
@@ -372,7 +362,7 @@ class UsersController < ApplicationController
       :password,
       :password_confirmation,
       :personhood,
-      :phone_number,
+      #:phone_number,
       :phone_number_confirmation_token,
       :public_name,
        user_images_attributes: [:id, :image, :category],

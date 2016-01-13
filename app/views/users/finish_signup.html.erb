@@ -5,7 +5,7 @@
             <p>
                 For å komme helt i gang! Alle feltene er obligatoriske.
             </p>
-            <%= form_for(current_user, as: 'user', url: finish_signup_users_path(current_user), html: { role: 'form'}) do |f| %>
+            <%= form_for(current_user, as: 'user', url: finish_signup_users_path, html: { role: 'form'}) do |f| %>
                 <% if @show_errors && current_user.errors.any? %>
                     <div id="error_explanation">
                         <ul>
@@ -43,23 +43,25 @@
                     </div>
                 <% end %>
 
-                <% if current_user.phone_number.blank? %>
+                <% if current_user.current_phone_number.blank? %>
                     <div class="row">
                         <div class="two-thirds column">
-                            <%= f.label :phone_number, 'Mobilnummer:', class: 'u-full-width' %>
-                            <%= f.text_field :phone_number, class: 'u-full-width' %>
+                            <%= f.label :current_phone_number, 'Mobilnummer:', class: 'u-full-width' %>
+                            <%= f.text_field :current_phone_number, maxlength: 8, class: 'u-full-width' %>
                         </div>
                     </div>
                 <% end %>
 
-                <% if current_user.birthday.blank? %>
+                <%# HACK: we keep the birthday always updateable, so, there is always something to be updated and the
+                     if check for @user.update(user_params) always passes as long as the content is minimally valid %>
+                <%# if current_user.birthday.blank? %>
                     <div class="row">
                         <div class="two-thirds column">
                             <%= f.label :birthday, 'Fødselsdato:', class: 'u-full-width' %>
                             <%= f.date_select :birthday, start_year:  18.years.ago.year, end_year: 110.years.ago.year, disabled: @user.has_confirmed_id? %>
                         </div>
                     </div>
-                <% end %>
+                <%# end %>
 
                 <% if current_user.country_of_residence.blank? %>
                     <div class="row">
