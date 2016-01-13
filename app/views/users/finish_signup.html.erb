@@ -14,12 +14,14 @@
                     </div>
                 <% end %>
 
-                <div class="row">
-                    <div class="two-thirds column">
-                        <%= f.label :email, 'E-post:', class: 'u-full-width' %>
-                        <%= f.text_field :email, autofocus: true, required: true, class: 'u-full-width' %>
+                <% if current_user.email.blank? %>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :email, 'E-post:', class: 'u-full-width' %>
+                            <%= f.text_field :email, autofocus: true, required: true, class: 'u-full-width' %>
+                        </div>
                     </div>
-                </div>
+                <% end %>
 
                 <% if current_user.first_name.blank? %>
                     <div class="row">
@@ -48,7 +50,7 @@
                     </div>
                 <% end %>
 
-                <% if current_user.birthday.blank? %><%# current_user.has_confirmed_id? %>
+                <% if current_user.birthday.blank? %>
                     <div class="row">
                         <div class="two-thirds column">
                             <%= f.label :birthday, 'Fødselsdato:', class: 'u-full-width' %>
@@ -57,19 +59,23 @@
                     </div>
                 <% end %>
 
-                <div class="row">
-                    <div class="two-thirds column">
-                        <%= f.label :country_of_residence, 'Bosatt i:', class: 'u-full-width' %>
-                        <%= f.country_select( :country_of_residence, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+                <% if current_user.country_of_residence.blank? %>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :country_of_residence, 'Bosatt i:', class: 'u-full-width' %>
+                            <%= f.country_select( :country_of_residence, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+                        </div>
                     </div>
-                </div>
+                <% end %>
 
-                <div class="row">
-                    <div class="two-thirds column">
-                        <%= f.label :nationality, 'Statsborgerskap:', class: 'u-full-width' %>
-                        <%= f.country_select( :nationality, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+                <% if current_user.nationality.blank? %>
+                    <div class="row">
+                        <div class="two-thirds column">
+                            <%= f.label :nationality, 'Statsborgerskap:', class: 'u-full-width' %>
+                            <%= f.country_select( :nationality, priority_countries: ['NO', 'SE', 'DK', 'FI', 'PL', 'DE'], format: :with_flag) %>
+                        </div>
                     </div>
-                </div>
+                <% end %>
 
 
                 <div class="actions">
