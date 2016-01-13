@@ -16,7 +16,7 @@ nb:
       not_found_in_database: "Ugyldig e-post eller passord."
       timeout: "Din sesjon er utløpt. Logg inn igjen for å kunne fortsette."
       unauthenticated: "Du må logge inn eller registrere deg for å kunne fortsette."
-      unconfirmed: "Du må bekrefte kontoen din for å kunne fortsette."
+      unconfirmed: "Vi har sendt deg en epost hvor du kan bekrefte kontoen din og logge inn."
     mailer:
       confirmation_instructions:
         subject: "Bekreftelsesinstruksjoner"
