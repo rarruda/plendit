@@ -28,6 +28,8 @@ class BookingCalculator
       nil
     when :motor
       nil
+    when :realestate
+      nil
     else
       ( self.payin_amount(payin_rule) * Plendit::Application.config.x.insurance.max_coverage_factor[self.ad.category.to_sym] ).round
     end
