@@ -19,6 +19,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         sign_in_and_redirect @user, event: :authentication
         set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
       else
+        # fixme: this never happens, if it does, the code below is probably wrong.
         session["devise.#{provider}_data"] = env["omniauth.auth"]
         redirect_to new_user_registration_url
       end
@@ -27,7 +28,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
 
   def after_sign_in_path_for(resource)
-    if resource.email_verified?
+    if resource.profile_complete?
       super resource
     else
       finish_signup_users_path(resource)
