@@ -256,11 +256,8 @@ class UsersController < ApplicationController
 
   # GET/PATCH /me/finish_signup
   def finish_signup
-    # authorize! :update, @user
     if request.patch? && params[:user]
       if @user.update(user_params) && @user.mangopay_provisionable? && @user.valid?
-        @user.skip_reconfirmation!
-        sign_in(@user, bypass: true)
         redirect_to private_profile_users_path
       else
         @show_errors = true

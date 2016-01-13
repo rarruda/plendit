@@ -78,6 +78,7 @@ class User < ActiveRecord::Base
     uniqueness: { message: "personal_id_number må være unik" },
     if: "personal_id_number.present?",
     unless: :not_verified?
+
   validates :personal_id_number,
     format: { with: /\A[0-6][0-9][01][0-9][0-9]{2}[0-9]{5}\z/, message: "Personnummer må være gyldig" },
     if: "personal_id_number.present?",
@@ -216,9 +217,7 @@ class User < ActiveRecord::Base
   end
 
   def email_verified?
-    self.email.present? &&
-    !self.email.start_with?('temp-') &&
-    ( self.unconfirmed_email.blank? || self.unconfirmed_email == self.email)
+    self.confirmed?
   end
 
   def recent_notifications
@@ -400,6 +399,7 @@ class User < ActiveRecord::Base
   end
 
   def mangopay_provisionable?
+    #fixme: requires confrimed email presumably
     [
       self.first_name,
       self.last_name,
@@ -412,6 +412,8 @@ class User < ActiveRecord::Base
   end
 
   def profile_complete?
+    # this should be less strict than mp_provisionable, as this should
+    # just require all the fields to be there, not confirmed. See line 402
     self.mangopay_provisionable? && self.phone_number.present?
   end
 
