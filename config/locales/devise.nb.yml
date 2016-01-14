@@ -4,7 +4,7 @@
 nb:
   devise:
     confirmations:
-      confirmed: "Din e-postadresse er nå bekreftet og du kan logge inn."
+      confirmed: "Din e-postadresse er nå bekreftet."
       send_instructions: "Du vil innen kort tid motta en e-post med instruksjoner for å aktivere din konto."
       send_paranoid_instructions: "Hvis e-postadressen din finnes i vår database vil du innen få minutter motta en e-post med instruksjoner for å aktivere din konto."
     failure:
