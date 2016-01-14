@@ -238,7 +238,7 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['PCONF_FACEBOOK_APP_ID'], ENV['PCONF_FACEBOOK_SECRET'],
     scope: 'email,user_birthday'
   config.omniauth :google_oauth2, ENV['PCONF_GOOGLE_CLIENT_ID'], ENV['PCONF_GOOGLE_CLIENT_SECRET'],
-    { name: 'google', image_aspect_ratio: 'square' } #, :image_size=> 120 }
+    { name: 'google', image_aspect_ratio: 'square', skip_jwt: true } #, :image_size=> 120 }
   # see https://github.com/zquestz/omniauth-google-oauth2 for list of parameters
   config.omniauth :spid, ENV['PCONF_SPID_CLIENT_ID'], ENV['PCONF_SPID_CLIENT_SECRET'],
     {
