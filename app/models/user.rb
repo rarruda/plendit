@@ -395,6 +395,18 @@ class User < ActiveRecord::Base
     self.user_payment_account.present? && self.user_payment_account.bank_account_number.present?
   end
 
+  def basically_complete?
+    [
+      self.first_name,
+      self.last_name,
+      self.email,
+      self.birthday,
+      self.personhood,
+      self.country_of_residence,
+      self.nationality,
+    ].map(&:present?).all?
+  end
+
   def profile_complete?
     [
       self.first_name,
@@ -710,7 +722,7 @@ class User < ActiveRecord::Base
 
   def validate_unconfirmed_phone_number_is_unique
     if User.find_by(phone_number: self.unconfirmed_phone_number).present?
-      errors.add("Dette telefonnummeret er koblet til en annen bruker.")
+      errors.add(:current_phone_number, "Dette telefonnummeret er koblet til en annen bruker.")
     end
   end
 

@@ -257,7 +257,7 @@ class UsersController < ApplicationController
   # GET/PATCH /me/finish_signup
   def finish_signup
     if request.patch? && params[:user]
-      if @user.update(user_params) && @user.mangopay_provisionable? && @user.valid?
+      if @user.update(user_params) && @user.basically_complete? && @user.valid?
         redirect_to private_profile_users_path
       else
         @show_errors = true
@@ -266,7 +266,7 @@ class UsersController < ApplicationController
   end
 
   def finish_signup!
-    unless current_user.mangopay_provisionable?
+    unless current_user.basically_complete?
       redirect_to finish_signup_users_path
     end
   end
