@@ -115,7 +115,6 @@ Rails.application.routes.draw do
   get 'privacy',  to: 'misc#privacy'
   get 'terms',    to: 'misc#terms' #feel free to find a better name for terms and conditions
   get 'help',     to: 'misc#help'
-  get 'issues',   to: 'misc#issues'
 
 
   scope '/resources' do
