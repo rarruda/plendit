@@ -5,7 +5,7 @@
         </div>
 
         <div class="conversation-section__editor">
-            <% if ['cancelled','declined'].include? @booking.status %>
+            <% if ['cancelled','declined','archived'].include? @booking.status %>
                 Det er ikke lenger mulig å sende meldinger på denne forespørselen.
             <% else %>
                 <p>Din melding:</p>
