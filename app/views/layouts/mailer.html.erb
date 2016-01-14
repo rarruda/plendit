@@ -77,12 +77,11 @@ table.body-wrap .container {
 ------------------------------------- */
 table.footer-wrap {
   clear: both !important;
-  width: 100%;  
+  width: 100%;
 }
 .footer-wrap .container p {
   color: #666666;
   font-size: 12px;
-  
 }
 table.footer-wrap a {
   color: #999999;
@@ -90,8 +89,8 @@ table.footer-wrap a {
 /* -------------------------------------
     TYPOGRAPHY
 ------------------------------------- */
-h1, 
-h2, 
+h1,
+h2,
 h3 {
   color: #111111;
   font-family:"Lato",sans-serif;
@@ -108,14 +107,14 @@ h2 {
 h3 {
   font-size: 22px;
 }
-p, 
-ul, 
+p,
+ul,
 ol {
   font-size: 14px;
   font-weight: normal;
   margin-bottom: 10px;
 }
-ul li, 
+ul li,
 ol li {
   margin-left: 5px;
   list-style-position: inside;
@@ -138,8 +137,7 @@ ol li {
 /* This should also be a block element, so that it will fill 100% of the .container */
 .content {
   display: block;
-  padding-left: 32px;
-  max-width: 100%;
+  width: 100%;
 }
 /* Let's make sure tables in the content area are 100% wide */
 .content table {
@@ -149,7 +147,6 @@ ol li {
 .logo {
 padding-bottom: 40px;
 padding-left: 20px;
-		
 }
 </style>
 <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Lato:300,400,700" />
@@ -158,63 +155,55 @@ padding-left: 20px;
 <body bgcolor="#f6f6f6">
 
 <!-- body -->
-<table class="body-wrap" bgcolor="#2a96ff">
-
-<tr><td class="logo"><img alt="Plendit homepage" class="top-bar__logo" src="/images/plendit_logo.svg" width="115" height="33"></td></tr>
-
+<table class="body-wrap">
   <tr>
-   
+    <td class="logo">
+      <div style="background-color: #2a96ff; padding: 20px;">
+        <%= image_tag attachments['logo.png'].url, size: '200x50', alt: 'Plendit', style:'" src="plendit.png'-%>
+      </div>
+    </td>
+  </tr>
+  <tr>
     <td class="container" bgcolor="#FFFFFF">
-
       <!-- content -->
       <div class="content">
 
-<%= yield %>
+        <%= yield %>
 
-
-
-          
-            
-            
-         
-                
-    </td>
-  </tr>
-      </table>
       </div>
       <!-- /content -->
-      
     </td>
-    <td></td>
   </tr>
 </table>
 <!-- /body -->
+
 
 <!-- footer -->
 <table class="footer-wrap">
   <tr>
     <td></td>
     <td class="container">
-      
       <!-- content -->
       <div class="content">
-      
         <table>
           <tr>
-            <td align="center">
-            <p><h3>Plendit AS</h3>
+            <td align="left">
+              <p>
+                <h3>Plendit AS</h3>
               </p>
-              <p>Du mottar denne E-posten fordi du er bruker p&#229; Plendit.no. Denne eposten kan ikke svares på.
+              <p>
+                Du mottar denne E-posten fordi du er bruker p&#229; Plendit.no.
+                <br>
+                Denne eposten kan ikke svares på.
               </p>
-               
-                <p><a style="transition: opacity 0.2s ease-in;color: grey;font-weight: bold;text-decoration: none;" href="http://plendit.no/terms">Brukervilkår</a></p>
-              
+              <p>
+                <a style="transition: opacity 0.2s ease-in;color: grey;font-weight: bold;text-decoration: none;" href="http://www.plendit.no/terms">Brukervilkår</a>
+              </p>
             </td>
           </tr>
         </table>
       </div>
       <!-- /content -->
-      
     </td>
     <td></td>
   </tr>
