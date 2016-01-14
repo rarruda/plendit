@@ -9,7 +9,7 @@
                 <% if @show_errors && current_user.errors.any? %>
                     <div id="error_explanation">
                         <ul>
-                            <% current_user.errors.full_messages.each do |message| %>
+                            <% current_user.errors.each do |attribute,message| %>
                                 <li><%= message %></li>
                             <% end %>
                         </ul>
@@ -43,11 +43,11 @@
                     </div>
                 <% end %>
 
-                <% if current_user.current_phone_number.blank? %>
+                <% if current_user.current_phone_number.blank? || current_user.errors[:current_phone_number] %>
                     <div class="row">
                         <div class="two-thirds column">
                             <%= f.label :current_phone_number, 'Mobilnummer:', class: 'u-full-width' %>
-                            <%= f.text_field :current_phone_number, maxlength: 8, class: 'u-full-width' %>
+                            <%= f.telephone_field :current_phone_number, maxlength: 8, class: 'u-full-width' %>
                         </div>
                     </div>
                 <% end %>
@@ -86,6 +86,9 @@
                     <%= f.submit 'Lagre', class:'button button-primary' %>
                 </div>
             <% end %>
+
+            <%= link_to 'Logg ut', destroy_user_session_path, method: :delete %>
+
         </div>
     </div>
 </div>
