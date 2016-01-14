@@ -21,10 +21,22 @@
                 </div>
                 <% if current_user.present? && ! (current_user.can_rent? @ad.category) %>
                     <div class="ad-booking-box__cant-book-prose">
-                        <%= link_to 'Fyll ut profilen din for å kunne booke.', users_path %>
+                        <%  case @ad.category
+                            when 'boat' %>
+                            <%= link_to 'For å leie båt må du få ID kort og båtførekompetase godkjent.', users_path %>
+                        <%  when 'motor' %>
+                            <%= link_to 'For å leie kjøretøy må du få førerkort godkjent.', users_path %>
+                        <%  else %>
+                            <%= link_to 'For å leie dette må du få ID kort godkjent.', users_path %>
+                        <%  end %>
                     </div>
                 <% end %>
-
+            <% else %>
+                <% if current_user.nil? %>
+                    <div class="ad-booking-box__cant-book-prose">
+                        Du må være logget inn for å leie.
+                    </div>
+                <% end %>
             <% end %>
 
         <% end %>
