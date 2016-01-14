@@ -122,12 +122,9 @@ class User < ActiveRecord::Base
   #  * an equivalent callback should be considered, for when updating information:
   after_save :provision_with_mangopay,
     if: :mangopay_provisionable?,
-    if: :email_verified?,
-    if: :phone_verified?,
     if: Proc.new { |u| u.payment_provider_vid.blank? ||
         u.payin_wallet_vid.blank? ||
         u.payout_wallet_vid.blank? }
-        # same as: unless: :mangopay_provisioned?
 
   after_save :refresh_with_mangopay,
     if: :should_trigger_mangopay_refresh?
@@ -398,8 +395,7 @@ class User < ActiveRecord::Base
     self.user_payment_account.present? && self.user_payment_account.bank_account_number.present?
   end
 
-  def mangopay_provisionable?
-    #fixme: requires confrimed email presumably
+  def profile_complete?
     [
       self.first_name,
       self.last_name,
@@ -408,13 +404,16 @@ class User < ActiveRecord::Base
       self.personhood,
       self.country_of_residence,
       self.nationality,
+      self.current_phone_number,
     ].map(&:present?).all?
   end
 
-  def profile_complete?
-    # this should be less strict than mp_provisionable, as this should
-    # just require all the fields to be there, not confirmed. See line 402
-    self.mangopay_provisionable? && self.phone_number.present?
+  def profile_confirmed?
+    self.email_verified? && self.phone_verified?
+  end
+
+  def mangopay_provisionable?
+    self.profile_complete? && self.profile_confirmed?
   end
 
   def mangopay_provisioned?
