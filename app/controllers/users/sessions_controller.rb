@@ -23,4 +23,12 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.for(:sign_in) << :attribute
   # end
 
+  def after_sign_in_path_for(resource)
+    if resource.profile_complete?
+      super resource
+    else
+      finish_signup_users_path(resource)
+    end
+  end
+
 end
