@@ -1,0 +1,19 @@
+en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Please Specify an Email id"
+              taken: "Please use a different Email id"
+              invalid: "Please Specify a valid Email id"
+            password:
+              blank: "Please Specify a Password"
+              confirmation: "Password does not match"
+            password_confirmation:
+              blank: "Please Specify a Password Confirmation"
+            first_name:
+              blank: "Please Specify First Name"
+            last_name:
+              blank: "Please Specify Last Name"

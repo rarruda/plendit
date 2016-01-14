@@ -53,6 +53,7 @@ nb:
     messages:
       already_confirmed: "har allerede blitt bekreftet, forsøk å logg inn"
       confirmation_period_expired: "må bekreftes innen %{period}, vennligst forespør en ny en"
+      confirmation: "Passord må være like"
       expired: "har utløpt, vennligst få en ny en"
       not_found: "ikke funnet"
       not_locked: "var ikke låst"

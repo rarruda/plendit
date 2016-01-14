@@ -1,0 +1,33 @@
+
+nb:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Epost må oppgis"
+              taken: "Epost er allerede i bruk"
+              invalid: "Epost må være gyldig"
+            password:
+              blank: "Passord mangler"
+              confirmation: "Passord må være like"
+              too_short:
+                one: "Passord er for kort (minimum er 1 tegn)"
+                other: "Passord er for kort (minimum er %{count} tegn)"
+              too_long:
+                one: "Passord er for langt (maximum er 1 tegn)"
+                other: "Passord er for langt (maximum er %{count} tegn)"
+            password_confirmation:
+              blank: "Passord bekreftelse mangler"
+            first_name:
+              blank: "Fornavn mangler"
+            last_name:
+              blank: "Etternavn mangler"
+#        pdf:
+#          attributes:
+#            name:
+#              blank: "Please Specify name to PDF"
+#              taken: "Please use different name for PDF"
+#            attachment:
+#              blank: "Please Upload a PDF Attachment"
