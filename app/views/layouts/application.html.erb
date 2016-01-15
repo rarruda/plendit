@@ -48,9 +48,7 @@
     <%= content_for?(:content) ? yield(:content) : yield %>
 
     <% if not @supress_footer %>
-        <% cache 'footer' do %>
-            <%= render partial: 'main_footer' %>
-        <% end %>
+        <%= render partial: 'main_footer' %>
     <% end %>
     
     <%= render partial: 'purechat' %>
