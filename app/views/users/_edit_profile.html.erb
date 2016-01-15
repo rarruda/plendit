@@ -90,18 +90,18 @@
         </div>
         <div class="row">
             <div class="twelve columns">
-                <% if @user.pending_reconfirmation? %>
+                <% if @user.email_verified? %>
+                    <div>
+                        <%= icon 'check', class: 'fa-lg' %>
+                        <small>E-postadressen er bekreftet!</small>
+                    </div>
+                <% else %>
                     <%= icon 'exclamation-triangle', class: 'fa-lg' %>
                     <small>
                         Venter at du skal bekrefte: <%= @user.unconfirmed_email %>. Vi beholder din forrige e-postadresse til du har bekreftet din nye. Om du ikke har mottatt en e-post med bekreftelseslenke, <%= link_to 'klikk her', new_user_confirmation_path %>.
                     </small>
                     <%# FIXME(RA): make the link a post to the user's current email.
             link_to "here", user_confirmation_path, method: :post, {email: @user.email} ###or similar?%>
-                <% else %>
-                    <div>
-                        <%= icon 'check', class: 'fa-lg' %>
-                        <small>E-postadressen er bekreftet!</small>
-                    </div>
                 <% end %>
             </div>
         </div>
