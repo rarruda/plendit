@@ -169,14 +169,19 @@ Plendit::Application.config.x.frontpage.hero_videos = [
     webm:  'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.webm'
   },
   {
-    still: 'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_2.jpg',
-    mp4:   'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_2.mp4',
-    webm:  'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_2.webm'
+    still: 'http://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.jpg',
+    mp4:   'http://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.mp4',
+    webm:  'http://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.webm'
   },
   {
     still: 'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.jpg',
     mp4:   'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.mp4',
     webm:  'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.webm'
+  },
+  {
+    still: 'http://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.jpg',
+    mp4:   'http://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.mp4',
+    webm:  'http://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.webm'
   },
 ]
 
