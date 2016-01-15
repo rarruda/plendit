@@ -184,6 +184,6 @@ Plendit::Application.config.x.frontpage.explainer_video_url = 'https://www.youtu
 
 Plendit::Application.config.x.facebook_integration = true
 
-Plendit::Application.config.x.purechat_integration = ( Rails.env != 'production' )
+Plendit::Application.config.x.purechat_integration = true
 
 Plendit::Application.config.x.signup.bedriftskunde_signup_link = 'http://goo.gl/forms/HkNI7f85XO'
