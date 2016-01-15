@@ -196,7 +196,7 @@ window.controllers.cardInputter = {
             } else if (re.discover.test(number)) {
                 return null;
             } else if (re.jcb.test(number)) {
-                return null;
+                return 'JCB';
             } else {
                 return undefined;
             }
