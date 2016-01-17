@@ -95,9 +95,9 @@ class Ad < ActiveRecord::Base
   end
 
   aasm column: :status, enum: true do
-    state :draft, :initial => true
+    state :draft, initial: true
     state :waiting_review
-    state :published, :enter => :enter_published, :exit => :exit_published
+    state :published, enter: :enter_published, exit: :exit_published
     state :paused
     state :stopped
     state :suspended

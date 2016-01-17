@@ -95,7 +95,7 @@ class Location < ActiveRecord::Base
       LOG.info "found address geocoding for location_id:#{self.id}", {location_id: self.id}
     else
       LOG.error "failed address geocoding for location_id:#{self.id}. Retrying based on post code alone.", {location_id: self.id}
-      results = Geocoder.search( self.post_code, :params => { :components => "country:#{PLENDIT_COUNTRY_CODE}", :region => PLENDIT_COUNTRY_CODE, :language => PLENDIT_COUNTRY_CODE})
+      results = Geocoder.search( self.post_code, params: { components: "country:#{PLENDIT_COUNTRY_CODE}", region: PLENDIT_COUNTRY_CODE, language: PLENDIT_COUNTRY_CODE})
 
       if geo = results.first
 
