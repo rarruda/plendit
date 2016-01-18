@@ -6,8 +6,8 @@
             <h1>Mobilnummer</h1>
 
 
-            <% Array(@errors).each do |error| %>
-                <p><strong><%= error %></strong></p>
+            <% Array(@notices).each do |e| %>
+                <p><strong><%= e %></strong></p>
             <% end %>
 
             <% if current_user.phone_verified? && ( ! current_user.phone_pending_confirmation? ) %>

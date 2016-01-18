@@ -52,18 +52,19 @@ class UsersController < ApplicationController
 
   # GET/POST verify/boat_license
   def verify_boat_license
-    @errors = []
+    @notices = []
     if request.post?
 
+      # FIXME!! these two validations below belong in the model, not in the controller!
       if current_user.boat_license_required? && (!params.key? :image)
-        @errors.push "Bilde mangler."
+        @notices.push "Bilde mangler."
       end
 
       if params[:seaworthy] != "1"
-        @errors.push "Du må akseptere egenærklæringen."
+        @notices.push "Du må akseptere egenærklæringen."
       end
 
-      if @errors.empty?
+      if @notices.empty?
         current_user.delete_current_boat_license
         current_user.seamanship_claimed = true
         current_user.save
@@ -85,12 +86,12 @@ class UsersController < ApplicationController
       if params[:perform] == 'set_number'
         current_user.unconfirmed_phone_number = params[:phone_number]
         current_user.save
-        @errors = current_user.errors
+        @notices = current_user.errors
       elsif params[:perform] == 'request_token'
         if current_user.sms_sending_cool_off_elapsed?
-          @errors = ['Det ble nydelig sendt en SMS. Prøv igjen om litt.']
+          @notices = ['Det ble nydelig sendt en SMS. Prøv igjen om litt.']
         elsif current_user.unconfirmed_phone_number.blank? || current_user.phone_number_confirmation_token.blank?
-          @errors = ['Ukjent telefonnumer. Kunne ikke sende verifikasjonskode. Oppdater nummeret ditt for å prøve igjen.']
+          @notices = ['Ukjent telefonnumer. Kunne ikke sende verifikasjonskode. Oppdater nummeret ditt for å prøve igjen.']
         else
           current_user.send_sms_for_phone_confirmation
           current_user.save!
@@ -99,7 +100,7 @@ class UsersController < ApplicationController
         if current_user.phone_number_confirmation_token == params[:token]
           current_user.confirm_phone_number!
         else
-          @errors = ["Feil sikkerhetskode!"]
+          @notices = ["Feil sikkerhetskode!"]
         end
       end
     end

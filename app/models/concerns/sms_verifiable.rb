@@ -54,16 +54,18 @@ module SmsVerifiable
         SmsService.new( unconfirmed_phone_number, sms_body ).process
       #rescue Twilio::REST::RequestError => e
       rescue => e
-        @errors ||= []
-        @errors <<  'Klarte ikke å sende SMS'
+        @notices ||= []
+        @notices << 'Klarte ikke å sende SMS'
+        #self.errors.add(:phone_number , 'Klarte ikke å sende SMS')
+
       end
     else
       LOG.info "NOT Sending SMS for verification, as a previous attempt was done at #{self.phone_number_confirmation_sent_at}, which is less then #{SMS_COOL_OFF_PERIOD} seconds ago.",
         user_id: self.id,
         phone_number_confirmation_sent_at: self.phone_number_confirmation_sent_at,
         unconfirmed_phone_number: self.unconfirmed_phone_number
-      @errors ||= []
-      @errors << 'Det ble nydelig sendt en SMS. Prøv igjen om litt.'
+      @notices ||= []
+      @notices << 'Det ble nydelig sendt en SMS. Prøv igjen om litt.'
     end
   end
 
