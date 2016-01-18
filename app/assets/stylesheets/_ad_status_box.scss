@@ -1,5 +1,12 @@
 @import 'constants.scss';
 
+
+.ad-status-box {
+    &__state-message {
+        padding: $standard-spacing;
+    }
+}
+
 /* hacky bits due to higher specificity of some default selectors in
    skeleton than the bem classes */
 .button {

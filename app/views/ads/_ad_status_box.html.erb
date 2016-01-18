@@ -19,9 +19,11 @@
                 data: { confirm: 'Hvis du stopper annonsen kan bare du se den. Er du sikker på at du vil stoppe annonsen din?'} %>
     <% elsif ad.draft? %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad),
-                form_class: 'u-inline', class: btncls, method: :get %>
-        <%= button_to 'Send til publisering', submit_for_review_ad_path(@ad),
-                form_class: 'u-inline',
+                form_class: 'u-inline', 
+                class: [btncls, (ad.invalid? ? 'button-primary' : '')],
+                method: :get %>
+        <%= button_to 'Send til publisering', submit_for_review_ad_path(ad),
+                form_class: 'u-inline', disabled: ad.invalid?,
                 class: [btncls, 'button-primary'] %>
     <% elsif ad.paused? %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad),
@@ -46,5 +48,13 @@
         <%= button_to 'Rediger annonsen', edit_ad_path(ad),
                 form_class: 'u-inline', class: btncls, method: :get %>
     <% end %>
+
+    <% if ad.invalid? %>
+        <div class="ad-status-box__state-message">
+            Annonsen er ikke komplett. Rediger den for å gjøre den ferdig
+            til publisering.
+        </div>
+    <% end %>
+
 
 </div>
