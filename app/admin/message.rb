@@ -14,8 +14,8 @@ ActiveAdmin.register Message do
   #   permitted
   # end
 
-  menu :priority => 5
-  #actions :index, :show
+  menu priority: 5
+  actions :index, :show
 
   permit_params :booking, :from_user_id
 

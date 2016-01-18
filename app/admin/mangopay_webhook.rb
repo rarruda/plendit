@@ -1,8 +1,7 @@
 ActiveAdmin.register MangopayWebhook do
 
-  menu :priority => 10
-  #actions :index, :show
-  actions :index
+  menu priority: 10
+  actions :index, :show
 
   #permit_params :user_id, :foobar
 

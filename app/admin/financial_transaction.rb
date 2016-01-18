@@ -1,7 +1,6 @@
 ActiveAdmin.register FinancialTransaction do
 
   menu priority: 8
-  #actions :index, :show
   actions :index, :show
 
   #permit_params :user_id, :foobar
