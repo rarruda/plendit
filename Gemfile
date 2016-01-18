@@ -121,6 +121,10 @@ gem 'html_pipeline_rails'
 # Need acts-as-taggable-on for when running migrations all the way from the start of history
 gem 'acts-as-taggable-on', '~> 3.4'
 
+# Get notified about exceptions:
+# https://github.com/smartinez87/exception_notification
+# gem 'exception_notification'
+gem 'airbrake'
 
 group :development, :test do
   # Use Capistrano for deployment
