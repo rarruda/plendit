@@ -1,0 +1,22 @@
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h1>Frontpage ads</h1>
+
+            <%= text_field_tag :ads, @ad_ids %>
+
+            <ol>
+                <% @ads.each do |ad| %>
+                    <li>
+                        <% if ad.nil? %>
+                            Annonsen finnes ikke eller er ikke offentlig!
+                        <% else %>
+                            <%= ad.title %>
+                        <% end %>
+
+                    </li>
+                <% end %>
+            </ol>
+        </div>
+    </div>
+</div>

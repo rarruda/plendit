@@ -25,11 +25,12 @@
             <hr>
 
             <ul>
-                <li><%= link_to 'ActiveAdmin',  admin_root_path %> - Go to model admin UI</li>
+                <li><%= link_to 'ActiveAdmin', admin_root_path %> - Go to model admin UI</li>
                 <li><%= link_to 'Health check', ok_computer_path %> - Service health</li>
                 <li><%= link_to 'Health check - all', ok_computer.all_path %> - Service health, for ALL checks. <small>Careful: Running this can be heavy.</small></li>
                 <li><%= link_to 'Resque overview', resque_web_path %> - Status dashboard to job queues.</li>
-                <li><%= link_to 'Broadcast',   broadcast_path %> - Change broadcast message</li>
+                <li><%= link_to 'Broadcast', broadcast_path %> - Change broadcast message</li>
+                <li><%= link_to 'Frontpage ads', frontpage_ads_path %> - Change what ads to show on front page.</li>
                 <li><%= link_to 'Pending ads', pending_ad_reviews_path %> - Review submitted ads</li>
                 <li><%= link_to 'Pending KYC', pending_kyc_reviews_path %> - Review submitted documents</li>
                 <li><%= link_to 'Boat admin', boat_admin_path %> - Find boat bookings and details</li>
