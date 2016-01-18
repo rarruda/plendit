@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="no" prefix="og: http://ogp.me/ns#">
 <head>
-    <title>Plendit</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -10,10 +9,14 @@
     <meta name="msapplication-TileColor" content="#2a96ff">
     <meta name="theme-color" content="#2a96ff">
     <%
-        meta og: {
-            site_name: 'Plendit',
-            type:      'website'
-        }
+        meta(
+            title: 'Plendit',
+            description: 'Lei det du trenger, lei ut det du har!',
+            og: {
+                site_name: 'Plendit',
+                type:      'website'
+            }
+        )
     %>
 
     <%= metamagic %>
