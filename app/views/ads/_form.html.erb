@@ -38,11 +38,12 @@
         </div>
 
         <div class="u-push-down-only">
-            <%= f.label :body, 'Beskrivelse:' %>
+            <%#= f.label :body, 'Beskrivelse:' disabled to deal with ad blocking, hence use of label_tag  %> 
+            <%= label_tag 'body_id', 'Beskrivelse:' %>
             <% if @ad.category == 'boat' %>
                 <small>Dersom båten har seil eller motor skal båtens lengde og eventuelt antall hestekrefter skrives inn her. </small>
             <% end %>
-            <%= f.text_area :body, class: 'u-full-width in-form__description', data: { controller: 'autoSizeTextArea' } %>
+            <%= f.text_area :body, id: 'body_id', class: 'u-full-width in-form__description', data: { controller: 'autoSizeTextArea' } %>
             <small>Tips: Ved å bruke #hashtags i beskrivelsen blir annonsen enklere å finne i søket.</small>
         </div>
 

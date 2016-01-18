@@ -132,7 +132,7 @@ Rails.application.routes.draw do
       get 'gallery'
       get 'unavailability'
       get 'nested_images'
-      post 'ad_image'
+      post 'listing_image',      to: 'ads#ad_image'
       get 'edit_availability'
 
       post 'pause'
