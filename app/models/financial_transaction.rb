@@ -14,7 +14,7 @@ class FinancialTransaction < ActiveRecord::Base
 
 
   # Probably need a transfer_refund too.
-  enum purpose:          { rental: 1, deposit: 2, insurance_other: 6, payout_to_user: 7 }
+  enum purpose:          { rental_with_deposit: 1, rental: 2, deposit: 3, insurance_other: 6, payout_to_user: 7 }
   enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4, payin_refund: 12, transfer_refund: 13 }
   enum nature:           { normal: 0, refund: 10, repudiation: 11, settlement: 12 }
   enum state:    { pending: 1, processing: 2, finished: 5, errored: 10, unknown_state: 20 }
@@ -52,6 +52,8 @@ class FinancialTransaction < ActiveRecord::Base
                      -> { where( transaction_type: FinancialTransaction.transaction_types[:transfer_refund] ) }
 
   # by purpose:
+  scope :rental_with_deposit,
+                     -> { where( purpose: FinancialTransaction.purposes[:rental_with_deposit]  ) }
   scope :rental,     -> { where( purpose: FinancialTransaction.purposes[:rental]  ) }
   scope :deposit,    -> { where( purpose: FinancialTransaction.purposes[:deposit]  ) }
   scope :payout_to_user,
