@@ -1,0 +1,12 @@
+<ul>
+    <% ids.zip(ads.each) do |id, ad| %>
+        <li>
+            <% if ad.nil? %>
+                <%= id %>: Annonsen finnes ikke eller er ikke offentlig!
+            <% else %>
+                <%= id %>:
+                <%= link_to ad.title, ads_path(ad) %>
+            <% end %>
+        </li>
+    <% end %>
+</ul>

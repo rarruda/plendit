@@ -1,0 +1,44 @@
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h1>Frontpage ads</h1>
+
+            <h2>Current ads</h2>
+            <% if @current_ad_ids.empty? %>
+                No current frontpage ads set.
+            <% else %>
+                <%= render partial: 'frontpage_ad_list',
+                           locals: { ids: @current_ad_ids, ads: @current_ads} %>
+            <% end %>
+
+            <hr>
+
+            <h2>New ads</h2>
+
+            <%= form_tag do %>
+                <%= label_tag :new_ad_ids, 'New ad IDs:' %>
+                <%= text_field_tag :new_ad_ids, @new_ad_ids.join(',') %>
+                <%= submit_tag 'Finn annonser', class: 'button' %>
+            <% end %>
+
+            <% unless @new_ads.empty? %>
+                <%= render partial: 'frontpage_ad_list',
+                           locals: { ids: @new_ad_ids, ads: @new_ads} %>
+
+                <%= form_tag save_frontpage_ads_path, method: :post do %>
+                    <%= hidden_field_tag :ad_ids, @new_ad_ids.join(',') %>
+                    <%= submit_tag 'Save', class: 'button button-primary', disabled: !@new_ads_ok %>
+                <% end %>
+
+                <% unless @new_ads_ok %>
+                    <p>At least 6 published ads are required</p>
+                <% end %>
+            <% end %>
+
+            <br>
+            
+            <%= link_to 'Back to backstage', backstage_path %>
+
+        </div>
+    </div>
+</div>

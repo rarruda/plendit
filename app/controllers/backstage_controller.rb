@@ -24,6 +24,20 @@ class BackstageController < ApplicationController
     @message = REDIS.get('global_broadcast_html')
   end
 
+  def frontpage_ads
+    @current_ad_ids = (REDIS.get('global_frontpage_ads') || '').split(',').map(&:strip)
+    @current_ads = @current_ad_ids.map {|id| Ad.find_by(id: id)}
+    @new_ad_ids = (params[:new_ad_ids] || '').split(',').map(&:strip)
+    @new_ads = @new_ad_ids.map {|id| Ad.find_by(id: id)}
+    @new_ads_ok = @new_ads.select(&:present?).size >= 6
+  end
+
+  def save_frontpage_ads
+    #fixme, final sanity check before saving
+    save_frontpage_ad_ids(parse_frontpage_ad_ids params[:ad_ids])
+    redirect_to frontpage_ads_path
+  end
+
   def pending_ad_reviews
     @ads = Ad.where(status: Ad::statuses[:waiting_review])
   end
@@ -62,6 +76,18 @@ class BackstageController < ApplicationController
   end
 
   private
+
+  def parse_frontpage_ad_ids id_string
+    id_string.split(',').map(&:strip)
+  end
+
+  def get_frontpage_ad_ids
+    parse_frontpage_ad_ids(REDIS.get('global_frontpage_ads') || '')
+  end
+
+  def save_frontpage_ad_ids ids
+    REDIS.set('global_frontpage_ads', ids.join(','))
+  end
 
   def notify_about_kyc doc
     msg = "#{doc.display_category} ble #{doc.approved? ? 'godkjent' : 'avvist'}."
