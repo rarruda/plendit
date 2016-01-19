@@ -3,11 +3,7 @@ class MiscController < ApplicationController
 
   def frontpage
     @hide_search_field = true
-    @ads = Ad.published
-             .includes(:location,:payin_rules,:ad_images,:user)
-             .order(:updated_at)
-             .limit(6)
-             .map { |ad| RecursiveOpenStruct.new(ad.as_indexed_json) }
+    @ads = get_frontpage_ads
     @hero_video = Rails.configuration.x.frontpage.hero_videos.sample
   end
 
@@ -25,6 +21,37 @@ class MiscController < ApplicationController
   end
 
   def privacy
+  end
+
+  private
+
+  def get_frontpage_ads
+    ids = get_frontpage_ad_ids
+    ads = ids.map { |id| Ad.find_by(id: id) }.compact
+
+    if ads.size != ids.size
+      LOG.warn message: 'Frontpage ads list contains unpublished ads!'
+    end
+
+    if ads.size < 6
+      ads = ads + Ad.published[13...-1]
+    end
+
+    ads = ads.uniq[0...6]
+
+    if ads.size != 6
+      LOG.warn message: 'Unable to find 6 ads for frontpage!'
+    end
+
+    ads.map { |ad| RecursiveOpenStruct.new(ad.as_indexed_json) }
+  end
+
+  def parse_frontpage_ad_ids id_string
+    id_string.split(',').map(&:strip)
+  end
+
+  def get_frontpage_ad_ids
+    parse_frontpage_ad_ids(REDIS.get('global_frontpage_ads') || '')
   end
 
 end
