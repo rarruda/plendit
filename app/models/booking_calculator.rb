@@ -57,6 +57,10 @@ class BookingCalculator
     end
   end
 
+  def payin_with_deposit_amount
+    self.deposit_amount + self.payin_amount
+  end
+
   def min_discounted_amount payin_rule = nil
     if payin_rule.day? && payin_rule.effective_from >= 2
       Plendit::Application.config.x.insurance.max_discount_after_duration
