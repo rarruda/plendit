@@ -25,9 +25,19 @@ class BackstageController < ApplicationController
   end
 
   def frontpage_ads
-    @ad_ids = REDIS.get('global_frontpage_ads') || []
-    @ad_ids = [1,2,3,4,5,6]
-    @ads = @ad_ids.map {|id| Ad.find_by(id: id)}
+    @current_ad_ids = REDIS.get('global_frontpage_ads') || []
+    @current_ads = @current_ad_ids.map {|id| Ad.find_by(id: id)}
+
+    @new_ad_ids = (params[:new_ad_ids] || '').split(',').map(&:strip)
+    @new_ads = @new_ad_ids.map {|id| Ad.find_by(id: id)}
+    @new_ads_ok = @new_ads.size == 6 && @new_ads.all?(&:present?)
+  end
+
+  def save_frontpage_ads
+    ad_ids = params[:ad_ids].split(',').map(&:strip)
+    #fixme, final sanity check before saving
+    REDIS.set('global_frontpage_ads', ad_ids) # user redis array I guess?
+    redirect_to frontpage_ads_path
   end
 
   def pending_ad_reviews

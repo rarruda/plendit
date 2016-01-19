@@ -3,20 +3,53 @@
         <div class="twelve columns">
             <h1>Frontpage ads</h1>
 
-            <%= text_field_tag :ads, @ad_ids %>
+            <h2>Current ads</h2>
+            <% if @current_ad_ids.empty? %>
+                No current frontpage ads set.
+            <% else %>
+                <ol>
+                    <% @current_ads.each do |ad| %>
+                        <li>
+                            <% if ad.nil? %>
+                                Annonsen finnes ikke eller er ikke offentlig!
+                            <% else %>
+                                <%= ad.title %>
+                            <% end %>
+                        </li>
+                    <% end %>
+                </ol>
+            <% end %>
 
-            <ol>
-                <% @ads.each do |ad| %>
-                    <li>
-                        <% if ad.nil? %>
-                            Annonsen finnes ikke eller er ikke offentlig!
-                        <% else %>
-                            <%= ad.title %>
-                        <% end %>
+            <hr>
 
-                    </li>
+            <h2>New ads</h2>
+
+            <%= form_tag do %>
+                <%= label_tag :new_ad_ids, 'New ad IDs:' %>
+                <%= text_field_tag :new_ad_ids, @new_ad_ids.join(', ') %>
+                <%= submit_tag 'Finn annonser', class: 'button' %>
+            <% end %>
+
+            <% unless @new_ads.empty? %>
+                <ol>
+                    <% @new_ads.each do |ad| %>
+                        <li>
+                            <% if ad.nil? %>
+                                Annonsen finnes ikke eller er ikke offentlig!
+                            <% else %>
+                                <%= link_to ad.title, ad_path(ad) %>
+                            <% end %>
+                        </li>
+                    <% end %>
+                </ol>
+                IS OK <%= @new_ads_ok.to_s %>
+
+                <%= form_tag save_frontpage_ads_path, method: :post do %>
+                    <%= hidden_field_tag :ad_ids, @new_ad_ids %>
+                    <%= submit_tag 'Save', class: 'button button-primary' %>
                 <% end %>
-            </ol>
+            <% end %>
+
         </div>
     </div>
 </div>
