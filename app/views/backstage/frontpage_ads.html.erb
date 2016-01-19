@@ -17,7 +17,7 @@
 
             <%= form_tag do %>
                 <%= label_tag :new_ad_ids, 'New ad IDs:' %>
-                <%= text_field_tag :new_ad_ids, @new_ad_ids.join(',') %>
+                <%= text_field_tag :new_ad_ids, @new_ad_ids.join(','), placeholder: '1, 135, 77, 9' %>
                 <%= submit_tag 'Finn annonser', class: 'button' %>
             <% end %>
 
