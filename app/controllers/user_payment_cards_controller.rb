@@ -1,6 +1,5 @@
 class UserPaymentCardsController < ApplicationController
   before_action :set_user_payment_card, only: [:destroy, :make_favorite]
-  before_action :set_mangopay_client, only: [:index, :new, :create, :destroy]
   before_action :authenticate_user!
 
   before_action :authorized?
@@ -74,10 +73,6 @@ class UserPaymentCardsController < ApplicationController
 
   def user_payment_card_params
     params.require(:user_payment_card).permit(:guid, :card_vid, :registration_data)
-  end
-
-  def set_mangopay_client
-    @mangopay = MangopayService.new( current_user )
   end
 end
 
