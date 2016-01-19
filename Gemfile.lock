@@ -86,7 +86,6 @@ GEM
       thor (~> 0.19)
     builder (3.2.2)
     byebug (8.2.0)
-    cabin (0.7.2)
     callsite (0.0.11)
     capistrano (3.4.0)
       i18n
@@ -589,7 +588,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
-  cabin
   capistrano
   capistrano-bundler
   capistrano-passenger

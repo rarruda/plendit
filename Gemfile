@@ -73,10 +73,6 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Passenger as the app server
 gem 'passenger', '~> 5.0.20'
 
-# logging:
-gem 'cabin'
-
-
 # postgresql is required for both production and development
 gem 'pg'
 
@@ -131,6 +127,7 @@ gem 'lograge'
 gem 'logstash-event'
 gem 'logstash-logger'
 #gem 'rails_semantic_logger'
+#gem 'cabin'
 
 group :development, :test do
   # Use Capistrano for deployment
