@@ -95,7 +95,7 @@ Plendit::Application.config.x.insurance.max_discount_after_duration_boat = [
 # should be a hash: bap: 1_500, motor: 1_000_000, realestate: 500_000
 Plendit::Application.config.x.insurance.max_insurance_value  = number_to_currency( 1_000_000, unit: 'kr ', delimiter: ".", separator: "," ).gsub(/\,00$/, ",-")
 
-Plendit::Application.config.x.ads.motor_vegvesen_baseurl = "http://www.vegvesen.no/Kjoretoy/Kjop+og+salg/Kj%C3%B8ret%C3%B8yopplysninger?registreringsnummer="
+Plendit::Application.config.x.ads.motor_vegvesen_baseurl = "https://www.vegvesen.no/Kjoretoy/Kjop+og+salg/Kj%C3%B8ret%C3%B8yopplysninger?registreringsnummer="
 
 Plendit::Application.config.x.ads.categories = [
   {
@@ -159,34 +159,34 @@ Plendit::Application.config.x.frontpage.popular_ads = [
 
 Plendit::Application.config.x.frontpage.hero_videos = [
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/768x340-baat2.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/768x340-baat2.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.webm'
   },
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/768x340-baat.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/768x340-baat.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.webm'
   },
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/768x340-sykkel.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/768x340-sykkel.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.webm'
   },
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.webm'
   },
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/768x340-husleie.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/768x340-husleie.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.webm'
   },
 ]
 
@@ -196,4 +196,4 @@ Plendit::Application.config.x.facebook_integration = true
 
 Plendit::Application.config.x.purechat_integration = true
 
-Plendit::Application.config.x.signup.bedriftskunde_signup_link = 'http://goo.gl/forms/HkNI7f85XO'
+Plendit::Application.config.x.signup.bedriftskunde_signup_link = 'https://goo.gl/forms/HkNI7f85XO'
