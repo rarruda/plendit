@@ -41,6 +41,9 @@ gem 'mod11'
 # possibly replace this with https://github.com/kpumuk/meta-tags
 gem 'metamagic'
 
+# Make google index ads correctly:
+gem 'sitemap_generator'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 gem 'rails-i18n', '~> 4.0'

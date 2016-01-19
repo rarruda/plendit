@@ -506,6 +506,8 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    sitemap_generator (5.1.0)
+      builder
     slackistrano (1.0.0)
       capistrano (>= 3.0.1)
       json
@@ -654,6 +656,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   selenium-webdriver
+  sitemap_generator
   slackistrano
   spring
   switch_user
