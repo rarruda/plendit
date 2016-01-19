@@ -12,14 +12,14 @@
                 form_class: 'u-inline', class: btncls, method: :get,
                 data: { confirm: 'Hvis du redigerer annonsen den vil bli sendt til kontroll på nytt. Er du sikker på at du vil redigere annonsen din?' } %>
         <%= button_to 'Gjør usynlig', pause_ad_path(ad),
-                form_class: 'u-inline', class: btncls, method: :get,
+                form_class: 'u-inline', class: btncls,
                 data: { confirm: 'Hvis du gjør annonsen usynlig, blir den ikke lenger søkbar. Folk du deler den med, kan fortsatt se og leie den. Er du sikker på at du vil gjøre annonsen din usynlig?' } %>
         <%= button_to 'Stopp annonsen', stop_ad_path(ad),
-                form_class: 'u-inline', class: btncls, method: :get,
+                form_class: 'u-inline', class: btncls,
                 data: { confirm: 'Hvis du stopper annonsen kan bare du se den. Er du sikker på at du vil stoppe annonsen din?'} %>
     <% elsif ad.draft? %>
         <%= button_to 'Rediger annonsen', edit_ad_path(ad),
-                form_class: 'u-inline', 
+                form_class: 'u-inline',
                 class: [btncls, (ad.invalid? ? 'button-primary' : '')],
                 method: :get %>
         <%= button_to 'Send til publisering', submit_for_review_ad_path(ad),
@@ -33,7 +33,7 @@
                 form_class: 'u-inline',
                 class: btncls %>
         <%= button_to 'Stopp annonsen', stop_ad_path(ad),
-                form_class: 'u-inline', class: btncls, method: :get,
+                form_class: 'u-inline', class: btncls,
                 data: { confirm: 'Hvis du stopper annonsen kan bare du se den. Er du sikker på at du vil stoppe annonsen din?'} %>
     <% elsif ad.draft? %>
     <% elsif ad.refused? %>
