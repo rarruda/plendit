@@ -117,11 +117,13 @@ class AdsController < ApplicationController
   # GET /ads/1
   # GET /ads/1.json
   def show
+    render(file: "#{Rails.root}/public/404.html", layout: false, status: 404) unless ad_can_be_shown?
+
+    #    if not ad_can_be_shown?
+    #  render status: 404, text: "Annonsen finnes ikke eller er ikke offentlig"
+    #end
     @page_has_maps = true
     @page_needs_no_footer_padding = true
-    if not ad_can_be_shown?
-      render status: 404, text: "Annonsen finnes ikke eller er ikke offentlig"
-    end
   end
 
   # GET /ads/1/preview
@@ -330,7 +332,11 @@ class AdsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_ad
-    @ad = Ad.find(params[:id]).decorate
+    begin
+      @ad = Ad.find(params[:id]).decorate
+    rescue ActiveRecord::RecordNotFound => e
+      @ad = nil
+    end
   end
 
   def require_admin_authorization
@@ -378,6 +384,8 @@ class AdsController < ApplicationController
   end
 
   def ad_can_be_shown?
+    return false if @ad.nil?
+
     @ad.status == 'published' ||
     user_signed_in? && (current_user.is_site_admin? || current_user == @ad.user)
   end

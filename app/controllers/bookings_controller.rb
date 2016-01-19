@@ -15,6 +15,7 @@ class BookingsController < ApplicationController
 
   # GET /me/bookings/1
   def show
+    render(file: "#{Rails.root}/public/404.html", layout: false, status: 404) if @booking.nil?
   end
 
   # GET /me/bookings/new
@@ -87,8 +88,13 @@ class BookingsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_booking
-    # FIXME: retrict to user/from_user? (so its not public for EVERYONE)
-    @booking = Booking.find_by( guid: params[:guid] ).decorate
+    # FIXME: retrict to user/from_user? (so its not public for EVERYONE) (via pundit gem)
+    begin
+      # use bang to raise exception
+      @booking = Booking.find_by_guid!(params[:guid]).decorate
+    rescue ActiveRecord::RecordNotFound => e
+      @booking = nil
+    end
   end
 
   def set_booking_from_params
