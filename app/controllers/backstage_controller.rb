@@ -25,18 +25,16 @@ class BackstageController < ApplicationController
   end
 
   def frontpage_ads
-    @current_ad_ids = REDIS.get('global_frontpage_ads') || []
+    @current_ad_ids = (REDIS.get('global_frontpage_ads') || '').split(',').map(&:strip)
     @current_ads = @current_ad_ids.map {|id| Ad.find_by(id: id)}
-
     @new_ad_ids = (params[:new_ad_ids] || '').split(',').map(&:strip)
     @new_ads = @new_ad_ids.map {|id| Ad.find_by(id: id)}
-    @new_ads_ok = @new_ads.size == 6 && @new_ads.all?(&:present?)
+    @new_ads_ok = @new_ads.select(&:present?).size >= 6
   end
 
   def save_frontpage_ads
-    ad_ids = params[:ad_ids].split(',').map(&:strip)
     #fixme, final sanity check before saving
-    REDIS.set('global_frontpage_ads', ad_ids) # user redis array I guess?
+    save_frontpage_ad_ids(parse_frontpage_ad_ids params[:ad_ids])
     redirect_to frontpage_ads_path
   end
 
@@ -78,6 +76,18 @@ class BackstageController < ApplicationController
   end
 
   private
+
+  def parse_frontpage_ad_ids id_string
+    id_string.split(',').map(&:strip)
+  end
+
+  def get_frontpage_ad_ids
+    parse_frontpage_ad_ids(REDIS.get('global_frontpage_ads') || '')
+  end
+
+  def save_frontpage_ad_ids ids
+    REDIS.set('global_frontpage_ads', ids.join(','))
+  end
 
   def notify_about_kyc doc
     msg = "#{doc.display_category} ble #{doc.approved? ? 'godkjent' : 'avvist'}."

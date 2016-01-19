@@ -7,17 +7,17 @@
             <% if @current_ad_ids.empty? %>
                 No current frontpage ads set.
             <% else %>
-                <ol>
-                    <% @current_ads.each do |ad| %>
+                <ul>
+                    <% @current_ad_ids.zip(@current_ads.each) do |id, ad| %>
                         <li>
                             <% if ad.nil? %>
-                                Annonsen finnes ikke eller er ikke offentlig!
+                                <%= id %>: Annonsen finnes ikke eller er ikke offentlig!
                             <% else %>
-                                <%= ad.title %>
+                                <%= id %>: <%= ad.title %>
                             <% end %>
                         </li>
                     <% end %>
-                </ol>
+                </ul>
             <% end %>
 
             <hr>
@@ -26,7 +26,7 @@
 
             <%= form_tag do %>
                 <%= label_tag :new_ad_ids, 'New ad IDs:' %>
-                <%= text_field_tag :new_ad_ids, @new_ad_ids.join(', ') %>
+                <%= text_field_tag :new_ad_ids, @new_ad_ids.join(',') %>
                 <%= submit_tag 'Finn annonser', class: 'button' %>
             <% end %>
 
@@ -42,14 +42,15 @@
                         </li>
                     <% end %>
                 </ol>
-                IS OK <%= @new_ads_ok.to_s %>
 
                 <%= form_tag save_frontpage_ads_path, method: :post do %>
-                    <%= hidden_field_tag :ad_ids, @new_ad_ids %>
-                    <%= submit_tag 'Save', class: 'button button-primary' %>
+                    <%= hidden_field_tag :ad_ids, @new_ad_ids.join(',') %>
+                    <%= submit_tag 'Save', class: 'button button-primary', disabled: !@new_ads_ok %>
+                <% end %>
+                <% unless @new_ads_ok %>
+                    <p>At least 6 published ads are required</p>
                 <% end %>
             <% end %>
-
         </div>
     </div>
 </div>
