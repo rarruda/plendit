@@ -43,7 +43,11 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Devise setting:
-  config.action_mailer.default_url_options = { host: 'dev.plendit.com' }
+  config.action_mailer.default_url_options = {
+    # if hostname starts with 'sbox-plendit-dev' send to dev.plendit.com, otherwise
+    # assume we are running plendit locally.
+    host: ( Socket.gethostname =~ /^sbox-plendit-dev/ ) ? 'dev.plendit.com' : 'localhost:3000'
+  }
 
   config.action_mailer.raise_delivery_errors = true
   ## Maybe we should not be sending out emails in dev? For now we send emails...
@@ -60,6 +64,6 @@ Rails.application.configure do
     tls:       true,
   }
 
-  # for ugh, generating routes within models:
+  # for ugh, generating routes within models: (reuse value from action_mailer)
   routes.default_url_options = config.action_mailer.default_url_options
 end
