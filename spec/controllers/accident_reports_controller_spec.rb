@@ -44,28 +44,7 @@ RSpec.describe AccidentReportsController, type: :controller do
     end
   end
 
-  describe "GET #show" do
-    it "assigns the requested accident_report as @accident_report" do
-      accident_report = AccidentReport.create! valid_attributes
-      get :show, {:id => accident_report.to_param}, valid_session
-      expect(assigns(:accident_report)).to eq(accident_report)
-    end
-  end
 
-  describe "GET #new" do
-    it "assigns a new accident_report as @accident_report" do
-      get :new, {}, valid_session
-      expect(assigns(:accident_report)).to be_a_new(AccidentReport)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested accident_report as @accident_report" do
-      accident_report = AccidentReport.create! valid_attributes
-      get :edit, {:id => accident_report.to_param}, valid_session
-      expect(assigns(:accident_report)).to eq(accident_report)
-    end
-  end
 
   describe "POST #create" do
     context "with valid params" do
@@ -99,47 +78,5 @@ RSpec.describe AccidentReportsController, type: :controller do
       end
     end
   end
-
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested accident_report" do
-        accident_report = AccidentReport.create! valid_attributes
-        put :update, {:id => accident_report.to_param, :accident_report => new_attributes}, valid_session
-        accident_report.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "assigns the requested accident_report as @accident_report" do
-        accident_report = AccidentReport.create! valid_attributes
-        put :update, {:id => accident_report.to_param, :accident_report => valid_attributes}, valid_session
-        expect(assigns(:accident_report)).to eq(accident_report)
-      end
-
-      it "redirects to the accident_report" do
-        accident_report = AccidentReport.create! valid_attributes
-        put :update, {:id => accident_report.to_param, :accident_report => valid_attributes}, valid_session
-        expect(response).to redirect_to(accident_report)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns the accident_report as @accident_report" do
-        accident_report = AccidentReport.create! valid_attributes
-        put :update, {:id => accident_report.to_param, :accident_report => invalid_attributes}, valid_session
-        expect(assigns(:accident_report)).to eq(accident_report)
-      end
-
-      it "re-renders the 'edit' template" do
-        accident_report = AccidentReport.create! valid_attributes
-        put :update, {:id => accident_report.to_param, :accident_report => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
-
 
 end
