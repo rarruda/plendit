@@ -126,6 +126,12 @@ gem 'acts-as-taggable-on', '~> 3.4'
 # gem 'exception_notification'
 gem 'airbrake'
 
+# logging:
+gem 'lograge'
+gem 'logstash-event'
+gem 'logstash-logger'
+#gem 'rails_semantic_logger'
+
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano',           require: false

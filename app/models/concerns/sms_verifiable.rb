@@ -16,7 +16,7 @@ module SmsVerifiable
   # do all transformations for phone_number confirmation.
   def confirm_phone_number!
     if self.unconfirmed_phone_number.nil?
-      LOG.error "tried to confirm an unconfirmed_phone_number that is nil. This should never happen.", { user_id: self.id }
+      LOG.error message: "tried to confirm an unconfirmed_phone_number that is nil. This should never happen.", user_id: self.id
       nil
     else
       self.phone_number              = self.unconfirmed_phone_number
@@ -47,7 +47,7 @@ module SmsVerifiable
     if self.sms_sending_cool_off_elapsed?
       self.phone_number_confirmation_sent_at = Time.now
 
-      LOG.info "Sending SMS for verification", {user_id: self.id, unconfirmed_phone_number: self.unconfirmed_phone_number}
+      LOG.info message: "Sending SMS for verification", user_id: self.id, unconfirmed_phone_number: self.unconfirmed_phone_number
       sms_body = "Plendit: '#{self.phone_number_confirmation_token}'. Bruk denne koden for å bekrefte mobilnummeret ditt. Hilsen Plendit. P.S. Ikke del denne koden med noen!"
 
       begin
@@ -60,7 +60,7 @@ module SmsVerifiable
 
       end
     else
-      LOG.info "NOT Sending SMS for verification, as a previous attempt was done at #{self.phone_number_confirmation_sent_at}, which is less then #{SMS_COOL_OFF_PERIOD} seconds ago.",
+      LOG.info message: "NOT Sending SMS for verification, as a previous attempt was done at #{self.phone_number_confirmation_sent_at}, which is less then #{SMS_COOL_OFF_PERIOD} seconds ago.",
         user_id: self.id,
         phone_number_confirmation_sent_at: self.phone_number_confirmation_sent_at,
         unconfirmed_phone_number: self.unconfirmed_phone_number

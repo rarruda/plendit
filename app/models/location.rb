@@ -92,9 +92,9 @@ class Location < ActiveRecord::Base
         :unk
       end
 
-      LOG.info "found address geocoding for location_id:#{self.id}", {location_id: self.id}
+      LOG.info message: "found address geocoding for location_id:#{self.id}", location_id: self.id
     else
-      LOG.error "failed address geocoding for location_id:#{self.id}. Retrying based on post code alone.", {location_id: self.id}
+      LOG.error message: "failed address geocoding for location_id:#{self.id}. Retrying based on post code alone.", location_id: self.id
       results = Geocoder.search( self.post_code, params: { components: "country:#{PLENDIT_COUNTRY_CODE}", region: PLENDIT_COUNTRY_CODE, language: PLENDIT_COUNTRY_CODE})
 
       if geo = results.first
@@ -104,9 +104,9 @@ class Location < ActiveRecord::Base
         self.geo_precision_type = geo.geometry['location_type']
         self.geo_precision = :post_code
 
-        LOG.info "found post_code geocoding for location_id:#{self.id}", {location_id: self.id}
+        LOG.info message: "found post_code geocoding for location_id:#{self.id}", location_id: self.id
       else
-        LOG.error "failed post_code geocoding for location_id:#{self.id}. This should never happen.", {location_id: self.id}
+        LOG.error message: "failed post_code geocoding for location_id:#{self.id}. This should never happen.", location_id: self.id
       end
     end
   end

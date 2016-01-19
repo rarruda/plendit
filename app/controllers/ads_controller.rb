@@ -133,7 +133,8 @@ class AdsController < ApplicationController
     if @ad.pause!
       redirect_to @ad
     else
-      redirect_to @ad, alert: 'Ad was NOT paused.'
+      LOG.info message: 'Could not pause ad', ad_id: @ad.id
+      redirect_to @ad, alert: 'Ad was NOT paused.' #TRANSLATEME
     end
   end
 
@@ -142,7 +143,7 @@ class AdsController < ApplicationController
     if @ad.stop!
       redirect_to @ad
     else
-      redirect_to @ad, alert: 'Ad was NOT stopped.'
+      redirect_to @ad, alert: 'Ad was NOT stopped.' #TRANSLATEME
     end
   end
 
@@ -151,7 +152,7 @@ class AdsController < ApplicationController
     if @ad.resume!
       redirect_to @ad
     else
-      redirect_to @ad, alert: 'Ad was NOT resumed.'
+      redirect_to @ad, alert: 'Ad was NOT resumed.' #TRANSLATEME
     end
   end
 
@@ -160,7 +161,7 @@ class AdsController < ApplicationController
     if @ad.submit_for_review!
       redirect_to @ad
     else
-      redirect_to @ad, alert: 'Ad was NOT submited for review.'
+      redirect_to @ad, alert: 'Ad was NOT submited for review.' #TRANSLATEME
     end
   end
 
@@ -263,7 +264,7 @@ class AdsController < ApplicationController
   # POST /ads
   # POST /ads.json
   def create
-    LOG.error 'Ad Category sent is not supported. This is not ok.' if not Ad.categories.include? params[:category]
+    LOG.error message: 'Ad Category sent is not supported. This is not ok.' if not Ad.categories.include? params[:category]
     # FIXME: do something about it if there was an error with the category...
 
     @ad = Ad.new(user_id: current_user.id, category: params[:category])
@@ -279,7 +280,7 @@ class AdsController < ApplicationController
     if @ad.save(validate: false)
       redirect_to edit_users_ad_path @ad
     else
-      LOG.error "Error saving ad upon creation: #{@ad.errors.inspect}", { user_id: current_user.id }
+      LOG.error message: "Error saving ad upon creation: #{@ad.errors.inspect}", user_id: current_user.id
       redirect_to new_ad_path, alert: 'Annonsen kunne ikke opprettes!'
     end
   end
@@ -314,7 +315,7 @@ class AdsController < ApplicationController
     @error_markup = render_to_string partial: 'ad_input_errors', formats: [:html]
     @main_payin_rule_markup = render_to_string partial: 'payin_rules/ad_price_estimate_main.html', formats: [:html]
 
-    #LOG.debug "ad_params_local>> #{ad_params_local}"
+    #LOG.debug message: "ad_params_local>> #{ad_params_local}"
     respond_to do |format|
       if @ad.save(validate: false)
         format.html { render :edit }
@@ -334,7 +335,7 @@ class AdsController < ApplicationController
 
   def require_admin_authorization
     unless current_user.is_site_admin?
-      LOG.error "User not authorized to see this page.", { ad_id: @ad.id, user_id: current_user.id }
+      LOG.error message: "User not authorized to see this page.", ad_id: @ad.id, user_id: current_user.id
       raise "User not authorized to see this page."
     end
   end
@@ -343,7 +344,7 @@ class AdsController < ApplicationController
   def require_authorization
     if not ( ( @ad and @ad.user == current_user ) or current_user.is_site_admin? )
       # throw exception. User not allowed here.
-      LOG.error "User not authorized to see this page.", { ad_id: @ad.id, user_id: current_user.id }
+      LOG.error message: "User not authorized to see this page.", ad_id: @ad.id, user_id: current_user.id
       raise "User not authorized to see this page."
     end
   end

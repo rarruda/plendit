@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
           render json: (render_to_string partial: 'message_list', formats: [:html]), status: :created
         }
       else
-        LOG.error "Failed saving message: #{@message.errors}", { user_id: current_user.id }
+        LOG.error message: "Failed saving message: #{@message.errors}", user_id: current_user.id
         format.html { render :new }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end

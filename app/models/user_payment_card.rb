@@ -76,7 +76,7 @@ class UserPaymentCard < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for user_payment_card_id: #{self.id}"
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for user_payment_card_id: #{self.id}"
   end
 
   def set_favorite
@@ -95,7 +95,7 @@ class UserPaymentCard < ActiveRecord::Base
 
     refresh
 
-    LOG.info "deactivated from mangopay: #{self}", { user_id: self.user.id, card_id: self.id }
+    LOG.info message: "deactivated from mangopay: #{self}", user_id: self.user.id, card_id: self.id
   end
 
   def to_param
@@ -119,13 +119,13 @@ class UserPaymentCard < ActiveRecord::Base
         registration_status:   card_reg['Status']
       }
     rescue => e
-      LOG.error "Error pre-registering card: #{e}", { user_id: self.user_id }
+      LOG.error message: "Error pre-registering card: #{e}", user_id: self.user_id
     end
   end
 
   # NOTE: called from UserPaymentCardValidateJob
   def validate_on_mangopay
-    LOG.info "Validating on mangoypay card: #{self.id}", { user_id: self.user_id, user_payment_card_id: self.id }
+    LOG.info message: "Validating on mangoypay card: #{self.id}", user_id: self.user_id, user_payment_card_id: self.id
     t = create_financial_transaction_preauth_for_validation
     t.process!
     t.process_refresh!        unless t.errored?

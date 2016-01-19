@@ -257,6 +257,14 @@ GEM
     listen (3.0.4)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
+    lograge (0.3.5)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
+    logstash-event (1.2.02)
+    logstash-logger (0.15.2)
+      logstash-event (~> 1.2)
+      stud
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.9)
@@ -516,6 +524,7 @@ GEM
       colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stud (0.0.22)
     switch_user (1.1.0)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
@@ -610,6 +619,9 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
+  lograge
+  logstash-event
+  logstash-logger
   mangopay (~> 3.0.18)
   meta_request
   metamagic

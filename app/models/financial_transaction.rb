@@ -111,7 +111,7 @@ class FinancialTransaction < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for financial_transaction_id: #{self.id}"
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for financial_transaction_id: #{self.id}"
   end
 
   def from_user_id
@@ -177,7 +177,7 @@ class FinancialTransaction < ActiveRecord::Base
       # this should create a refund for a specific financial_transaction of transaction_type payin
       do_payin_refund
     else
-      LOG.error "Could not handle transaction. Unprocessable transaction_type", { financial_transaction_id: self.id }
+      LOG.error message: "Could not handle transaction. Unprocessable transaction_type", financial_transaction_id: self.id
       self.fail!
     end
   end
@@ -189,7 +189,7 @@ class FinancialTransaction < ActiveRecord::Base
     if self.transaction_type.to_sym == :preauth
       do_preauth_cancel
     else
-      LOG.error "Cannot cancel this type of transaction", { financial_transaction_id: self.id, transaction_type: self.transaction_type }
+      LOG.error message: "Cannot cancel this type of transaction", financial_transaction_id: self.id, transaction_type: self.transaction_type
       raise "Cannot cancel this type of transaction on this status"
     end
   end
@@ -204,7 +204,7 @@ class FinancialTransaction < ActiveRecord::Base
     when :payin_refund
       do_refund_refresh
     else
-      LOG.error "Cannot refresh this type of transaction", { financial_transaction_id: self.id, transaction_type: self.transaction_type }
+      LOG.error message: "Cannot refresh this type of transaction", financial_transaction_id: self.id, transaction_type: self.transaction_type
       raise "Cannot refresh this type of transaction"
     end
   end
@@ -274,9 +274,9 @@ class FinancialTransaction < ActiveRecord::Base
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
       self.fail!
-      LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: preauth }
+      LOG.error message: "MangoPay::ResponseError Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: preauth
     rescue => e
-      LOG.error "Exception e:#{e} processing transaction, left in processing state", { financial_transaction_id: self.id, mangopay_result: preauth }
+      LOG.error message: "Exception e:#{e} processing transaction, left in processing state", financial_transaction_id: self.id, mangopay_result: preauth
     end
   end
 
@@ -309,9 +309,9 @@ class FinancialTransaction < ActiveRecord::Base
 
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
-      LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: preauth }
+      LOG.error message: "MangoPay::ResponseError Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: preauth
     rescue => e
-      LOG.error "Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: preauth }
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: preauth
     end
   end
 
@@ -347,9 +347,9 @@ class FinancialTransaction < ActiveRecord::Base
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
       self.fail!
-      LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: cancelation }
+      LOG.error message: "MangoPay::ResponseError Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: cancelation
     rescue => e
-      LOG.error "Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: cancelation }
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: cancelation
     end
   end
 
@@ -397,9 +397,9 @@ class FinancialTransaction < ActiveRecord::Base
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
       self.fail!
-      LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: payin }
+      LOG.error message: "MangoPay::ResponseError Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payin
     rescue => e
-      LOG.error "Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: payin }
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payin
       self.fail!
     end
   end
@@ -441,10 +441,10 @@ class FinancialTransaction < ActiveRecord::Base
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
       self.fail!
-      LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: payin_refund }
+      LOG.error message: "MangoPay::ResponseError Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payin_refund
     rescue => e
       self.fail!
-      LOG.error "Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: payin_refund }
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payin_refund
     end
   end
 
@@ -472,7 +472,7 @@ class FinancialTransaction < ActiveRecord::Base
       # update transaction status from mangopay result: (one of: CREATED, SUCCEEDED, FAILED)
       aasm_change_on_status refund['Status']
     rescue => e
-      LOG.error "Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: refund }
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: refund
     end
   end
 
@@ -519,9 +519,9 @@ class FinancialTransaction < ActiveRecord::Base
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
       self.fail!
-      LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: transfer }
+      LOG.error message: "MangoPay::ResponseError Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: transfer
     rescue => e
-      LOG.error "Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: transfer }
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: transfer
     end
   end
 
@@ -568,9 +568,9 @@ class FinancialTransaction < ActiveRecord::Base
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
       self.fail!
-      LOG.error "MangoPay::ResponseError Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: payout }
+      LOG.error message: "MangoPay::ResponseError Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payout
     rescue => e
-      LOG.error "Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: payout }
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payout
     end
   end
 
@@ -596,7 +596,7 @@ class FinancialTransaction < ActiveRecord::Base
       # update transaction status from mangopay result: (one of: CREATED, SUCCEEDED, FAILED)
       aasm_change_on_status payout['Status']
     rescue => e
-      LOG.error "Exception e:#{e} processing transaction", { financial_transaction_id: self.id, mangopay_result: payout }
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payout
     end
   end
 
@@ -608,11 +608,11 @@ class FinancialTransaction < ActiveRecord::Base
       self.finish!
     when 'CREATED'
       #just stay at status processing.
-      LOG.info "Staying put in my current state", { financial_transaction_id: self.id, state: state }
+      LOG.info message: "Staying put in my current state", financial_transaction_id: self.id, state: state
     else
       #unknown state
       self.set_unknown_state!
-      LOG.error "unknown status result", { financial_transaction_id: self.id, state: state }
+      LOG.error message: "unknown status result", financial_transaction_id: self.id, state: state
     end
   end
 
@@ -627,7 +627,7 @@ class FinancialTransaction < ActiveRecord::Base
     when 'VALIDATED'
       :preauth_validated
     else
-      LOG.error "unknown payment_status result from PayIn::PreAuthorization::Update.fetch: #{payment_status}", { financial_transaction_id: self.id }
+      LOG.error message: "unknown payment_status result from PayIn::PreAuthorization::Update.fetch: #{payment_status}", financial_transaction_id: self.id
     end
   end
 
@@ -688,7 +688,7 @@ class FinancialTransaction < ActiveRecord::Base
         dst_vid:  self.financial_transactionable.bank_account_vid
       }
     else
-      LOG.error "error, unidentified transaction_type", { financial_transaction_id: self.id }
+      LOG.error message: "error, unidentified transaction_type", financial_transaction_id: self.id
       raise "error, unidentified transaction_type"
     end
   end

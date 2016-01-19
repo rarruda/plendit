@@ -15,7 +15,7 @@ class PayinRulesController < ApplicationController
     if @payin_rule.save
       render text: "Added rule";
     else
-      LOG.error "payout rule was not saved:... #{@payin_rule.inspect}"
+      LOG.error message: "payout rule was not saved:... #{@payin_rule.inspect}"
       render text: "failed", status: :bad_request
     end
   end

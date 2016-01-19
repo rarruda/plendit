@@ -237,7 +237,7 @@ class Booking < ActiveRecord::Base
       after do
         in_progress_at = ( starts_at.to_date == ends_at.to_date ) ? ( ends_at - 1.minute ) : ( starts_at + 1.day )
 
-        LOG.info "schedule auto-set_in_progress as new status in 1.day...(#{in_progress_at})", booking_id: self.id
+        LOG.info message: "schedule auto-set_in_progress as new status in 1.day...(#{in_progress_at})", booking_id: self.id
         # or right before ends_at if its a same day booking.
         BookingAutoSetInProgressJob.set(wait_until: in_progress_at ).perform_later self
       end
@@ -247,10 +247,10 @@ class Booking < ActiveRecord::Base
       transitions from: :started, to: :in_progress
 
       after do
-        LOG.info "make transfer of funds...", booking_id: self.id
+        LOG.info message: "make transfer of funds...", booking_id: self.id
         create_financial_transaction_transfer
 
-        LOG.info "schedule auto-end at ends_at(#{self.ends_at})...", booking_id: self.id
+        LOG.info message: "schedule auto-end at ends_at(#{self.ends_at})...", booking_id: self.id
         BookingAutoEndJob.set(wait_until: self.ends_at ).perform_later self
       end
     end
@@ -258,7 +258,7 @@ class Booking < ActiveRecord::Base
     event :end do
       transitions from: :in_progress, to: :ended
       after do
-        LOG.info "schedule auto-archival 7 days after ends_at.", booking_id: self.id
+        LOG.info message: "schedule auto-archival 7 days after ends_at.", booking_id: self.id
         BookingAutoArchiveJob.set(wait_until: (self.ends_at + 7.days + 1.second) ).perform_later self
       end
     end
@@ -321,7 +321,7 @@ class Booking < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for booking_id: #{self.id}"
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for booking_id: #{self.id}"
   end
 
   def should_be_in_progress?
@@ -547,7 +547,7 @@ class Booking < ActiveRecord::Base
   # Create payin_refunds for all payins connected to this booking which have finished status.
   def cancel_all_financial_transactions_payin
     self.financial_transactions.payin.finished.each do |ft|
-      LOG.debug "found payin financial_transaction_id: #{ft.id} to refund (purpose: #{ft.purpose}", booking_id: self.id
+      LOG.debug message: "found payin financial_transaction_id: #{ft.id} to refund (purpose: #{ft.purpose}", booking_id: self.id
       create_financial_transaction_refund_payin ft
     end
   end
@@ -574,7 +574,7 @@ class Booking < ActiveRecord::Base
   #  split payment here.
   def create_financial_transaction_transfer
     if self.financial_transactions.transfer.rental.finished.where( amount: self.sum_paid_by_renter, fees: self.sum_plaform_fee_and_insurance ).any?
-      LOG.error "At least one identical sucessful financial_transaction exists. Will not create a duplicate one.", booking_id: self.id
+      LOG.error message: "At least one identical sucessful financial_transaction exists. Will not create a duplicate one.", booking_id: self.id
       return false
     else
       # later we should make this a split payment!

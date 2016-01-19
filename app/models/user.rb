@@ -282,7 +282,7 @@ class User < ActiveRecord::Base
     when 'boat'
       self.boat_rental_allowed?
     else
-      LOG.error "can not let anyone rent this item, category unknown: #{category}", user_id: self.id
+      LOG.error message: "can not let anyone rent this item, category unknown: #{category}", user_id: self.id
     end
 
     false
@@ -432,10 +432,10 @@ class User < ActiveRecord::Base
     if self.payment_provider_vid.blank? ||
       self.payin_wallet_vid.blank? ||
       self.payout_wallet_vid.blank?
-      LOG.debug "profile is NOT fully provisioned with mangopay", {user_id: self.id}
+      LOG.debug message: "profile is NOT fully provisioned with mangopay", user_id: self.id
       false
     else
-      #LOG.debug "profile IS fully provisioned with mangopay", {user_id: self.id}
+      #LOG.debug message: "profile IS fully provisioned with mangopay", user_id: self.id
       true
     end
   end
@@ -492,7 +492,7 @@ class User < ActiveRecord::Base
   # UserMangopayCreateJob
   def provision_with_mangopay
     unless self.mangopay_provisionable?
-      LOG.error "Refuse to provision user. The profile is NOT complete. bailing out.", { user_id: self.id }
+      LOG.error message: "Refuse to provision user. The profile is NOT complete. bailing out.", user_id: self.id
       return false
     end
 
@@ -518,7 +518,7 @@ class User < ActiveRecord::Base
             #  'Country'      => self.country_of_residence
             # }
         elsif self.legal_business? or self.legal_organization?
-          LOG.error "NOT A NATURAL PERSON... Not provisioning user.", { user_id: self.id, personhood: self.personhood }
+          LOG.error message: "NOT A NATURAL PERSON... Not provisioning user.", user_id: self.id, personhood: self.personhood
           return false
 
           #code below is NOT TESTED!
@@ -551,10 +551,10 @@ class User < ActiveRecord::Base
         else
           raise 'Invalid personhood'
         end
-        LOG.info "Response from mangopay: #{mangopay_user}", { user_id: self.id }
+        LOG.info message: "Response from mangopay: #{mangopay_user}", user_id: self.id
         self.update_columns( payment_provider_vid: mangopay_user['Id'] )
       rescue => e
-        LOG.error "something has gone wrong with provisioning the user at mangopay. exception: #{e}", { user_id: self.id }
+        LOG.error message: "something has gone wrong with provisioning the user at mangopay. exception: #{e}", user_id: self.id
       end
     end
 
@@ -566,15 +566,15 @@ class User < ActiveRecord::Base
 
   # this method is not throughly tested:
   def provision_wallets
-    LOG.info "Provisioning wallets with Mangopay", { user_id: self.id }
+    LOG.info message: "Provisioning wallets with Mangopay", user_id: self.id
 
     if self.payin_wallet_vid.present? && self.payout_wallet_vid.present?
-      LOG.info "Wallets already provisioned with Mangopay", { user_id: self.id }
+      LOG.info message: "Wallets already provisioned with Mangopay", user_id: self.id
       return true
     end
 
     if self.payment_provider_vid.blank?
-      LOG.info "User not provisioned, can not provision wallets with Mangopay", { user_id: self.id }
+      LOG.info message: "User not provisioned, can not provision wallets with Mangopay", user_id: self.id
       return false
     end
 
@@ -619,7 +619,7 @@ class User < ActiveRecord::Base
 
       end
     rescue => e
-      LOG.error "something has gone wrong with fetching list of wallets at mangopay. exception: #{e}", { user_id: self.id }
+      LOG.error message: "something has gone wrong with fetching list of wallets at mangopay. exception: #{e}", user_id: self.id
       return nil
     end
   end
@@ -629,7 +629,7 @@ class User < ActiveRecord::Base
   # UserMangopayRefreshJob // UserMangopayUpdateJob
   def refresh_with_mangopay
     unless self.mangopay_provisionable?
-      LOG.error "Refuse to provision user. The profile is NOT complete. bailing out.", { user_id: self.id }
+      LOG.error message: "Refuse to provision user. The profile is NOT complete. bailing out.", user_id: self.id
       return false
     end
 
@@ -656,7 +656,7 @@ class User < ActiveRecord::Base
             #  'Country'      => self.country_of_residence
             # }
         elsif self.legal_business? or self.legal_organization?
-          LOG.error "NOT A NATURAL PERSON... Bailing out!", { user_id: self.id, personhood: self.personhood }
+          LOG.error message: "NOT A NATURAL PERSON... Bailing out!", user_id: self.id, personhood: self.personhood
           return false
 
           #code below is NOT TESTED!
@@ -689,9 +689,9 @@ class User < ActiveRecord::Base
         else
           raise 'Invalid personhood'
         end
-        LOG.info "Response from mangopay: #{mangopay_user}", { user_id: self.id }
+        LOG.info message: "Response from mangopay: #{mangopay_user}", user_id: self.id
       rescue => e
-        LOG.error "something has gone wrong with provisioning the user at mangopay. exception: #{e}", { user_id: self.id }
+        LOG.error message: "something has gone wrong with provisioning the user at mangopay. exception: #{e}", user_id: self.id
       end
     end
   end

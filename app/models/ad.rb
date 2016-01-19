@@ -116,7 +116,7 @@ class Ad < ActiveRecord::Base
     event :refuse do
       transitions from: [:published, :waiting_review], to: :refused
       after do
-        LOG.info 'ad is refused. Hopefully there is a reason so that the user can do something about it.'
+        LOG.info message:'ad is refused. Hopefully there is a reason so that the user can do something about it.'
       end
     end
 
@@ -136,7 +136,7 @@ class Ad < ActiveRecord::Base
     event :suspend do
       transitions to: :suspended
       after do
-        LOG.info 'ad is suspended. this is a black hole. there is no way out. the use gets no feedback either.'
+        LOG.info message:'ad is suspended. this is a black hole. there is no way out. the use gets no feedback either.'
       end
     end
 
@@ -148,9 +148,9 @@ class Ad < ActiveRecord::Base
         # use the deleted flag to exclude it from things
         if is_deletable?
           self.destroy
-          LOG.info 'ad deleted from database.'
+          LOG.info message:'ad deleted from database.'
         else
-          LOG.info 'ad not deleted, only deleted flag set'
+          LOG.info message:'ad not deleted, only deleted flag set'
         end
 
       end
@@ -162,14 +162,14 @@ class Ad < ActiveRecord::Base
 
 
   def enter_published
-    LOG.error ('ad published... it is now searchable after the toggle is switched.')
+    LOG.error message: 'ad published... it is now searchable after the toggle is switched.'
     __elasticsearch__.index_document
     ## TODO: notify user that his ad is now live.
   end
 
   def exit_published
     self.__elasticsearch__.delete_document ignore: 404
-    LOG.info '>> no longer searchable.'
+    LOG.info message:'no longer searchable.', ad_id: self.id
   end
 
   def world_viewable?
@@ -208,7 +208,7 @@ class Ad < ActiveRecord::Base
     }
 
     unless stock_images.keys.include? size
-      LOG.error 'ERROR: wrong image size parameter, falling back to :searchresult'
+      LOG.error message: 'ERROR: wrong image size parameter, falling back to :searchresult'
       size = :searchresult
     end
 
@@ -316,6 +316,6 @@ class Ad < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for ad_id: #{self.id}", ad_id: self.id
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for ad_id: #{self.id}", ad_id: self.id
   end
 end

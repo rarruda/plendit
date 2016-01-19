@@ -17,7 +17,7 @@ class UserPaymentCardsController < ApplicationController
     begin
       @user_payment_card = current_user.user_payment_cards.new().pre_register
     rescue => e
-      LOG.error "ERROR Pre-registrating the card with mangopay. Not possible to render this page... #{e} => #{@user_payment_card}", { user_id: current_user.id }
+      LOG.error message: "ERROR Pre-registrating the card with mangopay. Not possible to render this page... #{e} => #{@user_payment_card}", user_id: current_user.id
       redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard pre-registration failed. Cannot register a new card. Please try again later.'
     end
   end
@@ -25,7 +25,7 @@ class UserPaymentCardsController < ApplicationController
 
   # POST /me/cards
   def create
-    LOG.info "user_payment_card_params: #{user_payment_card_params}", {user_id: current_user.id}
+    LOG.info message: "user_payment_card_params: #{user_payment_card_params}", user_id: current_user.id
 
     @user_payment_card = current_user.user_payment_cards.new(
       card_vid: user_payment_card_params['card_vid']
@@ -39,7 +39,7 @@ class UserPaymentCardsController < ApplicationController
     if @user_payment_card.save
       redirect_to payment_users_path, payment_card_notice: 'Ditt betalingskort ble lagt til. Vi venter på godkjenning fra banken.'
     else
-      LOG.error "Failed the saving the credit card.", {user_id: current_user.id, card_reg_vid: user_payment_card_params['card_reg_vid'] }
+      LOG.error message: "Failed the saving the credit card.", user_id: current_user.id, card_reg_vid: user_payment_card_params['card_reg_vid']
       redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard was NOT successfully saved.'
     end
   end

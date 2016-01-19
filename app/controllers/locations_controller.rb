@@ -54,9 +54,9 @@ class LocationsController < ApplicationController
   # DELETE /locations/1.json
   def destroy
     if @location.in_use?
-      LOG.error "Cannot delete a location which is in use.", location_id: @location.id
+      LOG.error message: "Cannot delete a location which is in use.", location_id: @location.id
     else
-      LOG.info "deleting a location.", location_id: @location.id
+      LOG.info message: "deleting a location.", location_id: @location.id
 
       @location.delete!
     end
