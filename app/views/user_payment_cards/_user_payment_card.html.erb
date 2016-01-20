@@ -18,7 +18,8 @@
     <%= icon user_payment_card.decorate.validity_icon_name, class: 'fa-lg' unless user_payment_card.card_valid? %>
     <%# params: { 'user[user_payment_card][guid]' => user_payment_card.guid } %>
     <%# FIXME: evil to style directly in the html tags %>
-    <%= button_to user_payment_card, method: :delete, class: 'button u-pull-right', form_class: 'u-inline', data: { confirm: 'Are you sure?' } do %>
+    <%# TRANSLATEME: "Are you sure?" in alert box below %>
+    <%= button_to user_payment_card, method: :delete, class: 'button u-pull-right', form_class: 'u-inline', data: { confirm: 'Er du sikker på at du vil fjerne den kreditt kort?' } do %>
         Slett
     <% end %>
 
