@@ -2,8 +2,6 @@
 
 .ad-location-map {
     $blur: 0px -2px 5px 0px rgba(0,0,0,0.15);
-    -webkit-box-shadow: $blur;
-    -moz-box-shadow: $blur;
     box-shadow: $blur;
 
     &__map {
