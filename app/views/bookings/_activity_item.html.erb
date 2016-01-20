@@ -1,15 +1,12 @@
 <%= link_to booking, class: 'activity-item' do %>
     <%= render layout: 'image_and_content_box', locals: {ad: booking.ad} do %>
-
-
         <%= booking.activity_message current_user %>
-
-
+        <br>
+        <%= l booking.starts_at, format: :plendit_short_date %>
+        -
+        <%= l booking.ends_at, format: :plendit_short_date %>
         <%#= booking.most_recent_activity %>
         <br>
         <%= booking_status_label(booking) %>
-        <%#= booking.id %>
     <% end %>
 <% end %>
-
-
