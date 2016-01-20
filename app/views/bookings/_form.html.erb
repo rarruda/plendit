@@ -2,7 +2,8 @@
     <% if @booking.errors.any? %>
         <div id="error_explanation">
             <h2>
-                <%= @booking.errors.count %> feil forhindret at du fikk gjennomført booking:
+                <%= @booking.errors.count %>
+                feil forhindret at du fikk sendt bookingen:
             </h2>
 
             <ul>
@@ -26,19 +27,18 @@
     <div class="row">
         <div data-controller="kalendaeBookingSelector">
             <div class="eight columns">
-                <div class="booking-period-selector"><div data-kalendae-container class="u-center"></div></div>
-                <%#= f.hidden_field :starts_at_time, value: '00.00' %>
-                <%#= f.hidden_field :ends_at_time,   value: '23.59' %>
+                <div class="booking-period-selector">
+                    <div data-kalendae-container class="u-center"></div>
+                </div>
 
                 <div class="booking-request-summary">
-
                     <div class="booking-price-summary__row">
                         <span class="booking-price-summary__label">
                             Fra:
                         </span>
 
                         <span class="booking-price-summary__value">
-                            <%= f.text_field :starts_at_date, data: { format: "yyyy.MM.dd" }, class: 'booking-price-summary__input' %>
+                            <%= f.text_field :starts_at_date, data: { format: 'yyyy.MM.dd' }, class: 'booking-price-summary__input' %>
                         </span>
                     </div>
 
@@ -47,12 +47,13 @@
                             Til:
                         </span>
                         <span class="booking-price-summary__value">
-                            <%= f.text_field :ends_at_date, data: { format: "yyyy.MM.dd" }, class: 'booking-price-summary__input' %>
+                            <%= f.text_field :ends_at_date, data: { format: 'yyyy.MM.dd' }, class: 'booking-price-summary__input' %>
                         </span>
                     </div>
 
                     <%#= render partial: 'price_summary' %>
-                    <div data-controller="bookingPriceLoader" data-url="<%= booking_calc_users_path %>">
+                    <div data-controller="bookingPriceLoader"
+                            data-url="<%= booking_calc_users_path %>">
                         <div class="booking-price-summary__row">
                             <span class="booking-price-summary__label">
                                 Antall dager:
@@ -120,14 +121,14 @@
 
                 <div class="actions u-push-down u-pull-right">
                     <% unless current_user.user_payment_cards.length == 0 %>
-                        <%= f.submit class: "button button-primary", data: {controller: 'disableOnSubmit'} %>
+                        <%= f.submit class: 'button button-primary', data: {controller: 'disableOnSubmit'} %>
                     <% else %>
                         Du må legge inn et betalingskort før du kan gjøre en booking. <%= link_to 'Legg til betalingskort', new_user_payment_card_path %>.
                     <% end %>
                 </div>
 
                 <div class="actions u-push-down u-pull-left">
-                    <%= image_tag "logos/mangopay_powered_590x53.png", alt: "Powered by MangoPay", class: "", size: "270x26" %>
+                    <%= image_tag 'logos/mangopay_powered_590x53.png', alt: 'Powered by MangoPay', class: '', size: '270x26' %>
                 </div>
             </div>
         </div>
