@@ -378,6 +378,8 @@ class FinancialTransaction < ActiveRecord::Base
     begin
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_in.rb#L30
       # https://docs.mangopay.com/api-references/payins/preauthorized-payin/
+
+      # https://docs.mangopay.com/api-references/idempotency-support/
       payin = MangoPay::PayIn::PreAuthorized::Direct.create(
         'Tag'                => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
         'AuthorId'           => self.financial_transactionable.from_user.payment_provider_vid,
@@ -500,6 +502,8 @@ class FinancialTransaction < ActiveRecord::Base
     begin
       # https://docs.mangopay.com/api-references/transfers/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/transfer.rb
+
+      # https://docs.mangopay.com/api-references/idempotency-support/
       transfer = MangoPay::Transfer.create(
         'Tag'              => "booking_id=#{financial_transactionable_id} #{self.purpose}",
         'AuthorId'         => self.financial_transactionable.from_user.payment_provider_vid, #owner of the debitedWalletId
