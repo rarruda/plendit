@@ -12,12 +12,12 @@
             <%= hidden_field_tag :to_date, nil, data: {to: ''} %>
 
             <div class="ad-booking-box__calendar-holder" data-calendar>
-                <%= render partial: "unavailability", locals: {ad: @ad} %>
+                <%= render partial: 'unavailability', locals: {ad: @ad} %>
             </div>
 
             <% if current_user.present? && @ad.user.id != current_user.id %>
                 <div class="ad-booking-box__button-holder">
-                    <%= button_tag("Gå til booking", disabled: ( current_user.present? && !(current_user.can_rent? @ad.category) ), class: "button button-primary booking-request-form__book-button",  ) %>
+                    <%= button_tag('Gå til booking', disabled: ( current_user.present? && !(current_user.can_rent? @ad.category) ), class: "button button-primary booking-request-form__book-button",  ) %>
                 </div>
                 <% if current_user.present? && ! (current_user.can_rent? @ad.category) %>
                     <div class="ad-booking-box__cant-book-prose">
@@ -46,12 +46,12 @@
                 <%= f.hidden_field :ad_id, value: @ad.id.to_s %>
                 <%= f.hidden_field :previous_url, value: request.fullpath %>
                 <% if ad.is_favorite_of( current_user ) %>
-                    <%= f.button class: "button booking-request-form__book-button" do %>
+                    <%= f.button class: 'button booking-request-form__book-button' do %>
                         <%= icon 'heart', class: "fa-2x u-fill-blue booking-request-form__heart" %>
                         Fjern fra favoritter
                     <% end %>
                 <% else %>
-                    <%= f.button class: "button booking-request-form__book-button" do %>
+                    <%= f.button class: 'button booking-request-form__book-button' do %>
                         <%= icon 'heart-o', class: "fa-2x u-fill-blue booking-request-form__heart" %>
                         Legg til i favoritter
                     <% end %>
