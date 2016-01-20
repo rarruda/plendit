@@ -13,7 +13,7 @@
         <%= render partial: 'booking_summary' %>
     </div>
 
-    <% if current_user.owns_booking_item?(@booking) && @booking.ad.motor? && ( @booking.started? || @booking.in_progress? ) %>
+    <% if @booking.may_set_deposit_offer_amount? current_user %>
         <%= render partial: 'booking_deposit' %>
     <% end %>
 

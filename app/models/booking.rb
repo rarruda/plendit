@@ -324,6 +324,14 @@ class Booking < ActiveRecord::Base
     self.ended?
   end
 
+  def may_set_deposit_offer_amount?(user = nil)
+    user.present? &&
+    user.owns_booking_item?(self) &&
+    self.ad.motor? &&
+    ( self.started? || self.in_progress? )
+    # || self.ended? && +24t?
+  end
+
   def log_status_change
     LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for booking_id: #{self.id}"
   end
