@@ -1007,3 +1007,17 @@ window.controllers.existingLocation = {
         }
     }
 };
+
+window.controllers.emptySearchExpander = {
+    dependencies: ["$element", "utils", "eventbus", "xhr"],
+    callable: function(ele, utils, eventbus, xhr) {
+        eventbus.on('new-search-result', onSearchResult);
+
+        function onSearchResult(res) {
+            if (res && res.paging && res.paging.total_count == 0) {
+                ele.open = true;
+            }
+        }
+    }
+};
+
