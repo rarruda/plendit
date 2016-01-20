@@ -159,6 +159,9 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  # So lograge logs 404's: (in production)
+  get '*unmatched_route', to: 'application#route_not_found' if Rails.env.production?
+
   # You can have the root of your site routed with "root"
   root 'misc#frontpage'
 

@@ -12,6 +12,11 @@ class ApplicationController < ActionController::Base
   before_action :enable_chat
 
 
+  # needed for lograge: (to report as 404, and not throw an exception)
+  def route_not_found
+    render(file: "#{Rails.root}/public/404.html", layout: false, status: :not_found) #if Rails.env.production?
+  end
+
   private
 
   def enable_chat
