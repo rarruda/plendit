@@ -5,6 +5,9 @@ class BookingsController < ApplicationController
   # Placeholder hook for when adding cancancan/pundit authorization layer:
   #before_action :authorize_user, only: [:new,:create,:update,:accept,:decline,:abort,:cancel]
 
+  # when called with preAuthorizationId, then its a callback, and refresh booking accordingly.
+  before_action :booking_callback_refresh, only: [:show], if: "params['callback'].present?"
+
   helper SessionsHelper
 
 
@@ -15,6 +18,7 @@ class BookingsController < ApplicationController
 
   # GET /me/bookings/1
   def show
+    # show 404 unless booking was found
     render(file: "#{Rails.root}/public/404.html", layout: false, status: 404) if @booking.nil?
   end
 
@@ -29,7 +33,9 @@ class BookingsController < ApplicationController
     @ad = AdItem.find(booking_params[:ad_item_id]).ad.decorate
 
     if @booking.save
-      redirect_to @booking
+      redirect_to ( (@booking.secure_mode_needed && @booking.secure_mode_redirect_url.present? ) ?
+        @booking.secure_mode_redirect_url : booking_path(@booking, callback: true)
+      )
     else
       render :new
     end
@@ -85,6 +91,12 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  # if its a callback, we trigger a refresh from mangopay.
+  # GET /me/bookings/1?preAuthorizationId=2
+  def booking_callback_refresh
+    @booking.refresh!
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_booking

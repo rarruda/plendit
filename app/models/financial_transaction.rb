@@ -9,8 +9,8 @@ class FinancialTransaction < ActiveRecord::Base
 
   belongs_to :financial_transactionable, polymorphic: true
 
-  #has_one :from_user #?
-  #has_one :to_user   #?
+  # fields which doesnt make any sense to persist to the database:
+  attr_accessor :secure_mode_redirect_url, :secure_mode_needed
 
 
   # Probably need a transfer_refund too.
@@ -63,6 +63,7 @@ class FinancialTransaction < ActiveRecord::Base
   # by state/status:
   scope :errored_or_unknown_state,
                      -> { where( state: [ FinancialTransaction.states[:errored], FinancialTransaction.states[:unknown_state] ] ) }
+  scope :errored,    -> { where( state: FinancialTransaction.states[:errored] ) }
   scope :pending_or_processing,
                      -> { where( state: [ FinancialTransaction.states[:pending], FinancialTransaction.states[:processing] ] ) }
   scope :finished,   -> { where( state: FinancialTransaction.states[:finished] ) }
@@ -187,6 +188,7 @@ class FinancialTransaction < ActiveRecord::Base
 
 
   # triggered externally
+  # THIS TRIGGERS A SLOW API CALL!
   def process_cancel_preauth!
     if self.transaction_type.to_sym == :preauth
       do_preauth_cancel
@@ -257,8 +259,8 @@ class FinancialTransaction < ActiveRecord::Base
           'Currency' => PLENDIT_CURRENCY_CODE,
           'Amount'   => self.amount
         },
-        'SecureMode'   => 'DEFAULT',
-        'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid ),
+        'SecureMode'   => require_secure_mode? ? 'FORCE' : 'DEFAULT',
+        'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid, callback: true ),
       )
       self.update(
         transaction_vid: preauth['Id'],
@@ -266,6 +268,9 @@ class FinancialTransaction < ActiveRecord::Base
         result_message:  preauth['ResultMessage'],
         response_body:   preauth
       )
+
+      self.secure_mode_redirect_url = preauth['SecureModeRedirectURL']
+      self.secure_mode_needed       = preauth['SecureModeNeeded']
 
       # set payment status from preauth's point of view: (WAITING, CANCELED, EXPIRED, VALIDATED)
       set_preauth_payment_status preauth['PaymentStatus']
@@ -308,6 +313,9 @@ class FinancialTransaction < ActiveRecord::Base
 
       # set payment status from preauth's point of view: (WAITING, CANCELED, EXPIRED, VALIDATED)
       set_preauth_payment_status preauth['PaymentStatus']
+
+      # update transaction status from mangopay result: (one of: CREATED, SUCCEEDED, FAILED)
+      aasm_change_on_status preauth['Status']
 
     rescue MangoPay::ResponseError => e
       self.update_attributes(response_body: e.message)
@@ -631,6 +639,10 @@ class FinancialTransaction < ActiveRecord::Base
     else
       LOG.error message: "unknown payment_status result from PayIn::PreAuthorization::Update.fetch: #{payment_status}", financial_transaction_id: self.id
     end
+  end
+
+  def require_secure_mode?
+    self.amount >= Plendit::Application.config.x.platform.require_secure_mode_after_amount
   end
 
   # set vids given that we have a financial_transactionable_type, financial_transactionable_id and transaction_type

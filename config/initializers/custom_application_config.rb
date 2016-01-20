@@ -41,6 +41,10 @@ Plendit::Application.config.x.platform.fee_in_percent        = 0.10
 Plendit::Application.config.x.platform.payout_fee_amount     = 18_00
 Plendit::Application.config.x.platform.payout_fee_waived_after_amount = 500_00
 
+# NOTE this value should be lower then 100 EUR. As Mangopay will always require secure mode after 100 EUR.
+#  setting it here, and warning the user, is just something nice for our users.
+Plendit::Application.config.x.platform.require_secure_mode_after_amount = 500_00
+
 Plendit::Application.config.x.platform.deposit_amount        = {
   bap:           500_00,
   motor:       1_000_00,

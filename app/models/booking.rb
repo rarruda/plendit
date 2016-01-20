@@ -21,6 +21,10 @@ class Booking < ActiveRecord::Base
   has_many :accident_reports  #,dependent: :destroy
   has_many :financial_transactions, as: 'financial_transactionable', dependent: :restrict_with_exception
 
+  # fields which doesnt make any sense to persist to the database:
+  # but are needed for the booking flow:
+  attr_accessor :secure_mode_redirect_url, :secure_mode_needed
+
   enum status: {
     created:               0,
     payment_preauthorized: 1,
@@ -388,6 +392,10 @@ class Booking < ActiveRecord::Base
     self.payout_amount + self.platform_fee_amount + self.insurance_amount
   end
 
+  def sum_paid_by_renter_with_deposit
+    self.sum_paid_by_renter + self.deposit_amount
+  end
+
   def sum_paid_by_renter_per_day
     (self.payout_amount + self.platform_fee_amount + self.insurance_amount) / self.days
   end
@@ -480,67 +488,72 @@ class Booking < ActiveRecord::Base
     self.financial_transactions.preauth.finished.map( &:process_cancel_preauth! )
   end
 
+  # called from ???
+  # refresh_status!
+  def refresh!
+    # if self.payment_preauthorized? || self.confirmed? || self.started? || self.archived?
+    #   LOG.info "Not possible to refresh."
+    # end
+
+    if self.created?
+      do_refresh_created!
+    elsif self.confirmed?
+      #do_refresh_confirmed!
+    else
+      LOG.info "Not possible to refresh."
+      LOG.info message: "Nothing to do for this booking.", booking_id: self.id, booking_status: self.status
+    end
+  end
+
+
+
+
   private
 
   def create_financial_transaction_preauth
-    rental_financial_transaction = {
+    preauth_financial_transaction = {
+      purpose:          'rental_with_deposit',
       transaction_type: 'preauth',
-      purpose:  'rental',
-      amount:   self.sum_paid_by_renter,
+      amount:   self.sum_paid_by_renter_with_deposit,
       fees:     0,
       src_type: :src_card_vid,
       src_vid:  self.from_user.user_payment_cards.find( user_payment_card_id ).card_vid
     }
-    t = self.financial_transactions.create( rental_financial_transaction )
+    t = self.financial_transactions.create( preauth_financial_transaction )
+    t.process!
 
-    deposit_financial_transaction = {
-      transaction_type: 'preauth',
-      purpose:  'deposit',
-      amount:   self.deposit_amount,
-      fees:     0,
-      src_type: :src_card_vid,
-      src_vid:  self.from_user.user_payment_cards.find( user_payment_card_id ).card_vid
-    }
-    t = self.financial_transactions.create( deposit_financial_transaction )
+    unless t.errored?
+      self.secure_mode_needed       = t.secure_mode_needed
+      self.secure_mode_redirect_url = t.secure_mode_redirect_url if t.secure_mode_needed
+    end
 
-    # called from a BookingProcessPreauthJob:
-    # t.process!
-    BookingProcessPreauthJob.perform_later self
+    # we get the url to redirect the user to in secure_mode_redirect_url...
+    # https://docs.mangopay.com/api-references/card/pre-authorization/
   end
 
   def create_financial_transaction_payin
-    if self.financial_transactions.rental.preauth.finished.present? &&
-       self.financial_transactions.deposit.preauth.finished.present?
+    if self.financial_transactions.preauth.finished.present?
+      preauth_transaction_vid  = self.financial_transactions.preauth.finished.take.transaction_vid
 
-      rental_preauth_transaction_vid  = self.financial_transactions.rental.preauth.finished.take.transaction_vid
-      deposit_preauth_transaction_vid = self.financial_transactions.deposit.preauth.finished.take.transaction_vid
-      raise "No valid rental||deposit_preauth_transaction_vid in place" if rental_preauth_transaction_vid.blank? || deposit_preauth_transaction_vid.blank?
+      raise "No valid preauth_transaction_vid in place" if preauth_transaction_vid.blank?
     else
-      raise "No valid rental||deposit_preauth_transaction_vid in place" if rental_preauth_transaction_vid.blank? || deposit_preauth_transaction_vid.blank?
+      raise "No valid preauth_transaction_vid in place"
     end
 
-    rental_financial_transaction = {
+    financial_transaction = {
       transaction_type: 'payin',
-      purpose:  'rental',
-      amount:   self.sum_paid_by_renter,
+      purpose:  'rental_with_deposit',
+      amount:   self.sum_paid_by_renter_with_deposit,
       fees:     0,
       src_type: :src_preauth_vid,
-      src_vid:  rental_preauth_transaction_vid
+      src_vid:  preauth_transaction_vid
     }
-    t = self.financial_transactions.create( rental_financial_transaction )
-
-    deposit_financial_transaction = {
-      transaction_type: 'payin',
-      purpose:  'deposit',
-      amount:   self.deposit_amount,
-      fees:     0,
-      src_type: :src_preauth_vid,
-      src_vid:  deposit_preauth_transaction_vid
-    }
-    t = self.financial_transactions.create( deposit_financial_transaction )
+    t = self.financial_transactions.create( financial_transaction )
 
     # called from a BookingProcessPayinJob:
-    # t.process!
+    # processing payins takes around 30-40 seconds, so do it via a resque job
+    #t.process!
+
     BookingProcessPayinJob.perform_later self
   end
 
@@ -568,8 +581,6 @@ class Booking < ActiveRecord::Base
   end
 
   # FIXME/NOTES(RA):
-  # 1) keeping for now this call syncronous. But should also call a job eventually...
-  #  but as we dont have enough "states" to cover the post-transfer, let it be...
   # 2) At some point we should consider making IF a special customer, and making a
   #  split payment here.
   def create_financial_transaction_transfer
@@ -591,6 +602,46 @@ class Booking < ActiveRecord::Base
       t.process!
     end
   end
+
+  # Refresh the booking status, given that it has the created status.
+  def do_refresh_created!
+    # refresh the preauth for this booking.
+    ft = self.financial_transactions.preauth.take
+
+    if ft.present? && ft.pending? || ft.processing?
+      LOG.info message: "process_refresh! for ft", booking_id: self.id, financial_transaction_id: ft.id
+      ft.process_refresh!
+    end
+
+    if ft.blank?
+      LOG.error message: "All bookings need one preauth financial_transaction. " \
+        "You are trying to refresh a booking without one. This is an error and " \
+        "should never happen.", booking_id: self.id
+    elsif ft.processing?
+      LOG.info message: "preauth financial_transaction is still processing", booking_id: self.id
+    elsif ft.pending?
+      LOG.info message: "preauth financial_transaction is still pending", booking_id: self.id
+    elsif ft.errored? || ft.unknown_state?
+      # set booking to failed preauthoration status.
+      self.payment_preauthorization_fail!
+
+    elsif ft.finished? #&& ft.preauth_waiting?
+      # Preauth is ready to be charged! Once the « PreAuthorization » object gets
+      #  "Status" = "SUCCEEDED" and "PaymentStatus" = "WAITING" you can charge the card.
+      # See: https://docs.mangopay.com/api-references/payins/preauthorized-payin/
+      LOG.error message: "preauth financial_transaction does not " \
+        " have preauth_payment_status: preauth_waiting" unless ft.preauth_waiting?
+
+      self.payment_preauthorize!
+    end
+
+    LOG.info message: "Booking now has status: #{self.status}", booking_id: self.id
+  end
+
+  # Refresh the booking status, given that it has the confirmed status.
+  def do_refresh_confirmed!
+  end
+
 
   # When a booking is created, the starts_at and ends_at
   #  have a pre-determined timepoint. We enforce it in this callback

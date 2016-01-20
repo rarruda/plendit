@@ -1,6 +1,6 @@
 <div class="help-box">
     <% if @booking.created? %>
-        Venter på svar 
+        Venter på svar
     <% elsif @booking.payment_preauthorized? %>
         Venter på svar
     <% elsif @booking.confirmed? %>
@@ -25,8 +25,24 @@
         Leieforholdet er over
     <% elsif @booking.archived? %>
         Arkivert
-    <% elsif @booking.payment_preauthorization_failed? || @booking.payment_failed? %>
+    <% elsif @booking.payment_preauthorization_failed? %>
         Betaling mislyktes, prøv et annet kort
+
+        <% fte = @booking.financial_transactions.preauth.errored
+          if fte.any? %>
+          <br> TRANSLATEME: Grunnlag:
+          <!-- result_code: <%= fte.take.result_code %> -->
+          <%= fte.take.result_message %>
+        <% end %>
+    <% elsif @booking.payment_failed? %>
+        Betaling mislyktes, prøv et annet kort
+
+        <% fte = @booking.financial_transactions.payin.errored
+          if fte.any? %>
+          <br> TRANSLATEME: Grunnlag:
+          <!-- result_code: <%= fte.take.result_code %> -->
+          <%= fte.take.result_message %>
+        <% end %>
     <% elsif @booking.admin_paused? %>
         Under behandling
     <% else %>

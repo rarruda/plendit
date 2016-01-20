@@ -12,7 +12,7 @@
 </div>
 <div class="booking-price-summary__row">
     <span class="booking-price-summary__label">
-        Totalt:
+        Totalt for leieperiode:
     </span>
     <span class="booking-price-summary__value"><%= format_monetary_full_pretty @booking.sum_paid_by_renter %> </span>
 </div>
@@ -21,4 +21,10 @@
         Depositum:
     </span>
     <span class="booking-price-summary__value"><%= format_monetary_full_pretty @booking.deposit_amount %> </span>
+</div>
+<div class="booking-price-summary__row">
+    <span class="booking-price-summary__label">
+        Totalt å betale:
+    </span>
+    <span class="booking-price-summary__value"><strong><%= format_monetary_full_pretty @booking.sum_paid_by_renter_with_deposit %></strong> </span>
 </div>
