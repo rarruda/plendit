@@ -26,6 +26,8 @@
 
     <div class="row">
         <div data-controller="kalendaeBookingSelector">
+            <%= render partial: 'ads/unavailability', locals: {ad: @booking.ad} %>
+
             <div class="eight columns">
                 <div class="booking-period-selector">
                     <div data-kalendae-container class="u-center"></div>

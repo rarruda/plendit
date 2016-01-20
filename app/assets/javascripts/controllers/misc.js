@@ -360,6 +360,34 @@ window.controllers.kalendaeBookingSelector = {
         var from_date = ele.querySelector('[name="booking[starts_at_date]"]');
         var to_date = ele.querySelector('[name="booking[ends_at_date]"]');
         var rangeString = from_date.value + " - " + to_date.value;
+        var prevClickedDate = null;
+ 
+        var bookedDatesEle = ele.querySelector('script[type="text/plain"]');
+        if (bookedDatesEle) {
+            blackout = bookedDatesEle.textContent.trim();
+            blackout = (blackout && blackout.split(",")) || [];
+        }
+
+        function validateSelection(clicked) {
+            var current = this.getSelectedAsDates();
+            if (current.length == 0) {
+                current = [clicked, clicked]
+            }
+            else if (current.length == 1) {
+                current = [current[0], clicked]
+            }
+            else {
+                current = [clicked, clicked];
+            }
+            current = current.map(function(e) { return moment(e) }).sort(function(a, b) { return a.toDate() - b.toDate() });
+            return !unselectable(current);
+        }
+
+        function unselectable(selection) {
+            var range = moment.range(selection[0], selection[1] || selection[0]);
+            var overlaps = blackout.map(function(e) { return range.contains(moment(e)); });
+            return overlaps.reduce(function(acc, cur) { return acc || cur }, false);
+        }
 
         var k = new Kalendae({
             attachTo: ele.querySelector("[data-kalendae-container]"),
@@ -367,11 +395,12 @@ window.controllers.kalendaeBookingSelector = {
             weekStart: 1,
             direction: "today-future",
             selected: rangeString,
+            blackout: blackout,
             useYearNav: false,
         });
 
         k.subscribe('change', function(date) {
-            window.k = k;
+            prevClickedDate = date;
             var dates = this.getSelectedAsText();
 
             if (dates.length == 0) {
@@ -390,6 +419,8 @@ window.controllers.kalendaeBookingSelector = {
         });
 
         k.subscribe('view-changed', onViewChanged);
+
+        k.subscribe('date-clicked', validateSelection);
 
         window.setTimeout(getQueryDates, 100);
 
