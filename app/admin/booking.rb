@@ -17,7 +17,7 @@ ActiveAdmin.register Booking do
   menu priority: 5
   actions :index, :show
 
-  permit_params :ad_item_id, :from_user_id, :amount, :status
+  #permit_params :ad_item_id, :from_user_id
 
   controller do
     defaults finder: :find_by_guid
@@ -30,7 +30,7 @@ ActiveAdmin.register Booking do
     column :ad
     column :user
     column :from_user
-    column :amount
+    column :payout_amount
     column :status
     column :created_at
     actions
