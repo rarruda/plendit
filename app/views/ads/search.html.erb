@@ -19,7 +19,7 @@
         <div class="u-only-when-grid">
             <%= render partial: 'search_title_box' %>
         </div>
-        <%= render partial: 'search_filter_section' %>
+        <%= render partial: 'search_filter_section', locals: {open: @ads.empty?} %>
         <div class="result-container__hits-list" data-controller="resultList resultPaging" data-result-list>
             <%= render partial: 'search_result_box' %>
         </div>

@@ -1,5 +1,5 @@
 <div class="search-filter-section">
-    <details class="search-filter-section__details">
+    <details class="search-filter-section__details" <%= 'open' if open %> >
         <summary class="search-filter-section__summary"><span class="button search-filter-section__expando">filter</span></summary>
         <div data-controller="searchFilterSelection" class="search-filter-section__inputs">
             <%= form_tag({}, class: "search-filter-section__form") do %>
