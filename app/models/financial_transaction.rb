@@ -61,12 +61,16 @@ class FinancialTransaction < ActiveRecord::Base
 
 
   # by state/status:
-  scope :errored_or_unknown_state,
-                     -> { where( state: [ FinancialTransaction.states[:errored], FinancialTransaction.states[:unknown_state] ] ) }
+  scope :pending,    -> { where( state: FinancialTransaction.states[:pending] ) }
   scope :errored,    -> { where( state: FinancialTransaction.states[:errored] ) }
+  scope :finished,   -> { where( state: FinancialTransaction.states[:finished] ) }
   scope :pending_or_processing,
                      -> { where( state: [ FinancialTransaction.states[:pending], FinancialTransaction.states[:processing] ] ) }
-  scope :finished,   -> { where( state: FinancialTransaction.states[:finished] ) }
+  scope :processing_or_finished,
+                     -> { where( state: [ FinancialTransaction.states[:processing], FinancialTransaction.states[:finished] ] ) }
+  scope :errored_or_unknown_state,
+                     -> { where( state: [ FinancialTransaction.states[:errored], FinancialTransaction.states[:unknown_state] ] ) }
+
 
   # by user: (complex...)
   # from_user: impacts payin account
@@ -331,7 +335,7 @@ class FinancialTransaction < ActiveRecord::Base
     unless self.preauth?         &&
       self.src_card_vid?         &&
       #self.dst_payin_wallet_vid? &&#dst_payin_transaction_vid
-      self.finished?             &&
+      ( self.finished? || self.processing? ) &&
       ( ['Booking', 'UserPaymentCard'].include? self.financial_transactionable_type ) &&
       self.financial_transactionable_id.present?
 
