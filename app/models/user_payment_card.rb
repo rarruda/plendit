@@ -16,6 +16,12 @@ class UserPaymentCard < ActiveRecord::Base
   #  nor card_invalid?
   #default_scope { where( active: true ) }
 
+  scope :active,     -> { where( active: true ) }
+  scope :pending_or_processing,
+                     -> { where( validity: [ UserPaymentCard.validities[:pending], UserPaymentCard.validities[:processing]] ) }
+  scope :valid,      -> { where( validity: UserPaymentCard.validities[:card_valid] ) }
+
+  # FIXME:(RA) CREATE A SCOPE FOR NON-DELETED CARDS, and make it the default.
 
   # mangopay status:  UNKNOWN                    VALID         INVALID
   enum validity:    { pending: 1, processing: 2, card_valid: 5, card_invalid: 10, errored: 11 }
@@ -63,7 +69,7 @@ class UserPaymentCard < ActiveRecord::Base
     end
 
     event :invalidate do
-      transitions from: [:pending, :processing,:card_valid], to: :card_invalid
+      transitions from: [:pending, :processing, :card_valid], to: :card_invalid
     end
 
     event :fail do
@@ -71,7 +77,7 @@ class UserPaymentCard < ActiveRecord::Base
     end
 
     event :revert do
-      transitions from: [:pending,:processing], to: :pending
+      transitions from: [:pending, :processing], to: :pending
     end
   end
 
@@ -90,10 +96,9 @@ class UserPaymentCard < ActiveRecord::Base
   # Note: It is an irreversible action.
   def disable
     disabled_card = MangoPay::Card.update( self.card_vid, { 'Active' => false } )
-    # only "true"/true are true. everything else is false:
-    self.active = ( ["true" , true].include? disabled_card['Active'] )
 
-    refresh
+    self.update_attributes(active: disabled_card['Active'])
+
 
     LOG.info message: "deactivated from mangopay: #{self}", user_id: self.user.id, card_id: self.id
   end
