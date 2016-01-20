@@ -261,8 +261,13 @@ class User < ActiveRecord::Base
 
   def current_and_recent_bookings days = nil
     days = 2 if days.nil?
-    bookings = self.current_bookings + self.bookings.includes({ad: [:ad_images]},:messages,:from_user,:user).where("bookings.updated_at > ?", days.days.ago)
+    recent = self.bookings
+                 .includes({ad: [:ad_images]},:messages,:from_user,:user)
+                 .where("bookings.updated_at > ?", days.days.ago)
+                 .distinct
+    bookings = self.current_bookings + recent
     bookings = bookings.sort do |a,b| b.updated_at <=> a.updated_at end
+    bookings = bookings.uniq
   end
 
   def can_rent? category = nil
