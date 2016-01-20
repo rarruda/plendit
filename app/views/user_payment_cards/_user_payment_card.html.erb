@@ -19,8 +19,9 @@
     <%# params: { 'user[user_payment_card][guid]' => user_payment_card.guid } %>
     <%# FIXME: evil to style directly in the html tags %>
     <%# TRANSLATEME: "Are you sure?" in alert box below %>
-    <%= button_to user_payment_card, method: :delete, class: 'button u-pull-right', form_class: 'u-inline', data: { confirm: 'Er du sikker på at du vil fjerne den kreditt kort?' } do %>
-        Slett
-    <% end %>
+    <%= button_to 'Slett', user_payment_card, method: :delete,
+            class: 'button u-pull-right',
+            form_class: 'u-inline',
+            data: { confirm: 'Er du sikker på at du vil slette kredittkortet?' } %>        
 
 </li>
