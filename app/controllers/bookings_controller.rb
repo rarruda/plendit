@@ -5,7 +5,7 @@ class BookingsController < ApplicationController
   # Placeholder hook for when adding cancancan/pundit authorization layer:
   #before_action :authorize_user, only: [:new,:create,:update,:accept,:decline,:abort,:cancel]
 
-  # when called with preAuthorizationId, then its a callback, and refresh booking accordingly.
+  # when called with 'callback' parameter, then its a callback, and refresh booking accordingly.
   before_action :booking_callback_refresh, only: [:show], if: "params['callback'].present?"
 
   helper SessionsHelper
