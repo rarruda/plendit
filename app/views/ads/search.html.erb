@@ -4,7 +4,7 @@
             <button data-show-list-toggle class="search-result-view-chooser__segment-button search-result-view-chooser__segment-button--left search-result-view-chooser__segment-button--selected">Vis treff</button>
             <button data-show-map-toggle class="search-result-view-chooser__segment-button search-result-view-chooser__segment-button--right">Vis kart</button>
         </div>
-        <%= render partial: "search_title_box" %>
+        <%= render partial: 'search_title_box' %>
     </div>
 </div>
 
@@ -17,11 +17,11 @@
 
     <div class="result-container__hits-box" data-hits-view>
         <div class="u-only-when-grid">
-            <%= render partial: "search_title_box" %>
+            <%= render partial: 'search_title_box' %>
         </div>
-        <%= render partial: "search_filter_section" %>
+        <%= render partial: 'search_filter_section' %>
         <div class="result-container__hits-list" data-controller="resultList resultPaging" data-result-list>
-            <%= render partial: "search_result_box" %>
+            <%= render partial: 'search_result_box' %>
         </div>
     </div>
 </div>
