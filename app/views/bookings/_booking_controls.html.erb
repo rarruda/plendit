@@ -29,6 +29,8 @@
         <% elsif booking.in_progress? %>
             Denne bookingen er aktiv.
         <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
+        <% elsif booking.ended? || booking.archived? %>
+            Leieforholdet er over og stengt for endringer.
         <% else %>
            Ukjent status, opplever du problemer kan du ta kontakt med <%= link_to 'kundesenteret', Plendit::Application.config.x.customerservice.contact_form %>.
         <% end %>
