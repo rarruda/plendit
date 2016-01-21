@@ -34,7 +34,7 @@ class FeedbacksController < ApplicationController
 
     respond_to do |format|
       if @feedback.save
-        format.html { redirect_to booking_path(@feedback.booking), notice: 'Feedback was successfully created.' }
+        format.html { redirect_to booking_path(@feedback.booking) }
         format.json { render :show, status: :created, location: @feedback }
       else
         format.html { render :new }

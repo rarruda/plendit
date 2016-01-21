@@ -34,7 +34,7 @@ class BookingDecorator < Draper::Decorator
       payment_confirmed: 'godtatt',
       started:           'pågår',
       in_progress:       'pågår',
-      ended:             'fullført',
+      ended:             'ferdig',
       archived:          'arkivert',
       aborted:           'avlyst',
       cancelled:         'avlyst',
