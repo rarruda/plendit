@@ -255,8 +255,14 @@ class FinancialTransaction < ActiveRecord::Base
     begin
       # https://docs.mangopay.com/api-references/card/pre-authorization/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pre_authorization.rb
+      preauth_tag = case self.financial_transactionable_type
+      when 'Booking'
+        "booking_id=#{financial_transactionable_id} #{self.purpose}"
+      when 'UserPaymentCard'
+        "user_payment_card_id=#{financial_transactionable_id} #{self.purpose}"
+      end
       preauth = MangoPay::PreAuthorization.create(
-        'Tag'          => "booking_id=#{financial_transactionable_id} #{self.purpose}",
+        'Tag'          => preauth_tag,
         'AuthorId'     => self.from_user.payment_provider_vid,
         'CardId'       => self.src_vid,
         'DebitedFunds' => {

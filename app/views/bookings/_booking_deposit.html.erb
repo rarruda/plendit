@@ -4,7 +4,7 @@
             Her legger du inn penger du skylder for bompenger, drivstoff og eventuelle bøter.
         </div>
         <div class="booking-summary__row">
-            <% form_for(@booking) do |f| %>
+            <%= form_for(@booking) do |f| %>
                 <% if @booking.errors.any? %>
                     <div id="error_explanation">
                         <h2>
@@ -17,8 +17,8 @@
                         </ul>
                     </div>
                 <% end %>
-                <% f.label :deposit_offer_amount, "TRANSLATEME: Hvor mye vil du overføre?" %>
-                <% f.telephone_field :deposit_offer_amount %>
+                <%= f.label :deposit_offer_amount, "TRANSLATEME: Hvor mye vil du overføre?" %>
+                <%= f.telephone_field :deposit_offer_amount %>
             <% end %>
         </div>
         <div class="booking-summary__row">
