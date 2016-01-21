@@ -4,13 +4,13 @@
             <%= button_to 'Avslå forespørsel', decline_booking_path(booking), class: 'button', form_class: 'u-inline' %>
             <%= button_to 'Godkjenn forespørsel', accept_booking_path(booking), class: 'button button-primary', form_class: 'u-inline' %>
         <% elsif booking.payment_confirmed? || booking.started? %>
-            <%= button_to 'Avbryt leieforhold', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: 'Er du sikker at du vil avbryte?' } %>
+            <%= button_to 'Avlys leieforhold', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: 'Er du sikker at du vil avbryte?' } %>
         <% end %>
     <% else %>
         <% if booking.created? || booking.payment_preauthorized? %>
             <%= button_to 'Avbryt forespørsel', abort_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: 'Er du sikker at du vil avbryte?' } %>
         <% elsif booking.confirmed? || booking.payment_confirmed? %>
-            <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: 'Er du sikker at du vil avbryte?' } %>
+            <%= button_to 'Avlys leieforhold', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: 'Er du sikker at du vil avbryte?' } %>
         <% end %>
     <% end %>
 </div>
