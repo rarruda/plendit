@@ -6,10 +6,6 @@
     </div>
 
     <div class="u-push-down">
-        <%= render partial: 'booking_status_box' %>
-    </div>
-
-    <div class="u-push-down">
         <%= render partial: 'booking_summary' %>
     </div>
 
@@ -33,7 +29,6 @@
     <hr>
 
     <%= render partial: 'conversation_section', locals: {booking: @booking} %>
-
 
     <% if @booking.may_send_damage_report? %>
         <div class="u-push-down">
