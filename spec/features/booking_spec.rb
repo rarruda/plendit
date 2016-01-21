@@ -90,7 +90,7 @@ RSpec.describe Booking, type: :model do
       booking.starts_at = DateTime.now
       booking.ends_at   = DateTime.now.end_of_day
 
-      expect(booking.in_progress_at).to     be_within(1.minutes).of ( booking.ends_at - 1.minute )
+      expect(booking.in_progress_at).to     be_within(1.minute).of ( booking.ends_at - 1.minute )
     end
 
     it "should have in_progress_at correctly for booking starting at the same day, multiple day booking" do
@@ -98,19 +98,18 @@ RSpec.describe Booking, type: :model do
       booking.starts_at = DateTime.now
       booking.ends_at   = 2.days.from_now.end_of_day
 
-      expect(booking.in_progress_at).to     be_within(1.minutes).of ( booking.starts_at + 1.day )
+      expect(booking.in_progress_at).to     be_within(1.minute).of ( booking.starts_at + 1.day )
     end
 
     it "should have in_progress_at correctly for booking starting in the future" do
       booking.status    = 'payment_confirmed'
       booking.starts_at = 1.day.from_now.beginning_of_day
-      booking.ends_at   = 2.days.from_now.end_of_day
 
-      expect(booking.in_progress_at).to     be_within(1.minutes).of ( booking.starts_at + 1.day )
+      expect(booking.in_progress_at).to     be_within(1.minute).of ( booking.starts_at + 1.day )
     end
 
     it "should have archives_at correctly" do
-      expect(booking.archives_at).to     be_within(1.minutes).of ( booking.ends_at + 1.week )
+      expect(booking.archives_at).to     be_within(1.minute).of ( booking.ends_at + 1.week )
     end
 
     it "should not allow renter to may_set_deposit_offer_amount? when payment_confirmed" do
