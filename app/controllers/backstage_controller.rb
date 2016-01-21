@@ -72,7 +72,7 @@ class BackstageController < ApplicationController
   end
 
   def boat_admin
-    @bookings = Booking.current.joins(:ad).where(ads: {category: Ad.categories[:boat]})
+    @bookings = Booking.boat_insurer_visible
   end
 
   private

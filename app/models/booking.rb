@@ -53,7 +53,14 @@ class Booking < ActiveRecord::Base
 
   scope :accidents_reportable,
                      -> { where( status: [ self.statuses[:started], self.statuses[:in_progress], self.statuses[:ended] ] ) }
-  scope :current,    -> { where( status: [ self.statuses[:created], self.statuses[:confirmed], self.statuses[:started],
+  # IF should only see these bookings:
+  scope :boat_insurer_visible,
+                     -> { joins(:ad).where( status: [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started],
+                                           self.statuses[:in_progress], self.statuses[:ended] ],
+                                           ads: { category: Ad.categories[:boat] }
+                                           ) }
+  # current: bookings that are confirmed paid.
+  scope :current,    -> { where( status: [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started],
                                            self.statuses[:in_progress], self.statuses[:ended] ] ) }
   scope :active,     -> { where( status: [ self.statuses[:started], self.statuses[:in_progress] ] ) }
 
