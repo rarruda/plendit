@@ -31,7 +31,7 @@ class Ad < ActiveRecord::Base
   validates :body, length: { in: 5..12000 , message: 'Annonsen må ha en beskrivelse.' },
     unless: :new_record?
 
-  validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: 'Annonsen må ha et gyldig reg.nr.' },
+  validates :registration_number, presence: { message: 'Annonsen må ha et gyldig reg.nr.' },
     unless: :new_record?,
     if:     :motor?
 
