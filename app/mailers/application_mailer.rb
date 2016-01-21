@@ -27,7 +27,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def booking_confirmed__to_renter booking
     @booking = booking
-    self.add_insurance_documents
+    add_insurance_documents
     mail(
       to: @booking.from_user.email,
       subject: "Plendit: Din forespørsel ble akseptert",
@@ -37,7 +37,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def booking_confirmed__to_owner booking
     @booking = booking
-    self.add_insurance_documents
+    add_insurance_documents
     mail(
       to: @booking.user.email,
       subject: "Plendit: Du har godkjent leieforespørselen av (#{@booking.ad.title})"
@@ -161,6 +161,8 @@ class ApplicationMailer < ActionMailer::Base
       subject: "Plendit: Dit Id-kort ble ikke godkjent"
     )
   end
+
+
 
   private
 
