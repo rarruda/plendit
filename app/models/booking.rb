@@ -266,7 +266,7 @@ class Booking < ActiveRecord::Base
 
       after do
         LOG.info message: "make transfer of funds...", booking_id: self.id
-        create_financial_transaction_transfer
+        create_financial_transaction_transfer_rental
 
         LOG.info message: "schedule auto-end at ends_at(#{self.ends_at})...", booking_id: self.id
         BookingAutoEndJob.set(wait_until: self.ends_at ).perform_later self
@@ -279,7 +279,11 @@ class Booking < ActiveRecord::Base
         LOG.info message: "schedule auto-archival 7 days after ends_at.", booking_id: self.id
         BookingAutoArchiveJob.set(wait_until: self.archives_at ).perform_later self
 
-        # create_financial_transaction_transfer_deposit
+        if self.deposit_offer_amount > 0
+          create_financial_transaction_transfer_deposit
+        else
+          LOG.info message: "No need to create a transfer for deposit, as it would be <= 0 NOK", booking_id: self.id
+        end
       end
     end
 
@@ -287,6 +291,12 @@ class Booking < ActiveRecord::Base
       transitions from: :ended, to: :archived
       # UserFeedbackScoreRefreshAllJob should run weekly for all users as a safety net...
       after do
+        if self.sum_deposit_available_for_refund > 0
+          create_financial_transaction_refund_deposit
+        else
+          LOG.info message: "No need to create a refund, as it would be <= 0 NOK", booking_id: self.id
+        end
+
         UserFeedbackScoreRefreshJob.set(wait_until: ( Date.tomorrow.beginning_of_day + 1.hour) ).perform_later self.from_user
         UserFeedbackScoreRefreshJob.set(wait_until: ( Date.tomorrow.beginning_of_day + 1.hour) ).perform_later self.user
       end
@@ -453,7 +463,16 @@ class Booking < ActiveRecord::Base
     ( self.platform_fee_amount + self.insurance_amount )
   end
 
+  # Might need to do something more fancy, as there might be multiple deposit_transfers...
+  def sum_deposit_available_for_refund
+    available_for_refund = ( self.deposit_amount - self.sum_transfer_deposit )
 
+    ( available_for_refund > 0 ) ? available_for_refund : 0
+  end
+
+  def sum_transfer_deposit
+    self.financial_transactions.transfer.deposit.map(&:amount).sum
+  end
 
   ###
   def include?(date)
@@ -636,25 +655,63 @@ class Booking < ActiveRecord::Base
   end
 
   # FIXME/NOTES(RA):
-  # 2) At some point we should consider making IF a special customer, and making a
-  #  split payment here.
-  def create_financial_transaction_transfer
+  # 2) At some point we should consider making IF a special customer, and making a split payment here.
+  def create_financial_transaction_transfer_rental
     if self.financial_transactions.transfer.rental.finished.where( amount: self.sum_paid_by_renter, fees: self.sum_plaform_fee_and_insurance ).any?
       LOG.error message: "At least one identical sucessful financial_transaction exists. Will not create a duplicate one.", booking_id: self.id
       return false
     else
       # later we should make this a split payment!
       # NOTE: 'amount' will be automatically be deducted for the 'fees'
-      rental_financial_transaction = {
+      financial_transaction = {
         transaction_type: 'transfer',
         purpose: 'rental',
         amount:  self.sum_paid_by_renter,
         fees:    self.sum_plaform_fee_and_insurance
       }
-      t = self.financial_transactions.create( rental_financial_transaction )
+      t = self.financial_transactions.create( financial_transaction )
 
       # FIXME(RA): should be triggered from a job:
       t.process!
+    end
+  end
+
+  def create_financial_transaction_transfer_deposit(transfer_deposit_amount = self.deposit_offer_amount)
+    if transfer_deposit_amount > self.sum_deposit_available_for_refund
+      LOG.error message: "Not possible to transfer more then what is available from the deposit.", booking_id: self.id
+      # raise "TooLargeValueForTransferDepositAmount"
+      return false
+    else
+      financial_transaction = {
+        transaction_type: 'transfer',
+        purpose: 'deposit',
+        amount:  transfer_deposit_amount,
+        fees:    0
+      }
+      t = self.financial_transactions.create( financial_transaction )
+
+      # FIXME(RA): should be triggered from a job:
+      t.process!
+    end
+  end
+
+  # refund remaining deposit amount
+  def create_financial_transaction_refund_deposit
+    if self.sum_deposit_available_for_refund > 0
+      financial_transaction = {
+        transaction_type: 'payin_refund',
+        purpose:  'deposit',
+        amount:   self.sum_deposit_available_for_refund,
+        fees:     0,
+        src_type: :src_payin_vid,
+        src_vid:  self.financial_transactions.payin.finished.take.transaction_vid
+      }
+      t = self.financial_transactions.create( financial_transaction )
+
+      # FIXME(RA): should be triggered from a job:
+      t.process!
+    else
+      LOG.error "Not possible to refund a negative value."
     end
   end
 
