@@ -9,9 +9,9 @@ FactoryGirl.define do
     country       "RUS"
     active        true
     favorite      false
-    validity        "UNKNOWN"
+    validity        'card_valid'
     number_alias    "497010XXXXXX0154"
-    expiration_date "0216"
+    expiration_date "0219"
   end
 
 end

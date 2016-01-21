@@ -246,11 +246,9 @@ class Booking < ActiveRecord::Base
       transitions from: :payment_confirmed, to: :started
 
       after do
-        in_progress_at = ( starts_at.to_date == ends_at.to_date ) ? ( ends_at - 1.minute ) : ( starts_at + 1.day )
-
-        LOG.info message: "schedule auto-set_in_progress as new status in 1.day...(#{in_progress_at})", booking_id: self.id
+        LOG.info message: "schedule auto-set_in_progress as new status in 1.day...(#{self.in_progress_at})", booking_id: self.id
         # or right before ends_at if its a same day booking.
-        BookingAutoSetInProgressJob.set(wait_until: in_progress_at ).perform_later self
+        BookingAutoSetInProgressJob.set(wait_until: self.in_progress_at ).perform_later self
       end
     end
 
@@ -270,7 +268,9 @@ class Booking < ActiveRecord::Base
       transitions from: :in_progress, to: :ended
       after do
         LOG.info message: "schedule auto-archival 7 days after ends_at.", booking_id: self.id
-        BookingAutoArchiveJob.set(wait_until: (self.ends_at + 7.days + 1.second) ).perform_later self
+        BookingAutoArchiveJob.set(wait_until: self.archives_at ).perform_later self
+
+        # create_financial_transaction_transfer_deposit
       end
     end
 
@@ -343,16 +343,41 @@ class Booking < ActiveRecord::Base
     LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for booking_id: #{self.id}"
   end
 
+  def should_be_confirmed?
+    self.payment_preauthorized? &&
+    ( self.should_be_in_progress? ||
+      ( DateTime.now > self.created_at + 7.days )
+    )
+  end
+
+  def should_be_started?
+    self.payment_confirmed? && ( DateTime.now > self.starts_at )
+  end
+
   def should_be_in_progress?
-    self.started && ( ( self.starts_at + 1.day ) > DateTime.now )
+    self.started? && ( DateTime.now > self.in_progress_at )
   end
 
   def should_be_ended?
-    self.in_progress && ( ( self.ends_at ) > DateTime.now )
+    self.in_progress? && ( DateTime.now > self.ends_at )
   end
 
   def should_be_archived?
-    self.ended && ( ( self.ends_at + 7.days ) > DateTime.now )
+    self.ended? && ( DateTime.now > self.archives_at )
+  end
+
+  ###
+  def in_progress_at
+    if starts_at.to_date == ends_at.to_date
+      # same day booking:
+      ends_at - 1.minute
+    else
+      starts_at + 1.day
+    end
+  end
+
+  def archives_at
+    self.ends_at + 7.days + 1.second
   end
 
   def was_ever_confirmed?
