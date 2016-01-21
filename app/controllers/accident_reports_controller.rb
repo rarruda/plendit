@@ -26,7 +26,7 @@ class AccidentReportsController < InheritedResources::Base
       #redirect_to users_path #redirect to the correct place if the accident report was correctly created.
     else
       @bookings = Booking.accidents_reportable.has_user( current_user ).all
-      #redirect_to users_accident_reports_path, alert: "Skademelding kunne ikke opprettes!"
+      #redirect_to booking_accident_reports_path, alert: "Skademelding kunne ikke opprettes!"
       render :index
     end
   end
