@@ -1,0 +1,21 @@
+<p>
+  Hei, <%= @booking.ad.user.public_name %>
+</p>
+
+<p>
+    Du har motatt en innbetaling fra <%= @booking.from_user.public_name %>
+    på <%= format_monetary_full_pretty @booking.deposit_offer_amount %>.
+</p>
+<p>
+    Denne summen dekker kostnader knyttet til bompenger, drivstoff og
+    eventuelle bøter.
+</p>
+
+<p>
+    Hvis du mener denne summen ikke dekker kostnadene, må du 
+    <%= link_to 'kontakte kundesenteret.' Plendit::Application.config.x.customerservice.contact_form %>
+</p>
+
+<p>
+  Hilsen Plendit.no
+</p>

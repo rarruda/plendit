@@ -80,6 +80,15 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
+  def deposit_withdrawals__to_owner booking
+    @booking = booking
+
+    mail(
+      to: @booking.user.email,
+      subject: "Plendit: melding om betaling"
+    )
+  end
+
   # not hooked up. needs a scheduled job to trigger it.
   def booking_ends_at_soon__to_owner booking
     @booking = booking

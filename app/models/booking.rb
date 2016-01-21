@@ -281,6 +281,7 @@ class Booking < ActiveRecord::Base
 
         if self.deposit_offer_amount > 0
           create_financial_transaction_transfer_deposit
+          ApplicationMailer.deposit_withdrawals__to_owner( self ).deliver_later
         else
           LOG.info message: "No need to create a transfer for deposit, as it would be <= 0 NOK", booking_id: self.id
         end
