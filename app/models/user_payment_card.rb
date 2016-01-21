@@ -33,7 +33,7 @@ class UserPaymentCard < ActiveRecord::Base
   #  and then triggers a delayed job to validated it.
   after_create :process!
 
-  # We should never delete cards from our system, but if we do, it is imperative to disable them first:
+  # We should never delete cards from our system, instead we HAVE TO disable them:
   before_destroy :disable,
     if: :card_vid?,
     if: :active?
@@ -51,7 +51,7 @@ class UserPaymentCard < ActiveRecord::Base
     event :process do
       transitions from: :pending, to: :processing
       before do
-        refresh
+        refresh!
       end
       after do
         # self.validate_on_mangopay
@@ -60,7 +60,7 @@ class UserPaymentCard < ActiveRecord::Base
     end
 
     event :finish do
-      transitions from: :processing, to: :card_valid
+      transitions from: [:processing,:card_valid], to: :card_valid
     end
 
     event :invalidate do
@@ -68,7 +68,7 @@ class UserPaymentCard < ActiveRecord::Base
     end
 
     event :fail do
-      transitions from: [:pending, :processing], to: :errored
+      transitions from: [:pending, :processing, :card_valid], to: :errored
     end
 
     event :revert do
@@ -130,22 +130,23 @@ class UserPaymentCard < ActiveRecord::Base
     t.process!
     t.process_refresh!        unless t.errored?
     t.process_cancel_preauth! unless t.errored?
-    refresh
+    refresh!
   end
 
   private
   def create_financial_transaction_preauth_for_validation
     financial_transaction = {
       transaction_type: 'preauth',
-      amount: MANGOPAY_CARD_VALIDATION_AMOUNT,
-      fees:   0,
+      purpose:  'card_validation',
+      amount:   MANGOPAY_CARD_VALIDATION_AMOUNT,
+      fees:     0,
       src_type: :src_card_vid,
       src_vid:  self.card_vid,
     }
     self.financial_transactions.create( financial_transaction )
   end
 
-  def refresh
+  def refresh!
     card = card_translate( MangoPay::Card.fetch self.card_vid )
 
     self.update( card.except(:validity) )
@@ -161,7 +162,6 @@ class UserPaymentCard < ActiveRecord::Base
       self.fail!
     end
   end
-
 
   def card_translate ( mp_card )
     return nil if mp_card.blank? || ! ( mp_card.is_a? Hash )
