@@ -3,7 +3,6 @@ class UserPaymentCard < ActiveRecord::Base
 
   has_paper_trail
 
-
   belongs_to :user
 
   has_many :financial_transactions, as: 'financial_transactionable'
@@ -12,16 +11,12 @@ class UserPaymentCard < ActiveRecord::Base
   attr_accessor :card_registration_id, :access_key, :preregistration_data, :card_registration_url, :registration_status
   attr_accessor :card_reg_vid, :registration_data
 
-  # Never show "deleted" cards. (inactive)
-  #  nor card_invalid?
-  #default_scope { where( active: true ) }
-
   scope :active,     -> { where( active: true ) }
   scope :pending_or_processing,
                      -> { where( validity: [ UserPaymentCard.validities[:pending], UserPaymentCard.validities[:processing]] ) }
   scope :valid,      -> { where( validity: UserPaymentCard.validities[:card_valid] ) }
 
-  # FIXME:(RA) CREATE A SCOPE FOR NON-DELETED CARDS, and make it the default.
+  default_scope { where( active: true ) }
 
   # mangopay status:  UNKNOWN                    VALID         INVALID
   enum validity:    { pending: 1, processing: 2, card_valid: 5, card_invalid: 10, errored: 11 }
