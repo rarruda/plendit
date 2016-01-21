@@ -1,6 +1,6 @@
 <%= render layout: 'gray_box', locals: {title: 'Tilbakemelding'} do %>
     <div class="booking-feedback">
-        <%= form_for Feedback.new(), url: users_feedbacks_path do |f| %>
+        <%= form_for @feedback, url: feedback_booking_path do |f| %>
             <%= f.hidden_field :booking_id, value: @booking.id %>
 
             <p>

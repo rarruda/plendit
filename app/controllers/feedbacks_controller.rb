@@ -1,5 +1,5 @@
 class FeedbacksController < ApplicationController
-  before_action :set_feedback, only: [:show, :edit, :update, :destroy]
+  before_action :set_feedback, only: [:show, :update, :destroy]
 
   # GET /feedbacks
   # GET /feedbacks.json
@@ -10,6 +10,7 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks/1
   # GET /feedbacks/1.json
   def show
+    @feedback.decorate
   end
 
   # GET /feedbacks/new
@@ -20,10 +21,6 @@ class FeedbacksController < ApplicationController
     # will be needed regardless of behaviour.
     # Perhaps /me/booking/<guid>/give_feedback ?
     @ad = Ad.find_by(status: 2).decorate
-  end
-
-  # GET /feedbacks/1/edit
-  def edit
   end
 
   # POST /feedbacks
@@ -53,20 +50,21 @@ class FeedbacksController < ApplicationController
       end
   end
 
-  # DELETE /feedbacks/1
-  # DELETE /feedbacks/1.json
-  def destroy
-    @feedback.destroy
-    respond_to do |format|
-      format.html { redirect_to feedbacks_url, notice: 'Feedback was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  # # DELETE /feedbacks/1
+  # # DELETE /feedbacks/1.json
+  # def destroy
+  #   @feedback.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to feedbacks_url, notice: 'Feedback was successfully destroyed.' }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_feedback
-      @feedback = Feedback.find(params[:id]).decorate
+      @booking  = Booking.find_by_guid params[:guid]
+      @feedback = @booking.feedbacks.from_user(current_user)
     end
 
     def feedback_params

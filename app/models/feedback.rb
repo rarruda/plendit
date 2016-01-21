@@ -15,6 +15,8 @@ class Feedback < ActiveRecord::Base
   validate  :from_user_is_valid
   validate  :to_user_is_valid
 
+  scope :from_user,  ->(user) { where( from_user_id: user.id ) }
+  scope :to_user,    ->(user) { where( to_user_id:   user.id ) }
 
   # dont try setting to_user_id, as it get overridden here.
   before_validation :set_to_user_id, on: :create

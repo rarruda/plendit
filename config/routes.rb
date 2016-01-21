@@ -42,6 +42,9 @@ Rails.application.routes.draw do
       post 'decline'
       post 'abort'
       post 'cancel'
+      post  'feedback', to: 'feedbacks#create'
+      put   'feedback', to: 'feedbacks#update'
+      patch 'feedback', to: 'feedbacks#update'
     end
   end
 
@@ -107,7 +110,6 @@ Rails.application.routes.draw do
 
       resources :ad_images, only: [:index, :create, :update, :destroy]
     end
-    resources :feedbacks
   end
 
   get 'user/:id', to: 'users#show', as: 'user'
