@@ -1,8 +1,8 @@
 class Feedback < ActiveRecord::Base
   belongs_to :booking
-  belongs_to :from_user, :class_name => 'User'
-  belongs_to :to_user,   :class_name => 'User'
-  #has_one :user, :through => :booking
+  belongs_to :from_user, class_name: 'User'
+  belongs_to :to_user,   class_name: 'User'
+  #has_one :user, through: :booking
 
   validates :booking, presence: true
   validates :booking, uniqueness: { scope: [ :booking_id, :from_user_id ],
@@ -15,14 +15,11 @@ class Feedback < ActiveRecord::Base
   validate  :from_user_is_valid
   validate  :to_user_is_valid
 
-  # not particularly useful:
-  #attr_readonly :booking_id, :from_user_id, :to_user_id
 
   # dont try setting to_user_id, as it get overridden here.
   before_validation :set_to_user_id, on: :create
 
   # returns true if parent booking has status archived
-  # false otherwise
   def visible?
     self.booking.archived?
   end
