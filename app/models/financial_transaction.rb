@@ -438,12 +438,25 @@ class FinancialTransaction < ActiveRecord::Base
       raise "can not process this transaction with this method"
     end
 
+    if self.amount < 1_00
+      self.errored!
+      raise "refunds are only available for values greater then 1 EUR"
+    end
+
     begin
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/http_calls.rb#L70
       # https://docs.mangopay.com/api-references/refund/%E2%80%A2-refund-a-pay-in/
       payin_refund = MangoPay::PayIn.refund( self.src_vid,
         'Tag'     => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
         'AuthorId' => self.financial_transactionable.from_user.payment_provider_vid,
+        'DebitedFunds'   => {
+          'Currency' => PLENDIT_CURRENCY_CODE,
+          'Amount'   => self.amount
+        },
+        'Fees'           => {
+          'Currency' => PLENDIT_CURRENCY_CODE,
+          'Amount'   => 0
+        },
       )
 
       self.update(
@@ -454,8 +467,6 @@ class FinancialTransaction < ActiveRecord::Base
         fees:            payin_refund['Fees']['Amount'],
         response_body:   payin_refund
       )
-
-      #set_nature payin_refund
 
       # update transaction status from mangopay result: (one of: CREATED, SUCCEEDED, FAILED)
       aasm_change_on_status payin_refund['Status']
