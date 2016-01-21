@@ -65,15 +65,6 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  def booking_accepted__to_renter booking
-    @booking = booking
-
-    mail(
-      to: @booking.from_user.email,
-      subject: "Plendit: Leieforespørselen av (#{@booking.ad.title}) ble godkjent"
-    )
-  end
-
   def booking_cancelled__to_owner booking
     @booking = booking
 
