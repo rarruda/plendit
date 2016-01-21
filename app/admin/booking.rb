@@ -31,7 +31,7 @@ ActiveAdmin.register Booking do
     column :user
     column :from_user
     column :payout_amount
-    column :status
+    column(:status) {|ad| status_tag(ad.status) }
     column :created_at
     actions
   end

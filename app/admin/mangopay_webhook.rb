@@ -12,7 +12,7 @@ ActiveAdmin.register MangopayWebhook do
     column :resource_type
     column :resource_vid
     column :date_mp
-    column :status
+    column(:status)   {|ad| status_tag(ad.status) }
     column :remote_ip
     column :raw_data
 
