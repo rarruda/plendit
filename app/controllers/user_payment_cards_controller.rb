@@ -39,7 +39,7 @@ class UserPaymentCardsController < ApplicationController
     if @user_payment_card.save
       redirect_to payment_users_path, payment_card_notice: 'Ditt betalingskort ble lagt til. Vi venter på godkjenning fra banken.'
     else
-      LOG.error message: "Failed the saving the credit card.", user_id: current_user.id, card_reg_vid: user_payment_card_params['card_reg_vid']
+      LOG.error message: 'Failed the saving the credit card.', user_id: current_user.id, card_reg_vid: user_payment_card_params['card_reg_vid']
       redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard was NOT successfully saved.'
     end
   end
@@ -47,7 +47,6 @@ class UserPaymentCardsController < ApplicationController
   # POST /me/cards/make_favorite/1
   def make_favorite
     @user_payment_card.set_favorite
-
     redirect_to payment_users_path
   end
 
@@ -55,14 +54,14 @@ class UserPaymentCardsController < ApplicationController
   # DELETE /me/cards/1
   def destroy
     @user_payment_card.disable
-    redirect_to payment_users_path, payment_card_notice: 'UserPaymentCard was successfully destroyed.'
+    redirect_to payment_users_path, payment_card_notice: 'Kortet er slettet.'
   end
 
   private
   def authorized?
     # only authorized to use this controller are users provisioned with mangopay:
     unless current_user.mangopay_provisioned?
-      redirect_to payment_users_path, payment_card_notice: "You cant register cards yet. Your profile needs to be more complete."
+      redirect_to payment_users_path, payment_card_notice: 'Du kan ikke registrere betalingskort ennå. Vi mangler informasjon i profilen din.'
       false
     end
   end
