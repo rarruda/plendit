@@ -62,7 +62,7 @@ window.controllers.adMap = {
                 zoom: zoomAndRadius[0],
                 maxZoom: 18,
                 minZoom: 4,
-                scrollwheel: false,
+                scrollwheel: true,
                 styles: styles
             };
 
@@ -138,7 +138,7 @@ window.controllers.resultMap = {
             ];
 
             var mapOptions = {
-                scrollwheel: false,
+                scrollwheel: true,
                 streetViewControl: false,
                 mapTypeControl: false,
                 center: bounds.getCenter(),
