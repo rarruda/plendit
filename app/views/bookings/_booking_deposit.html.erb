@@ -1,0 +1,28 @@
+<%= render layout: 'gray_box', locals: {title: 'Penger til utleier'} do %>
+    <div class="booking-summary">
+        <div class="booking-summary__row">
+            Her legger du inn penger du skylder for bompenger, drivstoff og eventuelle bøter.
+        </div>
+        <div class="booking-summary__row">
+            <% form_for(@booking) do |f| %>
+                <% if @booking.errors.any? %>
+                    <div id="error_explanation">
+                        <h2>
+                            <%= @booking.errors.count %> feil forhindret at du fikk lagret ønsket depositums beløp:
+                        </h2>
+                        <ul>
+                            <% @booking.errors.each do |attribute,message| %>
+                                <li><%= message %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                <% end %>
+                <% f.label :deposit_offer_amount, "TRANSLATEME: Hvor mye vil du overføre?" %>
+                <% f.telephone_field :deposit_offer_amount %>
+            <% end %>
+        </div>
+        <div class="booking-summary__row">
+            Summen blir trukket fra ditt depositum og overført til utleier.
+        </div>
+    </div>
+<% end %>

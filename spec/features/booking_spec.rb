@@ -7,18 +7,25 @@ RSpec.describe Booking, type: :model do
 
   context 'simple booking' do
     let(:ad) { FactoryGirl.build_stubbed(:ad_bap,
-        user: FactoryGirl.build_stubbed(:user_a),
-        payin_rules: [ FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day',  payin_amount: 100_00) ],
+        user: FactoryGirl.build(:user_a),
+        payin_rules: [ FactoryGirl.build(:payin_rule, effective_from: 1, unit: 'day',  payin_amount: 100_00) ],
       )
     }
+    let(:ad_motor) { FactoryGirl.build(:ad_motor,
+        ad_items:    [ FactoryGirl.build(:ad_item) ],
+        user:        FactoryGirl.build(:user_a),
+        payin_rules: [ FactoryGirl.build(:payin_rule, effective_from: 1, unit: 'day',  payin_amount: 100_00) ],
+      )
+    }
+    let(:from_user) { FactoryGirl.build_stubbed(:user_b,
+        # user_payment_cards: [FactoryGirl.build_stubbed(:user_payment_card)],
+        verification_level: 'internally_verified',
+        birthday: 20.years.ago,
+      ) # do |u|
+      #   u.user_payment_cards << FactoryGirl.build_stubbed(:user_payment_card)
+      # end
+    }
     let(:booking) { FactoryGirl.build_stubbed(:booking,
-        # from_user: FactoryGirl.build_stubbed(:user_b,
-        #   # user_payment_cards: [FactoryGirl.build_stubbed(:user_payment_card)],
-        #   verification_level: 'internally_verified',
-        #   birthday: 20.years.ago,
-        # ) do |u|
-        #   u.user_payment_cards << FactoryGirl.build_stubbed(:user_payment_card)
-        # end,
         ad_item:   ad.ad_items.first,
         ad:        ad,
         starts_at: 1.day.from_now,
@@ -104,6 +111,88 @@ RSpec.describe Booking, type: :model do
 
     it "should have archives_at correctly" do
       expect(booking.archives_at).to     be_within(1.minutes).of ( booking.ends_at + 1.week )
+    end
+
+    it "should not allow renter to may_set_deposit_offer_amount? when payment_confirmed" do
+      booking = FactoryGirl.build_stubbed(:booking,
+        #ad_item:   ad.ad_items.first,
+        ad:        ad_motor,
+        from_user: from_user,
+        starts_at: 1.day.from_now,
+        ends_at:   3.days.from_now.end_of_day,
+        status:    'payment_confirmed',
+      )
+
+      expect(booking.may_set_deposit_offer_amount? booking.from_user).to be false
+      expect(booking.may_set_deposit_offer_amount? booking.user).to      be false
+    end
+
+    it "should allow renter to may_set_deposit_offer_amount? when started" do
+      booking = FactoryGirl.build_stubbed(:booking,
+        #ad_item:   ad_motor.ad_items.first,
+        ad:        ad_motor,
+        from_user: from_user,
+        starts_at: 1.day.from_now.beginning_of_day,
+        ends_at:   3.days.from_now.end_of_day,
+        status:    'started',
+      )
+
+      expect(booking.may_set_deposit_offer_amount? booking.from_user).to be true
+      expect(booking.may_set_deposit_offer_amount? booking.user).to      be false
+    end
+
+    it "should allow renter to may_set_deposit_offer_amount? when in_progress" do
+      booking = FactoryGirl.build_stubbed(:booking,
+        ad:        ad_motor,
+        from_user: from_user,
+        starts_at: 1.day.ago.beginning_of_day,
+        ends_at:   3.days.from_now.end_of_day,
+        status:    'in_progress',
+      )
+
+      expect(booking.may_set_deposit_offer_amount? booking.from_user).to be true
+      expect(booking.may_set_deposit_offer_amount? booking.user).to      be false
+    end
+
+    it "should not allow renter to may_set_deposit_offer_amount? when ended" do
+      booking = FactoryGirl.build_stubbed(:booking,
+        ad:        ad_motor,
+        from_user: from_user,
+        starts_at: 3.days.ago.beginning_of_day,
+        ends_at:   1.day.ago.end_of_day,
+        status:    'ended',
+      )
+
+      expect(booking.may_set_deposit_offer_amount? booking.from_user).to be false
+      expect(booking.may_set_deposit_offer_amount? booking.user).to      be false
+    end
+
+
+
+    it "should not allow renter to may_set_deposit_offer_amount? when archived" do
+      booking = FactoryGirl.build_stubbed(:booking,
+        ad:        ad_motor,
+        from_user: from_user,
+        starts_at: 9.days.ago.beginning_of_day,
+        ends_at:   8.days.ago.end_of_day,
+        status:    'archived',
+      )
+
+      expect(booking.may_set_deposit_offer_amount? booking.from_user).to be false
+      expect(booking.may_set_deposit_offer_amount? booking.user).to      be false
+    end
+
+    it "should not allow owner to may_set_deposit_offer_amount?" do
+      booking = FactoryGirl.build_stubbed(:booking,
+        ad:        ad_motor,
+        from_user: from_user,
+        starts_at: 1.day.from_now.beginning_of_day,
+        ends_at:   3.days.from_now.end_of_day,
+        status:    'payment_confirmed',
+      )
+
+      expect(booking.may_set_deposit_offer_amount? booking.from_user).to be false
+      expect(booking.may_set_deposit_offer_amount? booking.user).to      be false
     end
 
   end
