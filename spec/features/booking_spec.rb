@@ -43,8 +43,8 @@ RSpec.describe Booking, type: :model do
 
     it "should be started if starts_at has passed" do
       booking.status    = 'payment_confirmed'
-      booking.starts_at = 2.days.ago
-      booking.ends_at   = 1.day.from_now
+      booking.starts_at = 2.days.ago.beginning_of_day
+      booking.ends_at   = 1.day.from_now.end_of_day
 
       expect(booking.should_be_started?).to     be true
       expect(booking.should_be_in_progress?).to be false
@@ -54,8 +54,8 @@ RSpec.describe Booking, type: :model do
 
     it "should be in_progress if starts_at+24t has passed" do
       booking.status    = 'started'
-      booking.starts_at = 2.days.ago
-      booking.ends_at   = 2.day.from_now
+      booking.starts_at = 2.days.ago.beginning_of_day
+      booking.ends_at   = 2.day.from_now.end_of_day
 
       expect(booking.should_be_started?).to     be false
       expect(booking.should_be_in_progress?).to be true
@@ -65,8 +65,8 @@ RSpec.describe Booking, type: :model do
 
     it "should be ended if ends_at has passed" do
       booking.status    = 'in_progress'
-      booking.starts_at = 3.days.ago
-      booking.ends_at   = 1.day.ago
+      booking.starts_at = 3.days.ago.beginning_of_day
+      booking.ends_at   = 1.day.ago.end_of_day
 
       expect(booking.should_be_started?).to     be false
       expect(booking.should_be_in_progress?).to be false
@@ -76,8 +76,8 @@ RSpec.describe Booking, type: :model do
 
     it "should be archived if ends_at+7.days has passed" do
       booking.status    = 'ended'
-      booking.starts_at = 10.days.ago
-      booking.ends_at   = 1.week.ago - 1.second
+      booking.starts_at = 10.days.ago.beginning_of_day
+      booking.ends_at   = 8.days.ago.end_of_day - 1.second
 
       expect(booking.should_be_started?).to     be false
       expect(booking.should_be_in_progress?).to be false
@@ -96,15 +96,15 @@ RSpec.describe Booking, type: :model do
     it "should have in_progress_at correctly for booking starting at the same day, multiple day booking" do
       booking.status    = 'payment_confirmed'
       booking.starts_at = DateTime.now
-      booking.ends_at   = 2.days.from_now
+      booking.ends_at   = 2.days.from_now.end_of_day
 
       expect(booking.in_progress_at).to     be_within(1.minutes).of ( booking.starts_at + 1.day )
     end
 
     it "should have in_progress_at correctly for booking starting in the future" do
       booking.status    = 'payment_confirmed'
-      booking.starts_at = 1.day.from_now
-      booking.ends_at   = 2.days.from_now
+      booking.starts_at = 1.day.from_now.beginning_of_day
+      booking.ends_at   = 2.days.from_now.end_of_day
 
       expect(booking.in_progress_at).to     be_within(1.minutes).of ( booking.starts_at + 1.day )
     end
