@@ -3,9 +3,12 @@
 </p>
 
 <p>
-  Din annonse (<%= link_to ad.title, ad_url %>) på <%= link_to 'Plendit.no', root_url %> ble ikke godkjent da den bryter med <%= link_to 'annonsereglene', terms_url %> våre.
+  Din annonse (<%= link_to ad.title, ad_url %>) på
+  <%= link_to 'Plendit.no', root_url %> ble ikke godkjent.
+
+  Årsaken var: "<%= ad.refusal_reason %>".
 </p>
 
 <p>
-  Du kan når som helst redigere annonsen din og sende den til kontroll på nytt.
+  Du kan gjøre endringer i annonsen og sende den til kontroll på nytt.
 </p>
