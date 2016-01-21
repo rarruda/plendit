@@ -62,8 +62,10 @@ class Booking < ActiveRecord::Base
   # current: bookings that are confirmed paid.
   scope :current,    -> { where( status: [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started],
                                            self.statuses[:in_progress], self.statuses[:ended] ] ) }
+  # active: bookings that should be going on now:
   scope :active,     -> { where( status: [ self.statuses[:started], self.statuses[:in_progress] ] ) }
 
+  # reserved: we have an existing booking, and cannot have another booking in parallel to one in these states.
   # there might be more states here that should count as reserved.
   # Probably we will make some more helpers for check states.
   scope :reserved,   -> { where( status: [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started],
@@ -101,9 +103,16 @@ class Booking < ActiveRecord::Base
   validates :ad_item_id,           presence: true
   validates :from_user_id,         presence: true
   validates :user_payment_card_id, presence: true
+  validates :amount,               numericality: { only_integer: true }
   validates :amount,               numericality: { greater_than_or_equals: 99_00, message: 'Må være minst 99kr' }
   validates :amount,               numericality: { less_than:          25_000_00, message: 'Kan ikke være mer enn 25.000 kroner' }
   # https://docs.mangopay.com/api-references/payins/ actual limit is 2500 eur in general...
+
+  validates :deposit_amount,       numericality: { only_integer: true }
+  validates :deposit_offer_amount, numericality: { only_integer: true }
+
+  validate :validate_deposit_offer_amount_less_than_or_equals_deposit_amount,
+    if: "deposit_offer_amount.present?"
 
   validate :validate_user_payment_card_belongs_to_from_user
 
@@ -500,6 +509,11 @@ class Booking < ActiveRecord::Base
   def validate_from_user_can_create_booking
     errors.add(:ends_at, "Du mangler en form for dokumentasjon for å gjennomføre denne handlingen.") unless self.from_user.can_rent? self.ad.category
   end
+
+  def validate_deposit_offer_amount_less_than_or_equals_deposit_amount
+    errors.add(:deposit_offer_amount, "Må være mindre enn depositum") if deposit_offer_amount > deposit_amount
+  end
+
 
   # Comparable
   def <=>(other)
