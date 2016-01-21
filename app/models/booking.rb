@@ -342,7 +342,7 @@ class Booking < ActiveRecord::Base
 
   def may_set_deposit_offer_amount?(user = nil)
     user.present? &&
-    ( ! user.owns_booking_item?(self) ) &&
+    ( self.from_user.id == user.id ) &&
     self.ad.motor? &&
     ( self.started? || self.in_progress? )
     # || self.ended? && +24t?
