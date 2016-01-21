@@ -118,8 +118,6 @@ RSpec.describe Booking, type: :model do
         #ad_item:   ad.ad_items.first,
         ad:        ad_motor,
         from_user: from_user,
-        starts_at: 1.day.from_now,
-        ends_at:   3.days.from_now.end_of_day,
         status:    'payment_confirmed',
       )
 
@@ -132,8 +130,6 @@ RSpec.describe Booking, type: :model do
         #ad_item:   ad_motor.ad_items.first,
         ad:        ad_motor,
         from_user: from_user,
-        starts_at: 1.day.from_now.beginning_of_day,
-        ends_at:   3.days.from_now.end_of_day,
         status:    'started',
       )
 
@@ -145,8 +141,6 @@ RSpec.describe Booking, type: :model do
       booking = FactoryGirl.build_stubbed(:booking,
         ad:        ad_motor,
         from_user: from_user,
-        starts_at: 1.day.ago.beginning_of_day,
-        ends_at:   3.days.from_now.end_of_day,
         status:    'in_progress',
       )
 
@@ -158,8 +152,6 @@ RSpec.describe Booking, type: :model do
       booking = FactoryGirl.build_stubbed(:booking,
         ad:        ad_motor,
         from_user: from_user,
-        starts_at: 3.days.ago.beginning_of_day,
-        ends_at:   1.day.ago.end_of_day,
         status:    'ended',
       )
 
@@ -173,8 +165,6 @@ RSpec.describe Booking, type: :model do
       booking = FactoryGirl.build_stubbed(:booking,
         ad:        ad_motor,
         from_user: from_user,
-        starts_at: 9.days.ago.beginning_of_day,
-        ends_at:   8.days.ago.end_of_day,
         status:    'archived',
       )
 
@@ -182,12 +172,10 @@ RSpec.describe Booking, type: :model do
       expect(booking.may_set_deposit_offer_amount? booking.user).to      be false
     end
 
-    it "should not allow owner to may_set_deposit_offer_amount?" do
+    it "should not allow owner to may_set_deposit_offer_amount? when payment_confirmed" do
       booking = FactoryGirl.build_stubbed(:booking,
         ad:        ad_motor,
         from_user: from_user,
-        starts_at: 1.day.from_now.beginning_of_day,
-        ends_at:   3.days.from_now.end_of_day,
         status:    'payment_confirmed',
       )
 
@@ -195,6 +183,29 @@ RSpec.describe Booking, type: :model do
       expect(booking.may_set_deposit_offer_amount? booking.user).to      be false
     end
 
+    it "should respond may_give_feedback? correctly when started" do
+      booking = FactoryGirl.build_stubbed(:booking, status: 'started')
+
+      expect(booking.may_give_feedback?).to be false
+    end
+
+    it "should respond may_give_feedback? correctly when in_progress" do
+      booking = FactoryGirl.build_stubbed(:booking, status: 'in_progress')
+
+      expect(booking.may_give_feedback?).to be false
+    end
+
+    it "should respond may_give_feedback? correctly when ended" do
+      booking = FactoryGirl.build_stubbed(:booking, status: 'ended')
+
+      expect(booking.may_give_feedback?).to be true
+    end
+
+    it "should respond may_give_feedback? correctly when archived" do
+      booking = FactoryGirl.build_stubbed(:booking, status: 'archived')
+
+      expect(booking.may_give_feedback?).to be false
+    end
   end
 
 end
