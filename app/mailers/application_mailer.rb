@@ -80,7 +80,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked. needs a scheduled job to trigger it.
+  # not hooked up. needs a scheduled job to trigger it.
   def booking_ends_at_soon__to_owner booking
     @booking = booking
 
@@ -90,7 +90,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked. needs a scheduled job to trigger it.
+  # not hooked up. needs a scheduled job to trigger it.
   def booking_ends_at_soon__to_renter booking
     @booking = booking
 
@@ -100,7 +100,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked. needs a scheduled job to trigger it.
+  # not hooked up. needs a scheduled job to trigger it.
   def booking_starts_at_soon__to_owner booking
     @booking = booking
 
@@ -110,7 +110,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked. needs a scheduled job to trigger it.
+  # not hooked up. needs a scheduled job to trigger it.
   def booking_starts_at_soon__to_renter booking
     @booking = booking
 
@@ -120,6 +120,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
+  # not hooked up.
   def user_id_license_approved user, user_document_category
     @user = user
 
@@ -130,7 +131,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked.
+  # not hooked up.
   def user_id_license_expires_soon user, user_document_category
     @user = user
 
@@ -141,6 +142,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
+  # not hooked up.
   def user_id_license_not_approved user, user_document_category
     @user = user
 
