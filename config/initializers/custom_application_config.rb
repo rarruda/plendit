@@ -30,6 +30,7 @@ Plendit::Application.config.x.customerservice.contact_form   = 'https://plendit.
 Plendit::Application.config.x.customerservice.website        = 'https://plendit.zendesk.com/'
 Plendit::Application.config.x.customerservice.insurance_info = 'https://plendit.zendesk.com/hc/no/articles/207314345-Forsikring'
 Plendit::Application.config.x.customerservice.privacy_info   = '/privacy'
+Plendit::Application.config.x.customerservice.road_assistance_number = '944 36 336'
 
 Plendit::Application.config.x.organization.phone_number      = nil #'+47 97 04 43 99'
 Plendit::Application.config.x.organization.address           = 'Plendit AS, Grensen 5-7, 0159 Oslo'
