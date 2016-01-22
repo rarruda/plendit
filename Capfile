@@ -29,6 +29,7 @@ require 'capistrano/rails'
 require 'capistrano/passenger'
 require 'capistrano-resque'
 #require 'capistrano/sitemap_generator'
+require 'airbrake/capistrano/tasks'
 
 require 'slackistrano'
 
