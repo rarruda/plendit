@@ -116,7 +116,12 @@ class Ad < ActiveRecord::Base
     event :refuse do
       transitions from: [:published, :waiting_review], to: :refused
       after do
-        LOG.info message:'ad is refused. Hopefully there is a reason so that the user can do something about it.'
+        Notification.create(
+          user_id: self.user.id,
+          is_system_message: true,
+          message: "Annonsen din \"#{self.decorate.display_title}\" ble ikke godkjent.",
+          notifiable: self
+        )
       end
     end
 
