@@ -13,13 +13,10 @@ class PayinRule < ActiveRecord::Base
   validates :payin_amount,   numericality: { less_than: 150_000_00, message: "Pris må være under 150.000 kr." }, allow_blank: true,
     unless: :new_record?
 
-  # validate min_payin_amount if not required_rule?
-  validate  :validate_min_payin_amount,
-    unless: :required_rule?
-
+  validate  :validate_min_payin_amount
 
   before_validation :set_defaults, if: :new_record?
-  before_validation :set_guid,     on: :create
+  before_save :set_guid,           on: :create
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 

@@ -276,9 +276,10 @@ class AdsController < ApplicationController
     else
       @ad.build_location(user: @ad.user)
       @ad.build_location(user: @ad.user)
-      @ad.valid? # triggers hooks to set guid, I don't care if it's valid
     end
 
+    @ad.valid? # triggers hooks to set guid, I don't care if it's valid
+    
     if @ad.save(validate: false)
       redirect_to edit_users_ad_path @ad
     else
