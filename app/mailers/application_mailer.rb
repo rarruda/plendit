@@ -7,24 +7,6 @@ class ApplicationMailer < ActionMailer::Base
   before_action :add_logo_attachment
 
 
-  def ad_is_published ad
-    @ad = ad
-
-    mail(
-      to: @ad.user.email,
-      subject: "Plendit: (#{@ad.title}) er nå godkjent og publisert"
-    )
-  end
-
-  def ad_is_rejected ad
-    @ad = ad
-
-    mail(
-      to: @ad.user.email,
-      subject: "Plendit: (#{@ad.title}) ble ikke godkjent"
-    )
-  end
-
   def booking_confirmed__to_renter booking
     @booking = booking
     add_insurance_documents
