@@ -634,6 +634,7 @@ window.controllers.adAutoSaver = {
         var dirty = false;
         eventbus.on(eventbus.AD_FORM_SAVE_NOW, handleChange);
         eventbus.on(eventbus.IMAGES_CHANGED, handleChange);
+        eventbus.on(eventbus.PRICE_MODEL_SAVED, handleChange);
         ele.addEventListener("change", handleChange)
 
         function handleChange() {
@@ -846,7 +847,7 @@ window.controllers.payinAdder = {
         function clearAndClose() {
             var form = ele.querySelector("[data-new-rule-form]").reset();
             onCancel();
-            eventbus.emit(eventbus.PRICE_MODEL_SAVED);
+            eventbus.emit(eventbus.PRICE_MODEL_SAVED);            
         }
 
         function reportSaveError(err) {
