@@ -24,6 +24,13 @@ nb:
               blank: "Fornavn mangler"
             last_name:
               blank: "Etternavn mangler"
+        user_image:
+          attributes:
+            image:
+              in_between: 'Bilde er for stort til å last opp (maks %{max})'
+              spoofed_media_type: "Har ugyldig innhold"
+            image_file_size:
+              in_between: 'Bilde er for stort til å last opp (maks %{max})'
 #        pdf:
 #          attributes:
 #            name:
