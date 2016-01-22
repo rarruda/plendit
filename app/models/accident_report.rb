@@ -9,6 +9,8 @@ class AccidentReport < ActiveRecord::Base
 
   accepts_nested_attributes_for :accident_report_attachments, reject_if: :all_blank
 
+  after_create :email_notification_to_customer_service
+
   validates :body,          presence: true #, message: "Du må fylle ut en beskrivelse av hva som har skjedd." }
   validates :location_line, presence: true
 
@@ -22,5 +24,10 @@ class AccidentReport < ActiveRecord::Base
     attachments.each do |a|
       accident_report_attachments.build(attachment: a)
     end
+  end
+
+  private
+  def email_notification_to_customer_service
+    ApplicationMailer.accident_report_created__to_customer_service( self ).deliver_later
   end
 end

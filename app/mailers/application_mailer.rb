@@ -163,6 +163,15 @@ class ApplicationMailer < ActionMailer::Base
   end
 
 
+  def accident_report_created__to_customer_service accident_report
+    @accident_report = accident_report
+
+    # template is missing polish
+    mail(
+      to: Plendit::Application.config.x.customerservice.email,
+      subject: "Plendit: accident_report created"
+    )
+  end
 
   private
 
