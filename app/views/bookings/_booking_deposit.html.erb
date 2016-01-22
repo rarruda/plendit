@@ -19,8 +19,9 @@
                         </ul>
                     </div>
                 <% end %>
-                <%= f.label :deposit_offer_amount, "TRANSLATEME: Hvor mye vil du overføre?" %>
-                <%= f.telephone_field :deposit_offer_amount %>
+                <%= f.label :deposit_offer_amount_in_h, "TRANSLATEME: Hvor mye vil du setter til å bli overført?" %>
+                <%= f.telephone_field :deposit_offer_amount_in_h %>
+                <%= f.submit 'Lagre', class: 'button button-primary'%>
             <% end %>
         </div>
         <div class="booking-summary__row">

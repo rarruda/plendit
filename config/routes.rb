@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :bookings, path: '/me/bookings', param: :guid, only: [:index, :show, :new, :create] do
+  resources :bookings, path: '/me/bookings', param: :guid, only: [:index, :show, :new, :create, :update] do
     resources :messages
     resources :accident_reports, only: [:index, :create]
     member do

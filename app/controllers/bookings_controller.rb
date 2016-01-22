@@ -41,6 +41,14 @@ class BookingsController < ApplicationController
     end
   end
 
+  # NOTE: only editable field is :deposit_offer_amount
+  # PATCH /me/bookings/1
+  def update
+    @booking.update(booking_offer_params) if @booking.may_set_deposit_offer_amount?(current_user)
+
+    render :show
+  end
+
   # GET /me/bookings/1/booking_calc
   def booking_calc
     ad_id = params[:ad_id]
@@ -126,5 +134,9 @@ class BookingsController < ApplicationController
       :ends_at_time, :starts_at_date, :starts_at_time, :status,
       :user_payment_card_id
     )
+  end
+
+  def booking_offer_params
+    params.require(:booking).permit(:deposit_offer_amount_in_h)
   end
 end

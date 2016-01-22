@@ -36,6 +36,7 @@ class PayinRule < ActiveRecord::Base
     self.day? && self.effective_from == 1
   end
 
+  # FIXME: code duplicated at booking model:
   def payin_amount_in_h
     return nil if self.payin_amount.nil?
     ( ( self.payin_amount / 100).to_i + ( self.payin_amount / 100.0  ).modulo(1) )

@@ -110,6 +110,7 @@ class Booking < ActiveRecord::Base
 
   validates :deposit_amount,       numericality: { only_integer: true }
   validates :deposit_offer_amount, numericality: { only_integer: true }
+  validates :deposit_offer_amount, numericality: { greater_than_or_equal_to: 0, message: 'Kan ikke være en negativ tall' } #TRANSLATEME
 
   validate :validate_deposit_offer_amount_less_than_or_equals_deposit_amount,
     if: "deposit_offer_amount.present?"
@@ -328,6 +329,17 @@ class Booking < ActiveRecord::Base
     event :admin_pause do
       transitions from: [:created, :payment_preauthorized, :confirmed, :payment_confirmed, :started, :in_progress, :ended, :disputed], to: :admin_paused
     end
+  end
+
+  # FIXME: code duplicated at payin_rule model:
+  def deposit_offer_amount_in_h
+    return nil if self.deposit_offer_amount.nil?
+    ( ( self.deposit_offer_amount / 100).to_i + ( self.deposit_offer_amount / 100.0  ).modulo(1) )
+  end
+
+  # save prices in integer, from human format input
+  def deposit_offer_amount_in_h=( _deposit_offer_amount )
+    self.deposit_offer_amount = ( _deposit_offer_amount.to_f * 100 ).round
   end
 
   def most_recent_activity
