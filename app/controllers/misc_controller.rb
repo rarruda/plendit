@@ -51,6 +51,7 @@ class MiscController < ApplicationController
   end
 
   def get_frontpage_ad_ids
+    return []
     parse_frontpage_ad_ids(REDIS.get('global_frontpage_ads') || '')
   end
 
