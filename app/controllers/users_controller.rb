@@ -178,7 +178,7 @@ class UsersController < ApplicationController
       OpenStruct.new({
         title: 'Identitetsbevis',
         preverify_prose: %q(
-          For å leie noe på Plendit må et gylidg
+          For å leie noe på Plendit må et gyldig
           identitetsbevis med personnummer godkjennes.
           Førerkort vil automatisk gjelde som identitetsbevis.
         ),
