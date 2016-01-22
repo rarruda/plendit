@@ -78,6 +78,24 @@ class PayinRule < ActiveRecord::Base
     end
   end
 
+  def min_payin_amount
+    max_discount_after_duration = case self.ad.category
+    when 'boat'
+      Plendit::Application.config.x.insurance.max_discount_after_duration_boat
+    else
+      Plendit::Application.config.x.insurance.max_discount_after_duration
+    end
+
+    if self.day? && self.effective_from == 1
+      max_discount_after_duration.map{|d| d.first}.min
+    elsif self.day?
+      # Apply max discount to the main required_rule payin_amount
+      self.apply_max_discount( self.ad.payin_rules.required_rule.take.payin_amount )
+    else #self.hour?
+      35_00
+    end
+  end
+
   def to_param
     self.guid
   end
@@ -97,28 +115,12 @@ class PayinRule < ActiveRecord::Base
   end
 
   def validate_min_payin_amount
-    max_discount_after_duration = case self.ad.category
-    when 'boat'
-      Plendit::Application.config.x.insurance.max_discount_after_duration_boat
-    else
-      Plendit::Application.config.x.insurance.max_discount_after_duration
-    end
-
-    if self.day? && self.effective_from == 1
-      min_payin_amount = max_discount_after_duration.map{|d| d.first}.min
-    elsif self.day?
-      first_day_payin_amount = self.ad.payin_rules.required_rule.take.payin_amount
-      min_payin_amount = self.apply_max_discount( first_day_payin_amount )
-    else #self.hour?
-      min_payin_amount = 35_00
-    end
-
     # only reason to have min_payin_amount nil, is if "self.effective_from >=2 && self.day?" and
     #  no required_rule? exists yet.
-    if min_payin_amount.nil? && ! self.required_rule?
+    if self.min_payin_amount.nil? && ! self.required_rule?
       errors.add(:payin_amount, "Du må oppgi en pris per dag før du kan opprette en rabattpris")
-    elsif self.payin_amount.nil? || self.payin_amount < min_payin_amount
-      errors.add(:payin_amount, "Pris må være minst #{ApplicationController.helpers.format_monetary_full_pretty min_payin_amount}")
+    elsif self.payin_amount.nil? || self.payin_amount < self.min_payin_amount
+      errors.add(:payin_amount, "Pris må være minst #{ApplicationController.helpers.format_monetary_full_pretty self.min_payin_amount}")
     end
   end
 

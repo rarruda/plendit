@@ -187,7 +187,8 @@
             <%= form_for( PayinRule.new, url: (ad_payin_rules_path @ad), data: { new_rule_form: '' } ) do |f| %>
 
                 <div class="help-box u-push-down">
-                    Pris per enkelt dag må være minst kr 99,-
+                    Pris per enkelt dag må være minst
+                    kr <%= ApplicationController.helpers.format_monetary_full_pretty @ad.main_payin_rule.min_payin_amount %>
                     Vil du gi en lavere pris per dag ved lengre
                     leieforhold, kan du gjøre det her.
                 </div>
