@@ -3,7 +3,7 @@ class MiscController < ApplicationController
 
   def frontpage
     @hide_search_field = true
-    @ads = [] #get_frontpage_ads
+    @ads = get_frontpage_ads rescue [] # todo, figure out why this throws in test
     @hero_video = Rails.configuration.x.frontpage.hero_videos.sample
   end
 
@@ -51,7 +51,6 @@ class MiscController < ApplicationController
   end
 
   def get_frontpage_ad_ids
-    return []
     parse_frontpage_ad_ids(REDIS.get('global_frontpage_ads') || '')
   end
 
