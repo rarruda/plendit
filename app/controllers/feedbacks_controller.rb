@@ -47,7 +47,7 @@ class FeedbacksController < ApplicationController
   # PATCH/PUT /feedbacks/1.json
   def update
       if @feedback.update(feedback_params)
-        redirect_to @feedback, notice: 'Takk for tilbakemeldingen!'
+        redirect_to @feedback
       else
         redirect_to @feedback, notice: 'Klarte ikke å lagre tilbakemeldingen. Prøv igjen senere.'
       end
@@ -58,7 +58,7 @@ class FeedbacksController < ApplicationController
   def destroy
     @feedback.destroy
     respond_to do |format|
-      format.html { redirect_to feedbacks_url, notice: 'Feedback was successfully destroyed.' }
+      format.html { redirect_to feedbacks_url }
       format.json { head :no_content }
     end
   end
