@@ -286,6 +286,20 @@ class Booking < ActiveRecord::Base
         else
           LOG.info message: "No need to create a transfer for deposit, as it would be <= 0 NOK", booking_id: self.id
         end
+
+        Notification.create(
+          user_id: self.user.id,
+          is_system_message: true,
+          message: "Du kan gi #{self.from_user.decorate.display_name} en tilbakemelding nå.",
+          notifiable: self
+        )
+
+        Notification.create(
+          user_id: self.from_user.id,
+          is_system_message: true,
+          message: "Du kan gi #{self.user.decorate.display_name} en tilbakemelding nå.",
+          notifiable: self
+        )
       end
     end
 
