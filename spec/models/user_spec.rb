@@ -31,25 +31,25 @@ RSpec.describe User, :type => :model do
   #   end
   # end
 
-  context 'when setting phone_number' do
-    let(:user) { FactoryGirl.build :user }
-    let(:mock_mangopay_service) { double(MangopayService) }
-    let(:mock_sms_service) { double(SmsService) }
+  # context 'when setting phone_number' do
+  #   let(:user) { FactoryGirl.build :user }
+  #   let(:mock_mangopay_service) { double(MangopayService) }
+  #   let(:mock_sms_service) { double(SmsService) }
 
-    before do
-      allow(MangopayService).to receive(:new).with(user).and_return(mock_mangopay_service)
-      allow(SmsService).to receive(:new).and_return(mock_sms_service)
-    end
+  #   before do
+  #     allow(MangopayService).to receive(:new).with(user).and_return(mock_mangopay_service)
+  #     allow(SmsService).to receive(:new).and_return(mock_sms_service)
+  #   end
 
-    it "will have a phone_verification confirmation_token" do
-      expect(mock_mangopay_service).to receive(:provision_user)
-      expect(mock_sms_service).to receive(:process)
+  #   it "will have a phone_verification confirmation_token" do
+  #     expect(mock_mangopay_service).to receive(:provision_user)
+  #     expect(mock_sms_service).to receive(:process)
 
-      user.unconfirmed_phone_number = '99994444'
-      user.save
-      expect(user.phone_number_confirmation_token).to match(/\A[0-9]{6}\Z/)
-    end
-  end
+  #     user.unconfirmed_phone_number = '99994444'
+  #     user.save
+  #     expect(user.phone_number_confirmation_token).to match(/\A[0-9]{6}\Z/)
+  #   end
+  # end
 
   context 'when confirming phone_number' do
   end
