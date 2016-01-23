@@ -41,7 +41,7 @@ class UserDocument < ActiveRecord::Base
 
 
   before_validation :set_guid, on: :create
-
+  after_create :notify_slack
 
   def to_param
     self.guid
@@ -55,4 +55,9 @@ class UserDocument < ActiveRecord::Base
       break generated_guid unless self.class.exists?(guid: generated_guid)
     end
   end
+
+  def notify_slack
+    KycUploadedSlackNotifierJob.perform_later self
+  end
+
 end

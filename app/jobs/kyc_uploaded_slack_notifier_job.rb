@@ -1,6 +1,6 @@
 class KycUploadedSlackNotifierJob < SlackNotifierJob
 
-  def perform(*args)
-    self.do_slack_notification('New kyc doc uploaded')
+  def perform(doc)
+    self.do_slack_notification("User #{doc.user.name} uloaded kyc doc of type #{doc.decorate.display_category}.")
   end
 end
