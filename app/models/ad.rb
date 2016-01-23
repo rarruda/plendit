@@ -111,7 +111,7 @@ class Ad < ActiveRecord::Base
       transitions from: :draft, to: :waiting_review, guard: :valid?
       after do
         SlackNotifierJob.perform_later "New ad submitted for review: #{self.title}",
-          url: Rails.application.routes.url_helpers.ad_url(ad)
+          url: Rails.application.routes.url_helpers.ad_url(self)
       end
     end
     event :approve do
