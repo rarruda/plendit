@@ -108,6 +108,9 @@ class Ad < ActiveRecord::Base
 
     event :submit_for_review do
       transitions from: :draft, to: :waiting_review, guard: :valid?
+      after do
+        AdSubmittedSlackNotifierJob.perform_later self
+      end
     end
     event :approve do
       # It is imperative to only approve ads which have geocoded locations.
