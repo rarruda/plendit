@@ -62,7 +62,7 @@ window.controllers.adMap = {
                 zoom: zoomAndRadius[0],
                 maxZoom: 18,
                 minZoom: 4,
-                scrollwheel: true,
+                scrollwheel: false,
                 styles: styles
             };
 
