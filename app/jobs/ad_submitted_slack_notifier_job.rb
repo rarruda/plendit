@@ -1,10 +1,10 @@
-class AdSubmittedSlackNotifierJob < ActiveJob::Base
-  queue_as :slack
+class AdSubmittedSlackNotifierJob < SlackNotifierJob
 
   def perform(ad)
-	Utils::SlackNotifier.instance.notify(
-		"New ad submitted for review: #{ad.title}",
-		url: Rails.application.routes.url_helpers.ad_url(ad)
+  	self.do_slack_notification(
+	  "New ad submitted for review: #{ad.title}",
+	  url: Rails.application.routes.url_helpers.ad_url(ad)
 	)
   end
+
 end
