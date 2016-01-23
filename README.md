@@ -291,6 +291,24 @@ To deploy to dev:
 bundle exec cap development deploy
 ```
 
+## Generating sitemap
+
+It should be done automatically via cron daily, and ping the search engines.
+
+To generate the compressed XML file under the folder specified in the public_path attribute:
+`rake sitemap:create` and `rake sitemap:refresh:no_ping`
+
+To do the same as above and ping search engines in addition:
+```rake sitemap:refresh```
+
+It's also possible to generate the sitemap via capistrano using the following tasks:
+
+```
+deploy:sitemap:create   #Create sitemaps without pinging search engines
+deploy:sitemap:refresh  #Create sitemaps and ping search engines
+deploy:sitemap:clean    #Clean up sitemaps in the sitemap path
+```
+
 ## Checking application status
 
 Go to the following URL for a health-check overview of the application and

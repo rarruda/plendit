@@ -5,7 +5,12 @@
 # Disallow: /
 
 User-agent: *
+Disallow: /resources
 Disallow: /me
-Disallow: /admin
+Allow: /me/login
+Allow: /me/register/sign_up
+
+# Disallow: /search
+# Disallow: /user
 
 # Sitemap: https://www.plendit.no/sitemap.xml.gz
