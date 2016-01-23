@@ -1,6 +1,6 @@
 class BookingSentSlackNotifierJob < SlackNotifierJob
 
-  def perform(*args)
-  	self.do_slack_notification('a booking was sent')
+  def perform(booking)
+    self.do_slack_notification("A booking request for \"#{booking.ad.title}\" was sent.")
   end
 end
