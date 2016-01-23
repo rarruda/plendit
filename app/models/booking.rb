@@ -59,9 +59,18 @@ class Booking < ActiveRecord::Base
                                            self.statuses[:in_progress], self.statuses[:ended] ],
                                            ads: { category: Ad.categories[:boat] }
                                            ) }
+
   # current: bookings that are confirmed paid.
   scope :current,    -> { where( status: [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started],
                                            self.statuses[:in_progress], self.statuses[:ended] ] ) }
+
+  # current_and_pending: bookings that have been sent and that are confirmed paid.
+  # todo: This should probably be the behaviour of the .current scope, if that
+  # is not already used
+  scope :current_and_pending, -> { where( status: [ self.statuses[:payment_preauthorized], self.statuses[:confirmed],
+                                                    self.statuses[:payment_confirmed], self.statuses[:started],
+                                                    self.statuses[:in_progress], self.statuses[:ended] ] ) }
+
   # active: bookings that should be going on now:
   scope :active,     -> { where( status: [ self.statuses[:started], self.statuses[:in_progress] ] ) }
 
