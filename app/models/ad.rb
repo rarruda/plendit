@@ -4,6 +4,9 @@ class Ad < ActiveRecord::Base
   include AASM
   include Searchable
 
+  include ActionDispatch::Routing::UrlFor
+  include Rails.application.routes.url_helpers
+
   belongs_to :user
   belongs_to :location
   has_many :ad_items,    autosave: true, dependent: :destroy #will leave dangling links in old bookings.
@@ -109,7 +112,7 @@ class Ad < ActiveRecord::Base
     event :submit_for_review do
       transitions from: :draft, to: :waiting_review, guard: :valid?
       after do
-        SlackNotifierJob.perform_later "New ad submitted for review: #{ad.title}",
+        SlackNotifierJob.perform_later "New ad submitted for review: #{self.title}",
           url: ad_url(self)
           #url: Rails.application.routes.url_helpers.ad_url(ad)
       end
