@@ -5,22 +5,12 @@ class Utils::SlackNotifier
   end
 
   def initialize
-    channel = ENV['SLACK_NOTIFICATION_CHANNEL']   || '#site-events'
-    username = ENV['SLACK_NOTIFICATION_USERNAME'] || 'plendbot'
-    icon_emoji = ENV['SLACK_NOTIFICATION_EMOJI']  || ':happybot:'
-    client = nil
-
-    unless Rails.env.production?
-      channel = "#{channel}-#{Rails.env}"
-      client = NoOpHTTPClient
-    end
-
     @notifier = Slack::Notifier.new(
-      ENV['SLACK_NOTIFICATION_WEBHOOK_URL'],
-      channel: channel,
-      username: username,
-      icon_emoji: icon_emoji,
-      http_client: client
+      ENV['PCONF_SLACK_NOTIFICATION_WEBHOOK_URL'],
+      channel:     ENV['PCONF_SLACK_NOTIFICATION_CHANNEL']  || '#notifications-events',
+      username:    ENV['PCONF_SLACK_NOTIFICATION_USERNAME'] || 'plendbot',
+      icon_emoji:  ENV['PCONF_SLACK_NOTIFICATION_EMOJI']    || ':happybot:',
+      http_client: Rails.env.production? ? Slack::Notifier::DefaultHTTPClient : NoOpHTTPClient
     )
   end
 

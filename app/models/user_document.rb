@@ -41,7 +41,7 @@ class UserDocument < ActiveRecord::Base
 
 
   before_validation :set_guid, on: :create
-  after_create :notify_slack_about_new_kyc_doc
+  after_create :notify_slack_new_kyc_doc
 
   def to_param
     self.guid
@@ -56,8 +56,9 @@ class UserDocument < ActiveRecord::Base
     end
   end
 
-  def notify_slack_about_new_kyc_doc
-    KycUploadedSlackNotifierJob.perform_later self
+  def notify_slack_new_kyc_doc
+    SlackNotifierJob.perform_later "User #{self.user.id} #{self.user.first_name} uloaded kyc doc of type #{self.decorate.display_category}.",
+      url: kyc_document_url(self.guid)
   end
 
 end

@@ -176,7 +176,8 @@ class Booking < ActiveRecord::Base
           message: "#{self.from_user.decorate.display_name} ønsker å leie \"#{self.ad.decorate.display_title}\"",
           notifiable: self
         )
-        BookingSentSlackNotifierJob.perform_later self
+
+        SlackNotifierJob.perform_later "A booking request for \"#{self.ad.title}\" was sent."
       end
     end
 

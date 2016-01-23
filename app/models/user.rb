@@ -129,8 +129,8 @@ class User < ActiveRecord::Base
   after_save :refresh_with_mangopay,
     if: :should_trigger_mangopay_refresh?
 
-  after_create :notify_slack_about_new_user
 
+  after_create :notify_slack_new_user
 
   # all locations that have been in at least one ad.
   def used_locations
@@ -736,8 +736,8 @@ class User < ActiveRecord::Base
     self.home_city = POSTAL_CODES[self.home_post_code]
   end
 
-  def notify_slack_about_new_user
-    UserJoinedSlackNotifierJob.perform_later self
+  def notify_slack_new_user
+    SlackNotifierJob.perform_later "New user joined: #{self.id} #{self.decorate.display_name} #{self.email}"
   end
 
 end
