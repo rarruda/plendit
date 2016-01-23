@@ -1,6 +1,6 @@
 class UserJoinedSlackNotifierJob < SlackNotifierJob
 
-  def perform(*args)
-    self.do_slack_notification('new user joined')
+  def perform(user)
+    self.do_slack_notification("New user joined: #{user.decorate.display_name}")
   end
 end
