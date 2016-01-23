@@ -15,16 +15,9 @@ ActiveAdmin.register User do
   # end
 
   menu priority: 2
-  #actions :index, :show
+  actions :index, :show
 
-  permit_params :name, :email, :phone_number, :status, :ephemeral_answer_percent, :avatar_url
-    ##, :password
-
-  filter :first_name
-  filter :last_name
-  filter :email
-  filter :phone_number
-  filter :created_at
+  permit_params :first_name, :last_name, :email, :phone_number, :status, :ephemeral_answer_percent, :avatar_url
 
 #  scope :all, :default => true
 #  scope :in_progress
@@ -33,10 +26,11 @@ ActiveAdmin.register User do
   index do
     selectable_column
     id_column
-    column :name
+    column :first_name
+    column :last_name
     column :email
 
-    column("User Status") {|user| status_tag( user.status ) }
+    column("User Status")        {|user| status_tag( user.status ) }
     column("Verification Level") {|user| status_tag( user.verification_level ) }
     column(:id) {|u| link_to "Log in as", admin_switch_user_path( scope_identifier: "user_#{u.id}" ) }
 
