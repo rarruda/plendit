@@ -41,7 +41,7 @@ class UserDocument < ActiveRecord::Base
 
 
   before_validation :set_guid, on: :create
-  after_create :notify_slack
+  after_create :notify_slack_about_new_kyc_doc
 
   def to_param
     self.guid
@@ -56,7 +56,7 @@ class UserDocument < ActiveRecord::Base
     end
   end
 
-  def notify_slack
+  def notify_slack_about_new_kyc_doc
     KycUploadedSlackNotifierJob.perform_later self
   end
 
