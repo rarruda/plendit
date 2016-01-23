@@ -1,7 +1,9 @@
 class PayinRule < ActiveRecord::Base
   belongs_to :ad
 
-  validates :guid,           uniqueness: true
+  validates :guid,           uniqueness: true,
+    if: 'self.guid.present?'
+
   validates :ad,             presence: true
   validates :unit,           presence: true
   validates :effective_from, numericality: { only_integer: true,    message: 'Antall dager må være en tall.' }
