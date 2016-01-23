@@ -132,6 +132,9 @@ gem 'logstash-logger'
 #gem 'rails_semantic_logger'
 #gem 'cabin'
 
+# notifications
+gem 'slack-notifier'
+
 group :development, :test do
   # Use Capistrano for deployment
   gem 'capistrano',           require: false
