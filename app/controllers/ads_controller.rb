@@ -279,7 +279,7 @@ class AdsController < ApplicationController
     end
 
     @ad.valid? # triggers hooks to set guid, I don't care if it's valid
-    
+
     if @ad.save(validate: false)
       redirect_to edit_users_ad_path @ad
     else
@@ -387,7 +387,7 @@ class AdsController < ApplicationController
   def ad_can_be_shown?
     return false if @ad.nil?
 
-    @ad.status == 'published' ||
+    @ad.published? ||
     user_signed_in? && (current_user.is_site_admin? || current_user == @ad.user)
   end
 
