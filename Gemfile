@@ -125,6 +125,9 @@ gem 'acts-as-taggable-on', '~> 3.4'
 # gem 'exception_notification'
 gem 'airbrake'
 
+# Trace http calls to the outside world.
+gem 'httplog'
+
 # logging:
 gem 'lograge'
 gem 'logstash-event'
@@ -170,8 +173,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'guard-rspec', require: false
 
-  # Trace every http call to the outside world that rails makes.
-  gem 'httplog'
 
   # Ruby static code analyzer:
   gem 'rubocop'
