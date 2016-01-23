@@ -4,8 +4,6 @@ class Ad < ActiveRecord::Base
   include AASM
   include Searchable
 
-  include ActionDispatch::Routing::UrlFor
-  include Rails.application.routes.url_helpers
 
   belongs_to :user
   belongs_to :location
@@ -113,8 +111,7 @@ class Ad < ActiveRecord::Base
       transitions from: :draft, to: :waiting_review, guard: :valid?
       after do
         SlackNotifierJob.perform_later "New ad submitted for review: #{self.title}",
-          url: ad_url(self)
-          #url: Rails.application.routes.url_helpers.ad_url(ad)
+          url: Rails.application.routes.url_helpers.ad_url(ad)
       end
     end
     event :approve do
