@@ -8,16 +8,13 @@
                 for andre Plendit-brukere. Det er frivillig å gi tilbakemelding.
             </p>
 
-            <p> TRANSLATEME:
-                Tilbakemeldingen låses en uke etter booking var slutt.
-            </p>
-
             <div data-controller="starRatingSelector" class="rating-selector booking-feedback__stars">
                 <span data-rating="1" class="rating-selector__star rating-selector__star--full"></span>
                 <span data-rating="2" class="rating-selector__star"></span>
                 <span data-rating="3" class="rating-selector__star"></span>
                 <span data-rating="4" class="rating-selector__star"></span>
                 <span data-rating="5" class="rating-selector__star"></span>
+
                 <%= f.hidden_field :score, value: '1', data: { score: '' } %>
             </div>
 

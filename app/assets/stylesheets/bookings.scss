@@ -82,11 +82,11 @@
 .rating-selector {
     &__star {
         display: inline-block;
-        width: 22px;
-        height: 22px;
-        background-image: url(image-path("star_empty.svg"));
+        width: 44px;
+        height: 44px;
+        background-image: url(image-path("star_empty_huge.svg"));
         &--full, &:hover {
-            background-image: url(image-path("star_full.svg"));
+            background-image: url(image-path("star_full_huge.svg"));
         }
     }
 }
