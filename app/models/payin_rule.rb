@@ -4,13 +4,13 @@ class PayinRule < ActiveRecord::Base
   validates :guid,           uniqueness: true
   validates :ad,             presence: true
   validates :unit,           presence: true
-  validates :effective_from, numericality: { only_integer: true,    message: "Antall dager må være en tall." }
-  validates :effective_from, numericality: { greater_than_or_equal_to: 1, message: "Antall dager må være minst 1." }
-  validates :effective_from, numericality: { less_than_or_equal_to:   24, message: "Antall timer må være mindre enn 24."  }, if: :hour?
-  validates :effective_from, uniqueness:   { scope: [:ad, :unit],   message: "Kan kun ha en pris per enhet." }
-  validates :payin_amount,   numericality: { only_integer: true,    message: "Pris må være enn tall." }, allow_blank: true,
+  validates :effective_from, numericality: { only_integer: true,    message: 'Antall dager må være en tall.' }
+  validates :effective_from, numericality: { greater_than_or_equal_to: 1, message: 'Antall dager må være minst 1.' }
+  validates :effective_from, numericality: { less_than_or_equal_to:   24, message: 'Antall timer må være mindre enn 24.'  }, if: :hour?
+  validates :effective_from, uniqueness:   { scope: [:ad, :unit],   message: 'Kan kun ha en pris per enhet.' }
+  validates :payin_amount,   numericality: { only_integer: true,    message: 'Pris må være enn tall.' }, allow_blank: true,
     unless: :new_record?
-  validates :payin_amount,   numericality: { less_than: 150_000_00, message: "Pris må være under 150.000 kr." }, allow_blank: true,
+  validates :payin_amount,   numericality: { less_than: 150_000_00, message: 'Pris må være under 150.000 kr.' }, allow_blank: true,
     unless: :new_record?
 
   validate  :validate_min_payin_amount
@@ -43,8 +43,6 @@ class PayinRule < ActiveRecord::Base
   def payin_amount_in_h=( _payin_amount )
     self.payin_amount = ( _payin_amount.to_f * 100 ).round
   end
-
-
 
   def payin_amount_for_duration duration = min_duration_in_sec
     case self.unit
