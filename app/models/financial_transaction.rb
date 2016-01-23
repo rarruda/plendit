@@ -118,7 +118,8 @@ class FinancialTransaction < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for financial_transaction_id: #{self.id}"
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for financial_transaction_id: #{self.id}",
+      financial_transaction_id: self.id
   end
 
   def from_user_id

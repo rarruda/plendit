@@ -77,7 +77,8 @@ class UserPaymentCard < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for user_payment_card_id: #{self.id}"
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for user_payment_card_id: #{self.id}",
+      user_payment_card_id: self.id
   end
 
   def set_favorite
@@ -95,7 +96,7 @@ class UserPaymentCard < ActiveRecord::Base
     self.update_attributes(active: disabled_card['Active'])
 
 
-    LOG.info message: "deactivated from mangopay: #{self}", user_id: self.user.id, card_id: self.id
+    LOG.info message: "deactivated from mangopay: #{self}", user_id: self.user.id, user_payment_card_id: self.id
   end
 
   def to_param

@@ -386,7 +386,8 @@ class Booking < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for booking_id: #{self.id}"
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for booking_id: #{self.id}",
+      booking_id: self.id
   end
 
   def should_be_confirmed?

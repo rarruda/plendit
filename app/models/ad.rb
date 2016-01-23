@@ -321,6 +321,7 @@ class Ad < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for ad_id: #{self.id}", ad_id: self.id
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for ad_id: #{self.id}",
+      ad_id: self.id
   end
 end
