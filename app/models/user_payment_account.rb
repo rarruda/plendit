@@ -85,7 +85,7 @@ class UserPaymentAccount < ActiveRecord::Base
 
     if self.bank_account_vid.blank?
       LOG.info message: "Provisioning bank account with Mangopay.",
-        user_payment_account_id: self.id, user_id: self.user_id, bank_account_iban: self.bank_account_iban
+        user_id: self.user_id, bank_account_iban: self.bank_account_iban
       begin
         # https://docs.mangopay.com/api-references/bank-accounts/
         bank_account = MangoPay::BankAccount.create( self.user.payment_provider_vid, {
@@ -103,7 +103,8 @@ class UserPaymentAccount < ActiveRecord::Base
         } )
         self.update_attributes( bank_account_vid: bank_account['Id'] )
       rescue => e
-        LOG.error message: "Exception e:#{e} provisioning at mangopay the bank_account: #{bank_account}", user_payment_account_id: self.id, mangopay_result: bank_account
+        LOG.error message: "Exception e:#{e} provisioning at mangopay the bank_account: #{bank_account}",
+          user_id: self.user_id, mangopay_result: bank_account
         return nil
       end
     end
