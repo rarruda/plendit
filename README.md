@@ -235,50 +235,6 @@ Note: the server is smart enough so that you never need to restart it for any
   * PCONF_* -- any variable that starts with PCONF is a plendit configuration.
 
 
-## How to run the test suite
-
-Run:
-
-```
-$ bundle exec rspec --format=documentation
-```
-or just:
-```
-$ rspec
-```
-
-To run rails console against the test environment:
-```
-bundle exec rails c test
-```
-
-And rake tasks agains the test environment:
-```
-rake ... RAILS_ENV=test
-```
-
-### Guard
-
-To keep tests running constantly on the background, run guard:
-```
-$ bundle exec guard
-```
-
-### Testing payments
-
-https://docs.mangopay.com/api-references/test-payment/
-
-List av test bankkonto nummer:
-```
-15032080127
-15032080135
-15032080143
-15032080151
-15032080178
-15032080186
-15032080194
-```
-
 ## Deployment instructions
 
 To deploy to beta:
@@ -351,6 +307,10 @@ $ rails console
 ```
 
 Where :user_id is the user_id of the user you'd like to be a site_admin.
+
+## Testing
+
+Please see TESTING.md
 
 ## Code style
 

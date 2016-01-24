@@ -38,12 +38,13 @@ Dir[Rails.root.join('spec/support/**/*.rb')].sort.each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.disable!
 
-VCR.configure do |config|
-  config.cassette_library_dir = "spec/vcr_cassettes"
-  config.hook_into :webmock
-  #config.configure_rspec_metadata!
-end
+#VCR.configure do |config|
+#  config.cassette_library_dir = "spec/vcr_cassettes"
+#  config.hook_into :webmock
+#  #config.configure_rspec_metadata!
+#end
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

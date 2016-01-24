@@ -209,7 +209,7 @@ group :test do
 
   # mock/prevent http calls from going out to the world
   gem 'webmock'
-  gem 'vcr'
+  #gem 'vcr'
 end
 
 group :production do
