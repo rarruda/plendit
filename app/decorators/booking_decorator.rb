@@ -81,16 +81,16 @@ class BookingDecorator < Draper::Decorator
           "#{to_name} har godtatt forespørselen din."
         end
       when 'started'
-        "Utleieperioden starter snart."
+        'Utleieperioden starter snart.'
       when 'in_progress'
-        "Utleietiden har startet."
+        'Utleietiden har startet.'
       when 'ended'
-        "Utleieperioden er over."
+        'Utleieperioden er over.'
       when 'archived'
-        "Leieforholdet er arkivert."
+        'Leieforholdet er arkivert.'
       when 'cancelled'
         if is_owner
-          "Du har avlyst leieforholdet."
+          'Du har avlyst leieforholdet.'
         else
           "#{from_name} har avlyst leieforholdet."
         end
@@ -98,7 +98,7 @@ class BookingDecorator < Draper::Decorator
         if is_owner
           "#{from_name} har avlyst forespørselen."
         else
-          "Du har avlyst forespørselen."
+          'Du har avlyst forespørselen.'
         end
       when 'declined'
         if is_owner
@@ -107,9 +107,9 @@ class BookingDecorator < Draper::Decorator
           "#{to_name} takket nei til din forespørsel."
         end
       when 'disputed'
-        "Leieforholdet ble avbrutt."
+        'Leieforholdet ble avbrutt.'
       when 'admin_paused'
-        "Annonse ble sperret av en administrator."
+        'Annonse ble sperret av en administrator.'
       end
     end
   end
