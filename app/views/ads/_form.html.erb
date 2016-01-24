@@ -82,12 +82,12 @@
                     <label>Registreringsnummer:</label>
                     <%= f.text_field :registration_number, class: 'u-full-width', placeholder: 'Regnr' %>
                     <div class="help-box u-push-down">
-                    Jeg aksepterer at dersom jeg ikke kan fremvise eksisterende forsikringsforhold, kjøpekontrakt eller registering har jeg ikke forsikring for skader hvor båten ikke kan lokaliseres (herunder underslag, tyveri og synking).
+                    Jeg aksepterer at dersom jeg ikke kan fremvise kjøpekontrakt eller registrering har jeg ikke forsikring for skader hvor båten ikke kan lokaliseres (underslag og tyveri).
                 </div>
                 <%= f.label :accepted_boat_insurance_terms do %>
                     <%= f.check_box :accepted_boat_insurance_terms %>
                     <span class="label-body">
-                        Jeg aksepterer forsikringsvilkårene.
+                        Jeg har lest og godtatt dette.
                     </span>
                 <% end %>
             </div>
@@ -187,7 +187,8 @@
             <%= form_for( PayinRule.new, url: (ad_payin_rules_path @ad), data: { new_rule_form: '' } ) do |f| %>
 
                 <div class="help-box u-push-down">
-                    Pris per enkelt dag må være minst kr 99,-
+                    Pris per enkelt dag må være minst
+                    kr <%= ApplicationController.helpers.format_monetary_full_pretty @ad.main_payin_rule.min_payin_amount %>
                     Vil du gi en lavere pris per dag ved lengre
                     leieforhold, kan du gjøre det her.
                 </div>

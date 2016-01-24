@@ -29,18 +29,18 @@ class AdDecorator < Draper::Decorator
   end
 
   def display_title
-    object.title.blank? ?  "Tittel mangler" : object.title
+    object.title.blank? ?  'Tittel mangler' : object.title
   end
 
   def display_status
     status_names = {
-        draft: "utkast",
-        waiting_review: "sendt til godkjenning",
-        published: "publisert",
-        paused: "pauset",
-        stopped: "stoppet",
-        refused: "ikke godkjent",
-        suspended: "avslått",
+        draft: 'utkast',
+        waiting_review: 'sendt til godkjenning',
+        published: 'publisert',
+        paused: 'pauset',
+        stopped: 'stoppet',
+        refused: 'ikke godkjent',
+        suspended: 'avslått',
     }
     status_names[status.to_sym]
   end

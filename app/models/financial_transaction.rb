@@ -14,7 +14,7 @@ class FinancialTransaction < ActiveRecord::Base
 
 
   # Probably need a transfer_refund too.
-  enum purpose:          { rental_with_deposit: 1, rental: 2, deposit: 3, insurance_other: 6, payout_to_user: 7 }
+  enum purpose:          { rental_with_deposit: 1, rental: 2, deposit: 3, insurance_other: 6, payout_to_user: 7, card_validation: 11 }
   enum transaction_type: { preauth: 1, payin: 2, transfer: 3, payout: 4, payin_refund: 12, transfer_refund: 13 }
   enum nature:           { normal: 0, refund: 10, repudiation: 11, settlement: 12 }
   enum state:    { pending: 1, processing: 2, finished: 5, errored: 10, unknown_state: 20 }
@@ -118,7 +118,8 @@ class FinancialTransaction < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for financial_transaction_id: #{self.id}"
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for financial_transaction_id: #{self.id}",
+      financial_transaction_id: self.id
   end
 
   def from_user_id
@@ -255,8 +256,14 @@ class FinancialTransaction < ActiveRecord::Base
     begin
       # https://docs.mangopay.com/api-references/card/pre-authorization/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pre_authorization.rb
+      preauth_tag = case self.financial_transactionable_type
+      when 'Booking'
+        "booking_id=#{financial_transactionable_id} #{self.purpose}"
+      when 'UserPaymentCard'
+        "user_payment_card_id=#{financial_transactionable_id} #{self.purpose}"
+      end
       preauth = MangoPay::PreAuthorization.create(
-        'Tag'          => "booking_id=#{financial_transactionable_id} #{self.purpose}",
+        'Tag'          => preauth_tag,
         'AuthorId'     => self.from_user.payment_provider_vid,
         'CardId'       => self.src_vid,
         'DebitedFunds' => {
@@ -432,12 +439,25 @@ class FinancialTransaction < ActiveRecord::Base
       raise "can not process this transaction with this method"
     end
 
+    if self.amount < 1_00
+      self.errored!
+      raise "refunds are only available for values greater then 1 EUR"
+    end
+
     begin
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/http_calls.rb#L70
       # https://docs.mangopay.com/api-references/refund/%E2%80%A2-refund-a-pay-in/
       payin_refund = MangoPay::PayIn.refund( self.src_vid,
         'Tag'     => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
         'AuthorId' => self.financial_transactionable.from_user.payment_provider_vid,
+        'DebitedFunds'   => {
+          'Currency' => PLENDIT_CURRENCY_CODE,
+          'Amount'   => self.amount
+        },
+        'Fees'           => {
+          'Currency' => PLENDIT_CURRENCY_CODE,
+          'Amount'   => 0
+        },
       )
 
       self.update(
@@ -448,8 +468,6 @@ class FinancialTransaction < ActiveRecord::Base
         fees:            payin_refund['Fees']['Amount'],
         response_body:   payin_refund
       )
-
-      #set_nature payin_refund
 
       # update transaction status from mangopay result: (one of: CREATED, SUCCEEDED, FAILED)
       aasm_change_on_status payin_refund['Status']

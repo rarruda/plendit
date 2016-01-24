@@ -13,13 +13,13 @@
                         <% elsif ad.paused? %>
                             Annonsen er satt på pause.
                         <% elsif ad.refused? %>
-                            Annonsen var ikke godkjent av kontroll.
+                            Annonsen ble ikke godkjent.
                         <% elsif ad.stopped? %>
                             Annonsen er stoppet.
                         <% end %>
                     </h5>
                     <% if ad.refused? %>
-                        <small>Grunnen: <%= ad.refusal_reason %></small>
+                        <p>Årsak: <%= ad.refusal_reason %></p>
                     <% end %>
                 </div>
 

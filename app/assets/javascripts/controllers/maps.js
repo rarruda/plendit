@@ -138,7 +138,7 @@ window.controllers.resultMap = {
             ];
 
             var mapOptions = {
-                scrollwheel: false,
+                scrollwheel: true,
                 streetViewControl: false,
                 mapTypeControl: false,
                 center: bounds.getCenter(),

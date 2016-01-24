@@ -1,0 +1,20 @@
+<h2>An accident_report has been created.</h2>
+
+<p>
+  We have no admin gui for it currently, other then <%= link_to 'active_admin', admin_accident_report_url(@accident_report) %>.
+</p>
+
+<h2>Summary:</h2>
+
+<p>
+  accident_report id is: <b><%= @accident_report.id %></b>
+</p>
+<p>
+  location_line: <pre><%= @accident_report.location_line %></pre>
+</p>
+<p>
+  happened_at: <pre><%= @accident_report.happened_at %></pre>
+</p>
+<p>
+  body: <pre><%= @accident_report.body %></pre>
+</p>

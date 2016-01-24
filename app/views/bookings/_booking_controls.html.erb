@@ -1,42 +1,16 @@
 <div class="booking-controls">
     <% if current_user.owns_booking_item? @booking %>
-        <% if booking.created? %>
-            Venter på svar.
-        <% elsif booking.payment_preauthorized? %>
-            <%= button_to "Avslå forespørsel", decline_booking_path(booking), class: "button", form_class: 'u-inline' %>
-            <%= button_to "Godkjenn forespørsel", accept_booking_path(booking), class: "button button-primary", form_class: 'u-inline' %>
-        <% elsif booking.confirmed? %>
-            Leieforhold avtalt.
-        <% elsif booking.payment_confirmed? %>
-            <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "Er du sikker at du vil avbryte?" } %>
-        <% elsif booking.started? %>
-            Leieforhold pågår.
-        <% elsif booking.in_progress? %>
-            Leieforhold pågår.
-        <% elsif booking.ended? || booking.archived? %>
-            Leieforholdet er over og stengt for endringer.
-        <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
-        <% else %>
-            Ukjent status, opplever du problemer kan du ta kontakt med <%= link_to 'kundesenteret', Plendit::Application.config.x.customerservice.contact_form %>.
+        <% if booking.payment_preauthorized? %>
+            <%= button_to 'Avslå forespørsel', decline_booking_path(booking), class: 'button', form_class: 'u-inline' %>
+            <%= button_to 'Godkjenn forespørsel', accept_booking_path(booking), class: 'button button-primary', form_class: 'u-inline' %>
+        <% elsif booking.payment_confirmed? || booking.started? %>
+            <%= button_to 'Avlys leieforhold', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: 'Er du sikker at du vil avbryte?' } %>
         <% end %>
     <% else %>
         <% if booking.created? || booking.payment_preauthorized? %>
-            <%= button_to 'Avbryt forespørsel', abort_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "Er du sikker at du vil avbryte?" } %>
+            <%= button_to 'Avbryt forespørsel', abort_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: 'Er du sikker at du vil avbryte?' } %>
         <% elsif booking.confirmed? || booking.payment_confirmed? %>
-            <%= button_to 'Avbryt forespørsel', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: "Er du sikker at du vil avbryte?" } %>
-        <% elsif booking.started? %>
-            Leieforhold pågår.
-        <% elsif booking.in_progress? %>
-            Denne bookingen er aktiv.
-        <% elsif booking.admin_paused? || booking.aborted? || booking.cancelled? %>
-        <% elsif booking.ended? || booking.archived? %>
-            Leieforholdet er over og stengt for endringer.
-        <% else %>
-           Ukjent status, opplever du problemer kan du ta kontakt med <%= link_to 'kundesenteret', Plendit::Application.config.x.customerservice.contact_form %>.
+            <%= button_to 'Avlys leieforhold', cancel_booking_path(booking), class: 'button', form_class: 'u-inline', data: { confirm: 'Er du sikker at du vil avbryte?' } %>
         <% end %>
-    <% end %>
-
-    <% if booking.started? || booking.in_progress? || booking.ended? %>
-        <%= link_to 'Skademeldingskjema', booking_accident_reports_path(booking) %>
     <% end %>
 </div>

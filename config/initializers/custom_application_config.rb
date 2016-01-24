@@ -30,6 +30,7 @@ Plendit::Application.config.x.customerservice.contact_form   = 'https://plendit.
 Plendit::Application.config.x.customerservice.website        = 'https://plendit.zendesk.com/'
 Plendit::Application.config.x.customerservice.insurance_info = 'https://plendit.zendesk.com/hc/no/articles/207314345-Forsikring'
 Plendit::Application.config.x.customerservice.privacy_info   = '/privacy'
+Plendit::Application.config.x.customerservice.road_assistance_number = '944 36 336'
 
 Plendit::Application.config.x.organization.phone_number      = nil #'+47 97 04 43 99'
 Plendit::Application.config.x.organization.address           = 'Plendit AS, Grensen 5-7, 0159 Oslo'
@@ -163,34 +164,34 @@ Plendit::Application.config.x.frontpage.popular_ads = [
 
 Plendit::Application.config.x.frontpage.hero_videos = [
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_baat.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_baat.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.webm'
   },
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_baat.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_baat.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_5.webm'
   },
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_husleie.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_husleie.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/sykkel_1.webm'
   },
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_husleie.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_husleie.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/hjem_7.webm'
   },
   {
-    still:       'http://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.jpg',
-    still_small: 'http://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_husleie.jpg',
-    mp4:         'http://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.mp4',
-    webm:        'http://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.webm'
+    still:       'https://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.jpg',
+    still_small: 'https://cdn.plendit.com/frontpage-videos/with_logo/iphone6_plus_husleie.jpg',
+    mp4:         'https://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.mp4',
+    webm:        'https://cdn.plendit.com/frontpage-videos/with_logo/husleie_1.webm'
   },
 ]
 

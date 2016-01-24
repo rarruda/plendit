@@ -5,9 +5,12 @@
         <%= render partial: 'booking_heading_box', locals: { ad: @booking.ad, user: @booking.ad.user } %>
     </div>
 
-    <div class="u-push-down">
-        <%= render partial: 'booking_status_box' %>
-    </div>
+    <% if @booking.may_give_feedback? %>
+        <div class="u-push-down">
+            <%# FIXME: TODO runeh cond around has_provided_feedback %>
+            <%= render partial: 'booking_feedback' %>
+        </div>
+    <% end %>
 
     <div class="u-push-down">
         <%= render partial: 'booking_summary' %>
@@ -15,12 +18,6 @@
 
     <% if @booking.may_set_deposit_offer_amount? current_user %>
         <%= render partial: 'booking_deposit' %>
-    <% end %>
-
-    <% if @booking.may_give_feedback? %>
-        <div class="u-push-down">
-            <%= render partial: 'booking_feedback' %>
-        </div>
     <% end %>
 
     <%= render partial: 'booking_controls', locals: {booking: @booking} %>
@@ -32,7 +29,6 @@
     <hr>
 
     <%= render partial: 'conversation_section', locals: {booking: @booking} %>
-
 
     <% if @booking.may_send_damage_report? %>
         <div class="u-push-down">

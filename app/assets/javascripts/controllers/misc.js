@@ -918,6 +918,8 @@ window.controllers.bookingMessaging = {
     dependencies: ["$element", "utils", "eventbus", "xhr"],
     callable: function(ele, utils, eventbus, xhr) {
         var form = ele.querySelector("form");
+        if (!form) { return; }
+
         var sendButton = ele.querySelector("[data-send-message");
         var messageInput = ele.querySelector("[data-message-body");
         var messagesHolder = ele.querySelector("[data-conversation]");

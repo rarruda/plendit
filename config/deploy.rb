@@ -158,6 +158,7 @@ namespace :deploy do
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
   after  :finishing,    :restart
+  after :finished,      'airbrake:deploy'
   #after  :finished,     :loadbalancer_check_on
 
   after 'deploy:restart', 'resque:restart'

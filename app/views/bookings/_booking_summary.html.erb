@@ -22,6 +22,10 @@
             <% else %>
                 <strong>Totalt å betale:</strong>
                 <%= number_to_currency_pretty @booking.sum_paid_by_renter, unit: 'kr' %>
+
+                <%# TRANSLATEME/FIXME: we should probably show how much was originally set aside as depositum to the renter: %>
+                <%# <strong>Innbetalt depositum:</strong> %>
+                <%#= number_to_currency_pretty @booking.deposit_amount, unit: 'kr' %>
             <% end %>
         </div>
         <% if @booking.was_ever_confirmed? %>

@@ -62,8 +62,10 @@ class Booking < ActiveRecord::Base
   # current: bookings that are confirmed paid.
   scope :current,    -> { where( status: [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started],
                                            self.statuses[:in_progress], self.statuses[:ended] ] ) }
+  # active: bookings that should be going on now:
   scope :active,     -> { where( status: [ self.statuses[:started], self.statuses[:in_progress] ] ) }
 
+  # reserved: we have an existing booking, and cannot have another booking in parallel to one in these states.
   # there might be more states here that should count as reserved.
   # Probably we will make some more helpers for check states.
   scope :reserved,   -> { where( status: [ self.statuses[:confirmed], self.statuses[:payment_confirmed], self.statuses[:started],
@@ -101,9 +103,17 @@ class Booking < ActiveRecord::Base
   validates :ad_item_id,           presence: true
   validates :from_user_id,         presence: true
   validates :user_payment_card_id, presence: true
+  validates :amount,               numericality: { only_integer: true }
   validates :amount,               numericality: { greater_than_or_equals: 99_00, message: 'Må være minst 99kr' }
   validates :amount,               numericality: { less_than:          25_000_00, message: 'Kan ikke være mer enn 25.000 kroner' }
   # https://docs.mangopay.com/api-references/payins/ actual limit is 2500 eur in general...
+
+  validates :deposit_amount,       numericality: { only_integer: true }
+  validates :deposit_offer_amount, numericality: { only_integer: true }
+  validates :deposit_offer_amount, numericality: { greater_than_or_equal_to: 0, message: 'Kan ikke være en negativ tall' } #TRANSLATEME
+
+  validate :validate_deposit_offer_amount_less_than_or_equals_deposit_amount,
+    if: "deposit_offer_amount.present?"
 
   validate :validate_user_payment_card_belongs_to_from_user
 
@@ -166,6 +176,8 @@ class Booking < ActiveRecord::Base
           message: "#{self.from_user.decorate.display_name} ønsker å leie \"#{self.ad.decorate.display_title}\"",
           notifiable: self
         )
+
+        SlackNotifierJob.perform_later "A booking request for \"#{self.ad.title}\" was sent."
       end
     end
 
@@ -257,7 +269,7 @@ class Booking < ActiveRecord::Base
 
       after do
         LOG.info message: "make transfer of funds...", booking_id: self.id
-        create_financial_transaction_transfer
+        create_financial_transaction_transfer_rental
 
         LOG.info message: "schedule auto-end at ends_at(#{self.ends_at})...", booking_id: self.id
         BookingAutoEndJob.set(wait_until: self.ends_at ).perform_later self
@@ -270,7 +282,26 @@ class Booking < ActiveRecord::Base
         LOG.info message: "schedule auto-archival 7 days after ends_at.", booking_id: self.id
         BookingAutoArchiveJob.set(wait_until: self.archives_at ).perform_later self
 
-        # create_financial_transaction_transfer_deposit
+        if self.deposit_offer_amount > 0
+          create_financial_transaction_transfer_deposit
+          ApplicationMailer.deposit_withdrawals__to_owner( self ).deliver_later
+        else
+          LOG.info message: "No need to create a transfer for deposit, as it would be <= 0 NOK", booking_id: self.id
+        end
+
+        Notification.create(
+          user_id: self.user.id,
+          is_system_message: true,
+          message: "Du kan gi #{self.from_user.decorate.display_name} en tilbakemelding nå.",
+          notifiable: self
+        )
+
+        Notification.create(
+          user_id: self.from_user.id,
+          is_system_message: true,
+          message: "Du kan gi #{self.user.decorate.display_name} en tilbakemelding nå.",
+          notifiable: self
+        )
       end
     end
 
@@ -278,6 +309,12 @@ class Booking < ActiveRecord::Base
       transitions from: :ended, to: :archived
       # UserFeedbackScoreRefreshAllJob should run weekly for all users as a safety net...
       after do
+        if self.sum_deposit_available_for_refund > 0
+          create_financial_transaction_refund_deposit
+        else
+          LOG.info message: "No need to create a refund, as it would be <= 0 NOK", booking_id: self.id
+        end
+
         UserFeedbackScoreRefreshJob.set(wait_until: ( Date.tomorrow.beginning_of_day + 1.hour) ).perform_later self.from_user
         UserFeedbackScoreRefreshJob.set(wait_until: ( Date.tomorrow.beginning_of_day + 1.hour) ).perform_later self.user
       end
@@ -310,6 +347,17 @@ class Booking < ActiveRecord::Base
     end
   end
 
+  # FIXME: code duplicated at payin_rule model:
+  def deposit_offer_amount_in_h
+    return nil if self.deposit_offer_amount.nil?
+    ( ( self.deposit_offer_amount / 100).to_i + ( self.deposit_offer_amount / 100.0  ).modulo(1) )
+  end
+
+  # save prices in integer, from human format input
+  def deposit_offer_amount_in_h=( _deposit_offer_amount )
+    self.deposit_offer_amount = ( _deposit_offer_amount.to_f * 100 ).round
+  end
+
   def most_recent_activity
     message = self.messages.last
     message_time = message.created_at if message.present?
@@ -333,14 +381,15 @@ class Booking < ActiveRecord::Base
 
   def may_set_deposit_offer_amount?(user = nil)
     user.present? &&
-    user.owns_booking_item?(self) &&
+    ( self.from_user.id == user.id ) &&
     self.ad.motor? &&
     ( self.started? || self.in_progress? )
     # || self.ended? && +24t?
   end
 
   def log_status_change
-    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for booking_id: #{self.id}"
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for booking_id: #{self.id}",
+      booking_id: self.id
   end
 
   def should_be_confirmed?
@@ -444,7 +493,16 @@ class Booking < ActiveRecord::Base
     ( self.platform_fee_amount + self.insurance_amount )
   end
 
+  # Might need to do something more fancy, as there might be multiple deposit_transfers...
+  def sum_deposit_available_for_refund
+    available_for_refund = ( self.deposit_amount - self.sum_transfer_deposit )
 
+    ( available_for_refund > 0 ) ? available_for_refund : 0
+  end
+
+  def sum_transfer_deposit
+    self.financial_transactions.transfer.deposit.map(&:amount).sum
+  end
 
   ###
   def include?(date)
@@ -479,7 +537,7 @@ class Booking < ActiveRecord::Base
   end
 
   def validate_user_payment_card_belongs_to_from_user
-    if self.from_user.user_payment_cards.find_by( id: self.user_payment_card_id ).blank?
+    if self.from_user.user_payment_cards.unscoped.find_by( id: self.user_payment_card_id ).blank?
       errors.add(:user_payment_card, "Kortet må tilhøre bruker.")
     end
   end
@@ -500,6 +558,11 @@ class Booking < ActiveRecord::Base
   def validate_from_user_can_create_booking
     errors.add(:ends_at, "Du mangler en form for dokumentasjon for å gjennomføre denne handlingen.") unless self.from_user.can_rent? self.ad.category
   end
+
+  def validate_deposit_offer_amount_less_than_or_equals_deposit_amount
+    errors.add(:deposit_offer_amount, "Må være mindre enn depositum") if deposit_offer_amount > deposit_amount
+  end
+
 
   # Comparable
   def <=>(other)
@@ -622,25 +685,63 @@ class Booking < ActiveRecord::Base
   end
 
   # FIXME/NOTES(RA):
-  # 2) At some point we should consider making IF a special customer, and making a
-  #  split payment here.
-  def create_financial_transaction_transfer
+  # 2) At some point we should consider making IF a special customer, and making a split payment here.
+  def create_financial_transaction_transfer_rental
     if self.financial_transactions.transfer.rental.finished.where( amount: self.sum_paid_by_renter, fees: self.sum_plaform_fee_and_insurance ).any?
       LOG.error message: "At least one identical sucessful financial_transaction exists. Will not create a duplicate one.", booking_id: self.id
       return false
     else
       # later we should make this a split payment!
       # NOTE: 'amount' will be automatically be deducted for the 'fees'
-      rental_financial_transaction = {
+      financial_transaction = {
         transaction_type: 'transfer',
         purpose: 'rental',
         amount:  self.sum_paid_by_renter,
         fees:    self.sum_plaform_fee_and_insurance
       }
-      t = self.financial_transactions.create( rental_financial_transaction )
+      t = self.financial_transactions.create( financial_transaction )
 
       # FIXME(RA): should be triggered from a job:
       t.process!
+    end
+  end
+
+  def create_financial_transaction_transfer_deposit(transfer_deposit_amount = self.deposit_offer_amount)
+    if transfer_deposit_amount > self.sum_deposit_available_for_refund
+      LOG.error message: "Not possible to transfer more then what is available from the deposit.", booking_id: self.id
+      # raise "TooLargeValueForTransferDepositAmount"
+      return false
+    else
+      financial_transaction = {
+        transaction_type: 'transfer',
+        purpose: 'deposit',
+        amount:  transfer_deposit_amount,
+        fees:    0
+      }
+      t = self.financial_transactions.create( financial_transaction )
+
+      # FIXME(RA): should be triggered from a job:
+      t.process!
+    end
+  end
+
+  # refund remaining deposit amount
+  def create_financial_transaction_refund_deposit
+    if self.sum_deposit_available_for_refund > 0
+      financial_transaction = {
+        transaction_type: 'payin_refund',
+        purpose:  'deposit',
+        amount:   self.sum_deposit_available_for_refund,
+        fees:     0,
+        src_type: :src_payin_vid,
+        src_vid:  self.financial_transactions.payin.finished.take.transaction_vid
+      }
+      t = self.financial_transactions.create( financial_transaction )
+
+      # FIXME(RA): should be triggered from a job:
+      t.process!
+    else
+      LOG.error "Not possible to refund a negative value."
     end
   end
 

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PayinRule, type: :model do
 
+  # All tests are failing guid uniqueness validation!
   it "should work on a valid model" do
     payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad)
     expect(payin_rule).to be_valid

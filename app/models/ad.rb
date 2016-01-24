@@ -4,6 +4,7 @@ class Ad < ActiveRecord::Base
   include AASM
   include Searchable
 
+
   belongs_to :user
   belongs_to :location
   has_many :ad_items,    autosave: true, dependent: :destroy #will leave dangling links in old bookings.
@@ -31,7 +32,7 @@ class Ad < ActiveRecord::Base
   validates :body, length: { in: 5..12000 , message: 'Annonsen må ha en beskrivelse.' },
     unless: :new_record?
 
-  validates :registration_number, format: { with: /\A[a-zA-Z]{1,2}[0-9]{4,5}\z/, message: 'Annonsen må ha et gyldig reg.nr.' },
+  validates :registration_number, presence: { message: 'Annonsen må ha et gyldig reg.nr.' },
     unless: :new_record?,
     if:     :motor?
 
@@ -108,6 +109,10 @@ class Ad < ActiveRecord::Base
 
     event :submit_for_review do
       transitions from: :draft, to: :waiting_review, guard: :valid?
+      after do
+        SlackNotifierJob.perform_later "New ad submitted for review: #{self.title}",
+          url: Rails.application.routes.url_helpers.ad_url(self)
+      end
     end
     event :approve do
       # It is imperative to only approve ads which have geocoded locations.
@@ -116,7 +121,12 @@ class Ad < ActiveRecord::Base
     event :refuse do
       transitions from: [:published, :waiting_review], to: :refused
       after do
-        LOG.info message:'ad is refused. Hopefully there is a reason so that the user can do something about it.'
+        Notification.create(
+          user_id: self.user.id,
+          is_system_message: true,
+          message: "Annonsen din \"#{self.decorate.display_title}\" ble ikke godkjent.",
+          notifiable: self
+        )
       end
     end
 
@@ -316,6 +326,7 @@ class Ad < ActiveRecord::Base
   end
 
   def log_status_change
-    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for ad_id: #{self.id}", ad_id: self.id
+    LOG.info message: "changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event}) for ad_id: #{self.id}",
+      ad_id: self.id
   end
 end

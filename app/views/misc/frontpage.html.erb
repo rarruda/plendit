@@ -55,17 +55,19 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="latest-ads">
-        <h2>Utvalgte annonser</h2>
-        <% @ads.each do |ad| %>
-            <div class="latest-ads__holder">
-                <%= render partial: 'shared/search_result_link', locals: { ad: ad } %>
-            </div>
-        <% end %>
-        <%= button_to 'Se alle annonsene', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
+<% if @ads.present? %>
+    <div class="container">
+        <div class="latest-ads">
+            <h2>Utvalgte annonser</h2>
+            <% @ads.each do |ad| %>
+                <div class="latest-ads__holder">
+                    <%= render partial: 'shared/search_result_link', locals: { ad: ad } %>
+                </div>
+            <% end %>
+            <%= button_to 'Se alle annonsene', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
+        </div>
     </div>
-</div>
+<% end %>
 
 <% cache 'front_popular_box' do %>
     <%#= render partial: 'front_popular_box' %>

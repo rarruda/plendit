@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119122332) do
+ActiveRecord::Schema.define(version: 20160122011352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,15 +222,15 @@ ActiveRecord::Schema.define(version: 20160119122332) do
   add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
 
   create_table "mangopay_webhooks", force: :cascade do |t|
-    t.string   "event_type_mp"
-    t.string   "resource_type"
+    t.string   "event_type"
     t.string   "resource_vid"
-    t.string   "date_mp"
+    t.string   "timestamp_v"
     t.integer  "status",        default: 0
     t.string   "remote_ip"
     t.text     "raw_data"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.integer  "resource_type"
   end
 
   create_table "messages", force: :cascade do |t|

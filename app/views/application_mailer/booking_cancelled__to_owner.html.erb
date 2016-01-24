@@ -1,9 +1,10 @@
 <p>
-  Hei, <%= @booking.user.public_name %>
+  Hei, <%= @booking.ad.user.public_name %>
 </p>
 
 <p>
-  <%= @booking.from_user.public_name %> har kansellert din forespørsel om å leie <%= @booking.ad.title %>.
+  Booking av "<%= @booking.ad.title %>" fra
+  <%= @booking.from_user.public_name %> ble kansellert.
 </p>
 
 <p>

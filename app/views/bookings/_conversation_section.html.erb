@@ -8,7 +8,6 @@
             <% if ['cancelled','declined','archived'].include? @booking.status %>
                 Det er ikke lenger mulig å sende meldinger på denne forespørselen.
             <% else %>
-                <p>Din melding:</p>
                 <%= form_for :message, url: booking_messages_path( @booking ) do |f| %>
                     <%= f.hidden_field :booking_id, value: @booking.id %>
                     <%= f.text_area :content,

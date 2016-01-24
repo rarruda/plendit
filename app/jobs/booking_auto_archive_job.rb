@@ -7,8 +7,6 @@ class BookingAutoArchiveJob < ActiveJob::Base
     if booking.ended?
       booking.archive!
       puts "booking_id:#{booking.id} has now status: #{booking.status}"
-    elsif [:disputed, :dispute_disagreed].include? booking.status
-      puts "Nothing to do here. current status: #{booking.status} for booking_id:#{booking.id}."
     elsif [:admin_paused].include? booking.status
       puts "Refused to do anything for status admin_paused. current status: #{booking.status} for booking_id:#{booking.id}."
     else

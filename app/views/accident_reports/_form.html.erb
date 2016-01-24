@@ -12,10 +12,10 @@
 
     <p>
         Du er i ferd med å sende inn en skaldemelding på
-        <%= link_to "\"#{@booking.ad.display_title}\"", @booking.ad %>.
+        <%= link_to @booking.ad.display_title, @booking.ad %>.
     </p>
     <p>
-        <%= link_to 'Tilbake til bookingen.', @booking %>.
+        <%= link_to 'Tilbake til bookingen', @booking %>.
     </p>
 
     <div class="row">
@@ -24,7 +24,7 @@
     </div>
     <br>
     <div class="row">
-        <%= f.label :location_line, 'Hvor skjedds skaden?' %>
+        <%= f.label :location_line, 'Hvor skjedde skaden?' %>
         <%= f.text_field :location_line, class: 'u-full-width' %>
     </div>
     <br>

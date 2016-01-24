@@ -7,27 +7,9 @@ class ApplicationMailer < ActionMailer::Base
   before_action :add_logo_attachment
 
 
-  def ad_is_published ad
-    @ad = ad
-
-    mail(
-      to: @ad.user.email,
-      subject: "Plendit: (#{@ad.title}) er nå godkjent og publisert"
-    )
-  end
-
-  def ad_is_rejected ad
-    @ad = ad
-
-    mail(
-      to: @ad.user.email,
-      subject: "Plendit: (#{@ad.title}) ble ikke godkjent"
-    )
-  end
-
   def booking_confirmed__to_renter booking
     @booking = booking
-
+    add_insurance_documents
     mail(
       to: @booking.from_user.email,
       subject: "Plendit: Din forespørsel ble akseptert",
@@ -37,40 +19,10 @@ class ApplicationMailer < ActionMailer::Base
 
   def booking_confirmed__to_owner booking
     @booking = booking
-
-    # Attachments:
-    attach_files = []
-    attach_files << "Forsikringsbevis_Ting.pdf"                       if @booking.ad.bap?
-    attach_files << "Forsikringsvilkaar_Korttidsforsikring_Ting.pdf"  if @booking.ad.bap?
-    attach_files << "Forsikringsbevis_Innbo.pdf"                      if @booking.ad.realestate?
-    attach_files << "Forsikringsvilkaar_Korttidsforsikring_Innbo.pdf" if @booking.ad.realestate?
-    attach_files << "Forsikringsvilkaar_Korttidsforsikring_motorvogn.pdf" if @booking.ad.motor?
-    attach_files << "Forsikringsvilkaar_Korttidsforsikring_Baat.pdf"  if @booking.ad.boat?
-    attach_files << "Sammendrag_av_Korttidsforsikring_Baat.pdf"       if @booking.ad.boat?
-
-    if @booking.ad.motor?
-      attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Bil.pdf"     if @booking.ad.car?
-      attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Camping.pdf" if @booking.ad.caravan?
-      attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Moped_ATV_Snoescooter.pdf"     if @booking.ad.scooter?
-      attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Traktor_Gressklipper_Snoe.pdf" if @booking.ad.tractor?
-    end
-
-    attach_files.each do |filename|
-      attachments[filename] = File.read( "#{Rails.root}/public/docs/if/#{filename}" )
-    end
-
+    add_insurance_documents
     mail(
       to: @booking.user.email,
       subject: "Plendit: Du har godkjent leieforespørselen av (#{@booking.ad.title})"
-    )
-  end
-
-  def booking_accepted__to_renter booking
-    @booking = booking
-
-    mail(
-      to: @booking.from_user.email,
-      subject: "Plendit: Leieforespørselen av (#{@booking.ad.title}) ble godkjent"
     )
   end
 
@@ -110,7 +62,16 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked. needs a scheduled job to trigger it.
+  def deposit_withdrawals__to_owner booking
+    @booking = booking
+
+    mail(
+      to: @booking.user.email,
+      subject: "Plendit: melding om betaling"
+    )
+  end
+
+  # not hooked up. needs a scheduled job to trigger it.
   def booking_ends_at_soon__to_owner booking
     @booking = booking
 
@@ -120,7 +81,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked. needs a scheduled job to trigger it.
+  # not hooked up. needs a scheduled job to trigger it.
   def booking_ends_at_soon__to_renter booking
     @booking = booking
 
@@ -130,7 +91,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked. needs a scheduled job to trigger it.
+  # not hooked up. needs a scheduled job to trigger it.
   def booking_starts_at_soon__to_owner booking
     @booking = booking
 
@@ -140,7 +101,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked. needs a scheduled job to trigger it.
+  # not hooked up. needs a scheduled job to trigger it.
   def booking_starts_at_soon__to_renter booking
     @booking = booking
 
@@ -150,6 +111,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
+  # not hooked up.
   def user_id_license_approved user, user_document_category
     @user = user
 
@@ -160,7 +122,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
-  # not hooked.
+  # not hooked up.
   def user_id_license_expires_soon user, user_document_category
     @user = user
 
@@ -171,6 +133,7 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
+  # not hooked up.
   def user_id_license_not_approved user, user_document_category
     @user = user
 
@@ -181,7 +144,44 @@ class ApplicationMailer < ActionMailer::Base
     )
   end
 
+
+  def accident_report_created__to_customer_service accident_report
+    @accident_report = accident_report
+
+    # template is missing polish
+    mail(
+      to: Plendit::Application.config.x.customerservice.email,
+      subject: "Plendit: accident_report created"
+    )
+  end
+
   private
+
+  def add_insurance_documents
+    # Attachments:
+    attach_files = []
+    attach_files << "Forsikringsbevis_Ting.pdf"                       if @booking.ad.bap?
+    attach_files << "Forsikringsvilkaar_Korttidsforsikring_Ting.pdf"  if @booking.ad.bap?
+    attach_files << "Forsikringsbevis_Innbo.pdf"                      if @booking.ad.realestate?
+    attach_files << "Forsikringsvilkaar_Korttidsforsikring_Innbo.pdf" if @booking.ad.realestate?
+    attach_files << "Forsikringsbevis_Baat.pdf"                       if @booking.ad.boat?
+    attach_files << "Forsikringsvilkaar_Korttidsforsikring_Baat.pdf"  if @booking.ad.boat?
+    attach_files << "Sammendrag_av_Korttidsforsikring_Baat.pdf"       if @booking.ad.boat?
+    attach_files << "Forsikringsbevis_motorvogn.pdf"                      if @booking.ad.motor?
+    attach_files << "Forsikringsvilkaar_Korttidsforsikring_motorvogn.pdf" if @booking.ad.motor?
+
+    if @booking.ad.motor?
+      attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Bil.pdf"     if @booking.ad.car?
+      attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Camping.pdf" if @booking.ad.caravan?
+      attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Moped_ATV_Snoescooter.pdf"     if @booking.ad.scooter?
+      attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Traktor_Gressklipper_Snoe.pdf" if @booking.ad.tractor?
+    end
+
+    attach_files.each do |filename|
+      attachments[filename] = File.read( "#{Rails.root}/public/docs/if/#{filename}" )
+    end
+  end
+
   def add_logo_attachment
     attachments.inline['logo.png'] = File.read('public/images/plendit_mail_logo.png')
   end

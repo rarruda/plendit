@@ -1,5 +1,9 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "https://www.plendit.no"
+
+SitemapGenerator::Sitemap.default_host  = "https://#{Rails.application.routes.default_url_options[:host] || 'www.plendit.no'}"
+
+SitemapGenerator::Sitemap.public_path   = 'tmp/sitemaps/'
+SitemapGenerator::Sitemap.sitemaps_path = 'system/' #'shared/'
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
@@ -24,7 +28,22 @@ SitemapGenerator::Sitemap.create do
   #   Article.find_each do |article|
   #     add article_path(article), :lastmod => article.updated_at
   #   end
-  Ad.find_each do |a|
-    add ad_path(a), lastmod: article.updated_at
+
+  add about_us_path, changefreq: 'weekly'
+  add contact_path,  changefreq: 'weekly'
+  add privacy_path,  changefreq: 'weekly'
+  add terms_path,    changefreq: 'weekly'
+
+  # signup/login pages:
+  add new_user_registration_path, changefreq: 'weekly'
+  add new_user_session_path,      changefreq: 'weekly'
+
+  # one for each published ad/listing
+  # Should we index hero (smaller, cropped) or gallery (larger, non-cropped) images?
+  Ad.published.find_each do |a|
+    add ad_path(a),
+      lastmod: a.updated_at,
+      images: a.ad_images.map{ |ai| { loc: ai.image.url(:hero), caption: ai.description } },
+      changefreq: 'daily'
   end
 end
