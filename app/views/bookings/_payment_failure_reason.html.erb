@@ -1,0 +1,4 @@
+<%= render layout: 'gray_box', locals: {title: 'Betaling mislyktes'} do %>
+    <%= @booking.financial_transactions.first.decorate.display_failure_reason %>
+    <%= @booking.financial_transactions.first.result_code %>
+<% end %>

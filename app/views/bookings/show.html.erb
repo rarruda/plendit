@@ -5,6 +5,10 @@
         <%= render partial: 'booking_heading_box', locals: { ad: @booking.ad, user: @booking.ad.user } %>
     </div>
 
+    <% if @booking.payment_preauthorization_failed? %>
+        <%= render partial: 'payment_failure_reason' %>
+    <% end %>
+
     <% if @booking.may_give_feedback? %>
         <div class="u-push-down">
             <%# FIXME: TODO runeh cond around has_provided_feedback %>
