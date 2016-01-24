@@ -1,16 +1,9 @@
-# See http://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
-#
-# To ban all spiders from the entire site uncomment the next two lines:
-# User-agent: *
-# Disallow: /
-
 User-agent: *
-Disallow: /resources
-Disallow: /me
+Disallow: /resources/
+Disallow: /me/
+# Disallow: /search
+Disallow: /user
 Allow: /me/login
 Allow: /me/register/sign_up
 
-# Disallow: /search
-# Disallow: /user
-
-# Sitemap: https://www.plendit.no/sitemap.xml.gz
+# Sitemap: https://www.plendit.no/sitemaps/sitemap.xml.gz

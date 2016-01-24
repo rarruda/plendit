@@ -19,6 +19,9 @@
 # ignore directory where paperclip leaves its files:
 /public/system/
 
+# ignore directory where sitemaps are stored:
+/public/sitemaps
+
 # ignore generated assets:
 /public/assets/
 
