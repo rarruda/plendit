@@ -254,8 +254,8 @@ class User < ActiveRecord::Base
   end
 
   def current_bookings
-    recv_bookings = self.bookings.includes({ad: [:ad_images]},:messages,:from_user,:user).current
-    sent_bookings = self.sent_bookings.includes({ad: [:ad_images]},:messages,:from_user,:user).current
+    recv_bookings = self.bookings.includes({ad: [:ad_images]},:messages,:from_user,:user).current_and_pending
+    sent_bookings = self.sent_bookings.includes({ad: [:ad_images]},:messages,:from_user,:user).current_and_pending
     bookings = recv_bookings + sent_bookings
     bookings.sort do |a,b| b.updated_at <=> a.updated_at end
   end
