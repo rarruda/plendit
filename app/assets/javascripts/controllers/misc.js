@@ -893,13 +893,23 @@ window.controllers.disableOnSubmit = function(ele) {
 window.controllers.starRatingSelector = function(ele) {
     var stars = Array.from(ele.querySelectorAll("[data-rating]"));
     stars.forEach(function(e) {
-        e.addEventListener('click', setRatingValue);
+        e.addEventListener('click', inputFromStars);
     });
+    starsFromInput();
 
-    function setRatingValue(evt) {
+    function starsFromInput() {
+        var rating = parseInt(ele.querySelector("[data-score]").value);
+        lightUpStars(rating);
+    }
+
+    function inputFromStars(evt) {
         var clicked  = evt.target;
         var rating = parseInt(clicked.getAttribute("data-rating"));
         ele.querySelector("input").value = rating;
+        lightUpStars(rating);
+    }
+
+    function lightUpStars(rating) {
         stars.forEach(function(e, n) {
             e.classList.toggle("rating-selector__star--full", (n+1) <= rating);
         });

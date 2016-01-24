@@ -1,5 +1,5 @@
 class FeedbacksController < ApplicationController
-  before_action :set_feedback, only: [:show, :edit, :update, :destroy]
+  before_action :set_feedback, only: [:show, :update, :destroy]
 
   # GET /feedbacks
   # GET /feedbacks.json
@@ -10,6 +10,7 @@ class FeedbacksController < ApplicationController
   # GET /feedbacks/1
   # GET /feedbacks/1.json
   def show
+    @feedback.decorate
   end
 
   # GET /feedbacks/new
@@ -20,10 +21,6 @@ class FeedbacksController < ApplicationController
     # will be needed regardless of behaviour.
     # Perhaps /me/booking/<guid>/give_feedback ?
     @ad = Ad.find_by(status: 2).decorate
-  end
-
-  # GET /feedbacks/1/edit
-  def edit
   end
 
   # POST /feedbacks
@@ -46,11 +43,11 @@ class FeedbacksController < ApplicationController
   # PATCH/PUT /feedbacks/1
   # PATCH/PUT /feedbacks/1.json
   def update
-      if @feedback.update(feedback_params)
-        redirect_to @feedback
-      else
-        redirect_to @feedback, notice: 'Klarte ikke å lagre tilbakemeldingen. Prøv igjen senere.'
-      end
+    if @feedback.update(feedback_params)
+      redirect_to booking_path(@feedback.booking), notice: 'Takk for tilbakemeldingen!'
+    else
+      redirect_to booking_path(@feedback.booking), notice: 'Klarte ikke å lagre tilbakemeldingen. Prøv igjen senere.'
+    end
   end
 
   # DELETE /feedbacks/1
@@ -66,7 +63,8 @@ class FeedbacksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_feedback
-      @feedback = Feedback.find(params[:id]).decorate
+      @booking  = Booking.find_by_guid params[:guid]
+      @feedback = @booking.feedbacks.from_user(current_user).take
     end
 
     def feedback_params

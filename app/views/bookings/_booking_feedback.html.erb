@@ -1,6 +1,6 @@
 <%= render layout: 'gray_box', locals: {title: 'Tilbakemelding'} do %>
     <div class="booking-feedback">
-        <%= form_for Feedback.new(), url: users_feedbacks_path do |f| %>
+        <%= form_for @feedback, url: feedback_booking_path do |f| %>
             <%= f.hidden_field :booking_id, value: @booking.id %>
 
             <p>
@@ -14,8 +14,7 @@
                 <span data-rating="3" class="rating-selector__star"></span>
                 <span data-rating="4" class="rating-selector__star"></span>
                 <span data-rating="5" class="rating-selector__star"></span>
-
-                <%= f.hidden_field :score, value: '1', data: { score: '' } %>
+                <%= f.hidden_field :score, data: { score: '' } %>
             </div>
 
             <div>
@@ -23,7 +22,7 @@
             </div>
 
             <div>
-                <%= f.submit 'Gi tilbakemelding', class: 'button button-primary'%>
+                <%= f.submit @feedback.persisted? ? 'Endre tilbakemelding' : 'Gi tilbakemelding',  class: 'button button-primary'%>
             </div>
         <% end %>
     </div>

@@ -10,11 +10,13 @@ class Feedback < ActiveRecord::Base
   validates :score,   presence: true
   validates :score,   numericality: { only_integer: true,
     greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
-  validates :body,    presence: true, length: { in: 5..2048 }
 
-  validate  :from_user_is_valid
-  validate  :to_user_is_valid
+  validate :from_user_is_valid
+  validate :to_user_is_valid
+  validate :open_for_feedback
 
+  scope :from_user,  ->(user) { where( from_user_id: user.id ) }
+  scope :to_user,    ->(user) { where( to_user_id:   user.id ) }
 
   # dont try setting to_user_id, as it get overridden here.
   before_validation :set_to_user_id, on: :create
@@ -27,6 +29,12 @@ class Feedback < ActiveRecord::Base
   # can be edited only if parent booking has status ended
   def editable?
     self.booking.ended?
+  end
+
+  def open_for_feedback
+    unless self.booking.ended?
+      errors.add(:booking, 'Annonsen er lukket for kommentarer.')
+    end
   end
 
   private
