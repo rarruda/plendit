@@ -44,9 +44,9 @@ class FeedbacksController < ApplicationController
   # PATCH/PUT /feedbacks/1.json
   def update
       if @feedback.update(feedback_params)
-        redirect_to @feedback, notice: 'Takk for tilbakemeldingen!'
+        redirect_to booking_path(@feedback.booking), notice: 'Takk for tilbakemeldingen!'
       else
-        redirect_to @feedback, notice: 'Klarte ikke å lagre tilbakemeldingen. Prøv igjen senere.'
+        redirect_to booking_path(@feedback.booking), notice: 'Klarte ikke å lagre tilbakemeldingen. Prøv igjen senere.'
       end
   end
 
@@ -64,7 +64,7 @@ class FeedbacksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_feedback
       @booking  = Booking.find_by_guid params[:guid]
-      @feedback = @booking.feedbacks.from_user(current_user)
+      @feedback = @booking.feedbacks.from_user(current_user).take
     end
 
     def feedback_params

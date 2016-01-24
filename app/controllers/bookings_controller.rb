@@ -19,8 +19,7 @@ class BookingsController < ApplicationController
   # GET /me/bookings/1
   def show
     # show 404 unless booking was found
-    @feedback = @booking.ended? ? @booking.feedbacks.from_user(current_user).take : Feedback.new()
-
+    @feedback = @booking.feedbacks.from_user(current_user).take || Feedback.new()
     render(file: "#{Rails.root}/public/404.html", layout: false, status: 404) if @booking.nil?
   end
 

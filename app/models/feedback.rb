@@ -10,7 +10,6 @@ class Feedback < ActiveRecord::Base
   validates :score,   presence: true
   validates :score,   numericality: { only_integer: true,
     greater_than_or_equal_to: 0, less_than_or_equal_to: 5 }
-  validates :body,    presence: true, length: { in: 5..2048 }
 
   validate  :from_user_is_valid
   validate  :to_user_is_valid
