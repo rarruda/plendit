@@ -44,27 +44,12 @@ class FeedbacksController < ApplicationController
   # PATCH/PUT /feedbacks/1.json
   def update
       if @feedback.update(feedback_params)
-<<<<<<< HEAD
         redirect_to booking_path(@feedback.booking), notice: 'Takk for tilbakemeldingen!'
-=======
-        redirect_to @feedback
->>>>>>> master
       else
         redirect_to booking_path(@feedback.booking), notice: 'Klarte ikke å lagre tilbakemeldingen. Prøv igjen senere.'
       end
   end
 
-<<<<<<< HEAD
-  # # DELETE /feedbacks/1
-  # # DELETE /feedbacks/1.json
-  # def destroy
-  #   @feedback.destroy
-  #   respond_to do |format|
-  #     format.html { redirect_to feedbacks_url, notice: 'Feedback was successfully destroyed.' }
-  #     format.json { head :no_content }
-  #   end
-  # end
-=======
   # DELETE /feedbacks/1
   # DELETE /feedbacks/1.json
   def destroy
@@ -74,7 +59,6 @@ class FeedbacksController < ApplicationController
       format.json { head :no_content }
     end
   end
->>>>>>> master
 
   private
     # Use callbacks to share common setup or constraints between actions.
