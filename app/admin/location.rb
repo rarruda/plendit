@@ -15,7 +15,7 @@ ActiveAdmin.register Location do
   # end
 
   menu priority: 5
-  #actions :index, :show
+  actions :index, :show
 
   permit_params :user_id, :address_line, :post_code
 
