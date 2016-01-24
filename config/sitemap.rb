@@ -36,7 +36,7 @@ SitemapGenerator::Sitemap.create do
 
   # signup/login pages:
   add new_user_registration_path, changefreq: 'weekly'
-  add new_user_session,           changefreq: 'weekly'
+  add new_user_session_path,      changefreq: 'weekly'
 
   # one for each published ad/listing
   # Should we index hero (smaller, cropped) or gallery (larger, non-cropped) images?
