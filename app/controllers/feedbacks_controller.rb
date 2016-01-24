@@ -43,11 +43,11 @@ class FeedbacksController < ApplicationController
   # PATCH/PUT /feedbacks/1
   # PATCH/PUT /feedbacks/1.json
   def update
-      if @feedback.update(feedback_params)
-        redirect_to booking_path(@feedback.booking), notice: 'Takk for tilbakemeldingen!'
-      else
-        redirect_to booking_path(@feedback.booking), notice: 'Klarte ikke å lagre tilbakemeldingen. Prøv igjen senere.'
-      end
+    if @feedback.update(feedback_params)
+      redirect_to booking_path(@feedback.booking), notice: 'Takk for tilbakemeldingen!'
+    else
+      redirect_to booking_path(@feedback.booking), notice: 'Klarte ikke å lagre tilbakemeldingen. Prøv igjen senere.'
+    end
   end
 
   # DELETE /feedbacks/1
