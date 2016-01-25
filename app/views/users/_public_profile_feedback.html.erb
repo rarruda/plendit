@@ -1,4 +1,4 @@
-<%= link_to users_feedback_path(feedback), class: 'public-profile-feedback' do %>
+<div class="public-profile-feedback">
     <div class="public-profile-feedback__avatar-box">
         <%= avatar_image(feedback.from_user, :medium) %>
         <br>
@@ -13,4 +13,4 @@
             <%= feedback.body %>
         </p>
     </div>
-<% end %>
+</div>
