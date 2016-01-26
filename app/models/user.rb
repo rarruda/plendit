@@ -599,7 +599,9 @@ class User < ActiveRecord::Base
 
         self.update_attributes( payin_wallet_vid: wallet_money_in.first)   if wallet_money_in.length  >= 1 && self.payin_wallet_vid.blank?
         self.update_attributes( payout_wallet_vid: wallet_money_out.first) if wallet_money_out.length >= 1 && self.payout_wallet_vid.blank?
-      else
+      end
+
+      if wallets.blank? || self.payin_wallet_vid.blank? || self.payout_wallet_vid.blank?
         # No wallets present from before, provisioning them:
         if self.payin_wallet_vid.blank?
           # https://docs.mangopay.com/api-references/wallets/
@@ -625,7 +627,7 @@ class User < ActiveRecord::Base
 
       end
     rescue => e
-      LOG.error message: "something has gone wrong with fetching list of wallets at mangopay. exception: #{e}", user_id: self.id
+      LOG.error message: "something has gone wrong with fetching/updating/creating wallets at mangopay. exception: #{e}", user_id: self.id
       return nil
     end
   end
