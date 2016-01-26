@@ -19,9 +19,19 @@ RSpec.describe User, :type => :model do
     end
   end
 
+  # context "provisioning with mangopay" do
+  #   it "should not provision with mangopay with an incomplete profile" do
+  #     user = FactoryGirl.build_stubbed(:user, email: "x@y.z")
+  #     expect( user ).to have_attributes(email: "x@y.z")
+  #   end
+
+  #   it "should provision with mangopay the remaining wallet, if the user is provisioned, and only one wallet is provisioned" do
+  #     user = FactoryGirl.build_stubbed(:user, email: "x@y.z", ...)
+  #     expect( user ).to have_attributes(email: "x@y.z")
+  #   end
+
 
   # context "validation" do
-
   #   before do
   #     @user = User.new(confirmation_token: "token", email: "a@b.c")
   #   end
