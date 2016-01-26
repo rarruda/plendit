@@ -167,14 +167,21 @@ class ApplicationMailer < ActionMailer::Base
     attach_files << "Forsikringsbevis_Baat.pdf"                       if @booking.ad.boat?
     attach_files << "Forsikringsvilkaar_Korttidsforsikring_Baat.pdf"  if @booking.ad.boat?
     attach_files << "Sammendrag_av_Korttidsforsikring_Baat.pdf"       if @booking.ad.boat?
-    attach_files << "Forsikringsbevis_motorvogn.pdf"                      if @booking.ad.motor?
-    attach_files << "Forsikringsvilkaar_Korttidsforsikring_motorvogn.pdf" if @booking.ad.motor?
 
     if @booking.ad.motor?
+      if @booking.ad.vintage_car?
+        attach_files << "Forsikringsbevis_motorvogn_Veteranbil.pdf"
+      else
+        attach_files << "Forsikringsbevis_motorvogn.pdf"
+      end
+
       attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Bil.pdf"     if @booking.ad.car?
       attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Camping.pdf" if @booking.ad.caravan?
+      attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Veteranbil.pdf"                if @booking.ad.vintage_car?
       attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Moped_ATV_Snoescooter.pdf"     if @booking.ad.scooter?
       attach_files << "Sammendrag_av_Korttidsforsikring_motorvogn_Traktor_Gressklipper_Snoe.pdf" if @booking.ad.tractor?
+
+      attach_files << "Forsikringsvilkaar_Korttidsforsikring_motorvogn.pdf" if @booking.ad.motor?
     end
 
     attach_files.each do |filename|

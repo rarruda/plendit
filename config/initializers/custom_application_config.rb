@@ -72,6 +72,7 @@ Plendit::Application.config.x.insurance.motor_deductible_value = {
   caravan: 12_000_00,
   scooter:  6_000_00,
   tractor: 12_000_00,
+  vintage_car: 12_000_00,
  }
 
 # Boat does not have a max_coverage_factor, but is insured up to the estimated_value:

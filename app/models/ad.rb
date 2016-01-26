@@ -17,7 +17,7 @@ class Ad < ActiveRecord::Base
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, refused: 5, suspended: 6, deleted: 11 }
   enum category: { bap: 0, motor: 1, realestate: 2, boat: 3 }
 
-  enum registration_group: { not_motor: 0, car: 1, caravan: 2, scooter: 3, tractor: 4 }
+  enum registration_group: { not_motor: 0, car: 1, caravan: 2, scooter: 3, tractor: 4, vintage_car: 5 }
 
   accepts_nested_attributes_for :location,    reject_if: :all_blank
   accepts_nested_attributes_for :payin_rules, reject_if: :all_blank, allow_destroy: true
