@@ -2,19 +2,19 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host  = "https://#{Rails.application.routes.default_url_options[:host] || 'www.plendit.no'}"
 
-#SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(
-#    fog_provider:          'AWS',
-#    aws_access_key_id:     ENV['PCONF_AWS_ACCESS_KEY_ID'],
-#    aws_secret_access_key: ENV['PCONF_AWS_SECRET_ACCESS_KEY'],
-#    fog_directory:         ENV['PCONF_S3_BUCKET_NAME'],
-#    fog_region:            ENV['PCONF_S3_REGION'] || 'eu-central-1', #less evil
-#  )
+SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(
+    fog_provider:          'AWS',
+    aws_access_key_id:     ENV['PCONF_AWS_ACCESS_KEY_ID'],
+    aws_secret_access_key: ENV['PCONF_AWS_SECRET_ACCESS_KEY'],
+    fog_directory:         ENV['PCONF_S3_BUCKET_NAME'],
+    fog_region:            ENV['PCONF_S3_REGION'] || 'eu-central-1', #less evil
+  )
 
 # The directory to write sitemaps to locally
-#SitemapGenerator::Sitemap.public_path   = 'public/'
+SitemapGenerator::Sitemap.public_path   = 'tmp/'
 
 # The remote host where your sitemaps will be hosted
-#SitemapGenerator::Sitemap.sitemaps_host = "https://#{ENV['PCONF_S3_CDN_ALIAS']}/sitemaps/"
+SitemapGenerator::Sitemap.sitemaps_host = "https://#{ENV['PCONF_S3_CDN_ALIAS']}/"
 
 # Set this to a directory/path if you don't want to upload to the root of your `sitemaps_host`
 SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'

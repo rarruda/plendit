@@ -43,7 +43,7 @@ gem 'metamagic'
 
 # Make google index ads correctly: (fog for uploading to s3)
 gem 'sitemap_generator'
-#gem 'fog-aws'
+gem 'fog-aws'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
