@@ -16,6 +16,11 @@ BookingAutoAdjustStatusJob:
   queue: low
   description: "Adjust status of bookings, for any bookings which could in in wrong status"
 
+SitemapGeneratorJob:
+  cron:  "30 3 * * *"
+  queue: low
+  description: "Generate sitemap.xml and ping search engines"
+
 #queue_documents_for_indexing:
 #  cron: "0 0 * * *"
 #  # you can use rufus-scheduler "every" syntax in place of cron if you prefer

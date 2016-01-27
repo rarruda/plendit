@@ -11,14 +11,15 @@ SitemapGenerator::Sitemap.default_host  = "https://#{Rails.application.routes.de
 #  )
 
 # The directory to write sitemaps to locally
-SitemapGenerator::Sitemap.public_path   = 'tmp/'
+#SitemapGenerator::Sitemap.public_path   = 'public/'
 
 # The remote host where your sitemaps will be hosted
 #SitemapGenerator::Sitemap.sitemaps_host = "https://#{ENV['PCONF_S3_CDN_ALIAS']}/sitemaps/"
 
 # Set this to a directory/path if you don't want to upload to the root of your `sitemaps_host`
-SitemapGenerator::Sitemap.sitemaps_path = 'public/sitemaps/'
-#SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
+SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
+
+# NOTE: Sitemaps are delivered by apache, bypassing our app.
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.

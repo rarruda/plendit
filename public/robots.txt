@@ -6,4 +6,4 @@ Disallow: /user
 Allow: /me/login
 Allow: /me/register/sign_up
 
-# Sitemap: https://www.plendit.no/sitemaps/sitemap.xml.gz
+Sitemap: https://www.plendit.no/sitemaps/sitemap.xml.gz
