@@ -491,7 +491,7 @@ class User < ActiveRecord::Base
     document = self.user_documents
       .where(category: category)
       .find { |e| !e.rejection_reason.blank? }
-    document.rejection_reason if !document.nil?
+    document.rejection_reason unless document.nil?
   end
 
   # FIXME: Should happen via a resque Job:
