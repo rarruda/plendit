@@ -11,7 +11,8 @@ class SitemapGeneratorJob < ActiveJob::Base
     if Rails.env.production?
       Rake::Task['sitemap:refresh'].invoke
     else
-      Rake::Task['sitemap:create'].invoke
+      puts "Do nothing, environment is not production"
+    #   Rake::Task['sitemap:create'].invoke
     end
 
     puts "#{DateTime.now.iso8601} Ending SitemapGeneratorJob"
