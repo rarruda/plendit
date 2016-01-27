@@ -27,7 +27,7 @@ Rails.application.configure do
   config.action_controller.allow_forgery_protection = false
 
   # testing delivery of assets via CDN/cloudfront
-  config.action_controller.asset_host = 'https://testcdn.plendit.com'
+  #config.action_controller.asset_host = 'https://testcdn.plendit.com'
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
