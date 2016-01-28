@@ -46,7 +46,7 @@ gem 'sitemap_generator'
 gem 'fog-aws'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.5.1'
 gem 'rails-i18n', '~> 4.0'
 
 gem 'country_select'
