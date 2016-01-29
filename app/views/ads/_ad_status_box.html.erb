@@ -8,8 +8,8 @@
     <% end %>
 
     <% if ad.published? %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad),
-                form_class: 'u-inline', class: btncls, method: :get,
+        <%= button_to 'Rediger annonsen', draft_ad_path(ad),
+                form_class: 'u-inline', class: btncls,
                 data: { confirm: 'Hvis du redigerer annonsen den vil bli sendt til kontroll på nytt. Er du sikker på at du vil redigere annonsen din?' } %>
         <%= button_to 'Gjør usynlig', pause_ad_path(ad),
                 form_class: 'u-inline', class: btncls,
@@ -26,8 +26,8 @@
                 form_class: 'u-inline', disabled: ad.invalid?,
                 class: [btncls, 'button-primary'] %>
     <% elsif ad.paused? %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad),
-                form_class: 'u-inline', class: btncls, method: :get,
+        <%= button_to 'Rediger annonsen', draft_ad_path(ad),
+                form_class: 'u-inline', class: btncls,
                 data: { confirm: 'Hvis du redigerer annonsen vil den bli sendt til kontroll på nytt. Er du sikker på at du vil redigere annonsen din?' } %>
         <%= button_to 'Aktiver annonsen', resume_ad_path(ad),
                 form_class: 'u-inline',
@@ -37,16 +37,16 @@
                 data: { confirm: 'Hvis du stopper annonsen kan bare du se den. Er du sikker på at du vil stoppe annonsen din?'} %>
     <% elsif ad.draft? %>
     <% elsif ad.refused? %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad),
-                form_class: 'u-inline', class: btncls, method: :get %>
+        <%= button_to 'Rediger annonsen', draft_ad_path(ad),
+                form_class: 'u-inline', class: btncls %>
     <% elsif ad.stopped? %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad),
-                form_class: 'u-inline', class: btncls, method: :get,
+        <%= button_to 'Rediger annonsen', draft_ad_path(ad),
+                form_class: 'u-inline', class: btncls,
                 data: { confirm: 'Hvis du redigerer annonsen den vil bli sendt til kontroll på nytt. Er du sikker på at du vil redigere annonsen din?' } %>
         <%= button_to 'Aktiver annonsen', resume_ad_path(ad), form_class: 'u-inline', class: btncls %>
     <% elsif ad.waiting_review? %>
-        <%= button_to 'Rediger annonsen', edit_ad_path(ad),
-                form_class: 'u-inline', class: btncls, method: :get %>
+        <%= button_to 'Rediger annonsen', draft_ad_path(ad),
+                form_class: 'u-inline', class: btncls %>
     <% end %>
 
     <% if ad.invalid? %>
@@ -55,6 +55,5 @@
             til publisering.
         </div>
     <% end %>
-
 
 </div>

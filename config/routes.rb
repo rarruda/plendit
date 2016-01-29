@@ -147,6 +147,7 @@ Rails.application.routes.draw do
       post 'refuse'
       post 'resume'
       post 'submit_for_review'
+      post 'draft'
       post 'unpublish_and_edit'
     end
 
