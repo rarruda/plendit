@@ -64,8 +64,8 @@ class Ad < ActiveRecord::Base
 
 
 
-  # If there were any changes, except in status or refusal_reason, set status to draft:
-  before_save :edit, unless: "self.draft? || self.changes.except('status','refusal_reason').empty?"
+  # If there were any relevant changes, set status to draft:
+  before_save :edit!, if: :should_be_set_to_draft?
 
   before_create :build_payin_rule
 
@@ -310,6 +310,12 @@ class Ad < ActiveRecord::Base
   end
 
   private
+
+  # If there were any changes, in model, or nested model, except in status or refusal_reason, return true:
+  def should_be_set_to_draft?
+    return false if self.draft?
+    self.payin_rules.any?{|pr| pr.changed?} || self.ad_images.any?{|ai| ai.changed? } || self.location.changed? || self.changes.except('status','refusal_reason').present?
+  end
 
   def boats_with_license_must_have_terms_acceptance_or_reg_num
     if self.boat? && self.boat_license_required && self.registration_number.empty? && !self.accepted_boat_insurance_terms
