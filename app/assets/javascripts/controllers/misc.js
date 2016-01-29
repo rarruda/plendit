@@ -962,7 +962,6 @@ window.controllers.gallery = {
         var images = getImages();
         var hero = ele.querySelector("[data-hero-click]");
         var bar = ele.querySelector("[data-thumb-bar]");
-        if (!bar) { return; }
 
         attachClickListener();
 
@@ -986,7 +985,11 @@ window.controllers.gallery = {
         }
 
         function getThumbBounds(index) {
-            var e = bar.querySelectorAll("img")[index];
+            var e = null;
+            if (bar) {
+                var e = bar.querySelectorAll("img")[index];
+            }
+
             if (e) {
                 pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
                 rect = e.getBoundingClientRect(); 
@@ -1000,13 +1003,17 @@ window.controllers.gallery = {
         function attachClickListener() {
             window.setTimeout(function() {
                 hero.addEventListener('click', showGallery);
-                bar.addEventListener('click', showGallery);
+                if (bar) {
+                    bar.addEventListener('click', showGallery);
+                }
             }, 20);
         }
 
         function detachClickListener() {
             hero.removeEventListener('click', showGallery);
-            bar.removeEventListener('click', showGallery);
+            if (bar) {
+                bar.removeEventListener('click', showGallery);
+            }
         }
 
         function getImages() {
