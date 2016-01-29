@@ -27,7 +27,7 @@ class UserPaymentCard < ActiveRecord::Base
 
   validate  :user_is_provisioned
 
-  before_validation :set_guid, on: :create
+  before_validation :set_guid, if: :new_record?
 
   # process! first refreshes the created card,
   #  and then triggers a delayed job to validated it.

@@ -105,26 +105,33 @@ class User < ActiveRecord::Base
   # Set phone confirmation tokens before saving.
   # But only if the unconfirmed phone number was changed to something that isnt blank.
   after_validation :set_phone_attributes,
-    if: :unconfirmed_phone_number_changed?,
-    if: "unconfirmed_phone_number.present?"
+    if: Proc.new{ |u|
+      u.unconfirmed_phone_number_changed? &&
+      u.unconfirmed_phone_number.present?
+    }
 
   # Send an SMS if the unconfirmed phone number changed to something that isnt blank.
   before_save :send_sms_for_phone_confirmation,
-    if: :unconfirmed_phone_number_changed?,
-    if: "unconfirmed_phone_number.present?",
-    if: :sms_sending_cool_off_elapsed?
+    if: Proc.new { |u|
+      u.unconfirmed_phone_number_changed? &&
+      u.unconfirmed_phone_number.present? &&
+      u.sms_sending_cool_off_elapsed?
+    }
 
 
   before_save :set_public_name_from_first_name_on_create, on: :create,
-    if: "self.public_name.blank?",
-    if: "self.first_name.present?"
+    if: Proc.new{ |u| u.public_name.blank? && a.first_name.present? }
 
   #  * an equivalent callback should be considered, for when updating information:
   after_save :provision_with_mangopay,
-    if: :mangopay_provisionable?,
-    if: Proc.new { |u| u.payment_provider_vid.blank? ||
+    if: Proc.new { |u|
+      u.mangopay_provisionable? &&
+      (
+        u.payment_provider_vid.blank? ||
         u.payin_wallet_vid.blank? ||
-        u.payout_wallet_vid.blank? }
+        u.payout_wallet_vid.blank?
+      )
+    }
 
   after_save :refresh_with_mangopay,
     if: :should_trigger_mangopay_refresh?

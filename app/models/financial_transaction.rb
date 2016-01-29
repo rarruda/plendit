@@ -33,8 +33,8 @@ class FinancialTransaction < ActiveRecord::Base
   validates :transaction_type, presence: true, inclusion: { in: FinancialTransaction.transaction_types.keys }
   validates :src_type,         presence: true, inclusion: { in: FinancialTransaction.src_types.keys }
   validates :src_vid,          presence: true
-  validates :dst_type,         presence: true, inclusion: { in: FinancialTransaction.dst_types.keys }, if: "! ( self.preauth? || self.payin_refund? )"
-  validates :dst_vid,          presence: true, if: "! ( self.preauth? || self.payin_refund? )"
+  validates :dst_type,         presence: true, inclusion: { in: FinancialTransaction.dst_types.keys }, unless: Proc.new{ |ft| ft.preauth? || ft.payin_refund? }
+  validates :dst_vid,          presence: true,                                       unless: Proc.new{ |ft| ft.preauth? || ft.payin_refund? }
   validates :fees,             presence: true, numericality: { only_integer: true }, unless: :payin_refund?
   validates :amount,           presence: true, numericality: { only_integer: true }, unless: :payin_refund?
   validates :amount,           presence: true, numericality: { greater_than_or_equal_to: Rails.configuration.x.platform.payout_fee_amount }, if: :payout?
