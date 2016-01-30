@@ -155,6 +155,8 @@ Rails.application.routes.draw do
         post 'payout_estimate'
       end
     end
+
+    resources :unavailabilities, only: [:index, :create, :destroy]
   end
 
 
