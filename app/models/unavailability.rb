@@ -10,6 +10,7 @@ class Unavailability < ActiveRecord::Base
   def to_date_after_from_date
     if to_date < from_date
       self.errors.add(:to_date, 'Til-dato må være etter fra-dato')
+    end
   end
 
 end
