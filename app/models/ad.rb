@@ -12,6 +12,7 @@ class Ad < ActiveRecord::Base
   has_many :bookings,    through: :ad_items
   has_many :payin_rules, autosave: true, dependent: :destroy
   has_many :favorite_ad, dependent: :destroy
+  has_many :unavailabilities
 
   # suspended => refused
   enum status: { draft: 0, waiting_review: 1, published: 2, paused: 3, stopped: 4, refused: 5, suspended: 6, deleted: 11 }
