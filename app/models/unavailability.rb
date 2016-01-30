@@ -1,8 +1,8 @@
 class Unavailability < ActiveRecord::Base
   belongs_to :ad
 
-  validates :from_date, presence: true,
-  validates :to_date, presence: true,
+  validates :from_date, presence: true
+  validates :to_date, presence: true
   validate :to_date_after_from_date
 
   private
