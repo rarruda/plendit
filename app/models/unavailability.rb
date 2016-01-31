@@ -1,6 +1,8 @@
 class Unavailability < ActiveRecord::Base
   belongs_to :ad
 
+  default_scope { order('starts_at') }
+
   validates :starts_at, presence: true
   validates :ends_at, presence: true
   validate :ends_at_after_starts_at
