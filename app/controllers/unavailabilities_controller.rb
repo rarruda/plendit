@@ -23,6 +23,6 @@ class UnavailabilitiesController < ApplicationController
   end
 
   def unavailabilty_params
-    params.require(:unavailability).permit(:from_date, :to_date)
+    params.require(:unavailability).permit(:starts_at, :ends_at)
   end
 end
