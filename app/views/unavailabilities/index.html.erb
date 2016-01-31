@@ -19,6 +19,7 @@
                     <div>
                         <%= u.from_date %>
                         <%= u.to_date %>
+                        <%= button_to 'slett', ad_unavailability_path(@ad, u), method: :delete, form_class: 'u-inline', class: 'button' %>
                     </div>
                 <% end %>
             <% end %>

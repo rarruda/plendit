@@ -10,6 +10,12 @@ class UnavailabilitiesController < ApplicationController
     redirect_to ad_unavailabilities_path @ad
   end
 
+  def destroy
+    u = Unavailability.find(params[:id])
+    u.destroy
+    redirect_to ad_unavailabilities_path @ad
+  end
+
   private
 
   def set_ad
