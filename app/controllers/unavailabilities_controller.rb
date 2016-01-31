@@ -11,7 +11,7 @@ class UnavailabilitiesController < ApplicationController
   end
 
   def destroy
-    u = Unavailability.find(params[:id])
+    u = @ad.unavailabilities.find(params[:id])
     u.destroy
     redirect_to ad_unavailabilities_path @ad
   end
