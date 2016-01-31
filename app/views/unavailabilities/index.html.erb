@@ -17,9 +17,12 @@
             <% else %>
                 <% @ad.unavailabilities.each do |u| %>
                     <div>
-                        <%= u.starts_at %>
-                        <%= u.ends_at %>
-                        <%= button_to 'slett', ad_unavailability_path(@ad, u), method: :delete, form_class: 'u-inline', class: 'button' %>
+                    Ikke tilgjengelig fom.
+                    <%= l u.starts_at, format: :plendit_short_date %>
+                    tom
+                    <%= l u.ends_at, format: :plendit_short_date %>
+                    <br>
+                    <%= button_to 'slett', ad_unavailability_path(@ad, u), method: :delete, form_class: 'u-inline', class: 'button' %>
                     </div>
                 <% end %>
             <% end %>
