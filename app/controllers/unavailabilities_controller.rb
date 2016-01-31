@@ -1,14 +1,13 @@
 class UnavailabilitiesController < ApplicationController
   before_action :set_ad
 
-
   def index
-
   end
 
   def create
-    pp "lololol"
-    pp params
+    unavailability = @ad.unavailabilities.build(unavailabilty_params)
+    unavailability.save
+    redirect_to ad_unavailabilities_path @ad
   end
 
   private
@@ -17,4 +16,7 @@ class UnavailabilitiesController < ApplicationController
     @ad = Ad.find(params[:ad_id])
   end
 
+  def unavailabilty_params
+    params.require(:unavailability).permit(:from_date, :to_date)
+  end
 end
