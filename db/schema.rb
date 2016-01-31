@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160130164333) do
+ActiveRecord::Schema.define(version: 20160131114446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,8 +285,8 @@ ActiveRecord::Schema.define(version: 20160130164333) do
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "unavailabilities", force: :cascade do |t|
-    t.date     "from_date"
-    t.date     "to_date"
+    t.date     "starts_at"
+    t.date     "ends_at"
     t.integer  "ad_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
