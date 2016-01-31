@@ -148,6 +148,12 @@ class FinancialTransaction < ActiveRecord::Base
     end
   end
 
+  def amount_to_receive
+    return nil if amount.nil?
+
+    self.amount - ( self.fees || 0 )
+  end
+
   def payin_wallet_direction_for_user
     if self.preauth? ||
       self.payin? ||
