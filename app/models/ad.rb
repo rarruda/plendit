@@ -110,13 +110,19 @@ class Ad < ActiveRecord::Base
     event :submit_for_review do
       transitions from: :draft, to: :waiting_review, guard: :valid?
       after do
-        SlackNotifierJob.perform_later "New ad submitted for review: #{self.title}",
+        SlackNotifierJob.perform_later "New '#{self.category}' ad submitted for review: #{self.title}.",
           url: Rails.application.routes.url_helpers.ad_url(self)
       end
     end
     event :approve do
       # It is imperative to only approve ads which have geocoded locations.
       transitions from: :waiting_review, to: :published, guard: :is_location_geocoded?
+
+      after do |maybe_user|
+        name = maybe_user.nil? ? 'Ukjent bruker' : maybe_user.public_name
+        SlackNotifierJob.perform_later "#{name} approved '#{self.category}' ad: #{self.title}.",
+          url: Rails.application.routes.url_helpers.ad_url(self)
+      end
     end
     event :refuse do
       transitions from: [:published, :waiting_review], to: :refused

@@ -190,7 +190,7 @@ class AdsController < ApplicationController
 
   # POST /ads/1/approve
   def approve
-    if @ad.approve!
+    if @ad.approve! current_user
       redirect_to @ad
     else
       redirect_to @ad, alert: 'Ad was NOT approved.'
