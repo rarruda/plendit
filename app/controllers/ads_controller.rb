@@ -5,6 +5,7 @@ class AdsController < ApplicationController
     :ad_image,
     :approve,
     :destroy,
+    :draft,
     :edit,
     :edit_availability,
     :existing_location,
@@ -192,6 +193,15 @@ class AdsController < ApplicationController
   def approve
     if @ad.approve! current_user
       redirect_to @ad
+    else
+      redirect_to @ad, alert: 'Ad was NOT approved.'
+    end
+  end
+
+  # POST /ads/1/draft
+  def draft
+    if @ad.edit!
+      redirect_to edit_ad_path(@ad)
     else
       redirect_to @ad, alert: 'Ad was NOT approved.'
     end
