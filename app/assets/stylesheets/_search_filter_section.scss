@@ -3,25 +3,12 @@
 .search-filter-section {
     padding: ($standard-spacing / 2) ($standard-spacing * 2);
 
-
-    &__inputs {
-        xxdisplay: flex;
-    }
-
-    &__categories {
-    }
-
-    &__fields {
-        xxmargin-left: $standard-spacing;
-    }
-
     &__check {
         margin-bottom: 0;
     }
 
     &__form {
         margin-bottom: 0;
-        xxdisplay: flex;
     }
 
     &__halfwidth {
