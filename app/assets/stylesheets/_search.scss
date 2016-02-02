@@ -71,11 +71,11 @@
 
 @mixin search-split-pane($mapWidth) {
     &__map-box {
+        left: 100% - $mapWidth;
         width: $mapWidth;
     }
 
     &__hits-box {
-        left: $mapWidth;
         width: 100% - $mapWidth;
     }
 }
@@ -85,10 +85,12 @@
 
     &__map-box {
         position: absolute;
-        width: 49.3333333333%;
+        left: 49.3333333333%;
+        width: 50.6666666667%;
         height: 300px;
 
         @media (max-width: $mobile) {
+            left: 0;
             width: 100%;
             display: none;
         }
@@ -97,14 +99,13 @@
     &__hits-box {
         border-left: solid thin $color-box-border;
         position: absolute;
-        left: 49.3333333333%;
-        width: 50.6666666667%;
+        width: 49.3333333333%;
         overflow: scroll;
         overflow-x: hidden;
 
         @media (max-width: $mobile) {
             width: 100%;
-            left: 0;
+            xxleft: 0;
             overflow: visible;
             overflow-x: visible;
         }
