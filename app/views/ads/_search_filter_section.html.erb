@@ -1,29 +1,31 @@
 <div class="search-filter-section">
-    <details class="search-filter-section__details"
-             data-controller="emptySearchExpander"
-             <%= 'open' if open %> >
-        <summary class="search-filter-section__summary"><span class="button search-filter-section__expando">filter</span></summary>
-        <div data-controller="searchFilterSelection" class="search-filter-section__inputs">
-            <%= form_tag({}, class: "search-filter-section__form") do %>
-                <div class="row">
-                    <div class="twelve columns">
-                        <div class="search-filter-section__fields">
-                            <%= text_field_tag :q, @term, class: 'u-full-width', placeholder: 'Søkeord' %>
-                            <div class="row">
-                                <div class="six columns">
-                                    <%= number_field_tag :price_min, nil, min: 0, class: 'search-filter-section__halfwidth', placeholder: 'Minimumspris' %>
-                                </div>
-                                <div class="six columns">
-                                    <%= number_field_tag :price_max, nil, min: 0, class: 'search-filter-section__halfwidth', placeholder: 'Makspris' %>
-                                </div>
+    <div data-controller="searchFilterSelection" class="search-filter-section__inputs">
+        <%= form_tag({}, class: "search-filter-section__form") do %>
+            <div class="row">
+                <div class="twelve columns">
+                    <div class="search-filter-section__fields">
+                        <div class="row">
+                            <div class="six columns">
+                                <%= text_field_tag :q, @term, class: 'u-full-width', placeholder: 'Søkeord' %>
+                            </div>
+                            <div class="six columns">
+                                <%= select_tag 'category[]',
+                                    options_from_collection_for_select(@ad_categories, :category, :title, @selected_category),
+                                    prompt: 'Søk i alle kategorier', class: 'u-full-width' %>
                             </div>
                         </div>
-                        <div class="search-filter-section__categories">
-                            <%= select_tag 'category[]', options_from_collection_for_select(@ad_categories, :category, :title, @selected_category), prompt: 'Søk i alle kategorier', class: 'u-full-width' %>
+
+                        <div class="row">
+                            <div class="six columns">
+                                <%= number_field_tag :price_min, nil, min: 0, class: 'search-filter-section__halfwidth', placeholder: 'Minimumspris' %>
+                            </div>
+                            <div class="six columns">
+                                <%= number_field_tag :price_max, nil, min: 0, class: 'search-filter-section__halfwidth', placeholder: 'Makspris' %>
+                            </div>
                         </div>
                     </div>
                 </div>
-            <% end %>
-        </div>
-    </details>
+            </div>
+        <% end %>
+    </div>
 </div>
