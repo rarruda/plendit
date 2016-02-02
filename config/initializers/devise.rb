@@ -240,6 +240,7 @@ Devise.setup do |config|
     ENV['PCONF_FACEBOOK_SECRET'],
     scope: 'email,user_birthday',
     info_fields: 'email,name,first_name,last_name,birthday'
+    # see https://github.com/mkdynamic/omniauth-facebook for list of parameters
 
   config.omniauth :google_oauth2,
     ENV['PCONF_GOOGLE_CLIENT_ID'],
