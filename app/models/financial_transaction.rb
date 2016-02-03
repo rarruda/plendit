@@ -734,7 +734,7 @@ class FinancialTransaction < ActiveRecord::Base
   end
 
   def set_guid
-    self.guid = loop do
+    self.guid ||= loop do
       generated_guid = SecureRandom.uuid
       break generated_guid unless self.class.exists?(guid: generated_guid)
     end
