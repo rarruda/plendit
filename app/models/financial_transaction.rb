@@ -455,16 +455,18 @@ class FinancialTransaction < ActiveRecord::Base
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/http_calls.rb#L70
       # https://docs.mangopay.com/api-references/refund/%E2%80%A2-refund-a-pay-in/
       payin_refund = MangoPay::PayIn.refund( self.src_vid,
-        'Tag'     => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
-        'AuthorId' => self.financial_transactionable.from_user.payment_provider_vid,
-        'DebitedFunds'   => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount
-        },
-        'Fees'           => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => 0
-        },
+        {
+          'Tag'     => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
+          'AuthorId' => self.financial_transactionable.from_user.payment_provider_vid,
+          'DebitedFunds'   => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount
+          },
+          'Fees'           => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => 0
+          },
+        }
       )
 
       self.update(
