@@ -263,15 +263,18 @@ class FinancialTransaction < ActiveRecord::Base
         "user_payment_card_id=#{financial_transactionable_id} #{self.purpose}"
       end
       preauth = MangoPay::PreAuthorization.create(
-        'Tag'          => preauth_tag,
-        'AuthorId'     => self.from_user.payment_provider_vid,
-        'CardId'       => self.src_vid,
-        'DebitedFunds' => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount
+        {
+          'Tag'          => preauth_tag,
+          'AuthorId'     => self.from_user.payment_provider_vid,
+          'CardId'       => self.src_vid,
+          'DebitedFunds' => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount
+          },
+          'SecureMode'   => require_secure_mode? ? 'FORCE' : 'DEFAULT',
+          'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid, callback: true ),
         },
-        'SecureMode'   => require_secure_mode? ? 'FORCE' : 'DEFAULT',
-        'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid, callback: true ),
+        self.guid,
       )
       self.update(
         transaction_vid: preauth['Id'],
