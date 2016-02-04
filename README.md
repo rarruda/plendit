@@ -327,16 +327,35 @@ https://github.com/pderichs/sublime_rubocop
 ## Image regeneration and format changes
 
 If changing the different image styles that paperclip uses, run:
-
+```
   rake paperclip:refresh:missing_styles
+```
 
 To regenerate thumbnail images run:
-
+```
   rake paperclip:refresh:thumbnails CLASS=AdImage
+```
 
 Or all images with
 
+```
 rake paperclip:refresh CLASS=AdImage
+```
+
+Or for just a few, or more information in general, please look at:
+https://github.com/thoughtbot/paperclip/wiki/Thumbnail-Generation#generatingregenerating-your-thumbnails
+
+It can be done by using the regenerate! method as in the example below:
+```
+Ad.find(1).ad_images.each do |ai|
+  ai.reprocess!
+  # Or for just one image size:
+  # ai.reprocess! :hero
+end
+```
+
+By selecting the correct models to interate over, and image size, it provides enough flexibility to
+ regenerate whatever instances/sizes are required.
 
 ## ...
 
