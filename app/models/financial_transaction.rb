@@ -212,6 +212,8 @@ class FinancialTransaction < ActiveRecord::Base
       do_payout_refresh
     when :payin_refund
       do_refund_refresh
+    when :payin
+      do_payin_refresh
     else
       LOG.error message: "Cannot refresh this type of transaction", financial_transaction_id: self.id, transaction_type: self.transaction_type
       raise "Cannot refresh this type of transaction"
@@ -431,6 +433,34 @@ class FinancialTransaction < ActiveRecord::Base
     rescue => e
       LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payin
       self.fail!
+    end
+  end
+
+  # NOTE: not currently part of any payment flow: (aka: not in use)
+  # called from process_refresh
+  def do_payin_refresh
+    #sanity check
+    unless self.payin? &&
+      self.processing?
+
+      raise "can not process this transaction with this method from this state"
+    end
+
+    begin
+      # https://docs.mangopay.com/api-references/pay-out-bank-wire/
+      # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_out.rb
+      payin = MangoPay::PayIn.fetch( self.transaction_vid )
+      self.update(
+        result_code:     payin['ResultCode'],
+        result_message:  payin['ResultMessage'],
+        response_body:   payin,
+      )
+      # consider adding more sanity checking, and raise exception if local data does not match with remote?
+
+      # update transaction status from mangopay result: (one of: CREATED, SUCCEEDED, FAILED)
+      aasm_change_on_status payin['Status']
+    rescue => e
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payin
     end
   end
 
