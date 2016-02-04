@@ -302,7 +302,7 @@ class UsersController < ApplicationController
     @financial_transactions = FinancialTransaction.to_user( current_user.id ).transfer.finished.where('updated_at > ?', 1.year.ago).includes(:financial_transactionable)
   end
 
-  # GET /me/payment/payout
+  # GET/POST /me/payment/payout
   def payout
     payout_wallet_balance = current_user.fetch_payout_wallet_balance
 
