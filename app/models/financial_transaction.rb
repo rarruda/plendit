@@ -587,20 +587,24 @@ class FinancialTransaction < ActiveRecord::Base
       # https://docs.mangopay.com/api-references/pay-out-bank-wire/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_out.rb
       payout = MangoPay::PayOut::BankWire.create(
-        'Tag'            => "user_id=#{self.financial_transactionable.user_id}", # No need for: #{self.purpose}
-        'AuthorId'       => self.financial_transactionable.user.payment_provider_vid,
-        'CreditedUserId' => self.financial_transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
-        'DebitedFunds'   => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount
-          },
-        'Fees' => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.fees
-          },
-        'DebitedWalletId'  => self.financial_transactionable.user.payout_wallet_vid,
-        'BankAccountId'    => self.financial_transactionable.bank_account_vid,
-        'BankWireRef'      => "ref: #{self.guid[0..6]}"
+        {
+          'Tag'            => "user_id=#{self.financial_transactionable.user_id}", # No need for: #{self.purpose}
+          'AuthorId'       => self.financial_transactionable.user.payment_provider_vid,
+          'CreditedUserId' => self.financial_transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
+          'DebitedFunds'   => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount
+            },
+          'Fees' => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.fees
+            },
+          'DebitedWalletId'  => self.financial_transactionable.user.payout_wallet_vid,
+          'BankAccountId'    => self.financial_transactionable.bank_account_vid,
+          'BankWireRef'      => "ref: #{self.guid[0..6]}",
+        },
+        # nil,
+        # self.guid,
       )
       self.update(
         transaction_vid: payout['Id'],
