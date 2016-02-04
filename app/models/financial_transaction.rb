@@ -1,5 +1,6 @@
 class FinancialTransaction < ActiveRecord::Base
   include AASM
+  include UniquelyIdentifiable
 
   # for mangopay callback urls:
   include ActionDispatch::Routing::UrlFor
@@ -25,11 +26,9 @@ class FinancialTransaction < ActiveRecord::Base
   enum preauth_payment_status: { not_preauth: 0, preauth_waiting: 1, preauth_validated: 2, preauth_cancelled: 3, preauth_expired: 4 }
 
 
-  before_validation :set_guid, on: :create
-  before_validation :set_vids, on: :create
+  before_validation :set_vids, if: :new_record?
 
 
-  validates :guid,             uniqueness: true
   validates :transaction_type, presence: true, inclusion: { in: FinancialTransaction.transaction_types.keys }
   validates :src_type,         presence: true, inclusion: { in: FinancialTransaction.src_types.keys }
   validates :src_vid,          presence: true
@@ -736,13 +735,6 @@ class FinancialTransaction < ActiveRecord::Base
     else
       LOG.error message: "error, unidentified transaction_type", financial_transaction_id: self.id
       raise "error, unidentified transaction_type"
-    end
-  end
-
-  def set_guid
-    self.guid = loop do
-      generated_guid = SecureRandom.uuid
-      break generated_guid unless self.class.exists?(guid: generated_guid)
     end
   end
 end
