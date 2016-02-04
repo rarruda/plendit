@@ -395,19 +395,23 @@ class FinancialTransaction < ActiveRecord::Base
 
       # https://docs.mangopay.com/api-references/idempotency-support/
       payin = MangoPay::PayIn::PreAuthorized::Direct.create(
-        'Tag'                => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
-        'AuthorId'           => self.financial_transactionable.from_user.payment_provider_vid,
-        'PreauthorizationId' => self.src_vid,
-        'CreditedWalletId'   => self.dst_vid,
-        'DebitedFunds'   => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount
-          },
-        'Fees'           => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => 0
-          },
-        'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid )
+        {
+          'Tag'                => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
+          'AuthorId'           => self.financial_transactionable.from_user.payment_provider_vid,
+          'PreauthorizationId' => self.src_vid,
+          'CreditedWalletId'   => self.dst_vid,
+          'DebitedFunds'   => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount
+            },
+          'Fees'           => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => 0
+            },
+          'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid ),
+        },
+        nil, # filter = nil
+        self.guid,
       )
 
       self.update(
