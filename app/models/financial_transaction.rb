@@ -534,19 +534,23 @@ class FinancialTransaction < ActiveRecord::Base
 
       # https://docs.mangopay.com/api-references/idempotency-support/
       transfer = MangoPay::Transfer.create(
-        'Tag'              => "booking_id=#{financial_transactionable_id} #{self.purpose}",
-        'AuthorId'         => self.financial_transactionable.from_user.payment_provider_vid, #owner of the debitedWalletId
-        'CreditedUserId'   => self.financial_transactionable.user.payment_provider_vid,
-        'DebitedWalletId'  => self.src_vid,
-        'CreditedWalletId' => self.dst_vid,
-        'DebitedFunds'     => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount #platform_fee_with_insurance is removed in Fees.
+        {
+          'Tag'              => "booking_id=#{financial_transactionable_id} #{self.purpose}",
+          'AuthorId'         => self.financial_transactionable.from_user.payment_provider_vid, #owner of the debitedWalletId
+          'CreditedUserId'   => self.financial_transactionable.user.payment_provider_vid,
+          'DebitedWalletId'  => self.src_vid,
+          'CreditedWalletId' => self.dst_vid,
+          'DebitedFunds'     => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount #platform_fee_with_insurance is removed in Fees.
+          },
+          'Fees' => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.fees
+          },
         },
-        'Fees' => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.fees
-        },
+        nil,
+        self.guid,
       )
 
       self.update(
