@@ -218,6 +218,8 @@ class FinancialTransaction < ActiveRecord::Base
       do_payout_refresh
     when :payin_refund
       do_refund_refresh
+    when :payin
+      do_payin_refresh
     else
       LOG.error message: "Cannot refresh this type of transaction", financial_transaction_id: self.id, transaction_type: self.transaction_type
       raise "Cannot refresh this type of transaction"
@@ -269,15 +271,18 @@ class FinancialTransaction < ActiveRecord::Base
         "user_payment_card_id=#{financial_transactionable_id} #{self.purpose}"
       end
       preauth = MangoPay::PreAuthorization.create(
-        'Tag'          => preauth_tag,
-        'AuthorId'     => self.from_user.payment_provider_vid,
-        'CardId'       => self.src_vid,
-        'DebitedFunds' => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount
+        {
+          'Tag'          => preauth_tag,
+          'AuthorId'     => self.from_user.payment_provider_vid,
+          'CardId'       => self.src_vid,
+          'DebitedFunds' => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount
+          },
+          'SecureMode'   => require_secure_mode? ? 'FORCE' : 'DEFAULT',
+          'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid, callback: true ),
         },
-        'SecureMode'   => require_secure_mode? ? 'FORCE' : 'DEFAULT',
-        'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid, callback: true ),
+        self.guid,
       )
       self.update(
         transaction_vid: preauth['Id'],
@@ -398,19 +403,23 @@ class FinancialTransaction < ActiveRecord::Base
 
       # https://docs.mangopay.com/api-references/idempotency-support/
       payin = MangoPay::PayIn::PreAuthorized::Direct.create(
-        'Tag'                => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
-        'AuthorId'           => self.financial_transactionable.from_user.payment_provider_vid,
-        'PreauthorizationId' => self.src_vid,
-        'CreditedWalletId'   => self.dst_vid,
-        'DebitedFunds'   => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount
-          },
-        'Fees'           => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => 0
-          },
-        'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid )
+        {
+          'Tag'                => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
+          'AuthorId'           => self.financial_transactionable.from_user.payment_provider_vid,
+          'PreauthorizationId' => self.src_vid,
+          'CreditedWalletId'   => self.dst_vid,
+          'DebitedFunds'   => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount
+            },
+          'Fees'           => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => 0
+            },
+          'SecureModeReturnURL' => booking_url( self.financial_transactionable.guid ),
+        },
+        nil, # filter = nil
+        self.guid,
       )
 
       self.update(
@@ -430,6 +439,34 @@ class FinancialTransaction < ActiveRecord::Base
     rescue => e
       LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payin
       self.fail!
+    end
+  end
+
+  # NOTE: not currently part of any payment flow: (aka: not in use)
+  # called from process_refresh
+  def do_payin_refresh
+    #sanity check
+    unless self.payin? &&
+      self.processing?
+
+      raise "can not process this transaction with this method from this state"
+    end
+
+    begin
+      # https://docs.mangopay.com/api-references/pay-out-bank-wire/
+      # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_out.rb
+      payin = MangoPay::PayIn.fetch( self.transaction_vid )
+      self.update(
+        result_code:     payin['ResultCode'],
+        result_message:  payin['ResultMessage'],
+        response_body:   payin,
+      )
+      # consider adding more sanity checking, and raise exception if local data does not match with remote?
+
+      # update transaction status from mangopay result: (one of: CREATED, SUCCEEDED, FAILED)
+      aasm_change_on_status payin['Status']
+    rescue => e
+      LOG.error message: "Exception e:#{e} processing transaction", financial_transaction_id: self.id, mangopay_result: payin
     end
   end
 
@@ -454,16 +491,18 @@ class FinancialTransaction < ActiveRecord::Base
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/http_calls.rb#L70
       # https://docs.mangopay.com/api-references/refund/%E2%80%A2-refund-a-pay-in/
       payin_refund = MangoPay::PayIn.refund( self.src_vid,
-        'Tag'     => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
-        'AuthorId' => self.financial_transactionable.from_user.payment_provider_vid,
-        'DebitedFunds'   => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount
-        },
-        'Fees'           => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => 0
-        },
+        {
+          'Tag'     => "booking_id=#{self.financial_transactionable_id} #{self.purpose}",
+          'AuthorId' => self.financial_transactionable.from_user.payment_provider_vid,
+          'DebitedFunds'   => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount
+          },
+          'Fees'           => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => 0
+          },
+        }
       )
 
       self.update(
@@ -533,19 +572,23 @@ class FinancialTransaction < ActiveRecord::Base
 
       # https://docs.mangopay.com/api-references/idempotency-support/
       transfer = MangoPay::Transfer.create(
-        'Tag'              => "booking_id=#{financial_transactionable_id} #{self.purpose}",
-        'AuthorId'         => self.financial_transactionable.from_user.payment_provider_vid, #owner of the debitedWalletId
-        'CreditedUserId'   => self.financial_transactionable.user.payment_provider_vid,
-        'DebitedWalletId'  => self.src_vid,
-        'CreditedWalletId' => self.dst_vid,
-        'DebitedFunds'     => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount #platform_fee_with_insurance is removed in Fees.
+        {
+          'Tag'              => "booking_id=#{financial_transactionable_id} #{self.purpose}",
+          'AuthorId'         => self.financial_transactionable.from_user.payment_provider_vid, #owner of the debitedWalletId
+          'CreditedUserId'   => self.financial_transactionable.user.payment_provider_vid,
+          'DebitedWalletId'  => self.src_vid,
+          'CreditedWalletId' => self.dst_vid,
+          'DebitedFunds'     => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount #platform_fee_with_insurance is removed in Fees.
+          },
+          'Fees' => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.fees
+          },
         },
-        'Fees' => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.fees
-        },
+        nil,
+        self.guid,
       )
 
       self.update(
@@ -582,20 +625,24 @@ class FinancialTransaction < ActiveRecord::Base
       # https://docs.mangopay.com/api-references/pay-out-bank-wire/
       # https://github.com/Mangopay/mangopay2-ruby-sdk/blob/master/lib/mangopay/pay_out.rb
       payout = MangoPay::PayOut::BankWire.create(
-        'Tag'            => "user_id=#{self.financial_transactionable.user_id}", # No need for: #{self.purpose}
-        'AuthorId'       => self.financial_transactionable.user.payment_provider_vid,
-        'CreditedUserId' => self.financial_transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
-        'DebitedFunds'   => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.amount
-          },
-        'Fees' => {
-          'Currency' => PLENDIT_CURRENCY_CODE,
-          'Amount'   => self.fees
-          },
-        'DebitedWalletId'  => self.financial_transactionable.user.payout_wallet_vid,
-        'BankAccountId'    => self.financial_transactionable.bank_account_vid,
-        'BankWireRef'      => "ref: #{self.guid[0..6]}"
+        {
+          'Tag'            => "user_id=#{self.financial_transactionable.user_id}", # No need for: #{self.purpose}
+          'AuthorId'       => self.financial_transactionable.user.payment_provider_vid,
+          'CreditedUserId' => self.financial_transactionable.user.payment_provider_vid, # Note: CreditedUserId And AuthorId must always be the same value!
+          'DebitedFunds'   => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.amount
+            },
+          'Fees' => {
+            'Currency' => PLENDIT_CURRENCY_CODE,
+            'Amount'   => self.fees
+            },
+          'DebitedWalletId'  => self.financial_transactionable.user.payout_wallet_vid,
+          'BankAccountId'    => self.financial_transactionable.bank_account_vid,
+          'BankWireRef'      => "ref: #{self.guid[0..6]}",
+        },
+        # nil,
+        # self.guid,
       )
       self.update(
         transaction_vid: payout['Id'],
@@ -740,7 +787,7 @@ class FinancialTransaction < ActiveRecord::Base
   end
 
   def set_guid
-    self.guid = loop do
+    self.guid ||= loop do
       generated_guid = SecureRandom.uuid
       break generated_guid unless self.class.exists?(guid: generated_guid)
     end

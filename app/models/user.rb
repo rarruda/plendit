@@ -489,7 +489,18 @@ class User < ActiveRecord::Base
     else
       today.year - self.birthday.year
     end
+  end
 
+  def artificial_guid
+    "userid-#{self.id.to_s.rjust(10, '0')}"
+  end
+
+  def artificial_guid_for_walletin
+    "#{self.artificial_guid}-walletin"
+  end
+
+  def artificial_guid_for_walletout
+    "#{self.artificial_guid}-walletout"
   end
 
   private
@@ -514,14 +525,18 @@ class User < ActiveRecord::Base
         if self.natural?
           # https://docs.mangopay.com/api-references/users/natural-users/
           mangopay_user = MangoPay::NaturalUser.create(
-            'Tag'         => "user_id=#{self.id} level=#{self.verification_level_number}",
-            'PersonType'  => self.personhood,
-            'FirstName'   => self.first_name,
-            'LastName'    => self.last_name,
-            'Email'       => self.email,
-            'Birthday'    => self.birthday.strftime('%s').to_i,
-            'Nationality' => self.nationality,
-            'CountryOfResidence' => self.country_of_residence,
+            {
+              'Tag'         => "user_id=#{self.id} level=#{self.verification_level_number}",
+              'PersonType'  => self.personhood,
+              'FirstName'   => self.first_name,
+              'LastName'    => self.last_name,
+              'Email'       => self.email,
+              'Birthday'    => self.birthday.strftime('%s').to_i,
+              'Nationality' => self.nationality,
+              'CountryOfResidence' => self.country_of_residence,
+            },
+            nil,
+            self.artificial_guid,
           );
             #Optional:
             #'Address' => {
@@ -542,15 +557,19 @@ class User < ActiveRecord::Base
 
           #https://docs.mangopay.com/api-references/users/legal-users/
           mangopay_user = MangoPay::LegalUser.create(
-            'Tag'         => "user_id=#{self.id} level=#{self.verification_level_number}",
-            'Name'        => self.name,  #company name
-            'Email'       => self.email, #company email
-            'LegalPersonType'                => mangopay_personhood_type[self.personhood],
-            'LegalRepresentativeFirstName'   => self.first_name,
-            'LegalRepresentativeLastName'    => self.last_name,
-            'LegalRepresentativeBirthday'    => self.birthday.strftime('%s'),
-            'LegalRepresentativeNationality' => self.nationality,
-            'LegalRepresentativeCountryOfResidence' => self.country_of_residence
+            {
+              'Tag'         => "user_id=#{self.id} level=#{self.verification_level_number}",
+              'Name'        => self.name,  #company name
+              'Email'       => self.email, #company email
+              'LegalPersonType'                => mangopay_personhood_type[self.personhood],
+              'LegalRepresentativeFirstName'   => self.first_name,
+              'LegalRepresentativeLastName'    => self.last_name,
+              'LegalRepresentativeBirthday'    => self.birthday.strftime('%s'),
+              'LegalRepresentativeNationality' => self.nationality,
+              'LegalRepresentativeCountryOfResidence' => self.country_of_residence,
+            },
+            nil,
+            self.artificial_guid,
           );
             #Optional:
             # 'LegalRepresentativeEmail' =>
@@ -613,22 +632,30 @@ class User < ActiveRecord::Base
         if self.payin_wallet_vid.blank?
           # https://docs.mangopay.com/api-references/wallets/
           wallet_in = MangoPay::Wallet.create(
+            {
               'Tag'         => "pay_in user_id=#{self.id}",
               'Owners'      => [ self.payment_provider_vid ],
               'Currency'    => PLENDIT_CURRENCY_CODE,
               'Description' => 'money_in',
-            );
+            },
+            nil,
+            self.artificial_guid_for_walletin,
+          );
           self.update_attributes( payin_wallet_vid: wallet_in['Id'] )
         end
 
         if self.payout_wallet_vid.blank?
           # https://docs.mangopay.com/api-references/wallets/
           wallet_out = MangoPay::Wallet.create(
+            {
               'Tag'         => "pay_out user_id=#{self.id}",
               'Owners'      => [ self.payment_provider_vid ],
               'Currency'    => PLENDIT_CURRENCY_CODE,
-              'Description' => 'money_out'
-            );
+              'Description' => 'money_out',
+            },
+            nil,
+            self.artificial_guid_for_walletout,
+          );
           self.update_attributes( payout_wallet_vid: wallet_out['Id'] )
         end
 

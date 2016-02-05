@@ -287,7 +287,7 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mangopay (3.0.19)
+    mangopay (3.0.20)
       multi_json (>= 1.7.7)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -642,7 +642,7 @@ DEPENDENCIES
   lograge
   logstash-event
   logstash-logger
-  mangopay (~> 3.0.18)
+  mangopay (~> 3.0.20)
   meta_request
   metamagic
   mod11

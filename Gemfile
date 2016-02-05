@@ -34,7 +34,7 @@ gem 'time_splitter', '>= 1.1.0'
 gem 'validates_overlap'
 
 # payment gems:
-gem 'mangopay', '~> 3.0.18'
+gem 'mangopay', '~> 3.0.20'
 gem 'ibanizator', '~> 0.3.1'
 gem 'mod11'
 
