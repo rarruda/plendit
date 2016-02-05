@@ -40,7 +40,8 @@ class UserDocument < ActiveRecord::Base
   scope :approved,          -> { where( status: UserDocument.statuses[:approved] ) }
 
 
-  before_validation :set_guid, on: :create
+  before_validation :set_guid, if: :new_record?
+
   after_create :notify_slack_new_kyc_doc
 
   def to_param

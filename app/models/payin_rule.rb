@@ -18,7 +18,7 @@ class PayinRule < ActiveRecord::Base
   validate  :validate_min_payin_amount
 
   before_validation :set_defaults, if: :new_record?
-  before_save :set_guid,           on: :create
+  before_save :set_guid,           if: :new_record?
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 

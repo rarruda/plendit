@@ -2,8 +2,8 @@ class MangopayWebhook < ActiveRecord::Base
   enum status:        { received: 0, finished: 2 } #ignored: 1 ?
   enum resource_type: { kyc: 1, payin: 2, transfer: 3, payout: 4, dispute: 9, other_resource: 10}
 
-  before_save :set_resource_type, on: :create
-  before_save :resource_refresh,  on: :create
+  before_save :set_resource_type, if: :new_record?
+  before_save :resource_refresh,  if: :new_record?
 
   # https://docs.mangopay.com/api-references/events/
 

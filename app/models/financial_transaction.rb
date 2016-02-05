@@ -25,16 +25,16 @@ class FinancialTransaction < ActiveRecord::Base
   enum preauth_payment_status: { not_preauth: 0, preauth_waiting: 1, preauth_validated: 2, preauth_cancelled: 3, preauth_expired: 4 }
 
 
-  before_validation :set_guid, on: :create
-  before_validation :set_vids, on: :create
+  before_validation :set_guid, if: :new_record?
+  before_validation :set_vids, if: :new_record?
 
 
   validates :guid,             uniqueness: true
   validates :transaction_type, presence: true, inclusion: { in: FinancialTransaction.transaction_types.keys }
   validates :src_type,         presence: true, inclusion: { in: FinancialTransaction.src_types.keys }
   validates :src_vid,          presence: true
-  validates :dst_type,         presence: true, inclusion: { in: FinancialTransaction.dst_types.keys }, if: "! ( self.preauth? || self.payin_refund? )"
-  validates :dst_vid,          presence: true, if: "! ( self.preauth? || self.payin_refund? )"
+  validates :dst_type,         presence: true, inclusion: { in: FinancialTransaction.dst_types.keys }, unless: Proc.new{ |ft| ft.preauth? || ft.payin_refund? }
+  validates :dst_vid,          presence: true,                                       unless: Proc.new{ |ft| ft.preauth? || ft.payin_refund? }
   validates :fees,             presence: true, numericality: { only_integer: true }, unless: :payin_refund?
   validates :amount,           presence: true, numericality: { only_integer: true }, unless: :payin_refund?
   validates :amount,           presence: true, numericality: { greater_than_or_equal_to: Rails.configuration.x.platform.payout_fee_amount }, if: :payout?

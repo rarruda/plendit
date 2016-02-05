@@ -8,7 +8,7 @@ class BookingCalculator
   #validates :starts_at, presence: true
   #validates :ends_at,   presence: true
 
-  validate :validate_starts_at_before_ends_at, if: "self.ends_at.present? && self.starts_at.present?"
+  validate :validate_starts_at_before_ends_at, if: Proc.new{|bc| bc.ends_at.present? && bc.starts_at.present? }
 
   def platform_fee payin_rule = nil
     ( self.payin_amount(payin_rule) * Plendit::Application.config.x.platform.fee_in_percent ).round

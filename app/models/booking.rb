@@ -131,21 +131,17 @@ class Booking < ActiveRecord::Base
   validate :validate_from_user_can_create_booking
 
 
-  before_validation :align_times, on: :create
-  before_validation :set_guid,    on: :create
+  before_validation :align_times, if: :new_record?
+  before_validation :set_guid,    if: :new_record?
+
   before_validation :calculate!,
-    if: :starts_at_changed?,
-    if: :ends_at_changed?
+    if: :should_recalculate?
 
   before_validation :calculate_fee,
-    if: :starts_at_changed?,
-    if: :ends_at_changed?,
-    if: :payout_amount_changed?
+    if: :should_recalculate?
 
   before_validation :calculate_insurance,
-    if: :starts_at_changed?,
-    if: :ends_at_changed?,
-    if: :payout_amount_changed?
+    if: :should_recalculate?
 
   # NOTE: we do not allow editing bookings.
   #  If we did, the following callback would not be enough.
@@ -793,6 +789,9 @@ class Booking < ActiveRecord::Base
   def do_refresh_confirmed!
   end
 
+  def should_recalculate?
+    self.starts_at_changed? || self.ends_at_changed? || self.payout_amount_changed?
+  end
 
   # When a booking is created, the starts_at and ends_at
   #  have a pre-determined timepoint. We enforce it in this callback

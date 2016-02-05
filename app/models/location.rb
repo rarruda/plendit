@@ -19,7 +19,7 @@ class Location < ActiveRecord::Base
 
   before_validation :geocode_with_region, if: ->(obj){ obj.post_code.present? && ( obj.address_line_changed? || obj.post_code_changed? ) }
 
-  before_validation :set_guid,     on: :create
+  before_validation :set_guid, if: :new_record?
 
   before_save :set_city_from_postal_code
 
