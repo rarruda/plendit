@@ -33,8 +33,7 @@ class UserPaymentCard < ActiveRecord::Base
 
   # We should never delete cards from our system, instead we HAVE TO disable them:
   before_destroy :disable,
-    if: :card_vid?,
-    if: :active?
+    if: Proc.new{ |upc| upc.card_vid? && u.active? }
 
 
   aasm column: 'validity' do
