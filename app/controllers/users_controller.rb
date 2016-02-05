@@ -352,7 +352,7 @@ class UsersController < ApplicationController
       :country_of_residence,
       :current_phone_number,
       :email,
-      :first_name,
+      :public_name,
       :home_address_line,
       :home_post_code,
       :last_name,
