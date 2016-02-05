@@ -1,7 +1,7 @@
 User-agent: *
 Disallow: /resources/
 Disallow: /me/
-# Disallow: /search
+Disallow: /search
 Disallow: /user
 Allow: /me/login
 Allow: /me/register/sign_up
