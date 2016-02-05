@@ -1,9 +1,10 @@
 class Location < ActiveRecord::Base
+  include UniquelyIdentifiable
+
   belongs_to :user
 
   has_many :ads
 
-  validates :guid,         presence: true, uniqueness: true
   validates :user,         presence: true
   validates :address_line, presence: { mesage: "Addresse kan ikke være blank." }
   validates :post_code,    presence: true, format: { with: /\A[0-9]{4}\z/, message: "Postnummer må være 4 siffer." }
@@ -18,8 +19,6 @@ class Location < ActiveRecord::Base
 
 
   before_validation :geocode_with_region, if: ->(obj){ obj.post_code.present? && ( obj.address_line_changed? || obj.post_code_changed? ) }
-
-  before_validation :set_guid, if: :new_record?
 
   before_save :set_city_from_postal_code
 
@@ -44,18 +43,7 @@ class Location < ActiveRecord::Base
     self.ads.any?
   end
 
-  def to_param
-    self.guid
-  end
-
   private
-  def set_guid
-    self.guid = loop do
-      generated_guid = SecureRandom.uuid
-      break generated_guid unless self.class.exists?(guid: generated_guid)
-    end
-  end
-
   def set_city_from_postal_code
     self.city = Location.city_from_postal_code( self.post_code )
   end

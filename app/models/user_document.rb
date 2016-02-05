@@ -1,4 +1,6 @@
 class UserDocument < ActiveRecord::Base
+  include UniquelyIdentifiable
+
   belongs_to :user
 
   has_paper_trail
@@ -29,8 +31,6 @@ class UserDocument < ActiveRecord::Base
   validates_attachment_file_name    :document, matches: [/png\Z/i, /jpe?g\Z/i, /pdf\Z/i]
   validates_attachment_size         :document, in: 0..7.megabytes
 
-  validates_uniqueness_of :guid
-
   validates_uniqueness_of :user_id, scope: :category
 
   accepts_nested_attributes_for :user, update_only: true #, reject_if: lambda { |a| a[:birthday].blank? || a[:personal_id_number].blank? }
@@ -40,22 +40,9 @@ class UserDocument < ActiveRecord::Base
   scope :approved,          -> { where( status: UserDocument.statuses[:approved] ) }
 
 
-  before_validation :set_guid, if: :new_record?
-
   after_create :notify_slack_new_kyc_doc
 
-  def to_param
-    self.guid
-  end
-
   private
-
-  def set_guid
-    self.guid = loop do
-      generated_guid = SecureRandom.uuid
-      break generated_guid unless self.class.exists?(guid: generated_guid)
-    end
-  end
 
   def notify_slack_new_kyc_doc
     SlackNotifierJob.perform_later "User #{self.user.id} #{self.user.first_name} uloaded kyc doc of type #{self.decorate.display_category}.",

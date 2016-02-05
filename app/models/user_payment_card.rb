@@ -1,5 +1,6 @@
 class UserPaymentCard < ActiveRecord::Base
   include AASM
+  include UniquelyIdentifiable
 
   has_paper_trail
 
@@ -21,13 +22,10 @@ class UserPaymentCard < ActiveRecord::Base
   # mangopay status:  UNKNOWN                    VALID         INVALID
   enum validity:    { pending: 1, processing: 2, card_valid: 5, card_invalid: 10, errored: 11 }
 
-  validates :guid,     uniqueness: true
   validates :user_id,  presence: true
   validates :card_vid, presence: true
 
   validate  :user_is_provisioned
-
-  before_validation :set_guid, if: :new_record?
 
   # process! first refreshes the created card,
   #  and then triggers a delayed job to validated it.
@@ -97,10 +95,6 @@ class UserPaymentCard < ActiveRecord::Base
 
 
     LOG.info message: "deactivated from mangopay: #{self}", user_id: self.user.id, user_payment_card_id: self.id
-  end
-
-  def to_param
-    self.guid
   end
 
   def pre_register
@@ -187,10 +181,4 @@ class UserPaymentCard < ActiveRecord::Base
     end
   end
 
-  def set_guid
-    self.guid = loop do
-      generated_guid = SecureRandom.uuid
-      break generated_guid unless self.class.exists?(guid: generated_guid)
-    end
-  end
 end

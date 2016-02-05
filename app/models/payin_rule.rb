@@ -1,8 +1,7 @@
 class PayinRule < ActiveRecord::Base
-  belongs_to :ad
+  include UniquelyIdentifiable
 
-  validates :guid,           uniqueness: true,
-    if: 'self.guid.present?'
+  belongs_to :ad
 
   validates :ad,             presence: true
   validates :unit,           presence: true
@@ -18,7 +17,6 @@ class PayinRule < ActiveRecord::Base
   validate  :validate_min_payin_amount
 
   before_validation :set_defaults, if: :new_record?
-  before_save :set_guid,           if: :new_record?
 
   enum unit: { unk_unit: 0, hour: 1, day: 2 }
 
@@ -96,18 +94,7 @@ class PayinRule < ActiveRecord::Base
     end
   end
 
-  def to_param
-    self.guid
-  end
-
   private
-  def set_guid
-    self.guid = loop do
-      generated_guid = SecureRandom.uuid
-      break generated_guid unless self.class.exists?(guid: generated_guid)
-    end
-  end
-
   # default rule when nothing is specified:
   def set_defaults
     self.unit ||= 'day'

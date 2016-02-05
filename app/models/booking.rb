@@ -1,6 +1,7 @@
 class Booking < ActiveRecord::Base
   include Comparable
   include AASM
+  include UniquelyIdentifiable
 
   extend TimeSplitter::Accessors
 
@@ -108,7 +109,6 @@ class Booking < ActiveRecord::Base
   validate :validate_starts_at,    on: :create
   validate :validate_ends_at,      on: :create
 
-  validates :guid,                 uniqueness: true
   validates :ad_item_id,           presence: true
   validates :from_user_id,         presence: true
   validates :user_payment_card_id, presence: true
@@ -131,8 +131,7 @@ class Booking < ActiveRecord::Base
   validate :validate_from_user_can_create_booking
 
 
-  before_validation :align_times, if: :new_record?
-  before_validation :set_guid,    if: :new_record?
+  before_validation :align_times, on: :create
 
   before_validation :calculate!,
     if: :should_recalculate?
@@ -580,11 +579,6 @@ class Booking < ActiveRecord::Base
     end
   end
 
-
-  def to_param
-    self.guid
-  end
-
   def booking_calculator
     align_times # fixme: runeh: is this OK ? Need a way to ensure usable object without risking it being saved.
     BookingCalculator.new(ad: self.ad, starts_at: self.starts_at, ends_at: self.ends_at)
@@ -803,15 +797,6 @@ class Booking < ActiveRecord::Base
       starts_at: earliest_possible_starts_at,
       ends_at:   self.ends_at.end_of_day
     }
-  end
-
-  def set_guid
-    self.guid = loop do
-      # for a shorter string use:
-      # generated_guid = SecureRandom.random_number(2**122).to_s(36)
-      generated_guid = SecureRandom.uuid
-      break generated_guid unless self.class.exists?(guid: generated_guid)
-    end
   end
 
 end
