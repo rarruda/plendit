@@ -144,7 +144,7 @@ window.controllers.resultMap = {
                 center: bounds.getCenter(),
                 zoom: searchData.map_bounds.zl,
                 maxZoom: 18,
-                minZoom: 4,
+                minZoom: 2,
                 styles: styles
             };
 
@@ -155,11 +155,22 @@ window.controllers.resultMap = {
             var showHereButton = createShowHereButton();
             showHereButton.index = 1;
             map.controls[google.maps.ControlPosition.TOP_LEFT].push(showHereButton);
+
+            var showEverywhereButton = createShowEverywhereButton();
+            showEverywhereButton.index = 1;
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(showEverywhereButton);
             return map;
         }
 
         function createShowHereButton() {
             var e = E("div", null, E("button.button.button-notprimary", {onclick: onShowHereClick}, "Søk der du er"));
+            e.style.paddingTop = "12px";
+            e.style.paddingLeft = "12px";
+            return e;
+        }
+
+        function createShowEverywhereButton() {
+            var e = E("div", null, E("button.button.button-notprimary", {onclick: onShowEverywhereClick}, "Søk i Norge"));
             e.style.paddingTop = "12px";
             e.style.paddingLeft = "12px";
             return e;
@@ -176,6 +187,15 @@ window.controllers.resultMap = {
             if ("geolocation" in navigator) {
                 utils.geoPromise().then(onGeolocation).catch(onGeoFail);
             }
+        }
+
+        function onShowEverywhereClick() {
+            var ne = new google.maps.LatLng(70.919335, 29.739990);
+            var sw = new google.maps.LatLng(58.047365, 4.163818);
+            var bounds = new google.maps.LatLngBounds();
+            bounds.extend(ne);
+            bounds.extend(sw);
+            map.fitBounds(bounds);
         }
 
         function onGeolocation(pos) {
