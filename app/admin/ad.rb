@@ -5,7 +5,7 @@ ActiveAdmin.register Ad do
   permit_params :user_id, :title, :body, :price, :location_id, :status, :category
 
 
-  filter :status, as: :select, collection: ->{ Ad.statuses.keys }
+  #filter :status, as: :select, collection: ->{ Ad.statuses.keys }
 
 
   index do
