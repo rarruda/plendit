@@ -10,7 +10,7 @@ module UniquelyIdentifiable
     before_create :set_guid
   end
 
-  def to_params
+  def to_param
     self.guid
   end
 
