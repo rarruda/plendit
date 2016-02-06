@@ -1,13 +1,11 @@
 module UniquelyIdentifiable
   extend ActiveSupport::Concern
+  include ActiveModel::Validations
 
   included do
+    validates :guid, presence: true, uniqueness: true
 
-    # NOTHING HERE HAS BEEN TESTED!!!
-
-    validates :guid,  presence: true, uniqueness: true
-
-    before_validation :set_guid, if: :new_record?
+    before_create :set_guid
   end
 
   def to_params
