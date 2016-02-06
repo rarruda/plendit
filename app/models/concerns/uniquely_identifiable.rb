@@ -5,6 +5,8 @@ module UniquelyIdentifiable
   included do
     validates :guid, presence: true, uniqueness: true
 
+    # both before_validation and before_create, as some models are created w/o going through validation:
+    before_validation :set_guid, if: :new_record?
     before_create :set_guid
   end
 
