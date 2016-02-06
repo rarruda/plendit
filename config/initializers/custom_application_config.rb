@@ -111,19 +111,19 @@ Plendit::Application.config.x.ads.categories = [
     image_width: '36'
   },
   {
-    title:       'Kjøretøy',
+    title:       'Kjøretøy og tilhenger',
     category:    'motor',
     image:       'category_vehicle.svg',
     image_width: '42'
   },
   {
-    title:       'Eiendom',
+    title:       'Hus og hytte',
     category:    'realestate',
     image:       'category_realestate.svg',
     image_width: '36'
   },
   {
-    title:       'Båt',
+    title:       'Båt og kajakk',
     category:    'boat',
     image:       'category_boat.png',
     image_width: '46'
