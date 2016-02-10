@@ -21,6 +21,11 @@ SitemapGeneratorJob:
   queue: low
   description: "Generate sitemap.xml and ping search engines"
 
+UnavailabilitiesCleanupJob:
+  cron:  "0 1 * * *"
+  queue: low
+  description: "Delete unavailability entries that are in the past"
+
 #queue_documents_for_indexing:
 #  cron: "0 0 * * *"
 #  # you can use rufus-scheduler "every" syntax in place of cron if you prefer
