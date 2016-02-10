@@ -4,7 +4,7 @@ class UnavailabilitiesCleanupJob < ActiveJob::Base
   def perform(*args)
     Unavailability
         .unscoped
-        .where('ends_at < ?', Date.today)
+        .where('ends_at < ?', Date.yesterday)
         .each &:destroy
   end
 end
