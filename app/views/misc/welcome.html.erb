@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <h1 class="u-push-down">Velkommen til Plendit.no</h1>
+
+            <%= image_tag('plendbot.svg', alt: '', class: 'welcome-bot') %>
+
+            <p>
+                Plendit er en Norsk tjeneste hvor du trygt og enkelt kan
+                leie ut ting du eier og tjene penger på disse.
+            </p>
+
+            <p>
+                Det er gratis å legge ut en annonse, du bestemmer selv hvem
+                du skal leie ut til og alle som ønsker å leie av deg er
+                verifisert med personnummer og Id-kort.
+            </p>
+
+            <p>
+                Betalingen skjer også trygt gjennom Plendit og du får pengene
+                dine før leieperioden starter.
+            </p>
+
+            <p>
+                Alt som leies ut på Plendit er også forsikret av If
+                Skadeforsikring. Du som utleier ut har ingen egenandel og det
+                påvirker heller ikke din vanlige forsikring. 
+            </p>
+
+            <p>
+                Om du har flere spørsmål er vi tilgjengelig på chat
+                (09:00 – 23:00) eller E-post. 
+            </p>
+
+            <p>
+                <%= link_to 'Klikk her for å gå til forsiden.', root_path %>
+            </p>
+
+            <div class="u-push-down">
+                <div class="if-branding-section">
+                    <div class="if-branding-section__centerer">
+                        <%= image_tag 'logos/if_150x148.png', size: '60x59', alt: '' %>
+                        <h2>Skadeforsikring fra If</h2>
+                        <p>
+                            Slipp alle bekymringer. Alt du leier ut på
+                            Plendit blir forsikret av If og ved en skade har
+                            du som utleier ingen egenandel.
+                            <strong>
+                                <%= link_to 'Les mer om forsikring', Rails.configuration.x.customerservice.insurance_info, target: '_blank' %>.
+                            </strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
