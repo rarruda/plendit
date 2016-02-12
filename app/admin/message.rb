@@ -24,8 +24,8 @@ ActiveAdmin.register Message do
     id_column
     #column :ad_item_id
     #column :ad
-    column('Ad ID') {|m| link_to "#{m.booking.ad.id}", admin_ad_path(m.booking.ad.id) }
-    column('Ad Title') {|m| link_to "#{m.booking.ad.title}", admin_ad_path(m.booking.ad.id) }
+    #column('Ad ID') {|m| link_to "#{m.booking.ad.id}", admin_ad_path(m.booking.ad.id) }
+    #column('Ad Title') {|m| link_to "#{m.booking.ad.title}", admin_ad_path(m.booking.ad.id) }
     column :from_user
     column :to_user
     column :booking
