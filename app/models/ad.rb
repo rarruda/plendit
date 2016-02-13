@@ -78,6 +78,7 @@ class Ad < ActiveRecord::Base
       indexes :id,            type: :integer
       indexes :title,         type: :string, analyzer: 'norwegian', boost: 100
       indexes :body,          type: :string, analyzer: 'norwegian'
+      indexes :tags,          type: :string, analyzer: 'norwegian'
       indexes :geo_location,  type: :geo_point, lat_lon: true, geohash: true
       indexes :geo_precision, type: :string, index: :not_analyzed
       indexes :price,         type: :integer
@@ -236,7 +237,7 @@ class Ad < ActiveRecord::Base
   # TODO: find out if we want more information on the Ad, and/or AdImages
   def as_indexed_json(options={})
     entry = Jbuilder.encode do |json|
-      json.(self, :id, :title, :body, :category, :price, :geo_precision, :geo_location)
+      json.(self, :id, :title, :body, :tags, :category, :price, :geo_precision, :geo_location)
       json.images self.ad_images, :id, :description, :weight
       json.main_image_url self.safe_image_url(:searchresult)
       json.user do |user|

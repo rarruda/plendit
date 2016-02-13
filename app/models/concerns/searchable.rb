@@ -37,7 +37,7 @@ module Searchable
         @search_definition[:query] = {
           multi_match: {
             query: query,
-            fields: ['title^4','body^2','images.description']
+            fields: ['title^4','body^2','images.description','tags']
             # using _all field in ES2.1.1 creates null_pointer_exception on
             #  zero hits, for nested documents.
           }
