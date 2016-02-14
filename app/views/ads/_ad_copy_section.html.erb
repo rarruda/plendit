@@ -7,7 +7,7 @@
         <% @ad.payin_rules.effective_from_asc.each do |pr| %>
             <div>
                 <% if pr.effective_from == 1 %>
-                    <%= format_monetary_full_pretty pr.payin_amount %> per dag.  
+                    <%= format_monetary_full_pretty pr.payin_amount %> per dag.
                 <% else %>
                     <%= format_monetary_full_pretty pr.payin_amount %> per dag om du leier i <%= pr.effective_from %> dager eller mer.
                 <% end %>
