@@ -91,6 +91,15 @@ module Searchable
       end
 
 
+      # https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-sort.html
+      # if options.has_key? 'sort'
+      #   @search_definition[:sort]  = { options['sort'] => 'desc' }
+      #   @search_definition[:track_scores] = true
+      # else
+        @search_definition[:track_scores] = true
+        @search_definition[:sort]  = { _score: 'desc', created_at: 'desc' }
+      # end
+
       # If a filter is sent, the attach it to the search_definition:
       if not filter.blank?
         __set_filters.(filter)
