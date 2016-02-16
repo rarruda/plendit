@@ -238,6 +238,7 @@ window.controllers.resultMap = {
                 sw_lat: sw.lat(),
                 sw_lon: sw.lng()
             });
+            searchService.setPage(1);
             searchService.search();
         }
 
