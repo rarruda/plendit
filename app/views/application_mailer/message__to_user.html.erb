@@ -1,0 +1,15 @@
+<p>
+  Hei, <%= @message.from_user.public_name %>
+</p>
+
+<p>
+  <%= @message.from_user.public_name %> har sendt deg en melding om utleie av "<%= @message.ad.title %>".
+</p>
+
+<p>
+  <%= @message.content %>
+</p>
+
+<p>
+  Hilsen Plendit.no
+</p>

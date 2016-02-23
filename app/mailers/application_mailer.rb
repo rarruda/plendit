@@ -145,6 +145,15 @@ class ApplicationMailer < ActionMailer::Base
   end
 
 
+  def message__to_user message
+    @message = message
+
+    mail(
+      to: @message.to_user.email,
+      subject: "Plendit: melding om utleie av \"#{@message.booking.ad.title}\""
+    )
+  end
+
   def accident_report_created__to_customer_service accident_report
     @accident_report = accident_report
 
