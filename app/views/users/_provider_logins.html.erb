@@ -9,6 +9,9 @@
     <%= link_to social_button(:spid,  nil), user_omniauth_authorize_path(:spid), class: 'u-no-underline' %>
     <br>
     <br>
+    <%= link_to social_button(:plendit, 'Ny bedriftsbruker'), Plendit::Application.config.x.signup.bedriftskunde_signup_link  %>
+    <br>
+    <br>
     <p>
         Ved å logge inn aksepterer du <%= link_to 'brukervilkårene.', terms_path %>
     </p>
