@@ -17,6 +17,11 @@ module SocialButtonsHelper
       name: 'SPiD',
       img:  'logos/spid-45x45.png',
       id:   'spid',
+    },
+    plendit: {
+      name: 'Plendit',
+      img:  'plendit_logo_no_text.svg',
+      id:   'plendit',
     }
   }
 

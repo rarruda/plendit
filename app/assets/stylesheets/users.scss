@@ -63,6 +63,10 @@
         background-color: rgb(218, 79, 70);
     }
 
+    &--plendit {
+        background-color: $color-plendit-blue;
+    }
+
     &__icon-holder {
         display: inline-block;
         height: $height;

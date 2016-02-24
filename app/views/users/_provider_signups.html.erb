@@ -3,10 +3,13 @@
     <%= link_to social_button(:facebook, 'Ny bruker med Facebook'), user_omniauth_authorize_path(:facebook), class: 'u-no-underline' %>
     <br>
     <br>
-    <%= link_to social_button(:google,  'Ny bruker med Google'), user_omniauth_authorize_path(:google), class: 'u-no-underline' %>
+    <%= link_to social_button(:google, 'Ny bruker med Google'), user_omniauth_authorize_path(:google), class: 'u-no-underline' %>
     <br>
     <br>
-    <%= link_to social_button(:spid,  'Ny bruker med SPiD'), user_omniauth_authorize_path(:spid), class: 'u-no-underline' %>
+    <%= link_to social_button(:spid, 'Ny bruker med SPiD'), user_omniauth_authorize_path(:spid), class: 'u-no-underline' %>
+    <br>
+    <br>
+    <%= link_to social_button(:plendit, 'Ny bedriftsbruker'), Plendit::Application.config.x.signup.bedriftskunde_signup_link  %>
     <br>
     <br>
     <p>
