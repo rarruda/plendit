@@ -63,10 +63,14 @@
                 <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
             </div>
         <% when 'boat' %>
-            <div class="u-push-down-only">
+            <div class="u-push-down-only" data-controller="boatPriceInsuranceMessage" data-price-threshold="<%= @boat_price_threshold %>">
                 <%= f.label :estimated_value_in_h, 'Antatt verdi:' %>
-                <%= f.telephone_field( :estimated_value_in_h ) do %>
-                <% end %>
+                <%= f.telephone_field( :estimated_value_in_h ) %>
+
+                <div data-insurance-info class="<%= @ad.estimated_value_in_h > @boat_price_threshold ? '' : 'u-hidden' %>">
+                    Fixme: Prosa om egenandel for båteier her.
+                </div>
+
             </div>
             <div data-controller="regnumRevealer">
                 <div class="u-push-down">

@@ -300,6 +300,7 @@ class AdsController < ApplicationController
 
   # GET /ads/1/edit
   def edit
+    @boat_price_threshold = 150_000
   end
 
   def edit_availability
