@@ -166,7 +166,7 @@ NOTE: It is recommended that a production deployment of resque-scheduler be host
 
 Can be started with this command:
 ```
-bundle exec rake <environment> resque:scheduler --trace
+bundle exec rake resque:scheduler --trace
 ```
 
 It will then generate jobs according to the configuration in cron settings.
