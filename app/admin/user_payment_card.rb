@@ -1,8 +1,7 @@
 ActiveAdmin.register UserPaymentCard do
 
   menu priority: 6
-  #actions :index, :show
-  actions :index
+  actions :index, :show
 
   #permit_params :user_id, :foobar
 
