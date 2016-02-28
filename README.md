@@ -293,6 +293,15 @@ bundle exec erd notation=crowsfoot --filename=doc/erd
 
 The UML diagram will then be available as a pdf file at doc/erd.pdf
 
+## Reading email in DEV
+
+You need to have running mailcatcher:
+```
+bundle exec mailcatcher --foreground
+```
+
+It will listen for SMTP in port 1025 and provides a webgui to the emails sent on port 1080.
+
 ## Admin UI
 
 To access the admin interface go to http://localhost:3000/internal-backstage/admin/
