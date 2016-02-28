@@ -10,6 +10,7 @@ class BackstageController < ApplicationController
   def index
     @pending_ads_cnt = Ad.where(status: Ad::statuses[:waiting_review]).count
     @pending_kyc_cnt = UserDocument.where(status: UserDocument::statuses[:pending_approval]).count
+    @revision = get_current_revision
   end
 
   def broadcast
@@ -103,5 +104,9 @@ class BackstageController < ApplicationController
       user_attributes: [:birthday, :personal_id_number, :verification_level,
         :first_name, :last_name, :id]
     )
+  end
+
+  def get_current_revision
+    File.read("#{Rails.root.to_s}/REVISION") rescue 'unknown'
   end
 end
