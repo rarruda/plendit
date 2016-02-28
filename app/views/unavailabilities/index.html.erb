@@ -1,0 +1,46 @@
+<div class="container u-push-down">
+    <div class="row">
+        <div class="twelve columns">
+            <h1>Annonsetilgjengelighet</h1>
+
+            <p>
+                Her kan du legge til og slette perioder hvor
+                det ikke vil være mulig å bestille
+                <%= link_to @ad.title, @ad %>.
+            </p>
+
+            <h2>Utilgjengelige perioder</h2>
+
+            <% if @ad.unavailabilities.empty? %>
+                <p>Ingen perioder er satt utilgjengelige</p>
+            <% else %>
+                <% @ad.unavailabilities.each do |u| %>
+                    <div>
+                    Ikke tilgjengelig fom.
+                    <%= l u.starts_at, format: :plendit_short_date %>
+                    tom
+                    <%= l u.ends_at, format: :plendit_short_date %>
+                    <br>
+                    <%= button_to 'slett', ad_unavailability_path(@ad, u), method: :delete, form_class: 'u-inline', class: 'button' %>
+                    </div>
+                <% end %>
+            <% end %>
+
+            <h2>Ny utilgjengelig periode</h2>
+
+            <%= form_for :unavailability do |f| %>
+
+                <label>Fra og med dato:</label>
+                <%= f.date_select :starts_at %>
+
+                <label>Til og med dato:</label>
+                <%= f.date_select :ends_at %>
+
+                <br>
+                <%= f.submit 'Legg til', class: 'button button-primary' %>
+
+            <% end %>
+
+        </div>
+    </div>
+</div>
