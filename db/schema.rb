@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122011352) do
+ActiveRecord::Schema.define(version: 20160131114446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -284,6 +284,16 @@ ActiveRecord::Schema.define(version: 20160122011352) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
+  create_table "unavailabilities", force: :cascade do |t|
+    t.date     "starts_at"
+    t.date     "ends_at"
+    t.integer  "ad_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "unavailabilities", ["ad_id"], name: "index_unavailabilities_on_ad_id", using: :btree
+
   create_table "user_documents", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "guid",                  limit: 36
@@ -445,6 +455,7 @@ ActiveRecord::Schema.define(version: 20160122011352) do
   add_foreign_key "messages", "users", column: "to_user_id"
   add_foreign_key "notifications", "users"
   add_foreign_key "payin_rules", "ads"
+  add_foreign_key "unavailabilities", "ads"
   add_foreign_key "user_documents", "users"
   add_foreign_key "user_payment_accounts", "users"
   add_foreign_key "user_payment_cards", "users"

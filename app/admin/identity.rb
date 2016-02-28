@@ -14,6 +14,7 @@ ActiveAdmin.register Identity do
   #   permitted
   # end
   menu priority: 6
+  actions :index, :show
 
   permit_params :image_url, :profile_url
 

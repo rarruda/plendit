@@ -54,6 +54,9 @@
             Annonsen er ikke komplett. Rediger den for å gjøre den ferdig
             til publisering.
         </div>
+    <% else %>
+        <%#= button_to 'Tilgjengelighet', ad_unavailabilities_path(ad),
+                form_class: 'u-inline', class: btncls, method: :get %>
     <% end %>
 
 </div>

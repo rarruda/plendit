@@ -166,7 +166,7 @@ NOTE: It is recommended that a production deployment of resque-scheduler be host
 
 Can be started with this command:
 ```
-bundle exec rake <environment> resque:scheduler --trace
+bundle exec rake resque:scheduler --trace
 ```
 
 It will then generate jobs according to the configuration in cron settings.
@@ -292,6 +292,15 @@ bundle exec erd notation=crowsfoot --filename=doc/erd
 ```
 
 The UML diagram will then be available as a pdf file at doc/erd.pdf
+
+## Reading email in DEV
+
+You need to have running mailcatcher:
+```
+bundle exec mailcatcher --foreground
+```
+
+It will listen for SMTP in port 1025 and provides a webgui to the emails sent on port 1080.
 
 ## Admin UI
 

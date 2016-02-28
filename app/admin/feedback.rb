@@ -15,7 +15,7 @@ ActiveAdmin.register Feedback do
   # end
 
   menu priority: 5
-  #actions :index, :show
+  actions :index, :show
 
 
   permit_params :booking_id, :from_user_id, :score, :body

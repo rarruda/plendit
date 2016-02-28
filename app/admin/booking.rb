@@ -14,7 +14,7 @@ ActiveAdmin.register Booking do
   #   permitted
   # end
 
-  menu priority: 5
+  menu priority: 3
   actions :index, :show
 
   #permit_params :ad_item_id, :from_user_id

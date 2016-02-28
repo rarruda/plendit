@@ -57,11 +57,11 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    port:      465,
-    address:   ENV['PCONF_SMTP_ADDRESS'],
-    user_name: ENV['PCONF_SMTP_USERNAME'],
-    password:  ENV['PCONF_SMTP_PASSWORD'],
-    tls:       true,
+    port:      1025,        #ENV['PCONF_SMTP_PORT'] || 465,
+    address:   'localhost', #ENV['PCONF_SMTP_ADDRESS'],
+    #user_name: ENV['PCONF_SMTP_USERNAME'],
+    #password:  ENV['PCONF_SMTP_PASSWORD'],
+    #tls:       true,
   }
 
   # for ugh, generating routes within models: (reuse value from action_mailer)

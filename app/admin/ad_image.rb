@@ -15,7 +15,7 @@ ActiveAdmin.register AdImage do
   # end
 
   menu priority: 5
-  #actions :index, :show
+  actions :index, :show
 
 
   permit_params :ad_id, :weight, :description
