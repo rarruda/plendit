@@ -119,7 +119,7 @@ Plendit::Application.config.x.ads.categories = [
     image_width: '42'
   },
   {
-    title:       'Hus og hytte',
+    title:       'Hus, leilighet og hytte',
     category:    'realestate',
     image:       'category_realestate.svg',
     image_width: '36'
