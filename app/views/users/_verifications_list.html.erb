@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="docs-box__right">
-                <% unless doc.state == :verified || doc.state == :pending %>
+                <% unless doc.state == :verified || doc.state == :pending || doc.state == :too_young %>
                     <%= link_to doc.preverify_action, doc.path %>
                 <% end %>
             </div>

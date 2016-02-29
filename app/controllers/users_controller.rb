@@ -163,15 +163,18 @@ class UsersController < ApplicationController
     [
       OpenStruct.new({
         title: 'Førerkort',
-        preverify_prose: %q(
+        preverify_prose: user.drivers_license_allowed? ? %q(
           For at du skal kunne leie kjøretøy på Plendit må ditt
-          førerkort godkjennes.
+          førerkort godkjennes. Du må har hatt førerkort i minimum 3 år.
+        ) :
+        %q(
+          Det er kun mulig å leie bil om du er 23 år og har hatt førerkort i minimum 3 år.
         ),
         preverify_action: 'Last opp',
         postverify_prose: 'Førerkort er godkjent.',
         pending_prose: 'Til kontroll.',
         rejected_prose: 'Ikke godkjent.',
-        state: user.drivers_license_status,
+        state: user.drivers_license_allowed? ? user.drivers_license_status : :too_young,
         rejection_reason: user.drivers_license_rejection_reason,
         path: verify_drivers_license_users_path
       }),

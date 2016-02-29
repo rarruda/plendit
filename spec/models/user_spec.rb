@@ -2,8 +2,9 @@ require 'rails_helper'
 
 #https://github.com/eliotsykes/rspec-rails-examples/blob/master/spec/models/subscription_spec.rb
 
-RSpec.describe User, :type => :model do
+RSpec.describe User, type: :model do
 
+  let(:user) { FactoryGirl.build_stubbed(:user) }
 
   context "attributes" do
     it "has email" do
@@ -16,6 +17,21 @@ RSpec.describe User, :type => :model do
 
     it "has confirmation_token" do
       expect(User.new(confirmation_token: "what-a-token")).to have_attributes(confirmation_token: "what-a-token")
+    end
+  end
+
+  context "Checks" do
+
+    it "should be allowed to upload a drivers license being older then 23" do
+      user.birthday = 25.years.ago
+
+      expect(user.drivers_license_allowed?).to be true
+    end
+
+    it "should not be allowed to upload a drivers license being younger then 23" do
+      user.birthday = 22.years.ago
+
+      expect(user.drivers_license_allowed?).to be false
     end
   end
 

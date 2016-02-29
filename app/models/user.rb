@@ -460,6 +460,10 @@ class User < ActiveRecord::Base
     return payout_wallet['Balance']['Amount']
   end
 
+  def drivers_license_allowed?
+    !self.birthday.nil? && self.age >= Plendit::Application.config.x.users.min_age_drivers_license
+  end
+
   def boat_license_required?
     !self.birthday.nil? && self.birthday > Date.new(1980, 1, 1)
   end
