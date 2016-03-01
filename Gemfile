@@ -125,7 +125,7 @@ gem 'acts-as-taggable-on', '~> 3.4'
 # Get notified about exceptions:
 # https://github.com/smartinez87/exception_notification
 # gem 'exception_notification'
-gem 'airbrake'
+gem 'airbrake', '~> 5.1'
 
 # Trace http calls to the outside world.
 gem 'httplog'

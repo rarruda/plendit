@@ -45,3 +45,6 @@ end
 # line below. It might simplify debugging of background Airbrake workers, which
 # can silently die.
 # Thread.abort_on_exception = ['test', 'development'].include?(Rails.env)
+
+# https://github.com/airbrake/airbrake/blob/master/docs/Migration_guide_from_v4_to_v5.md#blacklist-filter
+Airbrake.blacklist_keys([:password,:password_confirmation])
