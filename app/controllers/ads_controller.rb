@@ -359,7 +359,7 @@ class AdsController < ApplicationController
 
 
   def require_authorization
-    if not ( ( @ad and @ad.user == current_user ) or current_user.is_site_admin? )
+    unless ( @ad.present? && @ad.user == current_user ) || current_user.is_site_admin?
       # throw exception. User not allowed here.
       LOG.error message: "User not authorized to see this page.", ad_id: @ad.id, user_id: current_user.id
       raise "User not authorized to see this page."
