@@ -18,9 +18,11 @@
         <% when 'boat' %>
             <h1 class="u-push-down-only">Legg ut båt</h1>
 
+<%# FIXME:
             <small>
-                Inntil videre kan man kun leie ut båter opp til 24 fot og 150 hestekrefter.
+                Det er kun mulig å leie ut båter verdt opp til 750.000 kroner.
             </small>
+%>
         <% when 'motor' %>
             <h1 class="u-push-down-only">Legg ut kjøretøy</h1>
             <small>
@@ -38,7 +40,7 @@
         </div>
 
         <div class="u-push-down-only">
-            <%#= f.label :body, 'Beskrivelse:' disabled to deal with ad blocking, hence use of label_tag  %> 
+            <%#= f.label :body, 'Beskrivelse:' disabled to deal with ad blocking, hence use of label_tag  %>
             <%= label_tag 'body_id', 'Beskrivelse:' %>
             <% if @ad.category == 'boat' %>
                 <small>Dersom båten har seil eller motor skal båtens lengde og eventuelt antall hestekrefter skrives inn her. </small>
@@ -67,7 +69,7 @@
                 <%= f.label :estimated_value_in_h, 'Antatt verdi:' %>
                 <%= f.telephone_field( :estimated_value_in_h ) %>
 
-                <div data-insurance-info class="<%= @ad.estimated_value_in_h > @boat_price_threshold ? '' : 'u-hidden' %>">
+                <div data-insurance-info class="<%= @ad.estimated_value_in_h.present? && ( @ad.estimated_value_in_h > @boat_price_threshold ) ? '' : 'u-hidden' %>">
                     Fixme: Prosa om egenandel for båteier her.
                 </div>
 
