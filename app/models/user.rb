@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
 
 
   before_save :set_public_name_from_first_name_on_create, on: :create,
-    if: Proc.new{ |u| u.public_name.blank? && a.first_name.present? }
+    if: Proc.new{ |u| u.public_name.blank? && u.first_name.present? }
 
   #  * an equivalent callback should be considered, for when updating information:
   after_save :provision_with_mangopay,
