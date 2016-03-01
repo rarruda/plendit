@@ -43,10 +43,10 @@ class AdImage < ActiveRecord::Base
       "name" => read_attribute(:image_file_name),
       "size" => read_attribute(:image_file_size),
       "type" => read_attribute(:image_content_type),
-      "url" => image.url(:thumb),
+      "url"  => image.url(:thumb),
       "ad_image_id" => self.id,
-      "delete_url" => ad_image_path(:ad_id => ad_id, :id => id, :format => :json),
-      ##"delete_type" => "DELETE" 
+      "delete_url"  => ad_image_path(ad_id: ad_id, id: id, format: :json),
+      # "delete_type" => "DELETE"
     }
   end
 
