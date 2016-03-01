@@ -5,10 +5,12 @@
                 <%= render 'form' %>
             <% else %>
                 <h2>Rediger annonse?</h2>
+                <br>
                 <div>
                     Annonsen er <%= @ad.display_status %>. Vil du redigered den?
                     Etter at annonsen er redigert må den sendes til ny godkjenning.
                 </div>
+                <br>
                 <div>
                     <%= button_to 'Rediger annonsen', draft_ad_path(@ad),
                         form_class: 'u-inline', class: 'button button-primary' %>
