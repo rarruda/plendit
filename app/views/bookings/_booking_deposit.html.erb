@@ -1,9 +1,6 @@
 <%= render layout: 'gray_box', locals: {title: 'Penger til utleier'} do %>
     <div class="booking-summary">
-        <div class="booking-summary__row">
-            Her legger du inn penger du skylder for bompenger, drivstoff og
-            eventuelle bøter.
-        </div>
+
         <div class="booking-summary__row">
             <%= form_for(@booking) do |f| %>
                 <% if @booking.errors.any? %>
@@ -19,7 +16,7 @@
                         </ul>
                     </div>
                 <% end %>
-                <%= f.label :deposit_offer_amount_in_h, "TRANSLATEME: Hvor mye vil du setter til å bli overført?" %>
+                <%= f.label :deposit_offer_amount_in_h, "Her legger du inn penger du skylder for bompenger, drivstoff og eventuelle bøter." %>
                 <%= f.telephone_field :deposit_offer_amount_in_h %>
                 <%= f.submit 'Lagre', class: 'button button-primary'%>
             <% end %>
