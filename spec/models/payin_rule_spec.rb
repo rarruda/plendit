@@ -28,13 +28,23 @@ RSpec.describe PayinRule, type: :model do
     expect(payin_rule).to be_valid
   end
 
-  it "should not accept 99 NOK as minimum price for boat" do
+  it "should not accept 99 NOK as minimum price for a small boat" do
     payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, payin_amount: 99_00, ad: FactoryGirl.build_stubbed(:ad_boat))
     expect(payin_rule).not_to be_valid
   end
 
-  it "should accept 149 NOK as minimum price for boat" do
+  it "should accept 149 NOK as minimum price for a small boat" do
     payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, payin_amount: 149_00, ad: FactoryGirl.build_stubbed(:ad_boat))
+    expect(payin_rule).to be_valid
+  end
+
+  it "should not accept 149 NOK as minimum price for a medium boat valued at 250.001" do
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, payin_amount: 149_00, ad: FactoryGirl.build_stubbed(:ad_boat, estimated_value: 250_001_00))
+    expect(payin_rule).not_to be_valid
+  end
+
+  it "should accept 701 NOK as minimum price for a medium boat valued at 250.001" do
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, payin_amount: 701_00, ad: FactoryGirl.build_stubbed(:ad_boat, estimated_value: 250_001_00))
     expect(payin_rule).to be_valid
   end
 
@@ -55,6 +65,18 @@ RSpec.describe PayinRule, type: :model do
 
 
   context "when payin_rule has multiple day price rules" do
+  end
+
+  # FIXME: need to test multiple day discounts for boat.
+  #
+  context "when payin_rule has multiple day price rules for medium boats" do
+    let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule, unit: 'day', payin_amount: 200_00,
+        ad: FactoryGirl.build_stubbed(:ad_boat, estimated_value: 250_001_00) )
+      }
+
+    it "should fail" do
+      expect(true).to be false
+    end
   end
 
 

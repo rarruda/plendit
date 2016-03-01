@@ -78,7 +78,7 @@ class PayinRule < ActiveRecord::Base
 
   # given an price_for_a_day, return that's the minimum price that
   #  can be offered. (to deny very large discounts, which could make
-  #  insurance inviable).
+  #  insurance unviable).
   def apply_max_discount_boat amount
     if self.day? && self.effective_from >= 2
       # map through the max_discount array of [<min_value_for_discount_to_be_applicable,max_discount_pct>]
@@ -106,13 +106,32 @@ class PayinRule < ActiveRecord::Base
   end
 
   def min_payin_amount_boat
-    if self.day? && self.effective_from == 1
+    return nil unless self.day?
+
+    case self.ad.boat_size
+    when :medium
+      self.min_payin_amount_boat_medium
+    else
+      # :small, or unknown/:invalid also use _small
+      self.min_payin_amount_boat_small
+    end
+  end
+
+  def min_payin_amount_boat_small
+    if self.effective_from == 1
       Plendit::Application.config.x.insurance.max_discount_after_duration_boat.map{|d| d.first}.min
-    elsif self.day?
+    else
       # Apply max discount to the main required_rule payin_amount
       self.apply_max_discount_boat( self.ad.payin_rules.required_rule.take.payin_amount )
-    else #self.hour?
-      35_00
+    end
+  end
+
+  def min_payin_amount_boat_medium
+    if self.effective_from == 1
+      Plendit::Application.config.x.insurance.boat_minimum_price_discount_base + self.ad.estimated_value * Plendit::Application.config.x.insurance.boat_minimum_price_discount_multiplier
+    else
+      # Apply max discount to the main required_rule payin_amount
+      self.apply_max_discount_boat( self.ad.payin_rules.required_rule.take.payin_amount )
     end
   end
 

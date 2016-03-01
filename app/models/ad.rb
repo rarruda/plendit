@@ -320,6 +320,21 @@ class Ad < ActiveRecord::Base
     BookingCalculator.new(ad: self)
   end
 
+  def boat_size
+    boat_owner_premium_threshold = Plendit::Application.config.x.insurance.boat_owner_premium_threshold
+    boat_max_value = Plendit::Application.config.x.insurance.boat_max_value
+
+    if !self.boat? || !self.estimated_value.is_a?(Integer)
+      return :illegal
+    elsif self.estimated_value.between?( 0, boat_owner_premium_threshold )
+      return :small
+    elsif self.estimated_value.between?( boat_owner_premium_threshold, boat_max_value )
+      return :medium
+    else
+      return :illegal
+    end
+  end
+
   private
 
   # If there were any changes, in model, or nested model, except in status or refusal_reason, return true:
