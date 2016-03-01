@@ -28,6 +28,16 @@ RSpec.describe PayinRule, type: :model do
     expect(payin_rule).to be_valid
   end
 
+  it "should not accept 99 NOK as minimum price for boat" do
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, payin_amount: 99_00, ad: FactoryGirl.build_stubbed(:ad_boat))
+    expect(payin_rule).not_to be_valid
+  end
+
+  it "should accept 149 NOK as minimum price for boat" do
+    payin_rule = FactoryGirl.build_stubbed(:payin_rule_ad, payin_amount: 149_00, ad: FactoryGirl.build_stubbed(:ad_boat))
+    expect(payin_rule).to be_valid
+  end
+
   context "when payin_rule has a simple day price rule" do
     let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule, unit: 'day', payin_amount: 200_00,
         ad: FactoryGirl.build_stubbed(:ad_motor) )

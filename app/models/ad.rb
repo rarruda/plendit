@@ -41,7 +41,7 @@ class Ad < ActiveRecord::Base
     unless: :new_record?,
     if:     :motor?
 
-  validates :estimated_value, numericality: { less_than: 250_000_00, allow_nil: true, message: 'Båt kan ha en maks antatt verdi på 250.000 kroner.'},
+  validates :estimated_value, numericality: { less_than: 750_000_00, allow_nil: true, message: 'Båt kan ha en maks antatt verdi på 750.000 kroner.'},
     unless: :new_record?,
     if:     :boat?
 
