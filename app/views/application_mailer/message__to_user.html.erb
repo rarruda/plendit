@@ -3,11 +3,17 @@
 </p>
 
 <p>
-  <%= @message.from_user.public_name %> har sendt deg en melding om utleie av "<%= @message.booking.ad.title %>".
+  <%= @message.from_user.public_name %> har sendt deg en melding om utleie av "<%= @message.booking.ad.title %>":
 </p>
 
 <p>
-  <%= @message.content %>
+  <pre>
+    <%= @message.content %>
+  </pre>
+</p>
+
+<p>
+  Det er mulig å lese hele samtale på <%= link_to 'booking', booking_url( @message.booking ) %>.
 </p>
 
 <p>
