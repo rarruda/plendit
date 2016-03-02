@@ -83,20 +83,21 @@
                         </span>
                     <% end %>
                 </div>
-                <div class="<%= @ad.boat_license_required ? '' : 'u-hidden' %>"
-                     data-hidden-section>
+                <div class="<%= @ad.boat_license_required ? '' : 'u-hidden' %>" data-hidden-section>
                     <label>Registreringsnummer:</label>
                     <%= f.text_field :registration_number, class: 'u-full-width', placeholder: 'Regnr' %>
                     <div class="help-box u-push-down">
                         Jeg aksepterer at dersom jeg ikke kan fremvise kjøpekontrakt eller registrering har jeg ikke forsikring for skader hvor båten ikke kan lokaliseres (underslag og tyveri).
                     </div>
+
+                    <%= f.label :accepted_boat_insurance_terms do %>
+                        <%= f.check_box :accepted_boat_insurance_terms %>
+                        <span class="label-body">
+                            Jeg har lest og godtatt dette.
+                        </span>
+                    <% end %>
+
                 </div>
-                <%= f.label :accepted_boat_insurance_terms do %>
-                    <%= f.check_box :accepted_boat_insurance_terms %>
-                    <span class="label-body">
-                        Jeg har lest og godtatt dette.
-                    </span>
-                <% end %>
             </div>
 
         <% end %>
