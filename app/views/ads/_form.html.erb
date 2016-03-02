@@ -134,7 +134,7 @@
                         {},
                         { class: 'u-full-width' } ) %>
 
-                    <a class="u-pull-right" href="#" data-controller="newLocation" type="a" data-url="<%= new_location_users_ad_path %>">Skriv ny adresse</a>
+                    <a class="u-pull-right" href="#" data-controller="newLocation" data-url="<%= new_location_users_ad_path %>">Skriv ny adresse</a>
 
                 <% else %>
                     <!-- this condition should never be true -->
@@ -181,41 +181,43 @@
 
     <details data-controller="payinAdder"
              data-estimate-url="<%= payout_estimate_ad_payin_rules_path @ad %>">
-        <%= form_for( PayinRule.new, url: (payout_estimate_ad_payin_rules_path @ad), data: { estimate_form: '' }, :html => {:'data-type' => 'html'} ) do |f| %>
-            <%= f.hidden_field :effective_from ,   data: { effective_from: ''} %>
-            <%= f.hidden_field :payin_amount_in_h, data: { payin_amount:   ''} %>
-        <% end %>
-
         <summary>
-            <span type="button" class="button">Legg til spesialpris</span>
+            <span class="button">Legg til spesialpris</span>
         </summary>
 
-        <div class="price-adder">
-            <%= form_for( PayinRule.new, url: (ad_payin_rules_path @ad), data: { new_rule_form: '' } ) do |f| %>
-
-                <div class="help-box u-push-down">
-                    Pris per enkelt dag må være minst
-                    kr <%= ApplicationController.helpers.format_monetary_full_pretty @ad.main_payin_rule.min_payin_amount %>
-                    Vil du gi en lavere pris per dag ved lengre
-                    leieforhold, kan du gjøre det her.
-                </div>
-                <div>
-                    <span class="main-price__label">Ved utleie over</span>
-                    <%= f.telephone_field :effective_from, pattern: '\d*', class: 'price-adder__days', min: 2 %>
-                    <span>dager</span>
-                </div>
-                <div>
-                    <span class="main-price__label">Reduseres pris per dag til</span>
-                    <%= f.telephone_field :payin_amount_in_h, pattern: '\d*', class: 'price-adder__price' %>
-                    <span>kr</span>
-                </div>
-                <div data-estimate>
-                    <%# estimates are ajaxed in here %>
-                </div>
-                <button type="button" class="button" data-save disabled>Lagre</button>
-                <button type="button" class="button" data-cancel>Avbryt</button>
-
+        <div>
+            <%= form_for( PayinRule.new, url: (payout_estimate_ad_payin_rules_path @ad), data: { estimate_form: '' }, :html => {:'data-type' => 'html', :id => 'ignore_1'} ) do |f| %>
+                <%= f.hidden_field :effective_from ,   data: { effective_from: ''}, id: 'ignore_2' %>
+                <%= f.hidden_field :payin_amount_in_h, data: { payin_amount:   ''}, id: 'ignore_3' %>
             <% end %>
+    
+            <div class="price-adder">
+                <%= form_for( PayinRule.new, url: (ad_payin_rules_path @ad), data: { new_rule_form: '' } ) do |f| %>
+
+                    <div class="help-box u-push-down">
+                        Pris per enkelt dag må være minst
+                        kr <%= ApplicationController.helpers.format_monetary_full_pretty @ad.main_payin_rule.min_payin_amount %>
+                        Vil du gi en lavere pris per dag ved lengre
+                        leieforhold, kan du gjøre det her.
+                    </div>
+                    <div>
+                        <span class="main-price__label">Ved utleie over</span>
+                        <%= f.telephone_field :effective_from, pattern: '\d*', class: 'price-adder__days' %>
+                        <span>dager</span>
+                    </div>
+                    <div>
+                        <span class="main-price__label">Reduseres pris per dag til</span>
+                        <%= f.telephone_field :payin_amount_in_h, pattern: '\d*', class: 'price-adder__price' %>
+                        <span>kr</span>
+                    </div>
+                    <div data-estimate>
+                        <%# estimates are ajaxed in here %>
+                    </div>
+                    <button type="button" class="button" data-save disabled>Lagre</button>
+                    <button type="button" class="button" data-cancel>Avbryt</button>
+
+                <% end %>
+            </div>
         </div>
     </details>
 
