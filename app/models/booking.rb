@@ -560,7 +560,7 @@ class Booking < ActiveRecord::Base
   end
 
   def validate_from_user_can_create_booking
-    errors.add(:ends_at, "Du mangler en form for dokumentasjon for å gjennomføre denne handlingen.") unless self.from_user.can_rent? self.ad.category
+    errors.add(:ends_at, "Du mangler en form for dokumentasjon for å gjennomføre denne handlingen.") unless self.from_user.can_rent? self.ad
   end
 
   def validate_deposit_offer_amount_less_than_or_equals_deposit_amount

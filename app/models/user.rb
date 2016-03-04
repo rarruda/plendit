@@ -278,12 +278,12 @@ class User < ActiveRecord::Base
     bookings = bookings.uniq
   end
 
-  def can_rent? category = nil
+  def can_rent? ad = nil
     return false unless self.mangopay_provisioned?
     return false unless self.email_verified?
     return false unless self.age.present? && self.age >= 18
 
-    return true if self.phone_verified? && self.has_confirmed_id? && case category
+    return true if self.phone_verified? && self.has_confirmed_id? && case ad.category
     when 'bap'
       true
     when 'realestate'
@@ -293,7 +293,10 @@ class User < ActiveRecord::Base
       self.age.present? &&
       self.age >= 23
     when 'boat'
-      self.boat_rental_allowed?
+      # if the ad requires boat license, check if the user is allowed boat rentals for boats that require
+      #  boat licenses. Otherwise, not boat license is required, so there is no need to check if the user needs
+      #  to have a boat license in place.
+      ad.boat_license_required ? self.boat_rental_allowed? : true
     else
       LOG.error message: "can not let anyone rent this item, category unknown: #{category}", user_id: self.id
     end

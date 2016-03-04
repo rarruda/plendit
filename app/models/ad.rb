@@ -329,7 +329,7 @@ class Ad < ActiveRecord::Base
   end
 
   def boats_with_license_must_have_terms_acceptance_or_reg_num
-    if self.boat? && self.boat_license_required && self.registration_number.empty? && !self.accepted_boat_insurance_terms
+    if self.boat? && self.boat_license_required && self.registration_number.nil? && !self.accepted_boat_insurance_terms
       self.errors.add(:boat_license_required, 'Du må enten fylle inn registreringsnummer, eller akseptere forsikringsvilkårene')
     end
   end

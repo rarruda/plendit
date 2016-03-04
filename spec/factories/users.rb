@@ -20,7 +20,7 @@ FactoryGirl.define do
     email       { 'andrea.normann@example.org' }
     phone_number  { [4,9].sample.to_s + "000" + Faker::Base.numerify('####') }
     personhood  { User.personhoods[:natural] }
-    birthday    { '2001-01-20' }
+    birthday    { '1990-01-20' }
     status      { 1 }
     nationality { 'NO' }
     country_of_residence { 'NO' }
@@ -51,7 +51,7 @@ FactoryGirl.define do
     email        { 'bjoern.sand@example.net' }
     phone_number { [4,9].sample.to_s + "0000" + Faker::Base.numerify('###') }
     personhood   { User.personhoods[:natural] }
-    birthday     { '2001-01-01' }
+    birthday     { '1990-01-01' }
     status       { 1 }
     nationality  { 'NO' }
     country_of_residence { 'NO' }

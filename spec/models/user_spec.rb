@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
 
   let(:user) { FactoryGirl.build_stubbed(:user) }
+  let(:user_b) { FactoryGirl.build_stubbed(:user_b, confirmed_at: DateTime.now, verification_level: 'internally_verified' ) }
 
   context "attributes" do
     it "has email" do
@@ -32,6 +33,18 @@ RSpec.describe User, type: :model do
       user.birthday = 22.years.ago
 
       expect(user.drivers_license_allowed?).to be false
+    end
+
+    it "should be able to rent a boat w/o a boat_license if the boat license is not required (kayak/row boat)" do
+      ad_boat = FactoryGirl.build_stubbed(:ad, category: 'boat', boat_license_required: false)
+
+      expect(user_b.can_rent? ad_boat).to be true
+    end
+
+    it "should not be able to rent a boat w/o a boat_license if the boat license is required (sail/motor boat)" do
+      ad_boat = FactoryGirl.build_stubbed(:ad, category: 'boat', boat_license_required: true)
+
+      expect(user_b.can_rent? ad_boat).to be false
     end
   end
 

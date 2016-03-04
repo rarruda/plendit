@@ -17,9 +17,9 @@
 
             <% if current_user.present? && @ad.user.id != current_user.id %>
                 <div class="ad-booking-box__button-holder">
-                    <%= button_tag('Gå til booking', disabled: ( current_user.present? && !(current_user.can_rent? @ad.category) ), class: "button button-primary booking-request-form__book-button",  ) %>
+                    <%= button_tag('Gå til booking', disabled: ( current_user.present? && !(current_user.can_rent? @ad) ), class: "button button-primary booking-request-form__book-button",  ) %>
                 </div>
-                <% if current_user.present? && ! (current_user.can_rent? @ad.category) %>
+                <% if current_user.present? && ! (current_user.can_rent? @ad) %>
                     <div class="ad-booking-box__cant-book-prose">
                         <%  case @ad.category
                             when 'boat' %>
