@@ -298,7 +298,7 @@ class User < ActiveRecord::Base
       #  to have a boat license in place.
       ad.boat_license_required ? self.boat_rental_allowed? : true
     else
-      LOG.error message: "can not let anyone rent this item, category unknown: #{category}", user_id: self.id
+      LOG.error message: "can not let anyone rent this item, category unknown: #{ad.category}", user_id: self.id
     end
 
     false
