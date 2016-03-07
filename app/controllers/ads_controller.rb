@@ -243,7 +243,7 @@ class AdsController < ApplicationController
 
   # POST /ads/1/tag
   def tag
-    # It's ok to save invalid models when refusing.
+    # Update_column to skip callbacks, and sending the ad back to draft.
     if @ad.update_columns(tags: ad_admin_params[:tags])
       @ad.reindex! if @ad.published?
       redirect_to @ad, alert: 'Ad tags field was updated.'
