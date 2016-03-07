@@ -43,6 +43,12 @@
                 <div class="row">
 
                 <div class="twelve columns">
+                        <div class="six columns">
+                            <%= form_for @ad, url: tag_ad_path(@ad), method: :post, html: { class: "ad-status-box__form" } do |f| %>
+                                <%= f.text_field :tags, placeholder: "List of tags" %>
+                                <%= f.submit 'Update tags', class: "ad-status-box__button button" %>
+                            <% end %>
+                        </div>
                     <% if ad.waiting_review? %>
                         <div class="three columns">
                             <%= button_to 'Godkjenn', approve_ad_path(ad), form_class: "ad-status-box__form", class: "ad-status-box__button button", enabled: ad.valid? %>

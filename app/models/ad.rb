@@ -307,7 +307,7 @@ class Ad < ActiveRecord::Base
 
   # NOTE: this method is repeated as ad_to_param_pretty as an application helper due to
   # Elasticsearch::Model::Response::Result craziness.
-  # look, its in the AdDecorator decorator too!
+  # look, it is in the AdDecorator decorator too!
   def to_param
     if not self.title.blank?
       [self.id, self.title.parameterize].join('----')[0,64]
@@ -318,6 +318,11 @@ class Ad < ActiveRecord::Base
 
   def booking_calculator
     BookingCalculator.new(ad: self)
+  end
+
+  # reindex in elasticsearch. Only ever do that if it is published.
+  def reindex!
+    self.__elasticsearch__.update_document if self.published?
   end
 
   private

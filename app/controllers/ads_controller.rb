@@ -21,6 +21,7 @@ class AdsController < ApplicationController
     :stop,
     :submit_for_review,
     :suspend,
+    :tag,
     :unavailability,
     :update
   ]
@@ -38,6 +39,7 @@ class AdsController < ApplicationController
     :approve,
     :refuse,
     :suspend,
+    :tag,
   ]
 
   # all actions require the user to own the ad, except these:
@@ -239,6 +241,17 @@ class AdsController < ApplicationController
     end
   end
 
+  # POST /ads/1/tag
+  def tag
+    # It's ok to save invalid models when refusing.
+    if @ad.update_columns(tags: ad_admin_params[:tags])
+      @ad.reindex! if @ad.published?
+      redirect_to @ad, alert: 'Ad tags field was updated.'
+    else
+      redirect_to @ad, alert: 'Ad tags field was NOT updated.'
+    end
+  end
+
   # GET /ads/new
   def new
     @ad_categories = Rails.configuration.x.ads.categories
@@ -387,7 +400,7 @@ class AdsController < ApplicationController
   end
 
   def ad_admin_params
-      params.require(:ad).permit( :refusal_reason )
+      params.require(:ad).permit( :refusal_reason, :tags )
   end
 
   def ad_image_params

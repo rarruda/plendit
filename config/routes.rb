@@ -150,6 +150,7 @@ Rails.application.routes.draw do
       post 'submit_for_review'
       post 'draft'
       post 'unpublish_and_edit'
+      post 'tag'
     end
 
     resources :payin_rules, param: :guid, only: [:index, :create, :destroy] do
