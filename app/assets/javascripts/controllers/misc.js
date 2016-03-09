@@ -866,6 +866,7 @@ window.controllers.secondaryPrices = {
         var delUrl = ele.getAttribute("data-delete-url");
         ele.addEventListener("click", onClick);
         eventbus.on(eventbus.PRICE_MODEL_SAVED, onPriceModelsChanged);
+        eventbus.on(eventbus.AD_FORM_SAVE_OK, onPriceModelsChanged);
 
         function onPriceModelsChanged() {
             xhr.get(getUrl).then(updateView);
