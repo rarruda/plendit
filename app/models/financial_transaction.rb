@@ -474,7 +474,7 @@ class FinancialTransaction < ActiveRecord::Base
     #sanity check
     unless self.payin_refund?   &&
       self.src_payin_vid?       &&
-      #self.dst_payin_wallet_vid?  &&
+      #self.src_vid.present?  && # <== BUG: should be present!
       self.financial_transactionable_type == 'Booking'  &&
       self.financial_transactionable_id.present?
 
@@ -530,7 +530,7 @@ class FinancialTransaction < ActiveRecord::Base
   def do_refund_refresh
     #sanity check
     unless self.payin_refund? &&
-      self.processing?
+      ( self.processing? || self.pending? )
 
       raise "can not process this transaction with this method from this state"
     end
