@@ -68,7 +68,7 @@ class Ad < ActiveRecord::Base
   # If there were any relevant changes, set status to draft:
   before_save :edit!, if: :should_be_set_to_draft?
 
-  before_create :build_payin_rule
+  before_create :build_payin_rule, if: "self.payin_rules.empty?"
 
   before_create :build_ad_item
 
@@ -318,6 +318,15 @@ class Ad < ActiveRecord::Base
 
   def booking_calculator
     BookingCalculator.new(ad: self)
+  end
+
+  # helper methods for determining boat sizes:
+  def medium_boat?
+    self.boat? ? ( self.boat_size == :medium ) : false
+  end
+
+  def small_boat?
+    self.boat? ? ( self.boat_size == :small ) : false
   end
 
   def boat_size

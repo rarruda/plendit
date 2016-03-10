@@ -4,7 +4,7 @@ RSpec.describe UserPaymentAccount, type: :model do
   let(:account) {
     FactoryGirl.build_stubbed(
       :user_payment_account,
-      user: FactoryGirl.build_stubbed(:user_provisioned)
+      user: FactoryGirl.build_stubbed(:user_a)
     )
   }
 

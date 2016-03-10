@@ -100,7 +100,7 @@ Plendit::Application.config.x.insurance.max_discount_after_duration_boat = [
 Plendit::Application.config.x.insurance.boat_minimum_price_discount_base = 75_00
 Plendit::Application.config.x.insurance.boat_minimum_price_discount_multiplier = 0.0025
 
-Plendit::Application.config.x.insurance.boat_owner_premium_threshold = 250_000_00
+Plendit::Application.config.x.insurance.boat_owner_premium_threshold = 150_000_00
 Plendit::Application.config.x.insurance.boat_max_value = 750_000_00
 
 # should be a hash: bap: 1_500, motor: 1_000_000, realestate: 500_000

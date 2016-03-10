@@ -12,7 +12,7 @@ FactoryGirl.define do
     after(:build) { |u| u.password = Faker::Internet.password(10, 20) }
   end
 
-  factory :user_a_complete, class: User do
+  factory :user_a_incomplete, class: User do
     id          { '100' }
     public_name { 'Andrea' }
     first_name  { 'Andrea' }
@@ -24,6 +24,7 @@ FactoryGirl.define do
     status      { 1 }
     nationality { 'NO' }
     country_of_residence { 'NO' }
+    confirmed_at { 1.hour.ago } #email confirmed
     after(:build) { |u| u.password = Faker::Internet.password(10, 20) }
 
     trait :has_payment_provider_vid do

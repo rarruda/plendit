@@ -36,7 +36,18 @@ FactoryGirl.define do
 
     factory :ad_boat do
       boat
-      estimated_value 100_000_00
     end
+
+    factory :ad_small_boat do
+      boat
+      estimated_value 149_900_00
+    end
+
+    factory :ad_medium_boat do
+      boat
+      estimated_value 150_001_00
+      #accepted_boat_insurance_terms { true }
+    end
+
   end
 end
