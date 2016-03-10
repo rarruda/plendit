@@ -82,10 +82,6 @@ RSpec.describe Ad, type: :model do
     it "should not detect boat size incorrectly via small_boat?" do
       expect(ad_small_boat.small_boat?).not_to be false
     end
-
-    it "should detect boat size via boat_size" do
-      expect(ad_small_boat.boat_size).to eq(:small)
-    end
   end
 
   context "for medium boats" do
@@ -95,10 +91,6 @@ RSpec.describe Ad, type: :model do
 
     it "should not detect boat size incorrectly via medium_boat?" do
       expect(ad_medium_boat.medium_boat?).not_to be false
-    end
-
-    it "should detect boat size correctly via boat_size" do
-      expect(ad_medium_boat.boat_size).to eq(:medium)
     end
   end
 

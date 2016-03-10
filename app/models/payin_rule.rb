@@ -108,10 +108,12 @@ class PayinRule < ActiveRecord::Base
   def min_payin_amount_boat
     return nil unless self.day?
 
-    case self.ad.boat_size
-    when :medium
+    raise "only support boat calculations" unless self.ad.boat?
+
+    if self.ad.medium_boat?
       self.min_payin_amount_boat_medium
     else
+      # elsif self.ad.small_boat?
       # :small, or unknown/:invalid also use _small
       self.min_payin_amount_boat_small
     end

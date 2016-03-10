@@ -322,13 +322,22 @@ class Ad < ActiveRecord::Base
 
   # helper methods for determining boat sizes:
   def medium_boat?
-    self.boat? ? ( self.boat_size == :medium ) : false
+    self.boat? ? ( boat_size == :medium ) : false
   end
 
   def small_boat?
-    self.boat? ? ( self.boat_size == :small ) : false
+    self.boat? ? ( boat_size == :small ) : false
   end
 
+  private
+
+  # If there were any changes, in model, or nested model, except in status or refusal_reason, return true:
+  def should_be_set_to_draft?
+    return false if self.draft?
+    self.payin_rules.any?{|pr| pr.changed?} || self.ad_images.any?{|ai| ai.changed? } || self.location.changed? || self.changes.except('status','refusal_reason').present?
+  end
+
+  # determine the size of the boat
   def boat_size
     boat_owner_premium_threshold = Plendit::Application.config.x.insurance.boat_owner_premium_threshold
     boat_max_value = Plendit::Application.config.x.insurance.boat_max_value
@@ -342,14 +351,6 @@ class Ad < ActiveRecord::Base
     else
       return :illegal
     end
-  end
-
-  private
-
-  # If there were any changes, in model, or nested model, except in status or refusal_reason, return true:
-  def should_be_set_to_draft?
-    return false if self.draft?
-    self.payin_rules.any?{|pr| pr.changed?} || self.ad_images.any?{|ai| ai.changed? } || self.location.changed? || self.changes.except('status','refusal_reason').present?
   end
 
   def boats_with_license_must_have_terms_acceptance_or_reg_num
