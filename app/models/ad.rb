@@ -126,6 +126,13 @@ class Ad < ActiveRecord::Base
         name = maybe_user.nil? ? 'Ukjent bruker' : maybe_user.public_name
         SlackNotifierJob.perform_later "#{name} approved '#{self.category}' ad: #{self.title}.",
           url: Rails.application.routes.url_helpers.ad_url(self)
+
+        Notification.create(
+          user_id: self.user.id,
+          is_system_message: true,
+          message: "Annonsen din \"#{self.display_title}\" er nå godkjent og publisert",
+          notifiable: self
+        )
       end
     end
     event :refuse do

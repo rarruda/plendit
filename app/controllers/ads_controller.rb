@@ -54,8 +54,6 @@ class AdsController < ApplicationController
     :unavailability
   ]
 
-  after_action :notify_about_approval, only: [ :approve ]
-
   # its just confusing to have the chat in the search page:
   skip_before_action :enable_chat, only: [ :search ]
 
@@ -377,14 +375,6 @@ class AdsController < ApplicationController
       LOG.error message: "User not authorized to see this page.", ad_id: @ad.id, user_id: current_user.id
       raise "User not authorized to see this page."
     end
-  end
-
-  def notify_about_approval
-    Notification.new(
-      user_id: @ad.user.id,
-      is_system_message: true,
-      message: "Annonsen din \"#{@ad.display_title}\" er nå godkjent og publisert",
-      notifiable: @ad).save
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
