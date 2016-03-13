@@ -1,5 +1,5 @@
 nb:
   application:
     top_bar:
-      my_page: 'Min side2'
- 
+      my_page: 'Min side'
+      search_term_placeholder: 'Hva vil du leie?'
