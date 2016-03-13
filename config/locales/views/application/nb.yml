@@ -3,3 +3,7 @@ nb:
     top_bar:
       my_page: 'Min side'
       search_term_placeholder: 'Hva vil du leie?'
+
+    notifications:
+      no_notifications: 'Ingen varsler.'
+      time_ago: '%{time_ago_in_words} siden'

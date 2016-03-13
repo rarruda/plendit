@@ -20,7 +20,7 @@
                             <div class="notification-box__message">
                                 <%= n.message %>
                             </div>
-                            <small><%= time_ago_in_words n.updated_at %> siden</small>
+                            <small><%= t '.time_ago', time_ago_in_words: (time_ago_in_words n.updated_at) %></small>
                         </div>
                     <% end %>
                 <% end %>
@@ -31,7 +31,7 @@
                     <%= plendbot_avatar(:small) %>
                 </div>
                 <div class="notification-box__body">
-                    Ingen varsler.
+                    <%= t '.no_notifications' %>
                 </div>
             </div>
         <% end %>
