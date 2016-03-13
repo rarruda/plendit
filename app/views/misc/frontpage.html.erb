@@ -11,12 +11,12 @@
     </div>
 
     <div class="front-search-block__splash">
-        <h1 class="front-search-block__title">LEI DET DU TRENGER</h1>
+        <h1 class="front-search-block__title"><%= t '.splash_title' %></h1>
         <p class="front-search-block__copy"></p>
 
         <div class="front-search-block__input-holder">
             <%= form_tag(search_path, method: :get, class: 'u-inline') do %>
-              <%= text_field_tag 'q', '', class: 'front-search-block__input', autofocus: true, placeholder: 'Hva vil du leie?' %>
+              <%= text_field_tag 'q', '', class: 'front-search-block__input', autofocus: true, placeholder: (t '.search_term_placeholder') %>
               <%= submit_tag 'Søk', class: 'front-search-block__search-button button button-primary' %>
             <% end %>
         </div>
@@ -24,7 +24,7 @@
 
     <div class="front-search-block__create-box" >
         <form action="<%= new_ad_path %>">
-            <button class="button button-primary" type="submit">Lei ut tingene dine her</button>
+            <button class="button button-primary" type="submit"><%= t '.rent_out_button' %></button>
         </form>
     </div>
 
@@ -32,7 +32,7 @@
 
 <div class="explainer-video-section">
     <details>
-        <summary><span class="explainer-video-section__title button">Se hvordan Plendit fungerer</span></summary>
+        <summary><span class="explainer-video-section__title button"><%= t '.explainer_video_summary' %></span></summary>
         <iframe class="explainer-video-section__video" width="560" height="315"
                 src="<%= Rails.configuration.x.frontpage.explainer_video_url %>" allowfullscreen></iframe>
     </details>
@@ -42,13 +42,11 @@
     <div class="if-branding-section">
         <div class="if-branding-section__centerer">
             <%= image_tag 'logos/if_150x148.png', size: '60x59', alt: '' %>
-            <h2>Skadeforsikring fra If</h2>
+            <h2><%= t '.if_branding.heading' %></h2>
             <p>
-                Slipp alle bekymringer. Alt du leier ut på Plendit blir
-                forsikret av If og ved en skade har du som utleier ingen
-                egenandel.
+                <%= t '.if_branding.copy' %>
                 <strong>
-                    <%= link_to 'Les mer om forsikring', Rails.configuration.x.customerservice.insurance_info, target: '_blank' %>.
+                    <%= link_to (t '.if_branding.link'), Rails.configuration.x.customerservice.insurance_info, target: '_blank' %>.
                 </strong>
             </p>
         </div>
@@ -58,13 +56,13 @@
 <% if @ads.present? %>
     <div class="container">
         <div class="latest-ads">
-            <h2>Utvalgte annonser</h2>
+            <h2><%= t '.selected_ads_heading' %></h2>
             <% @ads.each do |ad| %>
                 <div class="latest-ads__holder">
                     <%= render partial: 'shared/search_result_link', locals: { ad: ad } %>
                 </div>
             <% end %>
-            <%= button_to 'Se alle annonsene', search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
+            <%= button_to (t '.see_all_ads_button'), search_path, method: :get, form_class: 'u-inline', class: 'button button-primary u-push-down-only' %>
         </div>
     </div>
 <% end %>
