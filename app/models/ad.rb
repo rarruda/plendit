@@ -130,7 +130,7 @@ class Ad < ActiveRecord::Base
         Notification.create(
           user_id: self.user.id,
           is_system_message: true,
-          message: "Annonsen din \"#{self.display_title}\" er nå godkjent og publisert",
+          message: "Annonsen din \"#{self.decorate.display_title}\" er nå godkjent og publisert",
           notifiable: self
         )
       end
