@@ -1,0 +1,11 @@
+nb:
+  shared:
+    personal_bar:
+      my_page: 'Min side'
+      search_term_placeholder: 'Hva vil du leie?'
+      label_profile: 'Profil'
+      label_ads: 'Annonser'
+      label_activities: 'Aktiviter'
+      label_favorites: 'Favoritter'
+      label_rentals: 'Leiehistorikk'
+      label_payment: 'Betaling'
