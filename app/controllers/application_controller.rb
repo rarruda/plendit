@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
 
   before_action :enable_chat
 
+  before_action :set_locale
 
   # needed for lograge: (to report as 404, and not throw an exception)
   def route_not_found
@@ -18,6 +19,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
 
   def enable_chat
     @purechat_enabled = Plendit::Application.config.x.purechat_integration

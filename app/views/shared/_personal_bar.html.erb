@@ -4,20 +4,22 @@
             <div class="twelve columns">
                 <%
                     links = [
-                        { text: 'Profil',        icon: 'user',            path: private_profile_users_path },
-                        { text: 'Annonser',      icon: 'file-text-o ',    path: users_ads_path },
-                        { text: 'Aktiviteter',   icon: 'comments',        path: bookings_path },
-                        { text: 'Favoritter',    icon: 'heart',           path: users_favorite_ads_path },
-                        { text: 'Leiehistorikk', icon: 'history',         path: rental_history_users_path },
-                        { text: 'Betaling',      icon: 'credit-card',     path: payment_users_path },
+                        { id: :profile,    icon: 'user',         path: private_profile_users_path },
+                        { id: :ads,        icon: 'file-text-o ', path: users_ads_path },
+                        { id: :activities, icon: 'comments',     path: bookings_path },
+                        { id: :favorites,  icon: 'heart',        path: users_favorite_ads_path },
+                        { id: :rentals,    icon: 'history',      path: rental_history_users_path },
+                        { id: :payment,    icon: 'credit-card',  path: payment_users_path },
                     ]
 
-                    links.map { |e| e[:selected] = e[:text].downcase == selected.downcase }
+                    links.map { |e| e[:label] = t(".label_#{e[:id]}") }
+                    # todo: we don't use the selected flag at the moment.
+                    links.map { |e| e[:selected] = e[:id] == selected }
                 %>
 
                 <% links.each do |link| %>
                     <%= link_to link[:path], class: ['personal-bar__link'] do -%>
-                        <span class="personal-bar__link-icon"><%= icon link[:icon] %></span><%= link[:text] -%>
+                        <span class="personal-bar__link-icon"><%= icon link[:icon] %></span><%= link[:label] -%>
                     <%- end %>
                 <% end %>
              </div>
