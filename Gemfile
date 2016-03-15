@@ -189,6 +189,8 @@ end
 
 group :development do
   gem 'mailcatcher'
+  # Uncomment next line to get debug info about translation resolving
+  #gem 'i18n-debug'
 end
 
 group :test do
