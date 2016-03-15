@@ -31,8 +31,17 @@
             </div>
         <% else %>
             <div class="main-price__row">
-                <% rule.errors.values.flatten.each do |msg| %>
-                    <div><%= msg %></div>
+                <span class="main-price__label">Ved utleie over:</span>
+                <span class="main-price__value"><%= rule.effective_from %> dager</span>
+            </div>
+
+            <div class="main-price__row">
+                <span class="main-price__label">Reduseres prisen til:</span>
+                <span class="main-price__value"><%= format_monetary_full_pretty(rule.payin_amount) %></span>
+            </div>
+            <div class="main-price__row">
+                <% rule.errors.values.flatten.each do |e| %>
+                    <div><%= icon 'exclamation-triangle' %> <%= e %></div>
                 <% end %>
             </div>
         <% end %>

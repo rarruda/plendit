@@ -41,7 +41,7 @@ class Ad < ActiveRecord::Base
     unless: :new_record?,
     if:     :motor?
 
-  validates :estimated_value, numericality: { less_than: 250_000_00, allow_nil: true, message: 'Båt kan ha en maks antatt verdi på 250.000 kroner.'},
+  validates :estimated_value, numericality: { less_than: 750_000_00, allow_nil: true, message: 'Båt kan ha en maks antatt verdi på 750.000 kroner.'},
     unless: :new_record?,
     if:     :boat?
 
@@ -68,7 +68,7 @@ class Ad < ActiveRecord::Base
   # If there were any relevant changes, set status to draft:
   before_save :edit!, if: :should_be_set_to_draft?
 
-  before_create :build_payin_rule
+  before_create :build_payin_rule, if: "self.payin_rules.empty?"
 
   before_create :build_ad_item
 
@@ -332,12 +332,37 @@ class Ad < ActiveRecord::Base
     self.__elasticsearch__.update_document if self.published?
   end
 
+  # helper methods for determining boat sizes:
+  def medium_boat?
+    self.boat? ? ( boat_size == :medium ) : false
+  end
+
+  def small_boat?
+    self.boat? ? ( boat_size == :small ) : false
+  end
+
   private
 
   # If there were any changes, in model, or nested model, except in status or refusal_reason, return true:
   def should_be_set_to_draft?
     return false if self.draft?
     self.payin_rules.any?{|pr| pr.changed?} || self.ad_images.any?{|ai| ai.changed? } || self.location.changed? || self.changes.except('status','refusal_reason').present?
+  end
+
+  # determine the size of the boat
+  def boat_size
+    boat_owner_premium_threshold = Plendit::Application.config.x.insurance.boat_owner_premium_threshold
+    boat_max_value = Plendit::Application.config.x.insurance.boat_max_value
+
+    if !self.boat? || !self.estimated_value.is_a?(Integer)
+      return :illegal
+    elsif self.estimated_value.between?( 0, boat_owner_premium_threshold )
+      return :small
+    elsif self.estimated_value.between?( boat_owner_premium_threshold, boat_max_value )
+      return :medium
+    else
+      return :illegal
+    end
   end
 
   def boats_with_license_must_have_terms_acceptance_or_reg_num

@@ -1072,3 +1072,20 @@ window.controllers.emptySearchExpander = {
     }
 };
 
+window.controllers.boatPriceInsuranceMessage = {
+    dependencies: ["$element", "utils"],
+    callable: function(ele, utils) {
+        var input = ele.querySelector("input");
+        var threshold = parseInt(ele.getAttribute("data-price-threshold"), 10);
+        var infoEle = ele.querySelector("[data-insurance-info]");
+
+        input.addEventListener("change", updateInsuranceInfoBox);
+        input.addEventListener("keyup", updateInsuranceInfoBox);
+
+        function updateInsuranceInfoBox(evt) {
+            var current = parseInt(evt.target.value, 10);
+            console.log(current, threshold);
+            infoEle.classList.toggle('u-hidden', current <= threshold);
+        }
+    }
+};

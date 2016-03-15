@@ -311,6 +311,7 @@ class AdsController < ApplicationController
 
   # GET /ads/1/edit
   def edit
+    @boat_price_threshold = Plendit::Application.config.x.insurance.boat_owner_premium_threshold / 100
   end
 
   def edit_availability

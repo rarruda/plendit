@@ -18,9 +18,11 @@
         <% when 'boat' %>
             <h1 class="u-push-down-only">Legg ut båt</h1>
 
+<%# FIXME:
             <small>
-                Inntil videre kan man kun leie ut båter opp til 24 fot og 150 hestekrefter.
+                Det er kun mulig å leie ut båter verdt opp til 750.000 kroner.
             </small>
+%>
         <% when 'motor' %>
             <h1 class="u-push-down-only">Legg ut kjøretøy</h1>
             <small>
@@ -38,7 +40,7 @@
         </div>
 
         <div class="u-push-down-only">
-            <%#= f.label :body, 'Beskrivelse:' disabled to deal with ad blocking, hence use of label_tag  %> 
+            <%#= f.label :body, 'Beskrivelse:' disabled to deal with ad blocking, hence use of label_tag  %>
             <%= label_tag 'body_id', 'Beskrivelse:' %>
             <% if @ad.category == 'boat' %>
                 <small>Dersom båten har seil eller motor skal båtens lengde og eventuelt antall hestekrefter skrives inn her. </small>
@@ -63,10 +65,14 @@
                 <%= f.text_field :registration_number, class: 'u-full-width', placeholder: "Regnr" %>
             </div>
         <% when 'boat' %>
-            <div class="u-push-down-only">
+            <div class="u-push-down-only" data-controller="boatPriceInsuranceMessage" data-price-threshold="<%= @boat_price_threshold %>">
                 <%= f.label :estimated_value_in_h, 'Antatt verdi:' %>
-                <%= f.telephone_field( :estimated_value_in_h ) do %>
-                <% end %>
+                <%= f.telephone_field( :estimated_value_in_h ) %>
+
+                <div data-insurance-info class="<%= @ad.estimated_value_in_h.present? && ( @ad.estimated_value_in_h > @boat_price_threshold ) ? '' : 'u-hidden' %>">
+                    Fixme: Prosa om egenandel for båteier her.
+                </div>
+
             </div>
             <div data-controller="regnumRevealer">
                 <div class="u-push-down">
@@ -77,19 +83,21 @@
                         </span>
                     <% end %>
                 </div>
-                <div class="<%= @ad.boat_license_required ? '' : 'u-hidden' %>"
-                     data-hidden-section>
+                <div class="<%= @ad.boat_license_required ? '' : 'u-hidden' %>" data-hidden-section>
                     <label>Registreringsnummer:</label>
                     <%= f.text_field :registration_number, class: 'u-full-width', placeholder: 'Regnr' %>
                     <div class="help-box u-push-down">
-                    Jeg aksepterer at dersom jeg ikke kan fremvise kjøpekontrakt eller registrering har jeg ikke forsikring for skader hvor båten ikke kan lokaliseres (underslag og tyveri).
+                        Jeg aksepterer at dersom jeg ikke kan fremvise kjøpekontrakt eller registrering har jeg ikke forsikring for skader hvor båten ikke kan lokaliseres (underslag og tyveri).
+                    </div>
+
+                    <%= f.label :accepted_boat_insurance_terms do %>
+                        <%= f.check_box :accepted_boat_insurance_terms %>
+                        <span class="label-body">
+                            Jeg har lest og godtatt dette.
+                        </span>
+                    <% end %>
+
                 </div>
-                <%= f.label :accepted_boat_insurance_terms do %>
-                    <%= f.check_box :accepted_boat_insurance_terms %>
-                    <span class="label-body">
-                        Jeg har lest og godtatt dette.
-                    </span>
-                <% end %>
             </div>
 
         <% end %>
@@ -127,7 +135,7 @@
                         {},
                         { class: 'u-full-width' } ) %>
 
-                    <a class="u-pull-right" href="#" data-controller="newLocation" type="a" data-url="<%= new_location_users_ad_path %>">Skriv ny adresse</a>
+                    <a class="u-pull-right" href="#" data-controller="newLocation" data-url="<%= new_location_users_ad_path %>">Skriv ny adresse</a>
 
                 <% else %>
                     <!-- this condition should never be true -->
@@ -174,41 +182,45 @@
 
     <details data-controller="payinAdder"
              data-estimate-url="<%= payout_estimate_ad_payin_rules_path @ad %>">
-        <%= form_for( PayinRule.new, url: (payout_estimate_ad_payin_rules_path @ad), data: { estimate_form: '' }, :html => {:'data-type' => 'html'} ) do |f| %>
-            <%= f.hidden_field :effective_from ,   data: { effective_from: ''} %>
-            <%= f.hidden_field :payin_amount_in_h, data: { payin_amount:   ''} %>
-        <% end %>
-
         <summary>
-            <span type="button" class="button">Legg til spesialpris</span>
+            <span class="button">Legg til spesialpris</span>
         </summary>
 
-        <div class="price-adder">
-            <%= form_for( PayinRule.new, url: (ad_payin_rules_path @ad), data: { new_rule_form: '' } ) do |f| %>
-
-                <div class="help-box u-push-down">
-                    Pris per enkelt dag må være minst
-                    kr <%= ApplicationController.helpers.format_monetary_full_pretty @ad.main_payin_rule.min_payin_amount %>
-                    Vil du gi en lavere pris per dag ved lengre
-                    leieforhold, kan du gjøre det her.
-                </div>
-                <div>
-                    <span class="main-price__label">Ved utleie over</span>
-                    <%= f.telephone_field :effective_from, pattern: '\d*', class: 'price-adder__days', min: 2 %>
-                    <span>dager</span>
-                </div>
-                <div>
-                    <span class="main-price__label">Reduseres pris per dag til</span>
-                    <%= f.telephone_field :payin_amount_in_h, pattern: '\d*', class: 'price-adder__price' %>
-                    <span>kr</span>
-                </div>
-                <div data-estimate>
-                    <%# estimates are ajaxed in here %>
-                </div>
-                <button type="button" class="button" data-save disabled>Lagre</button>
-                <button type="button" class="button" data-cancel>Avbryt</button>
-
+        <div>
+            <%= form_for( PayinRule.new, url: (payout_estimate_ad_payin_rules_path @ad), data: { estimate_form: '' }, :html => {:'data-type' => 'html', :id => 'ignore_1'} ) do |f| %>
+                <%= f.hidden_field :effective_from ,   data: { effective_from: ''}, id: 'ignore_2' %>
+                <%= f.hidden_field :payin_amount_in_h, data: { payin_amount:   ''}, id: 'ignore_3' %>
             <% end %>
+
+            <div class="price-adder">
+                <%= form_for( PayinRule.new, url: (ad_payin_rules_path @ad), data: { new_rule_form: '' } ) do |f| %>
+
+                    <div class="help-box u-push-down">
+                        <%# FIXME: This is buggy, for boats, the minimum price is dependent on the estimated_value which can be edited dynamically.
+                            While we render the value below only on page load time. %>
+                        Pris per enkelt dag må være minst
+                        kr <%= ApplicationController.helpers.format_monetary_full_pretty @ad.main_payin_rule.min_payin_amount %>
+                        Vil du gi en lavere pris per dag ved lengre
+                        leieforhold, kan du gjøre det her.
+                    </div>
+                    <div>
+                        <span class="main-price__label">Ved utleie over</span>
+                        <%= f.telephone_field :effective_from, pattern: '\d*', class: 'price-adder__days' %>
+                        <span>dager</span>
+                    </div>
+                    <div>
+                        <span class="main-price__label">Reduseres pris per dag til</span>
+                        <%= f.telephone_field :payin_amount_in_h, pattern: '\d*', class: 'price-adder__price' %>
+                        <span>kr</span>
+                    </div>
+                    <div data-estimate>
+                        <%# estimates are ajaxed in here %>
+                    </div>
+                    <button type="button" class="button" data-save disabled>Lagre</button>
+                    <button type="button" class="button" data-cancel>Avbryt</button>
+
+                <% end %>
+            </div>
         </div>
     </details>
 

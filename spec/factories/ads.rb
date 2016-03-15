@@ -18,6 +18,9 @@ FactoryGirl.define do
       registration_number {"AA01234"}
       registration_group  {"car"}
     end
+    trait :boat do
+      category {"boat"}
+    end
 
     factory :ad_bap do
       bap
@@ -30,5 +33,21 @@ FactoryGirl.define do
     factory :ad_realestate do
       realestate
     end
+
+    factory :ad_boat do
+      boat
+    end
+
+    factory :ad_small_boat do
+      boat
+      estimated_value 149_900_00
+    end
+
+    factory :ad_medium_boat do
+      boat
+      estimated_value 150_001_00
+      #accepted_boat_insurance_terms { true }
+    end
+
   end
 end
