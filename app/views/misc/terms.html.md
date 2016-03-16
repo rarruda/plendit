@@ -155,7 +155,7 @@ Plendit-forsikringen gjelder ikke når du leier av en bedrift. Her gjelder bedri
 
 Forsikringen er en del av prisen som leietaker betaler på Plendit.
 
-Leietaker er ansvarlig for egenandel ved skade på Kjøretøy, Eiendom, Ting og på båter med en verdi på 150 000 kr eller mindre. Har båten en verdi på Kr 150 001 eller mer, har leietaker også en egenandel. Dersom If Skadeforsikring fastsetter at en skade har skjedd i leieperioden vil et krav bli sendt til leietaker. Dersom kravet ikke er betalt innen 14 dager, sendes kravet til inkasso etter gjeldende regler.
+Leietaker er ansvarlig for egenandel ved skade på Kjøretøy, Eiendom, Ting og på båter med en verdi på 150 000 kr eller mindre. Har båten en verdi på Kr 150 001 eller mer, har leietaker også en egenandel. Dersom If Skadeforsikring fastsetter at en skade har skjedd i leieperioden vil et krav bli sendt til leietaker/utleier. Dersom kravet ikke er betalt innen 14 dager, sendes kravet til inkasso etter gjeldende regler.
 
 Egenandel ved skade:
 
