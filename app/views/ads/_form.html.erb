@@ -71,7 +71,7 @@
 
                 <div data-insurance-info class="<%= @ad.estimated_value_in_h.present? && ( @ad.estimated_value_in_h > @boat_price_threshold ) ? '' : 'u-hidden' %>">
                     <%= t '.owner_has_deductible_for_boat' %>
-                    <%= link_to t('.read_more_here'), '/docs/if/Sammendrag_av_Korttidsforsikring_Baat.pdf' %>.
+                    <%= link_to t('.read_more_here'), '/docs/if/Sammendrag_av_Korttidsforsikring_Baat.pdf', target: '_blank' %>.
                 </div>
 
             </div>
