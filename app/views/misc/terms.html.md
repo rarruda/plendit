@@ -134,9 +134,9 @@ Tingforsikringen dekker skade på Stort og Smått (løsøre)*
 
 Leietaker er ansvarlig for å levere tilbake det han har leid i samme stand til avtalt tid.
 
-Alt på Plendit er forsikret. Men leietaker vil holdes ansvarlig for egenandel ved skade. Ved grov uaktsomhet eller misbruk kan leietaker bli holdt ansvarlig utover egenandelen.
+Alt på Plendit er forsikret. 
 
-Ved aksept av disse vilkårene, aksepteres også IF sine forsikringsvilkår.
+Ved aksept av disse vilkårene, aksepteres også IF sine forsikringsvilkår. Du kan lese disse her: https://plendit.zendesk.com/
 
 
 ## Ansvarsforsikring for kjøretøy
@@ -155,7 +155,7 @@ Plendit-forsikringen gjelder ikke når du leier av en bedrift. Her gjelder bedri
 
 Forsikringen er en del av prisen som leietaker betaler på Plendit.
 
-Leietaker er ansvarlig for egenandel ved skade. Dersom If Skadeforsikring fastsetter at en skade har skjedd i leieperioden vil et krav bli sendt til leietaker. Dersom kravet ikke er betalt innen 14 dager, sendes kravet til inkasso etter gjeldende regler.
+Leietaker er ansvarlig for egenandel ved skade på Kjøretøy, Eiendom, Ting og på båter med en verdi på 150 000 kr eller mindre. Har båten en verdi på Kr 150 001 eller mer, har leietaker også en egenandel. Dersom If Skadeforsikring fastsetter at en skade har skjedd i leieperioden vil et krav bli sendt til leietaker. Dersom kravet ikke er betalt innen 14 dager, sendes kravet til inkasso etter gjeldende regler.
 
 Egenandel ved skade:
 
@@ -165,6 +165,10 @@ Egenandel ved skade:
   * Eiendom kr. 6.000
   * Båt opptil kr. 5.000
   * Ting kr. 1.500
+  
+  Les mer om egenandelen ved skade her: https://plendit.zendesk.com/hc/no/articles/206621379-Egenandel
+  
+  Ved grov uaktsomhet eller misbruk kan leietaker/utleier bli holdt ansvarlig utover egenandelen.
 
 
 Skader skal meldes på skademeldingsskjemaet på Plendit sin nettside. Plendit videreformidler kundeinformasjon og omfang av skade til If Skadeforsikring som forestår skadeoppgjør.
