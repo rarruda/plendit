@@ -26,12 +26,14 @@ Plendit::Application.config.x.map.default_bounds             = { ne_lat: 59.97, 
 Plendit::Application.config.x.map.google_maps_js_api_key     ='AIzaSyAwciykMKFfGsTiDrqAwg80C5FCSq6vQr8'
 
 Plendit::Application.config.x.customerservice.email          = 'kundesenter@plendit.no'
+Plendit::Application.config.x.customerservice.phone_number   = '944 36 336'
 Plendit::Application.config.x.customerservice.contact_form   = 'https://plendit.zendesk.com/hc/no/requests/new'
 Plendit::Application.config.x.customerservice.website        = 'https://plendit.zendesk.com/'
 Plendit::Application.config.x.customerservice.insurance_info = 'https://plendit.zendesk.com/hc/no/articles/207314345-Forsikring'
 Plendit::Application.config.x.customerservice.privacy_info   = '/privacy'
 Plendit::Application.config.x.customerservice.road_assistance_number = '944 36 336'
 
+Plendit::Application.config.x.organization.press_contact_phone_number = '970 44 399'
 Plendit::Application.config.x.organization.phone_number      = nil #'+47 97 04 43 99'
 Plendit::Application.config.x.organization.address           = 'Plendit AS, Grensen 5-7, 0159 Oslo'
 Plendit::Application.config.x.organization.org_id            = '915 252 230'
