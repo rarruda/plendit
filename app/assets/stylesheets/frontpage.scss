@@ -251,3 +251,17 @@
     }
 }
 
+.front-hero {
+     &__title {
+        font-size: 6em;
+        text-align: center;
+    }
+
+    &__buttons {
+        text-align: center;
+    }
+}
+
+.white-front-block {
+    background-color: white;
+}

@@ -4,6 +4,7 @@ nb:
       splash_title: 'LEI DET DU TRENGER'
       search_term_placeholder: 'Hva vil du leie?'
       rent_out_button: 'Lei ut tingene dine her'
+      request_item_button: 'Legg ut ønsker leid'
       explainer_video_summary: 'Se hvordan Plendit fungerer'
       see_all_ads_button: 'Se alle annonsene'
       selected_ads_heading: 'Utvalgte annonser'

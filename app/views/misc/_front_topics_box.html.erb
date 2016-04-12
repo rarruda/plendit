@@ -1,0 +1,46 @@
+<%
+    topics = Rails.configuration.x.frontpage.popular_ads
+    topics = topics.map { |t|
+        t[:style] = "background-image: url(#{image_path(t[:image])});"
+        t[:href] = (search_path q: t[:term], category: [t[:category]])
+        t
+    }
+%>
+
+<div class="container">
+    <div class="row">
+        <div class="twelve columns front-popular-box">
+            <div class="front-popular-box">
+                <h2 class="front-popular-box__title">Inspirasjon</h2>
+                <div class="front-popular-box__row1">
+                     <%= link_to topics[0][:href], style: topics[0][:style], class: "front-popular-box__link" do %>
+                         <span class="front-popular-box__link__title"><%= topics[0][:title] %></span>
+                     <% end %>
+                     <%= link_to topics[1][:href], style: topics[1][:style], class: "front-popular-box__link" do %>
+                         <span class="front-popular-box__link__title"><%= topics[1][:title] %></span>
+                     <% end %>
+                </div>
+                <div class="front-popular-box__row2">
+                     <%= link_to topics[2][:href], style: topics[2][:style], class: "front-popular-box__link" do %>
+                         <span class="front-popular-box__link__title"><%= topics[2][:title] %></span>
+                     <% end %>
+
+                    <div class="front-popular-box__col1">
+                         <%= link_to topics[3][:href], style: topics[3][:style], class: "front-popular-box__link" do %>
+                             <span class="front-popular-box__link__title"><%= topics[3][:title] %></span>
+                         <% end %>
+
+                         <%= link_to topics[4][:href], style: topics[4][:style], class: "front-popular-box__link" do %>
+                             <span class="front-popular-box__link__title"><%= topics[4][:title] %></span>
+                         <% end %>
+                    </div>
+
+                     <%= link_to topics[5][:href], style: topics[5][:style], class: "front-popular-box__link" do %>
+                         <span class="front-popular-box__link__title"><%= topics[5][:title] %></span>
+                     <% end %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
