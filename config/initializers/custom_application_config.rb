@@ -174,40 +174,30 @@ Plendit::Application.config.x.frontpage.popular_ads = [
 
 Plendit::Application.config.x.frontpage.topics = [
   { title:    'Selskap',
-    tag:      'campaign_1',
-    term:     '',
-    category: '',
+    tag:      'topic_1',
     image:    'promo_imgs/bil.jpg'
   },
   { title:    'Friluftsliv',
-    tag:      'campaign_2',
-    term:     '',
-    category: '',
+    tag:      'topic_2',
     image:    'promo_imgs/bolig.jpg'
   },
   { title:    'Oppussing',
-    tag:      'campaign_3',
-    term:     '',
-    category: '',
+    tag:      'topic_3',
     image:    'promo_imgs/verktoy.jpg'
   },
   { title:    'Bytransport',
-    tag:      'campaign_4',
-    term:     '',
-    category: '',
+    tag:      'topic_4',
     image:    'promo_imgs/scooter.jpg'
   },
 
-  { title:    'Sykkel',
-    term:     'sykkel',
-    category: 'bap',
-    image:    'promo_imgs/sykkel.jpg'
-  },
-  { title:    'Halloween-kostyme',
-    term:     'kostyme',
-    category: 'bap',
-    image:    'promo_imgs/halloween.jpg'
-  }
+  # { title:    'Sykkel',
+  #   tag:      'topic_5',
+  #   image:    'promo_imgs/sykkel.jpg'
+  # },
+  # { title:    'Halloween-kostyme',
+  #   tag:      'topic_6',
+  #   image:    'promo_imgs/halloween.jpg'
+  # }
 ]
 
 Plendit::Application.config.x.frontpage.hero_videos = [

@@ -2,7 +2,7 @@
     topics = Rails.configuration.x.frontpage.topics
     topics = topics.map { |t|
         t[:style] = "background-image: url(#{image_path(t[:image])});"
-        t[:href] = (search_path q: t[:term], category: [t[:category]])
+        t[:href] = search_path(tag: t[:tag])
         t
     }
 %>
@@ -13,7 +13,7 @@
             <div class="front-topic-box">
                 <h2 class="front-topic-box__title">Inspirasjon</h2>
                 
-                <% if true %>
+                <% if topics.size > 5 %>
 
                     <div class="front-topic-box__row1">
                          <%= link_to topics[4][:href], style: topics[4][:style], class: "front-topic-box__link" do %>
