@@ -265,3 +265,92 @@
 .white-front-block {
     background-color: white;
 }
+
+.front-topic-box {
+    text-align: center;
+    margin-top: $standard-spacing;
+    margin-bottom: $standard-spacing * 4;
+
+    &__row1,
+    &__row2 {
+        display: flex;
+        height: 240px;
+    }
+
+    &__row2 {
+        height: 400px;
+    }
+
+    &__col1 {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__link {
+        flex: 1 1 auto;
+        text-decoration: none;
+        display: flex;
+        user-select: none;
+        color: white;
+        font-size: 2rem;
+        text-shadow: 0 1px 10px rgba(black, 0.7),
+                     0 1px 2px rgba(black, 0.5);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+        margin: 11px 11px 10px 10px;
+        text-align: center;
+        flex-direction: column;
+        justify-content: center;
+        align-content: stretch;
+        align-items: center;
+        position: relative;
+
+        @media (max-width: $tablet) {
+            margin: 2px;
+        }
+
+        /* Fancy shadow effect thingy */
+        &:before,
+        &:after {
+          z-index: -1;
+          position: absolute;
+          content: "";
+          bottom: 15px;
+          left: 10px;
+          width: 50%;
+          top: 80%;
+          max-width:300px;
+          background: #777;
+          box-shadow: 0 15px 10px #777;
+          transform: rotate(-3deg);
+        }
+
+        &:after {
+          transform: rotate(3deg);
+          right: 10px;
+          left: auto;
+        }
+
+        &__title:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: rgba(black, 0);
+          transition: 0.4s;
+        }
+        &:hover &__title:before, &:focus &__title:before {
+          transition: 0s;
+          background-color: rgba(black, 0.1);
+        }
+        &:active &__title:before {
+          transition: 0s;
+          background-color: rgba(black, 0.25);
+        }
+    }
+}
+
