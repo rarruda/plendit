@@ -40,4 +40,9 @@ class Identity < ActiveRecord::Base
     end
   end
 
+  def bankid_verified?
+    # 5 is a magic number for bankID: http://techdocs.spid.no/endpoints/GET/user/%7Bid%7D/level/#success-200-ok
+    ( self.provider == 'spid' && self.verification_level == 5 )
+  end
+
 end
