@@ -28,6 +28,7 @@ class Identity < ActiveRecord::Base
         i.profile_url = auth.extra.raw_info.url
         i.image_url   = auth.info.image
         i.nickname    = auth.info.nickname
+        # auth.info.image is usually gravatar for spid... maybe we should change it here?
       else
         LOG.error message: "unsupported auth.provider:#{auth.provider}, dropping some information on the floor"
       end
