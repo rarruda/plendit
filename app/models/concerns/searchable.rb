@@ -44,6 +44,13 @@ module Searchable
         }
       end
 
+      if options.has_key? 'tag'
+        __set_filters.({
+            match: {
+              tags: options[:tag]
+            }
+        })
+      end
 
       if options.has_key? 'price_min'
         __set_filters.({
