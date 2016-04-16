@@ -18,6 +18,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       if @user.persisted?
         sign_in_and_redirect @user, event: :authentication
         set_flash_message(:notice, :success, kind: "#{provider}".capitalize) if is_navigational_format?
+
+        # refresh verification level for SPiD:
+        # should be implemented via callback actually: http://techdocs.spid.no/callbacks/
+        # and not upon each login. but let it be for now...
+        IdentityRefreshSpidVerificationLevelJob.perform_later(@user.id) if ( @user.identities.where(provider: 'spid').count > 0 )
       else
         # fixme: this never happens, if it does, the code below is probably wrong.
         session["devise.#{provider}_data"] = env["omniauth.auth"]
