@@ -13,3 +13,6 @@ nb:
         link: 'Les mer om forsikring'
         copy: |
           Slipp alle bekymringer. Alt du leier ut på Plendit blir forsikret av If.
+
+    front_topics_box:
+      see_all_ads: 'Se alle annonsene'
