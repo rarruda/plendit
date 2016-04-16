@@ -260,6 +260,12 @@
     &__buttons {
         text-align: center;
     }
+
+    &__button {
+        min-width: 200px;
+        margin-left: 6px;
+        margin-right: 6px;
+    }
 }
 
 .white-front-block {
@@ -353,4 +359,3 @@
         }
     }
 }
-
