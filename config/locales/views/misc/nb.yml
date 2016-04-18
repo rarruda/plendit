@@ -1,7 +1,7 @@
 nb:
   misc:
     frontpage:
-      splash_title: 'LEI DET DU TRENGER'
+      splash_title: 'HVA VIL DU LEIE?'
       search_term_placeholder: 'Hva vil du leie?'
       rent_out_button: 'Leg ut til leie'
       request_item_button: 'Legg ut ønsker leid'

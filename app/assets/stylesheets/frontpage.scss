@@ -252,9 +252,14 @@
 }
 
 .front-hero {
-     &__title {
-        font-size: 6em;
+    background-color: white;
+    padding-bottom: $standard-spacing * 2;
+
+    &__title {
+        font-size: 4em;
         text-align: center;
+        padding-top: 60px;
+        padding-bottom: 60px;
     }
 
     &__buttons {
@@ -266,10 +271,6 @@
         margin-left: 6px;
         margin-right: 6px;
     }
-}
-
-.white-front-block {
-    background-color: white;
 }
 
 .front-topic-box {

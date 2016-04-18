@@ -1,5 +1,5 @@
-<div class="white-front-block front-hero">
-    <h1 class="front-hero__title">Lei det du trenger</h1>
+<div class="front-hero">
+    <h1 class="front-hero__title"><%= t '.splash_title'%></h1>
 
     <div class="front-hero__buttons">
         <%# fixme: paths on the buttons %>
@@ -8,10 +8,8 @@
     </div>
 </div>
 
-<div class="white-front-block">
-    <div class="container front-topics-block">
-        <%= render partial: 'front_topics_box' %>
-    </div>
+<div>
+    <%= render partial: 'front_topics_box' %>
 </div>
 
 <div class="explainer-video-section">
