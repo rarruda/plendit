@@ -12,7 +12,16 @@ nb:
         heading: 'Skadeforsikring fra If'
         link: 'Les mer om forsikring'
         copy: |
-          Slipp alle bekymringer. Alt du leier ut på Plendit blir forsikret av If.
+          Slipp alle bekymringer. Alt du leier ut på Plendit blir
+          forsikret av If.
 
     front_topics_box:
       see_all_ads: 'Se alle annonsene'
+
+    front_wishlist_box:
+      title: 'Fant du ikke det du ønsker å leie?'
+      button: 'Legg ut ønsker leid'
+      copy: |
+        Registrer hva du ønsker å leie så vidreformidler vi ønsket ditt
+        til våre medlemmer. Vi sender deg en e-post om noen legger ut
+        det du er ute etter.
