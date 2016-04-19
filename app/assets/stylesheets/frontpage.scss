@@ -287,6 +287,10 @@
     &__row2 {
         display: flex;
         height: 240px;
+
+        @media (max-width: $mobile) {
+            flex-direction: column;
+        }
     }
 
     &__row2 {
@@ -298,6 +302,10 @@
         flex: 1 1 auto;
         display: flex;
         flex-direction: column;
+
+        @media (max-width: $mobile) {
+            height: 140px;
+        }
     }
 
     &__link {
