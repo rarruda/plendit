@@ -206,14 +206,14 @@ a {
 
   &.button-secondary {
     color: #fff;
-    background-color: gold;
+    background-color: $color-golden;
     border-color: rgba(black, 0);
 
     &:hover, &:focus {
-      background-color: darken(gold, 5);
+      background-color: darken($color-golden, 5);
     }
     &:active {
-      background-color: darken(gold, 10);
+      background-color: darken($color-golden, 10);
     }
   }
 
