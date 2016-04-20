@@ -254,12 +254,17 @@
 .front-hero {
     background-color: white;
     padding-bottom: $standard-spacing * 2;
+    background-image: url(image-path("bike_low-min.jpg"));
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
 
     &__title {
         font-size: 4em;
         text-align: center;
         padding-top: 60px;
         padding-bottom: 60px;
+        color: white;
 
         @media (max-width: $mobile) {
             font-size: 2em;

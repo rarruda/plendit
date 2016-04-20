@@ -189,15 +189,14 @@ Plendit::Application.config.x.frontpage.topics = [
     tag:      'topic_4',
     image:    'promo_imgs/scooter.jpg'
   },
-
-  # { title:    'Sykkel',
-  #   tag:      'topic_5',
-  #   image:    'promo_imgs/sykkel.jpg'
-  # },
-  # { title:    'Halloween-kostyme',
-  #   tag:      'topic_6',
-  #   image:    'promo_imgs/halloween.jpg'
-  # }
+  { title:    'Sykkel',
+    tag:      'topic_5',
+    image:    'promo_imgs/sykkel.jpg'
+  },
+  { title:    'Halloween-kostyme',
+    tag:      'topic_6',
+    image:    'promo_imgs/halloween.jpg'
+  }
 ]
 
 Plendit::Application.config.x.frontpage.hero_videos = [
