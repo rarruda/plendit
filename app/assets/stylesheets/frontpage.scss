@@ -295,12 +295,17 @@
 
         @media (max-width: $mobile) {
             flex-direction: column;
+            height: auto;
         }
     }
 
     &__row2 {
         height: 400px;
         margin-bottom: $standard-spacing;
+        @media (max-width: $mobile) {
+            flex-direction: column;
+            height: auto;
+        }
     }
 
     &__col1 {
@@ -309,12 +314,12 @@
         flex-direction: column;
 
         @media (max-width: $mobile) {
-            height: 140px;
+            height: auto;
         }
     }
 
     &__link {
-        flex: 1 1 auto;
+        flex: 1 1;
         text-decoration: none;
         display: flex;
         user-select: none;
@@ -335,6 +340,10 @@
 
         @media (max-width: $tablet) {
             margin: 6px;
+        }
+
+        @media (max-width: $mobile) {
+            height: 126px;
         }
 
         /* Fancy shadow effect thingy */
