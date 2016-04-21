@@ -253,7 +253,6 @@
 
 .front-hero {
     background-color: white;
-    padding-bottom: $standard-spacing * 2;
     background-image: url(image-path("bike_low-min.jpg"));
     background-repeat: no-repeat;
     background-size: cover;
@@ -269,11 +268,12 @@
         @media (max-width: $mobile) {
             font-size: 2em;
         }
-
     }
 
     &__buttons {
         text-align: center;
+        background-color: rgba(black, 0.60);
+        padding-bottom: $standard-spacing;
     }
 
     &__button {
