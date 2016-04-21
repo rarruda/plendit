@@ -4,6 +4,28 @@
             <h1>
                 Her kommer Legg til ny ting.
             </h1>
+            <p>
+                <%= form_for :wanted_item_request, url: users_wanted_item_request_index_path do |f| %>
+                  <p>
+                    <%= f.label :description %><br>
+                    <%= f.text_field :description %>
+                  </p>
+                 
+                  <p>
+                    <%= f.label :email %><br>
+                    <%= f.text_area :email %>
+                  </p>
+                 
+                  <p>
+                    <%= f.label :place %><br>
+                    <%= f.text_area :place %>
+                  </p>
+                 
+                  <p>
+                    <%= f.submit %>
+                  </p>
+                <% end %>
+            </p>
         </div>
     </div>
 </div>

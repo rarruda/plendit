@@ -5,4 +5,8 @@ class WantedItemRequestController < ApplicationController
   end
 
 
+  def create
+    render plain: params[:wanted_item_request].inspect
+  end
+
 end
