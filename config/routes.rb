@@ -110,6 +110,8 @@ Rails.application.routes.draw do
 
       resources :ad_images, only: [:index, :create, :update, :destroy]
     end
+
+    resources :wanted_item_request, path: 'wanted'
   end
 
   get 'user/:id', to: 'users#show', as: 'user'
