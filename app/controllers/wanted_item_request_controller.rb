@@ -1,7 +1,7 @@
 class WantedItemRequestController < ApplicationController
 
   def index
-
+    @requests = WantedItemRequest.all
   end
 
   def create

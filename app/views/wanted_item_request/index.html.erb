@@ -4,6 +4,12 @@
             <h1>
                 Her kommer liste med ting som trengs.
             </h1>
+            <ol>
+                <% @requests.each do |e| %>
+                    <li>
+                        <%= e.description %> <%= e.place %>
+                    </li>
+                <% end %>
         </div>
     </div>
 </div>
