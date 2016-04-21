@@ -177,17 +177,17 @@ Plendit::Application.config.x.frontpage.topics = [
     tag:      'Hagerydding',
     image:    'topics/hagerydding.jpg'
   },
-  { title:    'Kjøretøy',
-    tag:      'Kjøretøy',
-    image:    'topics/kjoretoy.jpg'
+  { title:    'Selskap',
+    tag:      'Selskap',
+    image:    'topics/selskap.jpg'
   },
   { title:    'Oppussing',
     tag:      'Oppussing',
     image:    'topics/oppussing.jpg'
   },
-  { title:    'Selskap',
-    tag:      'Selskap',
-    image:    'topics/selskap.jpg'
+  { title:    'Kjøretøy',
+    tag:      'Kjøretøy',
+    image:    'topics/kjoretoy.jpg'
   },
   { title:    'Sjøen',
     tag:      'Sjøen',

@@ -286,7 +286,6 @@
 .front-topic-box {
     text-align: center;
     margin-top: $standard-spacing;
-    margin-bottom: $standard-spacing * 4;
 
     &__row1,
     &__row2 {
@@ -316,6 +315,11 @@
         @media (max-width: $mobile) {
             height: auto;
         }
+    }
+
+    &__button {
+        margin-top: $standard-spacing;
+        margin-bottom: $standard-spacing * 3;
     }
 
     &__link {

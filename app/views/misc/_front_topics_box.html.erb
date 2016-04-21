@@ -13,39 +13,37 @@
             <div>
                 <h2 class="front-topic-box__title">Inspirasjon</h2>
                 
-                <% if topics.size > 5 %>
-
-                    <div class="front-topic-box__row1">
-                         <%= link_to topics[4][:href], style: topics[4][:style], class: "front-topic-box__link" do %>
-                             <span class="front-topic-box__link__title"><%= topics[4][:title] %></span>
-                         <% end %>
-                         <%= link_to topics[5][:href], style: topics[5][:style], class: "front-topic-box__link" do %>
-                             <span class="front-topic-box__link__title"><%= topics[5][:title] %></span>
-                         <% end %>
-                    </div>
-                <% end %>
 
                 <div class="front-topic-box__row2">
                      <%= link_to topics[0][:href], style: topics[0][:style], class: "front-topic-box__link" do %>
                          <span class="front-topic-box__link__title"><%= topics[0][:title] %></span>
                      <% end %>
 
-                    <div class="front-topic-box__col1">
-                         <%= link_to topics[1][:href], style: topics[1][:style], class: "front-topic-box__link" do %>
-                             <span class="front-topic-box__link__title"><%= topics[1][:title] %></span>
-                         <% end %>
+                     <%= link_to topics[1][:href], style: topics[1][:style], class: "front-topic-box__link" do %>
+                         <span class="front-topic-box__link__title"><%= topics[1][:title] %></span>
+                     <% end %>
 
-                         <%= link_to topics[2][:href], style: topics[2][:style], class: "front-topic-box__link" do %>
-                             <span class="front-topic-box__link__title"><%= topics[2][:title] %></span>
+                     <%= link_to topics[2][:href], style: topics[2][:style], class: "front-topic-box__link" do %>
+                         <span class="front-topic-box__link__title"><%= topics[2][:title] %></span>
+                     <% end %>
+
+                </div>
+
+                <% if topics.size > 4 %>
+
+                    <div class="front-topic-box__row1">
+                         <%= link_to topics[3][:href], style: topics[3][:style], class: "front-topic-box__link" do %>
+                             <span class="front-topic-box__link__title"><%= topics[3][:title] %></span>
+                         <% end %>
+                         <%= link_to topics[4][:href], style: topics[4][:style], class: "front-topic-box__link" do %>
+                             <span class="front-topic-box__link__title"><%= topics[4][:title] %></span>
                          <% end %>
                     </div>
+                <% end %>
 
-                     <%= link_to topics[3][:href], style: topics[3][:style], class: "front-topic-box__link" do %>
-                         <span class="front-topic-box__link__title"><%= topics[3][:title] %></span>
-                     <% end %>
-                </div>
+
             </div>
-            <%= button_to search_path, method: :get, form_class: 'u-inline', class: 'button button-primary' do %>
+            <%= button_to search_path, method: :get, form_class: 'u-inline', class: 'button button-primary front-topic-box__button' do %>
                 <%= (t '.see_all_ads') %>
             <% end %>
         </div>
