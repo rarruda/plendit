@@ -1,31 +1,41 @@
+<div class="u-push-down-only">
+    <label class="u-full-width" for="ad_title">Tittel:</label>
+    <input class="u-full-width" type="text" name="ad[title]" id="ad_title">
+</div>
+
 <div class="container">
     <div class="row">
         <div class="eight columns">
             <h1>
-                Her kommer Legg til ny ting.
+                <%= t '.title' %>
             </h1>
             <p>
-                <%= form_for :wanted_item_request, url: users_wanted_item_request_index_path do |f| %>
-                  <p>
-                    <%= f.label :description %><br>
-                    <%= f.text_field :description %>
-                  </p>
-                 
-                  <p>
-                    <%= f.label :email %><br>
-                    <%= f.text_area :email %>
-                  </p>
-                 
-                  <p>
-                    <%= f.label :place %><br>
-                    <%= f.text_area :place %>
-                  </p>
-                 
-                  <p>
-                    <%= f.submit %>
-                  </p>
-                <% end %>
+                <%= t '.copy' %>
             </p>
+            <div>
+                <%= form_for :wanted_item_request, url: users_wanted_item_request_index_path do |f| %>
+
+                    <% if !user_signed_in? %>
+                        <div>
+                            <%= f.label :email, (t '.email_label'), class: 'u-full-width' %>
+                            <%= f.email_field :email, class: 'u-full-width' %>
+                        </div>
+                    <% end %>
+                    <div>
+                        <%= f.label :description, (t '.item_label'),
+                            class: 'u-full-width' %>
+                        <%= f.text_area :description, class: 'u-full-width' %>
+                    </div>
+                    <div>
+                      <%= f.label :place, (t '.place_label'), class: 'u-full-width' %>
+                        <%= f.text_field :place, class: 'u-full-width' %>
+                    </div>
+                 
+                    <div>
+                        <%= f.submit t('.submit'), class: 'button button-primary' %>
+                    </div>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>
