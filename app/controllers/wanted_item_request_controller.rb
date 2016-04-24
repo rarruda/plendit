@@ -10,6 +10,10 @@ class WantedItemRequestController < ApplicationController
     redirect_to users_wanted_item_request_index_path
   end
 
+  def thanks
+
+  end
+
   private
 
   def wanted_item_request_params
