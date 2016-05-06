@@ -245,7 +245,7 @@ Devise.setup do |config|
   config.omniauth :google_oauth2,
     ENV['PCONF_GOOGLE_CLIENT_ID'],
     ENV['PCONF_GOOGLE_CLIENT_SECRET'],
-    { 
+    {
       name: 'google',
       image_aspect_ratio: 'square',
       skip_jwt: true
@@ -257,7 +257,8 @@ Devise.setup do |config|
     ENV['PCONF_SPID_CLIENT_SECRET'],
     {
       client_options: {
-        site: ENV['PCONF_SPID_CLIENT_URL'] || 'https://payment.schibsted.no/api/2'
+        site: ENV['PCONF_SPID_CLIENT_URL'] || 'https://payment.schibsted.no/api/2',
+        authorize_url: '/flow/login'
       }
     }
 
