@@ -7,6 +7,11 @@ nb:
       explainer_video_summary: 'Se hvordan Plendit fungerer'
       see_all_ads_button: 'Se alle annonsene'
       selected_ads_heading: 'Utvalgte annonser'
+      pricing:
+        title: 'Hvor mye koster å bruke plendit?'
+        body: |
+          Det koster ingenting å legge ut annonse. Om du godkjenne en forspørsel da plendit beholder
+          %{price_in_percent}% av leiesummen.
       if_branding:
         heading: 'Skadeforsikring fra If'
         link: 'Les mer om forsikring'
