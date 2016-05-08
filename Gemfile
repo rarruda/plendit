@@ -76,7 +76,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 
 # Use Passenger as the app server
-gem 'passenger', '~> 5.0.20'
+gem 'passenger', '~> 5.0.28'
 
 # postgresql is required for both production and development
 gem 'pg'
