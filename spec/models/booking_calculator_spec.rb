@@ -20,21 +20,21 @@ RSpec.describe BookingCalculator, type: :model do
       }
     }
 
-    it { expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq ( 20_00) }
+    it { expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq ( 12_00) }
     it { expect(booking_calculator.insurance_fee payin_rule[:day]).to  eq ( 18_00) }
-    it { expect(booking_calculator.payout_amount payin_rule[:day]).to  eq (162_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:day]).to  eq (170_00) }
 
-    it { expect(booking_calculator.platform_fee  payin_rule[:day_four]).to  eq ( 15_00) }
+    it { expect(booking_calculator.platform_fee  payin_rule[:day_four]).to  eq (  9_00) }
     it { expect(booking_calculator.insurance_fee payin_rule[:day_four]).to  eq ( 13_50) }
-    it { expect(booking_calculator.payout_amount payin_rule[:day_four]).to  eq (121_50) }
+    it { expect(booking_calculator.payout_amount payin_rule[:day_four]).to  eq (127_50) }
 
-    it { expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  5_00) }
+    it { expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  3_00) }
     it { expect(booking_calculator.insurance_fee payin_rule[:hour]).to  eq (  4_50) }
-    it { expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 40_50) }
+    it { expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 42_50) }
 
-    it { expect(booking_calculator.platform_fee  payin_rule[:hour_two]).to  eq (  4_00) }
+    it { expect(booking_calculator.platform_fee  payin_rule[:hour_two]).to  eq (  2_40) }
     it { expect(booking_calculator.insurance_fee payin_rule[:hour_two]).to  eq (  3_60) }
-    it { expect(booking_calculator.payout_amount payin_rule[:hour_two]).to  eq ( 32_40) }
+    it { expect(booking_calculator.payout_amount payin_rule[:hour_two]).to  eq ( 34_00) }
 
     it { expect(booking_calculator.platform_fee  payin_rule[:no_payin]).to  eq (  0_00) }
     it { expect(booking_calculator.insurance_fee payin_rule[:no_payin]).to  eq (  0_00) }
@@ -51,9 +51,9 @@ RSpec.describe BookingCalculator, type: :model do
     }
     let(:payin_rule) { FactoryGirl.build_stubbed(:payin_rule, effective_from: 1, unit: 'day',  payin_amount_in_h: 250.0 ) }
 
-    it { expect(booking_calculator.platform_fee  payin_rule).to     eq (  25_00) }
+    it { expect(booking_calculator.platform_fee  payin_rule).to     eq (  15_00) }
     it { expect(booking_calculator.insurance_fee payin_rule).to     eq (  22_50) }
-    it { expect(booking_calculator.payout_amount payin_rule).to     eq ( 202_50) }
+    it { expect(booking_calculator.payout_amount payin_rule).to     eq ( 212_50) }
     it { expect(booking_calculator.payin_amount  payin_rule).to     eq ( 250_00) }
     it { expect(booking_calculator.deposit_amount           ).to    eq (1000_00) }
   end
@@ -73,14 +73,14 @@ RSpec.describe BookingCalculator, type: :model do
       }
     }
 
-    it { expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq (  30_00) }
+    it { expect(booking_calculator.platform_fee  payin_rule[:day]).to  eq (  18_00) }
     it { expect(booking_calculator.insurance_fee payin_rule[:day]).to  eq (  27_00) }
-    it { expect(booking_calculator.payout_amount payin_rule[:day]).to  eq ( 243_00) }
+    it { expect(booking_calculator.payout_amount payin_rule[:day]).to  eq ( 255_00) }
     it { expect(booking_calculator.deposit_amount                 ).to eq (1000_00) }
 
-    it { expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  7_00) }
+    it { expect(booking_calculator.platform_fee  payin_rule[:hour]).to  eq (  4_20) }
     it { expect(booking_calculator.insurance_fee payin_rule[:hour]).to  eq (  6_30) }
-    it { expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 56_70) }
+    it { expect(booking_calculator.payout_amount payin_rule[:hour]).to  eq ( 59_50) }
   end
 
   context 'when bap ad has only day price' do
@@ -96,9 +96,9 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 1.day.from_now
 
-      expect(booking_calculator.platform_fee).to   eq (  10_00)
+      expect(booking_calculator.platform_fee).to   eq (   6_00)
       expect(booking_calculator.insurance_fee).to  eq (   9_00)
-      expect(booking_calculator.payout_amount).to  eq (  81_00)
+      expect(booking_calculator.payout_amount).to  eq (  85_00)
       expect(booking_calculator.deposit_amount).to eq ( 500_00)
       expect(booking_calculator.payin_with_deposit_amount).to eq ( 600_00)
     end
@@ -107,9 +107,9 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 2.days.from_now
 
-      expect(booking_calculator.platform_fee).to   eq ( 20_00)
+      expect(booking_calculator.platform_fee).to   eq ( 12_00)
       expect(booking_calculator.insurance_fee).to  eq ( 18_00)
-      expect(booking_calculator.payout_amount).to  eq (162_00)
+      expect(booking_calculator.payout_amount).to  eq (170_00)
       expect(booking_calculator.deposit_amount).to eq (500_00)
       expect(booking_calculator.payin_with_deposit_amount).to eq (700_00)
     end
@@ -134,9 +134,9 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 1.hour.from_now
 
-      expect(booking_calculator.platform_fee).to   eq (  5_00)
+      expect(booking_calculator.platform_fee).to   eq (  3_00)
       expect(booking_calculator.insurance_fee).to  eq (  4_50)
-      expect(booking_calculator.payout_amount).to  eq ( 40_50)
+      expect(booking_calculator.payout_amount).to  eq ( 42_50)
       expect(booking_calculator.deposit_amount).to eq (500_00)
       expect(booking_calculator.payin_with_deposit_amount).to eq (550_00)
     end
@@ -145,55 +145,55 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 2.hours.from_now
 
-      expect(booking_calculator.platform_fee).to   eq (10_00)
+      expect(booking_calculator.platform_fee).to   eq ( 6_00)
       expect(booking_calculator.insurance_fee).to  eq ( 9_00)
-      expect(booking_calculator.payout_amount).to  eq (81_00)
+      expect(booking_calculator.payout_amount).to  eq (85_00)
     end
 
     it "should calculate price of 3 hours" do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 3.hours.from_now
 
-      expect(booking_calculator.platform_fee).to   eq ( 15_00)
+      expect(booking_calculator.platform_fee).to   eq (  9_00)
       expect(booking_calculator.insurance_fee).to  eq ( 13_50)
-      expect(booking_calculator.payout_amount).to  eq (121_50)
+      expect(booking_calculator.payout_amount).to  eq (127_50)
     end
 
     it "should calculate price of 4 hours" do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 4.hours.from_now
 
-      expect(booking_calculator.platform_fee).to   eq ( 12_00)
+      expect(booking_calculator.platform_fee).to   eq (  7_20)
       expect(booking_calculator.insurance_fee).to  eq ( 10_80)
-      expect(booking_calculator.payout_amount).to  eq ( 97_20)
+      expect(booking_calculator.payout_amount).to  eq (102_00)
     end
 
     it "should calculate price of 6 hours" do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 6.hours.from_now
 
-      expect(booking_calculator.platform_fee).to   eq ( 18_00)
+      expect(booking_calculator.platform_fee).to   eq ( 10_80)
       expect(booking_calculator.insurance_fee).to  eq ( 16_20)
-      expect(booking_calculator.payout_amount).to  eq (145_80)
+      expect(booking_calculator.payout_amount).to  eq (153_00)
     end
 
     it "should calculate price of 8 hours (get day price)" do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 8.hours.from_now
 
-      expect(booking_calculator.platform_fee).to   eq ( 20_00)
+      expect(booking_calculator.platform_fee).to   eq ( 12_00)
       expect(booking_calculator.insurance_fee).to  eq ( 18_00)
-      expect(booking_calculator.payout_amount).to  eq (162_00)
+      expect(booking_calculator.payout_amount).to  eq (170_00)
     end
 
     it "should calculate price of 1 day" do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 1.day.from_now
 
-      expect(booking_calculator.platform_fee).to   eq ( 20_00)
+      expect(booking_calculator.platform_fee).to   eq ( 12_00)
       expect(booking_calculator.insurance_fee).to  eq ( 18_00)
-      expect(booking_calculator.payout_amount).to  eq (162_00)
-      expect(booking_calculator.deposit_amount).to eq ( 500_00)
+      expect(booking_calculator.payout_amount).to  eq (170_00)
+      expect(booking_calculator.deposit_amount).to eq (500_00)
       expect(booking_calculator.payin_with_deposit_amount).to eq (700_00)
     end
 
@@ -201,9 +201,9 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 3.days.from_now
 
-      expect(booking_calculator.platform_fee).to     eq ( 54_00)
+      expect(booking_calculator.platform_fee).to     eq ( 32_40)
       expect(booking_calculator.insurance_fee).to    eq ( 48_60)
-      expect(booking_calculator.payout_amount).to    eq (437_40)
+      expect(booking_calculator.payout_amount).to    eq (459_00)
       #expect(booking_calculator.payin_amount_from_rules).to eq (540_00)
     end
 
@@ -211,18 +211,18 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 7.days.from_now
 
-      expect(booking_calculator.platform_fee).to   eq ( 84_00)
+      expect(booking_calculator.platform_fee).to   eq ( 50_40)
       expect(booking_calculator.insurance_fee).to  eq ( 75_60)
-      expect(booking_calculator.payout_amount).to  eq (680_40)
+      expect(booking_calculator.payout_amount).to  eq (714_00)
     end
 
     it "should calculate price of 10 days" do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 10.days.from_now
 
-      expect(booking_calculator.platform_fee).to     eq ( 120_00)
+      expect(booking_calculator.platform_fee).to     eq (  72_00)
       expect(booking_calculator.insurance_fee).to    eq ( 108_00)
-      expect(booking_calculator.payout_amount).to    eq ( 972_00)
+      expect(booking_calculator.payout_amount).to    eq (1020_00)
       expect(booking_calculator.payin_amount).to     eq (1200_00)
       expect(booking_calculator.deposit_amount).to   eq ( 500_00)
       expect(booking_calculator.payin_with_deposit_amount).to eq (1700_00)
@@ -248,9 +248,9 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 15.minutes.from_now
 
-      expect(booking_calculator.platform_fee).to     eq (  20_00)
+      expect(booking_calculator.platform_fee).to     eq (  12_00)
       expect(booking_calculator.insurance_fee).to    eq (  18_00)
-      expect(booking_calculator.payout_amount).to    eq ( 162_00)
+      expect(booking_calculator.payout_amount).to    eq ( 170_00)
       expect(booking_calculator.payin_amount).to     eq ( 200_00)
       expect(booking_calculator.deposit_amount).to   eq (1000_00)
       expect(booking_calculator.payin_with_deposit_amount).to eq (1200_00)
@@ -260,9 +260,9 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 4.hours.from_now
 
-      expect(booking_calculator.platform_fee).to     eq (  80_00)
+      expect(booking_calculator.platform_fee).to     eq (  48_00)
       expect(booking_calculator.insurance_fee).to    eq (  72_00)
-      expect(booking_calculator.payout_amount).to    eq ( 648_00)
+      expect(booking_calculator.payout_amount).to    eq ( 680_00)
       expect(booking_calculator.payin_amount).to     eq ( 800_00)
       expect(booking_calculator.deposit_amount).to   eq (1000_00)
       expect(booking_calculator.payin_with_deposit_amount).to eq (1800_00)
@@ -272,9 +272,9 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 1.day.from_now
 
-      expect(booking_calculator.platform_fee).to     eq ( 100_00)
+      expect(booking_calculator.platform_fee).to     eq (  60_00)
       expect(booking_calculator.insurance_fee).to    eq (  90_00)
-      expect(booking_calculator.payout_amount).to    eq ( 810_00)
+      expect(booking_calculator.payout_amount).to    eq ( 850_00)
       expect(booking_calculator.payin_amount).to     eq (1000_00)
       expect(booking_calculator.deposit_amount).to   eq (1000_00)
       expect(booking_calculator.payin_with_deposit_amount).to eq (2000_00)
@@ -284,9 +284,9 @@ RSpec.describe BookingCalculator, type: :model do
       booking_calculator.starts_at = DateTime.now
       booking_calculator.ends_at   = 7.days.from_now
 
-      expect(booking_calculator.platform_fee).to     eq ( 490_00)
+      expect(booking_calculator.platform_fee).to     eq ( 294_00)
       expect(booking_calculator.insurance_fee).to    eq ( 441_00)
-      expect(booking_calculator.payout_amount).to    eq (3969_00)
+      expect(booking_calculator.payout_amount).to    eq (4165_00)
       expect(booking_calculator.payin_amount).to     eq (4900_00)
       expect(booking_calculator.deposit_amount).to   eq (1000_00)
       expect(booking_calculator.payin_with_deposit_amount).to eq (5900_00)
