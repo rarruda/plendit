@@ -2,7 +2,6 @@
     <div class="container">
         <h1><%= t '.title' %></h1>
         <p class="front-wishlist-box__copy"><%= t '.copy' %></p>
-        <button class="button button-secondary"><%= t '.button' %></button>
-
+        <%= link_to (t '.button'), new_users_wanted_item_request_path, class: 'button button-secondary' %>
     </div>
 </div>
