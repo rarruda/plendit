@@ -10,3 +10,9 @@ nb:
         Her kan du legge inn ting du kunne tenke deg å
         leie. Vi sender deg en melding hvis noe dukker
         opp i ditt område!
+
+    thanks:
+      title: 'Takk for hjelpen!'
+      copy: |
+        Nå blir det enklere for oss å oppmuntre
+        brukerne til å legge ut akurat det du trenger!
