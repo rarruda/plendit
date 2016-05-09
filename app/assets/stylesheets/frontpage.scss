@@ -285,12 +285,12 @@
     
 .front-hero2 {
     &__title {
-        font-size: 4em;
+        font-size: 3em;
         text-align: center;
         padding-top: 20px;
         padding-bottom: 30px;
-        color: black;
-        text-shadow: 3px 3px 4px #999;
+        color: #424242;
+        font-weight: 600;
 
         @media (max-width: $mobile) {
             font-size: 2em;
