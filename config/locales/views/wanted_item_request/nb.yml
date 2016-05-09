@@ -8,8 +8,9 @@ nb:
       item_label: 'Hva?'
       copy: |
         Her kan du legge inn ting du kunne tenke deg å
-        leie. Vi sender deg en melding hvis noe dukker
-        opp i ditt område!
+        leie. Vi videreformidler ønsket ditt
+        til våre medlemmer og sender deg en e-post om noen legger ut
+        det du er ute etter.
 
     thanks:
       title: 'Takk for hjelpen!'
