@@ -3,7 +3,8 @@ nb:
     frontpage:
       splash_title: 'HVA VIL DU LEIE?'
       search_term_placeholder: 'Hva vil du leie?'
-      rent_out_button: 'Leg ut til leie'
+      rent_out_button: 'Legg ut til leie'
+      see_all_ads_button: 'Se alle annonsene'
       request_item_button: 'Legg ut ønsker leid'
       explainer_video_summary: 'Se hvordan Plendit fungerer'
       see_all_ads_button: 'Se alle annonsene'

@@ -1,16 +1,7 @@
-<div class="front-hero">
-    <h1 class="front-hero__title"><%= t '.splash_title'%></h1>
 
-    <div class="front-hero__buttons">
-        <%= button_to (t '.rent_out_button'),
-                new_ad_path,
-                method: :get, form_class: 'u-inline',
-                class: 'button button-primary u-push-down-only front-hero__button' %>
-        <%= button_to (t '.request_item_button'),
-                new_users_wanted_item_request_path,
-                method: :get, form_class: 'u-inline',
-                class: 'button button-secondary u-push-down-only front-hero__button' %>
-    </div>
+<div class="front-hero2">
+    <h1 class="front-hero2__title"><%= t '.splash_title'%></h1>
+
 </div>
 
 <div>
@@ -18,8 +9,24 @@
 </div>
 
 <div>
+    <div class="container front-action-buttons">
+        <%= button_to new_ad_path,
+                method: :get, form_class: 'u-inline',
+                class: 'button button-primary u-push-down-only front-action-buttons__button' do %>
+            <%= t '.rent_out_button' %>
+        <% end %>
+
+        <%= button_to search_path, method: :get, form_class: 'u-inline', class: 'button button-primary front-action-buttons__button' do %>
+            <%= (t '.see_all_ads_button') %>
+        <% end %>
+
+    </div>
+</div>
+
+<div>
     <%= render partial: 'front_wishlist_box' %>
 </div>
+
 
 <div class="explainer-video-section">
     <details>
@@ -61,3 +68,6 @@
 <% cache 'front_popular_box' do %>
     <%#= render partial: 'front_popular_box' %>
 <% end %>
+
+
+

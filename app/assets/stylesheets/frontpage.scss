@@ -282,6 +282,32 @@
         margin-right: 6px;
     }
 }
+    
+.front-hero2 {
+    &__title {
+        font-size: 4em;
+        text-align: center;
+        padding-top: 20px;
+        padding-bottom: 30px;
+        color: black;
+        text-shadow: 3px 3px 4px #999;
+
+        @media (max-width: $mobile) {
+            font-size: 2em;
+        }
+    }
+}
+
+.front-action-buttons {
+    text-align: center;
+    padding-bottom: 12px;
+
+    &__button {
+        min-width: 204px;
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+}
 
 .front-topic-box {
     text-align: center;
