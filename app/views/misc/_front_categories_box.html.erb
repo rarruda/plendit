@@ -1,0 +1,39 @@
+<%
+    topics = Rails.configuration.x.frontpage.categories
+    topics = topics.map { |t|
+        t[:style] = "background-image: url(#{image_path(t[:image])});"
+        t[:href] = search_path(tag: t[:tag])
+        t
+    }
+%>
+
+<div class="container front-categories-box">
+    <div class="row">
+        <div class="twelve columns">
+            <div>
+                <div class="front-categories-box__row">
+                     <%= link_to topics[0][:href], style: topics[0][:style], class: "front-categories-box__link" do %>
+                         <span class="front-categories-box__link__title"><%= topics[0][:title] %></span>
+                     <% end %>
+
+                     <div class="front-categories-box__col">
+                         <%= link_to topics[1][:href], style: topics[1][:style], class: "front-categories-box__link" do %>
+                             <span class="front-categories-box__link__title"><%= topics[1][:title] %></span>
+                         <% end %>
+
+                        <%= link_to topics[2][:href], style: topics[2][:style], class: "front-categories-box__link" do %>
+                             <span class="front-categories-box__link__title"><%= topics[2][:title] %></span>
+                         <% end %>
+                     </div>
+
+                     <%= link_to topics[3][:href], style: topics[3][:style], class: "front-categories-box__link" do %>
+                         <span class="front-categories-box__link__title"><%= topics[3][:title] %></span>
+                     <% end %>
+                </div>
+            </div>
+            <%= button_to search_path, method: :get, form_class: 'u-inline', class: 'button button-primary front-categories-box__button' do %>
+                <%= (t '.see_all_ads') %>
+            <% end %>
+        </div>
+    </div>
+</div>

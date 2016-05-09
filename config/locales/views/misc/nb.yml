@@ -18,6 +18,9 @@ nb:
     front_topics_box:
       see_all_ads: 'Se alle annonsene'
 
+    front_categories_box:
+      see_all_ads: 'Se alle annonsene'
+
     front_wishlist_box:
       title: 'Fant du ikke det du ønsker å leie?'
       button: 'Legg ut ønsker leid'

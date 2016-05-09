@@ -199,6 +199,25 @@ Plendit::Application.config.x.frontpage.topics = [
   # }
 ]
 
+Plendit::Application.config.x.frontpage.categories = [
+  { title:    'Stort og smått',
+    category: 'bap',
+    image:    'topics/oppussing.jpg'
+  },
+  { title:    'Båt og kajakk',
+    category: 'boat',
+    image:    'topics/sjoen.jpg'
+  },
+  { title:    'Kjøretøy og tilhenger',
+    category: 'motor',
+    image:    'topics/kjoretoy.jpg'
+  },
+  { title:    'Hus, leilighet og hytte',
+    category: 'realestate',
+    image:    'topics/hagerydding.jpg'
+  }
+]
+
 Plendit::Application.config.x.frontpage.hero_videos = [
   {
     still:       'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.jpg',
