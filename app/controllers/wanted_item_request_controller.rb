@@ -10,7 +10,7 @@ class WantedItemRequestController < ApplicationController
       @wanted_item_request.user = current_user
     end
     @wanted_item_request.save
-    redirect_to users_wanted_item_request_index_path
+    redirect_to wanted_thanks_users_path
   end
 
   def thanks
