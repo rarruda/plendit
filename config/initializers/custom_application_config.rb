@@ -205,7 +205,7 @@ Plendit::Application.config.x.frontpage.topics = [
 Plendit::Application.config.x.frontpage.categories = [
   { title:    'Stort og smått',
     category: 'bap',
-    image:    'topics/oppussing.jpg'
+    image:    'topics/gressklipper.jpg'
   },
   { title:    'Båt og kajakk',
     category: 'boat',
@@ -217,7 +217,7 @@ Plendit::Application.config.x.frontpage.categories = [
   },
   { title:    'Hus, leilighet og hytte',
     category: 'realestate',
-    image:    'topics/hagerydding.jpg'
+    image:    'topics/bolig.jpg'
   }
 ]
 
