@@ -1,0 +1,12 @@
+nb:
+  wanted_item_request:
+    new:
+      title: 'Det er noe jeg trenger!'
+      submit: 'Lagre'
+      place_label: 'Hvor?'
+      email_label: 'E-post'
+      item_label: 'Hva?'
+      copy: |
+        Her kan du legge inn ting du kunne tenke deg å
+        leie. Vi sender deg en melding hvis noe dukker
+        opp i ditt område!

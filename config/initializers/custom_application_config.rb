@@ -172,6 +172,52 @@ Plendit::Application.config.x.frontpage.popular_ads = [
   }
 ]
 
+Plendit::Application.config.x.frontpage.topics = [
+  { title:    'Hagerydding',
+    tag:      'Hagerydding',
+    image:    'topics/hagerydding.jpg'
+  },
+  { title:    'Selskap',
+    tag:      'Selskap',
+    image:    'topics/selskap.jpg'
+  },
+  { title:    'Oppussing',
+    tag:      'Oppussing',
+    image:    'topics/oppussing.jpg'
+  },
+  { title:    'Kjøretøy',
+    tag:      'Kjøretøy',
+    image:    'topics/kjoretoy.jpg'
+  },
+  { title:    'Sjøen',
+    tag:      'Sjøen',
+    image:    'topics/sjoen.jpg'
+  },
+  # { title:    'Halloween-kostyme',
+  #   tag:      'topic_6',
+  #   image:    'topics/hagerydding.jpg'
+  # }
+]
+
+Plendit::Application.config.x.frontpage.categories = [
+  { title:    'Stort og smått',
+    category: 'bap',
+    image:    'topics/oppussing.jpg'
+  },
+  { title:    'Båt og kajakk',
+    category: 'boat',
+    image:    'topics/sjoen.jpg'
+  },
+  { title:    'Kjøretøy og tilhenger',
+    category: 'motor',
+    image:    'topics/kjoretoy.jpg'
+  },
+  { title:    'Hus, leilighet og hytte',
+    category: 'realestate',
+    image:    'topics/hagerydding.jpg'
+  }
+]
+
 Plendit::Application.config.x.frontpage.hero_videos = [
   {
     still:       'https://cdn.plendit.com/frontpage-videos/with_logo/baatliv_4.jpg',

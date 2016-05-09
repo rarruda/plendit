@@ -204,6 +204,19 @@ a {
     }
   }
 
+  &.button-secondary {
+    color: #fff;
+    background-color: $color-golden;
+    border-color: rgba(black, 0);
+
+    &:hover, &:focus {
+      background-color: darken($color-golden, 5);
+    }
+    &:active {
+      background-color: darken($color-golden, 10);
+    }
+  }
+
   &:disabled, &:hover:disabled {
     background-color: grayscale($color-plendit-blue);
   }

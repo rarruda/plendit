@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="row">
+        <div class="eight columns">
+            <h1>
+                <%= t '.title' %>
+            </h1>
+            <p>
+                <%= t '.copy' %>
+            </p>
+            <div>
+                <%= form_for :wanted_item_request, url: users_wanted_item_request_index_path do |f| %>
+
+                    <% if !user_signed_in? %>
+                        <div>
+                            <%= f.label :email, (t '.email_label'), class: 'u-full-width' %>
+                            <%= f.email_field :email, class: 'u-full-width' %>
+                        </div>
+                    <% end %>
+                    <div>
+                        <%= f.label :description, (t '.item_label'),
+                            class: 'u-full-width' %>
+                        <%= f.text_area :description, class: 'u-full-width' %>
+                    </div>
+                    <div>
+                      <%= f.label :place, (t '.place_label'), class: 'u-full-width' %>
+                        <%= f.text_field :place, class: 'u-full-width' %>
+                    </div>
+                 
+                    <div>
+                        <%= f.submit t('.submit'), class: 'button button-primary' %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

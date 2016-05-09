@@ -1,34 +1,32 @@
-<section class="front-search-block" style="background-image: url(<%= @hero_video[:still_small] %>)">
-    <div class="front-search-block__video-holder">
-        <video preload="auto" class="front-search-block__video" data-controller="videoTrigger" poster="<%= @hero_video[:still] %>">
-            <% unless @hero_video[:mp4].nil? %>
-                <source src="<%= @hero_video[:mp4] %>" type="video/mp4">
-            <% end  %>
-            <% unless @hero_video[:webm].nil? %>
-                <source src="<%= @hero_video[:webm] %>" type="video/webm">
-            <% end  %>
-        </video>
+
+<div class="front-hero2">
+    <h1 class="front-hero2__title"><%= t '.splash_title'%></h1>
+
+</div>
+
+<div>
+    <%= render partial: 'front_categories_box' %>
+</div>
+
+<div>
+    <div class="container front-action-buttons">
+        <%= button_to new_ad_path,
+                method: :get, form_class: 'u-inline',
+                class: 'button button-primary u-push-down-only front-action-buttons__button' do %>
+            <%= t '.rent_out_button' %>
+        <% end %>
+
+        <%= button_to search_path, method: :get, form_class: 'u-inline', class: 'button button-primary front-action-buttons__button' do %>
+            <%= (t '.see_all_ads_button') %>
+        <% end %>
+
     </div>
+</div>
 
-    <div class="front-search-block__splash">
-        <h1 class="front-search-block__title"><%= t '.splash_title' %></h1>
-        <p class="front-search-block__copy"></p>
+<div>
+    <%= render partial: 'front_wishlist_box' %>
+</div>
 
-        <div class="front-search-block__input-holder">
-            <%= form_tag(search_path, method: :get, class: 'u-inline') do %>
-              <%= text_field_tag 'q', '', class: 'front-search-block__input', autofocus: true, placeholder: (t '.search_term_placeholder') %>
-              <%= submit_tag 'Søk', class: 'front-search-block__search-button button button-primary' %>
-            <% end %>
-        </div>
-    </div>
-
-    <div class="front-search-block__create-box" >
-        <form action="<%= new_ad_path %>">
-            <button class="button button-primary" type="submit"><%= t '.rent_out_button' %></button>
-        </form>
-    </div>
-
-</section>
 
 <div class="explainer-video-section">
     <details>
@@ -70,3 +68,6 @@
 <% cache 'front_popular_box' do %>
     <%#= render partial: 'front_popular_box' %>
 <% end %>
+
+
+

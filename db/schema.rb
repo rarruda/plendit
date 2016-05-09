@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160416163434) do
+ActiveRecord::Schema.define(version: 20160421185842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -435,6 +435,17 @@ ActiveRecord::Schema.define(version: 20160416163434) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  create_table "wanted_item_requests", force: :cascade do |t|
+    t.string   "description"
+    t.text     "email"
+    t.integer  "user_id"
+    t.string   "place"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "wanted_item_requests", ["user_id"], name: "index_wanted_item_requests_on_user_id", using: :btree
+
   add_foreign_key "accident_report_attachments", "accident_reports"
   add_foreign_key "ad_images", "ads"
   add_foreign_key "ad_items", "ads"
@@ -460,4 +471,5 @@ ActiveRecord::Schema.define(version: 20160416163434) do
   add_foreign_key "user_documents", "users"
   add_foreign_key "user_payment_accounts", "users"
   add_foreign_key "user_payment_cards", "users"
+  add_foreign_key "wanted_item_requests", "users"
 end

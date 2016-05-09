@@ -78,7 +78,10 @@ class AdsController < ApplicationController
 
     @map_bounds = get_search_bounds params
 
-    options = params.select { |k,v| ['price_min','price_max', 'category'].include? k }.keep_if { |k,v| not v.blank? }
+    options = params
+      .select { |k,v| ['price_min','price_max', 'category', 'tag'].include? k }
+      .keep_if { |k,v| not v.blank? }
+    
     options[:category].reject!(&:blank?) if options.has_key? :category
     options.delete(:category) if options.has_key?(:category) && options[:category].empty?
 

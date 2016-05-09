@@ -55,8 +55,10 @@
             <div class="u-not-on-bigscreen u-push-down">
                 <%= render partial: 'ad_booking_box', locals: { ad: @ad } %>
             </div>
-            <% if Plendit::Application.config.x.facebook_integration %>
-                <%= render partial: 'share_on_facebook' %>
+            <% if user_signed_in? && (current_user.owns_ad? @ad) %>
+                <% if Plendit::Application.config.x.facebook_integration %>
+                    <%= render partial: 'share_on_facebook' %>
+                <% end %>
             <% end %>
         </div>
     </div>

@@ -20,6 +20,7 @@ $color-background: #edefed;
 $color-plendit-blue: #2a96ff; // rgb(42, 150, 255);
 $color-box-border: #9b9b9b;
 $color-gray-text: #454649;
+$color-golden: #e8c81d;
 
 $color-gray-background: #d4d4d4; // rgb(212,212,212);
 $color-subtle-gray-background: #e5e7e5;
@@ -34,7 +35,7 @@ $color-button-neutral: #8f8989;
 
 $color-state-green: #135453;
 $color-state-red: #ba1f29;
-$color-state-yellow: #E8C81D;
+$color-state-yellow: $color-golden;
 
 $color-privacy-yellow: rgb(252, 248, 227);
 
