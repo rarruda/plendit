@@ -2,7 +2,7 @@
     topics = Rails.configuration.x.frontpage.categories
     topics = topics.map { |t|
         t[:style] = "background-image: url(#{image_path(t[:image])});"
-        t[:href] = search_path(tag: t[:tag])
+        t[:href] = search_path(category: [t[:category]])
         t
     }
 %>
