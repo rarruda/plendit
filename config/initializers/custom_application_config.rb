@@ -22,7 +22,10 @@ COUNTRY_GEO_BOUNDS = [ [57.5,4], [72,32] ]
 # "kr 50.000,-"
 Plendit::Application.config.x.view.current_num_ads           = number_with_delimiter( 5_000, delimiter: "." )
 
-Plendit::Application.config.x.map.default_bounds             = { ne_lat: 59.97, ne_lon: 10.90, sw_lat: 59.87, sw_lon: 10.61, zl: 13 }
+# Oslo:
+#Plendit::Application.config.x.map.default_bounds             = { ne_lat: 59.97, ne_lon: 10.90, sw_lat: 59.87, sw_lon: 10.61, zl: 13 }
+# Norway:
+Plendit::Application.config.x.map.default_bounds             = { ne_lat: COUNTRY_GEO_BOUNDS.second.first, ne_lon: COUNTRY_GEO_BOUNDS.first.second, sw_lat: COUNTRY_GEO_BOUNDS.first.first, sw_lon: COUNTRY_GEO_BOUNDS.second.second, zl: 5 }
 Plendit::Application.config.x.map.google_maps_js_api_key     ='AIzaSyAwciykMKFfGsTiDrqAwg80C5FCSq6vQr8'
 
 Plendit::Application.config.x.customerservice.email          = 'kundesenter@plendit.no'

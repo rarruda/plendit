@@ -101,8 +101,6 @@ class AdsController < ApplicationController
       format.html
       format.json
     end
-
-    save_map_bounds @map_bounds
   end
 
   # GET /me/ads
