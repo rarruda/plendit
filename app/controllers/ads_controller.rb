@@ -9,7 +9,6 @@ class AdsController < ApplicationController
     :edit,
     :edit_availability,
     :existing_location,
-    :gallery,
     :image_manager,
     :nested_images,
     :new_location,
@@ -27,7 +26,6 @@ class AdsController < ApplicationController
   ]
 
   before_action :authenticate_user!, except: [
-    :gallery,
     :index,
     :search,
     :show,
@@ -45,7 +43,6 @@ class AdsController < ApplicationController
   # all actions require the user to own the ad, except these:
   before_action :require_authorization, except: [
     :create,
-    :gallery,
     :index,
     :list,
     :new,
@@ -107,11 +104,6 @@ class AdsController < ApplicationController
 
     save_map_bounds @map_bounds
   end
-
-  # GET /ads/1/gallery
-  def gallery
-  end
-
 
   # GET /me/ads
   def list
