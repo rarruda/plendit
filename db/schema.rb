@@ -189,13 +189,14 @@ ActiveRecord::Schema.define(version: 20160421185842) do
     t.string   "uid"
     t.string   "image_url"
     t.string   "profile_url"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "email"
     t.string   "name"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "nickname"
+    t.integer  "verification_level"
   end
 
   add_index "identities", ["uid"], name: "index_identities_on_uid", using: :btree

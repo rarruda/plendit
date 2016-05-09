@@ -226,6 +226,14 @@ class User < ActiveRecord::Base
     self.confirmed?
   end
 
+  def bankid_verified?
+    self.identities.collect{|i| i.bankid_verified?}.any?
+
+    # Always return false, until SPiD allows us to use this functionality:
+    # (also disabled in controllers/users/omniauth_callbacks_controller.rb)
+    false
+  end
+
   def recent_notifications
     self.notifications.includes(:notifiable).order("created_at desc").limit(10)
   end
