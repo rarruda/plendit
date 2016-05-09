@@ -51,6 +51,15 @@
     </div>
 </div>
 
+<div class="container">
+    <h2><%= t '.pricing.title' %></h2>
+    <p>
+        <%# NOTE: it shows the worst case scenario of percentage: %>
+        <%= t '.pricing.body', {
+                price_in_percent: ( ( Plendit::Application.config.x.platform.fee_in_percent + Plendit::Application.config.x.insurance.price_in_percent.values.max ) * 100 ).round } %>
+    </p>
+</div>
+
 <% if @ads.present? %>
     <div class="container">
         <div class="latest-ads">

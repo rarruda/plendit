@@ -43,7 +43,7 @@ Plendit::Application.config.x.organization.org_id            = '915 252 230'
 
 Plendit::Application.config.x.google.analytics_id            = ( Rails.env == 'production' ) ? 'UA-67449731-1' : 'UA-67449731-2'
 
-Plendit::Application.config.x.platform.fee_in_percent        = 0.10
+Plendit::Application.config.x.platform.fee_in_percent        = 0.06
 Plendit::Application.config.x.platform.payout_fee_amount     = 18_00
 Plendit::Application.config.x.platform.payout_fee_waived_after_amount = 500_00
 
