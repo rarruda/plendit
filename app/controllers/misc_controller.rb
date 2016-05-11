@@ -7,6 +7,11 @@ class MiscController < ApplicationController
     @hero_video = Rails.configuration.x.frontpage.hero_videos.sample
   end
 
+  # controller for prototyping new frontpage A/B
+  alias_method :frontpage_new_a, :frontpage
+  alias_method :frontpage_new_b, :frontpage
+
+
   def about
     @employees = YAML
       .load_file("#{Rails.root}/config/data/employees.yml")

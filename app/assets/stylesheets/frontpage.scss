@@ -145,6 +145,14 @@
     }
 }
 
+.pricing-section {
+    &__centerer {
+        max-width: 530px;
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+
 .latest-ads {
     text-align: center;
 

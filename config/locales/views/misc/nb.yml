@@ -1,7 +1,7 @@
 nb:
   misc:
-    frontpage:
-      splash_title: 'MARKEDSPLASS FOR UTLEIE'
+    frontpage: &frontpage
+      splash_title: 'LEI DET DU TRENGER'
       search_term_placeholder: 'Hva vil du leie?'
       rent_out_button: 'Legg ut til leie'
       see_all_ads_button: 'Se alle annonsene'
@@ -12,14 +12,21 @@ nb:
       pricing:
         title: 'Hva koster det å bruke Plendit?'
         body: |
-          Det koster ingenting å legge ut en annonse. Om du leier ut noe via Plendit, koster det %{price_in_percent}% av leiesummen for å dekke forsikring og administrasjonsgebyr.  
-          
+          Det koster ingenting å legge ut en annonse. Om du leier ut noe via Plendit,
+          koster det %{price_in_percent}% av leiesummen for å dekke forsikring og administrasjonsgebyr.
       if_branding:
         heading: 'Skadeforsikring fra If'
         link: 'Les mer om forsikring'
         copy: |
           Slipp alle bekymringer. Alt du leier ut på Plendit blir
           forsikret av If.
+
+    frontpage_new_a:
+      <<: *frontpage
+      splash_title: 'MARKEDSPLASS FOR UTLEIE'
+
+    frontpage_new_b:
+      <<: *frontpage
 
     front_topics_box:
       see_all_ads: 'Se alle annonsene'

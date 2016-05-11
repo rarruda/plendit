@@ -175,4 +175,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'misc#frontpage'
 
+  get '/frontpage_new_a', to: 'misc#frontpage_new_a'
+  get '/frontpage_new_b', to: 'misc#frontpage_new_b'
+
 end
