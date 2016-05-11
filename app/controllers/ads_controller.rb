@@ -78,7 +78,7 @@ class AdsController < ApplicationController
     options = params
       .select { |k,v| ['price_min','price_max', 'category', 'tag'].include? k }
       .keep_if { |k,v| not v.blank? }
-    
+
     options[:category].reject!(&:blank?) if options.has_key? :category
     options.delete(:category) if options.has_key?(:category) && options[:category].empty?
 
@@ -101,6 +101,8 @@ class AdsController < ApplicationController
       format.html
       format.json
     end
+
+    save_map_bounds @map_bounds
   end
 
   # GET /me/ads
