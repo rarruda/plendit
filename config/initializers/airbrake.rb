@@ -39,6 +39,9 @@ Airbrake.configure do |c|
   # environments.
   # https://github.com/airbrake/airbrake-ruby#ignore_environments
   c.ignore_environments = %w(test development)
+
+  # https://github.com/airbrake/airbrake-ruby#blacklist_keys
+  c.blacklist_keys = [:password,:password_confirmation]
 end
 
 # If Airbrake doesn't send any expected exceptions, we suggest to uncomment the
@@ -46,5 +49,4 @@ end
 # can silently die.
 # Thread.abort_on_exception = ['test', 'development'].include?(Rails.env)
 
-# https://github.com/airbrake/airbrake/blob/master/docs/Migration_guide_from_v4_to_v5.md#blacklist-filter
-Airbrake.blacklist_keys([:password,:password_confirmation])
+
