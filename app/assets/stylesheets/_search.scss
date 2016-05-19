@@ -90,10 +90,12 @@
         height: 300px;
 
         @media (max-width: $mobile) {
-            left: 0;
             width: 100%;
-            display: none;
+            left: 0;
+            overflow: visible;
+            overflow-x: visible;
         }
+
     }
 
     &__hits-box {
@@ -104,11 +106,11 @@
         overflow-x: hidden;
 
         @media (max-width: $mobile) {
+            left: 0;
             width: 100%;
-            xxleft: 0;
-            overflow: visible;
-            overflow-x: visible;
+            display: none;
         }
+
     }
 
     &__hits-list {
