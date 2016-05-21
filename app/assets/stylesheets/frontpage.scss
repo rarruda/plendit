@@ -542,6 +542,33 @@
     }
 }
 
+.front-wishlist-steps {
+    background-color: white;
+    padding-top: $standard-spacing * 2;
+    padding-bottom: $standard-spacing * 2;
+    text-align: center;
+
+    &__steps {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    &__step {
+        display: inline-block;
+        width: 200px;
+        vertical-align: top;
+        margin-left: 18px;
+        margin-right: 18px;
+        margin-top: 12px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+
+        @media (max-width: $mobile) {
+            width: 90%;
+        }
+    }
+}
+
 .front-categories-box-min {
     text-align: center;
 

@@ -41,3 +41,14 @@ nb:
         Registrer hva du ønsker å leie, så videreformidler vi ønsket ditt
         til våre medlemmer. Vi sender deg en e-post om noen legger ut
         det du er ute etter.
+
+    front_wishlist_steps:
+      title: 'Fant du ikke det du ønsker å leie?'
+      button: 'Legg ut ønsker leid'
+      step_1_copy: |
+        Registrer hva og hvor og når du ønsker å leie.
+      step_2_copy: |
+        Vi videreformidler vi ønsket ditt til alle våre medlemmer.
+      step_3_copy: |
+        Vi sender deg en melding når noen legger ut
+        det du er ute etter.

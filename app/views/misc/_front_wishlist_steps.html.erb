@@ -1,0 +1,25 @@
+<div class="front-wishlist-steps">
+    <div class="container">
+        <h1><%= t '.title' %></h1>
+        <div class="front-wishlist-steps">
+            <div class="front-wishlist-steps__step">
+                <%= image_tag 'step1.png' %>
+                <br>
+                <%= t '.step_1_copy' %>
+            </div>
+
+            <div class="front-wishlist-steps__step">
+                <%= image_tag 'step2.png' %>
+                <br>
+                <%= t '.step_2_copy' %>
+            </div>
+
+            <div class="front-wishlist-steps__step">
+                <%= image_tag 'step3.png' %>
+                <br>
+                <%= t '.step_3_copy' %>
+            </div>
+        </div>
+        <%= link_to (t '.button'), new_users_wanted_item_request_path, class: 'button button-secondary' %>
+    </div>
+</div>
