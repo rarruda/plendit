@@ -7,10 +7,15 @@ class MiscController < ApplicationController
     @hero_video = Rails.configuration.x.frontpage.hero_videos.sample
   end
 
+  def frontpage_new_b
+    @hide_search_field = true
+    @ads = get_frontpage_ads rescue [] # todo, figure out why this throws in test
+    @ad_categories = Rails.configuration.x.ads.categories
+    @ad_categories.map! { |e| OpenStruct.new(e) }
+  end
+
   # controller for prototyping new frontpage A/B
   alias_method :frontpage_new_a, :frontpage
-  alias_method :frontpage_new_b, :frontpage
-
 
   def about
     @employees = YAML

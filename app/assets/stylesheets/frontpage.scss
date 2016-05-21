@@ -541,3 +541,45 @@
         color: $color-gray-text;
     }
 }
+
+.front-categories-box-min {
+    text-align: center;
+
+    &__link {
+        text-align: center;
+        display: inline-block;
+        margin-right: 6px;
+        margin-bottom: 6px;
+        width: 170px;
+        background-color: white;
+        text-decoration: none;
+        padding: 12px;
+        vertical-align: top;
+
+        @media (max-width: 420px) {
+            width: 130px;
+        }
+    }
+
+    @media (min-width: $mobile) {
+        &__breaker {
+            display: none;
+        }
+    }
+
+    &__icon {
+        background-color: $color-plendit-blue;
+        display: inline-block;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        padding-top: 16px;
+    }
+
+    &__title {
+        display: block;
+        height: 50px;
+    }
+
+}
