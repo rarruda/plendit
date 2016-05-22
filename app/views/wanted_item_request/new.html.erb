@@ -22,10 +22,17 @@
                         <%= f.text_area :description, class: 'u-full-width' %>
                     </div>
                     <div>
-                      <%= f.label :place, (t '.place_label'), class: 'u-full-width' %>
+                        <%= f.label :place, (t '.place_label'), class: 'u-full-width' %>
                         <%= f.text_field :place, class: 'u-full-width' %>
                     </div>
-                 
+                    <div>
+                        <%= f.label :when, class: 'u-full-width' do %>
+                            <%= t '.when_label' %>
+                            &nbsp;
+                            <small><%= t '.optional_label' %></small>
+                        <% end %>
+                        <%= f.text_field :when, class: 'u-full-width' %>
+                    </div>
                     <div>
                         <%= f.submit t('.submit'), class: 'button button-primary' %>
                     </div>

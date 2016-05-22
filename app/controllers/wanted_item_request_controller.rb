@@ -20,7 +20,7 @@ class WantedItemRequestController < ApplicationController
   private
 
   def wanted_item_request_params
-    params.require(:wanted_item_request).permit(:description, :place, :email)
+    params.require(:wanted_item_request).permit(:description, :place, :email, :when)
   end
 
 end

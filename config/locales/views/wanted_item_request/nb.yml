@@ -6,6 +6,8 @@ nb:
       place_label: 'Hvor?'
       email_label: 'E-post'
       item_label: 'Hva?'
+      when_label: 'Når?'
+      optional_label: 'Valgfritt'
       copy: |
         Her kan du legge inn ting du kunne tenke deg å
         leie. Vi videreformidler ønsket ditt
