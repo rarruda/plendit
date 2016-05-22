@@ -6,7 +6,7 @@
 
                     <% @ad_categories.each_with_index do |a, index| %>
                         <%= link_to(
-                                search_path(category: a.category),
+                                search_path(category: [a.category]),
                                 class: 'front-categories-box-min__link') do %>
 
                             <div class="front-categories-box-min__icon">
@@ -18,7 +18,6 @@
                             <br class="front-categories-box-min__breaker">
                         <% end %>
                      <% end %>
-
 
                 </div>
             </div>
