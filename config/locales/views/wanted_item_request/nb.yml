@@ -16,6 +16,9 @@ nb:
 
     thanks:
       title: 'Takk for hjelpen!'
+      link: 'Gå tilbake til søk.'
       copy: |
         Nå blir det enklere for oss å sørge for at akurat det du
         trenger blir lagt ut på Plendit.
+      
+
