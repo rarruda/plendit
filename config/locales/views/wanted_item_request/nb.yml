@@ -2,7 +2,7 @@ nb:
   wanted_item_request:
     new:
       title: 'Det er noe jeg trenger!'
-      submit: 'Lagre'
+      submit: 'Send inn'
       place_label: 'Hvor?'
       email_label: 'E-post'
       item_label: 'Hva?'
