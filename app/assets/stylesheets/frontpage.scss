@@ -583,6 +583,8 @@
         padding: 12px;
         padding-top: 24px;
         vertical-align: top;
+        border: solid thin $color-box-border;
+        border-radius: 4px;
 
         @media (max-width: 420px) {
             width: 130px;
