@@ -149,6 +149,7 @@ rake resque:work QUEUE='*'
 ```
 
 This command helps to test background jobs in development environment. For production:
+
 ```
 rake production resque:work QUEUE='*'
 ```
@@ -161,6 +162,13 @@ NOTE: It is recommended that a production deployment of resque-scheduler be host
  a dedicated Redis database. This is because it uses the KEYS command in redis which
  is O(N), but must transverse all keys in the keyspace.
  FROM: https://github.com/resque/resque-scheduler#deployment-notes
+
+To restart the workers running in production via capistrano (in case they stopped
+ running for an unexpected reason) just run:
+
+```
+ bundle exec cap production resque:restart
+```
 
 ### Resque scheduler
 
