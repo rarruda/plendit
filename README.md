@@ -183,6 +183,8 @@ It will then generate jobs according to the configuration in cron settings.
 
 Install elasticsearch. Mac uses can use the version from homebrew:
 
+NOTE: only known to be working with elasticsearch version 2.x.
+
 `brew install elasticsearch`
 
 You can then start elasticsearch in a terminal with the `elasticsearch` command.
@@ -233,12 +235,49 @@ Note: the server is smart enough so that you never need to restart it for any
 ## ENV variables that should be set on start up the rails server
 
   * PCONF_HTTP_AUTH_CRED_LIST -- username:password,u2:pass2 list of usernames and
-       passwords for HTTP authentication. To protect site from casual passer bys.
+       passwords for HTTP authentication. To protect site from casual passer by.
   * PCONF_FACEBOOK_APP_ID -- for enabling federated authentication
   * PCONF_FACEBOOK_SECRET -- "" ""
+  * PCONF_GOOGLE_CLIENT_ID
+  * PCONF_GOOGLE_CLIENT_SECRET
+  * PCONF_SPID_CLIENT_ID -- SPiD credentials.
+  * PCONF_SPID_CLIENT_SECRET
+  * PCONF_SPID_CLIENT_SIG_SECRET
   * PCONF_SMTP_ADDRESS  -- hostname of SMTP provider/server
   * PCONF_SMTP_USERNAME -- username for SMTP auth
   * PCONF_SMTP_PASSWORD -- password for SMTP auth
+
+  * PCONF_GOOGLE_GEOCODING_KEY
+
+  * PCONF_S3_BUCKET_NAME
+  * PCONF_S3_HOST_NAME
+  * PCONF_S3_CDN_ALIAS
+  * PCONF_PAPERCLIP_HASH_SALT
+  * PCONF_AWS_ACCESS_KEY_ID
+  * PCONF_AWS_SECRET_ACCESS_KEY
+  * PCONF_DOCUMENTS_S3_BUCKET_NAME
+  * PCONF_DOCUMENTS_S3_HOST_NAME
+  * PCONF_DOCUMENTS_PAPERCLIP_HASH_SALT
+  * PCONF_DOCUMENTS_AWS_ACCESS_KEY_ID
+  * PCONF_DOCUMENTS_AWS_SECRET_ACCESS_KEY
+
+  * PCONF_TWILIO_NUM_FROM
+  * PCONF_TWILIO_ACCOUNT_SID
+  * PCONF_TWILIO_AUTH_TOKEN
+  * #PCONF_TWILIO_ENABLED
+
+  * PCONF_MANGOPAY_PREPRODUCTION
+  * PCONF_MANGOPAY_CLIENT_ID
+  * PCONF_MANGOPAY_CLIENT_PASSPHRASE
+  * PCONF_MANGOPAY_CALLBACK_BASE_URL
+
+  * PCONF_SLACK_WEBHOOK_CAPISTRANO
+  * PCONF_NEW_RELIC_LICENSE_KEY
+
+  * PCONF_REDIS_URL
+  * #PCONF_ES_URL
+  * DATABASE_URL
+  * RAILS_SERVE_STATIC_FILES -- Heroku needs this
 
   * PCONF_* -- any variable that starts with PCONF is a plendit configuration.
 
